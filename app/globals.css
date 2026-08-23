@@ -352,3 +352,11 @@ button:focus-visible {
   outline: 2px solid var(--ca-blue);
   outline-offset: 4px;
 }
+
+.ca-mobile-nav-link svg {
+  transition: transform 200ms ease;
+}
+
+.ca-mobile-nav-link:hover svg {
+  transform: translate(2px, -2px);
+}
