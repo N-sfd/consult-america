@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { Section, SectionEyebrow, SectionLead } from "@/components/section";
-import { Button } from "@/components/ui/button";
 
 type MarketingPageProps = {
   eyebrow: string;
@@ -18,25 +17,20 @@ export function MarketingPage({
 }: MarketingPageProps) {
   return (
     <>
-      <Section tone="off-white">
-        <SectionEyebrow>{eyebrow}</SectionEyebrow>
-        <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-ca-ink">
-          {title}
-        </h1>
-        <SectionLead>{description}</SectionLead>
-        <Button className="mt-8" nativeButton={false} render={<Link href="/contact" />}>
-          Start a conversation
-        </Button>
+      <Section tone="navy">
+        <SectionEyebrow onDark>{eyebrow}</SectionEyebrow>
+        <h1 className="ca-h1 mt-6 max-w-4xl">{title}</h1>
+        <SectionLead onDark>{description}</SectionLead>
+        <Link href="/contact" className="ca-button-primary mt-10 inline-flex">
+          Contact Us
+        </Link>
       </Section>
-      <Section tone="white">
-        <div className="grid gap-4 md:grid-cols-2">
+      <Section tone="navy" className="!pt-0">
+        <div className="divide-y divide-white/10 border-y border-white/10">
           {items.map((item) => (
-            <article
-              key={item.title}
-              className="rounded-[var(--ca-radius-md)] border border-ca-border bg-ca-white p-6"
-            >
-              <h2 className="font-medium text-ca-ink">{item.title}</h2>
-              <p className="mt-2 text-sm text-ca-muted">{item.description}</p>
+            <article key={item.title} className="grid gap-3 py-8 md:grid-cols-12 md:py-10">
+              <h2 className="text-xl md:col-span-4">{item.title}</h2>
+              <p className="text-white/55 md:col-span-8">{item.description}</p>
             </article>
           ))}
         </div>

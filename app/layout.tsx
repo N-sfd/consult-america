@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
+import ContactPanel from "@/components/contact-panel";
 import SiteHeader from "@/components/navigation/site-header";
+import { ContactProvider } from "@/components/providers/contact-provider";
+import { SiteFooter } from "@/components/site-footer";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "ConsultAmerica",
+  title: "ConsultAmerica | The Enterprise Transformation Partner",
   description:
-    "Enterprise transformation through Oracle, cloud, AI, data and digital engineering.",
+    "ConsultAmerica is the enterprise transformation partner for Oracle, cloud, AI, data, and digital engineering.",
 };
 
 export default function RootLayout({
@@ -28,9 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <SiteHeader />
-        {children}
+      <body className="bg-black text-white antialiased">
+        <ContactProvider>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <ContactPanel />
+        </ContactProvider>
       </body>
     </html>
   );

@@ -3,10 +3,10 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const tones = {
-  "off-white": "bg-ca-off-white text-ca-ink",
-  white: "bg-ca-white text-ca-ink",
-  surface: "bg-ca-surface text-ca-ink",
-  navy: "bg-ca-navy text-ca-white",
+  "off-white": "bg-black text-white",
+  white: "bg-black text-white",
+  surface: "bg-black text-white",
+  navy: "bg-black text-white",
 } as const;
 
 type SectionProps = {
@@ -19,7 +19,9 @@ type SectionProps = {
 export function Section({ tone, id, className, children }: SectionProps) {
   return (
     <section id={id} className={cn(tones[tone], className)}>
-      <div className="mx-auto w-full max-w-ca px-6 py-20 md:py-24">{children}</div>
+      <div className="mx-auto w-full max-w-[94.5em] px-5 py-16 sm:px-8 md:py-24 lg:px-12">
+        {children}
+      </div>
     </section>
   );
 }
@@ -34,8 +36,8 @@ export function SectionEyebrow({
   return (
     <p
       className={cn(
-        "text-sm font-medium tracking-[0.16em] uppercase",
-        onDark ? "text-ca-white/70" : "text-ca-muted"
+        "text-sm tracking-[0.16em] uppercase",
+        onDark ? "text-white/55" : "text-white/55",
       )}
     >
       {children}
@@ -55,9 +57,9 @@ export function SectionLead({
   return (
     <p
       className={cn(
-        "mt-5 max-w-2xl text-lg",
-        onDark ? "text-ca-white/70" : "text-ca-muted",
-        className
+        "mt-5 max-w-2xl text-lg text-white/60",
+        onDark && "text-white/60",
+        className,
       )}
     >
       {children}

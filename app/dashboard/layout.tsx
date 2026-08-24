@@ -1,5 +1,5 @@
 export default function DashboardLayout({
   children,
 }: LayoutProps<"/dashboard">) {
-  return <main className="pt-20">{children}</main>;
+  return <main className="ca-page-pad min-h-screen bg-black">{children}</main>;
 }

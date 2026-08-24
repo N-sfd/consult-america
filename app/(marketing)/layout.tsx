@@ -3,5 +3,5 @@ export default function MarketingLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="pt-20">{children}</main>;
+  return <main className="ca-page-pad">{children}</main>;
 }

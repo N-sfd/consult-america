@@ -1,83 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  ChevronDown,
-  ChevronUp,
-  X,
-} from "lucide-react";
+import { ArrowUpRight, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
+
+import { useContactPanel } from "@/components/providers/contact-provider";
+import {
+  capabilityGroups,
+  industryLinks,
+  navLinks,
+} from "@/lib/site-data";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
 }
 
-const primaryLinks = [
-  { label: "Industries", href: "/industries" },
-  { label: "Oracle", href: "/oracle" },
-  { label: "AI & Data", href: "/ai-data" },
-  { label: "Projects", href: "/projects" },
-  { label: "Insights", href: "/insights" },
-  { label: "About", href: "/about" },
-  { label: "Careers", href: "/careers" },
-];
+type Level = "root" | "industries" | "capabilities" | string;
 
-const capabilityLinks = [
-  {
-    label: "Enterprise Transformation",
-    href: "/capabilities/enterprise-transformation",
-  },
-  {
-    label: "Oracle & Enterprise Applications",
-    href: "/oracle",
-  },
-  {
-    label: "AI & Data",
-    href: "/ai-data",
-  },
-  {
-    label: "Digital Engineering",
-    href: "/capabilities/digital-engineering",
-  },
-  {
-    label: "Cloud & Integration",
-    href: "/capabilities/cloud-integration",
-  },
-  {
-    label: "Business Consulting",
-    href: "/capabilities/business-consulting",
-  },
-];
-
-export default function MobileMenu({
-  open,
-  onClose,
-}: MobileMenuProps) {
-  const [capabilitiesOpen, setCapabilitiesOpen] = useState(false);
+export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+  const [level, setLevel] = useState<Level>("root");
+  const { setOpen: setContactOpen } = useContactPanel();
 
   const handleClose = useCallback(() => {
-    setCapabilitiesOpen(false);
+    setLevel("root");
     onClose();
   }, [onClose]);
 
   useEffect(() => {
     if (!open) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        handleClose();
-      }
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") handleClose();
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open, handleClose]);
+
+  const activeGroup = capabilityGroups.find((group) => group.title === level);
 
   return (
     <AnimatePresence>
@@ -86,151 +46,140 @@ export default function MobileMenu({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] bg-[var(--ca-off-white)] xl:hidden"
+          className="fixed inset-0 z-[60] bg-black xl:hidden"
         >
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 10, opacity: 0 }}
-            transition={{
-              duration: 0.3,
-              ease: "easeOut",
-            }}
-            className="flex h-full flex-col"
-          >
-            <div className="border-b border-[var(--ca-border-light)]">
-              <div className="flex h-20 items-center justify-between px-5 sm:px-8">
-                <Link
-                  href="/"
-                  onClick={handleClose}
-                  className="text-[15px] font-semibold tracking-[0.14em]"
-                  aria-label="ConsultAmerica homepage"
-                >
-                  CONSULTAMERICA
-                </Link>
+          <div className="flex h-20 items-center justify-between px-5">
+            <Link
+              href="/"
+              onClick={handleClose}
+              className="tracking-[0.08em]"
+            >
+              CONSULTAMERICA
+            </Link>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="flex h-11 w-11 items-center justify-center"
+              aria-label="Close navigation menu"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
 
+          <nav className="h-[calc(100%-5rem)] overflow-y-auto px-5 pb-10">
+            {level === "root" && (
+              <>
                 <button
                   type="button"
-                  onClick={handleClose}
-                  className="flex h-11 w-11 items-center justify-center"
-                  aria-label="Close navigation menu"
+                  onClick={() => setLevel("industries")}
+                  className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-3xl"
                 >
-                  <X className="h-6 w-6" />
+                  Industries
+                  <ChevronRight className="h-5 w-5 opacity-50" />
                 </button>
-              </div>
-            </div>
-
-            <nav
-              className="flex-1 overflow-y-auto px-5 py-6 sm:px-8"
-              aria-label="Mobile navigation"
-            >
-              <button
-                type="button"
-                onClick={() => setCapabilitiesOpen((value) => !value)}
-                className="flex w-full items-center justify-between border-b border-[var(--ca-border-light)] py-5 text-left text-2xl font-medium sm:text-3xl"
-                aria-expanded={capabilitiesOpen}
-              >
-                Capabilities
-                {capabilitiesOpen ? (
-                  <ChevronUp className="h-5 w-5" />
-                ) : (
-                  <ChevronDown className="h-5 w-5" />
-                )}
-              </button>
-
-              <AnimatePresence initial={false}>
-                {capabilitiesOpen && (
-                  <motion.div
-                    initial={{
-                      height: 0,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      height: "auto",
-                      opacity: 1,
-                    }}
-                    exit={{
-                      height: 0,
-                      opacity: 0,
-                    }}
-                    transition={{
-                      duration: 0.25,
-                    }}
-                    className="overflow-hidden border-b border-[var(--ca-border-light)]"
+                <button
+                  type="button"
+                  onClick={() => setLevel("capabilities")}
+                  className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-3xl"
+                >
+                  Capabilities
+                  <ChevronRight className="h-5 w-5 opacity-50" />
+                </button>
+                {navLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={handleClose}
+                    className="flex items-center justify-between border-b border-white/15 py-5 text-3xl"
                   >
-                    <div className="py-4 pl-4">
-                      {capabilityLinks.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={handleClose}
-                          className="block py-3 text-base text-[var(--ca-text)] transition-opacity hover:opacity-60"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-
-                      <Link
-                        href="/capabilities"
-                        onClick={handleClose}
-                        className="ca-mobile-nav-link mt-3 inline-flex items-center gap-2 py-3 font-medium"
-                      >
-                        View All Capabilities
-                        <ArrowUpRight className="h-4 w-4" />
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {primaryLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={handleClose}
-                  className="ca-mobile-nav-link flex items-center justify-between border-b border-[var(--ca-border-light)] py-5 text-2xl font-medium sm:text-3xl"
+                    {item.label}
+                    <ArrowUpRight className="h-5 w-5 opacity-40" />
+                  </Link>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleClose();
+                    setContactOpen(true);
+                  }}
+                  className="ca-button-primary mt-10"
                 >
-                  {item.label}
-                  <ArrowUpRight className="h-5 w-5 opacity-40" />
-                </Link>
-              ))}
-            </nav>
+                  Contact
+                  <ArrowUpRight className="h-4 w-4" />
+                </button>
+              </>
+            )}
 
-            <div className="border-t border-[var(--ca-border-light)] px-5 py-6 sm:px-8">
-              <div className="mb-6">
-                <p className="ca-eyebrow text-[var(--ca-muted)]">
-                  CONNECT
-                </p>
-
-                <a
-                  href="mailto:info@consultamerica.net"
-                  className="mt-3 block text-lg"
+            {level === "industries" && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setLevel("root")}
+                  className="mb-4 flex items-center gap-3 py-3 text-white/50"
                 >
-                  info@consultamerica.net
-                </a>
-              </div>
+                  <ChevronRight className="h-4 w-4 rotate-180" />
+                  Industries
+                </button>
+                {industryLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={handleClose}
+                    className="block border-b border-white/15 py-5 text-2xl"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </>
+            )}
 
-              <div className="flex flex-col gap-3">
-                <Link
-                  href="/login"
-                  onClick={handleClose}
-                  className="flex min-h-12 items-center justify-center rounded-full border border-[var(--ca-border)] px-5 font-medium"
+            {level === "capabilities" && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setLevel("root")}
+                  className="mb-4 flex items-center gap-3 py-3 text-white/50"
                 >
-                  Employee Login
-                </Link>
+                  <ChevronRight className="h-4 w-4 rotate-180" />
+                  Capabilities
+                </button>
+                {capabilityGroups.map((group) => (
+                  <button
+                    key={group.title}
+                    type="button"
+                    onClick={() => setLevel(group.title)}
+                    className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-2xl"
+                  >
+                    {group.title}
+                    <ChevronRight className="h-5 w-5 opacity-50" />
+                  </button>
+                ))}
+              </>
+            )}
 
-                <Link
-                  href="/contact"
-                  onClick={handleClose}
-                  className="ca-button-dark min-h-12"
+            {activeGroup && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setLevel("capabilities")}
+                  className="mb-4 flex items-center gap-3 py-3 text-white/50"
                 >
-                  Let&apos;s Talk
-                  <ArrowUpRight className="ml-2 h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </motion.div>
+                  <ChevronRight className="h-4 w-4 rotate-180" />
+                  {activeGroup.title}
+                </button>
+                {activeGroup.services.map((service) => (
+                  <Link
+                    key={service.label}
+                    href={service.href}
+                    onClick={handleClose}
+                    className="block border-b border-white/15 py-5 text-2xl"
+                  >
+                    {service.label}
+                  </Link>
+                ))}
+              </>
+            )}
+          </nav>
         </motion.div>
       )}
     </AnimatePresence>
