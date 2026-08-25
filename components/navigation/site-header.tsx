@@ -88,7 +88,7 @@ export default function SiteHeader() {
                 className="ca-nav-link items-center gap-1 text-[0.95rem]"
                 onMouseEnter={() => setOpenMenu("capabilities")}
               >
-                Capabilities
+                What We Do
                 <ChevronDown className="h-3 w-3 opacity-70" />
               </Link>
 
@@ -110,13 +110,13 @@ export default function SiteHeader() {
                 aria-label="Quick navigation"
               >
                 <Link href="/capabilities" className="ca-nav-link whitespace-nowrap">
-                  Capabilities
+                  What We Do
                 </Link>
                 <Link
                   href="/projects"
                   className="ca-nav-link hidden whitespace-nowrap min-[420px]:inline-flex"
                 >
-                  Projects
+                  Work
                 </Link>
                 <Link
                   href="/insights"

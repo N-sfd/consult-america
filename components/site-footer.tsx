@@ -88,6 +88,9 @@ export function SiteFooter() {
                 {item.label}
               </Link>
             ))}
+            <Link href="/jobs" className="hover:text-[#93c5fd]">
+              Open Roles
+            </Link>
             <Link href="/contact" className="hover:text-[#93c5fd]">
               Contact
             </Link>

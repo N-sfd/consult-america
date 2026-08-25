@@ -76,7 +76,7 @@ export const capabilityGroups = [
 ];
 
 export const navLinks = [
-  { href: "/projects", label: "Projects" },
+  { href: "/projects", label: "Work" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },

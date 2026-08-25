@@ -82,7 +82,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   onClick={() => setLevel("capabilities")}
                   className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-3xl"
                 >
-                  Capabilities
+                  What We Do
                   <ChevronRight className="h-5 w-5 opacity-50" />
                 </button>
                 {navLinks.map((item) => (

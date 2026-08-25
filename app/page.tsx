@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import AiDataFeature from "@/components/marketing/ai-data-feature";
 import Capabilities from "@/components/marketing/capabilities";
+import CareersFeature from "@/components/marketing/careers-feature";
 import FeaturedWork from "@/components/marketing/featured-work";
 import Hero from "@/components/marketing/hero";
 import Industries from "@/components/marketing/industries";
@@ -29,6 +30,7 @@ export default function Home() {
       <Industries />
       <FeaturedWork />
       <WhyConsultAmerica />
+      <CareersFeature />
       <InsightsPreview />
     </main>
   );
