@@ -13,7 +13,7 @@ export default function Hero() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="relative overflow-hidden bg-[#05070d] pt-[8.5rem] pb-14 lg:pb-20">
+    <section className="relative overflow-hidden bg-[#05070d] pt-[8.5rem] pb-12 lg:pb-16">
       <Atmosphere variant="hero" />
 
       <Shell className="relative z-10">
