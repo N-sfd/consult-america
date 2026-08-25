@@ -177,17 +177,17 @@ export const selectedProjects = [
 
 export const insights = [
   {
-    href: "/insights",
+    href: "/insights/what-stalls-fusion-programs",
     date: "August 19, 2026",
     title: "What stalls Fusion programs",
   },
   {
-    href: "/insights",
+    href: "/insights/ai-without-a-data-contract",
     date: "August 18, 2026",
     title: "AI without a data contract",
   },
   {
-    href: "/insights",
+    href: "/insights/cutover-checklists-that-work",
     date: "July 14, 2026",
     title: "Cutover checklists that work",
   },
