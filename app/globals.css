@@ -196,8 +196,7 @@ body {
   color: #93c5fd;
 }
 
-.ca-button-primary,
-.ca-button-light {
+.ca-button-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -216,11 +215,33 @@ body {
   transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
-.ca-button-primary:hover,
-.ca-button-light:hover {
+.ca-button-primary:hover {
   background: var(--ca-blue-hover);
   border-color: var(--ca-blue-hover);
   color: var(--ca-white);
+}
+
+.ca-button-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 3rem;
+  padding: 0.85em 1.45em;
+  border: 1px solid var(--ca-white);
+  border-radius: 8px;
+  background: var(--ca-white);
+  color: #071a2f;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.ca-button-light:hover {
+  background: #e8eef5;
+  color: #071a2f;
 }
 
 .ca-button-dark {

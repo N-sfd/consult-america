@@ -5,6 +5,7 @@ import FeaturedWork from "@/components/marketing/featured-work";
 import Hero from "@/components/marketing/hero";
 import InsightsPreview from "@/components/marketing/insights-preview";
 import Introduction from "@/components/marketing/introduction";
+import OracleFeature from "@/components/marketing/oracle-feature";
 import TrustCredibility from "@/components/marketing/trust-credibility";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function Home() {
       <TrustCredibility />
       <Introduction />
       <Capabilities />
+      <OracleFeature />
       <FeaturedWork />
       <InsightsPreview />
     </main>
