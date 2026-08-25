@@ -2,7 +2,7 @@ import { offices } from "@/lib/site-data";
 
 export default function Offices() {
   return (
-    <section className="border-t border-white/10 bg-black px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+    <section className="border-t border-white/10 bg-black ca-gutter py-20 lg:py-28">
       <div className="mx-auto max-w-[94.5em]">
         <h2 className="ca-h2 max-w-3xl">National reach for enterprise impact</h2>
         <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-5">

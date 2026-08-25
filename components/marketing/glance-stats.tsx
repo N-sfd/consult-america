@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 
+import Atmosphere from "@/components/layout/atmosphere";
 import { glanceStats } from "@/lib/site-data";
 
 export default function GlanceStats() {
   return (
-    <section className="bg-black px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-      <div className="mx-auto max-w-[94.5em]">
+    <section className="relative overflow-hidden bg-black ca-gutter py-20 lg:py-28">
+      <Atmosphere variant="section" />
+      <div className="relative z-10 mx-auto max-w-[94.5em]">
         <p className="text-sm tracking-[0.16em] uppercase text-white/55">
           ConsultAmerica at a Glance
         </p>

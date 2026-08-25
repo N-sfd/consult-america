@@ -15,19 +15,19 @@ export const capabilityGroups = [
     title: "Enterprise Transformation",
     href: "/capabilities",
     description:
-      "We bring a holistic perspective to enterprise change, combining delivery discipline with the architecture and operating model that make programs last.",
+      "Programs that reach production—architecture, operating model, and cutover in one engagement.",
     services: [
       { href: "/capabilities", label: "Transformation programs" },
       { href: "/capabilities", label: "Operating models" },
-      { href: "/oracle", label: "Enterprise & solution architecture" },
-      { href: "/capabilities", label: "Legacy to future-ready migration" },
+      { href: "/oracle", label: "Enterprise architecture" },
+      { href: "/capabilities", label: "Legacy migration" },
     ],
   },
   {
     title: "Oracle",
     href: "/oracle",
     description:
-      "Oracle Cloud programs planned for go-live: Fusion, EPM, integrations, and the support model that keeps the estate healthy after cutover.",
+      "Fusion, EPM, and integrations planned for go-live, with a support model that holds after cutover.",
     services: [
       { href: "/oracle", label: "Fusion Cloud" },
       { href: "/oracle", label: "EPM and analytics" },
@@ -39,11 +39,11 @@ export const capabilityGroups = [
     title: "AI & Data",
     href: "/ai-data",
     description:
-      "Use cases, platforms, and governed models that land in the business—not pilots that stall when nobody owns quality.",
+      "Use cases, data contracts, and governed models the business can actually run.",
     services: [
-      { href: "/ai-data", label: "Generative AI for enterprise" },
-      { href: "/ai-data", label: "LLM strategy and implementation" },
-      { href: "/ai-data", label: "Analytics, reporting & insights" },
+      { href: "/ai-data", label: "Generative AI" },
+      { href: "/ai-data", label: "LLM strategy" },
+      { href: "/ai-data", label: "Analytics & insights" },
       { href: "/ai-data", label: "Data platforms" },
     ],
   },
@@ -51,7 +51,7 @@ export const capabilityGroups = [
     title: "Digital Engineering",
     href: "/capabilities",
     description:
-      "Product, platforms, and integrations built with the same rigor as the programs they support.",
+      "Platforms and integrations built with the same rigor as the programs they serve.",
     services: [
       { href: "/capabilities", label: "Platform engineering" },
       { href: "/capabilities", label: "Cloud & integration" },
@@ -63,7 +63,7 @@ export const capabilityGroups = [
     title: "Managed Delivery",
     href: "/capabilities",
     description:
-      "Run, improve, and support the environments we help you launch—with named owners and a path to production.",
+      "Named owners to run, improve, and support the environments we help you launch.",
     services: [
       { href: "/capabilities", label: "Managed services" },
       { href: "/capabilities", label: "Program delivery" },
@@ -81,11 +81,19 @@ export const navLinks = [
 ];
 
 export const heroTags = [
-  "Oracle",
-  "Cloud",
-  "AI",
-  "Data",
-  "Enterprise",
+  { label: "Oracle", href: "/oracle" },
+  { label: "Cloud", href: "/capabilities" },
+  { label: "AI", href: "/ai-data" },
+  { label: "Data", href: "/ai-data" },
+  { label: "Enterprise", href: "/capabilities" },
+];
+
+export const trustMarks = [
+  "Oracle Cloud",
+  "Fusion",
+  "EPM",
+  "Public Sector",
+  "Financial Services",
 ];
 
 export const glanceStats = [
@@ -95,14 +103,14 @@ export const glanceStats = [
     label: "Years of enterprise experience",
   },
   {
-    value: "100",
-    suffix: "%",
-    label: "Focus on outcomes that reach production",
+    value: "E2E",
+    suffix: "",
+    label: "Strategy through production and support",
   },
   {
-    value: "4",
+    value: "5",
     suffix: "",
-    label: "Core practices: Oracle, AI, data, and delivery",
+    label: "Core practices across Oracle, AI, data, and delivery",
   },
   {
     value: "1",
@@ -143,25 +151,25 @@ export const selectedProjects = [
     href: "/projects",
     client: "Oracle Fusion rollout",
     title: "Multi-entity finance transformation with a staged cutover.",
-    body: "We planned, implemented, and stabilized Fusion across entities—with named owners, a monitored integration hub, and a go-live weekend that held.",
+    body: "Staged Fusion cutover across entities, with a monitored hub and named owners.",
   },
   {
     href: "/projects",
     client: "Public-sector data platform",
     title: "Shared analytics with role-based access and audit trails.",
-    body: "A governed data layer that public-sector teams could actually use—controls included, not bolted on after the fact.",
+    body: "A governed data layer public-sector teams can use—controls included.",
   },
   {
     href: "/projects",
     client: "AI document intake",
     title: "Classification and extraction that reduced manual review.",
-    body: "An evaluation-backed pipeline, not a demo: quality ownership, human review where it matters, and a path into operations.",
+    body: "An evaluation-backed pipeline with quality ownership into operations.",
   },
   {
     href: "/projects",
     client: "Integration rebuild",
     title: "Replaced brittle point-to-point flows with a monitored hub.",
-    body: "Fewer silent failures, clearer contracts between systems, and an operating model the client could run.",
+    body: "Clearer contracts between systems and an operating model the client can run.",
   },
 ];
 

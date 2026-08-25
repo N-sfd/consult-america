@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
+import { Grid, Shell } from "@/components/layout/grid";
 import { useContactPanel } from "@/components/providers/contact-provider";
-import { capabilityGroups, industryLinks, navLinks } from "@/lib/site-data";
+import { capabilityGroups, navLinks } from "@/lib/site-data";
 
 export function SiteFooter() {
   const { setOpen } = useContactPanel();
@@ -16,11 +17,13 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t border-white/10 bg-black text-white">
-      <div className="mx-auto max-w-[94.5em] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
-          <div>
-            <p className="ca-h2 max-w-xl">ConsultAmerica is a global Oracle, AI, and transformation partner.</p>
+    <footer className="border-t border-white/10 bg-[#05070d] text-white">
+      <Shell className="py-16 lg:py-20">
+        <Grid>
+          <div className="col-span-12 lg:col-span-6">
+            <p className="ca-h2 max-w-xl">
+              Ready to move from plan to production?
+            </p>
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -29,9 +32,10 @@ export function SiteFooter() {
               Contact
             </button>
           </div>
-          <form onSubmit={handleSubscribe} className="max-w-sm">
-            <p className="text-sm text-white/60">
-              Stay up to date with enterprise delivery, Oracle, and AI.
+          <form onSubmit={handleSubscribe} className="col-span-12 lg:col-span-5 lg:col-start-8">
+            <p className="text-sm font-semibold text-white">Stay informed</p>
+            <p className="mt-2 text-sm text-white/60">
+              Notes on Oracle, AI, and enterprise delivery.
             </p>
             {subscribed ? (
               <p className="mt-4 text-sm">Thank you. Your submission has been received.</p>
@@ -49,12 +53,12 @@ export function SiteFooter() {
               </div>
             )}
           </form>
-        </div>
+        </Grid>
 
-        <div className="mt-20 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
+        <Grid className="mt-16">
           {capabilityGroups.slice(0, 4).map((group) => (
-            <div key={group.title}>
-              <Link href={group.href} className="text-sm">
+            <div key={group.title} className="col-span-6 md:col-span-3">
+              <Link href={group.href} className="text-sm font-semibold">
                 {group.title}
               </Link>
               <ul className="mt-4 space-y-2">
@@ -62,7 +66,7 @@ export function SiteFooter() {
                   <li key={service.label}>
                     <Link
                       href={service.href}
-                      className="text-sm text-white/50 transition-colors hover:text-white"
+                      className="text-sm text-white/50 transition-colors hover:text-[#93c5fd]"
                     >
                       {service.label}
                     </Link>
@@ -71,24 +75,25 @@ export function SiteFooter() {
               </ul>
             </div>
           ))}
-        </div>
+        </Grid>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>ConsultAmerica © {new Date().getFullYear()} All rights reserved</p>
           <nav className="flex flex-wrap gap-x-6 gap-y-2">
-            {industryLinks.slice(0, 1).map((item) => (
-              <Link key={item.label} href={item.href} className="hover:text-white">
-                Industries
-              </Link>
-            ))}
+            <Link href="/industries" className="hover:text-[#93c5fd]">
+              Industries
+            </Link>
             {navLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-white">
+              <Link key={item.href} href={item.href} className="hover:text-[#93c5fd]">
                 {item.label}
               </Link>
             ))}
+            <Link href="/contact" className="hover:text-[#93c5fd]">
+              Contact
+            </Link>
           </nav>
         </div>
-      </div>
+      </Shell>
     </footer>
   );
 }

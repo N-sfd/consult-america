@@ -19,7 +19,7 @@ type SectionProps = {
 export function Section({ tone, id, className, children }: SectionProps) {
   return (
     <section id={id} className={cn(tones[tone], className)}>
-      <div className="mx-auto w-full max-w-[94.5em] px-5 py-16 sm:px-8 md:py-24 lg:px-12">
+      <div className="ca-shell py-16 md:py-24">
         {children}
       </div>
     </section>

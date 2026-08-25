@@ -8,7 +8,7 @@ import { selectedProjects } from "@/lib/site-data";
 
 export default function SelectedWork() {
   return (
-    <section className="border-t border-white/10 bg-black px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+    <section className="border-t border-white/10 bg-black ca-gutter py-20 lg:py-28">
       <div className="mx-auto max-w-[94.5em]">
         <div className="flex items-end justify-between gap-4">
           <h2 className="text-sm tracking-[0.16em] uppercase text-white/55">
@@ -30,7 +30,19 @@ export default function SelectedWork() {
               transition={{ duration: 0.55, delay: index * 0.05 }}
               className="bg-black p-8 lg:p-12"
             >
-              <div className="mb-8 aspect-[16/10] bg-white/[0.04]" />
+              <div className="relative mb-8 aspect-[16/10] overflow-hidden border border-white/10 bg-[#0a0a0a]">
+                <div
+                  className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.5) 1px, transparent 1px)",
+                    backgroundSize: "32px 32px",
+                  }}
+                />
+                <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full border border-white/15" />
+                <div className="absolute bottom-6 left-6 h-px w-1/2 bg-white/20" />
+                <div className="absolute right-8 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(59,108,255,0.28),transparent_70%)]" />
+              </div>
               <p className="text-sm text-white/50">{project.client}</p>
               <h3 className="mt-3 text-2xl lg:text-3xl">{project.title}</h3>
               <p className="ca-body mt-4 max-w-xl">{project.body}</p>

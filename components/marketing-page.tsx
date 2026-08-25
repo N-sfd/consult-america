@@ -26,11 +26,11 @@ export function MarketingPage({
         </Link>
       </Section>
       <Section tone="navy" className="!pt-0">
-        <div className="divide-y divide-white/10 border-y border-white/10">
+        <div className="grid gap-4 md:grid-cols-12">
           {items.map((item) => (
-            <article key={item.title} className="grid gap-3 py-8 md:grid-cols-12 md:py-10">
-              <h2 className="text-xl md:col-span-4">{item.title}</h2>
-              <p className="text-white/55 md:col-span-8">{item.description}</p>
+            <article key={item.title} className="ca-card p-6 md:col-span-6">
+              <h2 className="text-xl font-semibold">{item.title}</h2>
+              <p className="mt-2 text-sm leading-[1.5] text-white/60">{item.description}</p>
             </article>
           ))}
         </div>

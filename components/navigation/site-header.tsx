@@ -41,13 +41,15 @@ export default function SiteHeader() {
         className="fixed inset-x-0 top-0 z-50"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        <Link
-          href={announcement.href}
-          className="flex items-center justify-center gap-3 bg-black px-4 py-2 text-center text-[0.72rem] tracking-[0.04em] text-white/80 transition-opacity hover:opacity-70 sm:text-[0.8rem]"
-        >
-          <span>{announcement.text}</span>
-          <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
-        </Link>
+        <div className="bg-[#05070d]">
+          <Link
+            href={announcement.href}
+            className="ca-shell flex items-center justify-center gap-3 py-2 text-center text-[0.72rem] tracking-[0.04em] text-white/80 transition-opacity hover:opacity-70 sm:text-[0.8rem]"
+          >
+            <span>{announcement.text}</span>
+            <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
+          </Link>
+        </div>
 
         <div
           className={`border-b transition-colors duration-300 ${
@@ -56,17 +58,18 @@ export default function SiteHeader() {
               : "border-transparent bg-black/20"
           }`}
         >
-          <div className="mx-auto flex h-[4.25rem] max-w-[94.5em] items-center justify-between px-5 sm:px-8 lg:px-12">
+          <div className="ca-shell">
+            <div className="ca-grid h-[4.5rem] items-center">
             <Link
               href="/"
-              className="text-[1.05rem] font-normal tracking-[0.08em]"
+              className="col-span-5 text-[0.95rem] font-semibold tracking-[0.08em] sm:col-span-4 sm:text-[1.05rem] xl:col-span-3"
               aria-label="ConsultAmerica homepage"
             >
               CONSULTAMERICA
             </Link>
 
             <nav
-              className="hidden items-center gap-7 xl:flex"
+              className="col-span-6 hidden items-center justify-center gap-7 xl:flex"
               aria-label="Primary navigation"
             >
               <Link
@@ -101,33 +104,53 @@ export default function SiteHeader() {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-6 xl:flex">
+            <div className="col-span-7 ml-auto flex items-center justify-end gap-3 sm:col-span-8 sm:gap-4 xl:col-span-3">
+              <nav
+                className="flex items-center gap-3 text-[0.72rem] sm:gap-4 sm:text-[0.85rem] xl:hidden"
+                aria-label="Quick navigation"
+              >
+                <Link href="/capabilities" className="ca-nav-link whitespace-nowrap">
+                  Capabilities
+                </Link>
+                <Link
+                  href="/projects"
+                  className="ca-nav-link hidden whitespace-nowrap min-[420px]:inline-flex"
+                >
+                  Projects
+                </Link>
+                <Link
+                  href="/insights"
+                  className="ca-nav-link hidden whitespace-nowrap sm:inline-flex"
+                >
+                  Insights
+                </Link>
+              </nav>
               <Link
                 href="/login"
-                className="text-sm text-white/70 transition-opacity hover:opacity-100"
+                className="hidden text-sm text-white/70 transition-opacity hover:opacity-100 xl:inline"
               >
                 Employee Login
               </Link>
               <button
                 type="button"
                 onClick={() => setContactOpen(true)}
-                className="ca-button-primary"
+                className="ca-button-primary !min-h-9 !px-3 text-xs sm:!min-h-11 sm:!px-5 sm:text-sm"
               >
                 Contact
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </button>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(true)}
+                className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 xl:hidden"
+                aria-label="Open navigation menu"
+                aria-expanded={mobileOpen}
+              >
+                <span className="h-px w-5 bg-white" />
+                <span className="h-px w-5 bg-white" />
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={() => setMobileOpen(true)}
-              className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 xl:hidden"
-              aria-label="Open navigation menu"
-              aria-expanded={mobileOpen}
-            >
-              <span className="h-px w-5 bg-white" />
-              <span className="h-px w-5 bg-white" />
-            </button>
+            </div>
           </div>
         </div>
 
@@ -137,7 +160,7 @@ export default function SiteHeader() {
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >
-            <div className="mx-auto max-w-[94.5em] px-12 py-10">
+            <div className="ca-shell py-10">
               {openMenu === "industries" && (
                 <div className="grid max-w-3xl grid-cols-2 gap-x-12 gap-y-4">
                   {industryLinks.map((item) => (

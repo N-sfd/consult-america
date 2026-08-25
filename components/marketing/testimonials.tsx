@@ -19,7 +19,7 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="border-t border-white/10 bg-black px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+    <section className="border-t border-white/10 bg-black ca-gutter py-20 lg:py-28">
       <div className="mx-auto max-w-[94.5em]">
         <div className="flex items-center justify-between">
           <h2 className="text-sm tracking-[0.16em] uppercase text-white/55">
