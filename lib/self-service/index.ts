@@ -1,7 +1,6 @@
 import { hrRepository } from "@/lib/hr";
 import {
   seedEmployeeDocuments,
-  seedHrRequests,
 } from "@/data/self-service/seed";
 import {
   seedDepartments,
@@ -19,6 +18,7 @@ import {
   listLeaveRequests,
   listLeaveTypes,
 } from "@/lib/self-service/leave-store";
+import { listHrRequestsForEmployee } from "@/lib/self-service/hr-request-store";
 import {
   getEditableTimesheet,
   listTimeEntries,
@@ -167,7 +167,7 @@ export function getEmployeeDocuments(employeeId: string) {
 }
 
 export function getHrRequests(employeeId: string) {
-  return seedHrRequests.filter((request) => request.employeeId === employeeId);
+  return listHrRequestsForEmployee(employeeId);
 }
 
 export function getNotifications(employeeId: string) {
@@ -193,7 +193,10 @@ export async function getEmployeeDashboard(employeeId: string) {
     (b) => b.leaveTypeId === "lt-pto",
   );
   const requests = getHrRequests(employeeId).filter(
-    (r) => r.status === "OPEN" || r.status === "IN_PROGRESS",
+    (r) =>
+      r.status === "OPEN" ||
+      r.status === "IN_PROGRESS" ||
+      r.status === "WAITING_FOR_EMPLOYEE",
   );
   const documents = getEmployeeDocuments(employeeId);
   const leave = getLeaveRequests(employeeId).find(

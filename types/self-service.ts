@@ -175,6 +175,15 @@ export type HrRequest = {
   resolvedAt?: string;
 };
 
+export type HrRequestMessage = {
+  id: string;
+  hrRequestId: string;
+  authorEmployeeId: string;
+  authorRole: "EMPLOYEE" | "HR";
+  message: string;
+  createdAt: string;
+};
+
 export type Notification = {
   id: string;
   userId: string;
@@ -245,3 +254,18 @@ export const hrRequestCategoryLabels: Record<HrRequestCategory, string> = {
   BENEFITS_QUESTION: "Benefits Question",
   OTHER: "Other",
 };
+
+export const hrRequestStatusLabels: Record<HrRequestStatus, string> = {
+  OPEN: "Open",
+  IN_PROGRESS: "In Progress",
+  WAITING_FOR_EMPLOYEE: "Waiting for Employee",
+  RESOLVED: "Resolved",
+  CLOSED: "Closed",
+};
+
+export const hrRequestPriorityLabels: Record<"LOW" | "NORMAL" | "HIGH", string> =
+  {
+    LOW: "Low",
+    NORMAL: "Normal",
+    HIGH: "High",
+  };

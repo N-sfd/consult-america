@@ -1,0 +1,52 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import HrRequestThread from "@/components/hr-requests/hr-request-thread";
+import { hrRepository } from "@/lib/hr";
+import {
+  getHrRequestById,
+  listHrRequestMessages,
+} from "@/lib/self-service/hr-request-store";
+
+type Params = Promise<{ id: string }>;
+
+export const metadata: Metadata = {
+  title: "HR Request Detail | ConsultAmerica",
+};
+
+export default async function HrRequestDetailPage({
+  params,
+}: {
+  params: Params;
+}) {
+  const { id } = await params;
+  const request = getHrRequestById(id);
+  if (!request) notFound();
+
+  const messages = listHrRequestMessages(request.id);
+  const employee = await hrRepository.getEmployeeById(request.employeeId);
+  const person = employee
+    ? await hrRepository.getPersonById(employee.personId)
+    : null;
+  const employeeName = person
+    ? `${person.firstName} ${person.lastName}`
+    : request.employeeId;
+
+  return (
+    <div className="space-y-6">
+      <Link
+        href="/hr/requests"
+        className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+      >
+        ← Back to queue
+      </Link>
+      <HrRequestThread
+        request={request}
+        messages={messages}
+        mode="hr"
+        employeeName={employeeName}
+      />
+    </div>
+  );
+}

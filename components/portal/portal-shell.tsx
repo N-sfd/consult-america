@@ -24,9 +24,13 @@ const managerLinks = [
   { href: "/manager/leave", label: "Team Leave" },
 ];
 
+const hrLinks = [
+  { href: "/hr/requests", label: "HR Requests", exact: false },
+];
+
 interface PortalShellProps {
   session: PortalSession;
-  mode: "employee" | "manager";
+  mode: "employee" | "manager" | "hr";
   children: React.ReactNode;
 }
 
@@ -36,7 +40,19 @@ export default function PortalShell({
   children,
 }: PortalShellProps) {
   const pathname = usePathname();
-  const links = mode === "employee" ? employeeLinks : managerLinks;
+  const links =
+    mode === "employee"
+      ? employeeLinks
+      : mode === "manager"
+        ? managerLinks
+        : hrLinks;
+
+  const portalLabel =
+    mode === "employee"
+      ? "Employee"
+      : mode === "manager"
+        ? "Manager"
+        : "HR";
 
   return (
     <div className="min-h-screen bg-[#F4F6F8] text-[#0B1220]">
@@ -46,9 +62,7 @@ export default function PortalShell({
             <Link href="/" className="text-xs font-semibold tracking-[0.14em]">
               CONSULTAMERICA
             </Link>
-            <p className="mt-4 text-sm text-white/55">
-              {mode === "employee" ? "Employee" : "Manager"} Portal
-            </p>
+            <p className="mt-4 text-sm text-white/55">{portalLabel} Portal</p>
             <p className="mt-1 text-sm font-medium">{session.displayName}</p>
           </div>
 
@@ -82,9 +96,23 @@ export default function PortalShell({
           </nav>
 
           <div className="mt-auto hidden border-t border-white/10 px-5 py-4 text-xs text-white/40 lg:block">
-            <Link href={mode === "employee" ? "/manager" : "/employee"} className="hover:text-white">
-              Switch to {mode === "employee" ? "Manager" : "Employee"} demo
-            </Link>
+            <div className="space-y-1">
+              {mode !== "employee" && (
+                <Link href="/employee" className="block hover:text-white">
+                  Switch to Employee demo
+                </Link>
+              )}
+              {mode !== "manager" && (
+                <Link href="/manager" className="block hover:text-white">
+                  Switch to Manager demo
+                </Link>
+              )}
+              {mode !== "hr" && (
+                <Link href="/hr/requests" className="block hover:text-white">
+                  Switch to HR demo
+                </Link>
+              )}
+            </div>
             <p className="mt-2">Demo session · auth later</p>
           </div>
         </aside>
@@ -94,7 +122,11 @@ export default function PortalShell({
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-                  {mode === "employee" ? "Employee Self-Service" : "Manager Self-Service"}
+                  {mode === "employee"
+                    ? "Employee Self-Service"
+                    : mode === "manager"
+                      ? "Manager Self-Service"
+                      : "HR Service Desk"}
                 </p>
                 <p className="mt-1 text-sm text-black/55">{session.workEmail}</p>
               </div>

@@ -2,6 +2,7 @@ import type {
   ApprovalRequest,
   EmployeeDocumentView,
   HrRequest,
+  HrRequestMessage,
   LeaveBalance,
   LeaveRequest,
   LeaveType,
@@ -291,6 +292,7 @@ export const seedHrRequests: HrRequest[] = [
     description: "Need verification for mortgage application.",
     priority: "NORMAL",
     status: "IN_PROGRESS",
+    assignedToEmployeeId: "emp-demo-001",
     createdAt: "2026-08-25T14:00:00.000Z",
   },
   {
@@ -302,8 +304,44 @@ export const seedHrRequests: HrRequest[] = [
     description: "Updated mailing address after move.",
     priority: "LOW",
     status: "RESOLVED",
+    assignedToEmployeeId: "emp-demo-001",
     createdAt: "2026-08-18T11:00:00.000Z",
     resolvedAt: "2026-08-19T16:00:00.000Z",
+  },
+];
+
+export const seedHrRequestMessages: HrRequestMessage[] = [
+  {
+    id: "hrm-1",
+    hrRequestId: "hrr-1",
+    authorEmployeeId: "emp-demo-002",
+    authorRole: "EMPLOYEE",
+    message: "Need verification for mortgage application.",
+    createdAt: "2026-08-25T14:00:00.000Z",
+  },
+  {
+    id: "hrm-2",
+    hrRequestId: "hrr-1",
+    authorEmployeeId: "emp-demo-001",
+    authorRole: "HR",
+    message: "Please confirm the receiving organization and fax/email.",
+    createdAt: "2026-08-25T15:30:00.000Z",
+  },
+  {
+    id: "hrm-3",
+    hrRequestId: "hrr-2",
+    authorEmployeeId: "emp-demo-002",
+    authorRole: "EMPLOYEE",
+    message: "Updated mailing address after move.",
+    createdAt: "2026-08-18T11:00:00.000Z",
+  },
+  {
+    id: "hrm-4",
+    hrRequestId: "hrr-2",
+    authorEmployeeId: "emp-demo-001",
+    authorRole: "HR",
+    message: "Address updated on your person record. Request resolved.",
+    createdAt: "2026-08-19T16:00:00.000Z",
   },
 ];
 
