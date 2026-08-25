@@ -1,14 +1,10 @@
 import { hrRepository } from "@/lib/hr";
 import {
-  seedApprovals,
   seedEmployeeDocuments,
   seedHrRequests,
   seedLeaveBalances,
   seedLeaveRequests,
   seedLeaveTypes,
-  seedNotifications,
-  seedTimeEntries,
-  seedTimesheets,
 } from "@/data/self-service/seed";
 import {
   seedDepartments,
@@ -21,6 +17,12 @@ import {
   employmentTypeLabels,
   workplaceTypeLabels,
 } from "@/types/organization";
+import {
+  getEditableTimesheet,
+  getTimeStoreSnapshot,
+  listTimeEntries,
+  listTimesheets,
+} from "@/lib/self-service/time-store";
 
 export type EmployeeProfileView = {
   employee: Employee;
@@ -140,21 +142,19 @@ export function getLeaveRequests(employeeId: string) {
 }
 
 export function getTimesheets(employeeId: string) {
-  return seedTimesheets.filter((sheet) => sheet.employeeId === employeeId);
+  return listTimesheets(employeeId);
 }
 
 export function getCurrentTimesheet(employeeId: string) {
   return (
-    seedTimesheets.find(
-      (sheet) =>
-        sheet.employeeId === employeeId &&
-        (sheet.status === "DRAFT" || sheet.status === "REOPENED"),
-    ) ?? seedTimesheets.find((sheet) => sheet.employeeId === employeeId)
+    getEditableTimesheet(employeeId) ??
+    listTimesheets(employeeId)[0] ??
+    null
   );
 }
 
 export function getTimeEntries(timesheetId: string) {
-  return seedTimeEntries.filter((entry) => entry.timesheetId === timesheetId);
+  return listTimeEntries(timesheetId);
 }
 
 export function getEmployeeDocuments(employeeId: string) {
@@ -170,13 +170,13 @@ export function getHrRequests(employeeId: string) {
 }
 
 export function getNotifications(employeeId: string) {
-  return seedNotifications
-    .filter((item) => item.employeeId === employeeId)
+  return getTimeStoreSnapshot()
+    .notifications.filter((item) => item.employeeId === employeeId)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export function getPendingApprovals(approverEmployeeId: string) {
-  return seedApprovals.filter(
+  return getTimeStoreSnapshot().approvals.filter(
     (item) =>
       item.approverEmployeeId === approverEmployeeId &&
       item.status === "PENDING",
