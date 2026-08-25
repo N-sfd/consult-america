@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     "Explore career opportunities at ConsultAmerica across Oracle, AI, data, consulting, and enterprise transformation.",
 };
 
-export default function JobsPage() {
-  const jobs = getOpenJobs();
+export default async function JobsPage() {
+  const jobs = await getOpenJobs();
   const filterOptions = getJobFilterOptions(jobs);
 
   return (

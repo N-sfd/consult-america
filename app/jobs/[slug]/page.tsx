@@ -12,14 +12,15 @@ interface JobDetailPageProps {
 }
 
 export async function generateStaticParams() {
-  return getAllJobSlugs().map((slug) => ({ slug }));
+  const slugs = await getAllJobSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: JobDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     return { title: "Role Not Found | ConsultAmerica Careers" };
@@ -33,7 +34,7 @@ export async function generateMetadata({
 
 export default async function JobDetailPage({ params }: JobDetailPageProps) {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     notFound();

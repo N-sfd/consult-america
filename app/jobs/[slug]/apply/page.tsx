@@ -11,14 +11,15 @@ interface JobApplyPageProps {
 }
 
 export async function generateStaticParams() {
-  return getAllJobSlugs().map((slug) => ({ slug }));
+  const slugs = await getAllJobSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: JobApplyPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     return { title: "Apply | ConsultAmerica Careers" };
@@ -32,7 +33,7 @@ export async function generateMetadata({
 
 export default async function JobApplyPage({ params }: JobApplyPageProps) {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getJobBySlug(slug);
 
   if (!job) {
     notFound();

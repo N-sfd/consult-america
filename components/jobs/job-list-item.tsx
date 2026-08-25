@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { careerAreaLabels, type Job } from "@/data/jobs";
-import { formatPostedDate } from "@/lib/jobs";
+import { careerAreaLabels, formatPostedDate, type Job } from "@/lib/jobs";
 
 interface JobListItemProps {
   job: Job;

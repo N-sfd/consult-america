@@ -4,8 +4,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import JobListItem from "@/components/jobs/job-list-item";
-import { careerAreaLabels, type Job } from "@/data/jobs";
-import { filterJobs } from "@/lib/jobs";
+import { careerAreaLabels, filterJobs, type Job } from "@/lib/jobs";
 
 interface JobBoardProps {
   jobs: Job[];
