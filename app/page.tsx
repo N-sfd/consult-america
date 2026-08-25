@@ -4,6 +4,7 @@ import AiDataFeature from "@/components/marketing/ai-data-feature";
 import Capabilities from "@/components/marketing/capabilities";
 import FeaturedWork from "@/components/marketing/featured-work";
 import Hero from "@/components/marketing/hero";
+import Industries from "@/components/marketing/industries";
 import InsightsPreview from "@/components/marketing/insights-preview";
 import Introduction from "@/components/marketing/introduction";
 import OracleFeature from "@/components/marketing/oracle-feature";
@@ -24,6 +25,7 @@ export default function Home() {
       <Capabilities />
       <OracleFeature />
       <AiDataFeature />
+      <Industries />
       <FeaturedWork />
       <InsightsPreview />
     </main>

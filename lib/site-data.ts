@@ -4,10 +4,12 @@ export const announcement = {
 };
 
 export const industryLinks = [
-  { href: "/industries", label: "Public Sector" },
-  { href: "/industries", label: "Financial Services" },
-  { href: "/industries", label: "Healthcare & Life Sciences" },
-  { href: "/industries", label: "Industrial & Energy" },
+  { href: "/industries/government-public-sector", label: "Government & Public Sector" },
+  { href: "/industries/financial-services", label: "Financial Services" },
+  { href: "/industries/healthcare", label: "Healthcare" },
+  { href: "/industries/retail-consumer", label: "Retail & Consumer" },
+  { href: "/industries/transportation", label: "Transportation" },
+  { href: "/industries/technology", label: "Technology" },
 ];
 
 export const capabilityGroups = [
