@@ -22,13 +22,15 @@ const managerLinks = [
   { href: "/manager/approvals", label: "Approvals" },
   { href: "/manager/time", label: "Team Time" },
   { href: "/manager/leave", label: "Team Leave" },
+  { href: "/manager/reports", label: "Team Reports" },
   { href: "/manager/notifications", label: "Notifications" },
 ];
 
 const hrLinks = [
   { href: "/hr/requests", label: "HR Requests", exact: false },
-  { href: "/hr/notifications", label: "Notifications" },
+  { href: "/hr/reports", label: "Reports" },
   { href: "/hr/audit", label: "Audit Log" },
+  { href: "/hr/notifications", label: "Notifications" },
 ];
 
 interface PortalShellProps {

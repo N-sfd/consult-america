@@ -24,6 +24,7 @@ const managerPermissions: SelfServicePermission[] = [
   "team.leave.approve",
   "approval.read",
   "approval.act",
+  "team.reports.read",
 ];
 
 const hrPermissions: SelfServicePermission[] = [
@@ -35,6 +36,7 @@ const hrPermissions: SelfServicePermission[] = [
   "hr_request.read",
   "hr_request.manage",
   "audit.read",
+  "reports.read",
 ];
 
 /** Demo role grants. Auth later binds these to real user_roles rows. */

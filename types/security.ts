@@ -28,7 +28,9 @@ export type SelfServicePermission =
   | "leave.admin"
   | "hr_request.read"
   | "hr_request.manage"
-  | "audit.read";
+  | "audit.read"
+  | "reports.read"
+  | "team.reports.read";
 
 export type AuditEventType =
   | "PROFILE_CHANGE_REQUESTED"

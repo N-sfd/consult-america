@@ -61,7 +61,9 @@ export type Permission =
   | "hr_request.manage"
   | "time.admin"
   | "leave.admin"
-  | "audit.read";
+  | "audit.read"
+  | "reports.read"
+  | "team.reports.read";
 
 export type UserAccount = {
   id: string;
