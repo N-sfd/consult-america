@@ -28,6 +28,10 @@ import {
   listApprovals,
   listNotificationsForEmployee,
 } from "@/lib/self-service/workflow-store";
+import {
+  assertSelfAccess,
+  assertTeamAccess,
+} from "@/lib/self-service/security";
 
 export type EmployeeProfileView = {
   employee: Employee;
@@ -108,27 +112,7 @@ export async function getDirectReports(managerEmployeeId: string) {
   return reports;
 }
 
-export async function assertSelfAccess(
-  sessionEmployeeId: string,
-  resourceEmployeeId: string,
-) {
-  if (sessionEmployeeId !== resourceEmployeeId) {
-    throw new Error("Forbidden: employees may only access their own records");
-  }
-}
-
-export async function assertTeamAccess(
-  managerEmployeeId: string,
-  resourceEmployeeId: string,
-) {
-  if (managerEmployeeId === resourceEmployeeId) return;
-
-  const assignment =
-    await hrRepository.getPrimaryAssignment(resourceEmployeeId);
-  if (assignment?.managerEmployeeId !== managerEmployeeId) {
-    throw new Error("Forbidden: manager is not authorized for this employee");
-  }
-}
+export { assertSelfAccess, assertTeamAccess };
 
 export function getLeaveTypes() {
   return listLeaveTypes();

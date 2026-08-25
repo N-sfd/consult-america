@@ -39,7 +39,29 @@ export type Permission =
   | "leave.submit"
   | "leave.approve"
   | "payroll.process"
-  | "payroll.approve";
+  | "payroll.approve"
+  // Phase 4K self-service grants
+  | "self.profile.read"
+  | "self.profile.update_limited"
+  | "self.documents.read"
+  | "self.timesheet.read"
+  | "self.timesheet.submit"
+  | "self.leave.read"
+  | "self.leave.submit"
+  | "self.hr_request.read"
+  | "self.hr_request.create"
+  | "team.read"
+  | "team.timesheet.read"
+  | "team.timesheet.approve"
+  | "team.leave.read"
+  | "team.leave.approve"
+  | "approval.read"
+  | "approval.act"
+  | "hr_request.read"
+  | "hr_request.manage"
+  | "time.admin"
+  | "leave.admin"
+  | "audit.read";
 
 export type UserAccount = {
   id: string;

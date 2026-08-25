@@ -8,6 +8,10 @@ import {
   getHrRequestById,
   listHrRequestMessages,
 } from "@/lib/self-service/hr-request-store";
+import {
+  requireHrActor,
+  requirePermission,
+} from "@/lib/self-service/security";
 
 type Params = Promise<{ id: string }>;
 
@@ -20,6 +24,9 @@ export default async function HrRequestDetailPage({
 }: {
   params: Params;
 }) {
+  const actor = requireHrActor();
+  requirePermission(actor, "hr_request.read");
+
   const { id } = await params;
   const request = getHrRequestById(id);
   if (!request) notFound();

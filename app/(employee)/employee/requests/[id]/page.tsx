@@ -7,7 +7,11 @@ import {
   getHrRequestById,
   listHrRequestMessages,
 } from "@/lib/self-service/hr-request-store";
-import { getEmployeeSession } from "@/lib/self-service/session";
+import {
+  requireEmployeeActor,
+  requirePermission,
+  requireSelfResource,
+} from "@/lib/self-service/security";
 
 type Params = Promise<{ id: string }>;
 
@@ -20,11 +24,16 @@ export default async function EmployeeHrRequestDetailPage({
 }: {
   params: Params;
 }) {
-  const session = getEmployeeSession();
+  const actor = requireEmployeeActor();
+  requirePermission(actor, "self.hr_request.read");
+
   const { id } = await params;
   const request = getHrRequestById(id);
+  if (!request) notFound();
 
-  if (!request || request.employeeId !== session.employeeId) {
+  try {
+    await requireSelfResource(actor, request.employeeId);
+  } catch {
     notFound();
   }
 
@@ -42,7 +51,7 @@ export default async function EmployeeHrRequestDetailPage({
         request={request}
         messages={messages}
         mode="employee"
-        employeeName={session.displayName}
+        employeeName={actor.session.displayName}
       />
     </div>
   );

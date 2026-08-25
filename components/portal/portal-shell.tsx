@@ -28,6 +28,7 @@ const managerLinks = [
 const hrLinks = [
   { href: "/hr/requests", label: "HR Requests", exact: false },
   { href: "/hr/notifications", label: "Notifications" },
+  { href: "/hr/audit", label: "Audit Log" },
 ];
 
 interface PortalShellProps {
