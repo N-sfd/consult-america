@@ -514,3 +514,18 @@ function actOnLeave(input: {
 export function getLeaveStoreSnapshot() {
   return { leaveTypes, leaveBalances, leaveRequests };
 }
+
+/** Test-only: restore leave store to seed state. */
+export function resetLeaveStoreForTests() {
+  leaveTypes.splice(0, leaveTypes.length, ...structuredClone(seedLeaveTypes));
+  leaveBalances.splice(
+    0,
+    leaveBalances.length,
+    ...structuredClone(seedLeaveBalances),
+  );
+  leaveRequests.splice(
+    0,
+    leaveRequests.length,
+    ...structuredClone(seedLeaveRequests),
+  );
+}

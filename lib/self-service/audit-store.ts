@@ -3,7 +3,7 @@ import type {
   AuditLogEntry,
 } from "@/types/security";
 
-const auditLogs: AuditLogEntry[] = [
+const seedAuditLogs: AuditLogEntry[] = [
   {
     id: "aud-seed-1",
     eventType: "LEAVE_APPROVED",
@@ -60,6 +60,8 @@ const auditLogs: AuditLogEntry[] = [
     createdAt: "2026-08-22T16:00:00.000Z",
   },
 ];
+
+const auditLogs: AuditLogEntry[] = structuredClone(seedAuditLogs);
 
 function createId() {
   return `aud-${crypto.randomUUID()}`;
@@ -140,4 +142,9 @@ export function countAuditByEventType() {
 
 export function getAuditStoreSnapshot() {
   return { auditLogs };
+}
+
+/** Test-only: restore audit store to seed state. */
+export function resetAuditStoreForTests() {
+  auditLogs.splice(0, auditLogs.length, ...structuredClone(seedAuditLogs));
 }

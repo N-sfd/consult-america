@@ -11,8 +11,7 @@ import type {
 } from "@/types/self-service";
 
 /** Shared mutable approvals + notifications for time, leave, and later Phase 4H. */
-const approvals: ApprovalRequest[] = structuredClone(seedApprovals);
-const approvalHistory: ApprovalHistory[] = [
+const seedApprovalHistory: ApprovalHistory[] = [
   {
     id: "ah-seed-1",
     requestType: "TIMESHEET",
@@ -54,6 +53,9 @@ const approvalHistory: ApprovalHistory[] = [
     actedAt: "2026-08-22T14:00:00.000Z",
   },
 ];
+
+const approvals: ApprovalRequest[] = structuredClone(seedApprovals);
+const approvalHistory: ApprovalHistory[] = structuredClone(seedApprovalHistory);
 const notifications: Notification[] = structuredClone(seedNotifications);
 
 function createId(prefix: string) {
@@ -291,4 +293,19 @@ export function pushNotification(input: {
 
 export function getWorkflowSnapshot() {
   return { approvals, approvalHistory, notifications };
+}
+
+/** Test-only: restore workflow store to seed state. */
+export function resetWorkflowStoreForTests() {
+  approvals.splice(0, approvals.length, ...structuredClone(seedApprovals));
+  approvalHistory.splice(
+    0,
+    approvalHistory.length,
+    ...structuredClone(seedApprovalHistory),
+  );
+  notifications.splice(
+    0,
+    notifications.length,
+    ...structuredClone(seedNotifications),
+  );
 }

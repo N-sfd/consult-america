@@ -343,3 +343,9 @@ export function getTimeStoreSnapshot() {
     notifications: workflow.notifications,
   };
 }
+
+/** Test-only: restore timesheets/entries to seed state. */
+export function resetTimeStoreForTests() {
+  timesheets.splice(0, timesheets.length, ...structuredClone(seedTimesheets));
+  timeEntries.splice(0, timeEntries.length, ...structuredClone(seedTimeEntries));
+}

@@ -256,3 +256,13 @@ export function updateHrRequestStatus(input: {
 export function getHrRequestStoreSnapshot() {
   return { requests, messages };
 }
+
+/** Test-only: restore HR request store to seed state. */
+export function resetHrRequestStoreForTests() {
+  requests.splice(0, requests.length, ...structuredClone(seedHrRequests));
+  messages.splice(
+    0,
+    messages.length,
+    ...structuredClone(seedHrRequestMessages),
+  );
+}
