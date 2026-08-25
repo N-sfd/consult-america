@@ -9,6 +9,7 @@ import InsightsPreview from "@/components/marketing/insights-preview";
 import Introduction from "@/components/marketing/introduction";
 import OracleFeature from "@/components/marketing/oracle-feature";
 import TrustCredibility from "@/components/marketing/trust-credibility";
+import WhyConsultAmerica from "@/components/marketing/why-consultamerica";
 
 export const metadata: Metadata = {
   title: "ConsultAmerica | The Enterprise Transformation Partner",
@@ -27,6 +28,7 @@ export default function Home() {
       <AiDataFeature />
       <Industries />
       <FeaturedWork />
+      <WhyConsultAmerica />
       <InsightsPreview />
     </main>
   );
