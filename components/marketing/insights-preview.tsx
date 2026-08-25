@@ -49,7 +49,7 @@ export default function InsightsPreview() {
             >
               <Link
                 href={`/insights/${item.slug}`}
-                className="group grid gap-4 py-8 transition-colors hover:bg-white/[0.02] md:grid-cols-12 md:items-center md:px-4"
+                className="group grid gap-4 py-8 transition-colors hover:bg-white/[0.015] md:grid-cols-12 md:items-center md:px-2"
               >
                 <div className="md:col-span-3">
                   <p className="text-sm text-white/45">

@@ -57,7 +57,7 @@ export function SectionLead({
   return (
     <p
       className={cn(
-        "mt-5 max-w-2xl text-lg text-white/60",
+        "mt-5 max-w-2xl text-lg leading-[1.65] text-white/60",
         onDark && "text-white/60",
         className,
       )}

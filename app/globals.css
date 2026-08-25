@@ -218,7 +218,7 @@ body {
   min-height: 3rem;
   padding: 0.85em 1.45em;
   border: 1px solid var(--ca-blue);
-  border-radius: 8px;
+  border-radius: 2px;
   background: var(--ca-blue);
   color: var(--ca-white);
   font-weight: 600;
@@ -233,6 +233,7 @@ body {
   background: var(--ca-blue-hover);
   border-color: var(--ca-blue-hover);
   color: var(--ca-white);
+  gap: 0.7em;
 }
 
 .ca-button-light {
@@ -243,7 +244,7 @@ body {
   min-height: 3rem;
   padding: 0.85em 1.45em;
   border: 1px solid var(--ca-white);
-  border-radius: 8px;
+  border-radius: 2px;
   background: var(--ca-white);
   color: #071a2f;
   font-weight: 600;
@@ -266,7 +267,7 @@ body {
   min-height: 2.75rem;
   padding: 0.75em 1.1em;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 2px;
   background: transparent;
   color: var(--ca-white);
   font-weight: 500;
@@ -326,46 +327,43 @@ body {
 .ca-tag {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  padding: 0.55em 1.05em;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0.45em 0.1em;
   font-size: 0.78em;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.78);
   cursor: pointer;
   transition:
-    background 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease;
+    border-color 200ms ease,
+    color 200ms ease;
 }
 
 .ca-tag:hover,
 .ca-tag:focus-visible {
-  background: rgba(59, 130, 246, 0.16);
-  border-color: rgba(59, 130, 246, 0.7);
+  background: transparent;
+  border-bottom-color: var(--ca-blue);
   color: #fff;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25);
+  box-shadow: none;
 }
 
 .ca-card {
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(16px);
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
   transition:
     border-color 200ms ease,
-    background 200ms ease,
-    transform 200ms ease,
-    box-shadow 200ms ease;
+    background 200ms ease;
 }
 
 .ca-card:hover {
   border-color: rgba(59, 130, 246, 0.45);
-  background: rgba(59, 130, 246, 0.06);
+  background: rgba(255, 255, 255, 0.02);
   box-shadow: none;
 }
 
@@ -392,11 +390,6 @@ body {
 
 .ca-insight-reading {
   max-width: var(--ca-insight-reading);
-}
-
-.ca-insight-toc-sticky {
-  position: sticky;
-  top: calc(var(--header-offset) + 1.5rem);
 }
 
 .ca-insight-block {
@@ -447,10 +440,35 @@ body {
 
 .ca-insight-cta {
   max-width: 40rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
 }
 
 .ca-scroll-cue {
   letter-spacing: 0.04em;
+}
+
+.ca-scroll-cue-icon {
+  transition: border-color 220ms ease, transform 220ms ease;
+}
+
+.ca-scroll-cue:hover .ca-scroll-cue-icon {
+  border-color: rgba(255, 255, 255, 0.55);
+  animation: ca-scroll-nudge 1.1s ease-in-out infinite;
+}
+
+@keyframes ca-scroll-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.ca-insight-toc-sticky {
+  position: sticky;
+  top: calc(var(--header-offset) + 1.5rem);
 }
 
 /* —— Application surface helpers (ATS / HR / Portal / Payroll) —— */
@@ -488,6 +506,10 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .ca-scroll-cue:hover .ca-scroll-cue-icon {
+    animation: none;
   }
 }
 

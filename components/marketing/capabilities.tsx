@@ -99,7 +99,7 @@ export default function Capabilities() {
                 </div>
 
                 <div className="md:col-span-4">
-                  <h3 className="text-2xl font-medium tracking-[-0.035em] md:text-3xl">
+                  <h3 className="text-2xl font-medium tracking-[-0.035em] transition-colors duration-200 group-hover:text-[#93c5fd] md:text-3xl">
                     {capability.title}
                   </h3>
                 </div>

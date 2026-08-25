@@ -44,12 +44,12 @@ export default function InsightsPage() {
               <Link
                 key={item.slug}
                 href={`/insights/${item.slug}`}
-                className="group border-t border-white/15 pt-6 transition-opacity hover:opacity-80"
+                className="group border-t border-white/15 pt-6 transition-colors duration-200"
               >
                 <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-blue)]">
                   {insightCategoryLabels[item.category]}
                 </p>
-                <h2 className="mt-4 text-xl font-medium tracking-[-0.03em] group-hover:text-[#93c5fd]">
+                <h2 className="mt-4 text-xl font-medium tracking-[-0.03em] transition-colors duration-200 group-hover:text-[#93c5fd]">
                   {item.title}
                 </h2>
                 <p className="mt-3 text-sm leading-6 text-white/55">

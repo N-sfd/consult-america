@@ -60,14 +60,14 @@ export default function InsightsIndex({
 
         <div className="lg:col-span-7">
           <p className="ca-eyebrow text-white/45">Topics</p>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
             <button
               type="button"
               onClick={() => setCategory("all")}
-              className={`border px-3 py-1.5 text-xs transition-colors ${
+              className={`border-b pb-1 text-xs tracking-[0.08em] uppercase transition-colors ${
                 category === "all"
-                  ? "border-[var(--ca-blue)] bg-[var(--ca-blue)]/15 text-white"
-                  : "border-white/15 text-white/60 hover:border-white/35 hover:text-white"
+                  ? "border-[var(--ca-blue)] text-white"
+                  : "border-transparent text-white/55 hover:text-white"
               }`}
             >
               All
@@ -77,10 +77,10 @@ export default function InsightsIndex({
                 key={item.value}
                 type="button"
                 onClick={() => setCategory(item.value)}
-                className={`border px-3 py-1.5 text-xs transition-colors ${
+                className={`border-b pb-1 text-xs tracking-[0.08em] uppercase transition-colors ${
                   category === item.value
-                    ? "border-[var(--ca-blue)] bg-[var(--ca-blue)]/15 text-white"
-                    : "border-white/15 text-white/60 hover:border-white/35 hover:text-white"
+                    ? "border-[var(--ca-blue)] text-white"
+                    : "border-transparent text-white/55 hover:text-white"
                 }`}
               >
                 {item.label}
@@ -101,7 +101,7 @@ export default function InsightsIndex({
             <Link
               key={item.slug}
               href={`/insights/${item.slug}`}
-              className="group grid gap-4 border-b border-white/10 py-8 md:grid-cols-12 md:items-start"
+              className="group grid gap-4 border-b border-white/10 py-8 transition-colors duration-200 hover:bg-white/[0.015] md:grid-cols-12 md:items-start md:px-2"
             >
               <div className="md:col-span-3">
                 <p className="text-sm text-white/45">
@@ -113,7 +113,7 @@ export default function InsightsIndex({
               </div>
 
               <div className="md:col-span-8">
-                <h2 className="text-2xl font-medium tracking-[-0.035em] transition-colors group-hover:text-[#93c5fd]">
+                <h2 className="text-2xl font-medium tracking-[-0.035em] transition-colors duration-200 group-hover:text-[#93c5fd]">
                   {item.title}
                 </h2>
                 <p className="mt-3 max-w-2xl text-base leading-7 text-white/60">

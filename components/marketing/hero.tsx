@@ -78,19 +78,13 @@ export default function Hero() {
           </div>
         </Grid>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.4 }}
-          className="ca-filter-bar mt-12"
-          aria-label="Practice filters"
-        >
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3" aria-label="Practice filters">
           {heroTags.map((tag) => (
             <Link key={tag.label} href={tag.href} className="ca-tag">
               {tag.label}
             </Link>
           ))}
-        </motion.div>
+        </div>
       </Shell>
     </section>
   );

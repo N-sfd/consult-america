@@ -73,11 +73,11 @@ export default function Introduction() {
           </motion.div>
         </div>
 
-        <div className="mt-20 grid border-t border-[var(--ca-border-light)] md:grid-cols-3">
+        <div className="mt-16 grid border-t border-[var(--ca-border-light)] md:grid-cols-3">
           {pillars.map((pillar, index) => (
             <div
               key={pillar.title}
-              className={`py-8 md:px-8 ${
+              className={`py-7 md:px-8 ${
                 index < pillars.length - 1
                   ? "md:border-r md:border-[var(--ca-border-light)]"
                   : ""
