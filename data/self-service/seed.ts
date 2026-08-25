@@ -376,6 +376,27 @@ export const seedNotifications: Notification[] = [
     actionUrl: "/manager/approvals",
     createdAt: "2026-08-23T18:05:00.000Z",
   },
+  {
+    id: "ntf-4",
+    userId: "user-demo-001",
+    employeeId: "emp-demo-001",
+    type: "LEAVE_SUBMITTED",
+    title: "Leave request submitted",
+    message: "Jennifer Lee requested PTO for Oct 2.",
+    actionUrl: "/manager/leave",
+    createdAt: "2026-08-20T10:05:00.000Z",
+  },
+  {
+    id: "ntf-5",
+    userId: "user-demo-002",
+    employeeId: "emp-demo-002",
+    type: "TIMESHEET_RETURNED",
+    title: "Timesheet reminder",
+    message: "Submit your current timesheet before Friday.",
+    actionUrl: "/employee/time",
+    createdAt: "2026-08-24T09:00:00.000Z",
+    readAt: "2026-08-24T12:00:00.000Z",
+  },
 ];
 
 export const seedEmployeeDocuments: EmployeeDocumentView[] = [

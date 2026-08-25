@@ -26,7 +26,7 @@ import {
 } from "@/lib/self-service/time-store";
 import {
   listApprovals,
-  listNotifications,
+  listNotificationsForEmployee,
 } from "@/lib/self-service/workflow-store";
 
 export type EmployeeProfileView = {
@@ -171,9 +171,7 @@ export function getHrRequests(employeeId: string) {
 }
 
 export function getNotifications(employeeId: string) {
-  return listNotifications()
-    .filter((item) => item.employeeId === employeeId)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return listNotificationsForEmployee(employeeId);
 }
 
 export function getPendingApprovals(approverEmployeeId: string) {

@@ -107,6 +107,49 @@ export function listNotifications() {
   return notifications;
 }
 
+export function listNotificationsForEmployee(employeeId: string) {
+  return notifications
+    .filter((item) => item.employeeId === employeeId)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export function getUnreadNotificationCount(employeeId: string) {
+  return notifications.filter(
+    (item) => item.employeeId === employeeId && !item.readAt,
+  ).length;
+}
+
+export function getNotificationById(notificationId: string) {
+  return notifications.find((item) => item.id === notificationId);
+}
+
+export function markNotificationRead(input: {
+  notificationId: string;
+  employeeId: string;
+}) {
+  const item = getNotificationById(input.notificationId);
+  if (!item) throw new Error("Notification not found");
+  if (item.employeeId !== input.employeeId) {
+    throw new Error("Forbidden: cannot update another user's notification");
+  }
+  if (!item.readAt) {
+    item.readAt = nowIso();
+  }
+  return item;
+}
+
+export function markAllNotificationsRead(employeeId: string) {
+  const actedAt = nowIso();
+  let count = 0;
+  for (const item of notifications) {
+    if (item.employeeId === employeeId && !item.readAt) {
+      item.readAt = actedAt;
+      count += 1;
+    }
+  }
+  return count;
+}
+
 export function listPendingApprovalsFor(
   approverEmployeeId: string,
   requestType?: ApprovalRequestType,

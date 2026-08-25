@@ -22,21 +22,25 @@ const managerLinks = [
   { href: "/manager/approvals", label: "Approvals" },
   { href: "/manager/time", label: "Team Time" },
   { href: "/manager/leave", label: "Team Leave" },
+  { href: "/manager/notifications", label: "Notifications" },
 ];
 
 const hrLinks = [
   { href: "/hr/requests", label: "HR Requests", exact: false },
+  { href: "/hr/notifications", label: "Notifications" },
 ];
 
 interface PortalShellProps {
   session: PortalSession;
   mode: "employee" | "manager" | "hr";
+  unreadCount?: number;
   children: React.ReactNode;
 }
 
 export default function PortalShell({
   session,
   mode,
+  unreadCount = 0,
   children,
 }: PortalShellProps) {
   const pathname = usePathname();
@@ -53,6 +57,13 @@ export default function PortalShell({
       : mode === "manager"
         ? "Manager"
         : "HR";
+
+  const notificationsHref =
+    mode === "employee"
+      ? "/employee/notifications"
+      : mode === "manager"
+        ? "/manager/notifications"
+        : "/hr/notifications";
 
   return (
     <div className="min-h-screen bg-[#F4F6F8] text-[#0B1220]">
@@ -71,19 +82,25 @@ export default function PortalShell({
               const active = link.exact
                 ? pathname === link.href
                 : pathname.startsWith(link.href);
+              const isNotifications = link.href.includes("/notifications");
 
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "whitespace-nowrap rounded-md px-3 py-2 text-sm transition-colors",
+                    "flex items-center justify-between gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm transition-colors",
                     active
                       ? "bg-white/10 text-white"
                       : "text-white/60 hover:bg-white/5 hover:text-white",
                   )}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  {isNotifications && unreadCount > 0 && (
+                    <span className="rounded-md bg-white/15 px-1.5 py-0.5 text-[0.65rem] font-semibold text-white">
+                      {unreadCount}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -130,12 +147,25 @@ export default function PortalShell({
                 </p>
                 <p className="mt-1 text-sm text-black/55">{session.workEmail}</p>
               </div>
-              <Link
-                href="/"
-                className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
-              >
-                Public site
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link
+                  href={notificationsHref}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[#0B1220] hover:text-[var(--ca-blue)]"
+                >
+                  Alerts
+                  {unreadCount > 0 && (
+                    <span className="rounded-md bg-[var(--ca-blue)] px-1.5 py-0.5 text-[0.7rem] font-semibold text-white">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Link>
+                <Link
+                  href="/"
+                  className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+                >
+                  Public site
+                </Link>
+              </div>
             </div>
           </header>
 

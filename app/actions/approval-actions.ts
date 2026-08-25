@@ -34,6 +34,9 @@ function revalidateApprovalPaths() {
   revalidatePath("/employee/leave");
   revalidatePath("/employee/profile");
   revalidatePath("/employee");
+  revalidatePath("/employee/notifications");
+  revalidatePath("/manager/notifications");
+  revalidatePath("/hr/notifications");
 }
 
 export async function actOnApprovalAction(input: {

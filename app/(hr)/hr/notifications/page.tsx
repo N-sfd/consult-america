@@ -6,7 +6,7 @@ import {
   getNotificationsForEmployee,
   type NotificationFilter,
 } from "@/lib/self-service/notification-service";
-import { getEmployeeSession } from "@/lib/self-service/session";
+import { getHrSession } from "@/lib/self-service/session";
 
 export const metadata: Metadata = {
   title: "Notifications | ConsultAmerica",
@@ -19,12 +19,12 @@ function parseFilter(value?: string): NotificationFilter {
   return "ALL";
 }
 
-export default async function EmployeeNotificationsPage({
+export default async function HrNotificationsPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const session = getEmployeeSession();
+  const session = getHrSession();
   const params = await searchParams;
   const filter = parseFilter(params.filter);
   const notifications = getNotificationsForEmployee(
@@ -40,7 +40,7 @@ export default async function EmployeeNotificationsPage({
           Notifications
         </h1>
         <p className="mt-2 text-black/55">
-          Updates for time, leave, approvals, profile, and HR requests.
+          New HR requests and employee replies.
           {unreadCount > 0 ? ` ${unreadCount} unread.` : " You are caught up."}
         </p>
       </div>
@@ -48,9 +48,9 @@ export default async function EmployeeNotificationsPage({
       <NotificationCenter
         notifications={notifications}
         unreadCount={unreadCount}
-        portal="employee"
+        portal="hr"
         activeFilter={filter}
-        basePath="/employee/notifications"
+        basePath="/hr/notifications"
       />
     </div>
   );

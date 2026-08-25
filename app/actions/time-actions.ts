@@ -69,6 +69,8 @@ export async function submitTimesheetAction(input: {
     revalidatePath("/manager/time");
     revalidatePath("/manager/approvals");
     revalidatePath("/manager");
+    revalidatePath("/employee/notifications");
+    revalidatePath("/manager/notifications");
     return { ok: true, message: "Timesheet submitted for approval." };
   } catch (error) {
     return {
@@ -93,6 +95,8 @@ export async function approveTimesheetAction(input: {
     revalidatePath("/manager");
     revalidatePath("/employee/time");
     revalidatePath("/employee");
+    revalidatePath("/employee/notifications");
+    revalidatePath("/manager/notifications");
     return { ok: true, message: "Timesheet approved." };
   } catch (error) {
     return {
@@ -118,6 +122,8 @@ export async function rejectTimesheetAction(input: {
     revalidatePath("/manager/approvals");
     revalidatePath("/manager");
     revalidatePath("/employee/time");
+    revalidatePath("/employee/notifications");
+    revalidatePath("/manager/notifications");
     return { ok: true, message: "Timesheet rejected." };
   } catch (error) {
     return {
@@ -143,6 +149,8 @@ export async function returnTimesheetAction(input: {
     revalidatePath("/manager/approvals");
     revalidatePath("/manager");
     revalidatePath("/employee/time");
+    revalidatePath("/employee/notifications");
+    revalidatePath("/manager/notifications");
     return { ok: true, message: "Timesheet returned for correction." };
   } catch (error) {
     return {

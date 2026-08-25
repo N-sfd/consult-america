@@ -29,6 +29,8 @@ function revalidateHrPaths(requestId?: string) {
   revalidatePath("/employee");
   revalidatePath("/hr/requests");
   revalidatePath("/employee/notifications");
+  revalidatePath("/manager/notifications");
+  revalidatePath("/hr/notifications");
   if (requestId) {
     revalidatePath(`/employee/requests/${requestId}`);
     revalidatePath(`/hr/requests/${requestId}`);

@@ -30,6 +30,9 @@ function revalidateLeavePaths() {
   revalidatePath("/manager/leave");
   revalidatePath("/manager/approvals");
   revalidatePath("/manager");
+  revalidatePath("/employee/notifications");
+  revalidatePath("/manager/notifications");
+  revalidatePath("/hr/notifications");
 }
 
 export async function submitLeaveAction(input: {
