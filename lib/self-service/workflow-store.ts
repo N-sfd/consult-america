@@ -29,6 +29,30 @@ const approvalHistory: ApprovalHistory[] = [
     actorEmployeeId: "emp-demo-002",
     actedAt: "2026-08-20T10:00:00.000Z",
   },
+  {
+    id: "ah-seed-leave-approved",
+    requestType: "LEAVE",
+    requestId: "lr-002-1",
+    action: "SUBMITTED",
+    actorEmployeeId: "emp-demo-002",
+    actedAt: "2026-08-10T15:00:00.000Z",
+  },
+  {
+    id: "ah-seed-leave-approved-2",
+    requestType: "LEAVE",
+    requestId: "lr-002-1",
+    action: "APPROVED",
+    actorEmployeeId: "emp-demo-001",
+    actedAt: "2026-08-11T12:00:00.000Z",
+  },
+  {
+    id: "ah-seed-profile-1",
+    requestType: "PROFILE_CHANGE",
+    requestId: "pcr-002-1",
+    action: "SUBMITTED",
+    actorEmployeeId: "emp-demo-002",
+    actedAt: "2026-08-22T14:00:00.000Z",
+  },
 ];
 const notifications: Notification[] = structuredClone(seedNotifications);
 
@@ -44,8 +68,39 @@ export function listApprovals() {
   return approvals;
 }
 
+export function getApprovalById(approvalId: string) {
+  return approvals.find((item) => item.id === approvalId);
+}
+
 export function listApprovalHistory() {
   return approvalHistory;
+}
+
+export function listHistoryForRequest(
+  requestType: ApprovalRequestType,
+  requestId: string,
+) {
+  return approvalHistory
+    .filter(
+      (item) =>
+        item.requestType === requestType && item.requestId === requestId,
+    )
+    .sort((a, b) => b.actedAt.localeCompare(a.actedAt));
+}
+
+export function listRecentDecisionsForApprover(
+  approverEmployeeId: string,
+  limit = 10,
+) {
+  return approvals
+    .filter(
+      (item) =>
+        item.approverEmployeeId === approverEmployeeId &&
+        item.status !== "PENDING" &&
+        Boolean(item.actedAt),
+    )
+    .sort((a, b) => (b.actedAt ?? "").localeCompare(a.actedAt ?? ""))
+    .slice(0, limit);
 }
 
 export function listNotifications() {

@@ -6,6 +6,7 @@ import type {
   LeaveRequest,
   LeaveType,
   Notification,
+  ProfileChangeRequest,
   Timesheet,
   TimeEntry,
 } from "@/types/self-service";
@@ -224,6 +225,18 @@ export const seedLeaveRequests: LeaveRequest[] = [
   },
 ];
 
+export const seedProfileChanges: ProfileChangeRequest[] = [
+  {
+    id: "pcr-002-1",
+    employeeId: "emp-demo-002",
+    changeType: "LEGAL_NAME",
+    currentValue: "Jennifer Lee",
+    requestedValue: "Jennifer M. Lee",
+    status: "PENDING",
+    requestedAt: "2026-08-22T14:00:00.000Z",
+  },
+];
+
 export const seedApprovals: ApprovalRequest[] = [
   {
     id: "apr-1",
@@ -244,6 +257,27 @@ export const seedApprovals: ApprovalRequest[] = [
     status: "PENDING",
     summary: "PTO · Oct 2 · 8 hours",
     submittedAt: "2026-08-20T10:00:00.000Z",
+  },
+  {
+    id: "apr-3",
+    requestType: "PROFILE_CHANGE",
+    requestId: "pcr-002-1",
+    requesterEmployeeId: "emp-demo-002",
+    approverEmployeeId: "emp-demo-001",
+    status: "PENDING",
+    summary: "Legal name · Jennifer Lee → Jennifer M. Lee",
+    submittedAt: "2026-08-22T14:00:00.000Z",
+  },
+  {
+    id: "apr-seed-done",
+    requestType: "LEAVE",
+    requestId: "lr-002-1",
+    requesterEmployeeId: "emp-demo-002",
+    approverEmployeeId: "emp-demo-001",
+    status: "APPROVED",
+    summary: "PTO · Sep 14 – Sep 16 · 24 hours",
+    submittedAt: "2026-08-10T15:00:00.000Z",
+    actedAt: "2026-08-11T12:00:00.000Z",
   },
 ];
 

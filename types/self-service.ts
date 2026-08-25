@@ -214,6 +214,20 @@ export const leaveRequestStatusLabels: Record<LeaveRequestStatus, string> = {
   CANCELLED: "Cancelled",
 };
 
+export const approvalRequestTypeLabels: Record<ApprovalRequestType, string> = {
+  TIMESHEET: "Timesheet",
+  LEAVE: "Leave",
+  PROFILE_CHANGE: "Profile Change",
+  HR_REQUEST: "HR Request",
+};
+
+export const approvalStatusLabels: Record<ApprovalStatus, string> = {
+  PENDING: "Pending",
+  APPROVED: "Approved",
+  REJECTED: "Rejected",
+  CANCELLED: "Cancelled",
+};
+
 export const timesheetStatusLabels: Record<TimesheetStatus, string> = {
   DRAFT: "Draft",
   SUBMITTED: "Submitted",
