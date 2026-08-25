@@ -11,6 +11,8 @@ import Introduction from "@/components/marketing/introduction";
 import OracleFeature from "@/components/marketing/oracle-feature";
 import TrustCredibility from "@/components/marketing/trust-credibility";
 import WhyConsultAmerica from "@/components/marketing/why-consultamerica";
+import SiteHeader from "@/components/navigation/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "ConsultAmerica | The Enterprise Transformation Partner",
@@ -20,18 +22,22 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <TrustCredibility />
-      <Introduction />
-      <Capabilities />
-      <OracleFeature />
-      <AiDataFeature />
-      <Industries />
-      <FeaturedWork />
-      <WhyConsultAmerica />
-      <CareersFeature />
-      <InsightsPreview />
-    </main>
+    <>
+      <SiteHeader />
+      <main>
+        <Hero />
+        <TrustCredibility />
+        <Introduction />
+        <Capabilities />
+        <OracleFeature />
+        <AiDataFeature />
+        <Industries />
+        <FeaturedWork />
+        <WhyConsultAmerica />
+        <CareersFeature />
+        <InsightsPreview />
+      </main>
+      <SiteFooter />
+    </>
   );
 }

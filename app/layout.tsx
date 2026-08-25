@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 
 import ContactPanel from "@/components/contact-panel";
-import SiteHeader from "@/components/navigation/site-header";
 import { ContactProvider } from "@/components/providers/contact-provider";
-import { SiteFooter } from "@/components/site-footer";
 
 import "./globals.css";
 
@@ -22,9 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-black text-white antialiased">
         <ContactProvider>
-          <SiteHeader />
           {children}
-          <SiteFooter />
           <ContactPanel />
         </ContactProvider>
       </body>
