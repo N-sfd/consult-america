@@ -206,6 +206,14 @@ export const leaveTypeLabels: Record<string, string> = {
   JURY: "Jury Duty",
 };
 
+export const leaveRequestStatusLabels: Record<LeaveRequestStatus, string> = {
+  DRAFT: "Draft",
+  PENDING: "Pending",
+  APPROVED: "Approved",
+  REJECTED: "Rejected",
+  CANCELLED: "Cancelled",
+};
+
 export const timesheetStatusLabels: Record<TimesheetStatus, string> = {
   DRAFT: "Draft",
   SUBMITTED: "Submitted",

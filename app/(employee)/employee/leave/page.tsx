@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import LeaveRequestForm from "@/components/leave/leave-request-form";
+import LeaveRequestList from "@/components/leave/leave-request-list";
 import {
   getLeaveBalances,
   getLeaveRequests,
@@ -22,8 +24,8 @@ export default function EmployeeLeavePage() {
       <div>
         <h1 className="text-3xl font-semibold tracking-[-0.04em]">Leave</h1>
         <p className="mt-2 text-black/55">
-          Balances and request history are available. Submit/cancel workflows
-          continue in Phase 4F.
+          View balances, submit a leave request, and cancel pending or future
+          approved leave.
         </p>
       </div>
 
@@ -47,32 +49,8 @@ export default function EmployeeLeavePage() {
         })}
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-          Requests
-        </h2>
-        <ul className="mt-4 divide-y divide-black/5 text-sm">
-          {requests.map((request) => {
-            const type = types.find((item) => item.id === request.leaveTypeId);
-            return (
-              <li
-                key={request.id}
-                className="flex flex-wrap items-center justify-between gap-3 py-3"
-              >
-                <div>
-                  <p className="font-medium">{type?.name}</p>
-                  <p className="mt-1 text-black/55">
-                    {request.startDate} – {request.endDate} · {request.hours}h
-                  </p>
-                </div>
-                <span className="text-xs uppercase tracking-[0.1em] text-black/45">
-                  {request.status}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+      <LeaveRequestForm types={types} balances={balances} />
+      <LeaveRequestList requests={requests} types={types} />
     </div>
   );
 }

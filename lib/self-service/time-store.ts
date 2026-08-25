@@ -1,33 +1,25 @@
 import {
-  seedApprovals,
-  seedNotifications,
   seedTimeEntries,
   seedTimesheets,
 } from "@/data/self-service/seed";
 import type {
-  ApprovalHistory,
-  ApprovalRequest,
-  Notification,
   TimeEntry,
   Timesheet,
   TimeType,
 } from "@/types/self-service";
+import {
+  findPendingApproval,
+  getWorkflowSnapshot,
+  listPendingApprovalsFor,
+  pushApprovalHistory,
+  pushNotification,
+  resolvePendingApproval,
+  upsertPendingApproval,
+} from "@/lib/self-service/workflow-store";
 
 /** Mutable in-memory time store for Phase 4E demos. */
 const timesheets: Timesheet[] = structuredClone(seedTimesheets);
 const timeEntries: TimeEntry[] = structuredClone(seedTimeEntries);
-const approvals: ApprovalRequest[] = structuredClone(seedApprovals);
-const approvalHistory: ApprovalHistory[] = [
-  {
-    id: "ah-seed-1",
-    requestType: "TIMESHEET",
-    requestId: "ts-002-prior",
-    action: "SUBMITTED",
-    actorEmployeeId: "emp-demo-002",
-    actedAt: "2026-08-23T18:00:00.000Z",
-  },
-];
-const notifications: Notification[] = structuredClone(seedNotifications);
 
 function createId(prefix: string) {
   return `${prefix}-${crypto.randomUUID()}`;
@@ -115,7 +107,6 @@ export function saveTimesheetDraft(input: {
     if (day.hours > 24) throw new Error("Hours cannot exceed 24 in a day");
   }
 
-  // Replace REGULAR entries for this sheet; keep non-regular for now by clearing all and rewriting day grid as REGULAR.
   for (let i = timeEntries.length - 1; i >= 0; i -= 1) {
     if (timeEntries[i].timesheetId === input.timesheetId) {
       timeEntries.splice(i, 1);
@@ -136,9 +127,6 @@ export function saveTimesheetDraft(input: {
 
   sheet.totalHours = sumHours(input.timesheetId);
   sheet.updatedAt = nowIso();
-  if (sheet.status === "REOPENED") {
-    // stay REOPENED until submit
-  }
 
   return { sheet, entries: listTimeEntries(input.timesheetId) };
 }
@@ -166,33 +154,16 @@ export function submitTimesheet(input: {
   sheet.submittedAt = nowIso();
   sheet.updatedAt = nowIso();
 
-  // Upsert pending approval
-  const existing = approvals.find(
-    (item) =>
-      item.requestType === "TIMESHEET" &&
-      item.requestId === sheet.id &&
-      item.status === "PENDING",
-  );
+  upsertPendingApproval({
+    requestType: "TIMESHEET",
+    requestId: sheet.id,
+    requesterEmployeeId: input.employeeId,
+    approverEmployeeId: input.managerEmployeeId,
+    summary: `Timesheet ${sheet.periodStart} – ${sheet.periodEnd} · ${sheet.totalHours} hours`,
+    submittedAt: sheet.submittedAt,
+  });
 
-  if (!existing) {
-    approvals.push({
-      id: createId("apr"),
-      requestType: "TIMESHEET",
-      requestId: sheet.id,
-      requesterEmployeeId: input.employeeId,
-      approverEmployeeId: input.managerEmployeeId,
-      status: "PENDING",
-      summary: `Timesheet ${sheet.periodStart} – ${sheet.periodEnd} · ${sheet.totalHours} hours`,
-      submittedAt: sheet.submittedAt,
-    });
-  } else {
-    existing.summary = `Timesheet ${sheet.periodStart} – ${sheet.periodEnd} · ${sheet.totalHours} hours`;
-    existing.submittedAt = sheet.submittedAt;
-    existing.approverEmployeeId = input.managerEmployeeId;
-  }
-
-  approvalHistory.push({
-    id: createId("ah"),
+  pushApprovalHistory({
     requestType: "TIMESHEET",
     requestId: sheet.id,
     action: "SUBMITTED",
@@ -200,27 +171,19 @@ export function submitTimesheet(input: {
     actedAt: sheet.submittedAt,
   });
 
-  notifications.push({
-    id: createId("ntf"),
-    userId: `user-${input.managerEmployeeId}`,
+  pushNotification({
     employeeId: input.managerEmployeeId,
     type: "TIMESHEET_SUBMITTED",
     title: "Timesheet submitted",
     message: `A timesheet for ${sheet.periodStart} – ${sheet.periodEnd} is ready for review.`,
     actionUrl: "/manager/time",
-    createdAt: nowIso(),
   });
 
   return sheet;
 }
 
 export function listSubmittedTimesheetsForManager(managerEmployeeId: string) {
-  const pending = approvals.filter(
-    (item) =>
-      item.approverEmployeeId === managerEmployeeId &&
-      item.requestType === "TIMESHEET" &&
-      item.status === "PENDING",
-  );
+  const pending = listPendingApprovalsFor(managerEmployeeId, "TIMESHEET");
 
   return pending
     .map((approval) => {
@@ -229,7 +192,7 @@ export function listSubmittedTimesheetsForManager(managerEmployeeId: string) {
       return { approval, sheet, entries: listTimeEntries(sheet.id) };
     })
     .filter(Boolean) as Array<{
-    approval: ApprovalRequest;
+    approval: (typeof pending)[number];
     sheet: Timesheet;
     entries: TimeEntry[];
   }>;
@@ -289,15 +252,12 @@ function actOnTimesheet(input: {
     throw new Error("Only submitted timesheets can be reviewed");
   }
 
-  const approval = approvals.find(
-    (item) =>
-      item.requestType === "TIMESHEET" &&
-      item.requestId === sheet.id &&
-      item.status === "PENDING" &&
-      item.approverEmployeeId === input.managerEmployeeId,
-  );
-
-  if (!approval) {
+  const pending = findPendingApproval({
+    requestType: "TIMESHEET",
+    requestId: sheet.id,
+    approverEmployeeId: input.managerEmployeeId,
+  });
+  if (!pending) {
     throw new Error("No pending timesheet approval found for this manager");
   }
 
@@ -307,20 +267,36 @@ function actOnTimesheet(input: {
     sheet.status = "APPROVED";
     sheet.approvedAt = actedAt;
     sheet.approvedByEmployeeId = input.managerEmployeeId;
-    approval.status = "APPROVED";
+    resolvePendingApproval({
+      requestType: "TIMESHEET",
+      requestId: sheet.id,
+      approverEmployeeId: input.managerEmployeeId,
+      status: "APPROVED",
+      actedAt,
+    });
   } else if (input.action === "REJECTED") {
     sheet.status = "REJECTED";
-    approval.status = "REJECTED";
+    resolvePendingApproval({
+      requestType: "TIMESHEET",
+      requestId: sheet.id,
+      approverEmployeeId: input.managerEmployeeId,
+      status: "REJECTED",
+      actedAt,
+    });
   } else {
     sheet.status = "REOPENED";
-    approval.status = "CANCELLED";
+    resolvePendingApproval({
+      requestType: "TIMESHEET",
+      requestId: sheet.id,
+      approverEmployeeId: input.managerEmployeeId,
+      status: "CANCELLED",
+      actedAt,
+    });
   }
 
   sheet.updatedAt = actedAt;
-  approval.actedAt = actedAt;
 
-  approvalHistory.push({
-    id: createId("ah"),
+  pushApprovalHistory({
     requestType: "TIMESHEET",
     requestId: sheet.id,
     action: input.action,
@@ -329,9 +305,7 @@ function actOnTimesheet(input: {
     actedAt,
   });
 
-  notifications.push({
-    id: createId("ntf"),
-    userId: `user-${sheet.employeeId}`,
+  pushNotification({
     employeeId: sheet.employeeId,
     type: `TIMESHEET_${input.action}`,
     title:
@@ -351,8 +325,8 @@ function actOnTimesheet(input: {
 }
 
 export function listApprovalHistory(timesheetId: string) {
-  return approvalHistory
-    .filter(
+  return getWorkflowSnapshot()
+    .approvalHistory.filter(
       (item) =>
         item.requestType === "TIMESHEET" && item.requestId === timesheetId,
     )
@@ -360,5 +334,12 @@ export function listApprovalHistory(timesheetId: string) {
 }
 
 export function getTimeStoreSnapshot() {
-  return { timesheets, timeEntries, approvals, approvalHistory, notifications };
+  const workflow = getWorkflowSnapshot();
+  return {
+    timesheets,
+    timeEntries,
+    approvals: workflow.approvals,
+    approvalHistory: workflow.approvalHistory,
+    notifications: workflow.notifications,
+  };
 }

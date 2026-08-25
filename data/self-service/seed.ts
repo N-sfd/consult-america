@@ -65,6 +65,17 @@ export const seedLeaveBalances: LeaveBalance[] = [
     available: 40,
   },
   {
+    id: "lb-002-personal",
+    employeeId: "emp-demo-002",
+    leaveTypeId: "lt-personal",
+    year: 2026,
+    openingBalance: 16,
+    accrued: 0,
+    used: 0,
+    adjusted: 0,
+    available: 16,
+  },
+  {
     id: "lb-001-pto",
     employeeId: "emp-demo-001",
     leaveTypeId: "lt-pto",

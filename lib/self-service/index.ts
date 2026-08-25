@@ -2,9 +2,6 @@ import { hrRepository } from "@/lib/hr";
 import {
   seedEmployeeDocuments,
   seedHrRequests,
-  seedLeaveBalances,
-  seedLeaveRequests,
-  seedLeaveTypes,
 } from "@/data/self-service/seed";
 import {
   seedDepartments,
@@ -18,11 +15,19 @@ import {
   workplaceTypeLabels,
 } from "@/types/organization";
 import {
+  listLeaveBalances,
+  listLeaveRequests,
+  listLeaveTypes,
+} from "@/lib/self-service/leave-store";
+import {
   getEditableTimesheet,
-  getTimeStoreSnapshot,
   listTimeEntries,
   listTimesheets,
 } from "@/lib/self-service/time-store";
+import {
+  listApprovals,
+  listNotifications,
+} from "@/lib/self-service/workflow-store";
 
 export type EmployeeProfileView = {
   employee: Employee;
@@ -126,19 +131,15 @@ export async function assertTeamAccess(
 }
 
 export function getLeaveTypes() {
-  return seedLeaveTypes.filter((type) => type.status === "ACTIVE");
+  return listLeaveTypes();
 }
 
 export function getLeaveBalances(employeeId: string) {
-  return seedLeaveBalances.filter(
-    (balance) => balance.employeeId === employeeId,
-  );
+  return listLeaveBalances(employeeId);
 }
 
 export function getLeaveRequests(employeeId: string) {
-  return seedLeaveRequests.filter(
-    (request) => request.employeeId === employeeId,
-  );
+  return listLeaveRequests(employeeId);
 }
 
 export function getTimesheets(employeeId: string) {
@@ -170,13 +171,13 @@ export function getHrRequests(employeeId: string) {
 }
 
 export function getNotifications(employeeId: string) {
-  return getTimeStoreSnapshot()
-    .notifications.filter((item) => item.employeeId === employeeId)
+  return listNotifications()
+    .filter((item) => item.employeeId === employeeId)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export function getPendingApprovals(approverEmployeeId: string) {
-  return getTimeStoreSnapshot().approvals.filter(
+  return listApprovals().filter(
     (item) =>
       item.approverEmployeeId === approverEmployeeId &&
       item.status === "PENDING",
