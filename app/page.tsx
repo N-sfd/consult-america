@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import AiDataFeature from "@/components/marketing/ai-data-feature";
 import Capabilities from "@/components/marketing/capabilities";
 import FeaturedWork from "@/components/marketing/featured-work";
 import Hero from "@/components/marketing/hero";
@@ -22,6 +23,7 @@ export default function Home() {
       <Introduction />
       <Capabilities />
       <OracleFeature />
+      <AiDataFeature />
       <FeaturedWork />
       <InsightsPreview />
     </main>
