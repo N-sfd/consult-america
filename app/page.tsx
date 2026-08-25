@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import CapabilitiesShowcase from "@/components/marketing/capabilities-showcase";
+import Capabilities from "@/components/marketing/capabilities";
 import FeaturedWork from "@/components/marketing/featured-work";
 import Hero from "@/components/marketing/hero";
 import InsightsPreview from "@/components/marketing/insights-preview";
@@ -19,7 +19,7 @@ export default function Home() {
       <Hero />
       <TrustCredibility />
       <Introduction />
-      <CapabilitiesShowcase />
+      <Capabilities />
       <FeaturedWork />
       <InsightsPreview />
     </main>

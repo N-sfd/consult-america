@@ -13,62 +13,62 @@ export const industryLinks = [
 export const capabilityGroups = [
   {
     title: "Enterprise Transformation",
-    href: "/capabilities",
+    href: "/capabilities/enterprise-transformation",
     description:
-      "Programs that reach production—architecture, operating model, and cutover in one engagement.",
+      "Align strategy, processes, operating models, and technology to modernize the enterprise.",
     services: [
-      { href: "/capabilities", label: "Transformation programs" },
-      { href: "/capabilities", label: "Operating models" },
-      { href: "/oracle", label: "Enterprise architecture" },
-      { href: "/capabilities", label: "Legacy migration" },
+      { href: "/capabilities/enterprise-transformation", label: "Digital transformation" },
+      { href: "/capabilities/enterprise-transformation", label: "Operating models" },
+      { href: "/capabilities/enterprise-transformation", label: "Program management" },
+      { href: "/capabilities/enterprise-transformation", label: "Change management" },
     ],
   },
   {
-    title: "Oracle",
+    title: "Oracle & Enterprise Platforms",
     href: "/oracle",
     description:
-      "Fusion, EPM, and integrations planned for go-live, with a support model that holds after cutover.",
+      "Modernize finance, supply chain, HR, projects, planning, integration, and analytics.",
     services: [
-      { href: "/oracle", label: "Fusion Cloud" },
-      { href: "/oracle", label: "EPM and analytics" },
-      { href: "/oracle", label: "Integrations" },
-      { href: "/oracle", label: "Optimization" },
+      { href: "/oracle", label: "Oracle Fusion Cloud" },
+      { href: "/oracle", label: "Financials & SCM" },
+      { href: "/oracle", label: "HCM & EPM" },
+      { href: "/oracle", label: "Integration & analytics" },
     ],
   },
   {
     title: "AI & Data",
     href: "/ai-data",
     description:
-      "Use cases, data contracts, and governed models the business can actually run.",
+      "Turn enterprise data into intelligent workflows, agents, automation, and analytics.",
     services: [
+      { href: "/ai-data", label: "Enterprise AI" },
       { href: "/ai-data", label: "Generative AI" },
-      { href: "/ai-data", label: "LLM strategy" },
-      { href: "/ai-data", label: "Analytics & insights" },
-      { href: "/ai-data", label: "Data platforms" },
+      { href: "/ai-data", label: "Data engineering" },
+      { href: "/ai-data", label: "Analytics" },
     ],
   },
   {
     title: "Digital Engineering",
-    href: "/capabilities",
+    href: "/capabilities/digital-engineering",
     description:
-      "Platforms and integrations built with the same rigor as the programs they serve.",
+      "Design and build digital products, applications, APIs, and integrations.",
     services: [
-      { href: "/capabilities", label: "Platform engineering" },
-      { href: "/capabilities", label: "Cloud & integration" },
-      { href: "/capabilities", label: "UX/UI & design" },
-      { href: "/capabilities", label: "Full stack delivery" },
+      { href: "/capabilities/digital-engineering", label: "Application development" },
+      { href: "/capabilities/digital-engineering", label: "APIs & integration" },
+      { href: "/capabilities/digital-engineering", label: "UX/UI" },
+      { href: "/capabilities/digital-engineering", label: "Cloud-native delivery" },
     ],
   },
   {
     title: "Managed Delivery",
-    href: "/capabilities",
+    href: "/capabilities/managed-delivery",
     description:
-      "Named owners to run, improve, and support the environments we help you launch.",
+      "Program leadership, functional expertise, testing, and operational support.",
     services: [
-      { href: "/capabilities", label: "Managed services" },
-      { href: "/capabilities", label: "Program delivery" },
-      { href: "/capabilities", label: "Business consulting" },
-      { href: "/careers", label: "Senior practitioners" },
+      { href: "/capabilities/managed-delivery", label: "Program delivery" },
+      { href: "/capabilities/managed-delivery", label: "Functional consulting" },
+      { href: "/capabilities/managed-delivery", label: "Testing & QA" },
+      { href: "/capabilities/managed-delivery", label: "Managed services" },
     ],
   },
 ];
