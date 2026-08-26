@@ -8,7 +8,7 @@ import SectionLabel from "@/components/marketing/SectionLabel";
 import { trustMarks } from "@/lib/site-data";
 
 const TRUST_IMAGE =
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80";
+  "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=80";
 
 const stats = [
   {
