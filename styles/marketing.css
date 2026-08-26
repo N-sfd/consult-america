@@ -4,11 +4,11 @@
   --mkt-max: 1360px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem);
   --mkt-section-y: clamp(3.5rem, 6vw, 5.5rem); /* 56–88px mobile/tablet step */
-  --mkt-hero: clamp(2.75rem, 5.2vw, 5.25rem); /* 44–84px */
-  --mkt-h2: clamp(2rem, 3.2vw, 3.5rem); /* 32–56px */
-  --mkt-h3: clamp(1.5rem, 2vw, 2.125rem); /* 24–34px */
+  --mkt-hero: clamp(2.75rem, 5vw, 5rem); /* 44–80px */
+  --mkt-h2: clamp(2.25rem, 3vw, 3.25rem); /* 36–52px */
+  --mkt-h3: clamp(1.625rem, 2vw, 2.125rem); /* 26–34px */
   --mkt-body-lg: clamp(1.125rem, 0.8vw + 0.9rem, 1.25rem); /* 18–20px */
-  --mkt-body: clamp(1rem, 0.2vw + 0.95rem, 1.125rem); /* 16–18px */
+  --mkt-body: clamp(1rem, 0.15vw + 0.95rem, 1.0625rem); /* 16–17px */
   --mkt-prose: 45rem; /* ~720px */
 
   --mkt-navy: #102a43;
@@ -45,7 +45,7 @@
 @media (min-width: 1280px) {
   :root {
     --mkt-gutter: clamp(3.5rem, 4.5vw, 5.5rem);
-    --mkt-section-y: clamp(6rem, 7.5vw, 7.5rem); /* 96–120px */
+    --mkt-section-y: clamp(5.5rem, 6.5vw, 7rem); /* 88–112px */
   }
 }
 

@@ -35,14 +35,19 @@ export default function SpecialistShowcase() {
             </p>
 
             <div className="mt-8 overflow-hidden border border-[var(--mkt-border)] bg-white">
-              <div className="border-b border-[var(--mkt-border)] px-4 py-3 text-[0.65rem] font-semibold tracking-[0.12em] text-[var(--mkt-navy)]">
-                ENTERPRISE OPERATIONS
+              <div className="flex items-center justify-between border-b border-[var(--mkt-border)] px-4 py-3">
+                <span className="text-[0.65rem] font-semibold tracking-[0.12em] text-[var(--mkt-navy)]">
+                  ENTERPRISE OPERATIONS
+                </span>
+                <span className="text-[0.6rem] uppercase tracking-[0.1em] text-[var(--mkt-muted)]">
+                  Illustrative
+                </span>
               </div>
               <div className="grid grid-cols-3 gap-px bg-[var(--mkt-border)]">
                 {[
                   ["Financials", "Healthy"],
-                  ["Procurement", "94%"],
-                  ["Projects", "27"],
+                  ["Procurement", "On track"],
+                  ["Projects", "Active"],
                 ].map(([label, value]) => (
                   <div key={label} className="bg-white p-3">
                     <p className="text-[0.65rem] uppercase tracking-[0.1em] text-[var(--mkt-muted)]">
@@ -55,6 +60,9 @@ export default function SpecialistShowcase() {
                 ))}
               </div>
             </div>
+            <p className="mt-3 text-xs text-[var(--mkt-muted)]">
+              Illustrative example — not client production data.
+            </p>
 
             <Link href="/oracle" className="ca-link mt-6 w-fit">
               Explore Oracle
@@ -86,26 +94,31 @@ export default function SpecialistShowcase() {
                     Data Agent
                   </span>
                 </div>
-                <span className="text-[0.65rem] text-[var(--mkt-blue)]">Live</span>
+                <span className="text-[0.6rem] uppercase tracking-[0.1em] text-[var(--mkt-muted)]">
+                  Illustrative
+                </span>
               </div>
-              <div className="grid grid-cols-2 gap-px bg-[var(--mkt-border)] sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-px bg-[var(--mkt-border)]">
                 {[
-                  ["Documents", "248"],
-                  ["Clauses", "38"],
-                  ["Risks", "12"],
-                  ["Confidence", "96%"],
+                  ["Document extraction", "Complete"],
+                  ["Clause detection", "Active"],
+                  ["Risk review", "Ready"],
+                  ["Source validation", "Enabled"],
                 ].map(([label, value]) => (
                   <div key={label} className="bg-white p-3">
                     <p className="text-[0.65rem] uppercase tracking-[0.1em] text-[var(--mkt-muted)]">
                       {label}
                     </p>
-                    <p className="mt-1 text-lg font-medium text-[var(--mkt-navy)]">
+                    <p className="mt-1 text-sm font-medium text-[var(--mkt-navy)]">
                       {value}
                     </p>
                   </div>
                 ))}
               </div>
             </div>
+            <p className="mt-3 text-xs text-[var(--mkt-muted)]">
+              Illustrative example — not client production data.
+            </p>
 
             <Link href="/ai-data" className="ca-link mt-6 w-fit">
               Explore AI & Data

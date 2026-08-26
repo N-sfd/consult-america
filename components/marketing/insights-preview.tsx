@@ -8,7 +8,7 @@ import { insightCategoryLabels } from "@/data/insights";
 import { getFeaturedInsights } from "@/lib/insights";
 
 const insightImages = [
-  "https://images.unsplash.com/photo-1507679799987-4e924a4c2b4b?auto=format&fit=crop&w=1400&q=80",
+  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80",
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=75",
   "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=75",
 ];
@@ -37,18 +37,31 @@ export default function InsightsPreview() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {insights.map((insight, index) => (
-            <InsightCard
-              key={insight.slug}
-              href={`/insights/${insight.slug}`}
-              image={insightImages[index] ?? insightImages[0]}
-              imageAlt={insight.title}
-              categoryLabel={insightCategoryLabels[insight.category]}
-              title={insight.title}
-              readingTime={insight.readingTime}
-            />
-          ))}
+        <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-10">
+          <InsightCard
+            href={`/insights/${insights[0].slug}`}
+            image={insightImages[0]}
+            imageAlt={insights[0].title}
+            categoryLabel={insightCategoryLabels[insights[0].category]}
+            title={insights[0].title}
+            summary={insights[0].summary}
+            readingTime={insights[0].readingTime}
+            size="large"
+          />
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1 lg:gap-10">
+            {insights.slice(1).map((insight, index) => (
+              <InsightCard
+                key={insight.slug}
+                href={`/insights/${insight.slug}`}
+                image={insightImages[index + 1] ?? insightImages[0]}
+                imageAlt={insight.title}
+                categoryLabel={insightCategoryLabels[insight.category]}
+                title={insight.title}
+                readingTime={insight.readingTime}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

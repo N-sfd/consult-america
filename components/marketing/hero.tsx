@@ -90,7 +90,19 @@ export default function Hero() {
               sizes="(max-width: 1024px) 100vw, 55vw"
               className="aspect-[16/11] w-full shadow-[0_20px_60px_rgba(16,42,67,0.1)] lg:aspect-[5/4] lg:max-h-[480px]"
               overlay="none"
-            />
+            >
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-4 border border-white/15 bg-[var(--mkt-navy)]/70 px-4 py-3 backdrop-blur-md sm:right-auto sm:min-w-[15rem]">
+                <div>
+                  <p className="text-[0.65rem] uppercase tracking-[0.14em] text-white/50">
+                    Delivery status
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-white">
+                    Oracle + AI · Enterprise scale
+                  </p>
+                </div>
+                <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--mkt-bright)]" />
+              </div>
+            </MediaPanel>
           </motion.div>
         </div>
       </div>

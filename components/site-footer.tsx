@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
 
 import BrandLogo from "@/components/brand/brand-logo";
 import { Shell } from "@/components/layout/grid";
 import { useContactPanel } from "@/components/providers/contact-provider";
+
+const SITE_DOMAIN = "consultamerica.net";
 
 const footerColumns = [
   {
@@ -38,17 +39,11 @@ const footerColumns = [
 
 export function SiteFooter() {
   const { setOpen } = useContactPanel();
-  const [subscribed, setSubscribed] = useState(false);
-
-  function handleSubscribe(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubscribed(true);
-  }
 
   return (
     <footer className="border-t border-white/10 bg-[var(--ca-navy)] text-white">
       <Shell className="py-12 lg:py-14">
-        <div className="grid gap-10 lg:grid-cols-12">
+        <div className="grid gap-10 lg:grid-cols-10">
           <div className="lg:col-span-4">
             <BrandLogo />
             <p className="mt-6 max-w-xs text-sm leading-6 text-white/60">
@@ -80,33 +75,16 @@ export function SiteFooter() {
               </ul>
             </div>
           ))}
-
-          <form
-            onSubmit={handleSubscribe}
-            className="lg:col-span-2"
-          >
-            <p className="text-sm font-semibold">Stay informed</p>
-            {subscribed ? (
-              <p className="mt-3 text-sm text-white/60">Thank you.</p>
-            ) : (
-              <div className="mt-3 space-y-3">
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  className="ca-underline-input"
-                />
-                <button type="submit" className="ca-button-primary !min-h-10 text-sm">
-                  Subscribe
-                </button>
-              </div>
-            )}
-          </form>
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} ConsultAmerica</p>
-          <p className="text-white/35">consultamerica.net</p>
+          <a
+            href={`https://${SITE_DOMAIN}`}
+            className="text-white/35 transition-colors hover:text-white/60"
+          >
+            {SITE_DOMAIN}
+          </a>
         </div>
       </Shell>
     </footer>

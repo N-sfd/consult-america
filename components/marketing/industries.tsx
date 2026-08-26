@@ -38,32 +38,12 @@ const industries = [
   },
   {
     number: "04",
-    title: "Retail & Consumer",
-    description:
-      "Connect finance, supply chain, planning, analytics, and digital platforms for faster decisions.",
-    href: "/industries/retail-consumer",
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Retail operations and fulfillment environment",
-  },
-  {
-    number: "05",
-    title: "Transportation",
-    description:
-      "Improve asset, project, procurement, workforce, and operational processes across infrastructure.",
-    href: "/industries/transportation",
-    image:
-      "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Transportation infrastructure and operations",
-  },
-  {
-    number: "06",
     title: "Technology",
     description:
       "Scale enterprise platforms, automate operations, integrate systems, and turn data into decisions.",
     href: "/industries/technology",
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Engineering and data technology environment",
   },
 ];
@@ -95,7 +75,7 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:grid-cols-2">
           {industries.map((industry, index) => (
             <motion.article
               key={industry.title}
@@ -106,7 +86,7 @@ export default function Industries() {
             >
               <Link
                 href={industry.href}
-                className="group relative block min-h-[220px] overflow-hidden md:min-h-[260px]"
+                className="group relative block min-h-[260px] overflow-hidden md:min-h-[320px]"
               >
                 <Image
                   src={industry.image}

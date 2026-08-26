@@ -410,7 +410,7 @@ function postingFromRequisition(
     id: `post-${requisition.id}`,
     requisitionId: requisition.id,
     slug,
-    title: `${requisition.title} (Demo)`,
+    title: requisition.title,
     summary: requisition.description,
     description: `This is a sample position for development and design review. ${requisition.description}`,
     careerArea: requisition.careerArea,

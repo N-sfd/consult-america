@@ -66,6 +66,10 @@ export default function WhyConsultAmerica() {
           ))}
         </div>
 
+        <p className="mt-14 max-w-2xl text-xl font-medium tracking-[-0.02em] text-white/85 md:text-2xl">
+          Deep enough for the enterprise. Focused enough to stay close.
+        </p>
+
         <div className="mt-10 flex justify-end">
           <Link href="/about" className="ca-link">
             About ConsultAmerica

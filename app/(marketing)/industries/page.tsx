@@ -14,24 +14,34 @@ export default function IndustriesPage() {
       description="We work with public sector, regulated enterprise, and high-growth operators who need systems that hold up under scrutiny."
       items={[
         {
-          title: "Public sector",
+          title: "Government & Public Sector",
           description:
-            "Mission systems, modernization, and compliant delivery models.",
+            "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery.",
         },
         {
-          title: "Financial services",
+          title: "Financial Services",
           description:
-            "Core process change with controls, auditability, and resilience.",
+            "Connect finance, data, automation, reporting, and enterprise platforms for operational control.",
         },
         {
-          title: "Healthcare and life sciences",
+          title: "Healthcare",
           description:
-            "Data, operations, and platforms that respect privacy and scale.",
+            "Modernize enterprise operations, workforce, financial systems, and clinical technology environments.",
         },
         {
-          title: "Industrial and energy",
+          title: "Retail & Consumer",
           description:
-            "Asset-heavy operations, supply chains, and field-to-finance flows.",
+            "Connect finance, supply chain, planning, analytics, and digital platforms for faster decisions.",
+        },
+        {
+          title: "Transportation",
+          description:
+            "Improve asset, project, procurement, workforce, and operational processes across infrastructure.",
+        },
+        {
+          title: "Technology",
+          description:
+            "Scale enterprise platforms, automate operations, integrate systems, and turn data into decisions.",
         },
       ]}
     />

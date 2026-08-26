@@ -5,8 +5,7 @@ import { ContactProvider } from "@/components/providers/contact-provider";
 
 import "./globals.css";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -33,6 +32,16 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ConsultAmerica",
+  url: siteUrl,
+  logo: `${siteUrl}/brand/logo.jpg`,
+  description:
+    "ConsultAmerica is the enterprise transformation partner for Oracle, cloud, AI, data, and digital engineering.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,6 +50,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[var(--ca-ice)] text-[var(--ca-text-primary)] antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <ContactProvider>
           {children}
           <ContactPanel />
