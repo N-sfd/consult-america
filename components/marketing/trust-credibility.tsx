@@ -2,106 +2,60 @@
 
 import { motion } from "framer-motion";
 
-import EditorialHeading from "@/components/marketing/EditorialHeading";
-import MediaPanel from "@/components/marketing/MediaPanel";
-import SectionLabel from "@/components/marketing/SectionLabel";
-import { trustMarks } from "@/lib/site-data";
-
-const TRUST_IMAGE =
-  "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80";
-
-const stats = [
-  {
-    value: "17+",
-    label: "Years",
-    detail: "Enterprise delivery experience",
-  },
-  {
-    value: "E2E",
-    label: "Strategy → Production",
-    detail: "From roadmap through go-live",
-  },
-  {
-    value: "5",
-    label: "Core practices",
-    detail: "Enterprise delivery focus",
-  },
-];
+import { heroStats, testimonials } from "@/lib/site-data";
 
 export default function TrustCredibility() {
+  const quote = testimonials[0];
+
   return (
     <section
       id="trust"
-      className="mkt-section border-y border-[var(--mkt-border)] bg-[var(--mkt-white)]"
+      className="mkt-section-compact border-y border-[var(--mkt-border)] bg-[var(--mkt-white)]"
     >
       <div className="mkt-shell">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-5">
-            <SectionLabel tone="dark">Trust & Credibility</SectionLabel>
-
-            <div className="mt-8">
-              <EditorialHeading className="max-w-md text-[var(--mkt-navy)]">
-                Trusted where transformation gets complicated.
-              </EditorialHeading>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-              className="mt-14 space-y-10 border-t border-[var(--mkt-border)] pt-10"
-            >
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="grid grid-cols-[auto_1fr] items-start gap-6"
-                >
-                  <p className="min-w-[4.5rem] text-4xl font-medium tracking-[-0.04em] text-[var(--mkt-navy)] md:text-5xl">
-                    {stat.value}
-                  </p>
-                  <div>
-                    <p className="text-base font-medium tracking-[-0.02em] text-[var(--mkt-text)]">
-                      {stat.label}
-                    </p>
-                    <p className="mkt-body mt-1">{stat.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-7"
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-7 lg:gap-4"
           >
-            <MediaPanel
-              src={TRUST_IMAGE}
-              alt="Delivery team collaborating in an enterprise workplace"
-              className="min-h-[360px] w-full lg:min-h-[560px]"
-              sizes="(max-width: 1024px) 100vw, 58vw"
-              overlay="none"
-            />
-          </motion.div>
-        </div>
-
-        <div className="mt-16 border-t border-[var(--mkt-border)] pt-8">
-          <p className="mkt-eyebrow text-[var(--mkt-muted)]">
-            Platforms & sectors we deliver in
-          </p>
-          <div className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-4">
-            {trustMarks.map((mark) => (
-              <span
-                key={mark}
-                className="text-sm font-medium tracking-[0.04em] text-[var(--mkt-muted)]"
-              >
-                {mark}
-              </span>
+            {heroStats.map((stat) => (
+              <div key={stat.value + stat.label}>
+                <p className="text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-3xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
+                  {stat.label}
+                </p>
+                {"detail" in stat && stat.detail ? (
+                  <p className="mt-1 text-sm text-[var(--mkt-muted)]">
+                    {stat.detail}
+                  </p>
+                ) : null}
+              </div>
             ))}
-          </div>
+          </motion.div>
+
+          <motion.blockquote
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="border-l-2 border-[var(--mkt-blue)] pl-5 lg:col-span-5"
+          >
+            <p className="text-base leading-7 text-[var(--mkt-text)] md:text-lg">
+              “{quote.quote}”
+            </p>
+            <footer className="mt-4 text-sm text-[var(--mkt-muted)]">
+              <span className="font-medium text-[var(--mkt-navy)]">
+                {quote.name}
+              </span>
+              <span className="mx-2 text-[var(--mkt-border)]">·</span>
+              {quote.org}
+            </footer>
+          </motion.blockquote>
         </div>
       </div>
     </section>

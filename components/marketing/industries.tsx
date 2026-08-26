@@ -5,9 +5,6 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-import Container from "@/components/layout/container";
-import Section from "@/components/layout/section";
-
 const industries = [
   {
     number: "01",
@@ -73,45 +70,43 @@ const industries = [
 
 export default function Industries() {
   return (
-    <Section id="industries" className="bg-[var(--mkt-warm)] text-[var(--mkt-navy)]">
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+    <section
+      id="industries"
+      className="mkt-section bg-[var(--mkt-warm)] text-[var(--mkt-navy)]"
+    >
+      <div className="mkt-shell">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">
-            <span className="mkt-eyebrow text-[var(--mkt-muted)]">INDUSTRIES</span>
+            <span className="mkt-eyebrow text-[var(--mkt-muted)]">
+              INDUSTRIES
+            </span>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
             className="lg:col-span-8"
           >
-            <h2 className="mkt-section-heading max-w-5xl text-[var(--mkt-navy)]">
-              Transformation looks different
-              <br />
-              in every industry.
+            <h2 className="mkt-section-heading text-[var(--mkt-navy)]">
+              Transformation looks different in every industry.
             </h2>
-
-            <p className="mkt-body-lg mt-8 max-w-3xl">
-              Industry context paired with enterprise technology, data, and
-              delivery expertise—focused on the problems that matter most.
-            </p>
           </motion.div>
         </div>
 
-        <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry, index) => (
             <motion.article
               key={industry.title}
-              initial={{ opacity: 0, y: 22 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.55, delay: index * 0.04 }}
+              transition={{ duration: 0.45, delay: index * 0.03 }}
             >
               <Link
                 href={industry.href}
-                className="group relative block min-h-[280px] overflow-hidden md:min-h-[320px]"
+                className="group relative block min-h-[220px] overflow-hidden md:min-h-[260px]"
               >
                 <Image
                   src={industry.image}
@@ -122,30 +117,30 @@ export default function Industries() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/35 to-[var(--mkt-navy)]/10" />
 
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-7">
-                  <span className="ca-eyebrow text-white/45">
+                <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
+                  <span className="mkt-eyebrow text-white/45">
                     {industry.number}
                   </span>
-                  <h3 className="mt-3 text-xl font-medium tracking-[-0.03em] text-white md:text-2xl">
+                  <h3 className="mt-2 text-lg font-medium tracking-[-0.03em] text-white md:text-xl">
                     {industry.title}
                   </h3>
-                  <p className="mt-3 max-w-sm text-sm leading-6 text-white/65 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:text-white/70 md:opacity-100">
+                  <p className="mt-2 max-w-sm text-sm leading-6 text-white/70">
                     {industry.description}
                   </p>
-                  <ArrowUpRight className="mt-4 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <ArrowUpRight className="mt-3 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
               </Link>
             </motion.article>
           ))}
         </div>
 
-        <div className="mt-10 flex justify-end">
+        <div className="mt-8 flex justify-end">
           <Link href="/industries" className="ca-link">
             Explore All Industries
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

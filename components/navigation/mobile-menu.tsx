@@ -66,18 +66,18 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <>
                 <button
                   type="button"
-                  onClick={() => setLevel("industries")}
-                  className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
-                >
-                  Industries
-                  <ChevronRight className="h-5 w-5 opacity-50" />
-                </button>
-                <button
-                  type="button"
                   onClick={() => setLevel("capabilities")}
                   className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
                 >
                   What We Do
+                  <ChevronRight className="h-5 w-5 opacity-50" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLevel("industries")}
+                  className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
+                >
+                  Industries
                   <ChevronRight className="h-5 w-5 opacity-50" />
                 </button>
                 {navLinks.map((item) => (

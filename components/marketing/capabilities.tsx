@@ -58,7 +58,7 @@ const capabilities = [
       "Provide the program leadership, functional expertise, technical delivery, testing, and operational support needed to keep transformation moving.",
     href: "/capabilities/managed-delivery",
     image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Managed delivery and program leadership",
   },
 ];
@@ -78,18 +78,17 @@ export default function Capabilities() {
             <SectionLabel tone="light">Capabilities</SectionLabel>
           </div>
           <div className="lg:col-span-8">
-            <EditorialHeading className="max-w-4xl !text-white">
+            <EditorialHeading className="max-w-3xl !text-white">
               From strategy to execution, we transform what matters.
             </EditorialHeading>
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/65">
-              Enterprise strategy, Oracle platforms, AI and data, digital
-              engineering, and managed delivery—brought together to move complex
-              programs forward.
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/60">
+              Strategy, Oracle, AI and data, digital engineering, and managed
+              delivery—together.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-12">
+        <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-12 lg:gap-10">
           <div className="border-t border-white/12 lg:col-span-7">
             {capabilities.map((capability, index) => {
               const isActive = index === activeIndex;
@@ -100,7 +99,7 @@ export default function Capabilities() {
                   onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
                   className={cn(
-                    "group relative flex items-center justify-between gap-6 border-b border-white/12 py-7 transition-colors duration-300 md:py-8",
+                    "group relative flex items-center justify-between gap-6 border-b border-white/12 py-5 transition-colors duration-300 md:py-6",
                     isActive && "bg-white/[0.04]",
                   )}
                 >
@@ -153,7 +152,7 @@ export default function Capabilities() {
 
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-28">
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#0c2035]">
+              <div className="relative aspect-[4/5] max-h-[420px] overflow-hidden bg-[#0c2035]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={active.number}

@@ -70,22 +70,22 @@ export default function SiteHeader() {
                 aria-label="Primary navigation"
               >
                 <Link
-                  href="/industries"
-                  data-open={openMenu === "industries"}
-                  className="ca-nav-link items-center gap-1 text-[0.95rem]"
-                  onMouseEnter={() => setOpenMenu("industries")}
-                >
-                  Industries
-                  <ChevronDown className="h-3 w-3 opacity-70" />
-                </Link>
-
-                <Link
                   href="/capabilities"
                   data-open={openMenu === "capabilities"}
                   className="ca-nav-link items-center gap-1 text-[0.95rem]"
                   onMouseEnter={() => setOpenMenu("capabilities")}
                 >
                   What We Do
+                  <ChevronDown className="h-3 w-3 opacity-70" />
+                </Link>
+
+                <Link
+                  href="/industries"
+                  data-open={openMenu === "industries"}
+                  className="ca-nav-link items-center gap-1 text-[0.95rem]"
+                  onMouseEnter={() => setOpenMenu("industries")}
+                >
+                  Industries
                   <ChevronDown className="h-3 w-3 opacity-70" />
                 </Link>
 

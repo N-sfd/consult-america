@@ -78,23 +78,14 @@ export const capabilityGroups = [
 export const navLinks = [
   { href: "/projects", label: "Work" },
   { href: "/insights", label: "Insights" },
-  { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },
 ];
 
-export const heroTags = [
-  { label: "Oracle", href: "/oracle" },
-  { label: "Cloud", href: "/capabilities" },
-  { label: "AI", href: "/ai-data" },
-  { label: "Data", href: "/ai-data" },
-  { label: "Enterprise", href: "/capabilities" },
-];
-
 export const heroStats = [
-  { value: "17+", label: "Years" },
-  { value: "Oracle", label: "Cloud Platforms" },
-  { value: "AI + Data", label: "Practice" },
-  { value: "Public Sector", label: "Focus" },
+  { value: "17+", label: "Years", detail: "Enterprise experience" },
+  { value: "E2E", label: "Delivery", detail: "Strategy → Production" },
+  { value: "Oracle + AI", label: "Capability", detail: "Enterprise platforms" },
+  { value: "Public + Private", label: "Environments", detail: "Complex delivery" },
 ];
 
 export const trustMarks = [

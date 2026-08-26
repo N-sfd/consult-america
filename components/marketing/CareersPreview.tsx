@@ -33,7 +33,7 @@ export default function CareersPreview({
           Join teams solving complex enterprise challenges across Oracle, AI,
           data, and transformation delivery.
         </p>
-        <div className="relative mt-10 min-h-[280px] flex-1 overflow-hidden lg:min-h-[360px]">
+        <div className="relative mt-8 min-h-[220px] flex-1 overflow-hidden lg:min-h-[280px]">
           <Image
             src={imageSrc}
             alt={imageAlt}

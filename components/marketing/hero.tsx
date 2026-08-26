@@ -6,26 +6,24 @@ import { motion } from "framer-motion";
 
 import EditorialHeading from "@/components/marketing/EditorialHeading";
 import MediaPanel from "@/components/marketing/MediaPanel";
-import MetricStrip from "@/components/marketing/MetricStrip";
 import SectionLabel from "@/components/marketing/SectionLabel";
 import { useContactPanel } from "@/components/providers/contact-provider";
-import { heroStats } from "@/lib/site-data";
 
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=80";
+  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80";
 
 export default function Hero() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="mkt-hero-bg relative overflow-hidden pb-14 pt-10 lg:min-h-[min(92vh,48rem)] lg:pb-16 lg:pt-14">
-      <div className="mkt-shell relative z-10">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10 xl:gap-14">
+    <section className="mkt-hero-bg relative overflow-hidden py-10 lg:min-h-[680px] lg:py-12 xl:min-h-[760px] xl:py-14">
+      <div className="mkt-shell relative z-10 flex h-full flex-col justify-center">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-6 xl:col-span-5">
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
+              transition={{ duration: 0.5 }}
             >
               <SectionLabel tone="blue">
                 The Enterprise Transformation Partner
@@ -33,36 +31,36 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="mt-7"
+              transition={{ duration: 0.6, delay: 0.08 }}
+              className="mt-5"
             >
               <EditorialHeading
                 as="h1"
                 size="hero"
                 reveal={false}
-                className="max-w-[12ch] text-[var(--mkt-navy)]"
+                className="text-[var(--mkt-navy)]"
               >
                 Technology that moves business forward.
               </EditorialHeading>
             </motion.div>
 
             <motion.p
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.22 }}
-              className="mkt-body-lg mt-8 max-w-md"
+              transition={{ duration: 0.55, delay: 0.18 }}
+              className="mkt-body-lg mt-6"
             >
-              Enterprise cloud, Oracle, AI and transformation—from roadmap to
-              production.
+              Oracle, AI, data, and enterprise transformation from strategy
+              through production.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.32 }}
-              className="mt-10 flex flex-wrap items-center gap-5"
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="mt-8 flex flex-wrap items-center gap-4"
             >
               <button
                 type="button"
@@ -80,36 +78,21 @@ export default function Hero() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.18 }}
+            transition={{ duration: 0.7, delay: 0.12 }}
             className="lg:col-span-6 xl:col-span-7"
           >
             <MediaPanel
               src={HERO_IMAGE}
-              alt="Enterprise technology and consulting environment"
+              alt="Enterprise technology environment"
               priority
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="aspect-[4/3] w-full shadow-[0_24px_80px_rgba(16,42,67,0.12)] lg:aspect-[5/4] xl:min-h-[30rem]"
+              className="aspect-[16/11] w-full shadow-[0_20px_60px_rgba(16,42,67,0.1)] lg:aspect-[5/4] lg:max-h-[480px]"
               overlay="none"
             />
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="mt-14 lg:mt-16"
-        >
-          <MetricStrip
-            tone="dark"
-            items={heroStats.map((stat) => ({
-              value: stat.value,
-              label: stat.label,
-            }))}
-          />
-        </motion.div>
       </div>
     </section>
   );

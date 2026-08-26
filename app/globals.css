@@ -41,7 +41,7 @@
   --ca-green-bright: #1fa36f;
   --ca-amber: #c77a16;
   --ca-gold: #c77a16;
-  --ca-max-width: 1440px;
+  --ca-max-width: 1360px;
   --ca-gutter: clamp(1.5rem, 5vw, 6rem);
   --ca-section-y: clamp(4rem, 7vw, 6rem);
   --ca-insight-reading: 760px;
