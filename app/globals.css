@@ -1,23 +1,31 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "../styles/marketing.css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --ca-black: #05070d;
-  --ca-navy: #05070d;
+  /* Brand — derived from ConsultAmerica logo (blue / green / amber) */
+  --ca-black: #07111f;
+  --ca-navy: #0a1a32;
   --ca-white: #ffffff;
-  --ca-off-white: #f4f4f4;
+  --ca-off-white: #f3f5f8;
   --ca-ink: #ffffff;
+  --ca-ink-dark: #07111f;
   --ca-text: rgba(255, 255, 255, 0.78);
   --ca-muted: rgba(255, 255, 255, 0.55);
   --ca-dim: rgba(255, 255, 255, 0.4);
   --ca-line: rgba(255, 255, 255, 0.14);
-  --ca-blue: #3b82f6;
-  --ca-blue-hover: #2563eb;
-  --ca-electric: #3b82f6;
-  --ca-surface: #111111;
+  --ca-blue: #1f6fe0;
+  --ca-blue-hover: #1557b8;
+  --ca-blue-soft: #6eb0ff;
+  --ca-electric: #1f6fe0;
+  --ca-green: #2f9e4f;
+  --ca-green-bright: #5fcf6a;
+  --ca-amber: #e87820;
+  --ca-gold: #f0b429;
+  --ca-surface: #0d1829;
   --ca-border: rgba(255, 255, 255, 0.14);
   --ca-border-light: rgba(255, 255, 255, 0.1);
   --ca-error: #f04438;
@@ -29,8 +37,8 @@
   --ca-insight-section-y: clamp(5.5rem, 10vw, 9rem);
   --ca-app-max: 1440px;
   --ca-app-sidebar: 260px;
-  --ca-app-bg: #f4f6f8;
-  --ca-app-sidebar-bg: #071a2f;
+  --ca-app-bg: #f3f5f8;
+  --ca-app-sidebar-bg: #0a1a32;
   --ca-app-ink: #0b1220;
   --ca-space-1: 0.5rem;
   --ca-space-2: 0.75rem;
@@ -40,25 +48,37 @@
   --ca-radius-md: 8px;
   --ca-radius-lg: 12px;
   --header-offset: 7.25rem;
+  --ca-brand-gradient: linear-gradient(
+    125deg,
+    #1f6fe0 0%,
+    #2f9e4f 52%,
+    #e87820 100%
+  );
+  --ca-brand-gradient-soft: linear-gradient(
+    125deg,
+    rgba(31, 111, 224, 0.92) 0%,
+    rgba(47, 158, 79, 0.9) 55%,
+    rgba(232, 120, 32, 0.88) 100%
+  );
 
   --background: var(--ca-black);
   --foreground: var(--ca-white);
-  --card: #0a0a0a;
+  --card: #0a1322;
   --card-foreground: var(--ca-white);
-  --popover: #0a0a0a;
+  --popover: #0a1322;
   --popover-foreground: var(--ca-white);
   --primary: var(--ca-blue);
   --primary-foreground: var(--ca-white);
-  --secondary: #111111;
+  --secondary: #111a2b;
   --secondary-foreground: var(--ca-white);
-  --muted: #111111;
+  --muted: #111a2b;
   --muted-foreground: var(--ca-muted);
-  --accent: #161616;
+  --accent: #152238;
   --accent-foreground: var(--ca-white);
   --destructive: var(--ca-error);
   --border: var(--ca-line);
   --input: var(--ca-line);
-  --ring: var(--ca-white);
+  --ring: var(--ca-blue-soft);
   --radius: 0;
 }
 
@@ -66,6 +86,10 @@
   --color-ca-navy: var(--ca-navy);
   --color-ca-blue: var(--ca-blue);
   --color-ca-blue-hover: var(--ca-blue-hover);
+  --color-ca-blue-soft: var(--ca-blue-soft);
+  --color-ca-green: var(--ca-green);
+  --color-ca-amber: var(--ca-amber);
+  --color-ca-gold: var(--ca-gold);
   --color-ca-white: var(--ca-white);
   --color-ca-off-white: var(--ca-off-white);
   --color-ca-surface: var(--ca-surface);
@@ -207,7 +231,7 @@ body {
 
 .ca-link:hover {
   gap: 0.75rem;
-  color: #93c5fd;
+  color: var(--ca-blue-soft);
 }
 
 .ca-button-primary {
@@ -217,21 +241,25 @@ body {
   gap: 0.5em;
   min-height: 3rem;
   padding: 0.85em 1.45em;
-  border: 1px solid var(--ca-blue);
+  border: 1px solid transparent;
   border-radius: 2px;
-  background: var(--ca-blue);
+  background: var(--ca-brand-gradient);
+  background-size: 140% 140%;
+  background-position: 0% 50%;
   color: var(--ca-white);
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
   cursor: pointer;
   box-shadow: none;
-  transition: background 220ms ease, border-color 220ms ease, gap 220ms ease;
+  transition:
+    background-position 280ms ease,
+    gap 220ms ease,
+    opacity 220ms ease;
 }
 
 .ca-button-primary:hover {
-  background: var(--ca-blue-hover);
-  border-color: var(--ca-blue-hover);
+  background-position: 100% 50%;
   color: var(--ca-white);
   gap: 0.7em;
 }
@@ -246,7 +274,7 @@ body {
   border: 1px solid var(--ca-white);
   border-radius: 2px;
   background: var(--ca-white);
-  color: #071a2f;
+  color: var(--ca-ink-dark);
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
@@ -256,7 +284,7 @@ body {
 
 .ca-button-light:hover {
   background: #e8eef5;
-  color: #071a2f;
+  color: var(--ca-ink-dark);
 }
 
 .ca-button-dark {

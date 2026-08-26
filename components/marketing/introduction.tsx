@@ -1,108 +1,109 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-import Container from "@/components/layout/container";
-import Section from "@/components/layout/section";
-import SectionLabel from "@/components/shared/section-label";
+import EditorialHeading from "@/components/marketing/EditorialHeading";
+import MediaPanel from "@/components/marketing/MediaPanel";
+import SectionLabel from "@/components/marketing/SectionLabel";
 
-const pillars = [
-  {
-    number: "01",
-    title: "Strategy",
-    description:
-      "Align technology investments with business priorities and transformation goals.",
-  },
-  {
-    number: "02",
-    title: "Technology",
-    description:
-      "Design and modernize enterprise platforms across Oracle, cloud, data and AI.",
-  },
-  {
-    number: "03",
-    title: "Execution",
-    description:
-      "Move programs from roadmap through implementation, adoption and production.",
-  },
-];
+const PRIMARY_IMAGE =
+  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80";
+const SECONDARY_IMAGE =
+  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80";
+
+const flow = ["Strategy", "Technology", "Execution"];
 
 export default function Introduction() {
   return (
-    <Section id="who-we-are" className="bg-[#0a0c12]">
-      <Container>
-        <div className="grid items-stretch gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="flex flex-col lg:col-span-5">
-            <SectionLabel light>WHO WE ARE</SectionLabel>
-
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.7 }}
-              className="mt-8 flex flex-1 flex-col"
-            >
-              <h2 className="ca-h2 max-w-xl">
-                We work where business, technology and transformation come
-                together.
-              </h2>
-
-              <p className="ca-body-lg mt-8 max-w-md">
-                ConsultAmerica helps organizations modernize enterprise
-                platforms, transform business processes, and build intelligent
-                digital capabilities.
-              </p>
-
-              <p className="ca-body mt-5 max-w-md">
-                We bring together strategy, Oracle expertise, cloud, data, AI,
-                digital engineering, and execution-focused delivery to move
-                complex initiatives from planning into production.
-              </p>
-
-              <Link href="/about" className="ca-link mt-10 w-fit">
-                About ConsultAmerica
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </motion.div>
+    <section id="who-we-are" className="mkt-section bg-[var(--mkt-ink)] text-white">
+      <div className="mkt-shell">
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <SectionLabel tone="light">Who We Are</SectionLabel>
           </div>
+          <div className="lg:col-span-8 lg:pt-2">
+            <EditorialHeading className="max-w-3xl text-white">
+              We work where business, technology and transformation come
+              together.
+            </EditorialHeading>
+          </div>
+        </div>
 
+        <div className="mt-14 grid items-start gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative min-h-[420px] overflow-hidden lg:col-span-7 lg:min-h-[560px]"
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80"
-              alt="Teams collaborating in a modern technology environment"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 58vw"
+            <MediaPanel
+              src={PRIMARY_IMAGE}
+              alt="Consulting team collaborating on enterprise delivery"
+              className="aspect-[4/5] w-full lg:min-h-[520px]"
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              overlay="dark"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0c12]/70 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 grid border-t border-white/15 bg-black/50 backdrop-blur-sm md:grid-cols-3">
-              {pillars.map((pillar) => (
-                <div
-                  key={pillar.title}
-                  className="border-b border-white/10 p-5 last:border-b-0 md:border-b-0 md:border-r md:border-white/10 md:last:border-r-0"
-                >
-                  <p className="ca-eyebrow text-white/40">{pillar.number}</p>
-                  <h3 className="mt-3 text-lg font-medium tracking-[-0.02em]">
-                    {pillar.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-white/55">
-                    {pillar.description}
-                  </p>
+          </motion.div>
+
+          <div className="flex flex-col lg:col-span-7 lg:pt-10">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.65 }}
+              className="mkt-body-lg max-w-xl text-white/70"
+            >
+              We combine strategy, Oracle, AI, data and engineering to move
+              complex initiatives from planning into production.
+            </motion.p>
+
+            <p className="mkt-body mt-6 max-w-lg text-white/50">
+              ConsultAmerica helps organizations modernize enterprise platforms,
+              transform business processes, and build intelligent digital
+              capabilities—with senior practitioners close to the work.
+            </p>
+
+            <Link href="/about" className="ca-link mt-8 w-fit">
+              About ConsultAmerica
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+
+            <div className="mt-14 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/12 pt-8">
+              {flow.map((item, index) => (
+                <div key={item} className="flex items-center gap-5">
+                  <span className="text-sm font-medium tracking-[-0.01em] text-white/80">
+                    {item}
+                  </span>
+                  {index < flow.length - 1 ? (
+                    <span aria-hidden="true" className="text-white/25">
+                      →
+                    </span>
+                  ) : null}
                 </div>
               ))}
             </div>
-          </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.65, delay: 0.08 }}
+              className="mt-10 self-end lg:mt-14 lg:w-[72%]"
+            >
+              <MediaPanel
+                src={SECONDARY_IMAGE}
+                alt="Technology and data engineering environment"
+                className="aspect-[16/10] w-full"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                overlay="navy"
+              />
+            </motion.div>
+          </div>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

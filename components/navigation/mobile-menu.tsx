@@ -5,6 +5,7 @@ import { ArrowUpRight, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
+import BrandLogo from "@/components/brand/brand-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import {
   capabilityGroups,
@@ -46,16 +47,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] bg-black xl:hidden"
+          className="fixed inset-0 z-[60] bg-[var(--ca-black)] xl:hidden"
         >
           <div className="flex h-20 items-center justify-between px-5">
-            <Link
-              href="/"
-              onClick={handleClose}
-              className="tracking-[0.08em]"
-            >
-              CONSULTAMERICA
-            </Link>
+            <BrandLogo onNavigate={handleClose} />
             <button
               type="button"
               onClick={handleClose}

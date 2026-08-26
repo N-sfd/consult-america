@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: "ConsultAmerica | The Enterprise Transformation Partner",
   description:
     "ConsultAmerica is the enterprise transformation partner for Oracle, cloud, AI, data, and digital engineering.",
+  icons: {
+    icon: "/brand/logo.jpg",
+    apple: "/brand/logo.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -18,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-black text-white antialiased">
+      <body className="bg-[var(--ca-black)] text-white antialiased">
         <ContactProvider>
           {children}
           <ContactPanel />

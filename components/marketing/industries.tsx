@@ -16,8 +16,8 @@ const industries = [
       "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery.",
     href: "/industries/government-public-sector",
     image:
-      "https://images.unsplash.com/photo-1523285367489-d38aec03f3d3?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Civic infrastructure and public architecture",
+      "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Legislative chamber interior",
   },
   {
     number: "02",

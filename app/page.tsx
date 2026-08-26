@@ -4,6 +4,7 @@ import AiDataFeature from "@/components/marketing/ai-data-feature";
 import Capabilities from "@/components/marketing/capabilities";
 import CareersFeature from "@/components/marketing/careers-feature";
 import FeaturedWork from "@/components/marketing/featured-work";
+import GrowthCta from "@/components/marketing/growth-cta";
 import Hero from "@/components/marketing/hero";
 import Industries from "@/components/marketing/industries";
 import InsightsPreview from "@/components/marketing/insights-preview";
@@ -47,7 +48,8 @@ export default function Home() {
         <CareersFeature />
         {/* 11 Insights — editorial cards */}
         <InsightsPreview />
-        {/* 12 CTA — footer closing statement */}
+        {/* 12 CTA — bold closing statement */}
+        <GrowthCta />
       </main>
       <SiteFooter />
     </>

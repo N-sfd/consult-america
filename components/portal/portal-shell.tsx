@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import BrandLogo from "@/components/brand/brand-logo";
 import type { PortalSession } from "@/lib/self-service/session";
 import { cn } from "@/lib/utils";
 
@@ -73,9 +74,7 @@ export default function PortalShell({
       <div className="flex min-h-screen flex-col lg:flex-row">
         <aside className="ca-app-sidebar border-b border-black/10 text-white lg:shrink-0 lg:border-b-0 lg:border-r lg:w-[var(--ca-app-sidebar)]">
           <div className="px-4 py-5">
-            <Link href="/" className="text-[0.7rem] font-semibold tracking-[0.14em]">
-              CONSULTAMERICA
-            </Link>
+            <BrandLogo href="/" markClassName="!h-7 !w-7" />
             <p className="mt-3 text-xs text-white/55">{portalLabel} Portal</p>
             <p className="mt-0.5 text-sm font-medium">{session.displayName}</p>
           </div>

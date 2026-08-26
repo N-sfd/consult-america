@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
+import BrandLogo from "@/components/brand/brand-logo";
 import { Grid, Shell } from "@/components/layout/grid";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { capabilityGroups, navLinks } from "@/lib/site-data";
@@ -17,8 +18,11 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t border-white/10 bg-[#05070d] text-white">
-      <div className="border-b border-white/10 bg-[var(--ca-blue)]">
+    <footer className="border-t border-white/10 bg-[var(--ca-black)] text-white">
+      <div
+        className="border-b border-white/10"
+        style={{ background: "var(--ca-brand-gradient-soft)" }}
+      >
         <Shell className="py-16 lg:py-24">
           <p className="max-w-4xl text-4xl font-medium leading-[1.05] tracking-[-0.045em] text-white md:text-6xl lg:text-7xl">
             Ready to move from plan to production?
@@ -26,7 +30,7 @@ export function SiteFooter() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="mt-10 inline-flex min-h-12 items-center gap-2 bg-white px-6 text-sm font-medium text-[#05070d] transition-opacity hover:opacity-90"
+            className="mt-10 inline-flex min-h-12 items-center gap-2 bg-white px-6 text-sm font-medium text-[var(--ca-ink-dark)] transition-opacity hover:opacity-90"
           >
             Start a conversation
           </button>
@@ -36,7 +40,8 @@ export function SiteFooter() {
       <Shell className="py-16 lg:py-20">
         <Grid>
           <div className="col-span-12 lg:col-span-6">
-            <p className="text-2xl font-medium tracking-[-0.03em] text-white md:text-3xl">
+            <BrandLogo />
+            <p className="mt-8 text-2xl font-medium tracking-[-0.03em] text-white md:text-3xl">
               Enterprise technology.
               <br />
               Delivered to production.
@@ -76,7 +81,7 @@ export function SiteFooter() {
                   <li key={service.label}>
                     <Link
                       href={service.href}
-                      className="text-sm text-white/50 transition-colors hover:text-[#93c5fd]"
+                      className="text-sm text-white/50 transition-colors hover:text-[var(--ca-blue-soft)]"
                     >
                       {service.label}
                     </Link>
@@ -90,18 +95,22 @@ export function SiteFooter() {
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>ConsultAmerica © {new Date().getFullYear()} All rights reserved</p>
           <nav className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="/industries" className="hover:text-[#93c5fd]">
+            <Link href="/industries" className="hover:text-[var(--ca-blue-soft)]">
               Industries
             </Link>
             {navLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-[#93c5fd]">
+              <Link
+                key={item.href}
+                href={item.href}
+                className="hover:text-[var(--ca-blue-soft)]"
+              >
                 {item.label}
               </Link>
             ))}
-            <Link href="/jobs" className="hover:text-[#93c5fd]">
+            <Link href="/jobs" className="hover:text-[var(--ca-blue-soft)]">
               Open Roles
             </Link>
-            <Link href="/contact" className="hover:text-[#93c5fd]">
+            <Link href="/contact" className="hover:text-[var(--ca-blue-soft)]">
               Contact
             </Link>
           </nav>

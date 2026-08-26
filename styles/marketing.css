@@ -1,0 +1,131 @@
+/* ConsultAmerica Marketing V2 — presentation foundation */
+
+:root {
+  --mkt-max: 1440px;
+  --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem); /* 20–24px mobile */
+  --mkt-section-y: clamp(5rem, 8vw, 7.5rem); /* ~80–120px stepping to desktop */
+  --mkt-hero: clamp(4rem, 7vw, 7.25rem); /* 64–116px */
+  --mkt-h2: clamp(2.625rem, 4vw, 4.25rem); /* 42–68px */
+  --mkt-body-lg: clamp(1.25rem, 1.1vw + 0.9rem, 1.5rem); /* 20–24px */
+  --mkt-body: clamp(1rem, 0.3vw + 0.9rem, 1.125rem); /* 16–18px */
+  --mkt-ink: #07111f;
+  --mkt-navy: #0a1a32;
+  --mkt-white: #ffffff;
+  --mkt-off: #f3f5f8;
+  --mkt-blue: #1f6fe0;
+  --mkt-blue-soft: #6eb0ff;
+  --mkt-green: #2f9e4f;
+  --mkt-amber: #e87820;
+  --mkt-gold: #f0b429;
+  --mkt-brand-gradient: linear-gradient(
+    125deg,
+    #1f6fe0 0%,
+    #2f9e4f 52%,
+    #e87820 100%
+  );
+}
+
+@media (min-width: 768px) {
+  :root {
+    --mkt-gutter: 2.5rem; /* 40px tablet */
+    --mkt-section-y: clamp(6.5rem, 10vw, 9rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --mkt-gutter: clamp(4.5rem, 5vw, 6rem); /* 72–96px desktop */
+    --mkt-section-y: clamp(7.5rem, 9vw, 11.25rem); /* 120–180px */
+  }
+}
+
+.mkt-shell {
+  width: 100%;
+  max-width: var(--mkt-max);
+  margin-inline: auto;
+  padding-inline: var(--mkt-gutter);
+}
+
+.mkt-section {
+  padding-block: var(--mkt-section-y);
+}
+
+.mkt-hero-heading {
+  font-size: var(--mkt-hero);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.mkt-section-heading {
+  font-size: var(--mkt-h2);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+.mkt-body-lg {
+  font-size: var(--mkt-body-lg);
+  line-height: 1.55;
+}
+
+.mkt-body {
+  font-size: var(--mkt-body);
+  line-height: 1.6;
+}
+
+.mkt-eyebrow {
+  font-size: 0.72rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mkt-rule {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.mkt-rule-dark {
+  border-color: rgba(5, 7, 13, 0.12);
+}
+
+@keyframes mkt-grid-drift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 48px 24px, 24px 48px;
+  }
+}
+
+.mkt-grid-drift {
+  animation: mkt-grid-drift 28s linear infinite;
+}
+
+.mkt-media-scale {
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .mkt-media-scale,
+.mkt-media-hover:hover .mkt-media-scale {
+  transform: scale(1.03);
+}
+
+.mkt-cta-arrow {
+  transition: transform 220ms ease;
+}
+
+.group\/cta:hover .mkt-cta-arrow {
+  transform: translateX(3px);
+}
+
+.mkt-brand-mark {
+  background: var(--mkt-brand-gradient);
+}
+
+.mkt-accent-bar {
+  height: 2px;
+  width: 100%;
+  background: var(--mkt-brand-gradient);
+}

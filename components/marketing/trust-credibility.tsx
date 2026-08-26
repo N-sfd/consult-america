@@ -1,102 +1,113 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 
-import { Grid, Shell } from "@/components/layout/grid";
+import EditorialHeading from "@/components/marketing/EditorialHeading";
+import MediaPanel from "@/components/marketing/MediaPanel";
+import SectionLabel from "@/components/marketing/SectionLabel";
 import { trustMarks } from "@/lib/site-data";
 
 const TRUST_IMAGE =
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=75";
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80";
 
-const deliveryStats = [
-  { value: "17", suffix: "+", label: "Years", tag: "Strategy" },
-  { value: "E2E", suffix: "", label: "Delivery", tag: "Technology" },
-  { value: "5", suffix: "", label: "Practices", tag: "Execution" },
+const stats = [
+  {
+    value: "17+",
+    label: "Years",
+    detail: "Enterprise delivery experience",
+  },
+  {
+    value: "E2E",
+    label: "Strategy → Production",
+    detail: "From roadmap through go-live",
+  },
+  {
+    value: "5",
+    label: "Core practices",
+    detail: "Enterprise delivery focus",
+  },
 ];
 
 export default function TrustCredibility() {
   return (
     <section
       id="trust"
-      className="border-y border-white/10 bg-[#05070d] py-16 lg:py-20"
+      className="mkt-section border-y border-black/8 bg-white text-[var(--mkt-ink)]"
     >
-      <Shell>
-        <Grid>
-          <div className="col-span-12 lg:col-span-4">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[#93c5fd]">
-              Trusted Delivery
-            </p>
-          </div>
-          <div className="col-span-12 lg:col-span-8">
-            <h2 className="ca-h2 max-w-3xl">
-              Enterprise transformation requires more than technology.
-            </h2>
-            <p className="ca-body mt-4 max-w-2xl">
-              ConsultAmerica combines enterprise experience, technology depth,
-              and execution-focused delivery—so initiatives move from plan to
-              production.
-            </p>
-          </div>
-        </Grid>
+      <div className="mkt-shell">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-5">
+            <SectionLabel tone="dark">Trust & Credibility</SectionLabel>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7 }}
-          className="relative mt-12 aspect-[16/8] w-full overflow-hidden rounded-lg border border-white/10 lg:aspect-[21/8]"
-        >
-          <Image
-            src={TRUST_IMAGE}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 1200px, 100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#05070d]/60 via-transparent to-transparent" />
-        </motion.div>
+            <div className="mt-8">
+              <EditorialHeading className="max-w-md text-[var(--mkt-ink)]">
+                Trusted where transformation gets complicated.
+              </EditorialHeading>
+            </div>
 
-        <div className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10">
-          {deliveryStats.map((stat, index) => (
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: index * 0.06 }}
-              className="bg-[#05070d] p-5 lg:p-7"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+              className="mt-14 space-y-10 border-t border-black/10 pt-10"
             >
-              <p className="text-3xl font-semibold tracking-tight text-white lg:text-4xl">
-                {stat.value}
-                <span className="text-[0.55em] text-[#3b82f6]">
-                  {stat.suffix}
-                </span>
-              </p>
-              <p className="mt-1 text-xs text-white/45">{stat.label}</p>
-              <p className="mt-4 border-t border-white/10 pt-3 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-white/55">
-                {stat.tag}
-              </p>
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="grid grid-cols-[auto_1fr] items-start gap-6"
+                >
+                  <p className="min-w-[4.5rem] text-4xl font-medium tracking-[-0.04em] text-[var(--mkt-ink)] md:text-5xl">
+                    {stat.value}
+                  </p>
+                  <div>
+                    <p className="text-base font-medium tracking-[-0.02em] text-[var(--mkt-ink)]">
+                      {stat.label}
+                    </p>
+                    <p className="mkt-body mt-1 text-black/55">{stat.detail}</p>
+                  </div>
+                </div>
+              ))}
             </motion.div>
-          ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-7"
+          >
+            <MediaPanel
+              src={TRUST_IMAGE}
+              alt="Delivery team collaborating in an enterprise workplace"
+              className="min-h-[360px] w-full lg:min-h-[560px]"
+              sizes="(max-width: 1024px) 100vw, 58vw"
+              overlay="dark"
+            />
+          </motion.div>
         </div>
 
-        <div className="mt-14">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-white/40">
+        <div className="mt-16 border-t border-black/10 pt-8">
+          <p className="mkt-eyebrow text-black/40">
             Platforms & sectors we deliver in
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-white/10 pt-6">
+          <div className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-4">
             {trustMarks.map((mark) => (
               <span
                 key={mark}
-                className="text-lg font-medium tracking-[-0.02em] text-white/35 grayscale transition-colors duration-200 hover:text-white/70"
+                className="text-sm font-medium tracking-[0.04em] text-black/45"
               >
                 {mark}
               </span>
             ))}
           </div>
+          <p className="mt-4 max-w-xl text-xs leading-5 text-black/35">
+            Named marks reflect platforms and sectors in our delivery practice.
+            Client logos appear only with explicit permission.
+          </p>
         </div>
-      </Shell>
+      </div>
     </section>
   );
 }
