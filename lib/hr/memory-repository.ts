@@ -1,3 +1,4 @@
+import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 import { nextEmployeeNumber } from "@/lib/hr/employee-number";
 import type {
   CreateAssignmentInput,
@@ -5,6 +6,7 @@ import type {
   CreatePersonInput,
   HrRepository,
 } from "@/lib/hr/repository";
+import { createSupabaseHrRepository } from "@/lib/hr/supabase-repository";
 import { seedEmployees, seedPeople, seedAssignments } from "@/data/hr/seed";
 import {
   DEFAULT_ONBOARDING_TASKS,
@@ -350,4 +352,6 @@ export function createMemoryHrRepository(): HrRepository {
   };
 }
 
-export const hrRepository = createMemoryHrRepository();
+export const hrRepository: HrRepository = isSupabaseConfigured()
+  ? createSupabaseHrRepository()
+  : createMemoryHrRepository();

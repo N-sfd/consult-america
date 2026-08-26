@@ -1,6 +1,8 @@
 import type {
   Application,
+  ApplicationStatus,
   Candidate,
+  Interview,
   JobPosting,
   JobRequisition,
   Offer,
@@ -17,6 +19,20 @@ export type RecruitingRepository = {
   getOfferByApplicationId(
     applicationId: string,
   ): Promise<Offer | undefined>;
+};
+
+/**
+ * Aggregate reads for the Workforce App dashboard. Kept separate from the
+ * core `RecruitingRepository` interface (which mirrors the public jobs
+ * flow) so callers that only need postings/requisitions aren't forced to
+ * implement dashboard-specific aggregation.
+ */
+export type RecruitingDashboardReads = {
+  countCandidates(): Promise<number>;
+  countOpenRequisitions(): Promise<number>;
+  getApplicationPipelineCounts(): Promise<Record<ApplicationStatus, number>>;
+  listUpcomingInterviews(limit: number): Promise<Interview[]>;
+  listRecentHires(limit: number): Promise<Application[]>;
 };
 
 /**

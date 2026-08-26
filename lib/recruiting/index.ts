@@ -1,14 +1,22 @@
+import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 import {
   seedPostings,
   seedRequisitions,
 } from "@/data/recruiting/seed";
-import type { RecruitingRepository } from "@/lib/recruiting/repository";
+import { createSupabaseRecruitingRepository } from "@/lib/recruiting/supabase-repository";
 import type {
-  Application,
-  Candidate,
-  JobPosting,
-  JobRequisition,
-  Offer,
+  RecruitingDashboardReads,
+  RecruitingRepository,
+} from "@/lib/recruiting/repository";
+import {
+  APPLICATION_PIPELINE,
+  APPLICATION_TERMINAL_STATUSES,
+  type Application,
+  type ApplicationStatus,
+  type Candidate,
+  type JobPosting,
+  type JobRequisition,
+  type Offer,
 } from "@/types/recruiting";
 
 /**
@@ -63,7 +71,43 @@ export function createMemoryRecruitingRepository(): RecruitingRepository {
   };
 }
 
-export const recruitingRepository = createMemoryRecruitingRepository();
+/**
+ * The memory repository's candidates/applications/offers are always empty
+ * (Phase 2A never wrote to them), so these dashboard-read implementations
+ * are exact, not approximations — they just mirror that emptiness in the
+ * shape the Workforce App dashboard expects.
+ */
+function withEmptyDashboardReads(
+  repository: RecruitingRepository,
+): RecruitingRepository & RecruitingDashboardReads {
+  return {
+    ...repository,
+    async countCandidates() {
+      return 0;
+    },
+    async countOpenRequisitions() {
+      return 0;
+    },
+    async getApplicationPipelineCounts() {
+      return Object.fromEntries(
+        [...APPLICATION_PIPELINE, ...APPLICATION_TERMINAL_STATUSES].map(
+          (status) => [status, 0],
+        ),
+      ) as Record<ApplicationStatus, number>;
+    },
+    async listUpcomingInterviews() {
+      return [];
+    },
+    async listRecentHires() {
+      return [];
+    },
+  };
+}
+
+export const recruitingRepository: RecruitingRepository &
+  RecruitingDashboardReads = isSupabaseConfigured()
+  ? createSupabaseRecruitingRepository()
+  : withEmptyDashboardReads(createMemoryRecruitingRepository());
 
 export async function listPublishedPostings(): Promise<JobPosting[]> {
   return recruitingRepository.listPublishedPostings();
