@@ -25,17 +25,29 @@ export default function Home() {
     <>
       <SiteHeader />
       <main>
+        {/* 01 Cinematic hero — dark + full visual */}
         <Hero />
+        {/* 02 Trust — white + logos + photography */}
         <TrustCredibility />
+        {/* 03 Who we are — editorial split */}
         <Introduction />
+        {/* 04 Capabilities — dark interactive service index */}
         <Capabilities />
+        {/* 05 Oracle — deep navy + product visualization */}
         <OracleFeature />
-        <AiDataFeature />
-        <Industries />
+        {/* 06 Featured work — full-bleed case studies */}
         <FeaturedWork />
+        {/* 07 AI + Data — light + Data Agent UI */}
+        <AiDataFeature />
+        {/* 08 Industries — image mosaic */}
+        <Industries />
+        {/* 09 Why ConsultAmerica — metrics + differentiators */}
         <WhyConsultAmerica />
+        {/* 10 Careers — people photography + live jobs */}
         <CareersFeature />
+        {/* 11 Insights — editorial cards */}
         <InsightsPreview />
+        {/* 12 CTA — footer closing statement */}
       </main>
       <SiteFooter />
     </>

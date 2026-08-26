@@ -51,44 +51,48 @@ export default function OracleFeature() {
       />
 
       <Container className="relative z-10">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-4">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-5">
             <SectionLabel light>ORACLE</SectionLabel>
+
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.7 }}
+              className="mt-8"
+            >
+              <h2 className="ca-h2 max-w-xl text-white">
+                Transform the enterprise.
+                <br />
+                Not just the software.
+              </h2>
+
+              <p className="mt-8 max-w-md text-lg leading-8 text-white/70">
+                Modernize finance, procurement, supply chain, HR, projects,
+                planning, integration, and analytics through connected Oracle
+                enterprise platforms.
+              </p>
+
+              <Link href="/oracle" className="ca-button-light mt-10">
+                Explore Oracle
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-8"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-7"
           >
-            <h2 className="ca-h2 max-w-5xl text-white">
-              Transform the enterprise.
-              <br />
-              Not just the software.
-            </h2>
-
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-white/70">
-              We help organizations modernize finance, procurement, supply
-              chain, HR, projects, planning, integration, and analytics through
-              connected Oracle enterprise platforms.
-            </p>
-
-            <p className="mt-5 max-w-3xl text-base leading-7 text-white/55">
-              Our approach brings together business process transformation,
-              solution architecture, implementation, integration, testing,
-              adoption, and production support.
-            </p>
-
-            <Link href="/oracle" className="ca-button-light mt-10">
-              Explore Oracle
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            <OracleProductVisual />
           </motion.div>
         </div>
 
-        <div className="mt-20 border-t border-white/10">
+        <div className="mt-16 border-t border-white/10">
           <div className="grid md:grid-cols-2 lg:grid-cols-4">
             {oracleAreas.map((area, index) => (
               <motion.div
@@ -139,5 +143,106 @@ export default function OracleFeature() {
         </motion.div>
       </Container>
     </Section>
+  );
+}
+
+function OracleProductVisual() {
+  return (
+    <div className="overflow-hidden border border-white/12 bg-[#05070d]/60 shadow-[0_40px_100px_rgba(0,0,0,0.35)] backdrop-blur-sm">
+      <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+        <div className="flex items-center gap-3">
+          <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-white/70">
+            ORACLE FUSION
+          </span>
+          <span className="rounded bg-[var(--ca-blue)]/20 px-2 py-0.5 text-[0.6rem] text-[#93c5fd]">
+            Cloud ERP
+          </span>
+        </div>
+        <span className="text-[0.65rem] text-white/35">Finance · Period close</span>
+      </div>
+
+      <div className="grid gap-px bg-white/10 md:grid-cols-3">
+        {[
+          { label: "Open invoices", value: "1,284", delta: "−12% MoM" },
+          { label: "PO cycle time", value: "4.2d", delta: "−1.6d" },
+          { label: "Close status", value: "Day 3", delta: "On track" },
+        ].map((card) => (
+          <div key={card.label} className="bg-[#071A2F] p-5">
+            <p className="text-[0.65rem] uppercase tracking-[0.12em] text-white/40">
+              {card.label}
+            </p>
+            <p className="mt-3 text-3xl font-medium tracking-[-0.03em] text-white">
+              {card.value}
+            </p>
+            <p className="mt-2 text-xs text-[var(--ca-blue)]">{card.delta}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid md:grid-cols-[1.2fr_0.8fr]">
+        <div className="border-b border-white/10 p-5 md:border-b-0 md:border-r">
+          <p className="text-[0.65rem] uppercase tracking-[0.12em] text-white/40">
+            Process flow
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            {["Requisition", "Approval", "PO", "Receipt", "Invoice", "Payment"].map(
+              (step, i, arr) => (
+                <div key={step} className="flex items-center gap-2">
+                  <span className="border border-white/15 bg-white/5 px-2.5 py-1.5 text-xs text-white/75">
+                    {step}
+                  </span>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/25">→</span>
+                  )}
+                </div>
+              ),
+            )}
+          </div>
+          <div className="mt-6 space-y-2">
+            {[
+              { name: "AP matching exceptions", pct: 18 },
+              { name: "Auto-approved POs", pct: 74 },
+              { name: "Period close tasks done", pct: 86 },
+            ].map((row) => (
+              <div key={row.name}>
+                <div className="mb-1 flex justify-between text-xs text-white/50">
+                  <span>{row.name}</span>
+                  <span>{row.pct}%</span>
+                </div>
+                <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full bg-[var(--ca-blue)]"
+                    style={{ width: `${row.pct}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-5">
+          <p className="text-[0.65rem] uppercase tracking-[0.12em] text-white/40">
+            Connected modules
+          </p>
+          <ul className="mt-4 space-y-3">
+            {[
+              "Financials",
+              "Procurement",
+              "Projects",
+              "OIC Integration",
+              "OTBI Analytics",
+            ].map((mod) => (
+              <li
+                key={mod}
+                className="flex items-center justify-between border-b border-white/8 pb-2 text-sm last:border-0"
+              >
+                <span className="text-white/75">{mod}</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }

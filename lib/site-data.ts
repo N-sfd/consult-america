@@ -90,6 +90,13 @@ export const heroTags = [
   { label: "Enterprise", href: "/capabilities" },
 ];
 
+export const heroStats = [
+  { value: "17+", label: "Years" },
+  { value: "Oracle", label: "Cloud Platforms" },
+  { value: "AI + Data", label: "Practice" },
+  { value: "Public Sector", label: "Focus" },
+];
+
 export const trustMarks = [
   "Oracle Cloud",
   "Fusion",

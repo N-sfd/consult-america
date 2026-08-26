@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -7,149 +8,88 @@ import { motion } from "framer-motion";
 import Container from "@/components/layout/container";
 import Section from "@/components/layout/section";
 
-const projects = [
+const caseStudies = [
   {
     number: "01",
-    category: "Oracle Cloud Transformation",
-    title: "Modernizing enterprise operations with Oracle Fusion Cloud",
+    category: "Public Sector",
+    title: "Modernizing finance and procurement for complex government operations.",
     description:
-      "Supporting the transformation of complex finance, procurement, projects, integration, testing, and reporting processes through a connected Oracle Cloud environment.",
-    capabilities: [
-      "Oracle Fusion Cloud",
-      "Finance",
-      "Procurement",
-      "Projects",
-      "Integration",
-    ],
-    href: "/projects/oracle-cloud-transformation",
-    featured: true,
+      "End-to-end Oracle Cloud Financials and Procurement—approvals, reporting, and integration across agencies.",
+    capabilities: ["Oracle Cloud", "Finance", "Procurement", "Integration"],
+    href: "/projects/public-sector-finance-procurement",
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Modern civic and government architecture",
+    tone: "dark" as const,
+    visual: "civic" as const,
   },
   {
     number: "02",
-    category: "Public Sector",
-    title: "Transforming finance and procurement operations",
+    category: "AI + Data",
+    title: "Turning complex contracts into structured intelligence.",
     description:
-      "Modernizing public-sector financial management, purchasing, project accounting, approvals, reporting, and end-to-end business processes.",
-    capabilities: ["Financials", "Procurement", "PPM", "Testing"],
-    href: "/projects/public-sector-finance-procurement",
-    featured: false,
+      "Document intelligence, enterprise search, and AI extraction that make contracts searchable and actionable.",
+    capabilities: [
+      "Document Intelligence",
+      "Enterprise Search",
+      "AI Extraction",
+    ],
+    href: "/projects/ai-document-intelligence",
+    image: null,
+    imageAlt: "Data Agent interface",
+    tone: "light" as const,
+    visual: "data-agent" as const,
   },
   {
     number: "03",
-    category: "AI & Automation",
-    title: "Turning complex documents into structured enterprise intelligence",
+    category: "Integration",
+    title: "Connecting enterprise systems without slowing the business.",
     description:
-      "Using AI-assisted extraction, classification, search, and workflow automation to turn contracts and technical documents into actionable information.",
-    capabilities: [
-      "Document Intelligence",
-      "Enterprise AI",
-      "Search",
-      "Automation",
-    ],
-    href: "/projects/ai-document-intelligence",
-    featured: false,
-  },
-];
-
-const additionalWork = [
-  {
-    title: "Integration Modernization",
-    description:
-      "Connecting enterprise applications, APIs, data flows, and business processes across cloud and legacy environments.",
+      "API-led integration across Oracle, legacy platforms, and cloud services—reliable data flows at production scale.",
+    capabilities: ["OIC", "APIs", "Event Flows", "Monitoring"],
     href: "/projects/integration-modernization",
-  },
-  {
-    title: "Data & Analytics",
-    description:
-      "Improving enterprise reporting, decision support, dashboards, data integration, and operational visibility.",
-    href: "/projects/data-analytics",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Enterprise data center and network infrastructure",
+    tone: "dark" as const,
+    visual: "integration" as const,
   },
 ];
-
-type Project = (typeof projects)[number];
 
 export default function FeaturedWork() {
-  const featuredProject = projects.find((project) => project.featured);
-  const supportingProjects = projects.filter((project) => !project.featured);
-
   return (
-    <Section id="work" className="bg-[var(--ca-off-white)] text-[#05070d]">
+    <Section id="work" className="bg-[#05070d] text-white">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">
           <div className="lg:col-span-4">
-            <span className="ca-eyebrow text-black/45">FEATURED WORK</span>
+            <span className="ca-eyebrow text-white/45">SELECTED WORK</span>
           </div>
-
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65 }}
             className="lg:col-span-8"
           >
-            <h2 className="ca-h2 max-w-5xl text-[#05070d]">
-              Transformation is measured
+            <h2 className="ca-h2 max-w-4xl text-white">
+              Outcomes you can see—
               <br />
-              by what goes live.
+              not just slides.
             </h2>
-
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-black/65">
-              Selected examples of how ConsultAmerica brings strategy,
-              enterprise platforms, data, AI, and delivery together to solve
-              complex operational and technology challenges.
-            </p>
           </motion.div>
         </div>
+      </Container>
 
-        {featuredProject && <FeaturedProject project={featuredProject} />}
+      <div className="mt-16 space-y-0">
+        {caseStudies.map((study, index) => (
+          <CaseStudyPanel key={study.number} study={study} index={index} />
+        ))}
+      </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-2">
-          {supportingProjects.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              index={index}
-            />
-          ))}
-        </div>
-
-        <div className="mt-20 border-t border-black/10 pt-10">
-          <div className="grid gap-8 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <p className="ca-eyebrow text-black/40">OTHER SELECTED WORK</p>
-            </div>
-
-            <div className="lg:col-span-8">
-              {additionalWork.map((project) => (
-                <Link
-                  key={project.title}
-                  href={project.href}
-                  className="group grid gap-4 border-b border-black/10 py-7 md:grid-cols-12 md:items-center"
-                >
-                  <div className="md:col-span-4">
-                    <h3 className="text-xl font-medium tracking-[-0.03em] text-[#05070d] transition-colors duration-200 group-hover:text-[var(--ca-blue)]">
-                      {project.title}
-                    </h3>
-                  </div>
-
-                  <div className="md:col-span-7">
-                    <p className="text-sm leading-6 text-black/50">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div className="flex md:col-span-1 md:justify-end">
-                    <ArrowUpRight className="h-5 w-5 text-[#05070d] transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 flex justify-end">
+      <Container>
+        <div className="mt-12 flex justify-end border-t border-white/10 pt-10">
           <Link href="/projects" className="ca-link">
-            View All Projects
+            View all projects
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
@@ -158,130 +98,203 @@ export default function FeaturedWork() {
   );
 }
 
-function FeaturedProject({ project }: { project: Project }) {
+type Study = (typeof caseStudies)[number];
+
+function CaseStudyPanel({ study, index }: { study: Study; index: number }) {
+  const isLight = study.tone === "light";
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.65 }}
-      className="mt-20"
+      transition={{ duration: 0.7, delay: index * 0.05 }}
+      className={`border-t ${isLight ? "border-black/10 bg-[var(--ca-off-white)] text-[#05070d]" : "border-white/10 bg-[#05070d] text-white"}`}
     >
-      <Link
-        href={project.href}
-        className="group grid overflow-hidden bg-[#071A2F] text-white lg:grid-cols-12"
-      >
-        <div className="flex min-h-[420px] flex-col justify-between p-8 md:p-12 lg:col-span-7 lg:min-h-[560px]">
-          <div className="flex items-center justify-between gap-4">
-            <span className="ca-eyebrow text-white/45">{project.number}</span>
-            <span className="ca-eyebrow text-right text-white/45">
-              {project.category}
-            </span>
+      <Container>
+        <div className="grid gap-10 py-14 lg:grid-cols-12 lg:gap-12 lg:py-20">
+          <div className="flex flex-col justify-between lg:col-span-5">
+            <div>
+              <p
+                className={`ca-eyebrow ${isLight ? "text-black/40" : "text-white/40"}`}
+              >
+                {study.number} / {study.category.toUpperCase()}
+              </p>
+
+              <h3 className="mt-8 max-w-xl text-3xl font-medium leading-[1.08] tracking-[-0.04em] md:text-4xl lg:text-[2.75rem]">
+                {study.title}
+              </h3>
+
+              <p
+                className={`mt-6 max-w-md text-base leading-7 ${isLight ? "text-black/55" : "text-white/60"}`}
+              >
+                {study.description}
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
+                {study.capabilities.map((capability) => (
+                  <span
+                    key={capability}
+                    className={`text-sm ${isLight ? "text-black/45" : "text-white/45"}`}
+                  >
+                    {capability}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <Link
+              href={study.href}
+              className={`ca-link mt-12 w-fit ${isLight ? "" : ""}`}
+            >
+              Explore the work
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div>
-            <h3 className="max-w-3xl text-3xl font-medium leading-[1.05] tracking-[-0.04em] md:text-5xl">
-              {project.title}
-            </h3>
+          <div className="relative min-h-[320px] overflow-hidden lg:col-span-7 lg:min-h-[480px]">
+            {study.visual === "data-agent" ? (
+              <DataAgentVisual />
+            ) : study.visual === "integration" ? (
+              <IntegrationVisual image={study.image!} alt={study.imageAlt} />
+            ) : (
+              <CivicVisual image={study.image!} alt={study.imageAlt} />
+            )}
+          </div>
+        </div>
+      </Container>
+    </motion.article>
+  );
+}
 
-            <p className="mt-6 max-w-2xl text-base leading-7 text-white/65">
-              {project.description}
+function CivicVisual({ image, alt }: { image: string; alt: string }) {
+  return (
+    <div className="relative h-full min-h-[320px] w-full lg:min-h-[480px]">
+      <Image
+        src={image}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 58vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#05070d]/70 via-transparent to-transparent" />
+      <div className="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3 md:bottom-8 md:left-8">
+        {["Finance live", "Procurement live", "Reporting live"].map((label) => (
+          <div
+            key={label}
+            className="border border-white/20 bg-black/40 px-3 py-3 backdrop-blur-sm"
+          >
+            <p className="text-[0.65rem] uppercase tracking-[0.14em] text-white/50">
+              Outcome
             </p>
+            <p className="mt-1 text-sm font-medium text-white">{label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-            <div className="mt-8 flex flex-wrap gap-2">
-              {project.capabilities.map((capability) => (
-                <span
-                  key={capability}
-                  className="rounded-full border border-white/15 px-3 py-1.5 text-xs text-white/65"
-                >
-                  {capability}
-                </span>
+function IntegrationVisual({ image, alt }: { image: string; alt: string }) {
+  return (
+    <div className="relative h-full min-h-[320px] w-full lg:min-h-[480px]">
+      <Image
+        src={image}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 58vw"
+      />
+      <div className="absolute inset-0 bg-[#071A2F]/55" />
+      <div className="absolute inset-0 flex items-center justify-center p-6 md:p-10">
+        <div className="w-full max-w-lg border border-white/15 bg-[#05070d]/80 p-6 backdrop-blur-md md:p-8">
+          <p className="ca-eyebrow text-white/40">INTEGRATION FABRIC</p>
+          <div className="mt-6 space-y-3">
+            {[
+              { from: "Oracle Fusion", to: "Legacy ERP", status: "Synced" },
+              { from: "HCM Events", to: "Workforce Hub", status: "Live" },
+              { from: "Procurement", to: "Supplier Portal", status: "Live" },
+            ].map((row) => (
+              <div
+                key={row.from}
+                className="flex items-center justify-between gap-3 border-b border-white/10 pb-3 text-sm last:border-0"
+              >
+                <span className="text-white/70">{row.from}</span>
+                <span className="text-white/30">→</span>
+                <span className="text-white/70">{row.to}</span>
+                <span className="text-[var(--ca-blue)]">{row.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DataAgentVisual() {
+  return (
+    <div className="relative flex h-full min-h-[320px] items-center justify-center bg-[#e8eaee] p-4 md:p-8 lg:min-h-[480px]">
+      <div className="w-full max-w-xl overflow-hidden border border-black/10 bg-white shadow-[0_24px_80px_rgba(5,7,13,0.12)]">
+        <div className="flex items-center justify-between border-b border-black/8 bg-[#071A2F] px-4 py-3 text-white">
+          <div className="flex items-center gap-3">
+            <span className="h-2 w-2 rounded-full bg-[var(--ca-blue)]" />
+            <span className="text-xs font-medium tracking-[0.08em]">
+              DATA AGENT
+            </span>
+          </div>
+          <span className="text-[0.65rem] text-white/45">CONTRACT INTELLIGENCE</span>
+        </div>
+
+        <div className="grid md:grid-cols-[1fr_1.1fr]">
+          <div className="border-b border-black/8 p-4 md:border-b-0 md:border-r">
+            <p className="text-[0.65rem] uppercase tracking-[0.14em] text-black/40">
+              Source document
+            </p>
+            <p className="mt-2 text-sm font-medium text-[#05070d]">
+              MSA-2024-8841.pdf
+            </p>
+            <div className="mt-4 space-y-2">
+              {[72, 88, 54, 96, 40, 68].map((width, i) => (
+                <div
+                  key={i}
+                  className="h-2 rounded-sm bg-black/[0.06]"
+                  style={{ width: `${width}%` }}
+                />
               ))}
             </div>
           </div>
+
+          <div className="p-4">
+            <p className="text-[0.65rem] uppercase tracking-[0.14em] text-black/40">
+              Extracted fields
+            </p>
+            <ul className="mt-3 space-y-3">
+              {[
+                { label: "Counterparty", value: "State Health Agency" },
+                { label: "Term", value: "36 months" },
+                { label: "Renewal", value: "Auto · 90-day notice" },
+                { label: "Risk clause", value: "Liability cap §12.4" },
+              ].map((row) => (
+                <li
+                  key={row.label}
+                  className="flex items-baseline justify-between gap-3 border-b border-black/6 pb-2 text-sm"
+                >
+                  <span className="text-black/45">{row.label}</span>
+                  <span className="text-right font-medium text-[#05070d]">
+                    {row.value}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex items-center gap-2">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/8">
+                <div className="h-full w-[92%] bg-[var(--ca-blue)]" />
+              </div>
+              <span className="text-[0.7rem] text-black/45">92% confidence</span>
+            </div>
+          </div>
         </div>
-
-        <div className="relative min-h-[320px] overflow-hidden bg-white/5 lg:col-span-5 lg:min-h-full">
-          <ProjectVisual />
-
-          <ArrowUpRight className="absolute bottom-8 right-8 h-7 w-7 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </div>
-      </Link>
-    </motion.article>
-  );
-}
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{
-        duration: 0.55,
-        delay: index * 0.06,
-      }}
-    >
-      <Link
-        href={project.href}
-        className="group flex h-full flex-col border-t border-black/15 py-8"
-      >
-        <div className="flex items-center justify-between">
-          <span className="ca-eyebrow text-black/40">{project.number}</span>
-
-          <ArrowUpRight className="h-5 w-5 text-[#05070d] transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </div>
-
-        <p className="mt-8 text-sm font-medium text-[var(--ca-blue)]">
-          {project.category}
-        </p>
-
-        <h3 className="mt-4 max-w-xl text-3xl font-medium leading-tight tracking-[-0.04em] text-[#05070d] transition-colors duration-200 group-hover:text-[var(--ca-blue)]">
-          {project.title}
-        </h3>
-
-        <p className="mt-5 max-w-xl text-base leading-7 text-black/55">
-          {project.description}
-        </p>
-
-        <div className="mt-auto flex flex-wrap gap-2 pt-8">
-          {project.capabilities.map((capability) => (
-            <span
-              key={capability}
-              className="rounded-full border border-black/15 px-3 py-1.5 text-xs text-black/50"
-            >
-              {capability}
-            </span>
-          ))}
-        </div>
-      </Link>
-    </motion.article>
-  );
-}
-
-function ProjectVisual() {
-  return (
-    <div aria-hidden="true" className="absolute inset-0">
-      <div className="absolute left-[15%] top-[12%] h-[76%] w-px bg-white/10" />
-      <div className="absolute left-[40%] top-[12%] h-[76%] w-px bg-white/10" />
-      <div className="absolute left-[65%] top-[12%] h-[76%] w-px bg-white/10" />
-
-      <div className="absolute left-[10%] top-[24%] h-px w-[78%] bg-white/10" />
-      <div className="absolute left-[10%] top-[50%] h-px w-[78%] bg-white/10" />
-      <div className="absolute left-[10%] top-[76%] h-px w-[78%] bg-white/10" />
-
-      <div className="absolute left-[18%] top-[28%] h-3 w-3 rounded-full bg-[var(--ca-blue)]" />
-      <div className="absolute left-[43%] top-[54%] h-3 w-3 rounded-full bg-white/70" />
-      <div className="absolute left-[68%] top-[32%] h-3 w-3 rounded-full bg-[var(--ca-blue)]" />
-
-      <div className="absolute bottom-8 left-8">
-        <p className="ca-eyebrow text-white/35">ENTERPRISE TRANSFORMATION</p>
       </div>
     </div>
   );

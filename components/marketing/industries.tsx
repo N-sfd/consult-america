@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -12,43 +13,61 @@ const industries = [
     number: "01",
     title: "Government & Public Sector",
     description:
-      "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery while supporting transparency, control, and accountability.",
+      "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery.",
     href: "/industries/government-public-sector",
+    image:
+      "https://images.unsplash.com/photo-1523285367489-d38aec03f3d3?auto=format&fit=crop&w=1000&q=80",
+    imageAlt: "Civic infrastructure and public architecture",
   },
   {
     number: "02",
     title: "Financial Services",
     description:
-      "Connect finance, data, automation, reporting, and enterprise platforms to improve control, visibility, and operational efficiency.",
+      "Connect finance, data, automation, reporting, and enterprise platforms for operational control.",
     href: "/industries/financial-services",
+    image:
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1000&q=80",
+    imageAlt: "Financial operations and market data environment",
   },
   {
     number: "03",
     title: "Healthcare",
     description:
-      "Modernize enterprise operations, workforce processes, financial systems, data flows, and digital experiences across complex healthcare environments.",
+      "Modernize enterprise operations, workforce, financial systems, and clinical technology environments.",
     href: "/industries/healthcare",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
+    imageAlt: "Clinical technology and healthcare systems",
   },
   {
     number: "04",
     title: "Retail & Consumer",
     description:
-      "Connect finance, supply chain, planning, customer operations, analytics, and digital platforms to support faster and more responsive decisions.",
+      "Connect finance, supply chain, planning, analytics, and digital platforms for faster decisions.",
     href: "/industries/retail-consumer",
+    image:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80",
+    imageAlt: "Retail operations and fulfillment environment",
   },
   {
     number: "05",
     title: "Transportation",
     description:
-      "Improve asset, project, procurement, workforce, financial, and operational processes across transportation and infrastructure organizations.",
+      "Improve asset, project, procurement, workforce, and operational processes across infrastructure.",
     href: "/industries/transportation",
+    image:
+      "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1000&q=80",
+    imageAlt: "Transportation infrastructure and operations",
   },
   {
     number: "06",
     title: "Technology",
     description:
-      "Help technology organizations scale enterprise platforms, automate operations, integrate systems, and turn data into better products and decisions.",
+      "Scale enterprise platforms, automate operations, integrate systems, and turn data into decisions.",
     href: "/industries/technology",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80",
+    imageAlt: "Engineering and data technology environment",
   },
 ];
 
@@ -75,50 +94,45 @@ export default function Industries() {
             </h2>
 
             <p className="mt-8 max-w-3xl text-lg leading-8 text-black/65">
-              Our work combines industry context with enterprise technology,
-              data, and delivery expertise to solve the problems that matter
-              most.
+              Industry context paired with enterprise technology, data, and
+              delivery expertise—focused on the problems that matter most.
             </p>
           </motion.div>
         </div>
 
-        <div className="mt-20 border-t border-black/10">
+        <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry, index) => (
             <motion.article
               key={industry.title}
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.55,
-                delay: index * 0.04,
-              }}
-              className="group border-b border-black/10"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.55, delay: index * 0.04 }}
             >
               <Link
                 href={industry.href}
-                className="grid gap-4 py-10 transition-colors duration-300 hover:bg-[var(--ca-off-white)] md:grid-cols-12 md:items-start md:gap-6 md:px-6 lg:py-14"
+                className="group relative block min-h-[280px] overflow-hidden md:min-h-[320px]"
               >
-                <div className="md:col-span-2">
-                  <span className="ca-eyebrow text-black/40">
+                <Image
+                  src={industry.image}
+                  alt={industry.imageAlt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#05070d]/90 via-[#05070d]/35 to-[#05070d]/10" />
+
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-7">
+                  <span className="ca-eyebrow text-white/45">
                     {industry.number}
                   </span>
-                </div>
-
-                <div className="md:col-span-4">
-                  <h3 className="text-2xl font-medium tracking-[-0.035em] text-[#05070d] transition-colors duration-200 group-hover:text-[var(--ca-blue)] md:text-3xl">
+                  <h3 className="mt-3 text-xl font-medium tracking-[-0.03em] text-white md:text-2xl">
                     {industry.title}
                   </h3>
-                </div>
-
-                <div className="md:col-span-5">
-                  <p className="max-w-xl text-base leading-7 text-black/55">
+                  <p className="mt-3 max-w-sm text-sm leading-6 text-white/65 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:text-white/70 md:opacity-100">
                     {industry.description}
                   </p>
-                </div>
-
-                <div className="flex md:col-span-1 md:justify-end">
-                  <ArrowUpRight className="h-5 w-5 text-[#05070d] transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <ArrowUpRight className="mt-4 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
               </Link>
             </motion.article>

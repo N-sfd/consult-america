@@ -96,13 +96,20 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <ArrowUpRight className="h-5 w-5 opacity-40" />
                   </Link>
                 ))}
+                <Link
+                  href="/login"
+                  onClick={handleClose}
+                  className="mt-8 block border-b border-white/15 py-5 text-xl text-white/70"
+                >
+                  Employee Login
+                </Link>
                 <button
                   type="button"
                   onClick={() => {
                     handleClose();
                     setContactOpen(true);
                   }}
-                  className="ca-button-primary mt-10"
+                  className="ca-button-primary mt-8"
                 >
                   Contact
                   <ArrowUpRight className="h-4 w-4" />

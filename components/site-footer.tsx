@@ -18,19 +18,29 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-white/10 bg-[#05070d] text-white">
+      <div className="border-b border-white/10 bg-[var(--ca-blue)]">
+        <Shell className="py-16 lg:py-24">
+          <p className="max-w-4xl text-4xl font-medium leading-[1.05] tracking-[-0.045em] text-white md:text-6xl lg:text-7xl">
+            Ready to move from plan to production?
+          </p>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="mt-10 inline-flex min-h-12 items-center gap-2 bg-white px-6 text-sm font-medium text-[#05070d] transition-opacity hover:opacity-90"
+          >
+            Start a conversation
+          </button>
+        </Shell>
+      </div>
+
       <Shell className="py-16 lg:py-20">
         <Grid>
           <div className="col-span-12 lg:col-span-6">
-            <p className="ca-h2 max-w-xl">
-              Ready to move from plan to production?
+            <p className="text-2xl font-medium tracking-[-0.03em] text-white md:text-3xl">
+              Enterprise technology.
+              <br />
+              Delivered to production.
             </p>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="ca-button-primary mt-8"
-            >
-              Contact
-            </button>
           </div>
           <form onSubmit={handleSubscribe} className="col-span-12 lg:col-span-5 lg:col-start-8">
             <p className="text-sm font-semibold text-white">Stay informed</p>
