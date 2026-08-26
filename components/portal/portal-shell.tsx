@@ -72,10 +72,12 @@ export default function PortalShell({
   return (
     <div className="ca-app-canvas min-h-screen">
       <div className="flex min-h-screen flex-col lg:flex-row">
-        <aside className="ca-app-sidebar border-b border-black/10 text-white lg:shrink-0 lg:border-b-0 lg:border-r lg:w-[var(--ca-app-sidebar)]">
+        <aside className="ca-app-sidebar border-b border-[var(--ca-app-border)] text-[var(--ca-app-ink)] lg:shrink-0 lg:border-b-0 lg:border-r lg:w-[var(--ca-app-sidebar)]">
           <div className="px-4 py-5">
-            <BrandLogo href="/" markClassName="!h-7 !w-7" />
-            <p className="mt-3 text-xs text-white/55">{portalLabel} Portal</p>
+            <BrandLogo href="/" tone="dark" markClassName="!h-7 !w-7" />
+            <p className="mt-3 text-xs text-[var(--ca-app-muted)]">
+              {portalLabel} Portal
+            </p>
             <p className="mt-0.5 text-sm font-medium">{session.displayName}</p>
           </div>
 
@@ -93,13 +95,13 @@ export default function PortalShell({
                   className={cn(
                     "flex items-center justify-between gap-2 whitespace-nowrap rounded px-3 py-1.5 text-[0.875rem] transition-colors",
                     active
-                      ? "bg-white/10 text-white"
-                      : "text-white/60 hover:bg-white/5 hover:text-white",
+                      ? "bg-[var(--ca-app-selected)] font-medium text-[var(--ca-blue)]"
+                      : "text-[var(--ca-app-muted)] hover:bg-[var(--ca-app-bg)] hover:text-[var(--ca-app-ink)]",
                   )}
                 >
                   <span>{link.label}</span>
                   {isNotifications && unreadCount > 0 && (
-                    <span className="rounded bg-white/15 px-1.5 py-0.5 text-[0.65rem] font-semibold text-white">
+                    <span className="rounded bg-[var(--ca-blue)] px-1.5 py-0.5 text-[0.65rem] font-semibold text-white">
                       {unreadCount}
                     </span>
                   )}
@@ -108,26 +110,35 @@ export default function PortalShell({
             })}
 
             {mode === "employee" && (
-              <span className="whitespace-nowrap rounded px-3 py-1.5 text-[0.875rem] text-white/30">
+              <span className="whitespace-nowrap rounded px-3 py-1.5 text-[0.875rem] text-[var(--ca-app-muted)]/50">
                 Pay · Coming soon
               </span>
             )}
           </nav>
 
-          <div className="mt-auto hidden border-t border-white/10 px-4 py-3 text-[0.7rem] text-white/40 lg:block">
+          <div className="mt-auto hidden border-t border-[var(--ca-app-border)] px-4 py-3 text-[0.7rem] text-[var(--ca-app-muted)] lg:block">
             <div className="space-y-1">
               {mode !== "employee" && (
-                <Link href="/employee" className="block hover:text-white">
+                <Link
+                  href="/employee"
+                  className="block hover:text-[var(--ca-blue)]"
+                >
                   Switch to Employee demo
                 </Link>
               )}
               {mode !== "manager" && (
-                <Link href="/manager" className="block hover:text-white">
+                <Link
+                  href="/manager"
+                  className="block hover:text-[var(--ca-blue)]"
+                >
                   Switch to Manager demo
                 </Link>
               )}
               {mode !== "hr" && (
-                <Link href="/hr/requests" className="block hover:text-white">
+                <Link
+                  href="/hr/requests"
+                  className="block hover:text-[var(--ca-blue)]"
+                >
                   Switch to HR demo
                 </Link>
               )}

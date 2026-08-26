@@ -47,14 +47,14 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] bg-[var(--ca-black)] xl:hidden"
+          className="fixed inset-0 z-[60] bg-white text-[var(--ca-navy)] xl:hidden"
         >
-          <div className="flex h-20 items-center justify-between px-5">
-            <BrandLogo onNavigate={handleClose} />
+          <div className="flex h-20 items-center justify-between border-b border-[var(--ca-header-border)] px-5">
+            <BrandLogo tone="dark" onNavigate={handleClose} />
             <button
               type="button"
               onClick={handleClose}
-              className="flex h-11 w-11 items-center justify-center"
+              className="flex h-11 w-11 items-center justify-center text-[var(--ca-navy)]"
               aria-label="Close navigation menu"
             >
               <X className="h-6 w-6" />
@@ -67,7 +67,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <button
                   type="button"
                   onClick={() => setLevel("industries")}
-                  className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-3xl"
+                  className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
                 >
                   Industries
                   <ChevronRight className="h-5 w-5 opacity-50" />
@@ -75,7 +75,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <button
                   type="button"
                   onClick={() => setLevel("capabilities")}
-                  className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-3xl"
+                  className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
                 >
                   What We Do
                   <ChevronRight className="h-5 w-5 opacity-50" />
@@ -85,7 +85,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     key={item.href}
                     href={item.href}
                     onClick={handleClose}
-                    className="flex items-center justify-between border-b border-white/15 py-5 text-3xl"
+                    className="flex items-center justify-between border-b border-[var(--ca-border)] py-5 text-3xl text-[var(--ca-navy)]"
                   >
                     {item.label}
                     <ArrowUpRight className="h-5 w-5 opacity-40" />
@@ -94,7 +94,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <Link
                   href="/login"
                   onClick={handleClose}
-                  className="mt-8 block border-b border-white/15 py-5 text-xl text-white/70"
+                  className="mt-8 block border-b border-[var(--ca-border)] py-5 text-xl text-[var(--ca-nav)]"
                 >
                   Employee Login
                 </Link>
@@ -117,7 +117,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <button
                   type="button"
                   onClick={() => setLevel("root")}
-                  className="mb-4 flex items-center gap-3 py-3 text-white/50"
+                  className="mb-4 flex items-center gap-3 py-3 text-[var(--ca-muted)]"
                 >
                   <ChevronRight className="h-4 w-4 rotate-180" />
                   Industries
@@ -127,7 +127,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     key={item.label}
                     href={item.href}
                     onClick={handleClose}
-                    className="block border-b border-white/15 py-5 text-2xl"
+                    className="block border-b border-[var(--ca-border)] py-5 text-2xl text-[var(--ca-navy)]"
                   >
                     {item.label}
                   </Link>
@@ -140,7 +140,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <button
                   type="button"
                   onClick={() => setLevel("root")}
-                  className="mb-4 flex items-center gap-3 py-3 text-white/50"
+                  className="mb-4 flex items-center gap-3 py-3 text-[var(--ca-muted)]"
                 >
                   <ChevronRight className="h-4 w-4 rotate-180" />
                   Capabilities
@@ -150,7 +150,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     key={group.title}
                     type="button"
                     onClick={() => setLevel(group.title)}
-                    className="flex w-full items-center justify-between border-b border-white/15 py-5 text-left text-2xl"
+                    className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-2xl text-[var(--ca-navy)]"
                   >
                     {group.title}
                     <ChevronRight className="h-5 w-5 opacity-50" />
@@ -164,7 +164,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <button
                   type="button"
                   onClick={() => setLevel("capabilities")}
-                  className="mb-4 flex items-center gap-3 py-3 text-white/50"
+                  className="mb-4 flex items-center gap-3 py-3 text-[var(--ca-muted)]"
                 >
                   <ChevronRight className="h-4 w-4 rotate-180" />
                   {activeGroup.title}
@@ -174,7 +174,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     key={service.label}
                     href={service.href}
                     onClick={handleClose}
-                    className="block border-b border-white/15 py-5 text-2xl"
+                    className="block border-b border-[var(--ca-border)] py-5 text-2xl text-[var(--ca-navy)]"
                   >
                     {service.label}
                   </Link>

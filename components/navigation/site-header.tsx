@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import BrandLogo from "@/components/brand/brand-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import MobileMenu from "@/components/navigation/mobile-menu";
 import {
@@ -38,13 +39,13 @@ export default function SiteHeader() {
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50"
+        className="sticky top-0 z-50"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        <div className="bg-[#05070d]">
+        <div className="bg-[var(--ca-navy)]">
           <Link
             href={announcement.href}
-            className="ca-shell flex items-center justify-center gap-3 py-2 text-center text-[0.72rem] tracking-[0.04em] text-white/80 transition-opacity hover:opacity-70 sm:text-[0.8rem]"
+            className="ca-shell flex items-center justify-center gap-3 py-2 text-center text-[0.72rem] tracking-[0.04em] text-white/85 transition-opacity hover:opacity-70 sm:text-[0.8rem]"
           >
             <span>{announcement.text}</span>
             <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
@@ -52,111 +53,110 @@ export default function SiteHeader() {
         </div>
 
         <div
-          className={`border-b transition-colors duration-300 ${
+          className={`border-b transition-[background,border-color,box-shadow] duration-300 ${
             scrolled || openMenu
-              ? "border-white/10 bg-black"
-              : "border-transparent bg-black/20"
+              ? "border-[var(--ca-header-border)] bg-white/92 shadow-[0_8px_30px_rgba(16,42,67,0.06)] backdrop-blur-[18px]"
+              : "border-[var(--ca-header-border)] bg-white"
           }`}
         >
           <div className="ca-shell">
             <div className="ca-grid h-[4.5rem] items-center">
-            <Link
-              href="/"
-              className="col-span-5 text-[0.95rem] font-semibold tracking-[0.08em] sm:col-span-4 sm:text-[1.05rem] xl:col-span-3"
-              aria-label="ConsultAmerica homepage"
-            >
-              CONSULTAMERICA
-            </Link>
+              <div className="col-span-5 sm:col-span-4 xl:col-span-3">
+                <BrandLogo tone="dark" priority />
+              </div>
 
-            <nav
-              className="col-span-6 hidden items-center justify-center gap-7 xl:flex"
-              aria-label="Primary navigation"
-            >
-              <Link
-                href="/industries"
-                data-open={openMenu === "industries"}
-                className="ca-nav-link items-center gap-1 text-[0.95rem]"
-                onMouseEnter={() => setOpenMenu("industries")}
-              >
-                Industries
-                <ChevronDown className="h-3 w-3 opacity-70" />
-              </Link>
-
-              <Link
-                href="/capabilities"
-                data-open={openMenu === "capabilities"}
-                className="ca-nav-link items-center gap-1 text-[0.95rem]"
-                onMouseEnter={() => setOpenMenu("capabilities")}
-              >
-                What We Do
-                <ChevronDown className="h-3 w-3 opacity-70" />
-              </Link>
-
-              {navLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="ca-nav-link text-[0.95rem]"
-                  onMouseEnter={() => setOpenMenu(null)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="col-span-7 ml-auto flex items-center justify-end gap-3 sm:col-span-8 sm:gap-4 xl:col-span-3">
               <nav
-                className="flex items-center gap-3 text-[0.72rem] sm:gap-4 sm:text-[0.85rem] xl:hidden"
-                aria-label="Quick navigation"
+                className="col-span-6 hidden items-center justify-center gap-7 xl:flex"
+                aria-label="Primary navigation"
               >
-                <Link href="/capabilities" className="ca-nav-link whitespace-nowrap">
+                <Link
+                  href="/industries"
+                  data-open={openMenu === "industries"}
+                  className="ca-nav-link items-center gap-1 text-[0.95rem]"
+                  onMouseEnter={() => setOpenMenu("industries")}
+                >
+                  Industries
+                  <ChevronDown className="h-3 w-3 opacity-70" />
+                </Link>
+
+                <Link
+                  href="/capabilities"
+                  data-open={openMenu === "capabilities"}
+                  className="ca-nav-link items-center gap-1 text-[0.95rem]"
+                  onMouseEnter={() => setOpenMenu("capabilities")}
+                >
                   What We Do
+                  <ChevronDown className="h-3 w-3 opacity-70" />
                 </Link>
-                <Link
-                  href="/projects"
-                  className="ca-nav-link hidden whitespace-nowrap min-[420px]:inline-flex"
-                >
-                  Work
-                </Link>
-                <Link
-                  href="/insights"
-                  className="ca-nav-link hidden whitespace-nowrap sm:inline-flex"
-                >
-                  Insights
-                </Link>
+
+                {navLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="ca-nav-link text-[0.95rem]"
+                    onMouseEnter={() => setOpenMenu(null)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </nav>
-              <Link
-                href="/login"
-                className="hidden text-sm text-white/70 transition-opacity hover:opacity-100 xl:inline"
-              >
-                Employee Login
-              </Link>
-              <button
-                type="button"
-                onClick={() => setContactOpen(true)}
-                className="ca-button-primary !min-h-9 !px-3 text-xs sm:!min-h-11 sm:!px-5 sm:text-sm"
-              >
-                Contact
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setMobileOpen(true)}
-                className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 xl:hidden"
-                aria-label="Open navigation menu"
-                aria-expanded={mobileOpen}
-              >
-                <span className="h-px w-5 bg-white" />
-                <span className="h-px w-5 bg-white" />
-              </button>
-            </div>
+
+              <div className="col-span-7 ml-auto flex items-center justify-end gap-3 sm:col-span-8 sm:gap-4 xl:col-span-3">
+                <nav
+                  className="flex items-center gap-3 text-[0.72rem] sm:gap-4 sm:text-[0.85rem] xl:hidden"
+                  aria-label="Quick navigation"
+                >
+                  <Link
+                    href="/capabilities"
+                    className="ca-nav-link whitespace-nowrap"
+                  >
+                    What We Do
+                  </Link>
+                  <Link
+                    href="/projects"
+                    className="ca-nav-link hidden whitespace-nowrap min-[420px]:inline-flex"
+                  >
+                    Work
+                  </Link>
+                  <Link
+                    href="/insights"
+                    className="ca-nav-link hidden whitespace-nowrap sm:inline-flex"
+                  >
+                    Insights
+                  </Link>
+                </nav>
+                <Link
+                  href="/login"
+                  className="hidden text-sm text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)] xl:inline"
+                >
+                  Employee Login
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setContactOpen(true)}
+                  className="ca-button-primary !min-h-9 !px-3 text-xs sm:!min-h-11 sm:!px-5 sm:text-sm"
+                >
+                  Contact
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpen(true)}
+                  className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 xl:hidden"
+                  aria-label="Open navigation menu"
+                  aria-expanded={mobileOpen}
+                >
+                  <span className="h-px w-5 bg-[var(--ca-navy)]" />
+                  <span className="h-px w-5 bg-[var(--ca-navy)]" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {openMenu && (
           <div
-            className="hidden border-t border-white/10 bg-black xl:block"
+            className="hidden border-b border-[var(--ca-header-border)] bg-white xl:block"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >
@@ -167,7 +167,7 @@ export default function SiteHeader() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="ca-nav-link text-lg text-white/75 hover:text-white"
+                      className="text-lg text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)]"
                     >
                       {item.label}
                     </Link>
@@ -178,7 +178,10 @@ export default function SiteHeader() {
                 <div className="grid grid-cols-5 gap-8">
                   {capabilityGroups.map((group) => (
                     <div key={group.title}>
-                      <Link href={group.href} className="text-sm">
+                      <Link
+                        href={group.href}
+                        className="text-sm font-medium text-[var(--ca-navy)]"
+                      >
                         {group.title}
                       </Link>
                       <div className="mt-4 space-y-2">
@@ -186,7 +189,7 @@ export default function SiteHeader() {
                           <Link
                             key={service.label}
                             href={service.href}
-                            className="block text-sm text-white/50 transition-colors hover:text-white"
+                            className="block text-sm text-[var(--ca-text-secondary)] transition-colors hover:text-[var(--ca-blue)]"
                           >
                             {service.label}
                           </Link>

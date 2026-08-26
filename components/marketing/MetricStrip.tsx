@@ -23,7 +23,7 @@ export default function MetricStrip({
     <div
       className={cn(
         "grid gap-8 border-t sm:grid-cols-2 lg:grid-cols-4 lg:gap-0",
-        isLight ? "border-white/12" : "border-black/10",
+        isLight ? "border-white/12" : "border-[var(--mkt-border)]",
         className,
       )}
     >
@@ -33,13 +33,13 @@ export default function MetricStrip({
           className={cn(
             "pt-6 lg:px-8 lg:first:pl-0 lg:last:pr-0",
             index > 0 && "lg:border-l",
-            isLight ? "lg:border-white/12" : "lg:border-black/10",
+            isLight ? "lg:border-white/12" : "lg:border-[var(--mkt-border)]",
           )}
         >
           <p
             className={cn(
               "text-3xl font-medium tracking-[-0.04em] md:text-4xl",
-              isLight ? "text-white" : "text-[var(--mkt-ink)]",
+              isLight ? "text-white" : "text-[var(--mkt-navy)]",
             )}
           >
             {item.value}
@@ -47,7 +47,7 @@ export default function MetricStrip({
           <p
             className={cn(
               "mt-2 text-sm font-medium uppercase tracking-[0.12em]",
-              isLight ? "text-white/45" : "text-black/45",
+              isLight ? "text-white/45" : "text-[var(--mkt-muted)]",
             )}
           >
             {item.label}
@@ -56,7 +56,7 @@ export default function MetricStrip({
             <p
               className={cn(
                 "mt-2 max-w-[14rem] text-sm leading-6",
-                isLight ? "text-white/55" : "text-black/55",
+                isLight ? "text-white/55" : "text-[var(--mkt-muted)]",
               )}
             >
               {item.detail}

@@ -22,7 +22,7 @@ export default function InsightsPreview() {
   return (
     <section
       id="insights"
-      className="mkt-section border-t border-black/10 bg-[var(--mkt-off)] text-[var(--mkt-ink)]"
+      className="mkt-section border-t border-[var(--mkt-border)] bg-[var(--mkt-white)]"
     >
       <div className="mkt-shell">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -31,10 +31,10 @@ export default function InsightsPreview() {
           </div>
 
           <div className="lg:col-span-8">
-            <EditorialHeading className="max-w-3xl text-[var(--mkt-ink)]">
+            <EditorialHeading className="max-w-3xl text-[var(--mkt-navy)]">
               Thinking from the work.
             </EditorialHeading>
-            <p className="mkt-body-lg mt-6 max-w-2xl text-black/60">
+            <p className="mkt-body-lg mt-6 max-w-2xl">
               Practical briefings from enterprise programs—focused on what
               actually reaches production.
             </p>
@@ -68,7 +68,7 @@ export default function InsightsPreview() {
           </div>
         </div>
 
-        <div className="mt-12 flex justify-end border-t border-black/10 pt-10">
+        <div className="mt-12 flex justify-end border-t border-[var(--mkt-border)] pt-10">
           <Link href="/insights" className="ca-link">
             View all insights
             <ArrowUpRight className="h-4 w-4" />

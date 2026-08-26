@@ -8,16 +8,16 @@ interface SectionLabelProps {
 
 export default function SectionLabel({
   children,
-  tone = "light",
+  tone = "dark",
   className,
 }: SectionLabelProps) {
   return (
     <span
       className={cn(
         "mkt-eyebrow",
-        tone === "light" && "text-white/55",
-        tone === "dark" && "text-black/45",
-        tone === "blue" && "text-[var(--mkt-blue-soft)]",
+        tone === "light" && "text-white/60",
+        tone === "dark" && "text-[var(--mkt-muted)]",
+        tone === "blue" && "text-[var(--mkt-blue)]",
         className,
       )}
     >

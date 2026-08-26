@@ -1,41 +1,49 @@
-/* ConsultAmerica Marketing V2 — presentation foundation */
+/* ConsultAmerica Marketing V2 — light brand foundation */
 
 :root {
   --mkt-max: 1440px;
-  --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem); /* 20–24px mobile */
-  --mkt-section-y: clamp(5rem, 8vw, 7.5rem); /* ~80–120px stepping to desktop */
-  --mkt-hero: clamp(4rem, 7vw, 7.25rem); /* 64–116px */
-  --mkt-h2: clamp(2.625rem, 4vw, 4.25rem); /* 42–68px */
-  --mkt-body-lg: clamp(1.25rem, 1.1vw + 0.9rem, 1.5rem); /* 20–24px */
-  --mkt-body: clamp(1rem, 0.3vw + 0.9rem, 1.125rem); /* 16–18px */
-  --mkt-ink: #07111f;
-  --mkt-navy: #0a1a32;
+  --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem);
+  --mkt-section-y: clamp(5rem, 8vw, 7.5rem);
+  --mkt-hero: clamp(4rem, 7vw, 7.25rem);
+  --mkt-h2: clamp(2.625rem, 4vw, 4.25rem);
+  --mkt-body-lg: clamp(1.25rem, 1.1vw + 0.9rem, 1.5rem);
+  --mkt-body: clamp(1rem, 0.3vw + 0.9rem, 1.125rem);
+
+  --mkt-navy: #102a43;
+  --mkt-ink: #102a43;
+  --mkt-blue: #2563eb;
+  --mkt-bright: #3b82f6;
+  --mkt-blue-soft: #3b82f6;
+  --mkt-cloud: #eaf3ff;
+  --mkt-ice: #f4f8fc;
+  --mkt-ice-soft: #f7faff;
+  --mkt-warm: #fafaf8;
   --mkt-white: #ffffff;
-  --mkt-off: #f3f5f8;
-  --mkt-blue: #1f6fe0;
-  --mkt-blue-soft: #6eb0ff;
-  --mkt-green: #2f9e4f;
-  --mkt-amber: #e87820;
-  --mkt-gold: #f0b429;
-  --mkt-brand-gradient: linear-gradient(
-    125deg,
-    #1f6fe0 0%,
-    #2f9e4f 52%,
-    #e87820 100%
-  );
+  --mkt-off: #fafaf8;
+  --mkt-careers: #edf5ff;
+  --mkt-text: #122033;
+  --mkt-muted: #526579;
+  --mkt-nav: #243b53;
+  --mkt-border: #dce5ee;
+  --mkt-success: #16865b;
+  --mkt-warning: #c77a16;
+  --mkt-error: #c94141;
+  --mkt-green: #16865b;
+  --mkt-amber: #c77a16;
+  --mkt-gold: #c77a16;
 }
 
 @media (min-width: 768px) {
   :root {
-    --mkt-gutter: 2.5rem; /* 40px tablet */
+    --mkt-gutter: 2.5rem;
     --mkt-section-y: clamp(6.5rem, 10vw, 9rem);
   }
 }
 
 @media (min-width: 1280px) {
   :root {
-    --mkt-gutter: clamp(4.5rem, 5vw, 6rem); /* 72–96px desktop */
-    --mkt-section-y: clamp(7.5rem, 9vw, 11.25rem); /* 120–180px */
+    --mkt-gutter: clamp(4.5rem, 5vw, 6rem);
+    --mkt-section-y: clamp(7.5rem, 9vw, 11.25rem);
   }
 }
 
@@ -55,6 +63,7 @@
   line-height: 0.98;
   letter-spacing: -0.04em;
   font-weight: 500;
+  color: var(--mkt-navy);
 }
 
 .mkt-section-heading {
@@ -62,16 +71,19 @@
   line-height: 1.08;
   letter-spacing: -0.035em;
   font-weight: 500;
+  color: var(--mkt-navy);
 }
 
 .mkt-body-lg {
   font-size: var(--mkt-body-lg);
   line-height: 1.55;
+  color: var(--mkt-muted);
 }
 
 .mkt-body {
   font-size: var(--mkt-body);
   line-height: 1.6;
+  color: var(--mkt-muted);
 }
 
 .mkt-eyebrow {
@@ -83,11 +95,11 @@
 }
 
 .mkt-rule {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 .mkt-rule-dark {
-  border-color: rgba(5, 7, 13, 0.12);
+  border-color: var(--mkt-border);
 }
 
 @keyframes mkt-grid-drift {
@@ -120,12 +132,14 @@
   transform: translateX(3px);
 }
 
-.mkt-brand-mark {
-  background: var(--mkt-brand-gradient);
-}
-
 .mkt-accent-bar {
   height: 2px;
   width: 100%;
-  background: var(--mkt-brand-gradient);
+  background: var(--mkt-blue);
+}
+
+.mkt-hero-bg {
+  background:
+    radial-gradient(circle at 85% 25%, #dbeafe 0%, transparent 38%),
+    #f4f8fc;
 }

@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[var(--ca-black)] text-white antialiased">
+      <body className="bg-[var(--ca-ice)] text-[var(--ca-text-primary)] antialiased">
         <ContactProvider>
           {children}
           <ContactPanel />

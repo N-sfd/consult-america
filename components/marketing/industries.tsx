@@ -73,11 +73,11 @@ const industries = [
 
 export default function Industries() {
   return (
-    <Section id="industries" className="bg-white text-[#05070d]">
+    <Section id="industries" className="bg-[var(--mkt-warm)] text-[var(--mkt-navy)]">
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <span className="ca-eyebrow text-black/45">INDUSTRIES</span>
+            <span className="mkt-eyebrow text-[var(--mkt-muted)]">INDUSTRIES</span>
           </div>
 
           <motion.div
@@ -87,13 +87,13 @@ export default function Industries() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-8"
           >
-            <h2 className="ca-h2 max-w-5xl text-[#05070d]">
+            <h2 className="mkt-section-heading max-w-5xl text-[var(--mkt-navy)]">
               Transformation looks different
               <br />
               in every industry.
             </h2>
 
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-black/65">
+            <p className="mkt-body-lg mt-8 max-w-3xl">
               Industry context paired with enterprise technology, data, and
               delivery expertise—focused on the problems that matter most.
             </p>
@@ -120,7 +120,7 @@ export default function Industries() {
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05070d]/90 via-[#05070d]/35 to-[#05070d]/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/35 to-[var(--mkt-navy)]/10" />
 
                 <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-7">
                   <span className="ca-eyebrow text-white/45">

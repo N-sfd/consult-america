@@ -128,9 +128,9 @@ export default function WorkforceShell({
       </header>
 
       <div className="flex min-h-[calc(100vh-3.5rem)]">
-        <aside className="hidden w-[240px] shrink-0 border-r border-black/8 bg-[var(--ca-app-sidebar-bg)] text-white lg:block">
+        <aside className="hidden w-[240px] shrink-0 border-r border-[var(--ca-app-border)] bg-white text-[var(--ca-app-ink)] lg:block">
           <div className="px-4 py-5">
-            <p className="text-[0.65rem] uppercase tracking-[0.14em] text-white/40">
+            <p className="text-[0.65rem] uppercase tracking-[0.14em] text-[var(--ca-app-muted)]">
               Workforce
             </p>
             <p className="mt-1 text-sm font-medium">{userName}</p>
@@ -152,8 +152,8 @@ export default function WorkforceShell({
                       className={cn(
                         "flex items-center gap-2.5 rounded px-3 py-2 text-sm transition-colors",
                         active
-                          ? "bg-white/10 text-white"
-                          : "text-white/60 hover:bg-white/5 hover:text-white",
+                          ? "bg-[var(--ca-app-selected)] font-medium text-[var(--ca-blue)]"
+                          : "text-[var(--ca-app-muted)] hover:bg-[var(--ca-app-bg)] hover:text-[var(--ca-app-ink)]",
                       )}
                     >
                       {item.icon}
@@ -163,7 +163,9 @@ export default function WorkforceShell({
                     <div
                       className={cn(
                         "flex items-center gap-2.5 px-3 py-2 text-sm",
-                        active ? "text-white" : "text-white/60",
+                        active
+                          ? "font-medium text-[var(--ca-app-ink)]"
+                          : "text-[var(--ca-app-muted)]",
                       )}
                     >
                       {item.icon}
@@ -172,7 +174,7 @@ export default function WorkforceShell({
                   )}
 
                   {item.children && (
-                    <div className="mb-1 ml-4 border-l border-white/10 pl-3">
+                    <div className="mb-1 ml-4 border-l border-[var(--ca-app-border)] pl-3">
                       {item.children.map((child) => {
                         const childActive = pathname.startsWith(child.href);
                         return (
@@ -182,8 +184,8 @@ export default function WorkforceShell({
                             className={cn(
                               "block rounded px-2 py-1.5 text-[0.8125rem] transition-colors",
                               childActive
-                                ? "bg-white/10 text-white"
-                                : "text-white/50 hover:bg-white/5 hover:text-white",
+                                ? "bg-[var(--ca-app-selected)] font-medium text-[var(--ca-blue)]"
+                                : "text-[var(--ca-app-muted)] hover:bg-[var(--ca-app-bg)] hover:text-[var(--ca-app-ink)]",
                             )}
                           >
                             {child.label}
@@ -197,11 +199,11 @@ export default function WorkforceShell({
             })}
           </nav>
 
-          <div className="mt-auto border-t border-white/10 px-4 py-4 text-[0.7rem] text-white/35">
-            <Link href="/" className="block hover:text-white">
+          <div className="mt-auto border-t border-[var(--ca-app-border)] px-4 py-4 text-[0.7rem] text-[var(--ca-app-muted)]">
+            <Link href="/" className="block hover:text-[var(--ca-blue)]">
               Public site
             </Link>
-            <Link href="/login" className="mt-1 block hover:text-white">
+            <Link href="/login" className="mt-1 block hover:text-[var(--ca-blue)]">
               Switch portal
             </Link>
             <p className="mt-3 flex items-center gap-1.5">

@@ -68,18 +68,20 @@ export default function Capabilities() {
   const active = capabilities[activeIndex];
 
   return (
-    <section id="capabilities" className="mkt-section bg-[var(--mkt-ink)] text-white">
+    <section
+      id="capabilities"
+      className="mkt-section bg-[var(--mkt-navy)] text-white"
+    >
       <div className="mkt-shell">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">
             <SectionLabel tone="light">Capabilities</SectionLabel>
           </div>
           <div className="lg:col-span-8">
-            <EditorialHeading className="max-w-4xl text-white">
-              From strategy to execution, we help organizations transform what
-              matters most.
+            <EditorialHeading className="max-w-4xl !text-white">
+              From strategy to execution, we transform what matters.
             </EditorialHeading>
-            <p className="mkt-body-lg mt-8 max-w-2xl text-white/60">
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/65">
               Enterprise strategy, Oracle platforms, AI and data, digital
               engineering, and managed delivery—brought together to move complex
               programs forward.
@@ -99,16 +101,14 @@ export default function Capabilities() {
                   onFocus={() => setActiveIndex(index)}
                   className={cn(
                     "group relative flex items-center justify-between gap-6 border-b border-white/12 py-7 transition-colors duration-300 md:py-8",
-                    isActive && "bg-white/[0.03]",
+                    isActive && "bg-white/[0.04]",
                   )}
                 >
                   <div className="flex min-w-0 items-baseline gap-6 md:gap-10">
                     <span
                       className={cn(
                         "mkt-eyebrow shrink-0",
-                        isActive
-                          ? "text-[var(--mkt-blue-soft)]"
-                          : "text-white/40",
+                        isActive ? "text-[var(--mkt-bright)]" : "text-white/40",
                       )}
                     >
                       {capability.number}
@@ -118,18 +118,13 @@ export default function Capabilities() {
                         className={cn(
                           "text-xl font-medium tracking-[-0.03em] transition-colors duration-200 md:text-2xl lg:text-[1.75rem]",
                           isActive
-                            ? "text-[var(--mkt-blue-soft)]"
-                            : "text-white group-hover:text-[var(--mkt-blue-soft)]",
+                            ? "text-[var(--mkt-bright)]"
+                            : "text-white group-hover:text-[var(--mkt-bright)]",
                         )}
                       >
                         {capability.title}
                       </h3>
-                      <p
-                        className={cn(
-                          "mt-2 max-w-xl text-sm leading-6 text-white/50 transition-opacity duration-300 lg:hidden",
-                          isActive ? "opacity-100" : "opacity-70",
-                        )}
-                      >
+                      <p className="mt-2 max-w-xl text-sm leading-6 text-white/50 lg:hidden">
                         {capability.description}
                       </p>
                     </div>
@@ -139,15 +134,15 @@ export default function Capabilities() {
                     className={cn(
                       "h-5 w-5 shrink-0 transition-all duration-200",
                       isActive
-                        ? "translate-x-1 -translate-y-1 text-[var(--mkt-blue-soft)]"
-                        : "text-white/50 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[var(--mkt-blue-soft)]",
+                        ? "translate-x-1 -translate-y-1 text-[var(--mkt-bright)]"
+                        : "text-white/50 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[var(--mkt-bright)]",
                     )}
                   />
 
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "absolute bottom-0 left-0 h-px bg-[var(--mkt-blue)] transition-all duration-500",
+                      "absolute bottom-0 left-0 h-px bg-[var(--mkt-bright)] transition-all duration-500",
                       isActive ? "w-full" : "w-0 group-hover:w-full",
                     )}
                   />
@@ -158,7 +153,7 @@ export default function Capabilities() {
 
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-28">
-              <div className="relative aspect-[4/5] overflow-hidden bg-[var(--mkt-navy)]">
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#0c2035]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={active.number}
@@ -175,7 +170,7 @@ export default function Capabilities() {
                       className="object-cover"
                       sizes="40vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-ink)]/80 via-[var(--mkt-ink)]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/85 via-[var(--mkt-navy)]/25 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 p-6">
                       <p className="mkt-eyebrow text-white/45">
                         {active.number} / Capability

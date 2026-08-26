@@ -55,11 +55,11 @@ const differentiators = [
 
 export default function WhyConsultAmerica() {
   return (
-    <Section id="why-consultamerica" className="bg-[#05070d] text-white">
+    <Section id="why-consultamerica" className="bg-[var(--mkt-navy)] text-white">
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <span className="ca-eyebrow text-white/45">WHY CONSULTAMERICA</span>
+            <span className="mkt-eyebrow text-white/50">WHY CONSULTAMERICA</span>
           </div>
 
           <motion.div
@@ -69,7 +69,7 @@ export default function WhyConsultAmerica() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-8"
           >
-            <h2 className="ca-h2 max-w-5xl text-white">
+            <h2 className="mkt-section-heading max-w-5xl !text-white">
               Enterprise transformation
               <br />
               without the unnecessary layers.
@@ -91,7 +91,7 @@ export default function WhyConsultAmerica() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="bg-[#05070d] p-6 md:p-8"
+              className="bg-[var(--mkt-navy)] p-6 md:p-8"
             >
               <p className="text-4xl font-medium tracking-[-0.04em] text-white md:text-5xl">
                 {metric.value}
@@ -123,7 +123,7 @@ export default function WhyConsultAmerica() {
 
               <span className="ca-eyebrow text-white/35">{item.number}</span>
 
-              <h3 className="mt-10 text-2xl font-medium tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-[#93c5fd]">
+              <h3 className="mt-10 text-2xl font-medium tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-[var(--mkt-bright)]">
                 {item.title}
               </h3>
 

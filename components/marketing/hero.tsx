@@ -12,23 +12,13 @@ import { useContactPanel } from "@/components/providers/contact-provider";
 import { heroStats } from "@/lib/site-data";
 
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80";
+  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80";
 
 export default function Hero() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="relative overflow-hidden bg-[var(--mkt-ink)] pt-[8.5rem] pb-16 lg:min-h-[min(100vh,52rem)] lg:pb-20">
-      <div
-        aria-hidden="true"
-        className="mkt-grid-drift pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.75) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.75) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
-
+    <section className="mkt-hero-bg relative overflow-hidden pb-14 pt-10 lg:min-h-[min(92vh,48rem)] lg:pb-16 lg:pt-14">
       <div className="mkt-shell relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10 xl:gap-14">
           <div className="lg:col-span-6 xl:col-span-5">
@@ -52,7 +42,7 @@ export default function Hero() {
                 as="h1"
                 size="hero"
                 reveal={false}
-                className="max-w-[11ch] text-white"
+                className="max-w-[12ch] text-[var(--mkt-navy)]"
               >
                 Technology that moves business forward.
               </EditorialHeading>
@@ -62,9 +52,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.22 }}
-              className="mkt-body-lg mt-8 max-w-md text-white/70"
+              className="mkt-body-lg mt-8 max-w-md"
             >
-              Strategy. Technology. Execution.
+              Enterprise cloud, Oracle, AI and transformation—from roadmap to
+              production.
             </motion.p>
 
             <motion.div
@@ -96,54 +87,12 @@ export default function Hero() {
           >
             <MediaPanel
               src={HERO_IMAGE}
-              alt="Enterprise technology and modern workplace environment"
+              alt="Enterprise technology and consulting environment"
               priority
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="aspect-[4/3] w-full lg:aspect-[5/4] xl:min-h-[32rem]"
-              overlay="navy"
-            >
-              <div
-                aria-hidden="true"
-                className="mkt-grid-drift absolute inset-0 opacity-[0.12]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
-                  backgroundSize: "48px 48px",
-                }}
-              />
-              <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
-                <div className="mkt-accent-bar mb-0" />
-                <div className="border border-white/15 border-t-0 bg-[var(--mkt-ink)]/55 p-4 backdrop-blur-md md:p-5">
-                  <p className="mkt-eyebrow text-[var(--mkt-blue-soft)]">
-                    Live overlay
-                  </p>
-                  <div className="mt-4 grid grid-cols-3 gap-3">
-                    {[
-                      { label: "Enterprise", value: "Ops", tone: "blue" },
-                      { label: "People", value: "Teams", tone: "green" },
-                      { label: "Technology", value: "Cloud", tone: "amber" },
-                    ].map((cell) => (
-                      <div key={cell.label}>
-                        <p className="text-[0.65rem] uppercase tracking-[0.12em] text-white/40">
-                          {cell.label}
-                        </p>
-                        <p
-                          className={
-                            cell.tone === "green"
-                              ? "mt-1 text-sm font-medium text-[var(--mkt-green)]"
-                              : cell.tone === "amber"
-                                ? "mt-1 text-sm font-medium text-[var(--mkt-gold)]"
-                                : "mt-1 text-sm font-medium text-[var(--mkt-blue-soft)]"
-                          }
-                        >
-                          {cell.value}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </MediaPanel>
+              className="aspect-[4/3] w-full shadow-[0_24px_80px_rgba(16,42,67,0.12)] lg:aspect-[5/4] xl:min-h-[30rem]"
+              overlay="none"
+            />
           </motion.div>
         </div>
 
@@ -154,7 +103,7 @@ export default function Hero() {
           className="mt-14 lg:mt-16"
         >
           <MetricStrip
-            tone="light"
+            tone="dark"
             items={heroStats.map((stat) => ({
               value: stat.value,
               label: stat.label,
