@@ -26,29 +26,29 @@ export default function Home() {
     <>
       <SiteHeader />
       <main>
-        {/* 01 Cinematic hero — dark + full visual */}
+        {/* 01 Hero — Cloud Blue visual */}
         <Hero />
         {/* 02 Trust — white + logos + photography */}
         <TrustCredibility />
-        {/* 03 Who we are — editorial split */}
+        {/* 03 Who we are — Warm White editorial split */}
         <Introduction />
-        {/* 04 Capabilities — dark interactive service index */}
+        {/* 04 Capabilities — Deep Navy interactive service index */}
         <Capabilities />
-        {/* 05 Oracle — deep navy + product visualization */}
+        {/* 05 Oracle — Pale Blue + product visualization */}
         <OracleFeature />
-        {/* 06 Featured work — full-bleed case studies */}
+        {/* 06 Featured work — white + full-bleed case studies */}
         <FeaturedWork />
-        {/* 07 AI + Data — light + Data Agent UI */}
+        {/* 07 AI + Data — Ice Blue Data Agent UI */}
         <AiDataFeature />
-        {/* 08 Industries — image mosaic */}
+        {/* 08 Industries — Warm White photographic mosaic */}
         <Industries />
-        {/* 09 Why ConsultAmerica — metrics + differentiators */}
+        {/* 09 Why ConsultAmerica — Deep Navy metrics + differentiators */}
         <WhyConsultAmerica />
-        {/* 10 Careers — people photography + live jobs */}
+        {/* 10 Careers — Pale Blue + people photography + live jobs */}
         <CareersFeature />
-        {/* 11 Insights — editorial cards */}
+        {/* 11 Insights — white editorial cards */}
         <InsightsPreview />
-        {/* 12 CTA — bold closing statement */}
+        {/* 12 CTA — Blue closing statement */}
         <GrowthCta />
       </main>
       <SiteFooter />

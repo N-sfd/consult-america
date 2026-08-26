@@ -19,7 +19,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-[var(--ca-border)] bg-[var(--ca-navy)] text-white">
-      <div className="border-b border-white/10 bg-[var(--ca-blue)]">
+      <div className="border-b border-white/10 bg-[var(--ca-navy)]">
         <Shell className="py-16 lg:py-24">
           <p className="max-w-4xl text-4xl font-medium leading-[1.05] tracking-[-0.045em] text-white md:text-6xl lg:text-7xl">
             Ready to move from plan to production?

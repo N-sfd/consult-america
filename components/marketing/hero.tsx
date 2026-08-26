@@ -12,7 +12,7 @@ import { useContactPanel } from "@/components/providers/contact-provider";
 import { heroStats } from "@/lib/site-data";
 
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80";
+  "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=80";
 
 export default function Hero() {
   const { setOpen } = useContactPanel();
