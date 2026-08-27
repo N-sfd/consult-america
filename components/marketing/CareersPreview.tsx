@@ -12,7 +12,6 @@ export type CareersPreviewJob = {
 interface CareersPreviewProps {
   openCount: number;
   jobs: CareersPreviewJob[];
-  careerAreas?: string[];
   imageSrc?: string;
   imageAlt?: string;
 }
@@ -20,23 +19,30 @@ interface CareersPreviewProps {
 export default function CareersPreview({
   openCount,
   jobs,
-  careerAreas = [],
-  imageSrc = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80",
-  imageAlt = "Professionals collaborating in a shared workspace",
+  imageSrc = "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80",
+  imageAlt = "ConsultAmerica team in a working session",
 }: CareersPreviewProps) {
   const hasOpenJobs = jobs.length > 0;
+
   return (
-    <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+    <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
       <div className="flex flex-col lg:col-span-5">
         <span className="mkt-eyebrow text-[var(--mkt-blue)]">CAREERS</span>
-        <h2 className="mkt-section-heading mt-8 max-w-xl text-[var(--mkt-navy)]">
+        <h2 className="mkt-section-heading mt-5 max-w-xl text-[var(--mkt-navy)]">
           Build what&apos;s next.
         </h2>
-        <p className="mkt-body-lg mt-6 max-w-md">
-          Join teams solving complex enterprise challenges across Oracle, AI,
-          data, and transformation delivery.
+        <p className="mkt-body-lg mt-4 max-w-md">
+          {hasOpenJobs
+            ? "Join teams solving complex enterprise challenges across Oracle, AI, data, and transformation delivery."
+            : "Explore opportunities across enterprise technology, Oracle, AI, data, digital engineering, and consulting."}
         </p>
-        <div className="relative mt-8 min-h-[220px] flex-1 overflow-hidden lg:min-h-[280px]">
+        {!hasOpenJobs && (
+          <p className="mt-4 max-w-md text-sm leading-7 text-[var(--mkt-muted)]">
+            We&apos;re always interested in experienced professionals who want
+            to solve complex business challenges.
+          </p>
+        )}
+        <div className="relative mt-6 min-h-[200px] flex-1 overflow-hidden rounded-2xl lg:min-h-[240px]">
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -48,87 +54,45 @@ export default function CareersPreview({
       </div>
 
       <div className="lg:col-span-7">
-        <div className="border border-[var(--mkt-border)] bg-white p-6 md:p-8 lg:p-10">
-          <div className="flex items-end justify-between gap-4 border-b border-[var(--mkt-border)] pb-6">
-            <div>
-              <p className="mkt-eyebrow text-[var(--mkt-muted)]">
-                {hasOpenJobs ? "OPEN ROLES" : "OPEN OPPORTUNITIES"}
-              </p>
-              {hasOpenJobs ? (
-                <p className="mt-3 text-4xl font-medium tracking-[-0.04em] text-[var(--mkt-navy)] md:text-5xl">
-                  {openCount}
-                  <span className="ml-2 text-lg font-normal text-[var(--mkt-muted)] md:text-xl">
-                    opportunities
-                  </span>
-                </p>
-              ) : (
-                <p className="mt-3 max-w-sm text-sm leading-6 text-[var(--mkt-muted)]">
-                  Live openings will appear here once requisitions are
-                  published from the ATS.
-                </p>
-              )}
-            </div>
-            {hasOpenJobs && (
-              <Link
-                href="/jobs"
-                className="hidden text-sm text-[var(--mkt-blue)] transition-opacity hover:opacity-70 sm:inline-flex sm:items-center sm:gap-1"
-              >
-                View all jobs
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            )}
-          </div>
-
+        <div className="rounded-2xl border border-[var(--mkt-border)] bg-white p-6 md:p-8">
           {hasOpenJobs ? (
-            <ul className="mt-2">
-              {jobs.map((job) => (
-                <li key={job.slug}>
-                  <Link
-                    href={`/jobs/${job.slug}`}
-                    className="group flex items-start justify-between gap-4 border-b border-[var(--mkt-border)] py-6 transition-colors hover:bg-[var(--mkt-ice)]"
-                  >
-                    <div>
-                      <h3 className="mkt-h3 text-[var(--mkt-navy)] transition-colors group-hover:text-[var(--mkt-blue)]">
-                        {job.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-[var(--mkt-muted)]">
-                        {job.location}
-                        <span className="mx-2 text-[var(--mkt-border)]">·</span>
-                        {job.workplaceType}
-                      </p>
-                    </div>
-                    <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-[var(--mkt-muted)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--mkt-blue)]" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <>
+              <p className="mkt-eyebrow text-[var(--mkt-muted)]">OPEN ROLES</p>
+              <ul className="mt-4 divide-y divide-[var(--mkt-border)] border-t border-[var(--mkt-border)]">
+                {jobs.map((job) => (
+                  <li key={job.slug}>
+                    <Link
+                      href={`/jobs/${job.slug}`}
+                      className="group flex items-start justify-between gap-4 py-5 transition-colors hover:bg-[var(--mkt-ice)]"
+                    >
+                      <div>
+                        <h3 className="text-lg font-medium tracking-[-0.02em] text-[var(--mkt-navy)] transition-colors group-hover:text-[var(--mkt-blue)]">
+                          {job.title}
+                        </h3>
+                        <p className="mt-1.5 text-sm text-[var(--mkt-muted)]">
+                          {job.location}
+                          <span className="mx-2 text-[var(--mkt-border)]">
+                            ·
+                          </span>
+                          {job.workplaceType}
+                        </p>
+                      </div>
+                      <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-[var(--mkt-muted)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--mkt-blue)]" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/jobs" className="ca-link mt-6 inline-flex text-sm">
+                View all opportunities
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </>
           ) : (
-            <ul className="mt-2">
-              {careerAreas.map((area) => (
-                <li
-                  key={area}
-                  className="flex items-center justify-between gap-4 border-b border-[var(--mkt-border)] py-6"
-                >
-                  <h3 className="mkt-h3 text-[var(--mkt-navy)]">
-                    {area}
-                  </h3>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/careers" className="ca-button-primary">
+            <Link href="/careers" className="ca-link inline-flex text-sm">
               Explore careers
               <ArrowUpRight className="h-4 w-4" />
             </Link>
-            {hasOpenJobs && (
-              <Link href="/jobs" className="ca-link px-1 py-3">
-                View all jobs
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </div>

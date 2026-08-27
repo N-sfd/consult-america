@@ -1,0 +1,27 @@
+/* ConsultAmerica — three visual experiences (shared brand tokens) */
+
+/* Public marketing: editorial, spacious */
+.experience-marketing {
+  --exp-bg: var(--ca-ice);
+  --exp-surface: var(--ca-white);
+  --exp-text: var(--ca-text-primary);
+  --exp-muted: var(--ca-text-secondary);
+}
+
+/* Careers / candidate: friendly, conversion-focused */
+.experience-careers {
+  --exp-bg: #f5f8fc;
+  --exp-surface: var(--ca-white);
+  --exp-text: #172b4d;
+  --exp-muted: #667085;
+}
+
+/* HR / ATS / employee: compact, operational */
+.experience-app {
+  --exp-bg: var(--ca-app-bg);
+  --exp-surface: var(--ca-white);
+  --exp-text: var(--ca-app-ink);
+  --exp-muted: var(--ca-app-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}

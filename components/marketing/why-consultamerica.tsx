@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
@@ -37,15 +35,15 @@ export default function WhyConsultAmerica() {
   return (
     <section
       id="why-consultamerica"
-      className="mkt-section bg-[var(--mkt-navy)] text-white"
+      className="mkt-section-compact bg-[var(--mkt-navy)] text-white"
     >
       <div className="mkt-shell">
         <SectionLabel tone="light">Why ConsultAmerica</SectionLabel>
-        <h2 className="mkt-section-heading mt-5 max-w-3xl !text-white">
+        <h2 className="mkt-section-heading mt-5 max-w-2xl !text-white">
           Enterprise transformation without the unnecessary layers.
         </h2>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <div className="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-2">
           {differentiators.map((item, index) => (
             <motion.article
               key={item.title}
@@ -53,26 +51,17 @@ export default function WhyConsultAmerica() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.04 }}
-              className="border-t border-white/15 pt-6"
+              className="border-t border-white/12 pt-6"
             >
-              <span className="mkt-eyebrow text-white/40">{item.number}</span>
-              <h3 className="mt-4 mkt-h3">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-white/60">
+              <span className="mkt-eyebrow text-white/35">{item.number}</span>
+              <h3 className="mt-5 text-lg font-medium uppercase tracking-[0.06em] text-white md:text-xl">
+                {item.title}
+              </h3>
+              <p className="mt-4 max-w-sm text-sm leading-7 text-white/55 md:text-base">
                 {item.description}
               </p>
             </motion.article>
           ))}
-        </div>
-
-        <p className="mt-12 max-w-2xl text-lg font-medium tracking-[-0.02em] text-white/85 md:text-xl">
-          Deep enough for the enterprise. Focused enough to stay close.
-        </p>
-
-        <div className="mt-10 flex justify-end">
-          <Link href="/about" className="ca-link">
-            About ConsultAmerica
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
         </div>
       </div>
     </section>

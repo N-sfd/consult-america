@@ -75,44 +75,15 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {industries.map((industry, index) => (
-            <motion.article
-              key={industry.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.45, delay: index * 0.03 }}
-            >
-              <Link
-                href={industry.href}
-                className="group relative block aspect-[4/3] overflow-hidden md:min-h-[280px] lg:min-h-[320px]"
-              >
-                <Image
-                  src={industry.image}
-                  alt={industry.imageAlt}
-                  fill
-                  loading="lazy"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/35 to-[var(--mkt-navy)]/10" />
-
-                <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
-                  <span className="mkt-eyebrow text-white/45">
-                    {industry.number}
-                  </span>
-                  <h3 className="mt-2 mkt-h3 text-white">
-                    {industry.title}
-                  </h3>
-                  <p className="mt-2 hidden max-w-sm text-sm leading-6 text-white/70 sm:block">
-                    {industry.description}
-                  </p>
-                  <ArrowUpRight className="mt-3 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </div>
-              </Link>
-            </motion.article>
-          ))}
+        <div className="mt-10 space-y-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-[3fr_2fr]">
+            <IndustryTile industry={industries[0]} tall />
+            <IndustryTile industry={industries[1]} tall />
+          </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-[2fr_3fr]">
+            <IndustryTile industry={industries[2]} />
+            <IndustryTile industry={industries[3]} />
+          </div>
         </div>
 
         <div className="mt-8 flex justify-end">
@@ -123,5 +94,50 @@ export default function Industries() {
         </div>
       </div>
     </section>
+  );
+}
+
+function IndustryTile({
+  industry,
+  tall = false,
+}: {
+  industry: (typeof industries)[number];
+  tall?: boolean;
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45 }}
+    >
+      <Link
+        href={industry.href}
+        className={`group relative block overflow-hidden ${
+          tall
+            ? "aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]"
+            : "aspect-[4/3] md:aspect-auto md:min-h-[240px] lg:min-h-[280px]"
+        }`}
+      >
+        <Image
+          src={industry.image}
+          alt={industry.imageAlt}
+          fill
+          loading="lazy"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/35 to-[var(--mkt-navy)]/10" />
+
+        <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
+          <span className="mkt-eyebrow text-white/45">{industry.number}</span>
+          <h3 className="mt-2 mkt-h3 text-white">{industry.title}</h3>
+          <p className="mt-2 hidden max-w-sm text-sm leading-6 text-white/70 lg:block">
+            {industry.description}
+          </p>
+          <ArrowUpRight className="mt-3 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </div>
+      </Link>
+    </motion.article>
   );
 }

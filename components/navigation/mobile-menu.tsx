@@ -5,7 +5,6 @@ import { ArrowUpRight, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
-import BrandLogo from "@/components/brand/brand-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import {
   capabilityGroups,
@@ -43,146 +42,167 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] bg-white text-[var(--ca-navy)] lg:hidden"
-        >
-          <div className="flex h-20 items-center justify-between border-b border-[var(--ca-header-border)] px-5">
-            <BrandLogo tone="dark" onNavigate={handleClose} />
-            <button
-              type="button"
-              onClick={handleClose}
-              className="flex h-11 w-11 items-center justify-center text-[var(--ca-navy)]"
-              aria-label="Close navigation menu"
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </div>
+        <>
+          <motion.button
+            type="button"
+            aria-label="Close menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleClose}
+            className="fixed inset-0 z-[60] bg-[var(--ca-navy)]/30 backdrop-blur-[2px] xl:hidden"
+          />
 
-          <nav className="h-[calc(100%-5rem)] overflow-y-auto px-5 pb-10">
-            {level === "root" && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setLevel("capabilities")}
-                  className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
-                >
-                  What We Do
-                  <ChevronRight className="h-5 w-5 opacity-50" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLevel("industries")}
-                  className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-3xl text-[var(--ca-navy)]"
-                >
-                  Industries
-                  <ChevronRight className="h-5 w-5 opacity-50" />
-                </button>
-                {navLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={handleClose}
-                    className="flex items-center justify-between border-b border-[var(--ca-border)] py-5 text-3xl text-[var(--ca-navy)]"
-                  >
-                    {item.label}
-                    <ArrowUpRight className="h-5 w-5 opacity-40" />
-                  </Link>
-                ))}
-                <Link
-                  href="/login"
-                  onClick={handleClose}
-                  className="mt-8 block border-b border-[var(--ca-border)] py-5 text-xl text-[var(--ca-nav)]"
-                >
-                  Employee Login
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleClose();
-                    setContactOpen(true);
-                  }}
-                  className="ca-button-primary mt-8"
-                >
-                  Contact
-                  <ArrowUpRight className="h-4 w-4" />
-                </button>
-              </>
-            )}
+          <motion.aside
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-white text-[var(--ca-navy)] shadow-[-8px_0_40px_rgba(16,42,67,0.12)] xl:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            <div className="flex h-16 items-center justify-between border-b border-[var(--ca-border)] px-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ca-muted)]">
+                Menu
+              </p>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-[var(--ca-navy)] hover:bg-[var(--ca-ice)]"
+                aria-label="Close navigation menu"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
 
-            {level === "industries" && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setLevel("root")}
-                  className="mb-4 flex items-center gap-3 py-3 text-[var(--ca-muted)]"
-                >
-                  <ChevronRight className="h-4 w-4 rotate-180" />
-                  Industries
-                </button>
-                {industryLinks.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={handleClose}
-                    className="block border-b border-[var(--ca-border)] py-5 text-2xl text-[var(--ca-navy)]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </>
-            )}
-
-            {level === "capabilities" && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setLevel("root")}
-                  className="mb-4 flex items-center gap-3 py-3 text-[var(--ca-muted)]"
-                >
-                  <ChevronRight className="h-4 w-4 rotate-180" />
-                  Capabilities
-                </button>
-                {capabilityGroups.map((group) => (
+            <nav className="flex-1 overflow-y-auto px-5 pb-8">
+              {level === "root" && (
+                <>
                   <button
-                    key={group.title}
                     type="button"
-                    onClick={() => setLevel(group.title)}
-                    className="flex w-full items-center justify-between border-b border-[var(--ca-border)] py-5 text-left text-2xl text-[var(--ca-navy)]"
+                    onClick={() => setLevel("capabilities")}
+                    className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-lg font-medium text-[var(--ca-navy)]"
                   >
-                    {group.title}
-                    <ChevronRight className="h-5 w-5 opacity-50" />
+                    What We Do
+                    <ChevronRight className="h-4 w-4 opacity-50" />
                   </button>
-                ))}
-              </>
-            )}
-
-            {activeGroup && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setLevel("capabilities")}
-                  className="mb-4 flex items-center gap-3 py-3 text-[var(--ca-muted)]"
-                >
-                  <ChevronRight className="h-4 w-4 rotate-180" />
-                  {activeGroup.title}
-                </button>
-                {activeGroup.services.map((service) => (
-                  <Link
-                    key={service.label}
-                    href={service.href}
-                    onClick={handleClose}
-                    className="block border-b border-[var(--ca-border)] py-5 text-2xl text-[var(--ca-navy)]"
+                  <button
+                    type="button"
+                    onClick={() => setLevel("industries")}
+                    className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-lg font-medium text-[var(--ca-navy)]"
                   >
-                    {service.label}
+                    Industries
+                    <ChevronRight className="h-4 w-4 opacity-50" />
+                  </button>
+                  {navLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={handleClose}
+                      className="flex min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-lg font-medium text-[var(--ca-navy)]"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-4 w-4 opacity-40" />
+                    </Link>
+                  ))}
+
+                  <div className="my-6 border-t border-[var(--ca-border)]" />
+
+                  <Link
+                    href="/login"
+                    onClick={handleClose}
+                    className="flex min-h-11 items-center py-3 text-base text-[var(--ca-nav)]"
+                  >
+                    Employee Login
                   </Link>
-                ))}
-              </>
-            )}
-          </nav>
-        </motion.div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleClose();
+                      setContactOpen(true);
+                    }}
+                    className="ca-button-primary mt-4 w-full"
+                  >
+                    Contact Us
+                    <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                </>
+              )}
+
+              {level === "industries" && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setLevel("root")}
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm text-[var(--ca-muted)]"
+                  >
+                    <ChevronRight className="h-4 w-4 rotate-180" />
+                    Back
+                  </button>
+                  {industryLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={handleClose}
+                      className="block min-h-11 border-b border-[var(--ca-border)] py-4 text-base text-[var(--ca-navy)]"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </>
+              )}
+
+              {level === "capabilities" && !activeGroup && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setLevel("root")}
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm text-[var(--ca-muted)]"
+                  >
+                    <ChevronRight className="h-4 w-4 rotate-180" />
+                    Back
+                  </button>
+                  {capabilityGroups.map((group) => (
+                    <button
+                      key={group.title}
+                      type="button"
+                      onClick={() => setLevel(group.title)}
+                      className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-base font-medium text-[var(--ca-navy)]"
+                    >
+                      {group.title}
+                      <ChevronRight className="h-4 w-4 opacity-50" />
+                    </button>
+                  ))}
+                </>
+              )}
+
+              {activeGroup && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setLevel("capabilities")}
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm text-[var(--ca-muted)]"
+                  >
+                    <ChevronRight className="h-4 w-4 rotate-180" />
+                    {activeGroup.title}
+                  </button>
+                  {activeGroup.services.map((service) => (
+                    <Link
+                      key={service.label}
+                      href={service.href}
+                      onClick={handleClose}
+                      className="block min-h-11 border-b border-[var(--ca-border)] py-4 text-base text-[var(--ca-navy)]"
+                    >
+                      {service.label}
+                    </Link>
+                  ))}
+                </>
+              )}
+            </nav>
+          </motion.aside>
+        </>
       )}
     </AnimatePresence>
   );

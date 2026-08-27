@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main className="experience-marketing">
         <Hero />
         <TrustCredibility />
         <Capabilities />

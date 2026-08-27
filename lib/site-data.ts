@@ -83,9 +83,17 @@ export const navLinks = [
 
 export const heroStats = [
   { value: "17+", label: "Years", detail: "Enterprise experience" },
-  { value: "E2E", label: "Delivery", detail: "Strategy → Production" },
-  { value: "Oracle + AI", label: "Capability", detail: "Enterprise platforms" },
-  { value: "Public + Private", label: "Environments", detail: "Complex delivery" },
+  { value: "End-to-End", label: "", detail: "Strategy → Production" },
+  { value: "Oracle + AI", label: "", detail: "Enterprise capability" },
+];
+
+export const deliveryPhases = [
+  "Strategy",
+  "Design",
+  "Configure",
+  "Integrate",
+  "Test",
+  "Deploy",
 ];
 
 export const trustMarks = [
@@ -116,33 +124,6 @@ export const glanceStats = [
     value: "1",
     suffix: "",
     label: "Mission: delivery that moves the business",
-  },
-];
-
-export const testimonials = [
-  {
-    quote:
-      "ConsultAmerica brought real structure to a complex Oracle program—thinking globally, adapting locally, and making the cutover feel controlled.",
-    name: "Director, Digital Customer Experience",
-    org: "Global consumer brand",
-  },
-  {
-    quote:
-      "The collaboration has been precise from the start. They stayed close to the work, not the slideware, and the platform actually landed.",
-    name: "VP, Enterprise Applications",
-    org: "Fortune 500 manufacturer",
-  },
-  {
-    quote:
-      "Strategic expertise without the theater. Their team solved the integration mess we had been carrying for years.",
-    name: "Senior Director, Digital Transformation",
-    org: "National operator",
-  },
-  {
-    quote:
-      "A blend of delivery discipline and technical depth. They exceeded what we expected from a transformation partner.",
-    name: "Senior Director, Customer Experience",
-    org: "Enterprise services",
   },
 ];
 

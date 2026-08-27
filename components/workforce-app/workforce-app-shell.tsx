@@ -94,9 +94,9 @@ export default function WorkforceAppShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-[var(--ca-app-bg)] text-[var(--ca-app-ink)]">
-      <header className="sticky top-0 z-40 border-b border-black/8 bg-white">
-        <div className="flex h-14 items-center gap-4 px-4 lg:px-5">
+    <div className="experience-app min-h-screen bg-[var(--ca-app-bg)] text-[var(--ca-app-ink)]">
+      <header className="sticky top-0 z-40 border-b border-[var(--ca-app-border)] bg-white">
+        <div className="flex h-16 items-center gap-4 px-4 lg:px-8">
           <BrandLogo href="/app/dashboard" tone="dark" markClassName="!h-7 !w-7" />
 
           <div className="mx-auto hidden max-w-md flex-1 md:block">
@@ -142,8 +142,37 @@ export default function WorkforceAppShell({
         </div>
       </header>
 
-      <div className="flex min-h-[calc(100vh-3.5rem)]">
-        <aside className="hidden w-[240px] shrink-0 border-r border-[var(--ca-app-border)] bg-white text-[var(--ca-app-ink)] lg:block">
+      <div className="flex min-h-[calc(100vh-var(--ca-app-topbar))]">
+        <aside className="hidden w-[var(--ca-app-sidebar-rail)] shrink-0 border-r border-[var(--ca-app-border)] bg-white md:block lg:hidden">
+          <nav className="flex flex-col items-center gap-1 px-2 py-4">
+            {nav.slice(0, 6).map((item) => {
+              const href = item.href ?? item.children?.[0]?.href;
+              if (!href) return null;
+              const active = item.href
+                ? pathname === item.href
+                : item.children?.some(
+                    (child) => !child.disabled && pathname.startsWith(child.href),
+                  );
+              return (
+                <Link
+                  key={item.label}
+                  href={href}
+                  title={item.label}
+                  className={cn(
+                    "flex h-11 w-11 items-center justify-center rounded-lg transition-colors",
+                    active
+                      ? "bg-[var(--ca-app-selected)] text-[var(--ca-blue)]"
+                      : "text-[var(--ca-app-muted)] hover:bg-[var(--ca-app-bg)]",
+                  )}
+                >
+                  {item.icon}
+                </Link>
+              );
+            })}
+          </nav>
+        </aside>
+
+        <aside className="hidden w-[var(--ca-app-sidebar)] shrink-0 border-r border-[var(--ca-app-border)] bg-white text-[var(--ca-app-ink)] lg:block">
           <div className="px-4 py-5">
             <p className="text-[0.65rem] uppercase tracking-[0.14em] text-[var(--ca-app-muted)]">
               Workforce App
@@ -237,32 +266,7 @@ export default function WorkforceAppShell({
           </div>
         </aside>
 
-        <main className="min-w-0 flex-1">
-          <div className="border-b border-black/8 bg-white px-4 py-2 lg:hidden">
-            <div className="flex gap-2 overflow-x-auto text-sm">
-              <Link href="/app/dashboard" className="shrink-0 px-2 py-1 font-medium">
-                Overview
-              </Link>
-              <Link href="/app/recruiting/jobs" className="shrink-0 px-2 py-1 text-black/55">
-                Jobs
-              </Link>
-              <Link
-                href="/app/recruiting/candidates"
-                className="shrink-0 px-2 py-1 text-black/55"
-              >
-                Candidates
-              </Link>
-              <Link href="/workforce/people" className="shrink-0 px-2 py-1 text-black/55">
-                People
-              </Link>
-              <Link
-                href="/manager/approvals"
-                className="shrink-0 px-2 py-1 text-black/55"
-              >
-                Approvals
-              </Link>
-            </div>
-          </div>
+        <main className="min-w-0 flex-1 px-4 py-6 md:px-7 lg:px-8">
           {children}
         </main>
       </div>

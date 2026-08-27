@@ -45,10 +45,6 @@ export default function TransformationDiagram() {
           Connected Operations
         </p>
       </div>
-
-      <p className="mt-5 text-center text-xs text-[var(--mkt-muted)]">
-        Illustrative — transformation flow, not a system architecture diagram.
-      </p>
     </div>
   );
 }

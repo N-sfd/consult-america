@@ -97,7 +97,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     approach:
       "ConsultAmerica supported an end-to-end transformation approach across financial management, procurement, projects, integrations, testing, reporting, and operational readiness — sequencing the program so legacy processes could be retired without a gap in appropriations tracking, encumbrances, or audit trails.",
     solution:
-      "Oracle Cloud Financials and Procurement now operate as a connected system of record, with CaseStudy Portfolio Management carrying capital and grant-funded work, integrations replacing manual bridges between agencies, and a shared reporting layer giving finance leadership one auditable source of truth instead of reconciled spreadsheets.",
+      "Oracle Cloud Financials and Procurement now operate as a connected system of record, with Project Portfolio Management carrying capital and grant-funded work, integrations replacing manual bridges between agencies, and a shared reporting layer giving finance leadership one auditable source of truth instead of reconciled spreadsheets.",
     outcomes: [
       {
         title: "Control and accountability, preserved",

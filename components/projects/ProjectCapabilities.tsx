@@ -9,7 +9,7 @@ export default function ProjectCapabilities({
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <span className="mkt-eyebrow text-[var(--mkt-muted)]">
-              Capabilities Used
+              Technology &amp; capabilities
             </span>
           </div>
           <div className="flex flex-wrap gap-3 lg:col-span-8">

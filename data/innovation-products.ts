@@ -14,6 +14,7 @@ export type InnovationProduct = {
   category: string;
   name: string;
   tagline: string;
+  innovationType: "Product" | "Prototype" | "Platform";
   headline: string;
   summary: string;
   heroImage: string;
@@ -33,6 +34,7 @@ export const innovationProducts: Record<string, InnovationProduct> = {
     category: "AI & Data",
     name: "Data Agent",
     tagline: "Enterprise Document Intelligence",
+    innovationType: "Product",
     headline: "Turn complex enterprise documents into structured intelligence.",
     summary:
       "A contract intelligence platform that extracts, verifies, and indexes agreements at scale — every field traceable back to its source page, not a black-box guess.",
@@ -74,6 +76,7 @@ export const innovationProducts: Record<string, InnovationProduct> = {
     category: "Healthcare AI",
     name: "MediGuide AI",
     tagline: "Healthcare AI Assistant",
+    innovationType: "Prototype",
     headline: "Help people understand their health information with evidence alongside them.",
     summary:
       "A private, evidence-supported assistant that explains medical documents and medication labels, and helps patients prepare sharper questions before an appointment.",
@@ -114,6 +117,7 @@ export const innovationProducts: Record<string, InnovationProduct> = {
     category: "AI Recruiting / Talent Intelligence",
     name: "JobLens",
     tagline: "Talent Intelligence & Recruiting AI",
+    innovationType: "Platform",
     headline: "A job search toolkit that explains every score it gives you.",
     summary:
       "Resume analysis, ATS matching, application tracking, and tailored cover letters in one toolkit — with transparent scoring instead of an opaque black box.",

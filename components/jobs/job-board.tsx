@@ -71,7 +71,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search jobs..."
+              placeholder="Search by role, skill or keyword…"
               className="cr-input pl-11"
             />
           </div>

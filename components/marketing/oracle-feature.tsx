@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 import EditorialHeading from "@/components/marketing/EditorialHeading";
+import OracleArchitectureDiagram from "@/components/marketing/OracleArchitectureDiagram";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 const oracleAreas = [
@@ -81,7 +82,7 @@ export default function OracleFeature({
             transition={{ duration: 0.7, delay: 0.1 }}
             className="lg:col-span-7"
           >
-            <OracleProductVisual />
+            <OracleArchitectureDiagram />
           </motion.div>
         </div>
 
@@ -129,83 +130,3 @@ export default function OracleFeature({
   );
 }
 
-function OracleProductVisual() {
-  return (
-    <div className="overflow-hidden border border-[var(--mkt-border)] bg-white shadow-[0_24px_80px_rgba(16,42,67,0.08)]">
-      <div className="flex items-center justify-between border-b border-[var(--mkt-border)] px-5 py-3">
-        <div className="flex items-center gap-3">
-          <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-[var(--mkt-navy)]">
-            ENTERPRISE OPERATIONS
-          </span>
-          <span className="rounded bg-[var(--mkt-cloud)] px-2 py-0.5 text-[0.6rem] text-[var(--mkt-blue)]">
-            Oracle Fusion
-          </span>
-        </div>
-        <span className="text-[0.65rem] text-[var(--mkt-muted)]">
-          Finance · Period close
-        </span>
-      </div>
-
-      <div className="grid gap-px bg-[var(--mkt-border)] md:grid-cols-3">
-        {[
-          { label: "Financials", value: "Healthy", tone: "ok" },
-          { label: "Procurement", value: "94%", tone: "metric" },
-          { label: "Projects", value: "27", tone: "metric" },
-        ].map((card) => (
-          <div key={card.label} className="bg-white p-5">
-            <p className="text-[0.65rem] uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
-              {card.label}
-            </p>
-            <p className="mt-3 flex items-center gap-2 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
-              {card.tone === "ok" ? (
-                <span className="h-2 w-2 rounded-full bg-[var(--mkt-success)]" />
-              ) : null}
-              {card.value}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid md:grid-cols-[1.2fr_0.8fr]">
-        <div className="border-b border-[var(--mkt-border)] p-5 md:border-b-0 md:border-r">
-          <p className="text-[0.65rem] uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
-            Integration
-          </p>
-          <p className="mt-3 text-sm font-medium text-[var(--mkt-success)]">
-            Active
-          </p>
-          <div className="mt-6 space-y-3">
-            {[
-              { name: "Auto-approved POs", pct: 74 },
-              { name: "Period close tasks", pct: 86 },
-            ].map((row) => (
-              <div key={row.name}>
-                <div className="mb-1 flex justify-between text-xs text-[var(--mkt-muted)]">
-                  <span>{row.name}</span>
-                  <span>{row.pct}%</span>
-                </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-[var(--mkt-cloud)]">
-                  <div
-                    className="h-full bg-[var(--mkt-blue)]"
-                    style={{ width: `${row.pct}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="p-5">
-          <p className="text-[0.65rem] uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
-            Revenue
-          </p>
-          <p className="mt-3 text-3xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
-            $24.8M
-          </p>
-          <p className="mt-2 text-sm text-[var(--mkt-muted)]">
-            Period-to-date · OTBI
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}

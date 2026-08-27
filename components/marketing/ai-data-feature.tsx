@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
+import DataAgentScreenshot from "@/components/marketing/DataAgentScreenshot";
 import EditorialHeading from "@/components/marketing/EditorialHeading";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
@@ -109,7 +110,7 @@ export default function AiDataFeature({
             transition={{ duration: 0.7, delay: 0.1 }}
             className="lg:col-span-7"
           >
-            <DataAgentScreen />
+            <DataAgentScreenshot />
           </motion.div>
         </div>
       </div>
@@ -117,58 +118,3 @@ export default function AiDataFeature({
   );
 }
 
-function DataAgentScreen() {
-  return (
-    <div className="overflow-hidden border border-[var(--mkt-border)] bg-white shadow-[0_28px_80px_rgba(16,42,67,0.08)]">
-      <div className="flex items-center justify-between border-b border-[var(--mkt-border)] px-5 py-3.5">
-        <div className="flex items-center gap-3">
-          <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--mkt-blue)]" />
-          <div>
-            <p className="text-xs font-medium tracking-[0.06em] text-[var(--mkt-navy)]">
-              ConsultAmerica AI
-            </p>
-            <p className="text-[0.65rem] text-[var(--mkt-muted)]">
-              Contract intelligence
-            </p>
-          </div>
-        </div>
-        <span className="rounded bg-[var(--mkt-cloud)] px-2 py-1 text-[0.65rem] font-medium text-[var(--mkt-blue)]">
-          Live
-        </span>
-      </div>
-
-      <div className="grid gap-px bg-[var(--mkt-border)] sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          ["Documents", "248"],
-          ["Clauses", "38"],
-          ["Risks", "12"],
-          ["Confidence", "96%"],
-        ].map(([label, value]) => (
-          <div key={label} className="bg-white p-5">
-            <p className="text-[0.65rem] uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
-              {label}
-            </p>
-            <p className="mt-2 text-3xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
-              {value}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="p-5">
-        <p className="text-[0.65rem] uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
-          Ask the agent
-        </p>
-        <div className="mt-4 space-y-3">
-          <div className="border border-[var(--mkt-border)] bg-[var(--mkt-ice)] px-4 py-3 text-sm text-[var(--mkt-muted)]">
-            Summarize renewal and liability terms across open MSAs.
-          </div>
-          <div className="border border-[var(--mkt-blue)]/25 bg-[var(--mkt-cloud)] px-4 py-3 text-sm text-[var(--mkt-navy)]">
-            Found 14 contracts. 3 renew within 90 days. Highest risk:
-            MSA-2024-8841 §12.4.
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}

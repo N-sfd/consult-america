@@ -3,6 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "../styles/marketing.css";
 @import "../styles/careers.css";
+@import "../styles/experiences.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -24,33 +25,35 @@
   --ca-careers: #edf5ff;
   --ca-ink-dark: #102a43;
   --ca-ink: #ffffff;
-  --ca-text-primary: #122033;
-  --ca-text-secondary: #526579;
+  --ca-text-primary: #172b4d;
+  --ca-text-secondary: #667085;
   --ca-nav: #243b53;
   --ca-text: #526579;
   --ca-muted: #526579;
   --ca-dim: #7a8ea3;
   --ca-line: #dce5ee;
-  --ca-border: #dce5ee;
-  --ca-border-light: #e5eaf0;
-  --ca-header-border: #e5eaf0;
+  --ca-border: #e4e7ec;
+  --ca-border-light: #e4e7ec;
+  --ca-header-border: #e4e7ec;
   --ca-surface: #ffffff;
   --ca-success: #16865b;
-  --ca-warning: #c77a16;
-  --ca-error: #c94141;
+  --ca-warning: #b7791f;
+  --ca-error: #c83c3c;
   --ca-green: #16865b;
   --ca-green-bright: #1fa36f;
   --ca-amber: #c77a16;
   --ca-gold: #c77a16;
-  --ca-max-width: 1360px;
-  --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 4rem);
+  --ca-max-width: 1280px;
+  --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   --ca-section-y: clamp(3.5rem, 6vw, 6rem);
   --ca-insight-reading: 760px;
   --ca-insight-toc: 280px;
   --ca-insight-section-y: clamp(5.5rem, 10vw, 9rem);
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 232px;
-  --ca-app-bg: #f6f8fb;
+  --ca-app-sidebar: 240px;
+  --ca-app-sidebar-rail: 72px;
+  --ca-app-topbar: 64px;
+  --ca-app-bg: #f6f8fc;
   --ca-app-sidebar-bg: #ffffff;
   --ca-app-ink: #172b4d;
   --ca-app-muted: #667085;
@@ -63,7 +66,7 @@
   --ca-radius-sm: 6px;
   --ca-radius-md: 8px;
   --ca-radius-lg: 12px;
-  --header-offset: 7.25rem;
+  --header-offset: 4.5rem;
 
   --background: var(--ca-ice);
   --foreground: var(--ca-text-primary);
@@ -249,7 +252,7 @@ body {
   min-height: 3rem;
   padding: 0.85em 1.45em;
   border: 1px solid var(--ca-blue);
-  border-radius: 2px;
+  border-radius: 8px;
   background: var(--ca-blue);
   color: var(--ca-white);
   font-weight: 600;
@@ -275,7 +278,7 @@ body {
   min-height: 3rem;
   padding: 0.85em 1.45em;
   border: 1px solid var(--ca-white);
-  border-radius: 2px;
+  border-radius: 8px;
   background: var(--ca-white);
   color: var(--ca-ink-dark);
   font-weight: 600;
@@ -298,7 +301,7 @@ body {
   min-height: 2.75rem;
   padding: 0.75em 1.1em;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
+  border-radius: 8px;
   background: transparent;
   color: var(--ca-white);
   font-weight: 500;
@@ -530,11 +533,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  padding: 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(16px);
+  padding: 0.75rem;
+  border: 1px solid var(--ca-app-border);
+  border-radius: var(--ca-radius-lg);
+  background: var(--ca-white);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -560,8 +562,8 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   :root {
-    --header-offset: 6.5rem;
+    --header-offset: 4rem;
   }
 }

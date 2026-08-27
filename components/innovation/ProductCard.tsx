@@ -35,9 +35,14 @@ export default function ProductCard({
           />
         </div>
         <div className="p-6">
-          <p className="mkt-eyebrow text-[var(--mkt-blue)]">
-            {product.category}
-          </p>
+          <div className="flex items-center justify-between gap-3">
+            <p className="mkt-eyebrow text-[var(--mkt-blue)]">
+              {product.category}
+            </p>
+            <span className="rounded-full bg-[var(--mkt-ice)] px-2.5 py-1 text-[0.65rem] font-medium uppercase tracking-[0.08em] text-[var(--mkt-muted)]">
+              ConsultAmerica Innovation · {product.innovationType}
+            </span>
+          </div>
           <h3 className="mt-3 text-xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
             {product.name}
           </h3>

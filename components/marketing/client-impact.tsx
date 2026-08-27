@@ -4,11 +4,9 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { Grid, Shell } from "@/components/layout/grid";
-import { selectedProjects, testimonials } from "@/lib/site-data";
+import { selectedProjects } from "@/lib/site-data";
 
 export default function ClientImpact() {
-  const featured = testimonials[0];
-
   return (
     <section
       id="impact"
@@ -25,17 +23,7 @@ export default function ClientImpact() {
         </Grid>
 
         <Grid className="mt-10">
-          <blockquote className="ca-card col-span-12 p-6 lg:col-span-5 lg:p-8">
-            <p className="text-lg font-medium leading-[1.5] text-white">
-              “{featured.quote}”
-            </p>
-            <footer className="mt-6 text-sm text-white/55">
-              <p className="font-semibold text-white/80">{featured.name}</p>
-              <p>{featured.org}</p>
-            </footer>
-          </blockquote>
-
-          <div className="col-span-12 grid gap-4 lg:col-span-7">
+          <div className="col-span-12 grid gap-4 lg:col-span-12 lg:grid-cols-3">
             {selectedProjects.slice(0, 3).map((project) => (
               <article key={project.client} className="ca-card p-5 sm:p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#93c5fd]">

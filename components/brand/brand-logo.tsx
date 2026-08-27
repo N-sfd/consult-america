@@ -24,7 +24,7 @@ export default function BrandLogo({
 }: BrandLogoProps) {
   const content = (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span className="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-sm bg-white sm:h-9 sm:w-9">
+      <span className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-sm bg-white sm:h-10 sm:w-10">
         <Image
           src="/brand/logo.jpg"
           alt=""
@@ -37,7 +37,7 @@ export default function BrandLogo({
       {showWordmark ? (
         <span
           className={cn(
-            "text-[0.85rem] font-semibold tracking-[0.1em] sm:text-[0.95rem]",
+            "text-[0.9rem] font-semibold tracking-[0.1em] sm:text-[1.05rem]",
             tone === "light" ? "text-white" : "text-[var(--ca-ink-dark)]",
           )}
         >

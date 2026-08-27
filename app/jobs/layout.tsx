@@ -9,7 +9,7 @@ export default function JobsLayout({
   return (
     <>
       <SiteHeader />
-      <main className="ca-page-pad">{children}</main>
+      <main className="experience-careers bg-[var(--cr-bg)] pt-4 md:pt-6">{children}</main>
       <SiteFooter />
     </>
   );

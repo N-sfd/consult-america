@@ -51,31 +51,24 @@ export default async function CaseStudyDetailPage({
       </ProjectHero>
 
       <ProjectNarrative
-        eyebrow="Client Context"
-        heading="Where this transformation started."
-        body={project.clientContext}
+        eyebrow="Client challenge"
+        heading="More than a system replacement."
+        body={`${project.clientContext} ${project.challenge}`}
         tone="white"
       />
 
       <ProjectNarrative
-        eyebrow="The Challenge"
-        heading="More than a system replacement."
-        body={project.challenge}
+        eyebrow="Transformation"
+        heading="How the program was sequenced."
+        body={project.approach}
         tone="ice"
       />
 
       <ProjectNarrative
-        eyebrow="The Approach"
-        heading="An end-to-end transformation, sequenced with care."
-        body={project.approach}
-        tone="white"
-      />
-
-      <ProjectNarrative
-        eyebrow="Solution & Delivery"
+        eyebrow="What ConsultAmerica delivered"
         heading="What's running today."
         body={project.solution}
-        tone="ice"
+        tone="white"
       />
 
       <ProjectCapabilities items={project.capabilities} />

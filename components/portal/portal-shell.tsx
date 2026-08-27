@@ -98,7 +98,7 @@ export default function PortalShell({
           : null;
 
   return (
-    <div className="ca-app-canvas min-h-screen">
+    <div className="experience-app ca-app-canvas min-h-screen">
       <div className="flex min-h-screen flex-col lg:flex-row">
         <aside
           className={cn(
