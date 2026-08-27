@@ -5,6 +5,7 @@ import {
   getEmployeeSession,
   getHrSession,
   getManagerSession,
+  getPayrollSession,
   type PortalSession,
 } from "@/lib/self-service/session";
 import { getDocumentById } from "@/lib/self-service/document-store";
@@ -21,7 +22,7 @@ export class SecurityError extends Error {
 
 export type PortalActor = {
   session: PortalSession;
-  role: "EMPLOYEE" | "MANAGER" | "HR";
+  role: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL";
 };
 
 function deny(
@@ -57,6 +58,14 @@ export function requireHrActor(): PortalActor {
     throw new SecurityError("HR role required");
   }
   return { session, role: "HR" };
+}
+
+export function requirePayrollActor(): PortalActor {
+  const session = getPayrollSession();
+  if (!session.isPayroll) {
+    throw new SecurityError("Payroll role required");
+  }
+  return { session, role: "PAYROLL" };
 }
 
 export function requirePermission(

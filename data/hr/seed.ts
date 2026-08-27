@@ -1,4 +1,5 @@
 import type {
+  CompensationRecord,
   Employee,
   EmploymentAssignment,
   OnboardingRecord,
@@ -93,6 +94,33 @@ export const seedAssignments: EmploymentAssignment[] = [
     assignmentStatus: "ACTIVE",
     primaryAssignment: true,
     changeReason: "Initial hire",
+    createdAt: now,
+    updatedAt: now,
+  },
+];
+
+export const seedCompensationRecords: CompensationRecord[] = [
+  {
+    id: "comp-demo-001",
+    employeeId: "emp-demo-001",
+    assignmentId: "asg-demo-001",
+    compensationType: "SALARY",
+    annualSalary: 168000,
+    currency: "USD",
+    effectiveStartDate: "2024-03-01",
+    reason: "Initial hire",
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "comp-demo-002",
+    employeeId: "emp-demo-002",
+    assignmentId: "asg-demo-002",
+    compensationType: "SALARY",
+    annualSalary: 132000,
+    currency: "USD",
+    effectiveStartDate: "2025-01-15",
+    reason: "Initial hire",
     createdAt: now,
     updatedAt: now,
   },

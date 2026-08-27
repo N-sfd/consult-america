@@ -15,6 +15,7 @@ const employeeLinks = [
   { href: "/employee/onboarding", label: "Onboarding" },
   { href: "/employee/time", label: "Time" },
   { href: "/employee/leave", label: "Leave" },
+  { href: "/employee/pay", label: "Pay" },
   { href: "/employee/requests", label: "HR Requests" },
   { href: "/employee/notifications", label: "Notifications" },
 ];
@@ -36,9 +37,43 @@ const hrLinks = [
   { href: "/hr/notifications", label: "Notifications" },
 ];
 
+const payrollLinks = [
+  { href: "/payroll", label: "Overview", exact: true },
+  { href: "/payroll/runs", label: "Payroll Runs" },
+  { href: "/payroll/pay-periods", label: "Pay Periods" },
+  { href: "/payroll/employee-pay", label: "Employee Pay" },
+  { href: "/payroll/earnings", label: "Earnings" },
+  { href: "/payroll/deductions", label: "Deductions" },
+  { href: "/payroll/reports", label: "Reports" },
+  { href: "/payroll/settings", label: "Settings" },
+];
+
+type PortalMode = "employee" | "manager" | "hr" | "payroll";
+
+const LINKS_BY_MODE: Record<PortalMode, typeof employeeLinks> = {
+  employee: employeeLinks,
+  manager: managerLinks,
+  hr: hrLinks,
+  payroll: payrollLinks,
+};
+
+const LABEL_BY_MODE: Record<PortalMode, string> = {
+  employee: "Employee",
+  manager: "Manager",
+  hr: "HR",
+  payroll: "Payroll",
+};
+
+const HEADER_EYEBROW_BY_MODE: Record<PortalMode, string> = {
+  employee: "Employee Self-Service",
+  manager: "Manager Self-Service",
+  hr: "HR Service Desk",
+  payroll: "Payroll Administration",
+};
+
 interface PortalShellProps {
   session: PortalSession;
-  mode: "employee" | "manager" | "hr";
+  mode: PortalMode;
   unreadCount?: number;
   children: React.ReactNode;
 }
@@ -50,26 +85,17 @@ export default function PortalShell({
   children,
 }: PortalShellProps) {
   const pathname = usePathname();
-  const links =
-    mode === "employee"
-      ? employeeLinks
-      : mode === "manager"
-        ? managerLinks
-        : hrLinks;
-
-  const portalLabel =
-    mode === "employee"
-      ? "Employee"
-      : mode === "manager"
-        ? "Manager"
-        : "HR";
+  const links = LINKS_BY_MODE[mode];
+  const portalLabel = LABEL_BY_MODE[mode];
 
   const notificationsHref =
     mode === "employee"
       ? "/employee/notifications"
       : mode === "manager"
         ? "/manager/notifications"
-        : "/hr/notifications";
+        : mode === "hr"
+          ? "/hr/notifications"
+          : null;
 
   return (
     <div className="ca-app-canvas min-h-screen">
@@ -115,12 +141,6 @@ export default function PortalShell({
                 </Link>
               );
             })}
-
-            {mode === "employee" && (
-              <span className="whitespace-nowrap rounded px-3 py-1.5 text-[0.875rem] text-[var(--ca-app-muted)]/50">
-                Pay · Coming soon
-              </span>
-            )}
           </nav>
 
           <div className="mt-auto hidden border-t border-[var(--ca-app-border)] px-4 py-3 text-[0.7rem] text-[var(--ca-app-muted)] lg:block">
@@ -149,6 +169,14 @@ export default function PortalShell({
                   Switch to HR demo
                 </Link>
               )}
+              {mode !== "payroll" && (
+                <Link
+                  href="/payroll"
+                  className="block hover:text-[var(--ca-blue)]"
+                >
+                  Switch to Payroll demo
+                </Link>
+              )}
             </div>
             <p className="mt-2">Demo session · auth later</p>
           </div>
@@ -159,26 +187,24 @@ export default function PortalShell({
             <div className="mx-auto flex max-w-[var(--ca-app-max)] items-center justify-between gap-4">
               <div>
                 <p className="text-[0.7rem] uppercase tracking-[0.12em] text-black/40">
-                  {mode === "employee"
-                    ? "Employee Self-Service"
-                    : mode === "manager"
-                      ? "Manager Self-Service"
-                      : "HR Service Desk"}
+                  {HEADER_EYEBROW_BY_MODE[mode]}
                 </p>
                 <p className="mt-0.5 text-sm text-black/55">{session.workEmail}</p>
               </div>
               <div className="flex items-center gap-4">
-                <Link
-                  href={notificationsHref}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ca-app-ink)] hover:text-[var(--ca-blue)]"
-                >
-                  Alerts
-                  {unreadCount > 0 && (
-                    <span className="rounded bg-[var(--ca-blue)] px-1.5 py-0.5 text-[0.7rem] font-semibold text-white">
-                      {unreadCount}
-                    </span>
-                  )}
-                </Link>
+                {notificationsHref && (
+                  <Link
+                    href={notificationsHref}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ca-app-ink)] hover:text-[var(--ca-blue)]"
+                  >
+                    Alerts
+                    {unreadCount > 0 && (
+                      <span className="rounded bg-[var(--ca-blue)] px-1.5 py-0.5 text-[0.7rem] font-semibold text-white">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </Link>
+                )}
                 <Link
                   href="/"
                   className="text-sm font-medium text-[var(--ca-blue)] hover:underline"

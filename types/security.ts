@@ -30,7 +30,12 @@ export type SelfServicePermission =
   | "hr_request.manage"
   | "audit.read"
   | "reports.read"
-  | "team.reports.read";
+  | "team.reports.read"
+  | "self.pay.read"
+  | "payroll.compensation.read"
+  | "payroll.compensation.manage"
+  | "payroll.run.manage"
+  | "payroll.reports.read";
 
 export type AuditEventType =
   | "PROFILE_CHANGE_REQUESTED"
@@ -51,13 +56,16 @@ export type AuditEventType =
   | "HR_REQUEST_STATUS_CHANGED"
   | "NOTIFICATION_READ"
   | "NOTIFICATION_MARK_ALL_READ"
+  | "PAYROLL_RUN_CALCULATED"
+  | "PAYROLL_RUN_APPROVED"
+  | "PAYROLL_RUN_LOCKED"
   | "ACCESS_DENIED";
 
 export type AuditLogEntry = {
   id: string;
   eventType: AuditEventType;
   actorEmployeeId: string;
-  actorRole: "EMPLOYEE" | "MANAGER" | "HR";
+  actorRole: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL";
   targetEmployeeId?: string;
   resourceType?: string;
   resourceId?: string;

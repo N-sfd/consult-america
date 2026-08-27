@@ -333,10 +333,17 @@ function buildDetailLines(item: ApprovalInboxItem) {
         value: `${item.detail.request.hours} hours`,
       },
       {
-        label: "Available Balance",
+        label: "Current Balance",
         value:
           item.detail.balance != null
             ? `${item.detail.balance.available} hours`
+            : "—",
+      },
+      {
+        label: "Balance After Approval",
+        value:
+          item.detail.balance != null
+            ? `${item.detail.balance.available - item.detail.request.hours} hours`
             : "—",
       },
     );

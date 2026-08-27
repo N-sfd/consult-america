@@ -10,6 +10,7 @@ export type PortalSession = {
   workEmail: string;
   isManager: boolean;
   isHr?: boolean;
+  isPayroll?: boolean;
 };
 
 /** Default employee portal user: Jennifer Lee (direct report). */
@@ -40,6 +41,16 @@ export const DEMO_HR_SESSION: PortalSession = {
   isHr: true,
 };
 
+/** Demo payroll admin — same person as HR until dedicated payroll identity exists. */
+export const DEMO_PAYROLL_SESSION: PortalSession = {
+  employeeId: "emp-demo-001",
+  personId: "person-demo-001",
+  displayName: "Michael Brown",
+  workEmail: "payroll@consultamerica.demo",
+  isManager: true,
+  isPayroll: true,
+};
+
 export function getEmployeeSession(): PortalSession {
   return DEMO_EMPLOYEE_SESSION;
 }
@@ -50,4 +61,8 @@ export function getManagerSession(): PortalSession {
 
 export function getHrSession(): PortalSession {
   return DEMO_HR_SESSION;
+}
+
+export function getPayrollSession(): PortalSession {
+  return DEMO_PAYROLL_SESSION;
 }

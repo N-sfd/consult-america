@@ -70,7 +70,7 @@ function createId() {
 export function writeAuditLog(input: {
   eventType: AuditEventType;
   actorEmployeeId: string;
-  actorRole: "EMPLOYEE" | "MANAGER" | "HR";
+  actorRole: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL";
   targetEmployeeId?: string;
   resourceType?: string;
   resourceId?: string;
@@ -95,7 +95,7 @@ export function writeAuditLog(input: {
 
 export type AuditLogFilter = {
   eventType?: AuditEventType | "ALL";
-  actorRole?: "EMPLOYEE" | "MANAGER" | "HR" | "ALL";
+  actorRole?: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL" | "ALL";
   limit?: number;
 };
 

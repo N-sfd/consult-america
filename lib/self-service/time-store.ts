@@ -79,6 +79,7 @@ export type DayHoursInput = {
   workDate: string;
   hours: number;
   timeType?: TimeType;
+  comments?: string;
 };
 
 export function saveTimesheetDraft(input: {
@@ -122,6 +123,7 @@ export function saveTimesheetDraft(input: {
       workDate: day.workDate,
       hours: day.hours,
       timeType: day.timeType ?? "REGULAR",
+      comments: day.comments,
     });
   }
 

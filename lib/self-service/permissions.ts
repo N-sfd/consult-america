@@ -13,6 +13,7 @@ const employeePermissions: SelfServicePermission[] = [
   "self.hr_request.read",
   "self.hr_request.create",
   "self.notification.read",
+  "self.pay.read",
 ];
 
 const managerPermissions: SelfServicePermission[] = [
@@ -39,24 +40,35 @@ const hrPermissions: SelfServicePermission[] = [
   "reports.read",
 ];
 
+const payrollPermissions: SelfServicePermission[] = [
+  "self.pay.read",
+  "employee.read",
+  "payroll.compensation.read",
+  "payroll.compensation.manage",
+  "payroll.run.manage",
+  "payroll.reports.read",
+  "audit.read",
+];
+
 /** Demo role grants. Auth later binds these to real user_roles rows. */
 export const rolePermissionMap: Record<
-  "EMPLOYEE" | "MANAGER" | "HR",
+  "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL",
   SelfServicePermission[]
 > = {
   EMPLOYEE: employeePermissions,
   MANAGER: managerPermissions,
   HR: hrPermissions,
+  PAYROLL: payrollPermissions,
 };
 
 export function permissionsForPortalRole(
-  role: "EMPLOYEE" | "MANAGER" | "HR",
+  role: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL",
 ): SelfServicePermission[] {
   return rolePermissionMap[role];
 }
 
 export function hasPermission(
-  role: "EMPLOYEE" | "MANAGER" | "HR",
+  role: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL",
   permission: SelfServicePermission,
 ) {
   return rolePermissionMap[role].includes(permission);
@@ -64,9 +76,10 @@ export function hasPermission(
 
 /** Maps demo portal mode to platform roles for future auth bridging. */
 export function platformRolesForPortal(
-  role: "EMPLOYEE" | "MANAGER" | "HR",
+  role: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL",
 ): PlatformRole[] {
   if (role === "HR") return ["HR_SPECIALIST", "EMPLOYEE"];
   if (role === "MANAGER") return ["MANAGER", "EMPLOYEE"];
+  if (role === "PAYROLL") return ["PAYROLL_ADMIN"];
   return ["EMPLOYEE"];
 }
