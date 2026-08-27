@@ -6,6 +6,7 @@ import FeaturedWork from "@/components/marketing/featured-work";
 import GrowthCta from "@/components/marketing/growth-cta";
 import Hero from "@/components/marketing/hero";
 import Industries from "@/components/marketing/industries";
+import InnovationPreview from "@/components/marketing/innovation-preview";
 import InsightsPreview from "@/components/marketing/insights-preview";
 import SpecialistShowcase from "@/components/marketing/specialist-showcase";
 import TrustCredibility from "@/components/marketing/trust-credibility";
@@ -33,6 +34,7 @@ export default function Home() {
         <SpecialistShowcase />
         <Industries />
         <FeaturedWork />
+        <InnovationPreview />
         <WhyConsultAmerica />
         <CareersFeature />
         <InsightsPreview />

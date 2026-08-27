@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import JobBoard from "@/components/jobs/job-board";
-import { Section, SectionEyebrow, SectionLead } from "@/components/section";
 import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
 
 export const metadata: Metadata = {
@@ -17,34 +16,38 @@ export default async function JobsPage() {
   const filterOptions = getJobFilterOptions(jobs);
 
   return (
-    <>
-      <Section tone="navy">
-        <SectionEyebrow onDark>Open Roles</SectionEyebrow>
-        <h1 className="ca-h1 mt-6 max-w-4xl">Find your next opportunity.</h1>
-        <SectionLead onDark>
+    <div className="bg-[var(--cr-bg)]">
+      <div className="cr-shell py-14 md:py-20 lg:py-24">
+        <span className="ca-eyebrow text-[var(--cr-blue)]">Open Roles</span>
+        <h1 className="ca-h1 mt-6 max-w-4xl text-[var(--cr-navy)]">
+          Find your next opportunity.
+        </h1>
+        <p className="mt-5 max-w-2xl text-lg leading-[1.65] text-[var(--cr-text-secondary)]">
           Join ConsultAmerica and work on complex enterprise transformation,
           Oracle, AI, data, and digital engineering initiatives.
-        </SectionLead>
+        </p>
         <Link href="/careers" className="ca-link mt-8 inline-flex text-sm">
           Life at ConsultAmerica
         </Link>
-      </Section>
+      </div>
 
-      <Section tone="navy" className="!pt-0">
+      <div className="cr-shell pb-14 md:pb-20 lg:pb-24">
         <Suspense
           fallback={
-            <p className="text-white/55">Loading opportunities...</p>
+            <p className="text-[var(--cr-text-secondary)]">
+              Loading opportunities...
+            </p>
           }
         >
           <JobBoard jobs={jobs} filterOptions={filterOptions} />
         </Suspense>
 
-        <p className="mt-16 border-t border-white/10 pt-8 text-xs leading-6 text-white/40">
+        <p className="mt-16 border-t border-[var(--cr-border)] pt-8 text-xs leading-6 text-[var(--cr-text-secondary)]">
           ConsultAmerica is committed to providing equal employment opportunities
           to qualified applicants and employees in accordance with applicable
           law.
         </p>
-      </Section>
-    </>
+      </div>
+    </div>
   );
 }

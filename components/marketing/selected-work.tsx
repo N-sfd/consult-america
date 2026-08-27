@@ -14,7 +14,7 @@ export default function SelectedWork() {
           <h2 className="text-sm tracking-[0.16em] uppercase text-white/55">
             Select Projects
           </h2>
-          <Link href="/projects" className="ca-link text-sm">
+          <Link href="/work/case-studies" className="ca-link text-sm">
             View all
             <ArrowUpRight className="h-4 w-4" />
           </Link>

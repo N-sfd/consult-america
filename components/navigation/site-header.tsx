@@ -113,7 +113,7 @@ export default function SiteHeader() {
                     What We Do
                   </Link>
                   <Link
-                    href="/projects"
+                    href="/work"
                     className="ca-nav-link hidden whitespace-nowrap min-[420px]:inline-flex"
                   >
                     Work

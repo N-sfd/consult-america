@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -10,6 +11,9 @@ import {
   whyWorkHere,
 } from "@/data/careers";
 
+const CAREERS_HERO_IMAGE =
+  "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80";
+
 export const metadata: Metadata = {
   title: "Careers | ConsultAmerica",
   description:
@@ -19,35 +23,55 @@ export const metadata: Metadata = {
 export default function CareersPage() {
   return (
     <>
-      <Section className="relative overflow-hidden bg-[#071A2F] text-white">
+      <Section className="bg-[var(--cr-bg-soft)] text-[var(--cr-navy)]">
         <Container>
-          <span className="ca-eyebrow text-white/60">CAREERS</span>
-          <h1 className="ca-h1 mt-6 max-w-4xl">Build what&apos;s next.</h1>
-          <p className="mt-8 max-w-3xl text-lg leading-8 text-white/65">
-            Join ConsultAmerica and work on complex enterprise transformation,
-            Oracle, AI, data, and digital engineering initiatives that move
-            organizations forward.
-          </p>
-          <Link href="/jobs" className="ca-button-light mt-10">
-            Explore Open Roles
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-7">
+              <span className="ca-eyebrow text-[var(--cr-blue)]">CAREERS</span>
+              <h1 className="ca-h1 mt-6 max-w-2xl text-[var(--cr-navy)]">
+                Build what&apos;s next.
+              </h1>
+              <p className="mt-8 max-w-xl text-lg leading-8 text-[var(--cr-text-secondary)]">
+                Join ConsultAmerica and work on complex enterprise
+                transformation, Oracle, AI, data, and digital engineering
+                initiatives that move organizations forward.
+              </p>
+              <Link href="/jobs" className="ca-button-primary mt-10">
+                Explore Open Roles
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="lg:col-span-5">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                <Image
+                  src={CAREERS_HERO_IMAGE}
+                  alt="ConsultAmerica team collaborating"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
+            </div>
+          </div>
         </Container>
       </Section>
 
-      <Section className="bg-[#05070d] text-white">
+      <Section className="bg-white text-[var(--cr-navy)]">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <span className="ca-eyebrow text-white/45">WHY WORK HERE</span>
+              <span className="ca-eyebrow text-[var(--cr-text-secondary)]">
+                WHY WORK HERE
+              </span>
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:col-span-8">
               {whyWorkHere.map((item) => (
                 <article key={item.title}>
-                  <h2 className="text-2xl font-medium tracking-[-0.03em]">
+                  <h2 className="text-2xl font-medium tracking-[-0.03em] text-[var(--cr-navy)]">
                     {item.title}
                   </h2>
-                  <p className="mt-4 text-base leading-7 text-white/60">
+                  <p className="mt-4 text-base leading-7 text-[var(--cr-text-secondary)]">
                     {item.description}
                   </p>
                 </article>

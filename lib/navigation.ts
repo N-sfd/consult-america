@@ -3,7 +3,7 @@ export const primaryLinks = [
   { href: "/industries", label: "Industries" },
   { href: "/oracle", label: "Oracle" },
   { href: "/ai-data", label: "AI & Data" },
-  { href: "/projects", label: "Projects" },
+  { href: "/work", label: "Projects" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },

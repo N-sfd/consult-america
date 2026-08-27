@@ -13,7 +13,7 @@ const flagship = {
   title: "Oracle Cloud Transformation",
   description:
     "Modernizing finance and procurement for complex multi-entity operations.",
-  href: "/projects/oracle-cloud-transformation",
+  href: "/work/case-studies/oracle-cloud-transformation",
   image:
     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80",
 };
@@ -25,7 +25,7 @@ const supportingProjects = [
     title: "AI Document Intelligence",
     description:
       "Turning complex contracts into structured, searchable enterprise intelligence.",
-    href: "/projects/ai-document-intelligence",
+    href: "/work/case-studies/ai-document-intelligence",
     image:
       "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1000&q=80",
   },
@@ -35,7 +35,7 @@ const supportingProjects = [
     title: "Public Sector Data Platform",
     description:
       "Shared analytics with role-based access, controls, and audit trails.",
-    href: "/projects/public-sector-finance-procurement",
+    href: "/work/case-studies/public-sector-finance-procurement",
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=80",
   },
@@ -52,7 +52,7 @@ export default function FeaturedWork() {
               Outcomes you can see.
             </h2>
           </div>
-          <Link href="/projects" className="ca-link">
+          <Link href="/work/case-studies" className="ca-link">
             View all projects
             <ArrowUpRight className="h-4 w-4" />
           </Link>

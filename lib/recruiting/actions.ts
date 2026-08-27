@@ -27,8 +27,11 @@ export type SubmitJobApplicationInput = {
   location?: string;
   linkedinUrl?: string;
   portfolioUrl?: string;
+  currentTitle?: string;
+  yearsOfExperience?: string;
   workAuthorization?: string;
   willingToRelocate?: "yes" | "no" | "maybe";
+  resumeFileName?: string;
   coverLetter?: string;
   additionalInformation?: string;
 };
@@ -39,6 +42,11 @@ export async function submitJobApplication(
 ): Promise<SubmitApplicationResult> {
   const additionalInformation = [
     input.location ? `Location: ${input.location}` : null,
+    input.currentTitle ? `Current Title: ${input.currentTitle}` : null,
+    input.yearsOfExperience
+      ? `Years of Experience: ${input.yearsOfExperience}`
+      : null,
+    input.resumeFileName ? `Resume: ${input.resumeFileName}` : null,
     input.additionalInformation,
   ]
     .filter(Boolean)

@@ -76,7 +76,7 @@ export const capabilityGroups = [
 ];
 
 export const navLinks = [
-  { href: "/projects", label: "Work" },
+  { href: "/work", label: "Work" },
   { href: "/insights", label: "Insights" },
   { href: "/careers", label: "Careers" },
 ];
@@ -148,25 +148,25 @@ export const testimonials = [
 
 export const selectedProjects = [
   {
-    href: "/projects",
+    href: "/work/case-studies",
     client: "Oracle Fusion rollout",
     title: "Multi-entity finance transformation with a staged cutover.",
     body: "Staged Fusion cutover across entities, with a monitored hub and named owners.",
   },
   {
-    href: "/projects",
+    href: "/work/case-studies",
     client: "Public-sector data platform",
     title: "Shared analytics with role-based access and audit trails.",
     body: "A governed data layer public-sector teams can use—controls included.",
   },
   {
-    href: "/projects",
+    href: "/work/case-studies",
     client: "AI document intake",
     title: "Classification and extraction that reduced manual review.",
     body: "An evaluation-backed pipeline with quality ownership into operations.",
   },
   {
-    href: "/projects",
+    href: "/work/case-studies",
     client: "Integration rebuild",
     title: "Replaced brittle point-to-point flows with a monitored hub.",
     body: "Clearer contracts between systems and an operating model the client can run.",

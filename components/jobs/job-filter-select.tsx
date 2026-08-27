@@ -34,23 +34,23 @@ export default function JobFilterSelect({
 
   return (
     <div>
-      <label className="ca-eyebrow text-white/45">{label}</label>
+      <label className="cr-label">{label}</label>
 
       <Select
         items={items}
         value={value}
         onValueChange={(next) => onValueChange(next ?? "")}
       >
-        <SelectTrigger className="mt-3 h-12 w-full rounded-md border-white/15 bg-[#0F172A] px-4 text-white shadow-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 data-popup-open:border-blue-500">
+        <SelectTrigger className="h-12 w-full rounded-lg border-[var(--cr-border)] bg-white px-4 text-[var(--cr-text)] shadow-none hover:border-[#B8C5D3] focus:border-[var(--cr-blue)] focus:ring-4 focus:ring-[var(--cr-blue)]/10 data-popup-open:border-[var(--cr-blue)]">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
 
-        <SelectContent className="border border-slate-200 bg-white text-slate-900">
+        <SelectContent className="border border-[var(--cr-border)] bg-white text-[var(--cr-text)]">
           {options.map((option) => (
             <SelectItem
               key={option.value}
               value={option.value}
-              className="cursor-pointer text-slate-900 focus:bg-blue-50 focus:text-blue-700"
+              className="cursor-pointer text-[var(--cr-text)] focus:bg-[var(--cr-bg-soft)] focus:text-[var(--cr-blue)]"
             >
               {option.label}
             </SelectItem>

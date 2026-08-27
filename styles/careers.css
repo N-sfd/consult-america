@@ -1,0 +1,67 @@
+/* ConsultAmerica Careers V2 — Cloud Blue + White + Navy light theme,
+   scoped to /careers, /jobs, /jobs/[slug], /jobs/[slug]/apply. */
+
+:root {
+  --cr-bg: #f5f8fc;
+  --cr-bg-soft: #eaf3ff;
+  --cr-surface: #ffffff;
+  --cr-navy: #102a43;
+  --cr-text: #172b4d;
+  --cr-text-secondary: #5e6c84;
+  --cr-blue: #2563eb;
+  --cr-blue-hover: #1d4ed8;
+  --cr-border: #d9e2ec;
+  --cr-success: #16865b;
+  --cr-error: #c83c3c;
+  --cr-max: 1360px;
+}
+
+.cr-shell {
+  width: 100%;
+  max-width: var(--cr-max);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 1rem + 1.5vw, 4rem);
+}
+
+.cr-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #243b53;
+}
+
+.cr-input {
+  height: 3rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--cr-border);
+  background: var(--cr-surface);
+  padding-inline: 1rem;
+  font-size: 16px;
+  color: var(--cr-text);
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.cr-input::placeholder {
+  color: #8a98a8;
+}
+
+.cr-input:hover {
+  border-color: #b8c5d3;
+}
+
+.cr-input:focus {
+  border-color: var(--cr-blue);
+  box-shadow: 0 0 0 4px rgb(37 99 235 / 0.1);
+}
+
+.cr-card {
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: var(--cr-surface);
+  box-shadow: 0 1px 2px rgb(16 42 67 / 0.04);
+}

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Search } from "lucide-react";
 
 import JobFilterSelect from "@/components/jobs/job-filter-select";
 import JobListItem from "@/components/jobs/job-list-item";
@@ -58,19 +59,22 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
 
   return (
     <div>
-      <div className="space-y-6 border-b border-white/10 pb-8">
+      <div className="cr-card space-y-6 p-6 md:p-8">
         <div>
-          <label htmlFor="job-search" className="ca-eyebrow text-white/45">
+          <label htmlFor="job-search" className="cr-label">
             Search
           </label>
-          <input
-            id="job-search"
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search jobs..."
-            className="ca-underline-input mt-3 w-full"
-          />
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a98a8]" />
+            <input
+              id="job-search"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search jobs..."
+              className="cr-input pl-11"
+            />
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -129,12 +133,14 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
-        <p className="text-sm text-white/55">
-          {filteredJobs.length}{" "}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <p className="text-sm text-[var(--cr-text-secondary)]">
+          <span className="font-medium text-[var(--cr-navy)]">
+            {filteredJobs.length}
+          </span>{" "}
           {filteredJobs.length === 1 ? "opportunity" : "opportunities"}
           {careerArea !== ALL && (
-            <span className="text-white/35">
+            <span>
               {" "}
               · {careerAreaLabels[careerArea as keyof typeof careerAreaLabels]}
             </span>
@@ -145,18 +151,18 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
           <button
             type="button"
             onClick={clearFilters}
-            className="text-sm font-medium text-white/60 hover:text-white"
+            className="text-sm font-medium text-[var(--cr-blue)] hover:text-[var(--cr-blue-hover)]"
           >
             Clear Filters
           </button>
         )}
       </div>
 
-      <div className="mt-2">
+      <div className="mt-4 grid gap-4">
         {filteredJobs.length > 0 ? (
           filteredJobs.map((job) => <JobListItem key={job.id} job={job} />)
         ) : (
-          <p className="py-12 text-white/55">
+          <p className="cr-card py-12 text-center text-[var(--cr-text-secondary)]">
             No roles match your search. Try adjusting filters or explore all
             career areas.
           </p>

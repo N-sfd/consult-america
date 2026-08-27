@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
 
+import { getCaseStudySlugs } from "@/data/case-studies";
+import { getInnovationProductSlugs } from "@/data/innovation-products";
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
 
 const routes = [
@@ -12,7 +15,11 @@ const routes = [
   "/oracle",
   "/ai-data",
   "/industries",
-  "/projects",
+  "/work",
+  "/work/case-studies",
+  ...getCaseStudySlugs().map((slug) => `/work/case-studies/${slug}`),
+  "/work/innovation",
+  ...getInnovationProductSlugs().map((slug) => `/work/innovation/${slug}`),
   "/insights",
   "/careers",
   "/jobs",
