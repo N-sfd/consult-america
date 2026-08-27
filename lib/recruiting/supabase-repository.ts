@@ -1,5 +1,10 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import type {
+  CandidateApplicationSummary,
+  CandidateInterviewSummary,
+  CandidateListItem,
+  CandidateProfile,
+  RecruitingCandidateReads,
   RecruitingDashboardReads,
   RecruitingRepository,
 } from "@/lib/recruiting/repository";
@@ -9,10 +14,16 @@ import {
   type Application,
   type ApplicationStatus,
   type Candidate,
+  type CandidateDocument,
+  type CandidateEducation,
+  type CandidateExperience,
+  type CandidateSkill,
   type Interview,
+  type InterviewFeedback,
   type JobPosting,
   type JobRequisition,
   type Offer,
+  type RecruitingActivity,
 } from "@/types/recruiting";
 
 /** snake_case (Postgres) -> camelCase (app) row mappers, one per table. */
@@ -142,13 +153,87 @@ function mapInterview(row: Record<string, unknown>): Interview {
   };
 }
 
+function mapExperience(row: Record<string, unknown>): CandidateExperience {
+  return {
+    id: row.id as string,
+    candidateId: row.candidate_id as string,
+    company: row.company as string,
+    title: row.title as string,
+    startDate: row.start_date as string,
+    endDate: (row.end_date as string) ?? undefined,
+    isCurrent: Boolean(row.is_current),
+    description: (row.description as string) ?? undefined,
+  };
+}
+
+function mapEducation(row: Record<string, unknown>): CandidateEducation {
+  return {
+    id: row.id as string,
+    candidateId: row.candidate_id as string,
+    institution: row.institution as string,
+    degree: (row.degree as string) ?? undefined,
+    fieldOfStudy: (row.field_of_study as string) ?? undefined,
+    startDate: (row.start_date as string) ?? undefined,
+    endDate: (row.end_date as string) ?? undefined,
+  };
+}
+
+function mapSkill(row: Record<string, unknown>): CandidateSkill {
+  return {
+    id: row.id as string,
+    candidateId: row.candidate_id as string,
+    skill: row.skill as string,
+    proficiency: (row.proficiency as string) ?? undefined,
+  };
+}
+
+function mapDocument(row: Record<string, unknown>): CandidateDocument {
+  return {
+    id: row.id as string,
+    candidateId: row.candidate_id as string,
+    applicationId: (row.application_id as string) ?? undefined,
+    documentType: row.document_type as CandidateDocument["documentType"],
+    fileName: row.file_name as string,
+    storagePath: row.storage_path as string,
+    uploadedAt: row.uploaded_at as string,
+  };
+}
+
+function mapFeedback(row: Record<string, unknown>): InterviewFeedback {
+  return {
+    id: row.id as string,
+    interviewId: row.interview_id as string,
+    panelMemberId: row.panel_member_id as string,
+    recommendation: row.recommendation as InterviewFeedback["recommendation"],
+    score: (row.score as number) ?? undefined,
+    strengths: (row.strengths as string) ?? undefined,
+    concerns: (row.concerns as string) ?? undefined,
+    notes: (row.notes as string) ?? undefined,
+    submittedAt: row.submitted_at as string,
+  };
+}
+
+function mapActivity(row: Record<string, unknown>): RecruitingActivity {
+  return {
+    id: row.id as string,
+    candidateId: (row.candidate_id as string) ?? undefined,
+    applicationId: (row.application_id as string) ?? undefined,
+    requisitionId: (row.requisition_id as string) ?? undefined,
+    activityType: row.activity_type as string,
+    summary: row.summary as string,
+    createdByUserId: (row.created_by_user_id as string) ?? undefined,
+    createdAt: row.created_at as string,
+  };
+}
+
 const ALL_APPLICATION_STATUSES: ApplicationStatus[] = [
   ...APPLICATION_PIPELINE,
   ...APPLICATION_TERMINAL_STATUSES,
 ];
 
 export function createSupabaseRecruitingRepository(): RecruitingRepository &
-  RecruitingDashboardReads {
+  RecruitingDashboardReads &
+  RecruitingCandidateReads {
   return {
     async listPublishedPostings() {
       const client = getSupabaseServiceClient();
@@ -296,6 +381,205 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         .limit(limit);
 
       return (data ?? []).map(mapApplication);
+    },
+
+    async listCandidateSummaries() {
+      const client = getSupabaseServiceClient();
+      if (!client) return [];
+
+      const [
+        { data: candidateRows },
+        { data: applicationRows },
+        { data: postingRows },
+      ] = await Promise.all([
+        client.from("candidates").select("*"),
+        client.from("applications").select("*"),
+        client.from("job_postings").select("id, title, location_name"),
+      ]);
+
+      const postingById = new Map(
+        (postingRows ?? []).map((row) => [row.id as string, row]),
+      );
+
+      const latestApplicationByCandidate = new Map<
+        string,
+        Record<string, unknown>
+      >();
+      for (const row of applicationRows ?? []) {
+        const candidateId = row.candidate_id as string;
+        const existing = latestApplicationByCandidate.get(candidateId);
+        if (
+          !existing ||
+          new Date(row.applied_at as string) >
+            new Date(existing.applied_at as string)
+        ) {
+          latestApplicationByCandidate.set(candidateId, row);
+        }
+      }
+
+      return (candidateRows ?? []).map((row): CandidateListItem => {
+        const candidate = mapCandidate(row);
+        const application = latestApplicationByCandidate.get(candidate.id);
+        const posting = application
+          ? postingById.get(application.posting_id as string)
+          : undefined;
+
+        return {
+          candidateId: candidate.id,
+          name: `${candidate.firstName} ${candidate.lastName}`,
+          email: candidate.email,
+          role: (posting?.title as string) ?? "—",
+          applicationNumber:
+            (application?.application_number as string) ?? "—",
+          stage: (application?.status as ApplicationStatus) ?? undefined,
+          location: (posting?.location_name as string) ?? "—",
+          workAuthorization: candidate.workAuthorization,
+          lastActivityAt:
+            (application?.updated_at as string) ?? candidate.updatedAt,
+        };
+      });
+    },
+
+    async getCandidateProfile(candidateId: string) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+
+      const { data: candidateRow } = await client
+        .from("candidates")
+        .select("*")
+        .eq("id", candidateId)
+        .maybeSingle();
+
+      if (!candidateRow) return undefined;
+
+      const [
+        { data: applicationRows },
+        { data: experienceRows },
+        { data: educationRows },
+        { data: skillRows },
+        { data: documentRows },
+        { data: activityRows },
+      ] = await Promise.all([
+        client.from("applications").select("*").eq("candidate_id", candidateId),
+        client
+          .from("candidate_experience")
+          .select("*")
+          .eq("candidate_id", candidateId)
+          .order("start_date", { ascending: false }),
+        client
+          .from("candidate_education")
+          .select("*")
+          .eq("candidate_id", candidateId),
+        client.from("candidate_skills").select("*").eq("candidate_id", candidateId),
+        client
+          .from("candidate_documents")
+          .select("*")
+          .eq("candidate_id", candidateId)
+          .order("uploaded_at", { ascending: false }),
+        client
+          .from("recruiting_activities")
+          .select("*")
+          .eq("candidate_id", candidateId)
+          .order("created_at", { ascending: false }),
+      ]);
+
+      const applicationIds = (applicationRows ?? []).map(
+        (row) => row.id as string,
+      );
+      const requisitionIds = [
+        ...new Set((applicationRows ?? []).map((row) => row.requisition_id as string)),
+      ];
+      const postingIds = [
+        ...new Set((applicationRows ?? []).map((row) => row.posting_id as string)),
+      ];
+
+      const [
+        { data: requisitionRows },
+        { data: postingRows },
+        { data: interviewRows },
+      ] = await Promise.all([
+        requisitionIds.length
+          ? client
+              .from("job_requisitions")
+              .select("id, title, requisition_number")
+              .in("id", requisitionIds)
+          : Promise.resolve({ data: [] as Record<string, unknown>[] }),
+        postingIds.length
+          ? client
+              .from("job_postings")
+              .select("id, location_name")
+              .in("id", postingIds)
+          : Promise.resolve({ data: [] as Record<string, unknown>[] }),
+        applicationIds.length
+          ? client.from("interviews").select("*").in("application_id", applicationIds)
+          : Promise.resolve({ data: [] as Record<string, unknown>[] }),
+      ]);
+
+      const requisitionById = new Map(
+        (requisitionRows ?? []).map((row) => [row.id as string, row]),
+      );
+      const postingById = new Map(
+        (postingRows ?? []).map((row) => [row.id as string, row]),
+      );
+      const applicationById = new Map(
+        (applicationRows ?? []).map((row) => [row.id as string, row]),
+      );
+
+      const applications: CandidateApplicationSummary[] = (
+        applicationRows ?? []
+      ).map((row) => {
+        const requisition = requisitionById.get(row.requisition_id as string);
+        const posting = postingById.get(row.posting_id as string);
+        return {
+          applicationId: row.id as string,
+          applicationNumber: row.application_number as string,
+          requisitionId: row.requisition_id as string,
+          requisitionTitle: (requisition?.title as string) ?? "—",
+          requisitionNumber:
+            (requisition?.requisition_number as string) ?? "—",
+          postingLocation: (posting?.location_name as string) ?? "—",
+          status: row.status as ApplicationStatus,
+          appliedAt: row.applied_at as string,
+          updatedAt: row.updated_at as string,
+        };
+      });
+
+      const interviews: CandidateInterviewSummary[] = (interviewRows ?? []).map(
+        (row) => {
+          const application = applicationById.get(row.application_id as string);
+          const requisition = application
+            ? requisitionById.get(application.requisition_id as string)
+            : undefined;
+          return {
+            ...mapInterview(row),
+            applicationNumber:
+              (application?.application_number as string) ?? "—",
+            requisitionTitle: (requisition?.title as string) ?? "—",
+          };
+        },
+      );
+
+      const interviewIds = interviews.map((interview) => interview.id);
+      const { data: feedbackRows } = interviewIds.length
+        ? await client.from("interview_feedback").select("*").in(
+            "interview_id",
+            interviewIds,
+          )
+        : { data: [] as Record<string, unknown>[] };
+
+      const profile: CandidateProfile = {
+        candidate: mapCandidate(candidateRow),
+        applications,
+        experience: (experienceRows ?? []).map(mapExperience),
+        education: (educationRows ?? []).map(mapEducation),
+        skills: (skillRows ?? []).map(mapSkill),
+        documents: (documentRows ?? []).map(mapDocument),
+        interviews,
+        feedback: (feedbackRows ?? []).map(mapFeedback),
+        activities: (activityRows ?? []).map(mapActivity),
+      };
+
+      return profile;
     },
   };
 }

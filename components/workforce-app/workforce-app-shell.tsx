@@ -39,7 +39,7 @@ const nav: NavItem[] = [
     icon: <Briefcase className="h-4 w-4" />,
     children: [
       { label: "Jobs", href: "/workforce/jobs" },
-      { label: "Candidates", href: "/workforce/candidates" },
+      { label: "Candidates", href: "/app/recruiting/candidates" },
       { label: "Interviews", href: "/workforce/interviews" },
       { label: "Offers", href: "#", disabled: true },
     ],
@@ -247,7 +247,7 @@ export default function WorkforceAppShell({
                 Jobs
               </Link>
               <Link
-                href="/workforce/candidates"
+                href="/app/recruiting/candidates"
                 className="shrink-0 px-2 py-1 text-black/55"
               >
                 Candidates

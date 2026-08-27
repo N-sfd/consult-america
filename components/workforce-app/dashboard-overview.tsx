@@ -92,7 +92,7 @@ export default function DashboardOverview({
               Hiring pipeline
             </p>
             <Link
-              href="/workforce/candidates"
+              href="/app/recruiting/candidates"
               className="text-sm text-[var(--ca-blue)] hover:underline"
             >
               View candidates

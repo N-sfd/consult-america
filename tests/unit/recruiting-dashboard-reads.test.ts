@@ -42,4 +42,16 @@ describe("recruiting dashboard reads (unconfigured Supabase)", () => {
       [],
     );
   });
+
+  it("returns no candidate summaries", async () => {
+    await expect(recruitingRepository.listCandidateSummaries()).resolves.toEqual(
+      [],
+    );
+  });
+
+  it("returns undefined for a candidate profile lookup", async () => {
+    await expect(
+      recruitingRepository.getCandidateProfile("cand-seed-001"),
+    ).resolves.toBeUndefined();
+  });
 });

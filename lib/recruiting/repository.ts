@@ -2,10 +2,16 @@ import type {
   Application,
   ApplicationStatus,
   Candidate,
+  CandidateDocument,
+  CandidateEducation,
+  CandidateExperience,
+  CandidateSkill,
   Interview,
+  InterviewFeedback,
   JobPosting,
   JobRequisition,
   Offer,
+  RecruitingActivity,
 } from "@/types/recruiting";
 
 export type RecruitingRepository = {
@@ -33,6 +39,54 @@ export type RecruitingDashboardReads = {
   getApplicationPipelineCounts(): Promise<Record<ApplicationStatus, number>>;
   listUpcomingInterviews(limit: number): Promise<Interview[]>;
   listRecentHires(limit: number): Promise<Application[]>;
+};
+
+/** One row in the recruiting/candidates list — one row per candidate, keyed to their most recent application. */
+export type CandidateListItem = {
+  candidateId: string;
+  name: string;
+  email: string;
+  role: string;
+  applicationNumber: string;
+  stage?: ApplicationStatus;
+  location: string;
+  workAuthorization?: string;
+  lastActivityAt: string;
+};
+
+export type CandidateApplicationSummary = {
+  applicationId: string;
+  applicationNumber: string;
+  requisitionId: string;
+  requisitionTitle: string;
+  requisitionNumber: string;
+  postingLocation: string;
+  status: ApplicationStatus;
+  appliedAt: string;
+  updatedAt: string;
+};
+
+export type CandidateInterviewSummary = Interview & {
+  applicationNumber: string;
+  requisitionTitle: string;
+};
+
+export type CandidateProfile = {
+  candidate: Candidate;
+  applications: CandidateApplicationSummary[];
+  experience: CandidateExperience[];
+  education: CandidateEducation[];
+  skills: CandidateSkill[];
+  documents: CandidateDocument[];
+  interviews: CandidateInterviewSummary[];
+  feedback: InterviewFeedback[];
+  activities: RecruitingActivity[];
+};
+
+/** Candidate list/profile reads backing the ATS (Recruiting > Candidates). */
+export type RecruitingCandidateReads = {
+  listCandidateSummaries(): Promise<CandidateListItem[]>;
+  getCandidateProfile(candidateId: string): Promise<CandidateProfile | undefined>;
 };
 
 /**

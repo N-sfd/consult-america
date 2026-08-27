@@ -5,6 +5,7 @@ import {
 } from "@/data/recruiting/seed";
 import { createSupabaseRecruitingRepository } from "@/lib/recruiting/supabase-repository";
 import type {
+  RecruitingCandidateReads,
   RecruitingDashboardReads,
   RecruitingRepository,
 } from "@/lib/recruiting/repository";
@@ -79,7 +80,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository {
  */
 function withEmptyDashboardReads(
   repository: RecruitingRepository,
-): RecruitingRepository & RecruitingDashboardReads {
+): RecruitingRepository & RecruitingDashboardReads & RecruitingCandidateReads {
   return {
     ...repository,
     async countCandidates() {
@@ -101,11 +102,18 @@ function withEmptyDashboardReads(
     async listRecentHires() {
       return [];
     },
+    async listCandidateSummaries() {
+      return [];
+    },
+    async getCandidateProfile() {
+      return undefined;
+    },
   };
 }
 
 export const recruitingRepository: RecruitingRepository &
-  RecruitingDashboardReads = isSupabaseConfigured()
+  RecruitingDashboardReads &
+  RecruitingCandidateReads = isSupabaseConfigured()
   ? createSupabaseRecruitingRepository()
   : withEmptyDashboardReads(createMemoryRecruitingRepository());
 
