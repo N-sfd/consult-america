@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import BrandLogo from "@/components/brand/brand-logo";
+import EmployeeBottomNav from "@/components/portal/employee-bottom-nav";
 import type { PortalSession } from "@/lib/self-service/session";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +12,7 @@ const employeeLinks = [
   { href: "/employee", label: "Home", exact: true },
   { href: "/employee/profile", label: "My Profile" },
   { href: "/employee/documents", label: "My Documents" },
+  { href: "/employee/onboarding", label: "Onboarding" },
   { href: "/employee/time", label: "Time" },
   { href: "/employee/leave", label: "Leave" },
   { href: "/employee/requests", label: "HR Requests" },
@@ -72,7 +74,12 @@ export default function PortalShell({
   return (
     <div className="ca-app-canvas min-h-screen">
       <div className="flex min-h-screen flex-col lg:flex-row">
-        <aside className="ca-app-sidebar border-b border-[var(--ca-app-border)] text-[var(--ca-app-ink)] lg:shrink-0 lg:border-b-0 lg:border-r lg:w-[var(--ca-app-sidebar)]">
+        <aside
+          className={cn(
+            "ca-app-sidebar border-b border-[var(--ca-app-border)] text-[var(--ca-app-ink)] lg:shrink-0 lg:border-b-0 lg:border-r lg:w-[var(--ca-app-sidebar)]",
+            mode === "employee" && "hidden lg:block",
+          )}
+        >
           <div className="px-4 py-5">
             <BrandLogo href="/" tone="dark" markClassName="!h-7 !w-7" />
             <p className="mt-3 text-xs text-[var(--ca-app-muted)]">
@@ -182,11 +189,20 @@ export default function PortalShell({
             </div>
           </header>
 
-          <main className="mx-auto w-full max-w-[var(--ca-app-max)] flex-1 px-4 py-6 lg:px-6 lg:py-8">
+          <main
+            className={cn(
+              "mx-auto w-full max-w-[var(--ca-app-max)] flex-1 px-4 py-6 lg:px-6 lg:py-8",
+              mode === "employee" && "pb-20 lg:pb-8",
+            )}
+          >
             {children}
           </main>
         </div>
       </div>
+
+      {mode === "employee" && (
+        <EmployeeBottomNav unreadCount={unreadCount} />
+      )}
     </div>
   );
 }

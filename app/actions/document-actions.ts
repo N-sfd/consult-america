@@ -1,10 +1,13 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import {
   getAuthorizedEmployeeDocument,
   requireEmployeeActor,
   toActionErrorMessage,
 } from "@/lib/self-service/security";
+import { acknowledgeDocument } from "@/lib/self-service/document-store";
 
 export type DocumentActionResult = {
   ok: boolean;
@@ -28,6 +31,27 @@ export async function viewEmployeeDocumentAction(input: {
     return {
       ok: false,
       message: toActionErrorMessage(error, "Unable to open document."),
+    };
+  }
+}
+
+export async function acknowledgeDocumentAction(input: {
+  documentId: string;
+}): Promise<DocumentActionResult> {
+  try {
+    const actor = requireEmployeeActor();
+    const document = getAuthorizedEmployeeDocument(actor, input.documentId);
+    acknowledgeDocument({
+      documentId: document.id,
+      employeeId: actor.session.employeeId,
+    });
+    revalidatePath("/employee/documents");
+    revalidatePath("/employee");
+    return { ok: true, message: `Acknowledged ${document.documentType}.` };
+  } catch (error) {
+    return {
+      ok: false,
+      message: toActionErrorMessage(error, "Unable to acknowledge document."),
     };
   }
 }

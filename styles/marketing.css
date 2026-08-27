@@ -3,12 +3,12 @@
 :root {
   --mkt-max: 1360px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem);
-  --mkt-section-y: clamp(3.5rem, 6vw, 6rem); /* 56–96px, ~12% tighter */
-  --mkt-hero: clamp(3.25rem, 5.2vw, 5.25rem); /* 52–84px, ~68-84 desktop / 52-64 tablet / 42-52 mobile */
-  --mkt-h2: clamp(2.35rem, 4vw, 3.5rem); /* 37.6–56px, ~42-56 desktop / 36-46 tablet / 30-38 mobile */
-  --mkt-h3: clamp(1.5rem, 1.8vw, 1.9rem); /* 24–30px */
-  --mkt-body-lg: clamp(1.05rem, 1.4vw, 1.25rem); /* 16.8–20px */
-  --mkt-body: clamp(1rem, 0.15vw + 0.95rem, 1.0625rem); /* 16–17px */
+  --mkt-section-y: clamp(3rem, 5vw, 5rem); /* 48–80px, tightened for a more production feel */
+  --mkt-hero: clamp(2.75rem, 4.4vw, 4.5rem); /* 44–72px */
+  --mkt-h2: clamp(2rem, 3.2vw, 2.875rem); /* 32–46px */
+  --mkt-h3: clamp(1.25rem, 1.4vw, 1.5rem); /* 20–24px */
+  --mkt-body-lg: clamp(1rem, 1.1vw, 1.1875rem); /* 16–19px */
+  --mkt-body: clamp(0.9375rem, 0.15vw + 0.9rem, 1rem); /* 15–16px */
   --mkt-prose: 42rem; /* ~672px */
 
   --mkt-navy: #102a43;
@@ -38,14 +38,14 @@
 @media (min-width: 768px) {
   :root {
     --mkt-gutter: 2.5rem;
-    --mkt-section-y: clamp(4.5rem, 7vw, 6.5rem); /* 72–104px */
+    --mkt-section-y: clamp(3.75rem, 5.5vw, 5.5rem); /* 60–88px */
   }
 }
 
 @media (min-width: 1280px) {
   :root {
     --mkt-gutter: clamp(3.5rem, 4.5vw, 5.5rem);
-    --mkt-section-y: clamp(5.5rem, 6.5vw, 7rem); /* 88–112px */
+    --mkt-section-y: clamp(4.5rem, 5.5vw, 5.75rem); /* 72–92px */
   }
 }
 
@@ -61,7 +61,7 @@
 }
 
 .mkt-section-compact {
-  padding-block: clamp(2.5rem, 4vw, 4rem);
+  padding-block: clamp(2rem, 3.2vw, 3.25rem);
 }
 
 .mkt-hero-heading {
@@ -94,6 +94,16 @@
   line-height: 1.6;
   color: var(--mkt-muted);
   max-width: var(--mkt-prose);
+}
+
+/* Shared sub-heading scale for card/list titles nested inside a section —
+   keeps the "one step down from mkt-section-heading" role consistent
+   instead of each section picking its own text-xl/2xl/3xl ad hoc. */
+.mkt-h3 {
+  font-size: var(--mkt-h3);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 500;
 }
 
 .mkt-eyebrow {

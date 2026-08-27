@@ -102,7 +102,7 @@ export default function Industries() {
                   <span className="mkt-eyebrow text-white/45">
                     {industry.number}
                   </span>
-                  <h3 className="mt-2 text-lg font-medium tracking-[-0.03em] text-white md:text-xl">
+                  <h3 className="mt-2 mkt-h3 text-white">
                     {industry.title}
                   </h3>
                   <p className="mt-2 hidden max-w-sm text-sm leading-6 text-white/70 sm:block">

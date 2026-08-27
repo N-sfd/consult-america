@@ -88,7 +88,7 @@ export default function CareersPreview({
                     className="group flex items-start justify-between gap-4 border-b border-[var(--mkt-border)] py-6 transition-colors hover:bg-[var(--mkt-ice)]"
                   >
                     <div>
-                      <h3 className="text-lg font-medium tracking-[-0.02em] text-[var(--mkt-navy)] transition-colors group-hover:text-[var(--mkt-blue)] md:text-xl">
+                      <h3 className="mkt-h3 text-[var(--mkt-navy)] transition-colors group-hover:text-[var(--mkt-blue)]">
                         {job.title}
                       </h3>
                       <p className="mt-2 text-sm text-[var(--mkt-muted)]">
@@ -109,7 +109,7 @@ export default function CareersPreview({
                   key={area}
                   className="flex items-center justify-between gap-4 border-b border-[var(--mkt-border)] py-6"
                 >
-                  <h3 className="text-lg font-medium tracking-[-0.02em] text-[var(--mkt-navy)] md:text-xl">
+                  <h3 className="mkt-h3 text-[var(--mkt-navy)]">
                     {area}
                   </h3>
                 </li>

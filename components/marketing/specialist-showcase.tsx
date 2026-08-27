@@ -15,7 +15,7 @@ export default function SpecialistShowcase() {
           Depth where it matters most.
         </h2>
 
-        <div className="mt-10 grid gap-6 xl:grid-cols-2">
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <motion.article
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ export default function SpecialistShowcase() {
             className="border border-[var(--mkt-border)] bg-[var(--mkt-cloud)] p-6 md:p-8"
           >
             <p className="mkt-eyebrow text-[var(--mkt-blue)]">Oracle</p>
-            <h3 className="mt-4 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-3xl">
+            <h3 className="mt-4 mkt-h3 text-[var(--mkt-navy)]">
               Transform the enterprise.
               <br />
               Not just the software.
@@ -78,7 +78,7 @@ export default function SpecialistShowcase() {
             className="border border-[var(--mkt-border)] bg-[var(--mkt-ice-soft)] p-6 md:p-8"
           >
             <p className="mkt-eyebrow text-[var(--mkt-blue)]">AI + Data</p>
-            <h3 className="mt-4 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-3xl">
+            <h3 className="mt-4 mkt-h3 text-[var(--mkt-navy)]">
               Move from experiments to enterprise intelligence.
             </h3>
             <p className="mkt-body mt-4">

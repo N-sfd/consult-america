@@ -16,7 +16,7 @@ export default function GrowthCta() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="max-w-2xl text-3xl font-medium tracking-[-0.035em] text-white md:text-4xl lg:text-5xl"
+          className="max-w-2xl text-2xl font-medium tracking-[-0.03em] text-white md:text-3xl lg:text-4xl"
         >
           Ready to move from plan to production?
         </motion.h2>

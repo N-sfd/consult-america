@@ -113,7 +113,7 @@ export default function Capabilities() {
                       </span>
                       <h3
                         className={cn(
-                          "text-xl font-medium tracking-[-0.03em] transition-colors duration-200 md:text-2xl lg:text-[1.75rem]",
+                          "mkt-h3 transition-colors duration-200",
                           isActive
                             ? "text-[var(--mkt-bright)]"
                             : "text-white group-hover:text-[var(--mkt-bright)]",

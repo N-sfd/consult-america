@@ -7,7 +7,13 @@ import type {
   HrRepository,
 } from "@/lib/hr/repository";
 import { createSupabaseHrRepository } from "@/lib/hr/supabase-repository";
-import { seedEmployees, seedPeople, seedAssignments } from "@/data/hr/seed";
+import {
+  seedEmployees,
+  seedPeople,
+  seedAssignments,
+  seedOnboardingRecords,
+  seedOnboardingTasks,
+} from "@/data/hr/seed";
 import {
   DEFAULT_ONBOARDING_TASKS,
   type Employee,
@@ -37,8 +43,8 @@ export function createMemoryHrRepository(): HrRepository {
   const assignments: EmploymentAssignment[] = [...seedAssignments];
   const statusHistory: EmployeeStatusHistory[] = [];
   const hrEvents: HrEvent[] = [];
-  const onboardingRecords: OnboardingRecord[] = [];
-  const onboardingTasks: OnboardingTask[] = [];
+  const onboardingRecords: OnboardingRecord[] = [...seedOnboardingRecords];
+  const onboardingTasks: OnboardingTask[] = [...seedOnboardingTasks];
 
   async function createPerson(input: CreatePersonInput): Promise<Person> {
     if (input.personalEmail) {
@@ -63,6 +69,17 @@ export function createMemoryHrRepository(): HrRepository {
     };
 
     people.push(person);
+    return person;
+  }
+
+  async function updatePersonContact(
+    personId: string,
+    updates: Partial<Person>,
+  ): Promise<Person> {
+    const person = people.find((item) => item.id === personId);
+    if (!person) throw new Error(`Person not found: ${personId}`);
+
+    Object.assign(person, updates, { updatedAt: nowIso() });
     return person;
   }
 
@@ -218,6 +235,7 @@ export function createMemoryHrRepository(): HrRepository {
     },
 
     createPerson,
+    updatePersonContact,
 
     async listEmployees() {
       return [...employees];

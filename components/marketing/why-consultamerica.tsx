@@ -56,9 +56,7 @@ export default function WhyConsultAmerica() {
               className="border-t border-white/15 pt-6"
             >
               <span className="mkt-eyebrow text-white/40">{item.number}</span>
-              <h3 className="mt-4 text-xl font-medium tracking-[-0.03em]">
-                {item.title}
-              </h3>
+              <h3 className="mt-4 mkt-h3">{item.title}</h3>
               <p className="mt-3 text-sm leading-6 text-white/60">
                 {item.description}
               </p>
@@ -66,7 +64,7 @@ export default function WhyConsultAmerica() {
           ))}
         </div>
 
-        <p className="mt-14 max-w-2xl text-xl font-medium tracking-[-0.02em] text-white/85 md:text-2xl">
+        <p className="mt-12 max-w-2xl text-lg font-medium tracking-[-0.02em] text-white/85 md:text-xl">
           Deep enough for the enterprise. Focused enough to stay close.
         </p>
 

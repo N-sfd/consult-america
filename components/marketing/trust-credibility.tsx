@@ -49,7 +49,7 @@ export default function TrustCredibility() {
         >
           <p
             className="max-w-[850px] leading-[1.45] tracking-[-0.015em] text-[var(--mkt-text)]"
-            style={{ fontSize: "clamp(1.35rem, 2vw, 2rem)" }}
+            style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.625rem)" }}
           >
             “{quote.quote}”
           </p>

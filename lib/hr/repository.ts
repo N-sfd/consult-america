@@ -21,6 +21,17 @@ export type CreatePersonInput = {
   personalPhone?: string;
 };
 
+/** Employee-editable contact fields — no approval required. */
+export type UpdatePersonContactInput = {
+  preferredName?: string;
+  personalEmail?: string;
+  personalPhone?: string;
+  mailingAddress?: string;
+  emergencyContactName?: string;
+  emergencyContactRelationship?: string;
+  emergencyContactPhone?: string;
+};
+
 export type CreateEmployeeInput = {
   personId: string;
   hireDate: string;
@@ -52,6 +63,10 @@ export type HrRepository = {
   getPersonById(id: string): Promise<Person | undefined>;
   findPersonByEmail(email: string): Promise<Person | undefined>;
   createPerson(input: CreatePersonInput): Promise<Person>;
+  updatePersonContact(
+    personId: string,
+    updates: UpdatePersonContactInput,
+  ): Promise<Person>;
 
   listEmployees(): Promise<Employee[]>;
   getEmployeeById(id: string): Promise<Employee | undefined>;

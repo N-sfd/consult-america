@@ -52,6 +52,10 @@ export type Person = {
   personalEmail?: string;
   personalPhone?: string;
   dateOfBirth?: string;
+  mailingAddress?: string;
+  emergencyContactName?: string;
+  emergencyContactRelationship?: string;
+  emergencyContactPhone?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -181,6 +185,11 @@ export const DEFAULT_ONBOARDING_TASKS: Array<{
     taskType: "PERSONAL_INFO",
     title: "Complete Personal Information",
     description: "Verify legal name, contact details, and emergency contacts.",
+  },
+  {
+    taskType: "EMERGENCY_CONTACT",
+    title: "Add Emergency Contact",
+    description: "Provide at least one emergency contact on file.",
   },
   {
     taskType: "DOCUMENTS",

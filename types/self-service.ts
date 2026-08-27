@@ -196,15 +196,68 @@ export type Notification = {
   createdAt: string;
 };
 
+export type DocumentCategory =
+  | "EMPLOYMENT"
+  | "POLICY"
+  | "PERSONAL"
+  | "CERTIFICATION";
+
 export type EmployeeDocumentView = {
   id: string;
   employeeId: string;
   documentType: string;
+  category: DocumentCategory;
   fileName: string;
   visibility: DocumentVisibility;
   uploadedAt: string;
   effectiveDate?: string;
+  version?: string;
+  requiresAcknowledgement?: boolean;
+  acknowledgedAt?: string;
+  expiresAt?: string;
 };
+
+export type DocumentStatus =
+  | "AVAILABLE"
+  | "ACTION_REQUIRED"
+  | "ACKNOWLEDGED"
+  | "EXPIRING_SOON"
+  | "EXPIRED";
+
+export const documentStatusLabels: Record<DocumentStatus, string> = {
+  AVAILABLE: "Available",
+  ACTION_REQUIRED: "Action Required",
+  ACKNOWLEDGED: "Acknowledged",
+  EXPIRING_SOON: "Expiring Soon",
+  EXPIRED: "Expired",
+};
+
+export const documentCategoryLabels: Record<DocumentCategory, string> = {
+  EMPLOYMENT: "Employment",
+  POLICY: "Policies",
+  PERSONAL: "Personal",
+  CERTIFICATION: "Certifications",
+};
+
+/** 30-day window before `expiresAt` where a document reads as "Expiring Soon". */
+const EXPIRING_SOON_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
+
+export function getDocumentStatus(
+  doc: EmployeeDocumentView,
+  now: Date = new Date(),
+): DocumentStatus {
+  if (doc.expiresAt) {
+    const expiresAt = new Date(doc.expiresAt).getTime();
+    if (expiresAt < now.getTime()) return "EXPIRED";
+    if (expiresAt - now.getTime() <= EXPIRING_SOON_WINDOW_MS) {
+      return "EXPIRING_SOON";
+    }
+  }
+  if (doc.requiresAcknowledgement) {
+    return doc.acknowledgedAt ? "ACKNOWLEDGED" : "ACTION_REQUIRED";
+  }
+  return "AVAILABLE";
+}
 
 export const leaveTypeLabels: Record<string, string> = {
   PTO: "Vacation / PTO",

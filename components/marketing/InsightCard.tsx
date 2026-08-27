@@ -51,8 +51,10 @@ export default function InsightCard({
 
         <h3
           className={cn(
-            "mt-3 font-medium leading-snug tracking-[-0.03em] text-[var(--mkt-ink)] transition-colors group-hover:text-[var(--mkt-blue)]",
-            isLarge ? "text-2xl md:text-[1.85rem]" : "text-xl",
+            "mt-3 leading-snug text-[var(--mkt-ink)] transition-colors group-hover:text-[var(--mkt-blue)]",
+            isLarge
+              ? "text-xl font-medium tracking-[-0.03em] md:text-2xl"
+              : "mkt-h3",
           )}
         >
           {title}

@@ -28,6 +28,12 @@ function mapPerson(row: Record<string, unknown>): Person {
     preferredName: (row.preferred_name as string) ?? undefined,
     personalEmail: (row.personal_email as string) ?? undefined,
     personalPhone: (row.personal_phone as string) ?? undefined,
+    mailingAddress: (row.mailing_address as string) ?? undefined,
+    emergencyContactName: (row.emergency_contact_name as string) ?? undefined,
+    emergencyContactRelationship:
+      (row.emergency_contact_relationship as string) ?? undefined,
+    emergencyContactPhone:
+      (row.emergency_contact_phone as string) ?? undefined,
     createdAt: row.created_at as string,
     updatedAt: row.updated_at as string,
   };
@@ -202,6 +208,34 @@ export function createSupabaseHrRepository(): HrRepository {
         .select("*")
         .single();
       if (error) throw new Error(`Failed to create person: ${error.message}`);
+      return mapPerson(data);
+    },
+
+    async updatePersonContact(personId, updates) {
+      const client = requireClient();
+
+      const row: Record<string, unknown> = { updated_at: nowIso() };
+      if (updates.preferredName !== undefined) row.preferred_name = updates.preferredName;
+      if (updates.personalEmail !== undefined) row.personal_email = updates.personalEmail;
+      if (updates.personalPhone !== undefined) row.personal_phone = updates.personalPhone;
+      if (updates.mailingAddress !== undefined) row.mailing_address = updates.mailingAddress;
+      if (updates.emergencyContactName !== undefined) {
+        row.emergency_contact_name = updates.emergencyContactName;
+      }
+      if (updates.emergencyContactRelationship !== undefined) {
+        row.emergency_contact_relationship = updates.emergencyContactRelationship;
+      }
+      if (updates.emergencyContactPhone !== undefined) {
+        row.emergency_contact_phone = updates.emergencyContactPhone;
+      }
+
+      const { data, error } = await client
+        .from("people")
+        .update(row)
+        .eq("id", personId)
+        .select("*")
+        .single();
+      if (error) throw new Error(`Failed to update person: ${error.message}`);
       return mapPerson(data);
     },
 

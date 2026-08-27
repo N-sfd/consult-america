@@ -1,4 +1,5 @@
 import { resetAuditStoreForTests } from "@/lib/self-service/audit-store";
+import { resetDocumentStoreForTests } from "@/lib/self-service/document-store";
 import { resetHrRequestStoreForTests } from "@/lib/self-service/hr-request-store";
 import { resetLeaveStoreForTests } from "@/lib/self-service/leave-store";
 import { resetTimeStoreForTests } from "@/lib/self-service/time-store";
@@ -11,4 +12,5 @@ export function resetSelfServiceStoresForTests() {
   resetLeaveStoreForTests();
   resetHrRequestStoreForTests();
   resetAuditStoreForTests();
+  resetDocumentStoreForTests();
 }

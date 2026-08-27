@@ -74,7 +74,7 @@ export default function FeaturedWork() {
                   <p className="mkt-eyebrow text-[var(--mkt-blue)]">
                     {flagship.number} / {flagship.category}
                   </p>
-                  <h3 className="mt-4 text-3xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-4xl">
+                  <h3 className="mt-4 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-3xl">
                     {flagship.title}
                   </h3>
                   <p className="mt-4 max-w-xl text-base leading-7 text-[var(--mkt-muted)]">
@@ -126,7 +126,7 @@ export default function FeaturedWork() {
                     <p className="mkt-eyebrow text-[var(--mkt-blue)]">
                       {project.number} / {project.category}
                     </p>
-                    <h3 className="mt-3 text-xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
+                    <h3 className="mt-3 mkt-h3 text-[var(--mkt-navy)]">
                       {project.title}
                     </h3>
                     <p className="mt-2 text-sm leading-6 text-[var(--mkt-muted)]">

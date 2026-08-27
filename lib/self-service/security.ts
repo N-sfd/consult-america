@@ -7,7 +7,7 @@ import {
   getManagerSession,
   type PortalSession,
 } from "@/lib/self-service/session";
-import { seedEmployeeDocuments } from "@/data/self-service/seed";
+import { getDocumentById } from "@/lib/self-service/document-store";
 import type { SelfServicePermission } from "@/types/security";
 
 export class SecurityError extends Error {
@@ -129,7 +129,7 @@ export function getAuthorizedEmployeeDocument(
 ) {
   requirePermission(actor, "self.documents.read");
 
-  const document = seedEmployeeDocuments.find((item) => item.id === documentId);
+  const document = getDocumentById(documentId);
   if (!document) {
     deny(actor, "resource", "Document not found");
   }

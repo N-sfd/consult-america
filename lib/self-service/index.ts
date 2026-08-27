@@ -1,7 +1,6 @@
 import { hrRepository } from "@/lib/hr";
-import {
-  seedEmployeeDocuments,
-} from "@/data/self-service/seed";
+import { listDocumentsForEmployee } from "@/lib/self-service/document-store";
+import { getDocumentStatus } from "@/types/self-service";
 import {
   seedDepartments,
   seedLocations,
@@ -143,11 +142,24 @@ export function getTimeEntries(timesheetId: string) {
 }
 
 export function getEmployeeDocuments(employeeId: string) {
-  return seedEmployeeDocuments.filter(
-    (doc) =>
-      doc.employeeId === employeeId &&
-      (doc.visibility === "EMPLOYEE" || doc.visibility === "MANAGER_AND_HR"),
-  );
+  return listDocumentsForEmployee(employeeId);
+}
+
+export async function getEmployeeOnboarding(employeeId: string) {
+  const record = await hrRepository.getOnboarding(employeeId);
+  const tasks = await hrRepository.listOnboardingTasks(employeeId);
+  const completedCount = tasks.filter((t) => t.status === "COMPLETED").length;
+
+  return {
+    record,
+    tasks,
+    completedCount,
+    totalCount: tasks.length,
+    percentComplete:
+      tasks.length === 0
+        ? 0
+        : Math.round((completedCount / tasks.length) * 100),
+  };
 }
 
 export function getHrRequests(employeeId: string) {
@@ -185,6 +197,48 @@ export async function getEmployeeDashboard(employeeId: string) {
     (r) => r.status === "APPROVED" || r.status === "PENDING",
   );
   const unread = getNotifications(employeeId).filter((n) => !n.readAt);
+  const onboarding = await getEmployeeOnboarding(employeeId);
+  const documentsRequiringAction = documents.filter((doc) => {
+    const status = getDocumentStatus(doc);
+    return (
+      status === "ACTION_REQUIRED" ||
+      status === "EXPIRING_SOON" ||
+      status === "EXPIRED"
+    );
+  });
+  const profileCompleteness = profile
+    ? getProfileCompleteness(profile.person)
+    : 0;
+
+  const attentionItems: Array<{
+    id: string;
+    title: string;
+    detail: string;
+    actionLabel: string;
+    actionHref: string;
+  }> = [
+    ...onboarding.tasks
+      .filter((task) => task.status !== "COMPLETED")
+      .map((task) => ({
+        id: task.id,
+        title: task.title,
+        detail: task.dueDate
+          ? `Complete by ${formatShortDate(task.dueDate)}`
+          : "Onboarding task",
+        actionLabel: "Continue",
+        actionHref: "/employee/onboarding",
+      })),
+    ...documentsRequiringAction.map((doc) => ({
+      id: doc.id,
+      title: doc.documentType,
+      detail:
+        getDocumentStatus(doc) === "EXPIRING_SOON"
+          ? "Certification expiring soon"
+          : "Acknowledgement required",
+      actionLabel: "Review",
+      actionHref: "/employee/documents",
+    })),
+  ];
 
   return {
     profile,
@@ -192,9 +246,37 @@ export async function getEmployeeDashboard(employeeId: string) {
     ptoAvailable: pto?.available ?? 0,
     pendingHrRequests: requests.length,
     documentCount: documents.length,
+    documentsRequiringAction: documentsRequiringAction.length,
     upcomingLeave: leave,
     unreadNotifications: unread.length,
+    onboarding,
+    profileCompleteness,
+    attentionItems,
   };
+}
+
+const PROFILE_COMPLETENESS_FIELDS: Array<keyof Person> = [
+  "preferredName",
+  "personalEmail",
+  "personalPhone",
+  "mailingAddress",
+  "emergencyContactName",
+  "emergencyContactPhone",
+];
+
+/** Date-only strings ("YYYY-MM-DD") must parse as local dates, not UTC
+ * midnight, or they render one day early in negative-UTC timezones. */
+function formatShortDate(value: string) {
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const date = dateOnly ? new Date(`${value}T00:00:00`) : new Date(value);
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+export function getProfileCompleteness(person: Person) {
+  const filled = PROFILE_COMPLETENESS_FIELDS.filter(
+    (field) => Boolean(person[field]),
+  ).length;
+  return Math.round((filled / PROFILE_COMPLETENESS_FIELDS.length) * 100);
 }
 
 export async function getManagerDashboard(managerEmployeeId: string) {
