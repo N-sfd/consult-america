@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   title: "Candidates",
 };
 
+// Always reflect live data for the current request rather than a
+// build-time snapshot - this is an authenticated app page, not marketing.
+export const dynamic = "force-dynamic";
+
 export default async function RecruitingCandidatesPage() {
   const candidates = await recruitingRepository.listCandidateSummaries();
 
