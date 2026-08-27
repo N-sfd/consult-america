@@ -88,7 +88,7 @@ export default function FeaturedWork() {
             </Link>
           </motion.article>
 
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
             {supportingProjects.map((project, index) => (
               <motion.article
                 key={project.slug}

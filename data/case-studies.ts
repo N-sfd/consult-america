@@ -57,7 +57,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
   "public-sector-finance-procurement": {
     number: "03",
     category: "Public Sector",
-    title: "Public Sector Finance & Procurement",
+    title: "Public Sector Data Platform",
     description:
       "Modernizing finance and procurement for complex government operations.",
     href: "/work/case-studies/public-sector-finance-procurement",
@@ -75,7 +75,7 @@ export const caseStudies: Record<string, CaseStudy> = {
   "public-sector-finance-procurement": {
     slug: "public-sector-finance-procurement",
     category: "Public Sector",
-    title: "Public Sector Finance & Procurement",
+    title: "Public Sector Data Platform",
     headline: "Modernizing finance and procurement for complex government operations.",
     summary:
       "An end-to-end Oracle Cloud transformation connecting financial management, procurement, and project accounting for a multi-agency public-sector organization.",

@@ -16,7 +16,7 @@ export default async function CareersFeature() {
       className="mkt-section-compact relative overflow-hidden bg-[var(--mkt-careers)]"
     >
       <div className="mkt-shell relative z-10">
-        <CareersPreview openCount={jobs.length} jobs={previewJobs} />
+        <CareersPreview jobs={previewJobs} />
       </div>
     </section>
   );

@@ -9,8 +9,6 @@ const industries = [
   {
     number: "01",
     title: "Government & Public Sector",
-    description:
-      "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery.",
     href: "/industries/government-public-sector",
     image:
       "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1200&q=80",
@@ -19,8 +17,6 @@ const industries = [
   {
     number: "02",
     title: "Financial Services",
-    description:
-      "Connect finance, data, automation, reporting, and enterprise platforms for operational control.",
     href: "/industries/financial-services",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1000&q=80",
@@ -29,8 +25,6 @@ const industries = [
   {
     number: "03",
     title: "Healthcare",
-    description:
-      "Modernize enterprise operations, workforce, financial systems, and clinical technology environments.",
     href: "/industries/healthcare",
     image:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
@@ -39,8 +33,6 @@ const industries = [
   {
     number: "04",
     title: "Technology",
-    description:
-      "Scale enterprise platforms, automate operations, integrate systems, and turn data into decisions.",
     href: "/industries/technology",
     image:
       "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1000&q=80",
@@ -75,12 +67,18 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        <div className="mt-10 space-y-3">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-[3fr_2fr]">
+        <div className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-2 xl:hidden">
+          {industries.map((industry) => (
+            <IndustryTile key={industry.title} industry={industry} />
+          ))}
+        </div>
+
+        <div className="mt-10 hidden space-y-3 xl:block">
+          <div className="grid grid-cols-[3fr_2fr] gap-3">
             <IndustryTile industry={industries[0]} tall />
             <IndustryTile industry={industries[1]} tall />
           </div>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-[2fr_3fr]">
+          <div className="grid grid-cols-[2fr_3fr] gap-3">
             <IndustryTile industry={industries[2]} />
             <IndustryTile industry={industries[3]} />
           </div>
@@ -115,8 +113,8 @@ function IndustryTile({
         href={industry.href}
         className={`group relative block overflow-hidden ${
           tall
-            ? "aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]"
-            : "aspect-[4/3] md:aspect-auto md:min-h-[240px] lg:min-h-[280px]"
+            ? "aspect-[4/3] xl:aspect-auto xl:min-h-[420px]"
+            : "aspect-[4/3] xl:aspect-auto xl:min-h-[280px]"
         }`}
       >
         <Image
@@ -127,14 +125,11 @@ function IndustryTile({
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/35 to-[var(--mkt-navy)]/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/30 to-[var(--mkt-navy)]/5" />
 
         <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
           <span className="mkt-eyebrow text-white/45">{industry.number}</span>
           <h3 className="mt-2 mkt-h3 text-white">{industry.title}</h3>
-          <p className="mt-2 hidden max-w-sm text-sm leading-6 text-white/70 lg:block">
-            {industry.description}
-          </p>
           <ArrowUpRight className="mt-3 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
         </div>
       </Link>

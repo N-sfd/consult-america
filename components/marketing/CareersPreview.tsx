@@ -10,14 +10,12 @@ export type CareersPreviewJob = {
 };
 
 interface CareersPreviewProps {
-  openCount: number;
   jobs: CareersPreviewJob[];
   imageSrc?: string;
   imageAlt?: string;
 }
 
 export default function CareersPreview({
-  openCount,
   jobs,
   imageSrc = "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80",
   imageAlt = "ConsultAmerica team in a working session",
@@ -34,14 +32,8 @@ export default function CareersPreview({
         <p className="mkt-body-lg mt-4 max-w-md">
           {hasOpenJobs
             ? "Join teams solving complex enterprise challenges across Oracle, AI, data, and transformation delivery."
-            : "Explore opportunities across enterprise technology, Oracle, AI, data, digital engineering, and consulting."}
+            : "Explore opportunities across Oracle, AI, data, digital engineering, and enterprise transformation."}
         </p>
-        {!hasOpenJobs && (
-          <p className="mt-4 max-w-md text-sm leading-7 text-[var(--mkt-muted)]">
-            We&apos;re always interested in experienced professionals who want
-            to solve complex business challenges.
-          </p>
-        )}
         <div className="relative mt-6 min-h-[200px] flex-1 overflow-hidden rounded-2xl lg:min-h-[240px]">
           <Image
             src={imageSrc}
@@ -88,10 +80,16 @@ export default function CareersPreview({
               </Link>
             </>
           ) : (
-            <Link href="/careers" className="ca-link inline-flex text-sm">
-              Explore careers
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            <div>
+              <p className="text-sm leading-7 text-[var(--mkt-muted)]">
+                We&apos;re always interested in experienced professionals who
+                want to solve complex business challenges.
+              </p>
+              <Link href="/careers" className="ca-link mt-6 inline-flex text-sm">
+                Explore careers
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
           )}
         </div>
       </div>
