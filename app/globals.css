@@ -43,7 +43,7 @@
   --ca-gold: #c77a16;
   --ca-max-width: 1360px;
   --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 4rem);
-  --ca-section-y: clamp(4rem, 7vw, 7rem);
+  --ca-section-y: clamp(3.5rem, 6vw, 6rem);
   --ca-insight-reading: 760px;
   --ca-insight-toc: 280px;
   --ca-insight-section-y: clamp(5.5rem, 10vw, 9rem);

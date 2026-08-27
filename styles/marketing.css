@@ -3,7 +3,7 @@
 :root {
   --mkt-max: 1360px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem);
-  --mkt-section-y: clamp(4rem, 7vw, 7rem); /* 64–112px */
+  --mkt-section-y: clamp(3.5rem, 6vw, 6rem); /* 56–96px, ~12% tighter */
   --mkt-hero: clamp(3.25rem, 5.2vw, 5.25rem); /* 52–84px, ~68-84 desktop / 52-64 tablet / 42-52 mobile */
   --mkt-h2: clamp(2.35rem, 4vw, 3.5rem); /* 37.6–56px, ~42-56 desktop / 36-46 tablet / 30-38 mobile */
   --mkt-h3: clamp(1.5rem, 1.8vw, 1.9rem); /* 24–30px */

@@ -91,22 +91,18 @@ export default function Capabilities() {
 
         <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-12 lg:gap-10">
           <div className="border-t border-white/12 lg:col-span-7">
-            {/* Desktop: hover updates the contextual preview, click navigates */}
-            <div className="hidden lg:block">
-              {capabilities.map((capability, index) => {
-                const isActive = index === activeIndex;
-                return (
-                  <Link
-                    key={capability.title}
-                    href={capability.href}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onFocus={() => setActiveIndex(index)}
-                    className={cn(
-                      "group relative flex items-center justify-between gap-6 border-b border-white/12 py-6 transition-colors duration-300",
-                      isActive && "bg-white/[0.04]",
-                    )}
-                  >
-                    <div className="flex min-w-0 items-baseline gap-10">
+            {capabilities.map((capability, index) => {
+              const isActive = index === activeIndex;
+              const isOpen = expandedIndex === index;
+              return (
+                <div key={capability.title} className="border-b border-white/12">
+                  <div className="flex items-center justify-between gap-6 py-5 md:py-6">
+                    <Link
+                      href={capability.href}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onFocus={() => setActiveIndex(index)}
+                      className="group flex min-w-0 flex-1 items-baseline gap-6 md:gap-10"
+                    >
                       <span
                         className={cn(
                           "mkt-eyebrow shrink-0",
@@ -117,7 +113,7 @@ export default function Capabilities() {
                       </span>
                       <h3
                         className={cn(
-                          "text-[1.75rem] font-medium tracking-[-0.03em] transition-colors duration-200",
+                          "text-xl font-medium tracking-[-0.03em] transition-colors duration-200 md:text-2xl lg:text-[1.75rem]",
                           isActive
                             ? "text-[var(--mkt-bright)]"
                             : "text-white group-hover:text-[var(--mkt-bright)]",
@@ -125,85 +121,65 @@ export default function Capabilities() {
                       >
                         {capability.title}
                       </h3>
-                    </div>
+                    </Link>
 
-                    <ArrowUpRight
-                      className={cn(
-                        "h-5 w-5 shrink-0 transition-all duration-200",
-                        isActive
-                          ? "translate-x-1 -translate-y-1 text-[var(--mkt-bright)]"
-                          : "text-white/50 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[var(--mkt-bright)]",
-                      )}
-                    />
+                    <Link
+                      href={capability.href}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onFocus={() => setActiveIndex(index)}
+                      aria-label={`Explore ${capability.title}`}
+                      className="hidden shrink-0 lg:block"
+                    >
+                      <ArrowUpRight
+                        className={cn(
+                          "h-5 w-5 transition-all duration-200",
+                          isActive
+                            ? "translate-x-1 -translate-y-1 text-[var(--mkt-bright)]"
+                            : "text-white/50 hover:translate-x-1 hover:-translate-y-1 hover:text-[var(--mkt-bright)]",
+                        )}
+                      />
+                    </Link>
 
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "absolute bottom-0 left-0 h-px bg-[var(--mkt-bright)] transition-all duration-500",
-                        isActive ? "w-full" : "w-0 group-hover:w-full",
-                      )}
-                    />
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Tablet/mobile: tap to expand the preview beneath that row (no hover available) */}
-            <div className="lg:hidden">
-              {capabilities.map((capability, index) => {
-                const isOpen = expandedIndex === index;
-                return (
-                  <div key={capability.title} className="border-b border-white/12">
                     <button
                       type="button"
                       onClick={() => setExpandedIndex(isOpen ? null : index)}
                       aria-expanded={isOpen}
-                      className="flex w-full items-center justify-between gap-6 py-5 text-left md:py-6"
+                      aria-label={`Preview ${capability.title}`}
+                      className="shrink-0 lg:hidden"
                     >
-                      <div className="flex min-w-0 items-baseline gap-6 md:gap-10">
-                        <span className="mkt-eyebrow shrink-0 text-white/40">
-                          {capability.number}
-                        </span>
-                        <h3 className="text-xl font-medium tracking-[-0.03em] text-white md:text-2xl">
-                          {capability.title}
-                        </h3>
-                      </div>
                       <ChevronDown
                         className={cn(
-                          "h-5 w-5 shrink-0 text-white/50 transition-transform duration-200",
+                          "h-5 w-5 text-white/50 transition-transform duration-200",
                           isOpen && "rotate-180",
                         )}
                       />
                     </button>
-
-                    {isOpen && (
-                      <div className="pb-6">
-                        <p className="max-w-xl text-sm leading-6 text-white/50">
-                          {capability.description}
-                        </p>
-                        <div className="relative mt-4 aspect-[16/10] overflow-hidden">
-                          <Image
-                            src={capability.image}
-                            alt={capability.imageAlt}
-                            fill
-                            loading="lazy"
-                            className="object-cover"
-                            sizes="100vw"
-                          />
-                        </div>
-                        <Link
-                          href={capability.href}
-                          className="ca-link mt-4 w-fit"
-                        >
-                          Explore capability
-                          <ArrowUpRight className="h-4 w-4" />
-                        </Link>
-                      </div>
-                    )}
                   </div>
-                );
-              })}
-            </div>
+
+                  {isOpen && (
+                    <div className="pb-6 lg:hidden">
+                      <p className="max-w-xl text-sm leading-6 text-white/50">
+                        {capability.description}
+                      </p>
+                      <div className="relative mt-4 aspect-[16/10] overflow-hidden">
+                        <Image
+                          src={capability.image}
+                          alt={capability.imageAlt}
+                          fill
+                          loading="lazy"
+                          className="object-cover"
+                          sizes="100vw"
+                        />
+                      </div>
+                      <Link href={capability.href} className="ca-link mt-4 w-fit">
+                        Explore capability
+                        <ArrowUpRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           <div className="hidden lg:col-span-5 lg:block">

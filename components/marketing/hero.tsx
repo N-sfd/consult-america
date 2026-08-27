@@ -16,7 +16,7 @@ export default function Hero() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="mkt-hero-bg relative overflow-hidden py-10 lg:min-h-[680px] lg:py-12 xl:min-h-[760px] xl:py-14">
+    <section className="mkt-hero-bg relative overflow-hidden py-8 lg:min-h-[580px] lg:py-10 xl:min-h-[650px] xl:py-11">
       <div className="mkt-shell relative z-10 flex h-full flex-col justify-center">
         <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_.92fr] xl:gap-20">
           <div>
@@ -50,7 +50,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.18 }}
-              className="mkt-body-lg mt-6"
+              className="mkt-body-lg mt-5"
             >
               Oracle, AI, data, and enterprise transformation from strategy
               through production.
@@ -60,7 +60,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.26 }}
-              className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+              className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             >
               <button
                 type="button"
@@ -87,7 +87,7 @@ export default function Hero() {
               alt="Enterprise technology environment"
               priority
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="aspect-[16/11] w-full shadow-[0_20px_60px_rgba(16,42,67,0.1)] lg:aspect-[5/4] lg:max-h-[480px]"
+              className="aspect-[16/11] w-full shadow-[0_20px_60px_rgba(16,42,67,0.1)] lg:aspect-[5/4] lg:max-h-[420px]"
               overlay="none"
             >
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-4 border border-white/15 bg-[var(--mkt-navy)]/70 px-4 py-3 backdrop-blur-md sm:right-auto sm:min-w-[15rem]">

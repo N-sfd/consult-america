@@ -5,8 +5,6 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { cn } from "@/lib/utils";
-
 const industries = [
   {
     number: "01",
@@ -77,7 +75,7 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {industries.map((industry, index) => (
             <motion.article
               key={industry.title}
@@ -85,16 +83,10 @@ export default function Industries() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.45, delay: index * 0.03 }}
-              className={cn(
-                index === 0 && "lg:col-span-3",
-                index === 1 && "lg:col-span-2",
-                index === 2 && "lg:col-span-2",
-                index === 3 && "lg:col-span-3",
-              )}
             >
               <Link
                 href={industry.href}
-                className="group relative block aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[240px]"
+                className="group relative block aspect-[4/3] overflow-hidden md:min-h-[280px] lg:min-h-[320px]"
               >
                 <Image
                   src={industry.image}
