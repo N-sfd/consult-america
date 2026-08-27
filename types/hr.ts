@@ -68,9 +68,10 @@ export type Employee = {
   terminationReason?: string;
   workEmail?: string;
   workPhone?: string;
-  /** Originating candidate / application when hired via ATS. */
+  /** Originating candidate / application / offer when hired via ATS. */
   sourceCandidateId?: string;
   sourceApplicationId?: string;
+  sourceOfferId?: string;
   createdAt: string;
   updatedAt: string;
 };

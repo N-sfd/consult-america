@@ -29,6 +29,7 @@ export type CreateEmployeeInput = {
   workPhone?: string;
   sourceCandidateId?: string;
   sourceApplicationId?: string;
+  sourceOfferId?: string;
 };
 
 export type CreateAssignmentInput = {

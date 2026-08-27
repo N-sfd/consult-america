@@ -83,6 +83,7 @@ export function createMemoryHrRepository(): HrRepository {
       workPhone: input.workPhone,
       sourceCandidateId: input.sourceCandidateId,
       sourceApplicationId: input.sourceApplicationId,
+      sourceOfferId: input.sourceOfferId,
       createdAt: nowIso(),
       updatedAt: nowIso(),
     };
@@ -309,6 +310,33 @@ export function createMemoryHrRepository(): HrRepository {
     },
 
     async convertAcceptedOffer(input) {
+      const existing = employees.find(
+        (employee) => employee.sourceOfferId === input.offerId,
+      );
+      if (existing) {
+        const assignment = assignments.find(
+          (item) =>
+            item.employeeId === existing.id &&
+            item.primaryAssignment &&
+            item.assignmentStatus === "ACTIVE",
+        );
+        const onboarding = onboardingRecords.find(
+          (record) => record.employeeId === existing.id,
+        );
+        if (!assignment || !onboarding) {
+          throw new Error(
+            `Employee ${existing.id} was converted from offer ${input.offerId} but is missing assignment/onboarding records`,
+          );
+        }
+        return {
+          personId: existing.personId,
+          employeeId: existing.id,
+          employeeNumber: existing.employeeNumber,
+          assignmentId: assignment.id,
+          onboardingId: onboarding.id,
+        };
+      }
+
       const person = await createPerson({
         firstName: input.firstName,
         lastName: input.lastName,
@@ -322,6 +350,7 @@ export function createMemoryHrRepository(): HrRepository {
         employmentStatus: "PRE_HIRE",
         sourceCandidateId: input.candidateId,
         sourceApplicationId: input.applicationId,
+        sourceOfferId: input.offerId,
       });
 
       const assignment = await createAssignment({
