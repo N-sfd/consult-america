@@ -28,7 +28,13 @@ const lifecycle = [
   "Operate",
 ];
 
-export default function OracleFeature() {
+export default function OracleFeature({
+  headingLevel = "h2",
+  linkToDetail = true,
+}: {
+  headingLevel?: "h1" | "h2";
+  linkToDetail?: boolean;
+}) {
   return (
     <section id="oracle" className="mkt-section bg-[var(--mkt-cloud)]">
       <div className="mkt-shell">
@@ -43,7 +49,11 @@ export default function OracleFeature() {
               transition={{ duration: 0.7 }}
               className="mt-8"
             >
-              <EditorialHeading className="max-w-xl text-[var(--mkt-navy)]">
+              <EditorialHeading
+                as={headingLevel}
+                size={headingLevel === "h1" ? "hero" : "section"}
+                className="max-w-xl text-[var(--mkt-navy)]"
+              >
                 Transform the enterprise.
                 <br />
                 Not just the software.
@@ -55,10 +65,12 @@ export default function OracleFeature() {
                 enterprise platforms.
               </p>
 
-              <Link href="/oracle" className="ca-button-primary mt-10">
-                Explore Oracle
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+              {linkToDetail && (
+                <Link href="/oracle" className="ca-button-primary mt-10">
+                  Explore Oracle
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              )}
             </motion.div>
           </div>
 

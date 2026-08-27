@@ -34,7 +34,13 @@ const aiAreas = [
   },
 ];
 
-export default function AiDataFeature() {
+export default function AiDataFeature({
+  headingLevel = "h2",
+  linkToDetail = true,
+}: {
+  headingLevel?: "h1" | "h2";
+  linkToDetail?: boolean;
+}) {
   return (
     <section
       id="ai-data"
@@ -52,7 +58,11 @@ export default function AiDataFeature() {
               transition={{ duration: 0.7 }}
               className="mt-8"
             >
-              <EditorialHeading className="max-w-xl text-[var(--mkt-navy)]">
+              <EditorialHeading
+                as={headingLevel}
+                size={headingLevel === "h1" ? "hero" : "section"}
+                className="max-w-xl text-[var(--mkt-navy)]"
+              >
                 Move from AI experiments
                 <br />
                 to enterprise intelligence.
@@ -64,10 +74,12 @@ export default function AiDataFeature() {
                 production.
               </p>
 
-              <Link href="/ai-data" className="ca-button-primary mt-10">
-                Explore AI & Data
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+              {linkToDetail && (
+                <Link href="/ai-data" className="ca-button-primary mt-10">
+                  Explore AI & Data
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              )}
             </motion.div>
 
             <div className="mt-14 grid gap-6 sm:grid-cols-2">
