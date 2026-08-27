@@ -3,13 +3,13 @@
 :root {
   --mkt-max: 1360px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 1.5rem);
-  --mkt-section-y: clamp(3.5rem, 6vw, 5.5rem); /* 56–88px mobile/tablet step */
-  --mkt-hero: clamp(2.75rem, 5vw, 5rem); /* 44–80px */
-  --mkt-h2: clamp(2.25rem, 3vw, 3.25rem); /* 36–52px */
-  --mkt-h3: clamp(1.625rem, 2vw, 2.125rem); /* 26–34px */
-  --mkt-body-lg: clamp(1.125rem, 0.8vw + 0.9rem, 1.25rem); /* 18–20px */
+  --mkt-section-y: clamp(4rem, 7vw, 7rem); /* 64–112px */
+  --mkt-hero: clamp(3.25rem, 5.2vw, 5.25rem); /* 52–84px, ~68-84 desktop / 52-64 tablet / 42-52 mobile */
+  --mkt-h2: clamp(2.35rem, 4vw, 3.5rem); /* 37.6–56px, ~42-56 desktop / 36-46 tablet / 30-38 mobile */
+  --mkt-h3: clamp(1.5rem, 1.8vw, 1.9rem); /* 24–30px */
+  --mkt-body-lg: clamp(1.05rem, 1.4vw, 1.25rem); /* 16.8–20px */
   --mkt-body: clamp(1rem, 0.15vw + 0.95rem, 1.0625rem); /* 16–17px */
-  --mkt-prose: 45rem; /* ~720px */
+  --mkt-prose: 42rem; /* ~672px */
 
   --mkt-navy: #102a43;
   --mkt-ink: #102a43;
@@ -66,20 +66,20 @@
 
 .mkt-hero-heading {
   font-size: var(--mkt-hero);
-  line-height: 0.98;
+  line-height: 0.96;
   letter-spacing: -0.04em;
   font-weight: 500;
   color: var(--mkt-navy);
-  max-width: 720px;
+  max-width: 680px;
 }
 
 .mkt-section-heading {
   font-size: var(--mkt-h2);
-  line-height: 1.08;
+  line-height: 1.04;
   letter-spacing: -0.035em;
   font-weight: 500;
   color: var(--mkt-navy);
-  max-width: 760px;
+  max-width: 720px;
 }
 
 .mkt-body-lg {

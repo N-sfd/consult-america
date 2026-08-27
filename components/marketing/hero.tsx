@@ -18,8 +18,8 @@ export default function Hero() {
   return (
     <section className="mkt-hero-bg relative overflow-hidden py-10 lg:min-h-[680px] lg:py-12 xl:min-h-[760px] xl:py-14">
       <div className="mkt-shell relative z-10 flex h-full flex-col justify-center">
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-6 xl:col-span-5">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_.92fr] xl:gap-20">
+          <div>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -60,12 +60,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.26 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
+              className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             >
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="group/cta ca-button-primary"
+                className="group/cta ca-button-primary w-full sm:w-auto"
               >
                 Start a conversation
                 <ArrowUpRight className="mkt-cta-arrow h-4 w-4" />
@@ -81,7 +81,6 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.12 }}
-            className="lg:col-span-6 xl:col-span-7"
           >
             <MediaPanel
               src={HERO_IMAGE}

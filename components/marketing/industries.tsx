@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { cn } from "@/lib/utils";
+
 const industries = [
   {
     number: "01",
@@ -75,7 +77,7 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {industries.map((industry, index) => (
             <motion.article
               key={industry.title}
@@ -83,15 +85,22 @@ export default function Industries() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.45, delay: index * 0.03 }}
+              className={cn(
+                index === 0 && "lg:col-span-3",
+                index === 1 && "lg:col-span-2",
+                index === 2 && "lg:col-span-2",
+                index === 3 && "lg:col-span-3",
+              )}
             >
               <Link
                 href={industry.href}
-                className="group relative block min-h-[260px] overflow-hidden md:min-h-[320px]"
+                className="group relative block aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[240px]"
               >
                 <Image
                   src={industry.image}
                   alt={industry.imageAlt}
                   fill
+                  loading="lazy"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
@@ -104,7 +113,7 @@ export default function Industries() {
                   <h3 className="mt-2 text-lg font-medium tracking-[-0.03em] text-white md:text-xl">
                     {industry.title}
                   </h3>
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-white/70">
+                  <p className="mt-2 hidden max-w-sm text-sm leading-6 text-white/70 sm:block">
                     {industry.description}
                   </p>
                   <ArrowUpRight className="mt-3 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />

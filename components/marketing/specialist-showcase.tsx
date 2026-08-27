@@ -15,7 +15,7 @@ export default function SpecialistShowcase() {
           Depth where it matters most.
         </h2>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <div className="mt-10 grid gap-6 xl:grid-cols-2">
           <motion.article
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

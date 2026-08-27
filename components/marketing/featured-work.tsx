@@ -86,11 +86,12 @@ export default function FeaturedWork() {
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
-              <div className="relative min-h-[240px] lg:col-span-7 lg:min-h-[420px]">
+              <div className="relative aspect-[4/3] lg:col-span-7 lg:aspect-[16/9]">
                 <Image
                   src={flagship.image}
                   alt=""
                   fill
+                  loading="lazy"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   sizes="(max-width: 1024px) 100vw, 55vw"
                 />
@@ -98,7 +99,7 @@ export default function FeaturedWork() {
             </Link>
           </motion.article>
 
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
             {supportingProjects.map((project, index) => (
               <motion.article
                 key={project.number}
@@ -111,13 +112,14 @@ export default function FeaturedWork() {
                   href={project.href}
                   className="group block overflow-hidden border border-[var(--mkt-border)]"
                 >
-                  <div className="relative min-h-[180px]">
+                  <div className="relative aspect-[4/3] lg:aspect-[16/9]">
                     <Image
                       src={project.image}
                       alt=""
                       fill
+                      loading="lazy"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      sizes="(max-width: 640px) 100vw, 50vw"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
                   <div className="p-6">

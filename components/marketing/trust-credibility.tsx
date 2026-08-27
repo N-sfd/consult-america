@@ -18,10 +18,13 @@ export default function TrustCredibility() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-2 divide-y divide-[var(--mkt-border)] lg:grid-cols-4 lg:divide-y-0 lg:divide-x"
+          className="grid grid-cols-1 gap-y-5 divide-y divide-[var(--mkt-border)] sm:grid-cols-2 sm:gap-x-8 sm:gap-y-8 sm:divide-y-0 xl:grid-cols-4 xl:gap-x-0 xl:divide-x"
         >
           {heroStats.map((stat) => (
-            <div key={stat.value + stat.label} className="py-5 pr-6 first:pl-0 lg:py-0 lg:pl-8 lg:first:pl-0">
+            <div
+              key={stat.value + stat.label}
+              className="pt-5 first:pt-0 sm:pt-0 xl:border-[var(--mkt-border)] xl:pl-8 xl:first:border-l-0 xl:first:pl-0"
+            >
               <p className="text-xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-2xl">
                 {stat.value}
                 <span className="ml-2 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--mkt-muted)]">
@@ -44,7 +47,10 @@ export default function TrustCredibility() {
           transition={{ duration: 0.5, delay: 0.08 }}
           className="mt-12 border-t border-[var(--mkt-border)] pt-10 lg:mt-14 lg:pt-12"
         >
-          <p className="max-w-3xl text-xl leading-[1.45] tracking-[-0.015em] text-[var(--mkt-text)] md:text-2xl">
+          <p
+            className="max-w-[850px] leading-[1.45] tracking-[-0.015em] text-[var(--mkt-text)]"
+            style={{ fontSize: "clamp(1.35rem, 2vw, 2rem)" }}
+          >
             “{quote.quote}”
           </p>
           <footer className="mt-5 text-sm text-[var(--mkt-muted)]">

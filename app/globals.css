@@ -42,8 +42,8 @@
   --ca-amber: #c77a16;
   --ca-gold: #c77a16;
   --ca-max-width: 1360px;
-  --ca-gutter: clamp(1.5rem, 5vw, 6rem);
-  --ca-section-y: clamp(4rem, 7vw, 6rem);
+  --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 4rem);
+  --ca-section-y: clamp(4rem, 7vw, 7rem);
   --ca-insight-reading: 760px;
   --ca-insight-toc: 280px;
   --ca-insight-section-y: clamp(5.5rem, 10vw, 9rem);
@@ -179,22 +179,22 @@ body {
 }
 
 .ca-display {
-  font-size: clamp(2.75rem, 7.2vw, 6.5rem);
-  line-height: 1.02;
+  font-size: clamp(3.25rem, 5.2vw, 5.25rem);
+  line-height: 0.96;
   letter-spacing: -0.035em;
   font-weight: 500;
 }
 
 .ca-h1 {
-  font-size: clamp(2.15rem, 4.8vw, 3.75rem);
-  line-height: 1.12;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.08;
   letter-spacing: -0.03em;
   font-weight: 600;
 }
 
 .ca-h2 {
-  font-size: clamp(1.65rem, 3.2vw, 2.6rem);
-  line-height: 1.2;
+  font-size: clamp(2.35rem, 4vw, 3.5rem);
+  line-height: 1.02;
   letter-spacing: -0.025em;
   font-weight: 600;
 }
@@ -207,8 +207,8 @@ body {
 }
 
 .ca-body-lg {
-  font-size: clamp(1.02rem, 1.1vw, 1.175rem);
-  line-height: 1.65;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
   color: var(--ca-text-secondary);
 }
 
@@ -347,12 +347,14 @@ body {
 
 .ca-underline-input {
   width: 100%;
+  min-height: 48px;
   border: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 0;
   background: transparent;
   color: var(--ca-white);
   padding: 0.85rem 0;
+  font-size: 16px;
   outline: none;
 }
 
