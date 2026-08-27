@@ -47,7 +47,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] bg-white text-[var(--ca-navy)] xl:hidden"
+          className="fixed inset-0 z-[60] bg-white text-[var(--ca-navy)] lg:hidden"
         >
           <div className="flex h-20 items-center justify-between border-b border-[var(--ca-header-border)] px-5">
             <BrandLogo tone="dark" onNavigate={handleClose} />

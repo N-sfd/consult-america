@@ -61,12 +61,12 @@ export default function SiteHeader() {
         >
           <div className="ca-shell">
             <div className="ca-grid h-[4.5rem] items-center">
-              <div className="col-span-5 sm:col-span-4 xl:col-span-3">
+              <div className="col-span-5 sm:col-span-4 lg:col-span-3">
                 <BrandLogo tone="dark" priority />
               </div>
 
               <nav
-                className="col-span-6 hidden items-center justify-center gap-7 xl:flex"
+                className="col-span-6 hidden items-center justify-center gap-7 lg:flex"
                 aria-label="Primary navigation"
               >
                 <Link
@@ -101,9 +101,9 @@ export default function SiteHeader() {
                 ))}
               </nav>
 
-              <div className="col-span-7 ml-auto flex items-center justify-end gap-3 sm:col-span-8 sm:gap-4 xl:col-span-3">
+              <div className="col-span-7 ml-auto flex items-center justify-end gap-3 sm:col-span-8 sm:gap-4 lg:col-span-3">
                 <nav
-                  className="flex items-center gap-3 text-[0.72rem] sm:gap-4 sm:text-[0.85rem] xl:hidden"
+                  className="flex items-center gap-3 text-[0.72rem] sm:gap-4 sm:text-[0.85rem] lg:hidden"
                   aria-label="Quick navigation"
                 >
                   <Link
@@ -127,7 +127,7 @@ export default function SiteHeader() {
                 </nav>
                 <Link
                   href="/login"
-                  className="hidden text-sm text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)] xl:inline"
+                  className="hidden text-sm text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)] lg:inline"
                 >
                   Employee Login
                 </Link>
@@ -142,7 +142,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setMobileOpen(true)}
-                  className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 xl:hidden"
+                  className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden"
                   aria-label="Open navigation menu"
                   aria-expanded={mobileOpen}
                 >
@@ -156,7 +156,7 @@ export default function SiteHeader() {
 
         {openMenu && (
           <div
-            className="hidden border-b border-[var(--ca-header-border)] bg-white xl:block"
+            className="hidden border-b border-[var(--ca-header-border)] bg-white lg:block"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >

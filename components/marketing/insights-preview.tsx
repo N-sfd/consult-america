@@ -14,9 +14,19 @@ const insightImages = [
 ];
 
 export default function InsightsPreview() {
-  const insights = getFeaturedInsights(3);
+  const featured = getFeaturedInsights(3);
+  if (!featured.length) return null;
 
-  if (!insights.length) return null;
+  const featuredSlotIndex = featured.findIndex(
+    (insight) => insight.category === "oracle",
+  );
+  const insights =
+    featuredSlotIndex > 0
+      ? [
+          featured[featuredSlotIndex],
+          ...featured.filter((_, index) => index !== featuredSlotIndex),
+        ]
+      : featured;
 
   return (
     <section
@@ -49,7 +59,7 @@ export default function InsightsPreview() {
             size="large"
           />
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1 lg:gap-10">
+          <div className="grid gap-8 lg:grid-cols-1 lg:gap-10">
             {insights.slice(1).map((insight, index) => (
               <InsightCard
                 key={insight.slug}
