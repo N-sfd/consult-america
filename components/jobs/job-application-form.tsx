@@ -3,16 +3,58 @@
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
+import { submitJobApplication } from "@/lib/recruiting/actions";
+
 interface JobApplicationFormProps {
   jobTitle: string;
+  requisitionId: string;
+  postingId: string;
 }
 
-export default function JobApplicationForm({ jobTitle }: JobApplicationFormProps) {
+export default function JobApplicationForm({
+  jobTitle,
+  requisitionId,
+  postingId,
+}: JobApplicationFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const relocate = formData.get("relocate");
+
+    try {
+      await submitJobApplication({
+        requisitionId,
+        postingId,
+        firstName: String(formData.get("firstName") ?? ""),
+        lastName: String(formData.get("lastName") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        phone: (formData.get("phone") as string) || undefined,
+        location: (formData.get("location") as string) || undefined,
+        linkedinUrl: (formData.get("linkedin") as string) || undefined,
+        portfolioUrl: (formData.get("portfolio") as string) || undefined,
+        workAuthorization: (formData.get("workAuthorization") as string) || undefined,
+        willingToRelocate:
+          relocate === "yes" || relocate === "no" || relocate === "maybe"
+            ? relocate
+            : undefined,
+        coverLetter: (formData.get("coverLetter") as string) || undefined,
+        additionalInformation: (formData.get("additional") as string) || undefined,
+      });
+      setSubmitted(true);
+    } catch {
+      setError(
+        "Something went wrong submitting your application. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -23,8 +65,7 @@ export default function JobApplicationForm({ jobTitle }: JobApplicationFormProps
         </h2>
         <p className="mt-4 max-w-xl text-white/65">
           Thank you for your interest in the {jobTitle} role at ConsultAmerica.
-          This is a demonstration application flow — submissions are not yet
-          connected to an ATS.
+          Our recruiting team will follow up if there&apos;s a fit.
         </p>
         <Link href="/jobs" className="ca-link mt-8 inline-flex">
           Back to open roles
@@ -38,9 +79,11 @@ export default function JobApplicationForm({ jobTitle }: JobApplicationFormProps
       onSubmit={handleSubmit}
       className="grid gap-6 border border-white/10 p-8 md:p-10"
     >
-      <p className="text-sm text-white/45">
-        Demo application form — not connected to ATS yet.
-      </p>
+      {error && (
+        <p className="border border-[var(--ca-error)]/40 bg-[var(--ca-error)]/10 px-4 py-3 text-sm text-white">
+          {error}
+        </p>
+      )}
 
       <div className="grid gap-6 md:grid-cols-2">
         <div>
@@ -205,8 +248,12 @@ export default function JobApplicationForm({ jobTitle }: JobApplicationFormProps
         />
       </div>
 
-      <button type="submit" className="ca-button-primary justify-self-start">
-        Submit Application
+      <button
+        type="submit"
+        disabled={submitting}
+        className="ca-button-primary justify-self-start disabled:opacity-60"
+      >
+        {submitting ? "Submitting…" : "Submit Application"}
       </button>
     </form>
   );

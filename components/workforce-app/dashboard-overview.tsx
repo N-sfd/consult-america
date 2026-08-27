@@ -135,7 +135,7 @@ export default function DashboardOverview({
             Open roles
           </p>
           <Link
-            href="/workforce/jobs"
+            href="/app/recruiting/jobs"
             className="text-sm text-[var(--ca-blue)] hover:underline"
           >
             Manage jobs

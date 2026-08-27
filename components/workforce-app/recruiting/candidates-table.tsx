@@ -1,34 +1,70 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ArrowDown, ArrowUp, ArrowUpDown, Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ArrowDown, ArrowUp, ArrowUpDown, Search, X } from "lucide-react";
 
 import CandidateDrawer from "@/components/workforce-app/recruiting/candidate-drawer";
+import StageBadge, {
+  CandidateAvatar,
+} from "@/components/workforce-app/recruiting/stage-badge";
 import SupabaseConnectBanner from "@/components/workforce-app/supabase-connect-banner";
 import { formatRelativeTime } from "@/lib/recruiting/format";
 import type { CandidateListItem } from "@/lib/recruiting/repository";
-import { cn } from "@/lib/utils";
 import { applicationStatusLabels, type ApplicationStatus } from "@/types/recruiting";
 
 type SortKey = "name" | "stage" | "lastActivityAt";
 
 const PAGE_SIZE = 10;
 
+export type CandidateKpis = {
+  active: number;
+  newThisWeek: number;
+  interviews: number;
+  offers: number;
+};
+
 export default function CandidatesTable({
   candidates,
+  kpis,
   isSupabaseConnected,
 }: {
   candidates: CandidateListItem[];
+  kpis: CandidateKpis;
   isSupabaseConnected: boolean;
 }) {
-  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [stageFilter, setStageFilter] = useState<ApplicationStatus | "ALL">(
-    "ALL",
+    () => (searchParams.get("stage") as ApplicationStatus | null) ?? "ALL",
+  );
+  const [jobFilter, setJobFilter] = useState(
+    () => searchParams.get("job") ?? "ALL",
+  );
+  const [locationFilter, setLocationFilter] = useState(
+    () => searchParams.get("location") ?? "ALL",
   );
   const [sortKey, setSortKey] = useState<SortKey>("lastActivityAt");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [page, setPage] = useState(1);
   const [openCandidateId, setOpenCandidateId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (query.trim()) params.set("q", query.trim());
+    if (stageFilter !== "ALL") params.set("stage", stageFilter);
+    if (jobFilter !== "ALL") params.set("job", jobFilter);
+    if (locationFilter !== "ALL") params.set("location", locationFilter);
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, stageFilter, jobFilter, locationFilter]);
 
   const stagesPresent = useMemo(() => {
     const seen = new Set<ApplicationStatus>();
@@ -38,11 +74,41 @@ export default function CandidatesTable({
     return [...seen];
   }, [candidates]);
 
+  const jobsPresent = useMemo(() => {
+    const seen = new Set<string>();
+    for (const candidate of candidates) {
+      if (candidate.role && candidate.role !== "—") seen.add(candidate.role);
+    }
+    return [...seen].sort();
+  }, [candidates]);
+
+  const locationsPresent = useMemo(() => {
+    const seen = new Set<string>();
+    for (const candidate of candidates) {
+      if (candidate.location && candidate.location !== "—") {
+        seen.add(candidate.location);
+      }
+    }
+    return [...seen].sort();
+  }, [candidates]);
+
+  const hasActiveFilters =
+    query.trim() !== "" ||
+    stageFilter !== "ALL" ||
+    jobFilter !== "ALL" ||
+    locationFilter !== "ALL";
+
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return candidates.filter((candidate) => {
       if (stageFilter !== "ALL" && candidate.stage !== stageFilter) {
+        return false;
+      }
+      if (jobFilter !== "ALL" && candidate.role !== jobFilter) {
+        return false;
+      }
+      if (locationFilter !== "ALL" && candidate.location !== locationFilter) {
         return false;
       }
 
@@ -56,7 +122,7 @@ export default function CandidatesTable({
         candidate.location.toLowerCase().includes(normalizedQuery)
       );
     });
-  }, [candidates, query, stageFilter]);
+  }, [candidates, query, stageFilter, jobFilter, locationFilter]);
 
   const sorted = useMemo(() => {
     const copy = [...filtered];
@@ -103,23 +169,49 @@ export default function CandidatesTable({
     );
   }
 
+  function clearFilters() {
+    setQuery("");
+    setStageFilter("ALL");
+    setJobFilter("ALL");
+    setLocationFilter("ALL");
+    setPage(1);
+  }
+
+  const kpiCards = [
+    { label: "Active Candidates", value: kpis.active },
+    { label: "New This Week", value: kpis.newThisWeek },
+    { label: "Interviews", value: kpis.interviews },
+    { label: "Offers", value: kpis.offers },
+  ];
+
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
-      <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
-        Recruiting
-      </p>
-      <h1 className="mt-2 text-2xl font-medium tracking-[-0.03em]">
-        Candidates
-      </h1>
-      <p className="mt-2 text-sm text-black/50">
-        {candidates.length} candidate{candidates.length === 1 ? "" : "s"} in
-        the pipeline
-      </p>
+    <div className="mx-auto max-w-[1280px] px-4 py-5 lg:px-8 lg:py-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
+            Candidates
+          </h1>
+          <p className="mt-1 text-sm text-black/50">
+            Manage applicants across jobs and hiring stages.
+          </p>
+        </div>
+      </div>
 
       {!isSupabaseConnected && <SupabaseConnectBanner />}
 
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <label className="relative block sm:max-w-xs sm:flex-1">
+      <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {kpiCards.map((kpi) => (
+          <div key={kpi.label} className="border border-black/8 bg-white px-4 py-3">
+            <p className="text-2xl font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
+              {kpi.value}
+            </p>
+            <p className="mt-1 text-xs text-black/50">{kpi.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 flex flex-col gap-2 lg:flex-row lg:items-center">
+        <label className="relative block lg:max-w-xs lg:flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-black/35" />
           <input
             type="search"
@@ -128,46 +220,69 @@ export default function CandidatesTable({
               setQuery(event.target.value);
               setPage(1);
             }}
-            placeholder="Search candidates, roles, req #…"
+            placeholder="Search candidates…"
             className="h-9 w-full border border-black/10 bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
           />
         </label>
 
-        <div className="flex flex-wrap gap-1.5">
+        <select
+          value={stageFilter}
+          onChange={(event) => {
+            setStageFilter(event.target.value as ApplicationStatus | "ALL");
+            setPage(1);
+          }}
+          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+        >
+          <option value="ALL">All stages</option>
+          {stagesPresent.map((stage) => (
+            <option key={stage} value={stage}>
+              {applicationStatusLabels[stage]}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={jobFilter}
+          onChange={(event) => {
+            setJobFilter(event.target.value);
+            setPage(1);
+          }}
+          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+        >
+          <option value="ALL">All jobs</option>
+          {jobsPresent.map((job) => (
+            <option key={job} value={job}>
+              {job}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={locationFilter}
+          onChange={(event) => {
+            setLocationFilter(event.target.value);
+            setPage(1);
+          }}
+          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+        >
+          <option value="ALL">All locations</option>
+          {locationsPresent.map((location) => (
+            <option key={location} value={location}>
+              {location}
+            </option>
+          ))}
+        </select>
+
+        {hasActiveFilters && (
           <button
             type="button"
-            onClick={() => {
-              setStageFilter("ALL");
-              setPage(1);
-            }}
-            className={cn(
-              "border px-2.5 py-1 text-xs font-medium transition-colors",
-              stageFilter === "ALL"
-                ? "border-[var(--ca-blue)] bg-[var(--ca-blue)]/10 text-[var(--ca-blue)]"
-                : "border-black/10 text-black/55 hover:border-black/20",
-            )}
+            onClick={clearFilters}
+            className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
           >
-            All
+            <X className="h-3.5 w-3.5" />
+            Clear filters
           </button>
-          {stagesPresent.map((stage) => (
-            <button
-              key={stage}
-              type="button"
-              onClick={() => {
-                setStageFilter(stage);
-                setPage(1);
-              }}
-              className={cn(
-                "border px-2.5 py-1 text-xs font-medium transition-colors",
-                stageFilter === stage
-                  ? "border-[var(--ca-blue)] bg-[var(--ca-blue)]/10 text-[var(--ca-blue)]"
-                  : "border-black/10 text-black/55 hover:border-black/20",
-              )}
-            >
-              {applicationStatusLabels[stage]}
-            </button>
-          ))}
-        </div>
+        )}
       </div>
 
       {pageItems.length === 0 ? (
@@ -185,20 +300,23 @@ export default function CandidatesTable({
               onClick={() => setOpenCandidateId(candidate.candidateId)}
               className="w-full border border-black/8 bg-white p-4 text-left"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="font-medium text-[var(--ca-app-ink)]">
-                    {candidate.name}
+              <div className="flex items-start gap-3">
+                <CandidateAvatar name={candidate.name} />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-medium text-[var(--ca-app-ink)]">
+                      {candidate.name}
+                    </p>
+                    <StageBadge stage={candidate.stage} />
+                  </div>
+                  <p className="mt-0.5 truncate text-sm text-black/55">
+                    {candidate.role}
                   </p>
-                  <p className="mt-0.5 text-sm text-black/55">{candidate.role}</p>
+                  <div className="mt-2 flex items-center justify-between text-xs text-black/45">
+                    <span>{candidate.location}</span>
+                    <span>Applied {formatRelativeTime(candidate.lastActivityAt)}</span>
+                  </div>
                 </div>
-                <span className="shrink-0 text-xs font-medium text-[var(--ca-blue)]">
-                  {candidate.stage ? applicationStatusLabels[candidate.stage] : "—"}
-                </span>
-              </div>
-              <div className="mt-3 flex items-center justify-between text-xs text-black/45">
-                <span>{candidate.location}</span>
-                <span>Last activity: {formatRelativeTime(candidate.lastActivityAt)}</span>
               </div>
             </button>
           ))}
@@ -206,8 +324,8 @@ export default function CandidatesTable({
       )}
 
       <div className="mt-4 hidden overflow-x-auto border border-black/8 bg-white md:block">
-        <div className="min-w-[900px]">
-          <div className="grid grid-cols-[1.4fr_1.4fr_1fr_1fr_1fr_0.7fr_1fr] gap-3 border-b border-black/8 bg-[var(--ca-app-bg)] px-5 py-3 text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+        <div className="min-w-[860px]">
+          <div className="grid grid-cols-[2fr_1.4fr_0.9fr_1fr_0.8fr] gap-3 border-b border-black/8 bg-[var(--ca-app-bg)] px-5 py-2.5 text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
             <button
               type="button"
               onClick={() => toggleSort("name")}
@@ -215,8 +333,7 @@ export default function CandidatesTable({
             >
               Candidate {sortIcon("name")}
             </button>
-            <span>Role</span>
-            <span>Application</span>
+            <span>Applied Role</span>
             <button
               type="button"
               onClick={() => toggleSort("stage")}
@@ -225,13 +342,12 @@ export default function CandidatesTable({
               Stage {sortIcon("stage")}
             </button>
             <span>Location</span>
-            <span>Match</span>
             <button
               type="button"
               onClick={() => toggleSort("lastActivityAt")}
               className="flex items-center gap-1 text-left"
             >
-              Last Activity {sortIcon("lastActivityAt")}
+              Activity {sortIcon("lastActivityAt")}
             </button>
           </div>
 
@@ -247,18 +363,22 @@ export default function CandidatesTable({
                 key={candidate.candidateId}
                 type="button"
                 onClick={() => setOpenCandidateId(candidate.candidateId)}
-                className="grid w-full grid-cols-[1.4fr_1.4fr_1fr_1fr_1fr_0.7fr_1fr] items-center gap-3 border-b border-black/6 px-5 py-4 text-left text-sm transition-colors last:border-0 hover:bg-[var(--ca-app-bg)]"
+                className="grid w-full grid-cols-[2fr_1.4fr_0.9fr_1fr_0.8fr] items-center gap-3 border-b border-black/6 px-5 py-3 text-left text-sm transition-colors last:border-0 hover:bg-[var(--ca-app-bg)]"
               >
-                <span className="font-medium text-[var(--ca-app-ink)]">
-                  {candidate.name}
+                <span className="flex min-w-0 items-center gap-3">
+                  <CandidateAvatar name={candidate.name} />
+                  <span className="min-w-0">
+                    <span className="block truncate font-medium text-[var(--ca-app-ink)]">
+                      {candidate.name}
+                    </span>
+                    <span className="block truncate text-xs text-black/45">
+                      {candidate.email}
+                    </span>
+                  </span>
                 </span>
                 <span className="truncate text-black/55">{candidate.role}</span>
-                <span className="text-black/45">{candidate.applicationNumber}</span>
-                <span className="text-[var(--ca-blue)]">
-                  {candidate.stage ? applicationStatusLabels[candidate.stage] : "—"}
-                </span>
-                <span className="text-black/45">{candidate.location}</span>
-                <span className="text-black/45">—</span>
+                <StageBadge stage={candidate.stage} />
+                <span className="truncate text-black/45">{candidate.location}</span>
                 <span className="text-black/45">
                   {formatRelativeTime(candidate.lastActivityAt)}
                 </span>

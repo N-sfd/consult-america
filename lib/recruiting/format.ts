@@ -21,6 +21,12 @@ export function formatRelativeTime(iso: string): string {
   return relativeFormatter.format(-value, bucket.unit);
 }
 
+export function isWithinLastDays(iso: string | undefined, days: number): boolean {
+  if (!iso) return false;
+  const elapsedMs = Date.now() - new Date(iso).getTime();
+  return elapsedMs >= 0 && elapsedMs <= days * 24 * 60 * 60 * 1000;
+}
+
 export function formatDate(iso: string | undefined): string {
   if (!iso) return "—";
   return new Date(iso).toLocaleDateString("en-US", {

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 import CandidatesTable from "@/components/workforce-app/recruiting/candidates-table";
 import { recruitingRepository } from "@/lib/recruiting";
+import { isWithinLastDays } from "@/lib/recruiting/format";
 
 export const metadata: Metadata = {
   title: "Candidates",
@@ -11,10 +13,23 @@ export const metadata: Metadata = {
 export default async function RecruitingCandidatesPage() {
   const candidates = await recruitingRepository.listCandidateSummaries();
 
+  const kpis = {
+    active: candidates.length,
+    newThisWeek: candidates.filter((c) => isWithinLastDays(c.appliedAt, 7))
+      .length,
+    interviews: candidates.filter(
+      (c) => c.stage === "INTERVIEW" || c.stage === "FINAL_INTERVIEW",
+    ).length,
+    offers: candidates.filter((c) => c.stage === "OFFER").length,
+  };
+
   return (
-    <CandidatesTable
-      candidates={candidates}
-      isSupabaseConnected={isSupabaseConfigured()}
-    />
+    <Suspense>
+      <CandidatesTable
+        candidates={candidates}
+        kpis={kpis}
+        isSupabaseConnected={isSupabaseConfigured()}
+      />
+    </Suspense>
   );
 }

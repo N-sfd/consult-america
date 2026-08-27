@@ -1,3 +1,4 @@
+import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import type {
   Application,
   ApplicationStatus,
@@ -6,12 +7,14 @@ import type {
   CandidateEducation,
   CandidateExperience,
   CandidateSkill,
+  CareerArea,
   Interview,
   InterviewFeedback,
   JobPosting,
   JobRequisition,
   Offer,
   RecruitingActivity,
+  RequisitionStatus,
 } from "@/types/recruiting";
 
 export type RecruitingRepository = {
@@ -47,10 +50,13 @@ export type CandidateListItem = {
   name: string;
   email: string;
   role: string;
+  requisitionId?: string;
   applicationNumber: string;
   stage?: ApplicationStatus;
   location: string;
+  source?: string;
   workAuthorization?: string;
+  appliedAt?: string;
   lastActivityAt: string;
 };
 
@@ -87,6 +93,104 @@ export type CandidateProfile = {
 export type RecruitingCandidateReads = {
   listCandidateSummaries(): Promise<CandidateListItem[]>;
   getCandidateProfile(candidateId: string): Promise<CandidateProfile | undefined>;
+};
+
+/** One row in the recruiting/jobs list. */
+export type JobListItem = {
+  requisitionId: string;
+  requisitionNumber: string;
+  title: string;
+  departmentName: string;
+  locationName: string;
+  workplaceType: WorkplaceType;
+  employmentType: EmploymentType;
+  status: RequisitionStatus;
+  candidateCount: number;
+  updatedAt: string;
+};
+
+export type JobDetail = {
+  requisition: JobRequisition;
+  departmentName: string;
+  locationName: string;
+  postingSlug?: string;
+  candidateCount: number;
+  pipelineCounts: Record<ApplicationStatus, number>;
+};
+
+export type CreateJobRequisitionInput = {
+  title: string;
+  departmentId: string;
+  departmentName: string;
+  positionId: string;
+  locationId: string;
+  locationName: string;
+  hiringManagerUserId?: string;
+  recruiterUserId?: string;
+  employmentType: EmploymentType;
+  workplaceType: WorkplaceType;
+  careerArea: CareerArea;
+  openings: number;
+  salaryMin?: number;
+  salaryMax?: number;
+  description: string;
+  responsibilities: string[];
+  qualifications: string[];
+  preferredQualifications: string[];
+  publishNow: boolean;
+};
+
+/** Reads backing the ATS Jobs / Requisitions workspace. */
+export type RecruitingJobReads = {
+  listJobSummaries(): Promise<JobListItem[]>;
+  getJobDetail(requisitionId: string): Promise<JobDetail | undefined>;
+};
+
+/** Writes backing requisition creation/publishing from the ATS. */
+export type RecruitingJobWrites = {
+  createJobRequisition(
+    input: CreateJobRequisitionInput,
+  ): Promise<{ requisitionId: string; postingSlug?: string }>;
+  publishJobRequisition(
+    requisitionId: string,
+  ): Promise<{ postingSlug: string } | undefined>;
+};
+
+export type SubmitApplicationInput = {
+  requisitionId: string;
+  postingId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  linkedinUrl?: string;
+  portfolioUrl?: string;
+  workAuthorization?: string;
+  willingToRelocate?: boolean;
+  coverLetter?: string;
+  additionalInformation?: string;
+  source?: string;
+};
+
+export type SubmitApplicationResult = {
+  candidateId: string;
+  applicationId: string;
+  applicationNumber: string;
+};
+
+/** Writes backing the public "Apply" flow (candidate + application creation). */
+export type RecruitingApplicationWrites = {
+  submitApplication(
+    input: SubmitApplicationInput,
+  ): Promise<SubmitApplicationResult>;
+};
+
+/** Writes backing the ATS pipeline board ("Move to Stage"). */
+export type RecruitingPipelineWrites = {
+  updateApplicationStage(
+    applicationId: string,
+    status: ApplicationStatus,
+  ): Promise<void>;
 };
 
 /**

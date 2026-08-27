@@ -54,7 +54,11 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
       </Section>
 
       <Section tone="navy" className="!pt-0">
-        <JobApplicationForm jobTitle={job.title} />
+        <JobApplicationForm
+          jobTitle={job.title}
+          requisitionId={job.requisitionId}
+          postingId={job.id}
+        />
       </Section>
     </>
   );
