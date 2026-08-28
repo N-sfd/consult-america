@@ -67,21 +67,19 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-2 xl:hidden">
-          {industries.map((industry) => (
-            <IndustryTile key={industry.title} industry={industry} />
+        {/* Single grid: 1-col mobile, 2x2 tablet, 3+2 / 2+3 mosaic at xl+
+            (5-unit column grid so a 3/2 span pair fills each row exactly). */}
+        <div className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
+          {industries.map((industry, index) => (
+            <IndustryTile
+              key={industry.title}
+              industry={industry}
+              tall={index < 2}
+              spanClassName={
+                index === 0 || index === 3 ? "xl:col-span-3" : "xl:col-span-2"
+              }
+            />
           ))}
-        </div>
-
-        <div className="mt-10 hidden space-y-3 xl:block">
-          <div className="grid grid-cols-[3fr_2fr] gap-3">
-            <IndustryTile industry={industries[0]} tall />
-            <IndustryTile industry={industries[1]} tall />
-          </div>
-          <div className="grid grid-cols-[2fr_3fr] gap-3">
-            <IndustryTile industry={industries[2]} />
-            <IndustryTile industry={industries[3]} />
-          </div>
         </div>
 
         <div className="mt-8 flex justify-end">
@@ -98,9 +96,11 @@ export default function Industries() {
 function IndustryTile({
   industry,
   tall = false,
+  spanClassName,
 }: {
   industry: (typeof industries)[number];
   tall?: boolean;
+  spanClassName?: string;
 }) {
   return (
     <motion.article
@@ -108,6 +108,7 @@ function IndustryTile({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.45 }}
+      className={spanClassName}
     >
       <Link
         href={industry.href}

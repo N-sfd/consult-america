@@ -59,6 +59,12 @@ const capabilities = [
 
 export default function Capabilities() {
   const [activeIndex, setActiveIndex] = useState(0);
+  // Desktop always has a sensible default preview (row 1) before any hover.
+  // Mobile/tablet has no separate preview panel, so the inline image should
+  // stay collapsed for every row until the visitor actually interacts —
+  // otherwise row 1's image renders expanded on first paint, echoing its
+  // own title right below it.
+  const [interacted, setInteracted] = useState(false);
   const active = capabilities[activeIndex];
 
   return (
@@ -78,8 +84,27 @@ export default function Capabilities() {
                   <Link
                     key={capability.title}
                     href={capability.href}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onFocus={() => setActiveIndex(index)}
+                    onMouseEnter={() => {
+                      setActiveIndex(index);
+                      setInteracted(true);
+                    }}
+                    onFocus={() => {
+                      setActiveIndex(index);
+                      setInteracted(true);
+                    }}
+                    onClick={(event) => {
+                      // Below lg, the row's own image only shows for the
+                      // active capability (no lg:hidden sticky panel to
+                      // preview against) — first tap previews, second tap
+                      // (now active) navigates, so tapping never skips the
+                      // preview straight to a page load.
+                      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+                      if (!isDesktop && !(isActive && interacted)) {
+                        event.preventDefault();
+                        setActiveIndex(index);
+                        setInteracted(true);
+                      }
+                    }}
                     className={cn(
                       "group block border-b border-[var(--mkt-border)] transition-colors duration-200",
                       "py-5 md:py-6",
@@ -109,15 +134,17 @@ export default function Capabilities() {
                           </div>
                         </div>
 
-                        <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-xl border border-[var(--mkt-border)] lg:hidden">
-                          <Image
-                            src={capability.image}
-                            alt={capability.imageAlt}
-                            fill
-                            className="object-cover"
-                            sizes="100vw"
-                          />
-                        </div>
+                        {isActive && interacted && (
+                          <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-xl border border-[var(--mkt-border)] lg:hidden">
+                            <Image
+                              src={capability.image}
+                              alt={capability.imageAlt}
+                              fill
+                              className="object-cover"
+                              sizes="100vw"
+                            />
+                          </div>
+                        )}
                       </div>
 
                       <ArrowUpRight
