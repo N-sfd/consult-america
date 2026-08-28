@@ -6,6 +6,7 @@ import {
   seedRequisitions,
 } from "@/data/recruiting/seed";
 import { createSupabaseRecruitingRepository } from "@/lib/recruiting/supabase-repository";
+import { canTransitionOffer } from "@/lib/recruiting/status-machine";
 import type {
   CandidateListItem,
   CandidateProfile,
@@ -17,6 +18,7 @@ import type {
   RecruitingDashboardReads,
   RecruitingJobReads,
   RecruitingJobWrites,
+  RecruitingOfferWrites,
   RecruitingPipelineWrites,
   RecruitingRepository,
   SubmitApplicationInput,
@@ -52,7 +54,8 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
   RecruitingJobReads &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
-  RecruitingPipelineWrites {
+  RecruitingPipelineWrites &
+  RecruitingOfferWrites {
   const postings = [...seedPostings];
   const requisitions = [...seedRequisitions];
   const candidates: Candidate[] = [];
@@ -108,6 +111,10 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       return applications.filter(
         (application) => application.requisitionId === requisitionId,
       );
+    },
+
+    async getApplicationById(applicationId: string) {
+      return applications.find((application) => application.id === applicationId);
     },
 
     async getOfferByApplicationId(applicationId: string) {
@@ -447,6 +454,70 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
         createdAt: now,
       });
     },
+
+    async createOffer(input) {
+      const now = new Date().toISOString();
+      const application = applications.find((a) => a.id === input.applicationId);
+
+      const offer: Offer = {
+        id: `offer-${crypto.randomUUID()}`,
+        applicationId: input.applicationId,
+        offerNumber: `OFFER-${new Date().getFullYear()}-${String(
+          offers.length + 1,
+        ).padStart(4, "0")}`,
+        status: "EXTENDED",
+        baseSalary: input.baseSalary,
+        hourlyRate: input.hourlyRate,
+        currency: input.currency ?? "USD",
+        employmentType: input.employmentType,
+        workplaceType: input.workplaceType,
+        startDate: input.startDate,
+        expirationDate: input.expirationDate,
+        termsSummary: input.termsSummary,
+        createdAt: now,
+        updatedAt: now,
+      };
+      offers.push(offer);
+
+      activities.push({
+        id: `act-${crypto.randomUUID()}`,
+        candidateId: application?.candidateId,
+        applicationId: input.applicationId,
+        requisitionId: application?.requisitionId,
+        activityType: "OFFER_EXTENDED",
+        summary: `Offer extended: ${offer.offerNumber}`,
+        createdAt: now,
+      });
+
+      return offer;
+    },
+
+    async updateOfferStatus(offerId, status) {
+      const offer = offers.find((o) => o.id === offerId);
+      if (!offer) return undefined;
+
+      const previous = offer.status;
+      if (!canTransitionOffer(previous, status)) {
+        throw new Error(`Invalid offer transition: ${previous} → ${status}`);
+      }
+
+      const now = new Date().toISOString();
+      offer.status = status;
+      offer.updatedAt = now;
+
+      const application = applications.find((a) => a.id === offer.applicationId);
+      activities.push({
+        id: `act-${crypto.randomUUID()}`,
+        candidateId: application?.candidateId,
+        applicationId: offer.applicationId,
+        requisitionId: application?.requisitionId,
+        activityType: "OFFER_STATUS_CHANGED",
+        summary: `Offer ${offer.offerNumber} status: ${previous} → ${status}`,
+        createdAt: now,
+      });
+
+      return offer;
+    },
   };
 
   function createPostingFor(
@@ -501,7 +572,8 @@ export const recruitingRepository: RecruitingRepository &
   RecruitingJobReads &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
-  RecruitingPipelineWrites = isSupabaseConfigured()
+  RecruitingPipelineWrites &
+  RecruitingOfferWrites = isSupabaseConfigured()
   ? createSupabaseRecruitingRepository()
   : createMemoryRecruitingRepository();
 

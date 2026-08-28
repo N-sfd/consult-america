@@ -5,12 +5,15 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 import { CandidateAvatar } from "@/components/workforce-app/recruiting/stage-badge";
+import OfferActions from "@/components/workforce-app/recruiting/offer-actions";
 import { moveApplicationStage } from "@/lib/recruiting/actions";
 import { formatDate } from "@/lib/recruiting/format";
+import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import {
   APPLICATION_PIPELINE,
   applicationStatusLabels,
   type ApplicationStatus,
+  type Offer,
 } from "@/types/recruiting";
 
 export type PipelineCard = {
@@ -19,16 +22,21 @@ export type PipelineCard = {
   candidateName: string;
   status: ApplicationStatus;
   appliedAt: string;
+  offer?: Offer;
 };
 
 export default function PipelineBoard({
   requisitionId,
   jobTitle,
   cards,
+  defaultEmploymentType,
+  defaultWorkplaceType,
 }: {
   requisitionId: string;
   jobTitle: string;
   cards: PipelineCard[];
+  defaultEmploymentType: EmploymentType;
+  defaultWorkplaceType: WorkplaceType;
 }) {
   const [items, setItems] = useState(cards);
   const [isPending, startTransition] = useTransition();
@@ -109,6 +117,14 @@ export default function PipelineBoard({
                         ))}
                         <option value="REJECTED">Move to Rejected</option>
                       </select>
+                      <OfferActions
+                        applicationId={item.applicationId}
+                        requisitionId={requisitionId}
+                        status={item.status}
+                        offer={item.offer}
+                        defaultEmploymentType={defaultEmploymentType}
+                        defaultWorkplaceType={defaultWorkplaceType}
+                      />
                     </div>
                   ))}
                   {stageItems.length === 0 && (

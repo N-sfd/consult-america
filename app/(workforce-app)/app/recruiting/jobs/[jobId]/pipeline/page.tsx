@@ -26,12 +26,22 @@ export default async function RecruitingJobPipelinePage({
     candidateSummaries.map((c) => [c.candidateId, c]),
   );
 
+  const offers = await Promise.all(
+    applications.map((application) =>
+      recruitingRepository.getOfferByApplicationId(application.id),
+    ),
+  );
+  const offerByApplicationId = new Map(
+    applications.map((application, index) => [application.id, offers[index]]),
+  );
+
   const cards = applications.map((application) => ({
     applicationId: application.id,
     candidateId: application.candidateId,
     candidateName: candidateById.get(application.candidateId)?.name ?? "—",
     status: application.status,
     appliedAt: application.appliedAt,
+    offer: offerByApplicationId.get(application.id),
   }));
 
   return (
@@ -39,6 +49,8 @@ export default async function RecruitingJobPipelinePage({
       requisitionId={jobId}
       jobTitle={detail.requisition.title}
       cards={cards}
+      defaultEmploymentType={detail.requisition.employmentType}
+      defaultWorkplaceType={detail.requisition.workplaceType}
     />
   );
 }

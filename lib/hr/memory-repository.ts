@@ -11,11 +11,13 @@ import {
   seedEmployees,
   seedPeople,
   seedAssignments,
+  seedCompensationRecords,
   seedOnboardingRecords,
   seedOnboardingTasks,
 } from "@/data/hr/seed";
 import {
   DEFAULT_ONBOARDING_TASKS,
+  type CompensationRecord,
   type Employee,
   type EmployeeStatusHistory,
   type EmploymentAssignment,
@@ -45,6 +47,22 @@ export function createMemoryHrRepository(): HrRepository {
   const hrEvents: HrEvent[] = [];
   const onboardingRecords: OnboardingRecord[] = [...seedOnboardingRecords];
   const onboardingTasks: OnboardingTask[] = [...seedOnboardingTasks];
+  const compensationRecords: CompensationRecord[] = [...seedCompensationRecords];
+
+  function getActiveCompensation(
+    employeeId: string,
+    asOf?: string,
+  ): CompensationRecord | undefined {
+    const cutoff = asOf ?? new Date().toISOString().slice(0, 10);
+    return compensationRecords
+      .filter(
+        (record) =>
+          record.employeeId === employeeId &&
+          record.effectiveStartDate <= cutoff &&
+          (!record.effectiveEndDate || record.effectiveEndDate >= cutoff),
+      )
+      .sort((a, b) => b.effectiveStartDate.localeCompare(a.effectiveStartDate))[0];
+  }
 
   async function createPerson(input: CreatePersonInput): Promise<Person> {
     if (input.personalEmail) {
@@ -325,6 +343,31 @@ export function createMemoryHrRepository(): HrRepository {
 
     async listOnboardingTasks(employeeId) {
       return onboardingTasks.filter((item) => item.employeeId === employeeId);
+    },
+
+    async getActiveCompensation(employeeId, asOf) {
+      return getActiveCompensation(employeeId, asOf);
+    },
+
+    async upsertCompensation(input) {
+      const previous = getActiveCompensation(input.employeeId);
+      if (previous) previous.effectiveEndDate = input.effectiveStartDate;
+
+      const record: CompensationRecord = {
+        id: createId("comp"),
+        employeeId: input.employeeId,
+        assignmentId: input.assignmentId,
+        compensationType: input.compensationType,
+        annualSalary: input.annualSalary,
+        hourlyRate: input.hourlyRate,
+        currency: input.currency ?? "USD",
+        effectiveStartDate: input.effectiveStartDate,
+        reason: input.reason,
+        createdAt: nowIso(),
+        updatedAt: nowIso(),
+      };
+      compensationRecords.push(record);
+      return record;
     },
 
     async convertAcceptedOffer(input) {

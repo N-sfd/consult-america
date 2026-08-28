@@ -1,4 +1,5 @@
 import type {
+  CompensationRecord,
   Employee,
   EmploymentAssignment,
   HrEvent,
@@ -58,6 +59,17 @@ export type CreateAssignmentInput = {
   primaryAssignment?: boolean;
 };
 
+export type UpsertCompensationInput = {
+  employeeId: string;
+  assignmentId: string;
+  compensationType: CompensationRecord["compensationType"];
+  annualSalary?: number;
+  hourlyRate?: number;
+  currency?: string;
+  effectiveStartDate: string;
+  reason?: string;
+};
+
 export type HrRepository = {
   listPeople(): Promise<Person[]>;
   getPersonById(id: string): Promise<Person | undefined>;
@@ -91,6 +103,14 @@ export type HrRepository = {
   listHrEvents(employeeId: string): Promise<HrEvent[]>;
   getOnboarding(employeeId: string): Promise<OnboardingRecord | undefined>;
   listOnboardingTasks(employeeId: string): Promise<OnboardingTask[]>;
+
+  getActiveCompensation(
+    employeeId: string,
+    asOf?: string,
+  ): Promise<CompensationRecord | undefined>;
+  upsertCompensation(
+    input: UpsertCompensationInput,
+  ): Promise<CompensationRecord>;
 
   convertAcceptedOffer(
     input: HireConversionInput & {

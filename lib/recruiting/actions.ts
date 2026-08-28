@@ -3,12 +3,14 @@
 import { revalidatePath } from "next/cache";
 
 import { recruitingRepository } from "@/lib/recruiting";
+import { canTransitionOffer } from "@/lib/recruiting/status-machine";
 import type {
   CandidateProfile,
   CreateJobRequisitionInput,
   SubmitApplicationResult,
 } from "@/lib/recruiting/repository";
-import type { ApplicationStatus } from "@/types/recruiting";
+import type { EmploymentType, WorkplaceType } from "@/types/organization";
+import type { ApplicationStatus, Offer } from "@/types/recruiting";
 
 /** ATS "Create Job" form submission (Save Draft or Publish Job). */
 export async function createJob(
@@ -103,6 +105,60 @@ export async function moveApplicationStage(
   revalidatePath(`/app/recruiting/jobs/${requisitionId}/pipeline`);
   revalidatePath(`/app/recruiting/jobs/${requisitionId}`);
   revalidatePath("/app/recruiting/candidates");
+}
+
+export type ExtendOfferInput = {
+  applicationId: string;
+  requisitionId: string;
+  baseSalary?: number;
+  hourlyRate?: number;
+  startDate: string;
+  employmentType: EmploymentType;
+  workplaceType: WorkplaceType;
+};
+
+export type OfferActionResult =
+  | { ok: true; offer: Offer }
+  | { ok: false; error: string };
+
+/** ATS pipeline "Extend Offer" action — creates a real Offer row (status EXTENDED). */
+export async function extendOffer(
+  input: ExtendOfferInput,
+): Promise<OfferActionResult> {
+  if (!input.baseSalary && !input.hourlyRate) {
+    return { ok: false, error: "Enter a base salary or hourly rate" };
+  }
+
+  const offer = await recruitingRepository.createOffer({
+    applicationId: input.applicationId,
+    baseSalary: input.baseSalary,
+    hourlyRate: input.hourlyRate,
+    startDate: input.startDate,
+    employmentType: input.employmentType,
+    workplaceType: input.workplaceType,
+  });
+
+  revalidatePath(`/app/recruiting/jobs/${input.requisitionId}/pipeline`);
+  return { ok: true, offer };
+}
+
+/** ATS pipeline "Accept Offer" action — simulates the candidate accepting (no candidate portal yet). */
+export async function acceptOffer(
+  applicationId: string,
+  requisitionId: string,
+): Promise<OfferActionResult> {
+  const offer = await recruitingRepository.getOfferByApplicationId(applicationId);
+  if (!offer) return { ok: false, error: "Offer not found" };
+
+  if (!canTransitionOffer(offer.status, "ACCEPTED")) {
+    return { ok: false, error: `Offer cannot move from ${offer.status} to ACCEPTED` };
+  }
+
+  const updated = await recruitingRepository.updateOfferStatus(offer.id, "ACCEPTED");
+  revalidatePath(`/app/recruiting/jobs/${requisitionId}/pipeline`);
+  return updated
+    ? { ok: true, offer: updated }
+    : { ok: false, error: "Offer not found" };
 }
 
 function computeExperienceYears(

@@ -31,6 +31,9 @@ export type ConvertHireParams = {
   managerEmployeeId?: string;
   employmentType: EmploymentType;
   workplaceType: WorkplaceType;
+  baseSalary?: number;
+  hourlyRate?: number;
+  currency?: string;
 };
 
 /**
@@ -51,7 +54,7 @@ export async function convertAcceptedOfferToEmployee(
     );
   }
 
-  return hrRepository.convertAcceptedOffer({
+  const result = await hrRepository.convertAcceptedOffer({
     applicationId: params.applicationId,
     offerId: params.offerId,
     candidateId: params.candidateId,
@@ -69,6 +72,21 @@ export async function convertAcceptedOfferToEmployee(
     employmentType: params.employmentType,
     workplaceType: params.workplaceType,
   });
+
+  if (params.baseSalary != null || params.hourlyRate != null) {
+    await hrRepository.upsertCompensation({
+      employeeId: result.employeeId,
+      assignmentId: result.assignmentId,
+      compensationType: params.hourlyRate != null ? "HOURLY" : "SALARY",
+      annualSalary: params.baseSalary,
+      hourlyRate: params.hourlyRate,
+      currency: params.currency,
+      effectiveStartDate: params.startDate,
+      reason: "Hire from accepted offer",
+    });
+  }
+
+  return result;
 }
 
 export async function getEmployeeDirectory() {

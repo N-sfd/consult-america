@@ -13,6 +13,7 @@ import type {
   JobPosting,
   JobRequisition,
   Offer,
+  OfferStatus,
   RecruitingActivity,
   RequisitionStatus,
 } from "@/types/recruiting";
@@ -25,6 +26,7 @@ export type RecruitingRepository = {
   listApplicationsByRequisition(
     requisitionId: string,
   ): Promise<Application[]>;
+  getApplicationById(applicationId: string): Promise<Application | undefined>;
   getOfferByApplicationId(
     applicationId: string,
   ): Promise<Offer | undefined>;
@@ -191,6 +193,27 @@ export type RecruitingPipelineWrites = {
     applicationId: string,
     status: ApplicationStatus,
   ): Promise<void>;
+};
+
+export type CreateOfferInput = {
+  applicationId: string;
+  baseSalary?: number;
+  hourlyRate?: number;
+  currency?: string;
+  employmentType: EmploymentType;
+  workplaceType: WorkplaceType;
+  startDate: string;
+  expirationDate?: string;
+  termsSummary?: string;
+};
+
+/** Writes backing offer extension/acceptance from the ATS pipeline. */
+export type RecruitingOfferWrites = {
+  createOffer(input: CreateOfferInput): Promise<Offer>;
+  updateOfferStatus(
+    offerId: string,
+    status: OfferStatus,
+  ): Promise<Offer | undefined>;
 };
 
 /**

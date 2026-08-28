@@ -12,6 +12,7 @@ import type {
   RecruitingDashboardReads,
   RecruitingJobReads,
   RecruitingJobWrites,
+  RecruitingOfferWrites,
   RecruitingPipelineWrites,
   RecruitingRepository,
   SubmitApplicationInput,
@@ -253,7 +254,8 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
   RecruitingJobReads &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
-  RecruitingPipelineWrites {
+  RecruitingPipelineWrites &
+  RecruitingOfferWrites {
   return {
     async listPublishedPostings() {
       const client = getSupabaseServiceClient();
@@ -318,6 +320,19 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         .eq("requisition_id", requisitionId);
 
       return (data ?? []).map(mapApplication);
+    },
+
+    async getApplicationById(applicationId: string) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+
+      const { data } = await client
+        .from("applications")
+        .select("*")
+        .eq("id", applicationId)
+        .maybeSingle();
+
+      return data ? mapApplication(data) : undefined;
     },
 
     async getOfferByApplicationId(applicationId: string) {
@@ -952,6 +967,101 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         summary: `Stage changed: ${previousStatus} → ${status}`,
         created_at: now,
       });
+    },
+
+    async createOffer(input) {
+      const client = getSupabaseServiceClient();
+      if (!client) {
+        throw new Error("Supabase is not configured");
+      }
+
+      const now = new Date().toISOString();
+      const offerId = `offer-${crypto.randomUUID()}`;
+      const offerNumber = `OFFER-${new Date().getFullYear()}-${crypto
+        .randomUUID()
+        .slice(0, 4)
+        .toUpperCase()}`;
+
+      const { data, error } = await client
+        .from("offers")
+        .insert({
+          id: offerId,
+          application_id: input.applicationId,
+          offer_number: offerNumber,
+          status: "EXTENDED",
+          base_salary: input.baseSalary ?? null,
+          hourly_rate: input.hourlyRate ?? null,
+          currency: input.currency ?? "USD",
+          employment_type: input.employmentType,
+          workplace_type: input.workplaceType,
+          start_date: input.startDate,
+          expiration_date: input.expirationDate ?? null,
+          terms_summary: input.termsSummary ?? null,
+          created_at: now,
+          updated_at: now,
+        })
+        .select("*")
+        .single();
+      if (error) throw new Error(`Failed to create offer: ${error.message}`);
+
+      const { data: applicationRow } = await client
+        .from("applications")
+        .select("candidate_id, requisition_id")
+        .eq("id", input.applicationId)
+        .maybeSingle();
+
+      await client.from("recruiting_activities").insert({
+        id: `act-${crypto.randomUUID()}`,
+        candidate_id: applicationRow?.candidate_id ?? null,
+        application_id: input.applicationId,
+        requisition_id: applicationRow?.requisition_id ?? null,
+        activity_type: "OFFER_EXTENDED",
+        summary: `Offer extended: ${offerNumber}`,
+        created_at: now,
+      });
+
+      return mapOffer(data);
+    },
+
+    async updateOfferStatus(offerId, status) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+
+      const { data: offerRow } = await client
+        .from("offers")
+        .select("*")
+        .eq("id", offerId)
+        .maybeSingle();
+      if (!offerRow) return undefined;
+
+      const previousStatus = offerRow.status as string;
+      const now = new Date().toISOString();
+
+      const { data, error } = await client
+        .from("offers")
+        .update({ status, updated_at: now })
+        .eq("id", offerId)
+        .select("*")
+        .single();
+      if (error) throw new Error(`Failed to update offer: ${error.message}`);
+
+      const { data: applicationRow } = await client
+        .from("applications")
+        .select("candidate_id, requisition_id")
+        .eq("id", offerRow.application_id)
+        .maybeSingle();
+
+      await client.from("recruiting_activities").insert({
+        id: `act-${crypto.randomUUID()}`,
+        candidate_id: applicationRow?.candidate_id ?? null,
+        application_id: offerRow.application_id,
+        requisition_id: applicationRow?.requisition_id ?? null,
+        activity_type: "OFFER_STATUS_CHANGED",
+        summary: `Offer ${offerRow.offer_number} status: ${previousStatus} → ${status}`,
+        created_at: now,
+      });
+
+      return mapOffer(data);
     },
   };
 }

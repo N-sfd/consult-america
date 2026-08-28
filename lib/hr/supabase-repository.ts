@@ -1,6 +1,7 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import type { HrRepository } from "@/lib/hr/repository";
 import type {
+  CompensationRecord,
   Employee,
   EmployeeStatusHistory,
   EmploymentAssignment,
@@ -131,6 +132,23 @@ function mapAssignment(row: Record<string, unknown>): EmploymentAssignment {
     assignmentStatus: row.assignment_status as EmploymentAssignment["assignmentStatus"],
     primaryAssignment: Boolean(row.primary_assignment),
     changeReason: (row.change_reason as string) ?? undefined,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
+}
+
+function mapCompensation(row: Record<string, unknown>): CompensationRecord {
+  return {
+    id: row.id as string,
+    employeeId: row.employee_id as string,
+    assignmentId: row.assignment_id as string,
+    compensationType: row.compensation_type as CompensationRecord["compensationType"],
+    annualSalary: (row.annual_salary as number) ?? undefined,
+    hourlyRate: (row.hourly_rate as number) ?? undefined,
+    currency: row.currency as string,
+    effectiveStartDate: row.effective_start_date as string,
+    effectiveEndDate: (row.effective_end_date as string) ?? undefined,
+    reason: (row.reason as string) ?? undefined,
     createdAt: row.created_at as string,
     updatedAt: row.updated_at as string,
   };
@@ -508,6 +526,59 @@ export function createSupabaseHrRepository(): HrRepository {
         .eq("employee_id", employeeId)
         .order("created_at", { ascending: true });
       return (data ?? []).map(mapOnboardingTask);
+    },
+
+    async getActiveCompensation(employeeId, asOf) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+
+      const cutoff = asOf ?? new Date().toISOString().slice(0, 10);
+      const { data } = await client
+        .from("compensation_records")
+        .select("*")
+        .eq("employee_id", employeeId)
+        .lte("effective_start_date", cutoff)
+        .or(`effective_end_date.is.null,effective_end_date.gte.${cutoff}`)
+        .order("effective_start_date", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      return data ? mapCompensation(data) : undefined;
+    },
+
+    async upsertCompensation(input) {
+      const client = requireClient();
+      const now = nowIso();
+
+      await client
+        .from("compensation_records")
+        .update({ effective_end_date: input.effectiveStartDate, updated_at: now })
+        .eq("employee_id", input.employeeId)
+        .is("effective_end_date", null);
+
+      const row = {
+        id: createId("comp"),
+        employee_id: input.employeeId,
+        assignment_id: input.assignmentId,
+        compensation_type: input.compensationType,
+        annual_salary: input.annualSalary ?? null,
+        hourly_rate: input.hourlyRate ?? null,
+        currency: input.currency ?? "USD",
+        effective_start_date: input.effectiveStartDate,
+        reason: input.reason ?? null,
+        created_at: now,
+        updated_at: now,
+      };
+
+      const { data, error } = await client
+        .from("compensation_records")
+        .insert(row)
+        .select("*")
+        .single();
+      if (error) {
+        throw new Error(`Failed to create compensation record: ${error.message}`);
+      }
+      return mapCompensation(data);
     },
 
     async convertAcceptedOffer(input): Promise<HireConversionResult> {
