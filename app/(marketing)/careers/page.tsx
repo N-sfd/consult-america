@@ -42,14 +42,14 @@ export default function CareersPage() {
               </Link>
             </div>
             <div className="lg:col-span-5">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10] lg:aspect-[4/3]">
                 <Image
                   src={CAREERS_HERO_IMAGE}
                   alt="ConsultAmerica team collaborating"
                   fill
                   priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover object-center"
+                  sizes="(max-width: 1023px) 100vw, 40vw"
                 />
               </div>
             </div>

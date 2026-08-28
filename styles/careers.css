@@ -59,6 +59,18 @@
   box-shadow: 0 0 0 4px rgb(37 99 235 / 0.1);
 }
 
+.cr-input.cr-search-input {
+  height: 3.5rem;
+  padding-left: 3rem;
+}
+
+@media (min-width: 640px) {
+  .cr-input.cr-search-input {
+    height: 3rem;
+    padding-left: 2.75rem;
+  }
+}
+
 .cr-card {
   border-radius: 1rem;
   border: 1px solid #e2e8f0;

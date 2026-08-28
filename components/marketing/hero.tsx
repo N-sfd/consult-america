@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import EditorialHeading from "@/components/marketing/EditorialHeading";
 import HeroVisual from "@/components/marketing/HeroVisual";
+import MobileEnterpriseVisual from "@/components/marketing/MobileEnterpriseVisual";
 import SectionLabel from "@/components/marketing/SectionLabel";
 import { useContactPanel } from "@/components/providers/contact-provider";
 
@@ -13,9 +14,9 @@ export default function Hero() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="mkt-hero-bg relative overflow-hidden py-8 md:py-10 lg:py-12">
+    <section className="mkt-hero-bg relative overflow-hidden pt-[88px] pb-14 sm:pt-[96px] sm:pb-16 lg:pt-[120px] lg:pb-24">
       <div className="mkt-shell relative z-10">
-        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 xl:gap-16">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 xl:gap-16">
           <div className="order-1">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -37,7 +38,7 @@ export default function Hero() {
                 as="h1"
                 size="hero"
                 reveal={false}
-                className="text-[var(--mkt-navy)]"
+                className="mkt-hero-heading--home text-[var(--mkt-navy)]"
               >
                 Technology that moves business forward.
               </EditorialHeading>
@@ -62,7 +63,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="group/cta ca-button-primary w-full sm:w-auto"
+                className="group/cta ca-button-primary ca-button-primary--hero w-full sm:w-auto"
               >
                 Start a conversation
                 <ArrowUpRight className="mkt-cta-arrow h-4 w-4" />
@@ -78,9 +79,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.12 }}
-            className="order-2 w-full"
+            className="order-2 mt-8 w-full md:mt-10 lg:mt-0"
           >
-            <HeroVisual className="aspect-[16/10] w-full rounded-2xl lg:aspect-[5/4] lg:max-h-[380px]" />
+            <div className="block lg:hidden">
+              <MobileEnterpriseVisual className="mx-auto w-full max-w-[540px] rounded-2xl sm:max-w-[680px]" />
+            </div>
+            <div className="hidden lg:block">
+              <HeroVisual className="aspect-[5/4] w-full rounded-2xl lg:max-h-[380px]" />
+            </div>
           </motion.div>
         </div>
       </div>

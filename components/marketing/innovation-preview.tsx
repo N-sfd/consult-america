@@ -7,9 +7,8 @@ import { listInnovationProducts } from "@/data/innovation-products";
 
 export default function InnovationPreview() {
   const products = listInnovationProducts();
-  const [featured, ...rest] = products;
 
-  if (!featured) return null;
+  if (products.length === 0) return null;
 
   return (
     <section className="mkt-section-compact bg-gradient-to-b from-[var(--mkt-ice-soft)] to-[var(--mkt-cloud)]">
@@ -27,28 +26,14 @@ export default function InnovationPreview() {
           </Link>
         </div>
 
-        <div className="mt-8 space-y-6 md:hidden">
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
-          ))}
-        </div>
-
-        <div className="mt-8 hidden md:block lg:hidden">
-          <ProductCard product={featured} index={0} />
-          <div className="mt-6 grid grid-cols-2 gap-6">
-            {rest.map((product, index) => (
-              <ProductCard
-                key={product.slug}
-                product={product}
-                index={index + 1}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8 hidden gap-6 lg:grid lg:grid-cols-3">
-          {products.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
+            <div
+              key={product.slug}
+              className={index === 0 ? "md:col-span-2 lg:col-span-1" : undefined}
+            >
+              <ProductCard product={product} index={index} />
+            </div>
           ))}
         </div>
       </div>
