@@ -8,7 +8,7 @@ export default function TrustCredibility() {
   return (
     <section
       id="trust"
-      className="border-y border-[var(--mkt-border)] bg-[var(--mkt-white)] py-4 sm:py-5"
+      className="border-y border-white/10 bg-[#081a2f] py-4.5 sm:py-5.5 text-white"
     >
       <div className="mkt-shell">
         <motion.div
@@ -16,7 +16,7 @@ export default function TrustCredibility() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="flex flex-col items-start justify-between gap-4 divide-y divide-[var(--mkt-border)] sm:flex-row sm:items-center sm:divide-y-0 sm:divide-x"
+          className="flex flex-col items-start justify-between gap-4 divide-y divide-white/10 sm:flex-row sm:items-center sm:divide-y-0 sm:divide-x"
         >
           {heroStats.map((stat, index) => (
             <div
@@ -26,16 +26,16 @@ export default function TrustCredibility() {
               }`}
             >
               <div className="flex items-baseline gap-2">
-                <span className="text-base font-semibold tracking-[-0.02em] text-[var(--mkt-navy)] sm:text-lg">
+                <span className="text-base font-semibold tracking-[-0.02em] text-white sm:text-lg">
                   {stat.value}
                 </span>
                 {stat.label ? (
-                  <span className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--mkt-dim)]">
+                  <span className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[#2ea7ff]">
                     {stat.label}
                   </span>
                 ) : null}
               </div>
-              <span className="text-xs text-[var(--mkt-muted)] sm:text-sm">
+              <span className="text-xs text-white/60 sm:text-sm">
                 {stat.detail}
               </span>
             </div>

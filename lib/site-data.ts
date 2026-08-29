@@ -3,13 +3,62 @@ export const announcement = {
   text: "Enterprise leaders read: Oracle, AI, and transformation notes from delivery",
 };
 
+export const consultingGroups = {
+  transformation: [
+    { href: "/capabilities/enterprise-transformation", label: "Enterprise Strategy" },
+    { href: "/capabilities/enterprise-transformation", label: "Operating Model & Org Design" },
+    { href: "/capabilities/enterprise-transformation", label: "Process Optimization" },
+    { href: "/capabilities/enterprise-transformation", label: "Change Management" },
+  ],
+  delivery: [
+    { href: "/capabilities/managed-delivery", label: "Program Management" },
+    { href: "/capabilities/managed-delivery", label: "Implementation & Cutover" },
+    { href: "/capabilities/managed-delivery", label: "Managed Delivery Squads" },
+    { href: "/capabilities/managed-delivery", label: "Functional & Technical QA" },
+  ],
+  featured: {
+    title: "Oracle Cloud Transformation",
+    detail: "Multi-entity enterprise ERP & SCM cutover with zero downtime.",
+    href: "/work/case-studies/oracle-cloud-transformation",
+  },
+};
+
+export const technologyGroups = {
+  platforms: [
+    { href: "/oracle", label: "Oracle Fusion Cloud" },
+    { href: "/ai-data", label: "AI & Data Platforms" },
+    { href: "/capabilities/enterprise-transformation", label: "CRM & Customer 360" },
+    { href: "/capabilities/digital-engineering", label: "Enterprise Architecture" },
+  ],
+  engineering: [
+    { href: "/capabilities/digital-engineering", label: "Cloud Platforms & Infra" },
+    { href: "/capabilities/digital-engineering", label: "Integration & API Hub" },
+    { href: "/capabilities/digital-engineering", label: "Digital Engineering" },
+    { href: "/capabilities/digital-engineering", label: "Cybersecurity & Zero Trust" },
+  ],
+  innovation: {
+    title: "Data Agent Platform",
+    detail: "Document intelligence, source grounding, and human-in-the-loop governance.",
+    href: "/work/innovation/data-agent",
+  },
+};
+
+export const platformLinks = [
+  { href: "/oracle", label: "Oracle Cloud", detail: "Fusion ERP, HCM, SCM & EPM" },
+  { href: "/ai-data", label: "AI & Data", detail: "Data Agent, RAG & Pipelines" },
+  { href: "/app/dashboard", label: "CRM Workspace", detail: "Customer 360 & Pipeline" },
+  { href: "/jobs", label: "ATS & Talent", detail: "Requisition to Hire Platform" },
+  { href: "/employee", label: "HR Portal", detail: "Onboarding & Documents" },
+  { href: "/employee/time", label: "Employee Self-Service", detail: "Time, Leave & Payroll" },
+];
+
 export const industryLinks = [
   { href: "/industries/government-public-sector", label: "Government & Public Sector" },
   { href: "/industries/financial-services", label: "Financial Services" },
   { href: "/industries/healthcare", label: "Healthcare" },
+  { href: "/industries/technology", label: "Technology" },
   { href: "/industries/retail-consumer", label: "Retail & Consumer" },
   { href: "/industries/transportation", label: "Transportation" },
-  { href: "/industries/technology", label: "Technology" },
 ];
 
 export const capabilityGroups = [
@@ -84,7 +133,7 @@ export const navLinks = [
 export const heroStats = [
   { value: "17+", label: "Years", detail: "Enterprise experience" },
   { value: "End-to-End", label: "", detail: "Strategy → Production" },
-  { value: "Oracle + AI", label: "", detail: "Enterprise capability" },
+  { value: "Oracle + AI + CRM", label: "", detail: "Enterprise platform capability" },
 ];
 
 export const deliveryPhases = [
@@ -154,24 +203,6 @@ export const selectedProjects = [
   },
 ];
 
-export const insights = [
-  {
-    href: "/insights/what-stalls-fusion-programs",
-    date: "August 19, 2026",
-    title: "What stalls Fusion programs",
-  },
-  {
-    href: "/insights/ai-without-a-data-contract",
-    date: "August 18, 2026",
-    title: "AI without a data contract",
-  },
-  {
-    href: "/insights/cutover-checklists-that-work",
-    date: "July 14, 2026",
-    title: "Cutover checklists that work",
-  },
-];
-
 export const offices = [
   {
     city: "Washington, D.C.",
@@ -217,3 +248,4 @@ export const faqs = [
     a: "Public-sector, regulated enterprise, and operators who need systems that hold up under scrutiny—finance, operations, and technology leaders who want named accountability.",
   },
 ];
+

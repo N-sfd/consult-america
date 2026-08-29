@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowUpRight } from "lucide-react";
 
 import BrandLogo from "@/components/brand/brand-logo";
 import { Shell } from "@/components/layout/grid";
@@ -11,29 +11,48 @@ const SITE_DOMAIN = "consultamerica.net";
 
 const footerColumns = [
   {
-    title: "What We Do",
+    title: "Consulting",
     links: [
       { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
-      { href: "/oracle", label: "Oracle" },
-      { href: "/ai-data", label: "AI & Data" },
+      { href: "/oracle", label: "Oracle Consulting" },
+      { href: "/capabilities/managed-delivery", label: "Program Delivery" },
+      { href: "/capabilities/managed-delivery", label: "Managed Services" },
+    ],
+  },
+  {
+    title: "Technology",
+    links: [
+      { href: "/ai-data", label: "AI & Data Platforms" },
+      { href: "/capabilities/digital-engineering", label: "Cloud Platforms" },
+      { href: "/capabilities/digital-engineering", label: "API & Integration Hub" },
       { href: "/capabilities/digital-engineering", label: "Digital Engineering" },
+    ],
+  },
+  {
+    title: "Platforms",
+    links: [
+      { href: "/app/dashboard", label: "CRM Workspace" },
+      { href: "/jobs", label: "ATS & Talent Platform" },
+      { href: "/employee", label: "HR Portal" },
+      { href: "/employee/time", label: "Employee Self-Service" },
+    ],
+  },
+  {
+    title: "Industries",
+    links: [
+      { href: "/industries/government-public-sector", label: "Government" },
+      { href: "/industries/financial-services", label: "Financial Services" },
+      { href: "/industries/healthcare", label: "Healthcare" },
+      { href: "/industries/technology", label: "Technology" },
     ],
   },
   {
     title: "Company",
     links: [
       { href: "/about", label: "About" },
-      { href: "/work", label: "Work" },
+      { href: "/work", label: "Selected Work" },
       { href: "/insights", label: "Insights" },
       { href: "/careers", label: "Careers" },
-    ],
-  },
-  {
-    title: "Connect",
-    links: [
-      { href: "/contact", label: "Contact" },
-      { href: "/login", label: "Employee Login" },
-      { href: "/jobs", label: "Open Roles" },
     ],
   },
 ];
@@ -42,58 +61,79 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="border-t border-white/10 bg-[var(--ca-navy)] text-white">
-      <Shell className="py-12 lg:py-14">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-10">
-          <div className="sm:col-span-2 lg:col-span-4">
+    <footer className="border-t border-white/10 bg-[#081a2f] text-white">
+      <Shell className="py-12 lg:py-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
+          {/* Brand Col */}
+          <div className="sm:col-span-2 lg:col-span-3">
             <BrandLogo />
-            <p className="mt-6 max-w-xs text-sm leading-6 text-white/60">
-              Enterprise technology. Delivered to production.
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+              Enterprise technology, platforms, and transformation delivered to production.
             </p>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="ca-button-primary mt-6"
-            >
-              Contact
-            </button>
+            <div className="mt-6 flex flex-col gap-2.5">
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                className="ca-button-primary inline-flex w-fit text-xs font-semibold"
+              >
+                Contact Us
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </button>
+              <Link
+                href="/login"
+                className="text-xs font-medium text-white/50 hover:text-white transition-colors"
+              >
+                Employee Portal Login →
+              </Link>
+            </div>
           </div>
 
-          {/* One instance per column - collapsible on mobile only, always expanded from sm up. */}
-          {footerColumns.map((column) => (
-            <details
-              key={column.title}
-              open
-              className="group border-b border-white/10 py-4 sm:border-0 sm:py-0 lg:col-span-2"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold marker:content-none sm:cursor-default">
-                {column.title}
-                <ChevronDown className="h-4 w-4 text-white/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
-              </summary>
-              <ul className="mt-4 space-y-2 pb-1 sm:pb-0">
-                {column.links.map((link) => (
-                  <li key={link.href + link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/55 transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          ))}
+          {/* 5 Content Columns */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-5">
+            {footerColumns.map((column) => (
+              <details
+                key={column.title}
+                open
+                className="group border-b border-white/10 pb-4 sm:border-0 sm:pb-0"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.12em] text-[#2ea7ff] marker:content-none sm:cursor-default">
+                  {column.title}
+                  <ChevronDown className="h-3.5 w-3.5 text-white/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
+                </summary>
+                <ul className="mt-3.5 space-y-2">
+                  {column.links.map((link) => (
+                    <li key={link.href + link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-xs text-white/65 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} ConsultAmerica</p>
-          <a
-            href={`https://${SITE_DOMAIN}`}
-            className="text-white/35 transition-colors hover:text-white/60"
-          >
-            {SITE_DOMAIN}
-          </a>
+        {/* Footer Bottom Strip */}
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} ConsultAmerica Inc. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/about" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/about" className="hover:text-white transition-colors">
+              Terms of Service
+            </Link>
+            <a
+              href={`https://${SITE_DOMAIN}`}
+              className="text-white/40 hover:text-white transition-colors"
+            >
+              {SITE_DOMAIN}
+            </a>
+          </div>
         </div>
       </Shell>
     </footer>

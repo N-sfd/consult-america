@@ -48,9 +48,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.16 }}
-              className="mt-4 max-w-xl text-[17px] leading-relaxed text-[var(--mkt-muted)] sm:text-lg lg:text-[20px]"
+              className="mt-4 max-w-xl text-[17px] leading-relaxed text-[var(--mkt-slate)] sm:text-lg lg:text-[20px]"
             >
-              Oracle, AI, data, and enterprise transformation from strategy
+              Oracle, AI, data, CRM and enterprise transformation from strategy
               through production.
             </motion.p>
 
@@ -78,14 +78,14 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Diagram: 46% width on desktop */}
+          {/* Animated Platform Constellation Diagram */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.12 }}
             className="order-2 mt-8 w-full md:mt-10 lg:col-span-5 lg:mt-0"
           >
-            <HeroVisual className="aspect-[5/4] w-full max-w-[540px] rounded-2xl mx-auto lg:max-w-none lg:max-h-[340px]" />
+            <HeroVisual className="w-full max-w-[560px] mx-auto lg:max-w-none" />
           </motion.div>
         </div>
       </div>

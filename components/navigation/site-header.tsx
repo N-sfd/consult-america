@@ -9,7 +9,9 @@ import { useContactPanel } from "@/components/providers/contact-provider";
 import MobileMenu from "@/components/navigation/mobile-menu";
 import {
   announcement,
-  capabilityGroups,
+  consultingGroups,
+  technologyGroups,
+  platformLinks,
   industryLinks,
   navLinks,
 } from "@/lib/site-data";
@@ -17,9 +19,9 @@ import {
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<"industries" | "capabilities" | null>(
-    null,
-  );
+  const [openMenu, setOpenMenu] = useState<
+    "consulting" | "technology" | "platforms" | "industries" | null
+  >(null);
   const { setOpen: setContactOpen } = useContactPanel();
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function SiteHeader() {
 
   const headerSurface =
     scrolled || openMenu || drawerOpen
-      ? "border-[var(--ca-header-border)] bg-white/95 shadow-[0_2px_16px_rgba(16,42,67,0.04)] backdrop-blur-[12px]"
+      ? "border-[var(--ca-header-border)] bg-white/95 shadow-[0_2px_16px_rgba(8,26,47,0.05)] backdrop-blur-[12px]"
       : "border-[var(--ca-header-border)] bg-white";
 
   return (
@@ -65,32 +67,70 @@ export default function SiteHeader() {
               <BrandLogo tone="dark" priority />
 
               <nav
-                className="hidden items-center justify-center gap-6 xl:flex"
+                className="hidden items-center justify-center gap-5.5 2xl:gap-7 xl:flex"
                 aria-label="Primary navigation"
               >
-                <Link
-                  href="/capabilities"
-                  data-open={openMenu === "capabilities"}
-                  className="ca-nav-link items-center gap-1 text-[0.9375rem]"
-                  onMouseEnter={() => setOpenMenu("capabilities")}
+                {/* Consulting Dropdown */}
+                <button
+                  type="button"
+                  data-open={openMenu === "consulting"}
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  onMouseEnter={() => setOpenMenu("consulting")}
+                  onClick={() =>
+                    setOpenMenu(openMenu === "consulting" ? null : "consulting")
+                  }
                 >
-                  What We Do
-                  <ChevronDown className="h-3 w-3 opacity-70" />
-                </Link>
-                <Link
-                  href="/industries"
+                  Consulting
+                  <ChevronDown className="h-3 w-3 opacity-60" />
+                </button>
+
+                {/* Technology Dropdown */}
+                <button
+                  type="button"
+                  data-open={openMenu === "technology"}
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  onMouseEnter={() => setOpenMenu("technology")}
+                  onClick={() =>
+                    setOpenMenu(openMenu === "technology" ? null : "technology")
+                  }
+                >
+                  Technology
+                  <ChevronDown className="h-3 w-3 opacity-60" />
+                </button>
+
+                {/* Platforms Dropdown */}
+                <button
+                  type="button"
+                  data-open={openMenu === "platforms"}
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  onMouseEnter={() => setOpenMenu("platforms")}
+                  onClick={() =>
+                    setOpenMenu(openMenu === "platforms" ? null : "platforms")
+                  }
+                >
+                  Platforms
+                  <ChevronDown className="h-3 w-3 opacity-60" />
+                </button>
+
+                {/* Industries Dropdown */}
+                <button
+                  type="button"
                   data-open={openMenu === "industries"}
-                  className="ca-nav-link items-center gap-1 text-[0.9375rem]"
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
                   onMouseEnter={() => setOpenMenu("industries")}
+                  onClick={() =>
+                    setOpenMenu(openMenu === "industries" ? null : "industries")
+                  }
                 >
                   Industries
-                  <ChevronDown className="h-3 w-3 opacity-70" />
-                </Link>
+                  <ChevronDown className="h-3 w-3 opacity-60" />
+                </button>
+
                 {navLinks.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="ca-nav-link text-[0.9375rem]"
+                    className="ca-nav-link text-[0.9125rem] font-medium"
                     onMouseEnter={() => setOpenMenu(null)}
                   >
                     {item.label}
@@ -101,14 +141,14 @@ export default function SiteHeader() {
               <div className="flex items-center gap-3 sm:gap-4">
                 <Link
                   href="/login"
-                  className="hidden min-h-10 items-center px-3 text-[0.875rem] font-medium text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)] xl:inline-flex"
+                  className="hidden min-h-10 items-center px-3 text-[0.875rem] font-medium text-[var(--ca-slate)] transition-colors hover:text-[var(--ca-blue)] xl:inline-flex"
                 >
                   Employee Login
                 </Link>
 
                 <Link
                   href="/careers"
-                  className="ca-nav-link hidden text-[0.9375rem] md:inline-flex xl:hidden"
+                  className="ca-nav-link hidden text-[0.9125rem] md:inline-flex xl:hidden"
                 >
                   Careers
                 </Link>
@@ -137,48 +177,165 @@ export default function SiteHeader() {
           </div>
         </div>
 
+        {/* Mega Menu Overlay */}
         {openMenu && (
           <div
-            className="hidden border-b border-[var(--ca-header-border)] bg-white shadow-lg xl:block"
+            className="hidden border-b border-[var(--ca-header-border)] bg-white shadow-xl xl:block"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >
             <div className="ca-shell py-8">
+              {/* Consulting Mega Menu */}
+              {openMenu === "consulting" && (
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                      Transformation
+                    </p>
+                    <ul className="mt-3 space-y-2.5">
+                      {consultingGroups.transformation.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            href={item.href}
+                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="col-span-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                      Delivery
+                    </p>
+                    <ul className="mt-3 space-y-2.5">
+                      {consultingGroups.delivery.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            href={item.href}
+                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="col-span-4 rounded-xl border border-[var(--ca-border)] bg-[var(--ca-cloud)] p-5">
+                    <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--ca-blue)]">
+                      Featured Case Study
+                    </span>
+                    <h4 className="mt-2 text-base font-semibold text-[var(--ca-navy)]">
+                      {consultingGroups.featured.title}
+                    </h4>
+                    <p className="mt-1 text-xs text-[var(--ca-slate)]">
+                      {consultingGroups.featured.detail}
+                    </p>
+                    <Link
+                      href={consultingGroups.featured.href}
+                      className="ca-link mt-4 inline-flex text-xs font-semibold"
+                    >
+                      Read case study
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Technology Mega Menu */}
+              {openMenu === "technology" && (
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                      Platforms &amp; Apps
+                    </p>
+                    <ul className="mt-3 space-y-2.5">
+                      {technologyGroups.platforms.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            href={item.href}
+                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="col-span-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                      Engineering &amp; Cloud
+                    </p>
+                    <ul className="mt-3 space-y-2.5">
+                      {technologyGroups.engineering.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            href={item.href}
+                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="col-span-4 rounded-xl border border-[var(--ca-border)] bg-[var(--ca-cloud)] p-5">
+                    <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--ca-blue)]">
+                      Innovation Flagship
+                    </span>
+                    <h4 className="mt-2 text-base font-semibold text-[var(--ca-navy)]">
+                      {technologyGroups.innovation.title}
+                    </h4>
+                    <p className="mt-1 text-xs text-[var(--ca-slate)]">
+                      {technologyGroups.innovation.detail}
+                    </p>
+                    <Link
+                      href={technologyGroups.innovation.href}
+                      className="ca-link mt-4 inline-flex text-xs font-semibold"
+                    >
+                      Explore platform
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Platforms Mega Menu */}
+              {openMenu === "platforms" && (
+                <div className="grid grid-cols-3 gap-6">
+                  {platformLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="group block rounded-xl border border-[var(--ca-border)] p-4 transition-all hover:border-[var(--ca-blue)]/40 hover:bg-[var(--ca-cloud)]"
+                    >
+                      <h4 className="text-sm font-semibold text-[var(--ca-navy)] group-hover:text-[var(--ca-blue)]">
+                        {item.label}
+                      </h4>
+                      <p className="mt-1 text-xs text-[var(--ca-slate)]">
+                        {item.detail}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {/* Industries Mega Menu */}
               {openMenu === "industries" && (
                 <div className="grid max-w-3xl grid-cols-2 gap-x-12 gap-y-3">
                   {industryLinks.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-base text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)]"
+                      className="text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
                     >
                       {item.label}
                     </Link>
-                  ))}
-                </div>
-              )}
-              {openMenu === "capabilities" && (
-                <div className="grid grid-cols-5 gap-8">
-                  {capabilityGroups.map((group) => (
-                    <div key={group.title}>
-                      <Link
-                        href={group.href}
-                        className="text-sm font-medium text-[var(--ca-navy)]"
-                      >
-                        {group.title}
-                      </Link>
-                      <div className="mt-3 space-y-2">
-                        {group.services.map((service) => (
-                          <Link
-                            key={service.label}
-                            href={service.href}
-                            className="block text-sm text-[var(--ca-text-secondary)] transition-colors hover:text-[var(--ca-blue)]"
-                          >
-                            {service.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
                   ))}
                 </div>
               )}
