@@ -1,9 +1,9 @@
-/* ConsultAmerica Marketing V8 — Premium Enterprise Platform */
+/* ConsultAmerica Marketing V9 — Enterprise Software Company */
 
 :root {
   --mkt-max: 1280px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
-  --mkt-section-y: clamp(4rem, 5vw, 5.5rem); /* 64–88px mobile */
+  --mkt-section-y: clamp(4rem, 5.5vw, 5.75rem); /* 64–92px mobile */
   --mkt-hero: clamp(2.5rem, 4vw, 4.5rem); /* 40–72px */
   --mkt-h2: clamp(2rem, 3.2vw, 3rem); /* 32–48px */
   --mkt-h3: clamp(1.25rem, 1.5vw, 1.75rem); /* 20–28px */
@@ -11,31 +11,39 @@
   --mkt-body: clamp(0.95rem, 0.15vw + 0.9rem, 1.125rem); /* 15–18px */
   --mkt-prose: 42rem;
 
-  /* Richer Enterprise V8 Palette */
-  --mkt-deep-navy: #081a2f;
-  --mkt-enterprise-navy: #0e2b4f;
-  --mkt-navy: #081a2f;
-  --mkt-ink: #081a2f;
-  --mkt-royal-blue: #2457f5;
-  --mkt-blue: #2457f5;
-  --mkt-blue-hover: #1b45c9;
-  --mkt-cyan: #2ea7ff;
-  --mkt-bright: #2ea7ff;
-  --mkt-blue-soft: #2ea7ff;
+  /* Three-Layer V9 Enterprise Color System */
+  /* Primary Dark Environment */
+  --mkt-deep-navy: #071a2b;
+  --mkt-enterprise-navy: #0b2844;
+  --mkt-navy-medium: #10385f;
+  --mkt-navy: #071a2b;
+  --mkt-ink: #071a2b;
+  --mkt-footer-bg: #061522;
+
+  /* Product & Action Blue */
+  --mkt-royal-blue: #2563eb;
+  --mkt-blue: #2563eb;
+  --mkt-blue-hover: #1d4ed8;
+  --mkt-blue-light: #3388ff;
+  --mkt-cyan: #31a8ff;
+  --mkt-bright: #31a8ff;
+  --mkt-blue-soft: #31a8ff;
+
+  /* Light Application Surfaces */
   --mkt-slate: #425466;
   --mkt-muted: #425466;
-  --mkt-cloud: #eef4fa;
-  --mkt-ice: #f7f9fc;
-  --mkt-ice-blue: #e8f1ff;
-  --mkt-ice-soft: #f4f8fd;
+  --mkt-cloud: #f4f7fb;
+  --mkt-ice: #eaf1f8;
+  --mkt-ice-blue: #eaf1f8;
+  --mkt-ice-soft: #f4f7fb;
   --mkt-warm: #fafaf8;
   --mkt-white: #ffffff;
-  --mkt-off: #f7f9fc;
-  --mkt-careers: #eef4fa;
-  --mkt-text: #081a2f;
+  --mkt-off: #f4f7fb;
+  --mkt-careers: #f4f7fb;
+  --mkt-text: #071a2b;
   --mkt-text-secondary: #425466;
   --mkt-dim: #627d98;
-  --mkt-nav: #1b365d;
+  --mkt-nav: #10385f;
   --mkt-border: #dce5ee;
   --mkt-border-dark: #1b365d;
   --mkt-success: #16a36a;
@@ -46,7 +54,7 @@
 @media (min-width: 768px) {
   :root {
     --mkt-gutter: 1.5rem;
-    --mkt-section-y: clamp(5.5rem, 6.5vw, 6.5rem); /* 88–104px tablet */
+    --mkt-section-y: clamp(5.5rem, 6.5vw, 6.75rem); /* 88–108px tablet */
   }
 }
 
@@ -148,7 +156,7 @@
   background:
     radial-gradient(circle at 85% 15%, #dbeafe 0%, transparent 45%),
     radial-gradient(circle at 15% 85%, #eff6ff 0%, transparent 40%),
-    var(--mkt-ice);
+    var(--mkt-cloud);
 }
 
 .mkt-hero-heading.mkt-hero-heading--home {
@@ -195,17 +203,17 @@
   border: 1px solid var(--mkt-border);
   background: var(--mkt-white);
   box-shadow:
-    0 24px 60px rgba(8, 26, 47, 0.14),
-    0 4px 16px rgba(8, 26, 47, 0.06);
+    0 24px 60px rgba(7, 26, 43, 0.12),
+    0 4px 16px rgba(7, 26, 43, 0.05);
   overflow: hidden;
 }
 
 .ca-app-window-dark {
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: #0b223d;
+  background: #0b2844;
   box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.4),
-    0 4px 16px rgba(0, 0, 0, 0.2);
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.25);
   overflow: hidden;
 }

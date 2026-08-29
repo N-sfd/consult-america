@@ -1,181 +1,176 @@
 "use client";
 
 import { useState } from "react";
+import { Users, UserCheck, FolderGit2, Briefcase, BarChart3, Database, Cpu, ShieldCheck, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const NODES = [
-  {
-    id: "oracle",
-    label: "Oracle Cloud",
-    category: "ERP & SCM",
-    detail: "Financials · Procurement · HCM · EPM",
-    x: 18,
-    y: 50,
-  },
+const DOMAINS = [
   {
     id: "crm",
     label: "CRM",
-    category: "Customer 360",
-    detail: "Pipeline · Sales · Service · Analytics",
-    x: 50,
-    y: 16,
-  },
-  {
-    id: "core",
-    label: "Enterprise Core",
-    category: "Architecture",
-    detail: "Connected Data & Governance",
-    x: 50,
-    y: 50,
-    isCenter: true,
+    icon: Users,
+    header: "Customer Operations",
+    metric1: "Active Pipelines",
+    val1: "Multi-Tier",
+    metric2: "Account Intelligence",
+    val2: "Customer 360",
+    status: "Connected to Enterprise Core",
   },
   {
     id: "ats",
-    label: "ATS + Talent",
-    category: "Workforce",
-    detail: "Requisitions · Pipeline · Offers · Hires",
-    x: 82,
-    y: 50,
+    label: "ATS & Talent",
+    icon: UserCheck,
+    header: "Talent Acquisition Pipeline",
+    metric1: "Hiring Workflow",
+    val1: "Requisition → Hire",
+    metric2: "Candidate Review",
+    val2: "Screening Loops",
+    status: "Integrated with Core HR",
   },
   {
-    id: "ai",
-    label: "AI & Data",
-    category: "Intelligence",
-    detail: "Data Agent · Source Grounding · Agents",
-    x: 35,
-    y: 84,
+    id: "hr",
+    label: "Core HR",
+    icon: FolderGit2,
+    header: "Workforce & Compliance",
+    metric1: "Employee Records",
+    val1: "Unified Ledger",
+    metric2: "Document Vault",
+    val2: "Verified E-Sign",
+    status: "SOC2 & RBAC Governed",
   },
   {
-    id: "integration",
-    label: "Integration Hub",
-    category: "APIs & Flows",
-    detail: "REST · n8n · Microservices · Events",
-    x: 68,
-    y: 84,
+    id: "workforce",
+    label: "Workforce",
+    icon: Briefcase,
+    header: "Time, Leave & Payroll",
+    metric1: "Time Tracking",
+    val1: "Weekly Approvals",
+    metric2: "Payroll Engine",
+    val2: "Automated Runs",
+    status: "Direct GL Integration",
+  },
+  {
+    id: "analytics",
+    label: "Analytics",
+    icon: BarChart3,
+    header: "Executive Intelligence",
+    metric1: "Cross-Domain Data",
+    val1: "Real-Time",
+    metric2: "Audit Trails",
+    val2: "Production-Grade",
+    status: "Oracle Fusion + AI Agent Core",
   },
 ];
 
 export default function HeroVisual({ className }: { className?: string }) {
-  const [activeNodeId, setActiveNodeId] = useState<string>("core");
-  const activeNode = NODES.find((n) => n.id === activeNodeId) ?? NODES[2];
+  const [activeTab, setActiveTab] = useState("crm");
+  const current = DOMAINS.find((d) => d.id === activeTab) ?? DOMAINS[0];
 
   return (
     <div
-      className={`relative flex min-h-[360px] sm:min-h-[390px] lg:min-h-[410px] flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#081a2f] via-[#0b223d] to-[#061424] p-5 sm:p-6 shadow-[0_24px_60px_rgba(8,26,47,0.25)] ${
+      className={`ca-app-window-dark relative flex flex-col overflow-hidden bg-[#071a2b] border border-white/15 p-4 sm:p-6 shadow-[0_24px_60px_rgba(0,0,0,0.5)] ${
         className ?? ""
       }`}
     >
-      {/* Background glow & subtle constellation grid */}
-      <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#2ea7ff]/15 blur-[80px]" />
-      <div className="pointer-events-none absolute -bottom-16 left-1/4 h-56 w-56 rounded-full bg-[#2457f5]/20 blur-[70px]" />
+      {/* Top Application Bar with Traffic Lights */}
+      <div className="flex items-center justify-between border-b border-white/10 pb-3.5">
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#d94b4b]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#d99a1b]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#16a36a]" />
+          <span className="ml-2 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-white/90">
+            ConsultAmerica Enterprise Platform
+          </span>
+        </div>
+        <span className="rounded-full bg-[#2563eb]/30 px-2.5 py-0.5 text-[0.65rem] font-semibold text-[#31a8ff]">
+          Production Environment
+        </span>
+      </div>
 
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2ea7ff]/30 to-transparent" />
-
-      {/* Constellation SVG Lines Connecting Nodes */}
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="v8-line-h" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(46,167,255,0.15)" />
-            <stop offset="50%" stopColor="rgba(46,167,255,0.6)" />
-            <stop offset="100%" stopColor="rgba(46,167,255,0.15)" />
-          </linearGradient>
-          <linearGradient id="v8-line-v" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(36,87,245,0.2)" />
-            <stop offset="50%" stopColor="rgba(46,167,255,0.65)" />
-            <stop offset="100%" stopColor="rgba(36,87,245,0.2)" />
-          </linearGradient>
-        </defs>
-
-        {/* Horizontal main axis */}
-        <line x1="18%" y1="50%" x2="50%" y2="50%" stroke="url(#v8-line-h)" strokeWidth="1.5" />
-        <line x1="50%" y1="50%" x2="82%" y2="50%" stroke="url(#v8-line-h)" strokeWidth="1.5" />
-
-        {/* Vertical CRM axis */}
-        <line x1="50%" y1="16%" x2="50%" y2="50%" stroke="url(#v8-line-v)" strokeWidth="1.5" />
-
-        {/* Lower integration branches */}
-        <line x1="50%" y1="50%" x2="35%" y2="84%" stroke="url(#v8-line-v)" strokeWidth="1.5" />
-        <line x1="50%" y1="50%" x2="68%" y2="84%" stroke="url(#v8-line-v)" strokeWidth="1.5" />
-      </svg>
-
-      {/* Interactive Platform Nodes */}
-      <div className="relative flex-1">
-        {NODES.map((node) => {
-          const isActive = activeNodeId === node.id;
+      {/* Platform Domain Tabs */}
+      <div className="mt-3.5 flex flex-wrap items-center gap-1.5 border-b border-white/10 pb-3">
+        {DOMAINS.map((domain) => {
+          const Icon = domain.icon;
+          const isActive = activeTab === domain.id;
           return (
             <button
-              key={node.id}
+              key={domain.id}
               type="button"
-              onMouseEnter={() => setActiveNodeId(node.id)}
-              onClick={() => setActiveNodeId(node.id)}
-              className="group absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer outline-none"
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
-              aria-label={`Inspect ${node.label}`}
+              onClick={() => setActiveTab(domain.id)}
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
+                isActive
+                  ? "bg-[#2563eb] text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]"
+                  : "bg-white/[0.05] text-white/70 hover:bg-white/[0.1] hover:text-white"
+              }`}
             >
-              <div
-                className={`flex items-center gap-2 rounded-xl border px-3 py-1.5 transition-all duration-200 backdrop-blur-md ${
-                  node.isCenter
-                    ? "border-[#2ea7ff]/60 bg-[#2457f5]/30 shadow-[0_0_20px_rgba(46,167,255,0.3)]"
-                    : isActive
-                    ? "border-[#2ea7ff] bg-white/[0.14] scale-105 shadow-[0_0_16px_rgba(46,167,255,0.25)]"
-                    : "border-white/15 bg-white/[0.06] hover:border-white/40 hover:bg-white/[0.1]"
-                }`}
-              >
-                <span
-                  className={`h-2 w-2 rounded-full transition-colors ${
-                    isActive
-                      ? "bg-[#2ea7ff] shadow-[0_0_8px_#2ea7ff]"
-                      : node.isCenter
-                      ? "bg-white"
-                      : "bg-[#2ea7ff]/70"
-                  }`}
-                />
-                <span className="text-xs font-semibold text-white sm:text-sm">
-                  {node.label}
-                </span>
-              </div>
+              <Icon className="h-3.5 w-3.5" />
+              <span>{domain.label}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Active Node Detail Strip at bottom */}
-      <div className="relative z-10 mt-auto rounded-xl border border-white/10 bg-black/25 px-4 py-3 backdrop-blur-sm">
+      {/* Active Domain Workspace View */}
+      <div className="mt-4 rounded-xl border border-white/12 bg-[#0b2844] p-4 sm:p-5">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeNode.id}
-            initial={{ opacity: 0, y: 4 }}
+            key={current.id}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
+            exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.18 }}
-            className="flex items-center justify-between gap-3"
           >
-            <div>
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[#2ea7ff]">
-                {activeNode.category}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#31a8ff]">
+                  Domain Workspace
+                </span>
+                <h4 className="mt-0.5 text-base font-semibold text-white sm:text-lg">
+                  {current.header}
+                </h4>
+              </div>
+              <span className="rounded-md bg-white/[0.07] px-2 py-1 text-[0.68rem] text-white/80">
+                Active Node
               </span>
-              <p className="text-xs font-medium text-white/85 sm:text-sm">
-                {activeNode.label}: <span className="text-white/60">{activeNode.detail}</span>
-              </p>
             </div>
-            <span className="hidden text-[0.68rem] text-white/40 sm:inline">
-              Interactive Platform
-            </span>
+
+            {/* 2-Column Capability Metrics */}
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="rounded-lg border border-white/10 bg-white/[0.04] p-3">
+                <p className="text-[0.68rem] text-white/60 uppercase tracking-[0.08em] font-medium">
+                  {current.metric1}
+                </p>
+                <p className="mt-1 text-sm font-bold text-white sm:text-base">
+                  {current.val1}
+                </p>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-white/[0.04] p-3">
+                <p className="text-[0.68rem] text-white/60 uppercase tracking-[0.08em] font-medium">
+                  {current.metric2}
+                </p>
+                <p className="mt-1 text-sm font-bold text-white sm:text-base">
+                  {current.val2}
+                </p>
+              </div>
+            </div>
+
+            {/* Underlying Architecture Connector */}
+            <div className="mt-4 flex items-center justify-between rounded-lg border border-[#31a8ff]/30 bg-[#071a2b] px-3.5 py-2.5 text-xs text-white/90">
+              <div className="flex items-center gap-2">
+                <Cpu className="h-4 w-4 text-[#31a8ff]" />
+                <span className="font-semibold text-[#31a8ff]">Core Backbone:</span>
+                <span className="text-white/75">{current.status}</span>
+              </div>
+              <ShieldCheck className="h-4 w-4 text-[#16a36a]" />
+            </div>
           </motion.div>
         </AnimatePresence>
+      </div>
+
+      {/* Enterprise Platform Core Footer Strip */}
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[0.72rem] text-white/60">
+        <span>Oracle Cloud · AI &amp; Data · Integration Hub</span>
+        <span className="font-semibold text-[#31a8ff]">Unified Platform</span>
       </div>
     </div>
   );

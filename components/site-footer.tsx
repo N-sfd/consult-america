@@ -14,7 +14,7 @@ const footerColumns = [
     title: "Consulting",
     links: [
       { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
-      { href: "/oracle", label: "Oracle Consulting" },
+      { href: "/oracle", label: "Oracle Advisory" },
       { href: "/capabilities/managed-delivery", label: "Program Delivery" },
       { href: "/capabilities/managed-delivery", label: "Managed Services" },
     ],
@@ -22,6 +22,7 @@ const footerColumns = [
   {
     title: "Technology",
     links: [
+      { href: "/oracle", label: "Oracle Fusion Cloud" },
       { href: "/ai-data", label: "AI & Data Platforms" },
       { href: "/capabilities/digital-engineering", label: "Cloud Platforms" },
       { href: "/capabilities/digital-engineering", label: "API & Integration Hub" },
@@ -31,10 +32,12 @@ const footerColumns = [
   {
     title: "Platforms",
     links: [
-      { href: "/app/dashboard", label: "CRM Workspace" },
-      { href: "/jobs", label: "ATS & Talent Platform" },
-      { href: "/employee", label: "HR Portal" },
-      { href: "/employee/time", label: "Employee Self-Service" },
+      { href: "/platforms/crm", label: "CRM Workspace" },
+      { href: "/platforms/ats", label: "ATS & Talent Platform" },
+      { href: "/platforms/hr", label: "Core HR Portal" },
+      { href: "/platforms/employee", label: "Employee Self-Service" },
+      { href: "/platforms/payroll", label: "Enterprise Payroll" },
+      { href: "/work/innovation/data-agent", label: "Data Agent" },
     ],
   },
   {
@@ -61,14 +64,14 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="border-t border-white/10 bg-[#081a2f] text-white">
+    <footer className="border-t border-white/10 bg-[#061522] text-white">
       <Shell className="py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand Col */}
           <div className="sm:col-span-2 lg:col-span-3">
             <BrandLogo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
-              Enterprise technology, platforms, and transformation delivered to production.
+              Consulting, technology, and enterprise software platforms delivered to production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
               <button
@@ -76,7 +79,7 @@ export function SiteFooter() {
                 onClick={() => setOpen(true)}
                 className="ca-button-primary inline-flex w-fit text-xs font-semibold"
               >
-                Contact Us
+                Start a Conversation
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </button>
               <Link
@@ -96,7 +99,7 @@ export function SiteFooter() {
                 open
                 className="group border-b border-white/10 pb-4 sm:border-0 sm:pb-0"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.12em] text-[#2ea7ff] marker:content-none sm:cursor-default">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.12em] text-[#31a8ff] marker:content-none sm:cursor-default">
                   {column.title}
                   <ChevronDown className="h-3.5 w-3.5 text-white/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
