@@ -10,31 +10,32 @@
 :root {
   /* ConsultAmerica light brand palette */
   --ca-navy: #102a43;
+  --ca-deep-navy: #0b1f33;
   --ca-black: #102a43;
   --ca-blue: #2563eb;
   --ca-blue-hover: #1d4ed8;
   --ca-bright: #3b82f6;
   --ca-blue-soft: #3b82f6;
   --ca-electric: #3b82f6;
-  --ca-cloud: #eaf3ff;
-  --ca-ice: #f4f8fc;
+  --ca-cloud: #eef5ff;
+  --ca-ice: #f7f9fc;
   --ca-ice-soft: #f7faff;
   --ca-warm: #fafaf8;
   --ca-white: #ffffff;
   --ca-off-white: #fafaf8;
-  --ca-careers: #edf5ff;
+  --ca-careers: #eef5ff;
   --ca-ink-dark: #102a43;
   --ca-ink: #ffffff;
-  --ca-text-primary: #172b4d;
-  --ca-text-secondary: #667085;
+  --ca-text-primary: #102a43;
+  --ca-text-secondary: #52667a;
   --ca-nav: #243b53;
-  --ca-text: #526579;
-  --ca-muted: #526579;
-  --ca-dim: #7a8ea3;
+  --ca-text: #102a43;
+  --ca-muted: #52667a;
+  --ca-dim: #75879a;
   --ca-line: #dce5ee;
-  --ca-border: #e4e7ec;
-  --ca-border-light: #e4e7ec;
-  --ca-header-border: #e4e7ec;
+  --ca-border: #dce5ee;
+  --ca-border-light: #dce5ee;
+  --ca-header-border: #dce5ee;
   --ca-surface: #ffffff;
   --ca-success: #16865b;
   --ca-warning: #b7791f;
@@ -55,10 +56,10 @@
   --ca-app-topbar: 64px;
   --ca-app-bg: #f6f8fc;
   --ca-app-sidebar-bg: #ffffff;
-  --ca-app-ink: #172b4d;
-  --ca-app-muted: #667085;
-  --ca-app-border: #e4e7ec;
-  --ca-app-selected: #eaf2ff;
+  --ca-app-ink: #102a43;
+  --ca-app-muted: #52667a;
+  --ca-app-border: #dce5ee;
+  --ca-app-selected: #eef5ff;
   --ca-space-1: 0.5rem;
   --ca-space-2: 0.75rem;
   --ca-space-3: 1rem;
@@ -373,6 +374,7 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 0;
   background: transparent;
+  -webkit-backdrop-filter: none;
   backdrop-filter: none;
   padding: 0.45em 0.1em;
   font-size: 0.78em;
@@ -397,6 +399,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0;
   background: transparent;
+  -webkit-backdrop-filter: none;
   backdrop-filter: none;
   transition:
     border-color 200ms ease,

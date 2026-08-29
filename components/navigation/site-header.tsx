@@ -38,7 +38,7 @@ export default function SiteHeader() {
 
   const headerSurface =
     scrolled || openMenu || drawerOpen
-      ? "border-[var(--ca-header-border)] bg-white/[0.94] shadow-[0_4px_24px_rgba(16,42,67,0.05)] backdrop-blur-[12px]"
+      ? "border-[var(--ca-header-border)] bg-white/95 shadow-[0_2px_16px_rgba(16,42,67,0.04)] backdrop-blur-[12px]"
       : "border-[var(--ca-header-border)] bg-white";
 
   return (
@@ -50,16 +50,18 @@ export default function SiteHeader() {
         <div className="hidden bg-[var(--ca-navy)] md:block">
           <Link
             href={announcement.href}
-            className="ca-shell flex items-center justify-center gap-3 py-2 text-center text-[0.72rem] tracking-[0.04em] text-white/85 transition-opacity hover:opacity-70"
+            className="ca-shell flex items-center justify-center gap-3 py-1.5 text-center text-[0.72rem] tracking-[0.04em] text-white/85 transition-opacity hover:opacity-75"
           >
             <span>{announcement.text}</span>
             <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
           </Link>
         </div>
 
-        <div className={`border-b transition-[background,border-color,box-shadow] duration-300 ${headerSurface}`}>
+        <div
+          className={`border-b transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}
+        >
           <div className="ca-shell">
-            <div className="flex h-[60px] items-center justify-between gap-4 md:h-16 xl:h-[72px]">
+            <div className="flex h-16 items-center justify-between gap-4 xl:h-[72px]">
               <BrandLogo tone="dark" priority />
 
               <nav
@@ -96,10 +98,10 @@ export default function SiteHeader() {
                 ))}
               </nav>
 
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <Link
                   href="/login"
-                  className="hidden min-h-11 items-center px-2 text-[0.9375rem] text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)] xl:inline-flex"
+                  className="hidden min-h-10 items-center px-3 text-[0.875rem] font-medium text-[var(--ca-nav)] transition-colors hover:text-[var(--ca-blue)] xl:inline-flex"
                 >
                   Employee Login
                 </Link>
@@ -114,7 +116,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setContactOpen(true)}
-                  className="ca-button-primary hidden !min-h-10 !px-4 text-sm md:!inline-flex md:!min-h-11"
+                  className="ca-button-primary hidden !min-h-10 !px-4 text-sm font-semibold md:!inline-flex"
                 >
                   Contact
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -123,12 +125,12 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(true)}
-                  className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 xl:hidden"
+                  className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[var(--ca-border)] xl:hidden"
                   aria-label="Open navigation menu"
                   aria-expanded={drawerOpen}
                 >
-                  <span className="h-px w-5 bg-[var(--ca-navy)]" />
-                  <span className="h-px w-5 bg-[var(--ca-navy)]" />
+                  <span className="h-px w-4.5 bg-[var(--ca-navy)]" />
+                  <span className="h-px w-4.5 bg-[var(--ca-navy)]" />
                 </button>
               </div>
             </div>
@@ -137,7 +139,7 @@ export default function SiteHeader() {
 
         {openMenu && (
           <div
-            className="hidden border-b border-[var(--ca-header-border)] bg-white xl:block"
+            className="hidden border-b border-[var(--ca-header-border)] bg-white shadow-lg xl:block"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >

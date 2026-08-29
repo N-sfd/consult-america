@@ -8,34 +8,36 @@ export default function TrustCredibility() {
   return (
     <section
       id="trust"
-      className="border-y border-[var(--mkt-border)] bg-[var(--mkt-white)] py-8 md:py-10"
+      className="border-y border-[var(--mkt-border)] bg-[var(--mkt-white)] py-4 sm:py-5"
     >
       <div className="mkt-shell">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 gap-y-5 divide-y divide-[var(--mkt-border)] md:grid-cols-2 md:gap-x-8 md:gap-y-6 md:divide-y-0 lg:grid-cols-3 lg:divide-x"
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-start justify-between gap-4 divide-y divide-[var(--mkt-border)] sm:flex-row sm:items-center sm:divide-y-0 sm:divide-x"
         >
           {heroStats.map((stat, index) => (
             <div
               key={stat.value + stat.detail}
-              className={`pt-5 first:pt-0 md:pt-0 lg:px-8 lg:first:pl-0 ${
-                index === 2 ? "md:col-span-2 lg:col-span-1" : ""
+              className={`flex w-full items-baseline justify-between gap-3 pt-3 sm:w-auto sm:flex-1 sm:justify-center sm:pt-0 ${
+                index > 0 ? "sm:pl-6 lg:pl-8" : ""
               }`}
             >
-              <p className="text-lg font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-xl">
-                {stat.value}
+              <div className="flex items-baseline gap-2">
+                <span className="text-base font-semibold tracking-[-0.02em] text-[var(--mkt-navy)] sm:text-lg">
+                  {stat.value}
+                </span>
                 {stat.label ? (
-                  <span className="ml-2 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--mkt-muted)]">
+                  <span className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--mkt-dim)]">
                     {stat.label}
                   </span>
                 ) : null}
-              </p>
-              <p className="mt-1.5 text-sm text-[var(--mkt-muted)]">
+              </div>
+              <span className="text-xs text-[var(--mkt-muted)] sm:text-sm">
                 {stat.detail}
-              </p>
+              </span>
             </div>
           ))}
         </motion.div>

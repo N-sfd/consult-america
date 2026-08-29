@@ -11,8 +11,9 @@ const industries = [
     title: "Government & Public Sector",
     href: "/industries/government-public-sector",
     image:
-      "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Legislative chamber interior",
+      "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Government and public sector administration center",
+    gridClass: "lg:col-span-7 lg:row-span-2 min-h-[280px] sm:min-h-[320px] lg:min-h-[440px]",
   },
   {
     number: "02",
@@ -20,7 +21,8 @@ const industries = [
     href: "/industries/financial-services",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Financial operations and market data environment",
+    imageAlt: "Financial services and market operations",
+    gridClass: "lg:col-span-5 min-h-[220px] sm:min-h-[240px] lg:min-h-[210px]",
   },
   {
     number: "03",
@@ -28,15 +30,17 @@ const industries = [
     href: "/industries/healthcare",
     image:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Clinical technology and healthcare systems",
+    imageAlt: "Clinical technology and healthcare operations",
+    gridClass: "lg:col-span-5 min-h-[220px] sm:min-h-[240px] lg:min-h-[210px]",
   },
   {
     number: "04",
     title: "Technology",
     href: "/industries/technology",
     image:
-      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Engineering and data technology environment",
+      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Engineering and technology platform infrastructure",
+    gridClass: "lg:col-span-12 min-h-[220px] sm:min-h-[260px] lg:min-h-[260px]",
   },
 ];
 
@@ -47,18 +51,18 @@ export default function Industries() {
       className="mkt-section bg-[var(--mkt-warm)] text-[var(--mkt-navy)]"
     >
       <div className="mkt-shell">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <span className="mkt-eyebrow text-[var(--mkt-muted)]">
+            <span className="mkt-eyebrow text-[var(--mkt-dim)]">
               INDUSTRIES
             </span>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55 }}
             className="lg:col-span-8"
           >
             <h2 className="mkt-section-heading text-[var(--mkt-navy)]">
@@ -67,73 +71,55 @@ export default function Industries() {
           </motion.div>
         </div>
 
-        {/* Single grid: 1-col mobile, 2x2 tablet, 3+2 / 2+3 mosaic at xl+
-            (5-unit column grid so a 3/2 span pair fills each row exactly). */}
-        <div className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
+        {/* Asymmetric Editorial Mosaic — Single responsive DOM tree */}
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-4">
           {industries.map((industry, index) => (
-            <IndustryTile
+            <motion.article
               key={industry.title}
-              industry={industry}
-              tall={index < 2}
-              spanClassName={
-                index === 0 || index === 3 ? "xl:col-span-3" : "xl:col-span-2"
-              }
-            />
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: index * 0.05 }}
+              className={industry.gridClass}
+            >
+              <Link
+                href={industry.href}
+                className="group relative block h-full w-full overflow-hidden rounded-xl border border-[var(--mkt-border)]"
+              >
+                <Image
+                  src={industry.image}
+                  alt={industry.imageAlt}
+                  fill
+                  loading="lazy"
+                  className="object-cover transition-transform duration-600 group-hover:scale-[1.025]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 60vw"
+                />
+                {/* Subtle, restrained gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/80 via-[var(--mkt-navy)]/20 to-transparent" />
+
+                <div className="absolute inset-0 flex flex-col justify-end p-4.5 sm:p-5">
+                  <span className="mkt-eyebrow text-white/50">
+                    {industry.number}
+                  </span>
+                  <div className="mt-1 flex items-end justify-between gap-3">
+                    <h3 className="text-lg font-medium tracking-[-0.02em] text-white sm:text-xl">
+                      {industry.title}
+                    </h3>
+                    <ArrowUpRight className="h-4.5 w-4.5 shrink-0 text-white/80 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
+                  </div>
+                </div>
+              </Link>
+            </motion.article>
           ))}
         </div>
 
-        <div className="mt-8 flex justify-end">
-          <Link href="/industries" className="ca-link">
+        <div className="mt-6 flex justify-end">
+          <Link href="/industries" className="ca-link text-sm">
             Explore All Industries
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
     </section>
-  );
-}
-
-function IndustryTile({
-  industry,
-  tall = false,
-  spanClassName,
-}: {
-  industry: (typeof industries)[number];
-  tall?: boolean;
-  spanClassName?: string;
-}) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45 }}
-      className={spanClassName}
-    >
-      <Link
-        href={industry.href}
-        className={`group relative block overflow-hidden ${
-          tall
-            ? "aspect-[4/3] xl:aspect-auto xl:min-h-[420px]"
-            : "aspect-[4/3] xl:aspect-auto xl:min-h-[280px]"
-        }`}
-      >
-        <Image
-          src={industry.image}
-          alt={industry.imageAlt}
-          fill
-          loading="lazy"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/90 via-[var(--mkt-navy)]/30 to-[var(--mkt-navy)]/5" />
-
-        <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
-          <span className="mkt-eyebrow text-white/45">{industry.number}</span>
-          <h3 className="mt-2 mkt-h3 text-white">{industry.title}</h3>
-          <ArrowUpRight className="mt-3 h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </div>
-      </Link>
-    </motion.article>
   );
 }

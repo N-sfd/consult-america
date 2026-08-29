@@ -1,59 +1,69 @@
-/* ConsultAmerica Marketing V2.2 — tighter light foundation */
+/* ConsultAmerica Marketing V6 — Enterprise Professional Polish */
 
 :root {
   --mkt-max: 1280px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
-  --mkt-section-y: clamp(3.5rem, 5vw, 4rem); /* 56–64px mobile */
-  --mkt-hero: clamp(2.5rem, 4vw + 0.5rem, 4.5rem); /* 40–72px */
-  --mkt-h2: clamp(2rem, 3.2vw, 2.875rem); /* 32–46px */
-  --mkt-h3: clamp(1.25rem, 1.4vw, 1.5rem); /* 20–24px */
-  --mkt-body-lg: clamp(1rem, 0.5vw + 0.95rem, 1.25rem); /* 16–20px */
-  --mkt-body: clamp(0.9375rem, 0.15vw + 0.9rem, 1rem); /* 15–16px */
-  --mkt-prose: 42rem; /* ~672px */
+  --mkt-section-y: clamp(3.5rem, 4.5vw, 4.5rem); /* 56–72px mobile */
+  --mkt-hero: clamp(2.5rem, 3.8vw, 4.25rem); /* 40–68px */
+  --mkt-h2: clamp(1.85rem, 2.8vw, 2.5rem); /* 30–40px */
+  --mkt-h3: clamp(1.15rem, 1.25vw, 1.35rem); /* 18–22px */
+  --mkt-body-lg: clamp(0.95rem, 0.4vw + 0.9rem, 1.15rem); /* 15–18px */
+  --mkt-body: clamp(0.875rem, 0.15vw + 0.85rem, 0.95rem); /* 14–15px */
+  --mkt-prose: 40rem; /* ~640px */
 
+  /* Enterprise Palette */
   --mkt-navy: #102a43;
+  --mkt-deep-navy: #0b1f33;
   --mkt-ink: #102a43;
   --mkt-blue: #2563eb;
+  --mkt-blue-hover: #1d4ed8;
   --mkt-bright: #3b82f6;
   --mkt-blue-soft: #3b82f6;
-  --mkt-cloud: #eaf3ff;
-  --mkt-ice: #f4f8fc;
+  --mkt-cloud: #eef5ff;
+  --mkt-ice: #f7f9fc;
   --mkt-ice-soft: #f7faff;
   --mkt-warm: #fafaf8;
   --mkt-white: #ffffff;
   --mkt-off: #fafaf8;
-  --mkt-careers: #edf5ff;
-  --mkt-text: #122033;
-  --mkt-muted: #526579;
+  --mkt-careers: #eef5ff;
+  --mkt-text: #102a43;
+  --mkt-text-secondary: #52667a;
+  --mkt-muted: #52667a;
+  --mkt-dim: #75879a;
   --mkt-nav: #243b53;
   --mkt-border: #dce5ee;
   --mkt-success: #16865b;
   --mkt-warning: #c77a16;
   --mkt-error: #c94141;
-  --mkt-green: #16865b;
-  --mkt-amber: #c77a16;
-  --mkt-gold: #c77a16;
 }
 
 @media (min-width: 768px) {
   :root {
     --mkt-gutter: 1.5rem;
-    --mkt-section-y: 5rem; /* 80px tablet */
+    --mkt-section-y: clamp(5rem, 6vw, 6rem); /* 80–96px tablet */
   }
 }
 
 @media (min-width: 1280px) {
   :root {
     --mkt-gutter: 2rem;
-    --mkt-section-y: clamp(6rem, 6.5vw, 7rem); /* 96–112px desktop */
+    --mkt-section-y: clamp(7rem, 7.5vw, 8rem); /* 112–128px desktop */
   }
 }
 
-.mkt-shell {
-  width: 100%;
-  max-width: var(--mkt-max);
+.site-container,
+.mkt-shell,
+.ca-shell {
+  width: min(100% - 48px, 1280px);
   margin-inline: auto;
-  padding-inline: var(--mkt-gutter);
+}
+
+@media (max-width: 767px) {
+  .site-container,
+  .mkt-shell,
+  .ca-shell {
+    width: min(100% - 40px, 1280px);
+  }
 }
 
 .mkt-section {
@@ -61,13 +71,13 @@
 }
 
 .mkt-section-compact {
-  padding-block: clamp(2rem, 3.2vw, 3.25rem);
+  padding-block: clamp(2rem, 3vw, 3rem);
 }
 
 .mkt-hero-heading {
   font-size: var(--mkt-hero);
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   font-weight: 500;
   color: var(--mkt-navy);
   max-width: 680px;
@@ -75,11 +85,11 @@
 
 .mkt-section-heading {
   font-size: var(--mkt-h2);
-  line-height: 1.04;
-  letter-spacing: -0.035em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   font-weight: 500;
   color: var(--mkt-navy);
-  max-width: 720px;
+  max-width: 700px;
 }
 
 .mkt-body-lg {
@@ -96,21 +106,18 @@
   max-width: var(--mkt-prose);
 }
 
-/* Shared sub-heading scale for card/list titles nested inside a section —
-   keeps the "one step down from mkt-section-heading" role consistent
-   instead of each section picking its own text-xl/2xl/3xl ad hoc. */
 .mkt-h3 {
   font-size: var(--mkt-h3);
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
   font-weight: 500;
 }
 
 .mkt-eyebrow {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   line-height: 1;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -123,63 +130,55 @@
 }
 
 .mkt-media-scale {
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .group:hover .mkt-media-scale,
 .mkt-media-hover:hover .mkt-media-scale {
-  transform: scale(1.03);
+  transform: scale(1.025);
 }
 
 .mkt-hero-bg {
   background:
-    radial-gradient(circle at 85% 25%, #dbeafe 0%, transparent 38%),
-    #f4f8fc;
+    radial-gradient(circle at 85% 20%, #e0effe 0%, transparent 40%),
+    var(--mkt-ice);
 }
 
-/* Homepage hero only — a tighter, hand-tuned scale so the headline doesn't
-   crowd the sticky header on small phones. Scoped via the second class so
-   every other page's size="hero" heading keeps the shared clamp(). */
+/* Homepage hero title tuning */
 .mkt-hero-heading.mkt-hero-heading--home {
-  max-width: 720px;
-  font-size: 42px;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-@media (max-width: 360px) {
-  .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 38px;
-  }
+  max-width: 680px;
+  font-size: 40px;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
 @media (min-width: 640px) {
   .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 48px;
+    font-size: 46px;
   }
 }
 
 @media (min-width: 768px) {
   .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 56px;
+    font-size: 54px;
+    line-height: 1.02;
   }
 }
 
 @media (min-width: 1024px) {
   .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 68px;
+    font-size: 64px;
+    line-height: 1.0;
   }
 }
 
 @media (min-width: 1280px) {
   .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 76px;
+    font-size: 68px;
   }
 }
 
-/* Homepage hero primary CTA — tamed height/radius vs. the shared
-   .ca-button-primary default, scoped to this instance only. */
 .ca-button-primary.ca-button-primary--hero {
-  min-height: 52px;
-  border-radius: 10px;
+  min-height: 48px;
+  border-radius: 8px;
 }

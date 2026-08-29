@@ -8,26 +8,22 @@ const differentiators = [
   {
     number: "01",
     title: "Enterprise Depth",
-    description:
-      "Platforms, processes, integrations, data, and transformation programs.",
+    description: "Platforms, process, integration and data.",
   },
   {
     number: "02",
     title: "Business + Technology",
-    description:
-      "Decisions that improve how the organization actually operates.",
+    description: "Decisions grounded in how organizations operate.",
   },
   {
     number: "03",
     title: "Execution Focus",
-    description:
-      "Implementation, adoption, and measurable outcomes—live in production.",
+    description: "From design through production.",
   },
   {
     number: "04",
     title: "Senior Expertise",
-    description:
-      "Experienced practitioners stay close to the work throughout delivery.",
+    description: "Experienced practitioners close to delivery.",
   },
 ];
 
@@ -45,12 +41,13 @@ export default function WhyConsultAmerica() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-6 max-w-3xl text-2xl font-medium leading-[1.15] tracking-[-0.03em] text-white md:mt-8 md:text-3xl lg:text-4xl"
+          className="mt-5 max-w-3xl text-2xl font-medium leading-[1.18] tracking-[-0.03em] text-white sm:text-3xl lg:text-4xl"
         >
-          Deep enough for the enterprise. Focused enough to stay close.
+          Deep enough for the enterprise.
+          <br className="hidden sm:inline" /> Focused enough to stay close.
         </motion.p>
 
-        <div className="mt-10 grid gap-x-8 gap-y-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:gap-x-16 lg:gap-y-10">
           {differentiators.map((item, index) => (
             <motion.article
               key={item.title}
@@ -58,13 +55,15 @@ export default function WhyConsultAmerica() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.04 }}
-              className="border-t border-white/12 pt-5"
+              className="border-t border-white/15 pt-6"
             >
-              <span className="mkt-eyebrow text-white/35">{item.number}</span>
-              <h3 className="mt-4 text-base font-medium uppercase tracking-[0.06em] text-white md:text-lg">
+              <span className="text-2xl font-light text-white/35 sm:text-3xl">
+                {item.number}
+              </span>
+              <h3 className="mt-3 text-base font-medium tracking-[-0.01em] text-white sm:text-lg">
                 {item.title}
               </h3>
-              <p className="mt-3 max-w-sm text-sm leading-7 text-white/55">
+              <p className="mt-2 text-xs leading-6 text-white/60 sm:text-sm sm:leading-7">
                 {item.description}
               </p>
             </motion.article>

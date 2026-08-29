@@ -123,15 +123,15 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
             <div className="relative">
               <Search
                 aria-hidden="true"
-                className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--cr-text-secondary)] sm:h-[18px] sm:w-[18px]"
+                className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#102a43]"
               />
               <input
                 id="job-search"
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by role, skill or keyword…"
-                className="cr-input cr-search-input"
+                placeholder="Search role or skill…"
+                className="cr-input pl-12 h-12 text-sm"
               />
             </div>
           </div>

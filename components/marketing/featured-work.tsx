@@ -32,13 +32,14 @@ export default function FeaturedWork() {
               Proof through delivery.
             </h2>
           </div>
-          <Link href="/work/case-studies" className="ca-link">
+          <Link href="/work/case-studies" className="ca-link text-sm">
             View all projects
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 space-y-4">
+          {/* Flagship Case Study — Dominant Story */}
           <motion.article
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -47,80 +48,97 @@ export default function FeaturedWork() {
           >
             <Link
               href={`/work/case-studies/${flagship.slug}`}
-              className="group grid overflow-hidden border border-[var(--mkt-border)] lg:grid-cols-12"
+              className="group grid overflow-hidden rounded-xl border border-[var(--mkt-border)] bg-[var(--mkt-ice)] transition-colors hover:border-[var(--mkt-blue)]/40 lg:grid-cols-12"
             >
-              <div className="relative order-2 aspect-[16/10] lg:order-1 lg:col-span-7 lg:aspect-auto lg:min-h-[320px]">
+              <div className="relative aspect-[16/10] sm:aspect-[2/1] lg:aspect-auto lg:col-span-7 lg:min-h-[340px]">
                 <Image
                   src={flagship.image}
                   alt={flagship.imageAlt}
                   fill
                   loading="lazy"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-cover transition-transform duration-600 group-hover:scale-[1.025]"
+                  sizes="(max-width: 1024px) 100vw, 58vw"
                 />
               </div>
-              <div className="order-1 flex flex-col justify-between p-6 md:p-8 lg:order-2 lg:col-span-5">
+              <div className="flex flex-col justify-between p-6 sm:p-7 lg:col-span-5">
                 <div>
                   <p className="mkt-eyebrow text-[var(--mkt-blue)]">
                     01 / {flagship.category}
                   </p>
-                  <h3 className="mt-4 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)] md:text-3xl">
+                  <h3 className="mt-3 text-xl font-medium tracking-[-0.025em] text-[var(--mkt-navy)] sm:text-2xl">
                     {flagship.title}
                   </h3>
-                  <p className="mt-3 text-sm font-medium uppercase tracking-[0.08em] text-[var(--mkt-muted)]">
-                    Client challenge
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-[var(--mkt-muted)]">
-                    {flagship.challenge}
-                  </p>
-                  <p className="mt-4 text-sm font-medium uppercase tracking-[0.08em] text-[var(--mkt-muted)]">
-                    Business outcomes
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-[var(--mkt-muted)]">
-                    {flagship.outcomes[0]?.description}
-                  </p>
+
+                  <div className="mt-4 space-y-2 border-t border-[var(--mkt-border)] pt-3 text-xs sm:text-sm">
+                    <div>
+                      <span className="font-semibold text-[var(--mkt-navy)]">
+                        Challenge:
+                      </span>{" "}
+                      <span className="text-[var(--mkt-muted)]">
+                        {flagship.challenge}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-[var(--mkt-navy)]">
+                        Outcome:
+                      </span>{" "}
+                      <span className="text-[var(--mkt-muted)]">
+                        {flagship.outcomes[0]?.description ?? flagship.summary}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <span className="ca-link mt-6 w-fit">
-                  Explore case study
-                  <ArrowUpRight className="h-4 w-4" />
-                </span>
+
+                <div className="mt-6 pt-4 border-t border-[var(--mkt-border)] flex items-center justify-between">
+                  <span className="ca-link text-sm font-semibold">
+                    Explore case study
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
               </div>
             </Link>
           </motion.article>
 
-          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          {/* 2 Supporting Cases */}
+          <div className="grid gap-4 sm:grid-cols-2">
             {supportingProjects.map((project, index) => (
               <motion.article
                 key={project.slug}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.06 + index * 0.04 }}
+                transition={{ duration: 0.45, delay: 0.06 + index * 0.05 }}
               >
                 <Link
                   href={`/work/case-studies/${project.slug}`}
-                  className="group block overflow-hidden border border-[var(--mkt-border)]"
+                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-[var(--mkt-border)] bg-[var(--mkt-white)] transition-colors hover:border-[var(--mkt-blue)]/40"
                 >
-                  <div className="relative aspect-[16/10]">
+                  <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.imageAlt}
                       fill
                       loading="lazy"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-600 group-hover:scale-[1.025]"
+                      sizes="(max-width: 640px) 100vw, 50vw"
                     />
                   </div>
-                  <div className="p-5">
-                    <p className="mkt-eyebrow text-[var(--mkt-blue)]">
-                      {String(index + 2).padStart(2, "0")} / {project.category}
-                    </p>
-                    <h3 className="mt-2 mkt-h3 text-[var(--mkt-navy)]">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-6 text-[var(--mkt-muted)]">
-                      {project.summary}
-                    </p>
+                  <div className="flex flex-1 flex-col justify-between p-5">
+                    <div>
+                      <p className="mkt-eyebrow text-[var(--mkt-blue)]">
+                        {String(index + 2).padStart(2, "0")} / {project.category}
+                      </p>
+                      <h3 className="mt-2 text-lg font-medium tracking-[-0.02em] text-[var(--mkt-navy)]">
+                        {project.title}
+                      </h3>
+                      <p className="mt-2 text-xs leading-5.5 text-[var(--mkt-muted)] sm:text-sm">
+                        {project.summary}
+                      </p>
+                    </div>
+                    <span className="ca-link mt-4 text-xs font-semibold sm:text-sm">
+                      Explore case study
+                      <ArrowUpRight className="h-4 w-4" />
+                    </span>
                   </div>
                 </Link>
               </motion.article>
