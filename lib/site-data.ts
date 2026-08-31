@@ -1,6 +1,68 @@
 export const announcement = {
-  href: "/insights",
-  text: "Enterprise leaders read: Oracle, AI, and transformation notes from delivery",
+  href: "/insights/what-stalls-fusion-programs",
+  text: "Enterprise leaders read: How to Prepare for a Successful Oracle Cloud Transformation",
+};
+
+export const whatWeDoMegaMenu = {
+  transform: {
+    category: "TRANSFORM",
+    items: [
+      { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
+      { href: "/capabilities/enterprise-transformation", label: "Operating Model & Process" },
+      { href: "/capabilities/managed-delivery", label: "Program Delivery" },
+      { href: "/capabilities/managed-delivery", label: "Testing & Quality" },
+      { href: "/capabilities/enterprise-transformation", label: "Change & Adoption" },
+    ],
+  },
+  modernize: {
+    category: "MODERNIZE",
+    items: [
+      { href: "/oracle", label: "Oracle Transformation" },
+      { href: "/platforms/crm", label: "CRM Transformation" },
+      { href: "/capabilities/digital-engineering", label: "Cloud Modernization" },
+      { href: "/ai-data", label: "Data Modernization" },
+    ],
+  },
+  intelligence: {
+    category: "INTELLIGENCE",
+    items: [
+      { href: "/ai-data", label: "AI Strategy" },
+      { href: "/ai-data", label: "Generative AI" },
+      { href: "/ai-data", label: "Agentic AI" },
+      { href: "/work/innovation/data-agent", label: "Document Intelligence" },
+      { href: "/ai-data", label: "Data Engineering" },
+      { href: "/ai-data", label: "AI Governance" },
+    ],
+  },
+  build: {
+    category: "BUILD",
+    items: [
+      { href: "/capabilities/digital-engineering", label: "Application Engineering" },
+      { href: "/platforms", label: "Enterprise Portals" },
+      { href: "/capabilities/digital-engineering", label: "Integration & APIs" },
+      { href: "/capabilities/digital-engineering", label: "Digital Experience" },
+    ],
+  },
+  operate: {
+    category: "OPERATE",
+    items: [
+      { href: "/capabilities/managed-delivery", label: "Managed Services" },
+      { href: "/capabilities/managed-delivery", label: "Application Support" },
+      { href: "/capabilities/enterprise-transformation", label: "Optimization" },
+    ],
+  },
+  labs: {
+    title: "CONSULT AMERICA LABS",
+    description: "Turning operational problems into focused enterprise products.",
+    products: [
+      { href: "/work/innovation/data-agent", label: "Data Agent", detail: "Document & contract intelligence" },
+      { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical & patient intelligence" },
+      { href: "/capabilities/digital-engineering", label: "Convera", detail: "Enterprise integration & APIs" },
+      { href: "/platforms/ats", label: "HR & Talent", detail: "Recruiting & workforce ops" },
+    ],
+    ctaHref: "/work/innovation",
+    ctaLabel: "Explore applications →",
+  },
 };
 
 export const consultingGroups = {
@@ -125,16 +187,10 @@ export const capabilityGroups = [
   },
 ];
 
-export const navLinks = [
-  { href: "/work", label: "Work" },
-  { href: "/insights", label: "Insights" },
-  { href: "/careers", label: "Careers" },
-];
-
 export const heroStats = [
-  { value: "17+", label: "Years", detail: "Enterprise experience" },
-  { value: "End-to-End", label: "", detail: "Strategy → Architecture → Production" },
-  { value: "Consulting · Tech · Platforms", label: "", detail: "Unified enterprise capability" },
+  { value: "Enterprise Depth", label: "", detail: "Strategy through production and support" },
+  { value: "Consulting · Tech · Labs", label: "", detail: "Unified capabilities" },
+  { value: "Oracle · AI · Platforms", label: "", detail: "Production-ready architectures" },
 ];
 
 export const deliveryPhases = [
@@ -148,59 +204,49 @@ export const deliveryPhases = [
 
 export const trustMarks = [
   "Oracle Cloud",
-  "Fusion",
-  "EPM",
-  "Public Sector",
-  "Financial Services",
+  "CRM & Customer Intelligence",
+  "AI & Document Intelligence",
+  "Enterprise Integration",
+  "Cloud Architecture",
+  "Digital Engineering",
 ];
 
 export const glanceStats = [
-  {
-    value: "17",
-    suffix: "+",
-    label: "Years of enterprise experience",
-  },
   {
     value: "E2E",
     suffix: "",
     label: "Strategy through production and support",
   },
   {
-    value: "3",
+    value: "4",
     suffix: "",
-    label: "Core pillars: Consulting, Technology, Platforms",
+    label: "Core practices: Transformation, Oracle, AI & Data, Engineering",
   },
   {
     value: "1",
     suffix: "",
-    label: "Mission: delivery that moves the business",
+    label: "Unified mission: delivery that moves the business",
   },
 ];
 
 export const selectedProjects = [
   {
-    href: "/work/case-studies",
-    client: "Oracle Fusion rollout",
-    title: "Multi-entity finance transformation with a staged cutover.",
-    body: "Staged Fusion cutover across entities, with a monitored hub and named owners.",
+    href: "/work/case-studies/oracle-cloud-transformation",
+    client: "Oracle Fusion Transformation",
+    title: "Multi-entity enterprise ERP & SCM modernization with zero downtime.",
+    body: "Staged cutover across entities with standardized charts of accounts and monitored integration hubs.",
   },
   {
-    href: "/work/case-studies",
-    client: "Public-sector data platform",
-    title: "Shared analytics with role-based access and audit trails.",
-    body: "A governed data layer public-sector teams can use—controls included.",
+    href: "/work/case-studies/public-sector-finance-procurement",
+    client: "Public Sector Data Platform",
+    title: "Shared financial management with role-based access and audit trails.",
+    body: "A governed data layer public-sector teams rely on with statutory compliance preserved.",
   },
   {
-    href: "/work/case-studies",
-    client: "AI document intake",
-    title: "Classification and extraction that reduced manual review.",
-    body: "An evaluation-backed pipeline with quality ownership into operations.",
-  },
-  {
-    href: "/work/case-studies",
-    client: "Integration rebuild",
-    title: "Replaced brittle point-to-point flows with a monitored hub.",
-    body: "Clearer contracts between systems and an operating model the client can run.",
+    href: "/work/case-studies/ai-document-intelligence",
+    client: "AI Document Intelligence",
+    title: "Contract extraction and indexing that reduced manual review cycles.",
+    body: "Evaluation-backed pipelines with human verification and provenance tracing into production.",
   },
 ];
 
@@ -230,22 +276,22 @@ export const offices = [
 export const faqs = [
   {
     q: "What does an enterprise transformation partner actually do?",
-    a: "We take complex change from plan to production: operating model, architecture, platforms, and the program controls that keep sponsors honest. The work is Oracle, data, AI, and the integrations that make those systems usable.",
+    a: "We connect strategy, operating models, enterprise platforms, data, and engineering so transformation reaches production with less friction and more measurable business value.",
   },
   {
-    q: "How is ConsultAmerica different from a slide-deck consultancy?",
-    a: "Teams stay small, senior, and close to the work. We implement, cut over, and support—not just recommend. If it cannot reach production, it is not done.",
+    q: "How is ConsultAmerica different from traditional slide-deck consultancies?",
+    a: "Our teams stay small, senior, and attached to the work from architecture through cutover, testing, and operational support. We build real products and software in our Innovation Labs alongside delivery.",
   },
   {
-    q: "Do you only implement Oracle?",
-    a: "Oracle is a core practice, including Fusion, EPM, and integrations. We also deliver data platforms, AI programs, and digital engineering around those estates.",
+    q: "What is your core Oracle capability?",
+    a: "We architect and deliver Oracle Fusion Cloud (Financials, Procurement, SCM, HCM, EPM, Projects) combined with Oracle Integration Cloud (OIC) and analytics.",
   },
   {
     q: "How do you approach AI in the enterprise?",
-    a: "Use case first, then data contract, evaluation, and ownership. We do not leave clients with a pilot that nobody can run. Governance and production paths are part of the engagement.",
+    a: "We take an outcome-first, governed approach: use-case prioritization, clean data contracts, human-in-the-loop workflows, and production operating models—not open-ended, unmonitored experimentation.",
   },
   {
-    q: "Who typically hires you?",
-    a: "Public-sector, regulated enterprise, and operators who need systems that hold up under scrutiny—finance, operations, and technology leaders who want named accountability.",
+    q: "What products come out of Consult America Labs?",
+    a: "We build focused enterprise software including Data Agent (document & contract intelligence), MediGuide AI (clinical intelligence assistant), Convera (API connectivity), and HR & Talent systems.",
   },
 ];

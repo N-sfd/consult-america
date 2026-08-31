@@ -218,6 +218,26 @@
   border-radius: 8px;
 }
 
+/* Background Image Overlay Utilities */
+.mkt-bg-overlay-light {
+  background: linear-gradient(
+    rgba(244, 239, 230, 0.82),
+    rgba(244, 239, 230, 0.94)
+  );
+}
+
+.mkt-bg-overlay-dark {
+  background: linear-gradient(
+    rgba(38, 31, 27, 0.72),
+    rgba(38, 31, 27, 0.88)
+  );
+}
+
+.mkt-editorial-texture {
+  background-image: radial-gradient(rgba(38, 31, 27, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 /* Application UI window frame styling */
 .ca-app-window {
   border-radius: 12px;

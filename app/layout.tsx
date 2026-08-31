@@ -5,16 +5,16 @@ import { ContactProvider } from "@/components/providers/contact-provider";
 
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ConsultAmerica | The Enterprise Transformation Partner",
-    template: "%s | ConsultAmerica",
+    default: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+    template: "%s | Consult America",
   },
   description:
-    "ConsultAmerica is the enterprise transformation partner for Oracle, cloud, AI, data, and digital engineering.",
+    "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
   alternates: {
     canonical: "/",
   },
@@ -25,21 +25,36 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "ConsultAmerica",
-    title: "ConsultAmerica | The Enterprise Transformation Partner",
+    siteName: "Consult America",
+    title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
     description:
-      "Oracle, AI, data, and enterprise transformation from strategy through production.",
+      "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+    description:
+      "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
   },
 };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "ConsultAmerica",
+  name: "Consult America",
   url: siteUrl,
   logo: `${siteUrl}/brand/logo.jpg`,
   description:
-    "ConsultAmerica is the enterprise transformation partner for Oracle, cloud, AI, data, and digital engineering.",
+    "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Washington",
+    addressRegion: "DC",
+    addressCountry: "US",
+  },
+  sameAs: [
+    "https://www.linkedin.com/company/consultamerica",
+  ],
 };
 
 export default function RootLayout({
@@ -49,7 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[var(--ca-ice)] text-[var(--ca-text-primary)] antialiased">
+      <body className="bg-[#F4EFE6] text-[#261F1B] antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
