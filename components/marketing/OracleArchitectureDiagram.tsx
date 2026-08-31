@@ -2,82 +2,84 @@
 
 import { ArrowDown } from "lucide-react";
 
-const ROW_1 = ["Financials", "Procurement", "Projects"];
-const ROW_2 = ["HCM", "SCM", "EPM"];
-
-const FLOW_STEPS = [
-  "Strategy",
-  "Design",
-  "Configure",
-  "Integrate",
-  "Test",
-  "Deploy",
+const apps = [
+  "Finance (GL/AP/AR)",
+  "Procurement & S2P",
+  "Supply Chain (SCM)",
+  "Projects (PPM)",
 ];
 
-export default function OracleArchitectureDiagram({
-  compact = false,
-}: {
-  compact?: boolean;
-}) {
+const extensions = [
+  "Custom Workspaces",
+  "Document Intelligence",
+  "Partner Portals",
+  "Task-Oriented Agents",
+];
+
+export default function OracleArchitectureDiagram() {
   return (
-    <div className="overflow-hidden rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_12px_36px_rgba(38,31,27,0.06)]">
-      <div className="flex items-center justify-between border-b border-[#D7CCBD] bg-[#F4EFE6] px-4 py-2.5">
-        <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[#261F1B] uppercase">
-          Oracle Cloud Architecture
+    <div className="overflow-hidden rounded-xl border border-[#DDE4E8] bg-white shadow-sm">
+      {/* Top bar */}
+      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F7F9FA] px-4 py-2.5">
+        <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[#102033] uppercase">
+          CONNECTED ORACLE ENTERPRISE ARCHITECTURE
         </span>
-        <span className="text-[0.65rem] font-bold text-[#7D2639]">
-          Fusion · EPM · Analytics
+        <span className="text-[0.65rem] font-bold text-[#B63A3A]">
+          High Availability · Zero Touch
         </span>
       </div>
 
-      <div className={compact ? "p-4 space-y-3" : "p-5 space-y-4"}>
-        {/* Modules Grid */}
-        <div className="grid grid-cols-3 gap-2">
-          {ROW_1.map((item) => (
-            <div
-              key={item}
-              className="rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] px-2.5 py-2 text-center text-xs font-semibold text-[#261F1B] shadow-xs transition-colors hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]"
-            >
-              {item}
-            </div>
-          ))}
-          {ROW_2.map((item) => (
-            <div
-              key={item}
-              className="rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] px-2.5 py-2 text-center text-xs font-semibold text-[#261F1B] shadow-xs transition-colors hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]"
-            >
-              {item}
-            </div>
-          ))}
+      <div className="p-5 sm:p-6 space-y-4">
+        {/* Layer 1: Fusion Applications */}
+        <div>
+          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#526170]">
+            01 · Core Enterprise Cloud
+          </p>
+          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {apps.map((app) => (
+              <div
+                key={app}
+                className="rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] px-2.5 py-2 text-center text-xs font-semibold text-[#102033] shadow-xs"
+              >
+                {app}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Connectors to Integration & Analytics */}
-        <div className="flex flex-col items-center gap-1.5 pt-1">
-          <ArrowDown className="h-3.5 w-3.5 text-[#657766]" />
-          <div className="w-full max-w-sm rounded-lg border border-[#657766]/50 bg-[#DFE4DA] px-3 py-1.5 text-center text-xs font-bold text-[#261F1B]">
-            Integration Hub
+        {/* Arrow / Bus */}
+        <div className="flex flex-col items-center justify-center gap-1">
+          <div className="w-full max-w-md rounded-lg border border-[#357C78]/40 bg-[#DCEAE7] px-3 py-1.5 text-center text-xs font-bold text-[#102033]">
+            Oracle Integration Cloud (OIC) &amp; FDI Analytics Fabric
           </div>
-          <ArrowDown className="h-3.5 w-3.5 text-[#7D2639]" />
-          <div className="w-full max-w-sm rounded-lg border border-[#D8C5AA] bg-[#2B2420] px-3 py-1.5 text-center text-xs font-semibold text-[#F7F0E7]">
-            Data &amp; Analytics Platform
+          <ArrowDown className="h-3.5 w-3.5 text-[#B63A3A]" />
+          <div className="w-full max-w-md rounded-lg border border-[#1E3752] bg-[#0C2233] px-3 py-1.5 text-center text-xs font-semibold text-white">
+            Enterprise Data Warehouse &amp; Governed AI Layer
+          </div>
+        </div>
+
+        {/* Layer 2: Extensions & AI */}
+        <div>
+          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#526170]">
+            02 · Custom Applications &amp; AI Agents (Consult America Labs)
+          </p>
+          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {extensions.map((ext) => (
+              <div
+                key={ext}
+                className="rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] px-2.5 py-2 text-center text-xs font-semibold text-[#102033] shadow-xs"
+              >
+                {ext}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Lifecycle footer */}
-      <div className="border-t border-[#D7CCBD] bg-[#F4EFE6] px-4 py-2.5">
-        <div className="flex flex-wrap items-center justify-between gap-x-1 gap-y-1">
-          {FLOW_STEPS.map((step, index) => (
-            <span key={step} className="flex items-center gap-1">
-              <span className="text-[0.68rem] font-medium text-[#695F57]">
-                {step}
-              </span>
-              {index < FLOW_STEPS.length - 1 && (
-                <span className="text-[0.62rem] text-[#D7CCBD]">→</span>
-              )}
-            </span>
-          ))}
-        </div>
+      <div className="border-t border-[#E9EEF1] bg-[#F7F9FA] px-4 py-2.5">
+        <p className="text-[0.68rem] font-mono text-[#526170]">
+          Clean core architecture with zero invasive ERP modifications
+        </p>
       </div>
     </div>
   );

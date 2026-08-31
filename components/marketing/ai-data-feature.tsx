@@ -45,7 +45,7 @@ export default function AiDataFeature({
   return (
     <section
       id="ai-data"
-      className="mkt-section relative overflow-hidden bg-[#DFE4DA]"
+      className="mkt-section relative overflow-hidden bg-[#EEF3F4]"
     >
       <div className="mkt-shell relative z-10">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -62,14 +62,14 @@ export default function AiDataFeature({
               <EditorialHeading
                 as={headingLevel}
                 size={headingLevel === "h1" ? "hero" : "section"}
-                className="max-w-xl text-[#261F1B]"
+                className="max-w-xl text-[#102033]"
               >
                 Move from AI experiments
                 <br />
                 to enterprise intelligence.
               </EditorialHeading>
 
-              <p className="mkt-body-lg mt-8 max-w-md text-[#695F57]">
+              <p className="mkt-body-lg mt-8 max-w-md text-[#526170]">
                 Connect enterprise data, AI models, automation, and business
                 workflows into intelligent systems that operate securely in
                 production.
@@ -87,15 +87,15 @@ export default function AiDataFeature({
               {aiAreas.map((area) => (
                 <article
                   key={area.title}
-                  className="border-t border-[#8C9A87] pt-5"
+                  className="border-t border-[#DDE4E8] pt-5"
                 >
-                  <p className="mkt-eyebrow text-[#657766]">
+                  <p className="mkt-eyebrow text-[#357C78]">
                     {area.number}
                   </p>
-                  <h3 className="mt-3 text-lg font-bold tracking-[-0.02em] text-[#261F1B]">
+                  <h3 className="mt-3 text-lg font-bold tracking-[-0.02em] text-[#102033]">
                     {area.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#695F57]">
+                  <p className="mt-2 text-sm leading-6 text-[#526170]">
                     {area.description}
                   </p>
                 </article>

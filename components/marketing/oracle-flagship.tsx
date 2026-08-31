@@ -1,180 +1,160 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, Layers, Cpu, Database, Sparkles, Workflow, Check, Activity, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
 
-const capabilityRail = [
-  { code: "ERP", name: "Financials & GL" },
-  { code: "HCM", name: "Human Capital" },
-  { code: "SCM", name: "Supply Chain" },
-  { code: "EPM", name: "Planning & Budgeting" },
-  { code: "CX", name: "Customer Experience" },
-  { code: "PPM", name: "Project Portfolio" },
-  { code: "OIC", name: "Integration Cloud" },
-  { code: "Analytics", name: "Fusion Data Intelligence" },
-];
-
-const modules = [
-  { name: "Finance", code: "GL / AP / AR", status: "Subledger Synced", icon: Database },
-  { name: "Procurement", code: "Source-to-Pay", status: "Contract Grounded", icon: Layers },
-  { name: "Supply Chain", code: "Inventory / SCM", status: "Route Optimized", icon: Workflow },
-  { name: "Projects", code: "PPM / Costing", status: "Billing Active", icon: Activity },
-  { name: "Human Capital", code: "Core HR / Payroll", status: "Workforce Live", icon: CheckCircle2 },
-  { name: "Customer Experience", code: "CX / B2B Quotes", status: "Pipeline Connected", icon: Sparkles },
+const capabilities = [
+  {
+    name: "FINANCE",
+    detail: "General Ledger, AP/AR, Subledger Accounting & multi-entity consolidation.",
+    href: "/oracle",
+  },
+  {
+    name: "PROCUREMENT",
+    detail: "Source-to-Pay automation, contract obligations & supplier qualifications.",
+    href: "/oracle",
+  },
+  {
+    name: "SUPPLY CHAIN",
+    detail: "Inventory control, order management, demand forecasting & warehouse flows.",
+    href: "/oracle",
+  },
+  {
+    name: "PROJECTS",
+    detail: "PPM project costing, billing milestones, capital assets & revenue recognition.",
+    href: "/oracle",
+  },
+  {
+    name: "INTEGRATION & DATA",
+    detail: "Oracle Integration Cloud (OIC), high-throughput event buses & FDI analytics.",
+    href: "/oracle",
+  },
+  {
+    name: "DELIVERY",
+    detail: "End-to-end PMO governance, automated regression testing & zero-downtime cutovers.",
+    href: "/oracle",
+  },
 ];
 
 export default function OracleFlagship() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="oracle-practice" className="bg-[#FFFAF2] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D7CCBD]">
-      <div className="mkt-shell">
-        <SectionLabel tone="burgundy">ORACLE</SectionLabel>
+    <section id="oracle-practice" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+      <div className="ca-shell">
+        <SectionLabel tone="burgundy">ORACLE CLOUD TRANSFORMATION</SectionLabel>
 
-        <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
-          {/* Left Column: Editorial Headline & Copy */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="lg:col-span-5 space-y-6"
-          >
-            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-[#261F1B] sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-              Modernize the enterprise around Oracle Cloud.
-            </h2>
-
-            <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
-              From strategy and implementation to integration, testing and optimization,
-              Consult America helps organizations turn Oracle investments into connected,
-              high-performing business operations.
-            </p>
-
-            <div className="pt-2">
-              <Link
-                href="/oracle"
-                className="group ca-button-primary inline-flex items-center gap-2 !min-h-[52px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
-              >
-                <span>Explore Oracle capabilities</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-
-            {/* Capability Rail Strip */}
-            <div className="mt-10 border-t border-[#D7CCBD] pt-6">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#695F57]">
-                Fusion Cloud Capabilities
-              </p>
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {capabilityRail.map((cap) => (
-                  <div
-                    key={cap.code}
-                    className="rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] p-2.5 text-center"
-                  >
-                    <p className="font-mono text-xs font-bold text-[#7D2639]">{cap.code}</p>
-                    <p className="text-[0.62rem] text-[#695F57] truncate mt-0.5">{cap.name}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Oracle Transformation Control Center Application Mockup */}
+        {/* 45% Image / 55% Content Layout (Section 17 Requirement) */}
+        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-14">
+          {/* Left Column (45%): Large Architecture / Enterprise Operations Image */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] p-6 lg:p-7 shadow-[0_18px_55px_rgba(38,31,27,0.08)] relative overflow-hidden"
+            className="lg:col-span-5 space-y-6"
           >
-            {/* Control Center Top Bar */}
-            <div className="flex items-center justify-between border-b border-[#D7CCBD] pb-4">
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#7D2639] text-white font-bold text-xs">
-                  O
-                </div>
-                <div>
-                  <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#261F1B]">
-                    Oracle Transformation Control Center
-                  </h3>
-                  <p className="text-[0.62rem] text-[#695F57]">Fusion Cloud Ecosystem Architecture</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5 bg-[#DFE4DA] px-2.5 py-1 rounded-full text-[0.62rem] font-bold text-[#657766]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#657766] animate-pulse" />
-                <span>All Modules Synchronized</span>
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-[#DDE4E8] bg-white shadow-sm">
+              <Image
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=85"
+                alt="Modern enterprise architecture and corporate financial operations"
+                fill
+                className="object-cover mkt-img-graded"
+                sizes="(max-width: 1024px) 100vw, 42vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/60 via-transparent to-transparent" />
+              
+              <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-white/20 bg-white/95 p-4 backdrop-blur-md shadow-md text-xs">
+                <p className="font-bold text-[#102033]">Enterprise Architecture &amp; Delivery</p>
+                <p className="text-[0.68rem] text-[#526170] mt-0.5">Fusion ERP · SCM · HCM · EPM · OIC</p>
               </div>
             </div>
+          </motion.div>
 
-            {/* Central Hub & Interconnected Modules Layout */}
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {modules.map((mod, idx) => {
-                const Icon = mod.icon;
-                return (
-                  <div
-                    key={mod.name}
-                    className="rounded-xl border border-[#D7CCBD]/80 bg-[#FFFAF2] p-3 transition-all hover:border-[#7D2639]/50 hover:bg-[#F4EFE6]"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[0.58rem] font-bold text-[#7D2639] uppercase">
-                        {mod.code}
-                      </span>
-                      <Icon className="h-3.5 w-3.5 text-[#657766]" />
-                    </div>
-                    <h4 className="mt-1.5 text-xs font-bold text-[#261F1B]">
-                      {mod.name}
-                    </h4>
-                    <p className="mt-1 text-[0.62rem] text-[#657766] font-medium flex items-center gap-1">
-                      <Check className="h-2.5 w-2.5 text-[#657766]" /> {mod.status}
+          {/* Right Column (55%): Headline, Copy, Text Rows with Thin Dividers */}
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+            className="lg:col-span-7 space-y-6"
+          >
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+              Modernize the digital core.
+            </h2>
+
+            <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+              Connect Oracle applications, processes, data and integrations around the way the enterprise actually operates.
+            </p>
+
+            {/* Large Capability Text Rows with Thin Dividers */}
+            <div className="mt-8 divide-y divide-[#DDE4E8] border-y border-[#DDE4E8]">
+              {capabilities.map((cap) => (
+                <div
+                  key={cap.name}
+                  className="group py-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 hover:bg-white/60 transition-colors px-2 -mx-2 rounded"
+                >
+                  <div className="sm:w-1/3">
+                    <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                      {cap.name}
+                    </span>
+                  </div>
+                  <div className="sm:w-7/12">
+                    <p className="text-xs sm:text-sm text-[#526170]">
+                      {cap.detail}
                     </p>
                   </div>
-                );
-              })}
+                  <div className="sm:w-1/12 flex sm:justify-end">
+                    <Link
+                      href={cap.href}
+                      aria-label={`Explore ${cap.name}`}
+                      className="text-[#526170] group-hover:text-[#B63A3A] transition-colors"
+                    >
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* Connected Foundation Rail */}
-            <div className="mt-5 rounded-xl border border-[#D7CCBD] bg-[#F4EFE6] p-4">
-              <div className="flex items-center justify-between text-xs font-bold text-[#261F1B] border-b border-[#D7CCBD] pb-2.5">
-                <span className="flex items-center gap-1.5 font-mono text-[0.68rem] uppercase tracking-wider text-[#7D2639]">
-                  <Workflow className="h-3.5 w-3.5" /> Connected Core Integration Fabric
-                </span>
-                <span className="text-[0.62rem] text-[#657766] font-mono">Telemetry: Active</span>
-              </div>
-
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                <div className="rounded border border-[#D7CCBD] bg-[#FFFDF8] p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">OIC Bridge</p>
-                  <p className="text-[0.58rem] text-[#657766]">14 Event Streams</p>
-                </div>
-                <div className="rounded border border-[#D7CCBD] bg-[#FFFDF8] p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">REST APIs</p>
-                  <p className="text-[0.58rem] text-[#657766]">&lt;15ms Latency</p>
-                </div>
-                <div className="rounded border border-[#D7CCBD] bg-[#FFFDF8] p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">Enterprise Data</p>
-                  <p className="text-[0.58rem] text-[#657766]">100% Reconciled</p>
-                </div>
-                <div className="rounded border border-[#D7CCBD] bg-[#FFFDF8] p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">AI Automation</p>
-                  <p className="text-[0.58rem] text-[#657766]">Zero Touch GL</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Proof Strip */}
-            <div className="mt-4 pt-3 border-t border-[#D7CCBD]/80 flex items-center justify-between text-xs text-[#695F57]">
-              <span>Zero-downtime cutover framework tested across multi-entity programs</span>
+            <div className="pt-4">
               <Link
-                href="/work"
-                className="font-bold text-[#7D2639] hover:underline flex items-center gap-1 text-[0.7rem]"
+                href="/oracle"
+                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
               >
-                View Case Studies →
+                <span>Explore Oracle Transformation</span>
+                <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
           </motion.div>
+        </div>
+
+        {/* One Controlled Dark Moment (Section 18 Requirement) */}
+        <div className="mt-16 relative overflow-hidden rounded-xl border border-[#1E3752] shadow-xl">
+          <div
+            className="relative p-8 sm:p-12 text-white"
+            style={{
+              background: `linear-gradient(90deg, rgba(12,34,51,0.96) 0%, rgba(12,34,51,0.85) 60%, rgba(12,34,51,0.72) 100%), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="max-w-3xl space-y-4">
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                CUTOVER &amp; PRODUCTION GOVERNANCE
+              </span>
+              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-white">
+                De-risking large-scale multi-entity go-lives.
+              </h3>
+              <p className="text-sm sm:text-base text-[#DDE4E8] leading-relaxed">
+                Our practitioners combine financial subledger reconciliation, automated testing frameworks, and OIC event orchestration to guarantee clean period close and audited compliance on day one.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -3,39 +3,40 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const capabilities = [
-  { name: "Oracle Fusion Cloud", href: "/oracle" },
-  { name: "Enterprise CRM & CX", href: "/platforms/crm" },
-  { name: "AI & Governed Data", href: "/ai-data" },
-  { name: "Cloud Infrastructure", href: "/capabilities/digital-engineering" },
-  { name: "API Integration & OIC", href: "/capabilities/digital-engineering" },
-  { name: "Full-Stack Digital Engineering", href: "/capabilities/digital-engineering" },
+const platforms = [
+  { name: "Oracle", href: "/oracle" },
+  { name: "CRM", href: "/platforms/crm" },
+  { name: "AI", href: "/ai-data" },
+  { name: "Data", href: "/ai-data" },
+  { name: "Cloud", href: "/capabilities/digital-engineering" },
+  { name: "Integration", href: "/capabilities/digital-engineering" },
+  { name: "Digital Engineering", href: "/capabilities/digital-engineering" },
 ];
 
 export default function TrustCredibility() {
   return (
-    <section className="border-b border-[#D7CCBD] bg-[#FFFDF8] py-6 sm:py-7">
-      <div className="mkt-shell">
+    <section className="border-b border-[#E9EEF1] bg-[#FFFFFF] py-6 sm:py-7">
+      <div className="ca-shell">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#7D2639]" />
-            <p className="text-center text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#695F57] md:text-left">
-              ENTERPRISE CAPABILITY ACROSS THE DIGITAL CORE
+            <span className="h-1.5 w-1.5 rounded-full bg-[#357C78]" />
+            <p className="text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#526170]">
+              ENTERPRISE TECHNOLOGY ACROSS THE MODERN STACK
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 md:justify-end">
-            {capabilities.map((item, idx) => (
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:justify-end">
+            {platforms.map((item, idx) => (
               <motion.div
                 key={item.name}
-                initial={{ opacity: 0, y: 6 }}
+                initial={{ opacity: 0, y: 4 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.04 }}
+                transition={{ duration: 0.3, delay: idx * 0.03 }}
               >
                 <Link
                   href={item.href}
-                  className="inline-flex items-center rounded-md border border-[#D7CCBD] bg-[#FFFAF2] px-3 py-1 text-xs font-semibold text-[#261F1B] transition-all hover:border-[#7D2639] hover:text-[#7D2639] hover:bg-[#FFFDF8]"
+                  className="inline-flex items-center rounded border border-[#E9EEF1] bg-[#F7F9FA] px-3 py-1 text-xs font-semibold text-[#102033] transition-all hover:border-[#B63A3A] hover:text-[#B63A3A] hover:bg-white"
                 >
                   {item.name}
                 </Link>

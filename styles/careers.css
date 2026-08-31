@@ -1,17 +1,17 @@
-/* ConsultAmerica Careers — Warm Editorial Theme */
+/* Consult America Careers — Modern Enterprise Theme */
 
 :root {
-  --cr-bg: #F4EFE6;
-  --cr-bg-soft: #FFFAF2;
-  --cr-surface: #FFFDF8;
-  --cr-navy: #261F1B;
-  --cr-text: #261F1B;
-  --cr-text-secondary: #695F57;
-  --cr-blue: #7D2639;
-  --cr-blue-hover: #681F30;
-  --cr-border: #D7CCBD;
-  --cr-success: #657766;
-  --cr-error: #B93838;
+  --cr-bg: #F7F9FA;
+  --cr-bg-soft: #FFFFFF;
+  --cr-surface: #FFFFFF;
+  --cr-navy: #102033;
+  --cr-text: #102033;
+  --cr-text-secondary: #526170;
+  --cr-blue: #B63A3A;
+  --cr-blue-hover: #942E31;
+  --cr-border: #DDE4E8;
+  --cr-success: #357C78;
+  --cr-error: #B63A3A;
   --cr-max: 1360px;
 }
 
@@ -27,7 +27,7 @@
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #261F1B;
+  color: #102033;
 }
 
 .cr-input {
@@ -46,16 +46,16 @@
 }
 
 .cr-input::placeholder {
-  color: #8A7F77;
+  color: #7A8B99;
 }
 
 .cr-input:hover {
-  border-color: #B8AA96;
+  border-color: #B5C4CD;
 }
 
 .cr-input:focus {
   border-color: var(--cr-blue);
-  box-shadow: 0 0 0 4px rgb(125 38 57 / 0.1);
+  box-shadow: 0 0 0 4px rgb(182 58 58 / 0.1);
 }
 
 .cr-input.cr-search-input {
@@ -72,7 +72,7 @@
 
 .cr-card {
   border-radius: 0.75rem;
-  border: 1px solid #D7CCBD;
+  border: 1px solid #DDE4E8;
   background: var(--cr-surface);
-  box-shadow: 0 1px 3px rgba(38, 31, 27, 0.04);
+  box-shadow: 0 1px 3px rgba(16, 32, 51, 0.04);
 }

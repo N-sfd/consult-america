@@ -1,160 +1,116 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, FileText, CheckCircle2, Database, Search, Bot, Check, Workflow, ShieldCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-const pipelineStages = [
-  { step: "01", name: "SOURCE DOCUMENT", detail: "PDFs, MSAs, Statements of Work, clinical charts", icon: FileText },
-  { step: "02", name: "EXTRACTION", detail: "Clause segmentation & dynamic field detection", icon: Search },
-  { step: "03", name: "STRUCTURED DATA", detail: "Normalized schema & relational entities", icon: Database },
-  { step: "04", name: "VERIFICATION", detail: "100% human-in-the-loop citation grounding", icon: ShieldCheck },
-  { step: "05", name: "ENTERPRISE WORKFLOW", detail: "Live push to Oracle ERP, CRM & ATS", icon: Workflow },
+import SectionLabel from "@/components/marketing/SectionLabel";
+
+const methodologySteps = [
+  {
+    number: "01",
+    title: "FIND THE VALUE",
+    description: "Identify high-friction business bottlenecks where structured data and AI automation create measurable return.",
+  },
+  {
+    number: "02",
+    title: "BUILD THE FOUNDATION",
+    description: "Cleanse, govern, and pipeline operational data from ERP, CRM, and documents into unified knowledge repositories.",
+  },
+  {
+    number: "03",
+    title: "PUT AI INTO THE WORK",
+    description: "Deploy task-oriented agents, extraction pipelines, and assistive intelligence directly inside daily employee workflows.",
+  },
+  {
+    number: "04",
+    title: "OPERATE WITH TRUST",
+    description: "Establish rigorous source grounding, access controls, human-in-the-loop validation, and continuous performance telemetry.",
+  },
 ];
 
 export default function AIDataStory() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="ai-data-story" className="bg-[#211E1B] text-[#F7F3EC] py-20 sm:py-24 lg:py-28 relative overflow-hidden border-b border-[#3A302B]">
-      {/* Background Architectural Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(to right, #F7F3EC 1px, transparent 1px), linear-gradient(to bottom, #F7F3EC 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-      />
+    <section id="ai-data-story" className="bg-[#EEF3F4] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+      <div className="ca-shell">
+        <SectionLabel tone="burgundy">AI &amp; DATA PRACTICE</SectionLabel>
 
-      <div className="mkt-shell relative z-10">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#52443D] bg-[#2B2420] px-3.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#D8C5AA]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#D8C5AA]" />
-          GOVERNED AI &amp; DATA
-        </div>
-
-        <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
-          {/* Left Column: Heading, Copy & Pipeline Flow */}
+        {/* Split Header: Headline & Copy Left, 1 Large Data / Engineering Team Photograph Right */}
+        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-5 space-y-6"
+            className="lg:col-span-6 space-y-6"
           >
-            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-              AI should move the work —
-              <br />
-              <span className="text-[#D8C5AA]">not sit beside it.</span>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+              Put intelligence into the work.
             </h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-[#C5BCB3]">
-              Move beyond AI experiments with governed agents, intelligent document
-              processing, enterprise search, analytics and workflow automation built
-              around real operational data.
+            <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+              AI creates value when trusted data, useful models, business context and real workflows come together.
             </p>
 
             <div className="pt-2">
               <Link
                 href="/ai-data"
-                className="group inline-flex items-center gap-2 rounded-lg bg-[#7D2639] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#681F30] cursor-pointer"
+                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
               >
                 <span>Explore AI &amp; Data Practice</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="h-4 w-4" />
               </Link>
-            </div>
-
-            {/* Pipeline Stages Vertical Stepper */}
-            <div className="mt-8 border-t border-[#3A302B] pt-6 space-y-2.5">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#D8C5AA]">
-                End-to-End Intelligence Pipeline
-              </p>
-              {pipelineStages.map((st) => (
-                <div
-                  key={st.step}
-                  className="flex items-center gap-3 rounded-lg border border-[#3A302B] bg-[#2B2420]/80 px-3 py-2 text-xs"
-                >
-                  <span className="font-mono text-[0.65rem] font-bold text-[#D8C5AA]">
-                    {st.step}
-                  </span>
-                  <div className="flex-1">
-                    <span className="font-bold text-white">{st.name}</span>
-                    <span className="text-[#A4B1BE] text-[0.68rem] block">{st.detail}</span>
-                  </div>
-                </div>
-              ))}
             </div>
           </motion.div>
 
-          {/* Right Column: Layered Data Agent Application Frame */}
+          {/* One Large Data / Engineering Team Photograph (Section 20 Requirement) */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 rounded-2xl border border-[#52443D] bg-[#2B2420] p-6 lg:p-7 shadow-2xl relative overflow-hidden"
+            className="lg:col-span-6 relative"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-[#3A302B] pb-3 text-xs font-mono">
-              <div className="flex items-center gap-2 text-white">
-                <Sparkles className="h-4 w-4 text-[#D8C5AA]" />
-                <span className="font-bold">Data Agent Intelligence Workspace</span>
-              </div>
-              <span className="rounded bg-[#3A302B] border border-[#52443D] px-2.5 py-1 text-[0.62rem] font-bold text-[#D8C5AA]">
-                Model Grounding: 99.8%
-              </span>
-            </div>
-
-            {/* Document Extraction Interface */}
-            <div className="mt-5 grid grid-cols-1 sm:grid-cols-12 gap-3">
-              {/* Left Column: Extracted Entities */}
-              <div className="sm:col-span-7 space-y-2.5 text-xs">
-                <div className="rounded-lg border border-[#3A302B] bg-[#342B27] p-3">
-                  <p className="text-[0.6rem] font-bold uppercase text-[#D8C5AA]">Clause Classification</p>
-                  <p className="font-bold text-white mt-0.5">Limitation of Liability &amp; Indemnity</p>
-                  <p className="text-[0.65rem] text-[#A4B1BE] mt-1 font-mono">Section 14.2 · Cap: 2x Annual Contract Value</p>
-                </div>
-
-                <div className="rounded-lg border border-[#3A302B] bg-[#342B27] p-3">
-                  <p className="text-[0.6rem] font-bold uppercase text-[#D8C5AA]">DFARS Compliance Verification</p>
-                  <p className="font-bold text-white mt-0.5">252.204-7012 (NIST SP 800-171)</p>
-                  <p className="text-[0.65rem] text-[#657766] font-bold mt-1 flex items-center gap-1">
-                    <Check className="h-3 w-3" /> Fully Grounded to Document Text
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-[#3A302B] bg-[#342B27] p-3">
-                  <p className="text-[0.6rem] font-bold uppercase text-[#D8C5AA]">Payment Terms &amp; Accounting Line</p>
-                  <p className="font-bold text-white mt-0.5">Net 30 · Early Payment Discount 2% 10</p>
-                </div>
-              </div>
-
-              {/* Right Column: Grounded PDF Source Chunk */}
-              <div className="sm:col-span-5 rounded-lg border border-[#3A302B] bg-[#1C1815] p-3.5 flex flex-col justify-between text-xs">
-                <div>
-                  <div className="flex items-center gap-1.5 font-bold text-white">
-                    <FileText className="h-3.5 w-3.5 text-[#D8C5AA]" />
-                    <span>Source PDF Page 18</span>
-                  </div>
-                  <p className="mt-2.5 text-[0.68rem] text-[#C5BCB3] leading-relaxed italic border-l-2 border-[#7D2639] pl-2">
-                    &ldquo;...Neither party shall be liable for indirect, incidental or punitive damages exceeding twice the fees paid under Section 4...&rdquo;
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-2 border-t border-[#3A302B] flex items-center justify-between font-mono text-[0.62rem] text-[#A4B1BE]">
-                  <span>Chunk #14</span>
-                  <span className="font-bold text-[#D8C5AA]">Match 100%</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Autonomous Action Bar */}
-            <div className="mt-4 pt-3 border-t border-[#3A302B] flex items-center justify-between text-xs text-[#A4B1BE]">
-              <span className="flex items-center gap-1 text-[0.7rem] text-white">
-                <Bot className="h-3.5 w-3.5 text-[#D8C5AA]" /> Autonomous Sync to Oracle Procurement
-              </span>
-              <span className="font-mono text-[#D8C5AA] font-bold text-[0.65rem]">Status: Approved</span>
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-[#DDE4E8] bg-white shadow-sm">
+              <Image
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
+                alt="Data engineering and machine learning teams reviewing model telemetry and data pipelines"
+                fill
+                className="object-cover mkt-img-graded"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/40 via-transparent to-transparent" />
             </div>
           </motion.div>
+        </div>
+
+        {/* 4 Methodology Columns with Large Numbers & Dividers (Section 20 Requirement) */}
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-[#DDE4E8] pt-12">
+          {methodologySteps.map((step, idx) => (
+            <motion.div
+              key={step.number}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.08 }}
+              className="flex flex-col justify-between"
+            >
+              <div>
+                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#357C78]">
+                  {step.number}
+                </span>
+                <h3 className="mt-4 text-xs font-bold uppercase tracking-[0.14em] text-[#102033]">
+                  {step.title}
+                </h3>
+                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-[#526170]">
+                  {step.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
