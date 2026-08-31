@@ -105,7 +105,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand Col */}
           <div className="sm:col-span-2 lg:col-span-3">
-            <BrandLogo tone="light" markClassName="h-14 sm:h-16 lg:h-18 w-auto" />
+            <BrandLogo tone="light" markClassName="h-11 sm:h-12 lg:h-[48px] w-auto max-w-[220px]" />
             <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-[#A4B1BE]">
               Enterprise consulting, Oracle Cloud, AI, data, and digital engineering delivered to production.
             </p>

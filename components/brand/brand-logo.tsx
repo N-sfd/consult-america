@@ -22,22 +22,24 @@ export default function BrandLogo({
   priority = false,
   onNavigate,
 }: BrandLogoProps) {
-  // tone="dark" is for light backgrounds (like header) -> uses dark text edition
-  // tone="light" is for dark backgrounds (like footer) -> uses light/silver text edition
+  // tone="dark" is for light backgrounds (like scrolled header) -> uses dark charcoal text edition
+  // tone="light" is for dark backgrounds (like dark hero, footer) -> uses luminous white text edition
   const logoSrc =
-    tone === "dark" ? "/brand/logo-header.png" : "/brand/logo-footer.png";
+    tone === "dark"
+      ? "/brand/consult-america-logo-dark.png"
+      : "/brand/consult-america-header-light.png";
 
   const content = (
     <span className={cn("inline-flex items-center", className)}>
       <span className="relative flex items-center justify-center transition-all duration-200">
         <Image
           src={logoSrc}
-          alt="Consult America Logo"
+          alt="Consult America"
           width={280}
           height={150}
           priority={priority}
           className={cn(
-            "h-11 sm:h-12 lg:h-[50px] w-auto object-contain transition-transform duration-200 hover:scale-[1.02]",
+            "h-10 sm:h-[42px] lg:h-[44px] w-auto max-w-[170px] sm:max-w-[195px] lg:max-w-[215px] object-contain transition-transform duration-200 hover:scale-[1.01]",
             markClassName
           )}
         />
