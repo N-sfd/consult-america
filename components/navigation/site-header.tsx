@@ -88,7 +88,7 @@ export default function SiteHeader() {
           className={`border-b transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}
         >
           <div className="ca-shell">
-            <div className="flex h-16 items-center justify-between gap-4 xl:h-[72px]">
+            <div className="flex h-20 items-center justify-between gap-4 lg:h-[84px]">
               <BrandLogo tone="dark" priority />
 
               {/* Primary Navigation Links */}

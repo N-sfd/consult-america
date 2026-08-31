@@ -30,11 +30,11 @@ export default function BrandLogo({
         <Image
           src={logoSrc}
           alt="Consult America Logo"
-          width={220}
-          height={134}
+          width={320}
+          height={195}
           priority={priority}
           className={cn(
-            "h-10 sm:h-11 w-auto object-contain transition-transform duration-200 hover:scale-[1.02]",
+            "h-13 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 hover:scale-[1.03]",
             markClassName
           )}
         />
