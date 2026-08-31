@@ -20,24 +20,26 @@ export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden border-b border-[#D7CCBD]/80 min-h-[820px] lg:min-h-[88vh] flex items-center bg-[#F7F3EC]">
-      {/* 1. Cinematic Background Image (Senior consultants & technology leaders collaborating in modern architectural environment) */}
+    <section className="relative overflow-hidden border-b border-[#D7CCBD]/80 min-h-[780px] lg:min-h-[85vh] flex items-center bg-[#F7F3EC]">
+      {/* 1. Cinematic Background Image (Bleeds fully to right edge, enlarged presence, 0 rectangular edges) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2400&q=85"
-          alt="Senior consultants and technology leaders collaborating in a modern corporate architectural environment"
-          fill
-          priority
-          className="object-cover object-[right_center] opacity-75 filter grayscale contrast-125"
-          sizes="100vw"
-        />
+        <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[62%] h-full">
+          <Image
+            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2600&q=88"
+            alt="Senior consultants and technology leaders collaborating in a modern corporate architectural environment"
+            fill
+            priority
+            className="object-cover object-[right_center] opacity-85 filter grayscale contrast-120 scale-105"
+            sizes="(max-width: 1024px) 100vw, 65vw"
+          />
+        </div>
 
-        {/* Multi-Stop Seamless Gradient: Fades perfectly into #F7F3EC without harsh rectangular edges */}
+        {/* Multi-Stop Seamless Gradient: Fades seamlessly into cream #F7F3EC */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, #F7F3EC 0%, #F7F3EC 36%, rgba(247,243,236,0.96) 48%, rgba(247,243,236,0.65) 65%, rgba(247,243,236,0.22) 84%, rgba(247,243,236,0.05) 100%)",
+              "linear-gradient(90deg, #F7F3EC 0%, #F7F3EC 38%, rgba(247,243,236,0.98) 48%, rgba(247,243,236,0.72) 64%, rgba(247,243,236,0.28) 82%, rgba(247,243,236,0.02) 100%)",
           }}
         />
 
@@ -46,18 +48,18 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(247,243,236,0.5) 0%, transparent 25%, transparent 75%, #F7F3EC 100%)",
+              "linear-gradient(180deg, rgba(247,243,236,0.65) 0%, transparent 20%, transparent 80%, #F7F3EC 100%)",
           }}
         />
 
-        {/* Atmospheric Warm Burgundy Glow */}
-        <div className="absolute inset-0 bg-radial-[circle_at_80%_25%] from-[#7D2639]/6 via-transparent to-transparent" />
+        {/* Subtle Warm Burgundy Depth */}
+        <div className="absolute inset-0 bg-radial-[circle_at_82%_30%] from-[#7D2639]/8 via-transparent to-transparent" />
       </div>
 
-      <div className="mkt-shell relative z-10 py-12 sm:py-16 w-full">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-12 xl:gap-20">
-          {/* Left Column: Negative Space & Headline (~60% desktop width) */}
-          <div className="lg:col-span-7 xl:col-span-7">
+      <div className="mkt-shell relative z-10 py-16 sm:py-20 lg:py-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-center">
+          {/* Left Editorial Core: Generous Whitespace, No Dashboard Clutter (~65% width) */}
+          <div className="lg:col-span-8 xl:col-span-7">
             {/* Eyebrow */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
@@ -76,11 +78,11 @@ export default function Hero() {
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08 }}
-              className="mt-5 font-serif text-[clamp(44px,5.8vw,80px)] leading-[0.94] tracking-[-0.045em] text-[#261F1B] max-w-[760px]"
+              className="mt-6 font-serif text-[clamp(42px,5.5vw,76px)] leading-[0.96] tracking-[-0.04em] text-[#261F1B] max-w-[720px]"
             >
-              Engineering what’s
+              Transform the core.
               <br />
-              <span>possible next.</span>
+              <span className="text-[#695F57] font-normal">Build what comes next.</span>
             </motion.h1>
 
             {/* Supporting Copy */}
@@ -123,9 +125,9 @@ export default function Hero() {
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.32 }}
-              className="mt-10 border-t border-[#D7CCBD] pt-4 max-w-2xl"
+              className="mt-12 border-t border-[#D7CCBD] pt-5 max-w-2xl"
             >
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#695F57] mb-2">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#695F57] mb-2.5">
                 PRACTICE AREAS
               </p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm font-semibold text-[#261F1B]">
@@ -148,101 +150,6 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
-
-          {/* Right Column: Visually Restrained Transformation Workspace (~40% desktop width, shifted right) */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="lg:col-span-5 xl:col-span-5 relative max-w-[460px] lg:ml-auto w-full"
-          >
-            {/* Background Frame */}
-            <div className="absolute -inset-1.5 -right-2 rounded-[20px] border border-[#D7CCBD]/70 bg-[#FFFAF2]/80 -rotate-1 hidden sm:block shadow-xs" />
-
-            {/* Main Application Container */}
-            <div className="relative rounded-[18px] border border-[rgba(80,60,50,0.12)] bg-[rgba(255,255,255,0.94)] shadow-[0_20px_60px_rgba(24,18,14,0.11)] overflow-hidden backdrop-blur-[14px]">
-              {/* Window Header */}
-              <div className="flex items-center justify-between border-b border-[#D7CCBD]/70 bg-[#F7F3EC]/95 px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-[#D7CCBD]" />
-                    <span className="h-2 w-2 rounded-full bg-[#D7CCBD]" />
-                    <span className="h-2 w-2 rounded-full bg-[#D7CCBD]" />
-                  </div>
-                  <span className="ml-1.5 font-mono text-[0.62rem] font-bold tracking-wider text-[#261F1B] uppercase">
-                    TRANSFORMATION COMMAND CENTER
-                  </span>
-                </div>
-                <span className="text-[0.58rem] font-bold text-[#695F57] bg-[#EBE5DA] px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  ILLUSTRATIVE VIEW
-                </span>
-              </div>
-
-              {/* 4 Core Balanced Program Metrics */}
-              <div className="grid grid-cols-4 gap-2 p-3 border-b border-[#D7CCBD]/50 bg-[#FFFAF2]/40 text-center">
-                <div className="rounded-md border border-[#D7CCBD]/60 bg-white/90 p-2">
-                  <p className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">14</p>
-                  <p className="text-[0.55rem] font-bold uppercase tracking-wider text-[#695F57]">Programs</p>
-                </div>
-                <div className="rounded-md border border-[#D7CCBD]/60 bg-white/90 p-2">
-                  <p className="font-serif text-base sm:text-lg font-bold text-[#7D2639]">82%</p>
-                  <p className="text-[0.55rem] font-bold uppercase tracking-wider text-[#695F57]">Automation</p>
-                </div>
-                <div className="rounded-md border border-[#D7CCBD]/60 bg-white/90 p-2">
-                  <p className="font-serif text-base sm:text-lg font-bold text-[#657766]">99%</p>
-                  <p className="text-[0.55rem] font-bold uppercase tracking-wider text-[#695F57]">Quality</p>
-                </div>
-                <div className="rounded-md border border-[#D7CCBD]/60 bg-white/90 p-2">
-                  <p className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">98%</p>
-                  <p className="text-[0.55rem] font-bold uppercase tracking-wider text-[#695F57]">Health</p>
-                </div>
-              </div>
-
-              {/* Stream & Recommendations */}
-              <div className="p-3.5 space-y-3">
-                {/* Transformation Stream */}
-                <div className="rounded-lg border border-[#D7CCBD]/70 bg-[#F7F3EC]/60 p-2.5">
-                  <p className="font-mono text-[0.6rem] font-bold uppercase tracking-wider text-[#7D2639] mb-1.5 flex items-center gap-1.5">
-                    <Activity className="h-3 w-3" /> TRANSFORMATION STREAM
-                  </p>
-                  <div className="flex items-center justify-between text-center font-mono text-[0.62rem] font-bold text-[#261F1B]">
-                    <span className="rounded bg-white px-1.5 py-0.5 border border-[#D7CCBD]/80">Oracle</span>
-                    <span className="text-[#D7CCBD] tracking-wider">━━━━</span>
-                    <span className="rounded bg-white px-1.5 py-0.5 border border-[#D7CCBD]/80">Data</span>
-                    <span className="text-[#D7CCBD] tracking-wider">━━━━</span>
-                    <span className="rounded bg-white px-1.5 py-0.5 border border-[#D7CCBD]/80 text-[#7D2639]">AI</span>
-                    <span className="text-[#D7CCBD] tracking-wider">━━━━</span>
-                    <span className="rounded bg-[#DFE4DA] px-1.5 py-0.5 border border-[#D7CCBD]/80 text-[#657766]">Production</span>
-                  </div>
-                </div>
-
-                {/* AI Recommendations (2 Focused Items) */}
-                <div className="rounded-lg border border-[#D7CCBD]/70 bg-white p-3 space-y-1.5">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[0.62rem] font-bold uppercase tracking-wider text-[#261F1B] flex items-center gap-1">
-                      <Sparkles className="h-3 w-3 text-[#7D2639]" /> AI RECOMMENDATIONS
-                    </span>
-                    <span className="text-[0.55rem] font-bold text-[#657766] bg-[#DFE4DA] px-1.5 py-0.2 rounded">Actionable</span>
-                  </div>
-
-                  <div className="flex items-center gap-2 rounded-md border border-[#D7CCBD]/50 bg-[#FFFAF2] px-2.5 py-1.5 text-[0.72rem] text-[#261F1B]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#7D2639] shrink-0" />
-                    <span className="font-medium truncate">Resolve integration dependency in OIC Bridge</span>
-                  </div>
-                  <div className="flex items-center gap-2 rounded-md border border-[#D7CCBD]/50 bg-[#FFFAF2] px-2.5 py-1.5 text-[0.72rem] text-[#261F1B]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#657766] shrink-0" />
-                    <span className="font-medium truncate">Validate migration batch for Fusion GL subledgers</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Connected Systems Bar */}
-              <div className="border-t border-[#D7CCBD]/80 bg-[#F7F3EC] px-3.5 py-2 text-center text-[0.65rem] text-[#695F57] font-mono">
-                <span className="font-bold text-[#261F1B]">Connected:</span>{" "}
-                <span className="text-[#7D2639] font-semibold">ORACLE · DATA · AI · APIs</span>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

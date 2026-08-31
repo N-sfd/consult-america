@@ -111,7 +111,7 @@ export default function OracleFlagship() {
                   OPERATING ARCHITECTURE
                 </span>
                 <h3 className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">
-                  Oracle Fusion Cloud Architecture
+                  Oracle Fusion Cloud Ecosystem
                 </h3>
               </div>
               <span className="rounded bg-[#DFE4DA] px-2.5 py-1 text-[0.62rem] font-bold text-[#657766]">
@@ -119,67 +119,114 @@ export default function OracleFlagship() {
               </span>
             </div>
 
-            {/* 6 Surrounding Functional Pillars Layout */}
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-              {pillars.map((p) => {
-                const Icon = p.icon;
-                const isSelected = activePillar.id === p.id;
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => setActivePillar(p)}
-                    className={`rounded-xl border p-3 text-left transition-all cursor-pointer ${
-                      isSelected
-                        ? "border-[#7D2639] bg-[#FFFAF2] shadow-sm ring-1 ring-[#7D2639]"
-                        : "border-[#D7CCBD]/80 bg-white hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]/50"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[0.58rem] font-bold text-[#7D2639] uppercase">
-                        {p.code}
-                      </span>
-                      <Icon className="h-3.5 w-3.5 text-[#657766]" />
-                    </div>
-                    <h4 className="mt-1 text-xs font-bold text-[#261F1B]">
-                      {p.name}
-                    </h4>
-                    <p className="mt-1 text-[0.62rem] text-[#695F57] line-clamp-1">
-                      {p.desc}
-                    </p>
-                  </button>
-                );
-              })}
+            {/* Level 1: Oracle Fusion Cloud Center Node */}
+            <div className="mt-6 rounded-xl border border-[#7D2639]/30 bg-[#FFFDF8] p-4 text-center shadow-xs">
+              <div className="flex items-center justify-center gap-2">
+                <Database className="h-4 w-4 text-[#7D2639]" />
+                <span className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">
+                  ORACLE FUSION CLOUD
+                </span>
+              </div>
+              <p className="text-[0.68rem] text-[#695F57] mt-0.5">
+                Core unified ledger, procurement, supply chain, HCM &amp; customer platform
+              </p>
+
+              {/* 6 Business Domains Grid */}
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-2 text-left">
+                {pillars.map((p) => {
+                  const Icon = p.icon;
+                  const isSelected = activePillar.id === p.id;
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => setActivePillar(p)}
+                      className={`rounded-lg border p-2.5 transition-all cursor-pointer ${
+                        isSelected
+                          ? "border-[#7D2639] bg-[#FFFAF2] shadow-xs ring-1 ring-[#7D2639]"
+                          : "border-[#D7CCBD]/80 bg-white hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]/40"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[0.55rem] font-bold text-[#7D2639] uppercase">
+                          {p.code}
+                        </span>
+                        <Icon className="h-3 w-3 text-[#657766]" />
+                      </div>
+                      <h4 className="mt-1 text-xs font-bold text-[#261F1B]">
+                        {p.name}
+                      </h4>
+                      <p className="mt-0.5 text-[0.58rem] text-[#695F57] line-clamp-1">
+                        {p.desc}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Integration & Data Fabric Underneath */}
-            <div className="mt-5 rounded-xl border border-[#D7CCBD] bg-[#F7F3EC] p-4">
-              <div className="flex items-center justify-between text-xs font-bold text-[#261F1B] border-b border-[#D7CCBD]/80 pb-2">
-                <span className="flex items-center gap-1.5 font-mono text-[0.68rem] uppercase tracking-wider text-[#7D2639]">
+            {/* Animated Connector 1: Fusion -> Integration */}
+            <div className="flex flex-col items-center justify-center my-2.5">
+              <div className="h-4 w-0.5 bg-[#D7CCBD] relative overflow-hidden">
+                <div className="absolute inset-x-0 h-2 bg-[#7D2639] animate-pulse" />
+              </div>
+              <span className="text-[0.55rem] font-mono font-bold text-[#7D2639] uppercase tracking-wider">
+                ↓
+              </span>
+            </div>
+
+            {/* Level 2: Integration & Data Layer */}
+            <div className="rounded-xl border border-[#D7CCBD] bg-[#F7F3EC] p-3.5">
+              <div className="flex items-center justify-between text-xs font-bold text-[#261F1B] border-b border-[#D7CCBD]/80 pb-1.5">
+                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-[#7D2639]">
                   <Workflow className="h-3.5 w-3.5" /> Integration &amp; Data Fabric
                 </span>
-                <span className="text-[0.62rem] text-[#657766] font-mono">Connected Fabric</span>
+                <span className="text-[0.58rem] text-[#657766] font-mono">OIC · REST APIs · Enterprise Data</span>
               </div>
 
-              <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
-                <div className="rounded border border-[#D7CCBD] bg-white p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">OIC Integration</p>
-                  <p className="text-[0.58rem] text-[#657766]">REST Services &amp; Events</p>
+              <div className="mt-2.5 grid grid-cols-4 gap-1.5 text-center">
+                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                  <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">OIC</p>
+                  <p className="text-[0.52rem] text-[#657766]">Integration</p>
                 </div>
-                <div className="rounded border border-[#D7CCBD] bg-white p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">Subledger Integration</p>
-                  <p className="text-[0.58rem] text-[#657766]">Enterprise Accounting</p>
+                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                  <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">REST APIs</p>
+                  <p className="text-[0.52rem] text-[#657766]">Services</p>
                 </div>
-                <div className="rounded border border-[#D7CCBD] bg-white p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">AI Automation</p>
-                  <p className="text-[0.58rem] text-[#657766]">Enterprise Analytics</p>
+                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                  <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">Data</p>
+                  <p className="text-[0.52rem] text-[#657766]">Schemas</p>
                 </div>
+                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                  <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">Analytics</p>
+                  <p className="text-[0.52rem] text-[#657766]">Intelligence</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Animated Connector 2: Integration -> AI */}
+            <div className="flex flex-col items-center justify-center my-2.5">
+              <div className="h-4 w-0.5 bg-[#D7CCBD] relative overflow-hidden">
+                <div className="absolute inset-x-0 h-2 bg-[#7D2639] animate-pulse" />
+              </div>
+              <span className="text-[0.55rem] font-mono font-bold text-[#7D2639] uppercase tracking-wider">
+                ↓
+              </span>
+            </div>
+
+            {/* Level 3: AI & Automation Layer */}
+            <div className="rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] p-3">
+              <div className="flex items-center justify-between text-xs font-bold text-[#261F1B]">
+                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-[#657766]">
+                  <Sparkles className="h-3.5 w-3.5 text-[#7D2639]" /> AI &amp; Automation Layer
+                </span>
+                <span className="text-[0.58rem] text-[#657766] font-mono">Agents · Closed-Loop Actions</span>
               </div>
             </div>
 
             {/* Bottom Proof Strip */}
             <div className="mt-4 pt-3 border-t border-[#D7CCBD]/80 flex items-center justify-between text-xs text-[#695F57]">
-              <span>Structured enterprise cutover methodology across multi-entity programs</span>
+              <span className="text-[0.68rem]">Controlled enterprise cutover methodology across multi-entity programs</span>
               <Link
                 href="/work"
                 className="font-bold text-[#7D2639] hover:underline flex items-center gap-1 text-[0.7rem]"

@@ -13,10 +13,10 @@ const practices = [
     category: "ENTERPRISE TRANSFORMATION",
     title: "Transformation connected directly to delivery.",
     description:
-      "Operating model redesign, business process architecture, program governance, and modernization engineered to survive cutover and drive adoption.",
+      "Operating model redesign, enterprise process architecture, and modernization engineered to survive cutover and drive adoption.",
     linkHref: "/capabilities/enterprise-transformation",
     linkLabel: "Explore Consulting",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=85",
     imageAlt: "Executive strategy workshop with senior enterprise transformation team",
   },
   {
@@ -24,10 +24,10 @@ const practices = [
     category: "ORACLE CLOUD TRANSFORMATION",
     title: "Modernize finance, procurement, and supply chain.",
     description:
-      "Architecture, clean-core implementation, OIC integrations, automated period-close, and continuous optimization across Fusion ERP, SCM, HCM, and EPM.",
+      "Clean-core implementation, OIC integrations, automated period-close, and continuous optimization across Fusion Cloud.",
     linkHref: "/oracle",
     linkLabel: "Explore Oracle Practice",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=85",
     imageAlt: "Enterprise financial operations and digital infrastructure",
   },
   {
@@ -35,10 +35,10 @@ const practices = [
     category: "AI & DATA ENGINEERING",
     title: "Trusted data foundations and production AI workflows.",
     description:
-      "Autonomous agents, document intelligence pipelines, governed RAG, and operational analytics grounded in validated enterprise systems of record.",
+      "Autonomous agents, document intelligence pipelines, and operational analytics grounded in enterprise systems of record.",
     linkHref: "/ai-data",
     linkLabel: "Explore AI & Data",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=85",
     imageAlt: "Data analytics, machine learning, and enterprise intelligence dashboard",
   },
   {
@@ -46,10 +46,10 @@ const practices = [
     category: "DIGITAL ENGINEERING & APPS",
     title: "Custom enterprise software where packaged solutions stop.",
     description:
-      "Full-stack digital engineering, Customer 360 workspaces, workforce platforms, and low-latency API gateways engineered for high-availability production scale.",
+      "Full-stack digital engineering, Customer 360 workspaces, and high-throughput API gateways built for production scale.",
     linkHref: "/capabilities/digital-engineering",
     linkLabel: "Explore Digital Engineering",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1400&q=80",
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1600&q=85",
     imageAlt: "Software engineering and digital product development team",
   },
 ];
