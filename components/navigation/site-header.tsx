@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, ChevronDown, Sparkles, Building2, Layers, Cpu, Database, Workflow, ShieldCheck, FileText, Activity, Users } from "lucide-react";
+import { ArrowUpRight, ArrowRight, ChevronDown, Sparkles, Building2, Layers, Cpu, Database, Workflow, ShieldCheck, FileText, Activity, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import BrandLogo from "@/components/brand/brand-logo";
@@ -25,6 +25,17 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenMenu(null);
+        setDrawerOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -33,8 +44,8 @@ export default function SiteHeader() {
 
   const headerSurface =
     scrolled || openMenu || drawerOpen
-      ? "bg-white/95 backdrop-blur-[12px] border-b border-[#E9EEF1] shadow-[0_2px_16px_rgba(16,32,51,0.04)]"
-      : "bg-white/94 backdrop-blur-[8px] border-b border-[#E9EEF1]";
+      ? "bg-white/95 backdrop-blur-[12px] border-b border-[#DDE4E8] shadow-[0_4px_20px_rgba(16,32,51,0.04)]"
+      : "bg-white/94 backdrop-blur-[8px] border-b border-[#DDE4E8]";
 
   return (
     <>
@@ -208,17 +219,17 @@ export default function SiteHeader() {
             onMouseLeave={() => setOpenMenu(null)}
           >
             <div className="ca-shell py-8">
-              {/* 1. WHAT WE DO MEGA MENU (Section 7 Specification) */}
+              {/* 1. WHAT WE DO MEGA MENU (Section 6 Specification: 5 Columns + Labs Panel) */}
               {openMenu === "what-we-do" && (
-                <div className="grid grid-cols-12 gap-8">
+                <div className="grid grid-cols-12 gap-6">
                   {/* Left 5 Pillars: Transform, Modernize, Intelligence, Build, Operate */}
-                  <div className="col-span-8 grid grid-cols-3 gap-6">
-                    {/* TRANSFORM */}
+                  <div className="col-span-9 grid grid-cols-5 gap-4">
+                    {/* 1. TRANSFORM */}
                     <div>
                       <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                         TRANSFORM
                       </p>
-                      <ul className="mt-3 space-y-2 text-xs">
+                      <ul className="mt-3 space-y-1.5 text-xs">
                         {[
                           "Enterprise Transformation",
                           "Operating Model & Process",
@@ -230,7 +241,7 @@ export default function SiteHeader() {
                             <Link
                               href="/capabilities/enterprise-transformation"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors"
+                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
@@ -239,12 +250,12 @@ export default function SiteHeader() {
                       </ul>
                     </div>
 
-                    {/* MODERNIZE & INTELLIGENCE */}
+                    {/* 2. MODERNIZE */}
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#102033]">
                         MODERNIZE
                       </p>
-                      <ul className="mt-3 space-y-2 text-xs">
+                      <ul className="mt-3 space-y-1.5 text-xs">
                         {[
                           { href: "/oracle", label: "Oracle Transformation" },
                           { href: "/platforms/crm", label: "CRM Transformation" },
@@ -255,30 +266,34 @@ export default function SiteHeader() {
                             <Link
                               href={item.href}
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors"
+                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors leading-snug"
                             >
                               {item.label}
                             </Link>
                           </li>
                         ))}
                       </ul>
+                    </div>
 
-                      <p className="mt-5 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
+                    {/* 3. INTELLIGENCE */}
+                    <div>
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
                         INTELLIGENCE
                       </p>
-                      <ul className="mt-2 space-y-1.5 text-xs">
+                      <ul className="mt-3 space-y-1.5 text-xs">
                         {[
                           "AI Strategy",
-                          "Generative AI & Agents",
+                          "Generative AI",
+                          "Agentic AI",
                           "Document Intelligence",
-                          "Data Engineering & RAG",
+                          "Data Engineering",
                           "AI Governance",
                         ].map((label) => (
                           <li key={label}>
                             <Link
                               href="/ai-data"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#357C78] transition-colors"
+                              className="block py-0.5 text-[#102033] hover:text-[#357C78] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
@@ -287,12 +302,12 @@ export default function SiteHeader() {
                       </ul>
                     </div>
 
-                    {/* BUILD & OPERATE */}
+                    {/* 4. BUILD */}
                     <div>
                       <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
                         BUILD
                       </p>
-                      <ul className="mt-3 space-y-2 text-xs">
+                      <ul className="mt-3 space-y-1.5 text-xs">
                         {[
                           "Application Engineering",
                           "Enterprise Portals",
@@ -303,28 +318,31 @@ export default function SiteHeader() {
                             <Link
                               href="/capabilities/digital-engineering"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#47739B] transition-colors"
+                              className="block py-0.5 text-[#102033] hover:text-[#47739B] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
                           </li>
                         ))}
                       </ul>
+                    </div>
 
-                      <p className="mt-5 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#526170]">
+                    {/* 5. OPERATE */}
+                    <div>
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#526170]">
                         OPERATE
                       </p>
-                      <ul className="mt-2 space-y-1.5 text-xs">
+                      <ul className="mt-3 space-y-1.5 text-xs">
                         {[
                           "Managed Services",
                           "Application Support",
-                          "Period Close & Optimization",
+                          "Optimization",
                         ].map((label) => (
                           <li key={label}>
                             <Link
                               href="/capabilities/managed-delivery"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors"
+                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
@@ -334,24 +352,24 @@ export default function SiteHeader() {
                     </div>
                   </div>
 
-                  {/* Right Side Feature: CONSULT AMERICA LABS */}
-                  <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-5.5 flex flex-col justify-between">
+                  {/* Right Side Feature: CONSULT AMERICA LABS in #F7F9FA */}
+                  <div className="col-span-3 rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-4.5 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between pb-2 border-b border-[#DDE4E8]">
                         <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A] flex items-center gap-1.5">
                           <Sparkles className="h-3.5 w-3.5 text-[#B63A3A]" />
                           Consult America Labs
                         </span>
-                        <span className="text-[0.65rem] font-semibold text-[#357C78] uppercase">
-                          Product R&amp;D
+                        <span className="text-[0.62rem] font-semibold text-[#357C78] uppercase">
+                          Portfolio
                         </span>
                       </div>
 
-                      <div className="mt-3 space-y-2">
+                      <div className="mt-2.5 space-y-1">
                         {[
                           { href: "/work/innovation/data-agent", label: "Data Agent", desc: "Contract & Document Intelligence" },
-                          { href: "/ai-data", label: "Data Explorer", desc: "Enterprise Analytics & Exploration" },
-                          { href: "/work/innovation/joblens", label: "JobLens", desc: "Talent Intelligence & ATS Matching" },
+                          { href: "/ai-data", label: "Data Explorer", desc: "Enterprise Analytics & Repository" },
+                          { href: "/work/innovation/joblens", label: "JobLens", desc: "Talent Matching & ATS Analysis" },
                           { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", desc: "Clinical Assistant & Timeline" },
                           { href: "/capabilities/digital-engineering", label: "Convera", desc: "API Gateway & Message Hub" },
                           { href: "/platforms/ats", label: "HR & Talent", desc: "Workforce Portals & Approvals" },
@@ -360,13 +378,13 @@ export default function SiteHeader() {
                             key={item.label}
                             href={item.href}
                             onClick={() => setOpenMenu(null)}
-                            className="group/item flex items-center justify-between rounded-lg border border-transparent bg-white p-2 px-2.5 transition-all hover:border-[#DDE4E8] hover:shadow-2xs"
+                            className="group/item flex items-center justify-between rounded-md border border-transparent bg-white p-1.5 px-2 transition-all hover:border-[#DDE4E8] hover:shadow-2xs"
                           >
                             <div>
-                              <span className="text-xs font-bold text-[#102033] group-hover/item:text-[#B63A3A] transition-colors">
+                              <span className="text-[0.75rem] font-bold text-[#102033] group-hover/item:text-[#B63A3A] transition-colors">
                                 {item.label}
                               </span>
-                              <p className="text-[0.65rem] text-[#526170]">{item.desc}</p>
+                              <p className="text-[0.6rem] text-[#526170] leading-tight">{item.desc}</p>
                             </div>
                             <ArrowUpRight className="h-3 w-3 text-[#B63A3A] opacity-0 group-hover/item:opacity-100 transition-opacity" />
                           </Link>
@@ -374,13 +392,14 @@ export default function SiteHeader() {
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-[#DDE4E8]">
+                    <div className="mt-3 pt-2.5 border-t border-[#DDE4E8]">
                       <Link
                         href="/work/innovation"
                         onClick={() => setOpenMenu(null)}
-                        className="ca-link text-xs font-semibold text-[#B63A3A]"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
                       >
-                        Explore Applications →
+                        <span>Explore Applications</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </div>

@@ -30,7 +30,7 @@ export default function CRMShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="crm-cx" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+    <section id="crm-cx" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
       <div className="ca-shell">
         <SectionLabel tone="burgundy">CRM &amp; CUSTOMER EXPERIENCE</SectionLabel>
 

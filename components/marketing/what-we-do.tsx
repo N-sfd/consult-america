@@ -46,7 +46,7 @@ export default function WhatWeDo() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="what-we-do" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+    <section id="what-we-do" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
       <div className="ca-shell">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-12 border-b border-[#DDE4E8]">
           <div>

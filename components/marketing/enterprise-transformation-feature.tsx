@@ -21,7 +21,7 @@ export default function EnterpriseTransformationFeature() {
   return (
     <section
       id="enterprise-transformation"
-      className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]"
+      className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]"
     >
       <div className="ca-shell">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">

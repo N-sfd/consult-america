@@ -42,38 +42,38 @@ export default function BrandLogo({
         />
       </span>
 
-      {/* Confident Enterprise Wordmark & Tagline */}
-      {showWordmark && (
-        <span className="flex flex-col justify-center leading-none">
-          <span className="flex items-center gap-1.5">
-            <span
-              className={cn(
-                "font-serif text-[1.12rem] sm:text-[1.24rem] font-bold tracking-[-0.02em] transition-colors",
-                isLight ? "text-white" : "text-[#102033]"
-              )}
-            >
-              Consult
+          {/* Confident Enterprise Wordmark & Tagline */}
+          {showWordmark && (
+            <span className="flex flex-col justify-center leading-none">
+              <span className="flex items-center gap-1.5">
+                <span
+                  className={cn(
+                    "font-serif text-[1.12rem] sm:text-[1.24rem] font-bold tracking-[-0.02em] transition-colors",
+                    isLight ? "text-white" : "text-[#102033]"
+                  )}
+                >
+                  Consult
+                </span>
+                <span
+                  className={cn(
+                    "font-serif text-[1.12rem] sm:text-[1.24rem] font-bold tracking-[-0.02em] text-[#B63A3A] transition-colors"
+                  )}
+                >
+                  America
+                </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A] shrink-0" />
+              </span>
+              <span
+                className={cn(
+                  "hidden sm:block mt-0.5 text-[9.5px] font-medium tracking-[0.12em] uppercase",
+                  isLight ? "text-[#97A8B7]" : "text-[#66727D]"
+                )}
+              >
+                Enterprise Transformation · AI · Engineering
+              </span>
             </span>
-            <span
-              className={cn(
-                "font-serif text-[1.12rem] sm:text-[1.24rem] font-bold tracking-[-0.02em] text-[#B63A3A] transition-colors"
-              )}
-            >
-              America
-            </span>
-            <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A] shrink-0" />
-          </span>
-          <span
-            className={cn(
-              "mt-0.5 text-[0.56rem] sm:text-[0.60rem] font-bold tracking-[0.18em] uppercase font-mono",
-              isLight ? "text-[#97A8B7]" : "text-[#526170]"
-            )}
-          >
-            Strategy · Technology · Results
-          </span>
-        </span>
-      )}
-      <span className="sr-only">Consult America - Strategy. Technology. Results.</span>
+          )}
+          <span className="sr-only">Consult America - Enterprise Transformation · AI · Engineering</span>
     </span>
   );
 
