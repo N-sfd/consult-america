@@ -34,7 +34,7 @@ export default function BrandLogo({
           height={195}
           priority={priority}
           className={cn(
-            "h-13 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 hover:scale-[1.03]",
+            "h-14 sm:h-16 lg:h-[72px] w-auto object-contain transition-transform duration-200 hover:scale-[1.03]",
             markClassName
           )}
         />
