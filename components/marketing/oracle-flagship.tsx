@@ -9,33 +9,23 @@ import { stockImage } from "@/lib/marketing/stock-images";
 
 const capabilities = [
   {
-    name: "FINANCE",
-    detail: "General Ledger, subledger accounting, multi-entity consolidation and financial close governance.",
+    name: "FINANCE & CORE ERP",
+    detail: "Unified general ledger, automated subledgers, and multi-entity financial close.",
     href: "/oracle",
   },
   {
-    name: "PROCUREMENT",
-    detail: "Source-to-Pay automation, supplier onboarding, and contract compliance management.",
+    name: "SUPPLY CHAIN & PROCUREMENT",
+    detail: "Direct source-to-pay automation and end-to-end inventory visibility.",
     href: "/oracle",
   },
   {
-    name: "SUPPLY CHAIN",
-    detail: "Inventory optimization, order management, demand planning, and warehouse workflows.",
+    name: "INTEGRATION & ANALYTICS",
+    detail: "Resilient Oracle Integration Cloud (OIC) pipelines and governed enterprise analytics.",
     href: "/oracle",
   },
   {
-    name: "PROJECTS",
-    detail: "Project portfolio management, costing, billing milestones, and revenue recognition.",
-    href: "/oracle",
-  },
-  {
-    name: "INTEGRATION & DATA",
-    detail: "Oracle Integration Cloud, application event streaming, and enterprise analytics.",
-    href: "/oracle",
-  },
-  {
-    name: "TESTING & READINESS",
-    detail: "End-to-end PMO governance, automated regression testing, cutover planning, and user adoption.",
+    name: "PROGRAM GOVERNANCE",
+    detail: "Predictable cutover architecture, automated testing, and operational adoption.",
     href: "/oracle",
   },
 ];
@@ -49,13 +39,13 @@ export default function OracleFlagship() {
         <div className="inline-flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-[#176A63]" />
           <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5B6D6B]">
-            ORACLE PRACTICE
+            ORACLE FLAGSHIP PRACTICE
           </span>
         </div>
 
-        {/* 45% Image Composition / 55% Content Editorial Layout */}
-        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-14">
-          {/* Left Column (45%): Tall Arch Image Composition (Section 16 Specification) */}
+        {/* 45% Image Composition / 55% Content Executive Layout */}
+        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+          {/* Left Column (45%): Tall Arch Image Composition with Geometric Backdrop */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -64,11 +54,11 @@ export default function OracleFlagship() {
             className="lg:col-span-5 relative flex flex-col items-center sm:items-start"
           >
             <div className="relative w-full max-w-[460px]">
-              {/* #E1ECE8 Geometric backdrop panel */}
-              <div className="absolute -top-4 -left-4 w-[90%] h-[92%] rounded-t-[110px] rounded-b-[16px] bg-[#E1ECE8] border border-[#C9DDD7] -z-0 hidden sm:block" />
+              {/* #E1ECE8 Pale Sage Geometric Backdrop Panel */}
+              <div className="absolute -top-4 -left-4 w-[92%] h-[94%] rounded-t-[110px] rounded-b-[16px] bg-[#E1ECE8] border border-[#C9DDD7] -z-0 hidden sm:block" />
 
               {/* Dominant Architectural Image: Tall Arch Shape */}
-              <div className="relative z-10 w-full h-[380px] sm:h-[460px] overflow-hidden border border-[#C9DDD7] bg-white ca-shadow-elevated rounded-t-[100px] rounded-b-[14px]">
+              <div className="relative z-10 w-full h-[360px] sm:h-[440px] overflow-hidden border border-[#C9DDD7] bg-white ca-shadow-elevated rounded-t-[100px] rounded-b-[14px]">
                 <Image
                   src={stockImage("oracleFlagship", { w: 1000, q: 85 })}
                   alt="Enterprise architectural structure and financial operations center"
@@ -79,8 +69,8 @@ export default function OracleFlagship() {
                 <div className="mkt-overlay-soft" />
               </div>
 
-              {/* Smaller Overlapping Operations / Team Image */}
-              <div className="absolute -bottom-6 right-2 sm:-right-4 z-20 w-[150px] sm:w-[190px] h-[130px] sm:h-[155px] rounded-[14px] overflow-hidden border-2 border-white bg-white ca-shadow-overlap hidden xs:block">
+              {/* Smaller Overlapping Operations Team Image */}
+              <div className="absolute -bottom-6 right-2 sm:-right-4 z-20 w-[150px] sm:w-[190px] h-[120px] sm:h-[150px] rounded-[14px] overflow-hidden border-2 border-white bg-white ca-shadow-overlap hidden xs:block">
                 <Image
                   src={stockImage("capabilitiesOperate", { w: 600, q: 80 })}
                   alt="Operations and implementation testing team"
@@ -93,7 +83,7 @@ export default function OracleFlagship() {
             </div>
           </motion.div>
 
-          {/* Right Column (55%): Headline, Copy, 6 Clean Editorial Rows */}
+          {/* Right Column (55%): Executive Statement, Short Copy & 4 Clean Practice Rows */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -109,12 +99,12 @@ export default function OracleFlagship() {
               Connect Oracle applications, processes, data and integrations around the way the enterprise actually operates.
             </p>
 
-            {/* 6 Editorial Rows with Thin Dividers */}
-            <div className="mt-8 divide-y divide-[#C9DDD7] border-y border-[#C9DDD7]">
+            {/* 4 Clean Editorial Rows with Thin Dividers */}
+            <div className="mt-6 divide-y divide-[#C9DDD7] border-y border-[#C9DDD7]">
               {capabilities.map((cap) => (
                 <div
                   key={cap.name}
-                  className="group py-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 hover:bg-[#F0F6F4] transition-colors px-2.5 -mx-2.5 rounded"
+                  className="group py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 hover:bg-[#F0F6F4] transition-colors px-3 -mx-3 rounded-lg"
                 >
                   <div className="sm:w-1/3">
                     <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#122D2E] group-hover:text-[#0B4A47] transition-colors">
@@ -139,7 +129,7 @@ export default function OracleFlagship() {
               ))}
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2">
               <Link
                 href="/oracle"
                 className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[8px] bg-[#B83A3A] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(184,58,58,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"

@@ -10,23 +10,23 @@ import { stockImage } from "@/lib/marketing/stock-images";
 const methodologySteps = [
   {
     number: "01",
-    title: "FIND THE VALUE",
-    description: "Identify high-friction operational bottlenecks where structured data and AI automation create measurable return.",
+    title: "VALUE DISCOVERY",
+    description: "Identify high-friction operational bottlenecks where automated intelligence delivers measurable return.",
   },
   {
     number: "02",
-    title: "BUILD THE FOUNDATION",
-    description: "Cleanse, govern, and pipeline operational data from enterprise platforms into unified knowledge architectures.",
+    title: "DATA FOUNDATION",
+    description: "Pipeline and govern operational data from core ERPs into unified, queryable knowledge architectures.",
   },
   {
     number: "03",
-    title: "PUT AI INTO THE WORK",
-    description: "Deploy task-oriented agents, extraction pipelines, and assistive intelligence directly inside employee workflows.",
+    title: "WORKFLOW AGENTS",
+    description: "Deploy task-oriented models, extraction pipelines, and assistance directly inside day-to-day tools.",
   },
   {
     number: "04",
-    title: "OPERATE WITH TRUST",
-    description: "Establish source grounding, access controls, human review, and continuous operational performance monitoring.",
+    title: "TRUST & CONTROL",
+    description: "Ground every output with verifiable source citations, strict role access, and audit oversight.",
   },
 ];
 
@@ -92,7 +92,7 @@ export default function AIDataStory() {
               {/* Data-lines outline frame behind cut image */}
               <div className="absolute -inset-2 rounded-[14px] border border-[#9BC4B8]/20 -z-0 hidden sm:block" />
 
-              {/* Shaped container with Architectural Cut (polygon 12% 0, 100% 0, 100% 88%, 88% 100%, 0 100%, 0 12%) */}
+              {/* Shaped container with Architectural Cut */}
               <div
                 className="relative w-full h-[320px] sm:h-[390px] overflow-hidden bg-[#073B3A] border border-[#9BC4B8]/30 shadow-[0_20px_50px_rgba(0,0,0,0.30)] ca-shape-cut-ai"
               >
@@ -109,7 +109,7 @@ export default function AIDataStory() {
           </motion.div>
         </div>
 
-        {/* 4 Editorial Stages: Large Numbers + Whitespace + Thin Dividers */}
+        {/* 4 Executive Methodology Stages */}
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-white/20 pt-10">
           {methodologySteps.map((step, idx) => (
             <motion.div
@@ -127,7 +127,7 @@ export default function AIDataStory() {
                 <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-white">
                   {step.title}
                 </h3>
-                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-white/78">
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/78">
                   {step.description}
                 </p>
               </div>

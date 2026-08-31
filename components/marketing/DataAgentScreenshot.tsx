@@ -13,7 +13,7 @@ export default function DataAgentScreenshot() {
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
         </div>
         <span className="font-mono text-xs text-[#526170]">
-          data-agent.consultamerica.internal
+          data-agent.consultamerica.net
         </span>
         <div className="w-8" />
       </div>

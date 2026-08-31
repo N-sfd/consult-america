@@ -694,30 +694,30 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7"
             >
-              <CorporateBrowserFrame url="https://convera-gateway.consultamerica.internal">
+              <CorporateBrowserFrame url="https://convera.consultamerica.net">
                 <div className="p-6 bg-white space-y-4">
                   <div className="flex items-center justify-between border-b border-[#C9DDD7] pb-3 text-xs">
                     <div className="flex items-center gap-2">
                       <Workflow className="h-4 w-4 text-[#0B4A47]" />
-                      <span className="font-bold text-[#122D2E]">Event Stream Controller</span>
+                      <span className="font-bold text-[#122D2E]">Event Stream &amp; API Controller</span>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#0B4A47] bg-[#E1ECE8] px-2 py-0.5 rounded font-bold">
-                      Operational
+                    <span className="font-mono text-[0.62rem] text-[#0B4A47] bg-[#E1ECE8] px-2.5 py-1 rounded font-bold">
+                      Integration Gateway
                     </span>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-3">
-                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase">Oracle Bridge</p>
-                      <p className="text-sm font-bold text-[#122D2E] mt-0.5">Active</p>
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-3">
+                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase font-bold">Oracle Bridge</p>
+                      <p className="text-xs font-bold text-[#122D2E] mt-1">Fusion Cloud OIC</p>
                     </div>
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-3">
-                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase">CRM Pipeline</p>
-                      <p className="text-sm font-bold text-[#0B4A47] mt-0.5">Synced</p>
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-3">
+                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase font-bold">CRM Connector</p>
+                      <p className="text-xs font-bold text-[#0B4A47] mt-1">Bidirectional Event Bus</p>
                     </div>
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-3">
-                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase">Routing Mode</p>
-                      <p className="text-sm font-bold text-[#2F7772] mt-0.5">Direct</p>
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-3">
+                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase font-bold">API Security</p>
+                      <p className="text-xs font-bold text-[#176A63] mt-1">Schema Validated</p>
                     </div>
                   </div>
                 </div>
@@ -738,32 +738,34 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7 order-2 lg:order-1"
             >
-              <CorporateBrowserFrame url="https://workforce.consultamerica.internal">
+              <CorporateBrowserFrame url="https://workforce.consultamerica.net">
                 <div className="p-6 bg-white space-y-4">
                   <div className="flex items-center justify-between border-b border-[#C9DDD7] pb-3 text-xs">
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-[#B83A3A]" />
-                      <span className="font-bold text-[#122D2E]">Core HR &amp; Workforce Portal</span>
+                      <Users className="h-4 w-4 text-[#0B4A47]" />
+                      <span className="font-bold text-[#122D2E]">Enterprise Workforce Workspace</span>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#5B6D6B]">Production Suite</span>
+                    <span className="font-mono text-[0.62rem] text-[#0B4A47] bg-[#E1ECE8] px-2.5 py-1 rounded font-bold">
+                      Workforce Suite
+                    </span>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-[0.65rem] font-bold">
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-2.5">
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-2.5">
                       <p className="text-[#5B6D6B]">RECRUITING</p>
-                      <p className="text-xs font-bold text-[#122D2E] mt-1">Active Pipeline</p>
+                      <p className="text-xs font-bold text-[#122D2E] mt-1">Talent Pipeline</p>
                     </div>
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-2.5">
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-2.5">
                       <p className="text-[#5B6D6B]">CANDIDATES</p>
-                      <p className="text-xs font-bold text-[#122D2E] mt-1">Screening Flow</p>
+                      <p className="text-xs font-bold text-[#122D2E] mt-1">Evaluation Flow</p>
                     </div>
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-2.5">
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-2.5">
                       <p className="text-[#5B6D6B]">TIMESHEETS</p>
-                      <p className="text-xs font-bold text-[#0B4A47] mt-1">Approvals Online</p>
+                      <p className="text-xs font-bold text-[#0B4A47] mt-1">Manager Approvals</p>
                     </div>
-                    <div className="rounded border border-[#C9DDD7] bg-[#E1ECE8] p-2.5">
+                    <div className="rounded-lg border border-[#C9DDD7] bg-[#E1ECE8] p-2.5">
                       <p className="text-[#5B6D6B]">PAYROLL</p>
-                      <p className="text-xs font-bold text-[#B83A3A] mt-1">Verified</p>
+                      <p className="text-xs font-bold text-[#B83A3A] mt-1">Ledger Integration</p>
                     </div>
                   </div>
                 </div>

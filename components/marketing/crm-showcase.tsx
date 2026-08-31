@@ -115,10 +115,10 @@ export default function CRMShowcase() {
                 <div className="mkt-overlay-soft" />
 
                 {/* Translucent white journey badge overlay */}
-                <div className="absolute bottom-4 left-4 right-4 z-10 rounded-[8px] border border-white/60 bg-white/90 p-3.5 backdrop-blur-md shadow-sm">
+                <div className="absolute bottom-4 left-4 right-4 z-10 rounded-[8px] border border-white/60 bg-white/95 p-3.5 backdrop-blur-md shadow-sm">
                   <div className="flex items-center justify-between text-[11px] font-bold text-[#0B4A47] uppercase tracking-wider">
                     <span className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-[#176A63]" />360° Account View</span>
-                    <span className="text-[#B83A3A]">Live Intelligence</span>
+                    <span className="text-[#176A63]">Unified Architecture</span>
                   </div>
                 </div>
               </div>

@@ -8,12 +8,12 @@ import { motion } from "framer-motion";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 const workflowSteps = [
-  { step: "01", name: "INGEST", color: "border-[#3A5A6E]/60 text-[#7FA89C] bg-[#1C2C40]" },
-  { step: "02", name: "EXTRACT", color: "border-[#3A5A78]/60 text-[#8FADD1] bg-[#1C2C40]" },
-  { step: "03", name: "VERIFY", color: "border-[#7A3A3A]/60 text-[#E38B8B] bg-[#1C2C40]" },
-  { step: "04", name: "REVIEW", color: "border-[#3A5A6E]/60 text-[#7FA89C] bg-[#1C2C40]" },
-  { step: "05", name: "ANALYZE", color: "border-[#3A5A78]/60 text-[#8FADD1] bg-[#1C2C40]" },
-  { step: "06", name: "INTEGRATE", color: "border-[#7A3A3A]/60 text-[#E38B8B] bg-[#1C2C40]" },
+  { step: "01", name: "INGEST", color: "border-[#176A63] text-[#9BC4B8] bg-[#0B4A47]" },
+  { step: "02", name: "EXTRACT", color: "border-[#176A63] text-[#9BC4B8] bg-[#0B4A47]" },
+  { step: "03", name: "VERIFY", color: "border-[#B83A3A] text-white bg-[#0B4A47]" },
+  { step: "04", name: "REVIEW", color: "border-[#176A63] text-[#9BC4B8] bg-[#0B4A47]" },
+  { step: "05", name: "ANALYZE", color: "border-[#176A63] text-[#9BC4B8] bg-[#0B4A47]" },
+  { step: "06", name: "INTEGRATE", color: "border-[#B83A3A] text-white bg-[#0B4A47]" },
 ];
 
 const features = [
@@ -27,11 +27,11 @@ const features = [
 
 export default function DataAgentFlagship() {
   return (
-    <section id="data-agent" className="mkt-section bg-[#111C2D] text-[#F5F7FA]">
+    <section id="data-agent" className="mkt-section bg-[#073B3A] text-white">
       <div className="mkt-shell">
         <div className="flex items-center justify-between">
-          <SectionLabel tone="burgundy">Innovation Flagship</SectionLabel>
-          <span className="rounded bg-[#1C2C40] border border-[#2A3A4E] px-2.5 py-1 text-[0.68rem] font-bold tracking-wider text-[#E38B8B] uppercase">
+          <SectionLabel tone="emerald">Innovation Flagship</SectionLabel>
+          <span className="rounded bg-[#0B4A47] border border-[#176A63] px-2.5 py-1 text-[0.68rem] font-bold tracking-wider text-[#9BC4B8] uppercase">
             Consult America Labs
           </span>
         </div>
@@ -45,10 +45,10 @@ export default function DataAgentFlagship() {
             transition={{ duration: 0.55 }}
             className="lg:col-span-5 space-y-6"
           >
-            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-[#F5F7FA] sm:text-4xl lg:text-5xl lg:leading-[1.12]">
+            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl lg:leading-[1.12]">
               Turn complex documents into usable enterprise intelligence.
             </h2>
-            <p className="text-base leading-relaxed text-[#A4B1BE]">
+            <p className="text-base leading-relaxed text-white/80">
               Data Agent transforms contracts and complex enterprise documents into
               structured, traceable information while keeping humans connected to
               the source document.
@@ -56,8 +56,8 @@ export default function DataAgentFlagship() {
 
             <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 pt-2">
               {features.map((feat) => (
-                <div key={feat} className="flex items-center gap-2 text-xs font-semibold text-[#F5F7FA]">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-[#7FA89C] shrink-0" />
+                <div key={feat} className="flex items-center gap-2 text-xs font-semibold text-white">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[#9BC4B8] shrink-0" />
                   <span>{feat}</span>
                 </div>
               ))}
@@ -66,7 +66,7 @@ export default function DataAgentFlagship() {
             <div className="pt-4">
               <Link
                 href="/work/innovation/data-agent"
-                className="group inline-flex min-h-12 items-center gap-2 rounded-md bg-[#B63838] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#8F292D] cursor-pointer"
+                className="group inline-flex min-h-12 items-center gap-2 rounded-md bg-[#B83A3A] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#992F31] cursor-pointer"
               >
                 <span>Explore Data Agent</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -82,16 +82,16 @@ export default function DataAgentFlagship() {
             transition={{ duration: 0.65 }}
             className="lg:col-span-7"
           >
-            <div className="overflow-hidden rounded-xl border border-[#2A3A4E] bg-[#FFFFFF] p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+            <div className="overflow-hidden rounded-xl border border-[#176A63] bg-[#FFFFFF] p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
               {/* Browser bar */}
-              <div className="flex items-center justify-between border-b border-[#E2E7EC]/80 bg-[#F4F6F8] px-3 py-2 -mx-2.5 -mt-2.5 mb-2.5">
+              <div className="flex items-center justify-between border-b border-[#E1ECE8] bg-[#F0F6F4] px-3 py-2 -mx-2.5 -mt-2.5 mb-2.5">
                 <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#E2E7EC]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#E2E7EC]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#E2E7EC]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#C9DDD7]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#C9DDD7]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#C9DDD7]" />
                 </div>
-                <span className="text-[0.68rem] font-mono tracking-wider text-[#475467]">
-                  data-agent.consultamerica.internal
+                <span className="text-[0.68rem] font-mono tracking-wider text-[#5B6D6B]">
+                  data-agent.consultamerica.net
                 </span>
                 <div className="w-8" />
               </div>
@@ -108,9 +108,9 @@ export default function DataAgentFlagship() {
           </motion.div>
         </div>
 
-        {/* 6-Stage Workflow with Muted Blue, Sage, and Red Accents */}
-        <div className="mt-16 border-t border-[#23324A] pt-10">
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#A4B1BE]">
+        {/* 6-Stage Workflow with Emerald and Red Accents */}
+        <div className="mt-16 border-t border-[#176A63] pt-10">
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
             Data Agent Workflow Line
           </p>
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
