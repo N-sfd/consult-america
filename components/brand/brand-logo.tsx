@@ -22,29 +22,32 @@ export default function BrandLogo({
   priority = false,
   onNavigate,
 }: BrandLogoProps) {
+  const isDarkTone = tone === "dark"; // on light background
+
   const content = (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-sm bg-white sm:h-10 sm:w-10">
+    <span className={cn("inline-flex items-center gap-3", className)}>
+      <span
+        className={cn(
+          "relative flex items-center justify-center overflow-hidden rounded-md transition-all duration-200",
+          isDarkTone
+            ? "h-11 w-auto"
+            : "h-11 w-auto rounded-md bg-[#FFFDF8] p-1 shadow-xs ring-1 ring-white/15"
+        )}
+      >
         <Image
           src="/brand/logo.jpg"
-          alt=""
-          width={40}
-          height={40}
+          alt="Consult America Logo"
+          width={180}
+          height={120}
           priority={priority}
-          className={cn("h-full w-full object-contain", markClassName)}
+          className={cn(
+            "h-10 w-auto object-contain transition-transform duration-200 hover:scale-[1.02]",
+            isDarkTone ? "mix-blend-multiply" : "",
+            markClassName
+          )}
         />
       </span>
-      {showWordmark ? (
-        <span
-          className={cn(
-            "text-[0.9rem] font-semibold tracking-[0.1em] sm:text-[1.05rem]",
-            tone === "light" ? "text-[#F7F0E7]" : "text-[#261F1B]",
-          )}
-        >
-          CONSULTAMERICA
-        </span>
-      ) : null}
-      <span className="sr-only">ConsultAmerica</span>
+      <span className="sr-only">Consult America</span>
     </span>
   );
 
@@ -53,8 +56,8 @@ export default function BrandLogo({
   return (
     <Link
       href={href}
-      aria-label="ConsultAmerica homepage"
-      className="inline-flex"
+      aria-label="Consult America homepage"
+      className="inline-flex items-center"
       onClick={onNavigate}
     >
       {content}
