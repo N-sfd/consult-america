@@ -29,7 +29,7 @@ export default function TrustCredibility() {
               <div key={item.name} className="inline-flex items-center">
                 <Link
                   href={item.href}
-                  className="transition-colors hover:text-[#B63A3A] px-3 py-1"
+                  className="transition-colors hover:text-[#BA3535] px-3 py-1"
                 >
                   {item.name}
                 </Link>

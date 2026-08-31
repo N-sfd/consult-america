@@ -58,16 +58,16 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             aria-label="Navigation menu"
           >
             {/* Drawer Header */}
-            <div className="flex h-16 items-center justify-between border-b border-[#E9EEF1] px-5">
+            <div className="flex h-16 items-center justify-between border-b border-[#DCE3E5] px-5">
               {level === "root" ? (
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0E514E]">
                   Navigation
                 </p>
               ) : (
                 <button
                   type="button"
                   onClick={() => setLevel("root")}
-                  className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A] cursor-pointer"
+                  className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#0E514E] cursor-pointer"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" />
                   Back
@@ -76,7 +76,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-[#102033] hover:bg-[#F7F9FA] cursor-pointer"
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-[#102033] hover:bg-[#F8FAFA] cursor-pointer"
                 aria-label="Close navigation menu"
               >
                 <X className="h-5 w-5" />
@@ -99,7 +99,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/oracle"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#BA3535]"
                   >
                     Oracle
                   </Link>
@@ -107,7 +107,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/platforms/crm"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#BA3535]"
                   >
                     CRM &amp; Customer Experience
                   </Link>
@@ -115,7 +115,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/ai-data"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#BA3535]"
                   >
                     AI &amp; Data
                   </Link>
@@ -141,7 +141,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/work"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#BA3535]"
                   >
                     Our Work
                   </Link>
@@ -149,7 +149,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/insights"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#102033] hover:text-[#BA3535]"
                   >
                     Insights
                   </Link>
@@ -167,14 +167,14 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <Link
                       href="/careers"
                       onClick={handleClose}
-                      className="block text-sm text-[#526170] hover:text-[#B63A3A]"
+                      className="block text-sm text-[#526170] hover:text-[#BA3535]"
                     >
                       Careers
                     </Link>
                     <Link
                       href="/login"
                       onClick={handleClose}
-                      className="block text-sm font-semibold text-[#102033] hover:text-[#B63A3A]"
+                      className="block text-sm font-semibold text-[#102033] hover:text-[#BA3535]"
                     >
                       Employee Portal Login →
                     </Link>
@@ -186,22 +186,22 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {level === "what-we-do" && (
                 <div className="space-y-6 pt-4">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                       Transform
                     </p>
                     <ul className="mt-2 space-y-2">
                       <li>
-                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#B63A3A]">
+                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#BA3535]">
                           Enterprise Transformation
                         </Link>
                       </li>
                       <li>
-                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#B63A3A]">
+                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#BA3535]">
                           Operating Model &amp; Process
                         </Link>
                       </li>
                       <li>
-                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#B63A3A]">
+                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#BA3535]">
                           Program Delivery &amp; PMO
                         </Link>
                       </li>
@@ -209,17 +209,17 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   </div>
 
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                       Modernize &amp; AI
                     </p>
                     <ul className="mt-2 space-y-2">
                       <li>
-                        <Link href="/oracle" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#B63A3A]">
+                        <Link href="/oracle" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#BA3535]">
                           Oracle Transformation
                         </Link>
                       </li>
                       <li>
-                        <Link href="/platforms/crm" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#B63A3A]">
+                        <Link href="/platforms/crm" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#BA3535]">
                           CRM Transformation
                         </Link>
                       </li>
@@ -252,7 +252,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#B63A3A]">
+                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#102033] hover:text-[#BA3535]">
                           Managed Services
                         </Link>
                       </li>
@@ -260,7 +260,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   </div>
 
                   <div className="rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-4">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                       Consult America Labs
                     </p>
                     <div className="mt-3 space-y-2">
@@ -274,7 +274,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                           key={prod.label}
                           href={prod.href}
                           onClick={handleClose}
-                          className="block text-xs font-medium text-[#102033] hover:text-[#B63A3A]"
+                          className="block text-xs font-medium text-[#102033] hover:text-[#BA3535]"
                         >
                           {prod.label} · <span className="text-[#526170]">{prod.detail}</span>
                         </Link>
@@ -287,7 +287,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {/* APPLICATIONS SUB-PANEL */}
               {level === "applications" && (
                 <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                     Applications Suite
                   </p>
                   {platformLinks.map((item) => (
@@ -295,7 +295,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] p-3 transition-colors hover:border-[#B63A3A]"
+                      className="block rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] p-3 transition-colors hover:border-[#BA3535]"
                     >
                       <p className="text-sm font-bold text-[#102033]">{item.label}</p>
                       <p className="mt-0.5 text-xs text-[#526170]">{item.detail}</p>
@@ -307,7 +307,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {/* INDUSTRIES SUB-PANEL */}
               {level === "industries" && (
                 <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                     Industries
                   </p>
                   {industryLinks.map((item) => (
@@ -315,7 +315,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block border-b border-[#E9EEF1] py-2.5 text-sm font-semibold text-[#102033] hover:text-[#B63A3A]"
+                      className="block border-b border-[#E9EEF1] py-2.5 text-sm font-semibold text-[#102033] hover:text-[#BA3535]"
                     >
                       {item.label}
                     </Link>
@@ -326,7 +326,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {/* COMPANY SUB-PANEL */}
               {level === "company" && (
                 <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                     Company
                   </p>
                   {[
@@ -341,7 +341,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block border-b border-[#E9EEF1] py-2.5 text-sm font-semibold text-[#102033] hover:text-[#B63A3A]"
+                      className="block border-b border-[#E9EEF1] py-2.5 text-sm font-semibold text-[#102033] hover:text-[#BA3535]"
                     >
                       {item.label}
                     </Link>

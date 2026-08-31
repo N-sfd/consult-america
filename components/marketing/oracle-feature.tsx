@@ -100,7 +100,7 @@ export default function OracleFeature({
                 <p className="text-sm font-semibold text-[#526170]">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <p className="mt-3 text-lg font-bold text-[#102033] transition-colors duration-200 group-hover:text-[#B63A3A]">
+                <p className="mt-3 text-lg font-bold text-[#102033] transition-colors duration-200 group-hover:text-[#BA3535]">
                   {area}
                 </p>
               </motion.div>

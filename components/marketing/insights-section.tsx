@@ -48,19 +48,24 @@ export default function InsightsSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="insights" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
-      <div className="ca-shell">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
+    <section id="insights" className="bg-[#F8FAFA] text-[#102033] py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DCE3E5]">
           <div>
-            <SectionLabel tone="burgundy">PERSPECTIVES &amp; ANALYSIS</SectionLabel>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#102033]">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5A6770]">
+                PERSPECTIVES &amp; ANALYSIS
+              </span>
+            </div>
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-[#102033]">
               Enterprise Insights
             </h2>
           </div>
 
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#B63A3A] hover:text-[#942E31]"
+            className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#0E514E] hover:text-[#BA3535] transition-colors"
           >
             <span>Explore all publications</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -68,16 +73,16 @@ export default function InsightsSection() {
         </div>
 
         {/* 60% Featured Insight Left + 3 Smaller Stories Right */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           {/* Featured Article (~58-60%) */}
           <motion.article
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-7 rounded-lg border border-[#DDE4E8] bg-white overflow-hidden flex flex-col justify-between shadow-2xs hover:border-[#B63A3A]/40 transition-all duration-300"
+            className="lg:col-span-7 rounded-[10px] border border-[#DCE3E5] bg-white overflow-hidden flex flex-col justify-between shadow-2xs hover:border-[#0E514E]/40 transition-all duration-300"
           >
-            <div className="relative aspect-[16/10] w-full bg-[#0C2233]">
+            <div className="relative aspect-[16/10] w-full bg-[#0B1F2D]">
               <Image
                 src={featuredInsight.image}
                 alt={featuredInsight.title}
@@ -90,10 +95,10 @@ export default function InsightsSection() {
             <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
                     {featuredInsight.category}
                   </span>
-                  <span className="text-[0.72rem] text-[#526170]">
+                  <span className="text-[0.72rem] text-[#5A6770]">
                     {featuredInsight.readTime}
                   </span>
                 </div>
@@ -102,17 +107,17 @@ export default function InsightsSection() {
                   {featuredInsight.title}
                 </h3>
 
-                <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#526170]">
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#5A6770]">
                   {featuredInsight.summary}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#E9EEF1]">
+              <div className="pt-4 border-t border-[#E1E7E8]">
                 <Link
                   href={featuredInsight.href}
-                  className="ca-link text-xs sm:text-sm font-semibold text-[#B63A3A]"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#BA3535] hover:text-[#9E2C2C] transition-colors"
                 >
-                  Read Article →
+                  <span>Read Article →</span>
                 </Link>
               </div>
             </div>
@@ -127,9 +132,9 @@ export default function InsightsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group rounded-lg border border-[#DDE4E8] bg-white p-4.5 hover:border-[#B63A3A]/40 transition-all duration-300 flex items-center gap-4 flex-1 shadow-2xs"
+                className="group rounded-[10px] border border-[#DCE3E5] bg-white p-4.5 hover:border-[#0E514E]/40 transition-all duration-300 flex items-center gap-4 flex-1 shadow-2xs"
               >
-                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded bg-[#0C2233]">
+                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded bg-[#0B1F2D]">
                   <Image
                     src={insight.image}
                     alt={insight.title}
@@ -141,21 +146,21 @@ export default function InsightsSection() {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between text-[0.65rem]">
-                    <span className="font-bold uppercase tracking-wider text-[#B63A3A] truncate">
+                    <span className="font-bold uppercase tracking-wider text-[#0E514E] truncate">
                       {insight.category}
                     </span>
-                    <span className="text-[#526170] shrink-0">{insight.readTime}</span>
+                    <span className="text-[#5A6770] shrink-0">{insight.readTime}</span>
                   </div>
 
-                  <h4 className="mt-1 text-sm font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors leading-snug line-clamp-2">
+                  <h4 className="mt-1 text-sm font-bold text-[#102033] group-hover:text-[#0E514E] transition-colors leading-snug line-clamp-2">
                     {insight.title}
                   </h4>
 
                   <Link
                     href={insight.href}
-                    className="mt-2 inline-flex items-center gap-1 text-[0.72rem] font-bold text-[#B63A3A] hover:underline"
+                    className="mt-2 inline-flex items-center gap-1 text-[0.72rem] font-bold text-[#BA3535] hover:text-[#9E2C2C]"
                   >
-                    Read Article →
+                    <span>Read Article →</span>
                   </Link>
                 </div>
               </motion.article>

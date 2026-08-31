@@ -53,27 +53,60 @@ export default function SiteHeader() {
         className="sticky top-0 z-50 transition-all duration-200"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        {/* Main Navigation Bar */}
+        {/* Top Dark Teal Utility Bar (Section 4 Specification: #0E514E, 28-32px) */}
+        <div className="hidden border-b border-[#0A3D3B] bg-[#0E514E] py-1.5 text-[11px] sm:text-[12px] font-medium text-white/90 lg:block">
+          <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#34D399]" />
+              <span className="tracking-wide">
+                Enterprise Transformation · Oracle · AI · Application Engineering
+              </span>
+            </div>
+            <div className="flex items-center gap-5 text-white/85">
+              <Link
+                href="/insights"
+                className="transition-colors hover:text-white"
+              >
+                Insights
+              </Link>
+              <Link
+                href="/careers"
+                className="transition-colors hover:text-white"
+              >
+                Careers
+              </Link>
+              <button
+                type="button"
+                onClick={() => setContactOpen(true)}
+                className="cursor-pointer transition-colors hover:text-white"
+              >
+                Contact
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Navigation Bar (Section 5 Specification: 74-82px, Max Width 1440px) */}
         <div className={`transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}>
-          <div className="ca-shell">
+          <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
             <div className="flex h-[76px] xl:h-[80px] items-center justify-between gap-4 xl:gap-8">
               <BrandLogo tone="dark" priority />
 
-              {/* Desktop Navigation Links */}
+              {/* Desktop Navigation Links — whitespace-nowrap prevents any line breaking */}
               <nav
-                className="hidden items-center justify-center gap-2.5 xl:gap-4 lg:flex"
+                className="hidden items-center justify-center gap-3 xl:gap-5.5 lg:flex flex-nowrap shrink-0"
                 aria-label="Primary navigation"
               >
                 {/* What We Do Dropdown */}
                 <button
                   type="button"
                   data-open={openMenu === "what-we-do"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("what-we-do")}
                   onClick={() => setOpenMenu(openMenu === "what-we-do" ? null : "what-we-do")}
                   aria-expanded={openMenu === "what-we-do"}
                 >
-                  What We Do
+                  <span>What We Do</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform duration-200" />
                 </button>
 
@@ -81,12 +114,12 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "oracle"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("oracle")}
                   onClick={() => setOpenMenu(openMenu === "oracle" ? null : "oracle")}
                   aria-expanded={openMenu === "oracle"}
                 >
-                  Oracle
+                  <span>Oracle</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
@@ -94,12 +127,12 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "crm"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("crm")}
                   onClick={() => setOpenMenu(openMenu === "crm" ? null : "crm")}
                   aria-expanded={openMenu === "crm"}
                 >
-                  CRM
+                  <span>CRM</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
@@ -107,12 +140,12 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "ai-data"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("ai-data")}
                   onClick={() => setOpenMenu(openMenu === "ai-data" ? null : "ai-data")}
                   aria-expanded={openMenu === "ai-data"}
                 >
-                  AI &amp; Data
+                  <span>AI &amp; Data</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
@@ -120,12 +153,12 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "applications"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("applications")}
                   onClick={() => setOpenMenu(openMenu === "applications" ? null : "applications")}
                   aria-expanded={openMenu === "applications"}
                 >
-                  Applications
+                  <span>Applications</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
@@ -133,64 +166,51 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "industries"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("industries")}
                   onClick={() => setOpenMenu(openMenu === "industries" ? null : "industries")}
                   aria-expanded={openMenu === "industries"}
                 >
-                  Industries
+                  <span>Industries</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
                 <Link
                   href="/work"
-                  className="ca-nav-link text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A]"
+                  className="ca-nav-link whitespace-nowrap text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535]"
                   onMouseEnter={() => setOpenMenu(null)}
                 >
-                  Our Work
+                  <span>Our Work</span>
                 </Link>
 
                 <Link
                   href="/insights"
-                  className="ca-nav-link text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A]"
+                  className="ca-nav-link whitespace-nowrap text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535]"
                   onMouseEnter={() => setOpenMenu(null)}
                 >
-                  Insights
+                  <span>Insights</span>
                 </Link>
 
                 {/* Company Dropdown */}
                 <button
                   type="button"
                   data-open={openMenu === "company"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#B63A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#102033] hover:text-[#BA3535] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("company")}
                   onClick={() => setOpenMenu(openMenu === "company" ? null : "company")}
                   aria-expanded={openMenu === "company"}
                 >
-                  Company
+                  <span>Company</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
               </nav>
 
-              {/* Utility / Right Action */}
-              <div className="flex items-center gap-3 sm:gap-4.5">
-                <Link
-                  href="/careers"
-                  className="hidden text-xs xl:text-sm font-semibold text-[#526170] hover:text-[#B63A3A] transition-colors md:block"
-                >
-                  Careers
-                </Link>
+              {/* Right Action CTA */}
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setContactOpen(true)}
-                  className="hidden text-xs xl:text-sm font-semibold text-[#526170] hover:text-[#B63A3A] transition-colors md:block cursor-pointer"
-                >
-                  Contact
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setContactOpen(true)}
-                  className="ca-button-primary hidden !min-h-[42px] !px-4.5 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer shadow-2xs"
+                  className="ca-button-primary hidden !min-h-[44px] !px-5 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer shadow-2xs whitespace-nowrap"
                 >
                   <span>Talk to an Expert</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -199,7 +219,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(true)}
-                  className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#DDE4E8] bg-white lg:hidden cursor-pointer"
+                  className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#DCE3E5] bg-white lg:hidden cursor-pointer"
                   aria-label="Open navigation menu"
                   aria-expanded={drawerOpen}
                 >
@@ -214,11 +234,11 @@ export default function SiteHeader() {
         {/* Full-Width Mega Menus */}
         {openMenu && (
           <div
-            className="hidden border-b border-[#E9EEF1] bg-white shadow-[0_18px_50px_rgba(16,32,51,0.08)] lg:block transition-all duration-200"
+            className="hidden border-b border-[#DCE3E5] bg-white shadow-[0_18px_50px_rgba(16,32,51,0.08)] lg:block transition-all duration-200"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >
-            <div className="ca-shell py-8">
+            <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 py-8">
               {/* 1. WHAT WE DO MEGA MENU (Section 6 Specification: 5 Columns + Labs Panel) */}
               {openMenu === "what-we-do" && (
                 <div className="grid grid-cols-12 gap-6">
@@ -226,7 +246,7 @@ export default function SiteHeader() {
                   <div className="col-span-9 grid grid-cols-5 gap-4">
                     {/* 1. TRANSFORM */}
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         TRANSFORM
                       </p>
                       <ul className="mt-3 space-y-1.5 text-xs">
@@ -241,7 +261,7 @@ export default function SiteHeader() {
                             <Link
                               href="/capabilities/enterprise-transformation"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors leading-snug"
+                              className="block py-0.5 text-[#102033] hover:text-[#BA3535] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
@@ -266,7 +286,7 @@ export default function SiteHeader() {
                             <Link
                               href={item.href}
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors leading-snug"
+                              className="block py-0.5 text-[#102033] hover:text-[#BA3535] transition-colors leading-snug"
                             >
                               {item.label}
                             </Link>
@@ -277,7 +297,7 @@ export default function SiteHeader() {
 
                     {/* 3. INTELLIGENCE */}
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
                         INTELLIGENCE
                       </p>
                       <ul className="mt-3 space-y-1.5 text-xs">
@@ -293,7 +313,7 @@ export default function SiteHeader() {
                             <Link
                               href="/ai-data"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#357C78] transition-colors leading-snug"
+                              className="block py-0.5 text-[#102033] hover:text-[#0E514E] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
@@ -342,7 +362,7 @@ export default function SiteHeader() {
                             <Link
                               href="/capabilities/managed-delivery"
                               onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#102033] hover:text-[#B63A3A] transition-colors leading-snug"
+                              className="block py-0.5 text-[#102033] hover:text-[#BA3535] transition-colors leading-snug"
                             >
                               {label}
                             </Link>
@@ -352,15 +372,15 @@ export default function SiteHeader() {
                     </div>
                   </div>
 
-                  {/* Right Side Feature: CONSULT AMERICA LABS in #F7F9FA */}
-                  <div className="col-span-3 rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-4.5 flex flex-col justify-between">
+                  {/* Right Side Feature: CONSULT AMERICA LABS in #F8FAFA */}
+                  <div className="col-span-3 rounded-xl border border-[#DDE4E8] bg-[#F8FAFA] p-4.5 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between pb-2 border-b border-[#DDE4E8]">
-                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A] flex items-center gap-1.5">
-                          <Sparkles className="h-3.5 w-3.5 text-[#B63A3A]" />
+                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535] flex items-center gap-1.5">
+                          <Sparkles className="h-3.5 w-3.5 text-[#BA3535]" />
                           Consult America Labs
                         </span>
-                        <span className="text-[0.62rem] font-semibold text-[#357C78] uppercase">
+                        <span className="text-[0.62rem] font-semibold text-[#0E514E] uppercase">
                           Portfolio
                         </span>
                       </div>
@@ -381,12 +401,12 @@ export default function SiteHeader() {
                             className="group/item flex items-center justify-between rounded-md border border-transparent bg-white p-1.5 px-2 transition-all hover:border-[#DDE4E8] hover:shadow-2xs"
                           >
                             <div>
-                              <span className="text-[0.75rem] font-bold text-[#102033] group-hover/item:text-[#B63A3A] transition-colors">
+                              <span className="text-[0.75rem] font-bold text-[#102033] group-hover/item:text-[#BA3535] transition-colors">
                                 {item.label}
                               </span>
                               <p className="text-[0.6rem] text-[#526170] leading-tight">{item.desc}</p>
                             </div>
-                            <ArrowUpRight className="h-3 w-3 text-[#B63A3A] opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                            <ArrowUpRight className="h-3 w-3 text-[#BA3535] opacity-0 group-hover/item:opacity-100 transition-opacity" />
                           </Link>
                         ))}
                       </div>
@@ -396,7 +416,7 @@ export default function SiteHeader() {
                       <Link
                         href="/work/innovation"
                         onClick={() => setOpenMenu(null)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#BA3535] hover:text-[#942E31] transition-colors"
                       >
                         <span>Explore Applications</span>
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -411,14 +431,14 @@ export default function SiteHeader() {
                 <div className="grid grid-cols-12 gap-8">
                   <div className="col-span-8 grid grid-cols-3 gap-6">
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         CORE CLOUD PRACTICES
                       </p>
                       <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Financials &amp; General Ledger</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Procurement &amp; Source-to-Pay</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Supply Chain Management (SCM)</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Projects &amp; Portfolio (PPM)</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Financials &amp; General Ledger</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Procurement &amp; Source-to-Pay</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Supply Chain Management (SCM)</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Projects &amp; Portfolio (PPM)</Link></li>
                       </ul>
                     </div>
 
@@ -439,17 +459,17 @@ export default function SiteHeader() {
                         DELIVERY ENGAGEMENTS
                       </p>
                       <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Full Lifecycle Implementation</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Period Close Optimization</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Subledger Reconciliation</Link></li>
-                        <li><Link href="/work" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#B63A3A]">Oracle Case Studies</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Full Lifecycle Implementation</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Period Close Optimization</Link></li>
+                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Subledger Reconciliation</Link></li>
+                        <li><Link href="/work" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#BA3535]">Oracle Case Studies</Link></li>
                       </ul>
                     </div>
                   </div>
 
                   <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#0C2233] text-white p-6 flex flex-col justify-between">
                     <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         FLAGSHIP PRACTICE
                       </span>
                       <h4 className="mt-2 font-serif text-lg font-semibold">
@@ -463,7 +483,7 @@ export default function SiteHeader() {
                       <Link
                         href="/oracle"
                         onClick={() => setOpenMenu(null)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#FFFFFF] hover:text-[#B63A3A] transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#FFFFFF] hover:text-[#BA3535] transition-colors"
                       >
                         Explore Oracle Transformation →
                       </Link>
@@ -477,7 +497,7 @@ export default function SiteHeader() {
                 <div className="grid grid-cols-12 gap-8">
                   <div className="col-span-8 grid grid-cols-2 gap-6">
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         CUSTOMER JOURNEY
                       </p>
                       <ul className="mt-3 space-y-2.5 text-xs">
@@ -502,9 +522,9 @@ export default function SiteHeader() {
                     </div>
                   </div>
 
-                  <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-5.5 flex flex-col justify-between">
+                  <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#F8FAFA] p-5.5 flex flex-col justify-between">
                     <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         CONNECTED CRM
                       </span>
                       <h4 className="mt-2 text-sm font-bold text-[#102033]">
@@ -518,7 +538,7 @@ export default function SiteHeader() {
                       <Link
                         href="/platforms/crm"
                         onClick={() => setOpenMenu(null)}
-                        className="ca-link text-xs font-semibold text-[#B63A3A]"
+                        className="ca-link text-xs font-semibold text-[#BA3535]"
                       >
                         Explore CRM Platform →
                       </Link>
@@ -532,14 +552,14 @@ export default function SiteHeader() {
                 <div className="grid grid-cols-12 gap-8">
                   <div className="col-span-8 grid grid-cols-2 gap-6">
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
                         GOVERNED AI &amp; AGENTS
                       </p>
                       <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#357C78]">Document Intelligence &amp; Clause Extraction</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#357C78]">Task-Oriented Enterprise Agents</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#357C78]">Governed RAG &amp; Source Grounding</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#357C78]">FAR / DFARS Regulatory Extraction</Link></li>
+                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#0E514E]">Document Intelligence &amp; Clause Extraction</Link></li>
+                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#0E514E]">Task-Oriented Enterprise Agents</Link></li>
+                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#0E514E]">Governed RAG &amp; Source Grounding</Link></li>
+                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#102033] hover:text-[#0E514E]">FAR / DFARS Regulatory Extraction</Link></li>
                       </ul>
                     </div>
 
@@ -556,9 +576,9 @@ export default function SiteHeader() {
                     </div>
                   </div>
 
-                  <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#EEF3F4] p-5.5 flex flex-col justify-between">
+                  <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#EEF2F3] p-5.5 flex flex-col justify-between">
                     <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
+                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
                         APPLIED INTELLIGENCE
                       </span>
                       <h4 className="mt-2 text-sm font-bold text-[#102033]">
@@ -572,7 +592,7 @@ export default function SiteHeader() {
                       <Link
                         href="/ai-data"
                         onClick={() => setOpenMenu(null)}
-                        className="ca-link text-xs font-semibold text-[#357C78]"
+                        className="ca-link text-xs font-semibold text-[#0E514E]"
                       >
                         Explore AI &amp; Data →
                       </Link>
@@ -586,7 +606,7 @@ export default function SiteHeader() {
                 <div>
                   <div className="flex items-center justify-between pb-4 border-b border-[#E9EEF1]">
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         ENTERPRISE APPLICATIONS &amp; LABS SOFTWARE
                       </p>
                       <p className="text-xs text-[#526170] mt-0.5">
@@ -596,7 +616,7 @@ export default function SiteHeader() {
                     <Link
                       href="/platforms"
                       onClick={() => setOpenMenu(null)}
-                      className="text-xs font-semibold text-[#B63A3A] hover:underline"
+                      className="text-xs font-semibold text-[#BA3535] hover:underline"
                     >
                       View platform architecture →
                     </Link>
@@ -607,13 +627,13 @@ export default function SiteHeader() {
                         key={item.label}
                         href={item.href}
                         onClick={() => setOpenMenu(null)}
-                        className="group block rounded-xl border border-[#DDE4E8] bg-white p-4 transition-all hover:border-[#B63A3A]/40 hover:bg-[#F7F9FA] shadow-2xs"
+                        className="group block rounded-xl border border-[#DDE4E8] bg-white p-4 transition-all hover:border-[#BA3535]/40 hover:bg-[#F8FAFA] shadow-2xs"
                       >
                         <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                          <h4 className="text-sm font-bold text-[#102033] group-hover:text-[#BA3535] transition-colors">
                             {item.label}
                           </h4>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#B63A3A] opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ArrowUpRight className="h-3.5 w-3.5 text-[#BA3535] opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <p className="mt-1 text-xs text-[#526170]">
                           {item.detail}
@@ -628,7 +648,7 @@ export default function SiteHeader() {
               {openMenu === "industries" && (
                 <div>
                   <div className="pb-4 border-b border-[#E9EEF1]">
-                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                       INDUSTRY PRACTICES
                     </p>
                     <p className="text-xs text-[#526170] mt-0.5">
@@ -641,13 +661,13 @@ export default function SiteHeader() {
                         key={item.label}
                         href={item.href}
                         onClick={() => setOpenMenu(null)}
-                        className="group rounded-xl border border-[#DDE4E8] bg-white p-4.5 transition-all hover:border-[#B63A3A]/40 hover:bg-[#F7F9FA] shadow-2xs"
+                        className="group rounded-xl border border-[#DDE4E8] bg-white p-4.5 transition-all hover:border-[#BA3535]/40 hover:bg-[#F8FAFA] shadow-2xs"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                          <span className="text-sm font-bold text-[#102033] group-hover:text-[#BA3535] transition-colors">
                             {item.label}
                           </span>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#B63A3A] opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ArrowUpRight className="h-3.5 w-3.5 text-[#BA3535] opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <p className="mt-1.5 text-xs text-[#526170]">
                           {item.detail}
@@ -674,13 +694,13 @@ export default function SiteHeader() {
                         key={item.label}
                         href={item.href}
                         onClick={() => setOpenMenu(null)}
-                        className="group block rounded-xl border border-[#DDE4E8] bg-white p-4 transition-all hover:border-[#B63A3A]/40 hover:bg-[#F7F9FA] shadow-2xs"
+                        className="group block rounded-xl border border-[#DDE4E8] bg-white p-4 transition-all hover:border-[#BA3535]/40 hover:bg-[#F8FAFA] shadow-2xs"
                       >
                         <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                          <h4 className="text-sm font-bold text-[#102033] group-hover:text-[#BA3535] transition-colors">
                             {item.label}
                           </h4>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#B63A3A] opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ArrowUpRight className="h-3.5 w-3.5 text-[#BA3535] opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <p className="mt-1 text-xs text-[#526170]">
                           {item.desc}
@@ -691,7 +711,7 @@ export default function SiteHeader() {
 
                   <div className="col-span-4 rounded-xl border border-[#DDE4E8] bg-[#102033] text-white p-6 flex flex-col justify-between">
                     <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
                         CONSULT AMERICA
                       </span>
                       <h4 className="mt-2 font-serif text-lg font-semibold text-white">
@@ -709,7 +729,7 @@ export default function SiteHeader() {
                           setOpenMenu(null);
                           setContactOpen(true);
                         }}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#B63A3A] transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#BA3535] transition-colors cursor-pointer"
                       >
                         Start a conversation →
                       </button>

@@ -30,27 +30,32 @@ export default function WhyConsultAmericaSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="why-consult-america" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
-      <div className="ca-shell">
-        <SectionLabel tone="burgundy">WHY CONSULT AMERICA</SectionLabel>
+    <section id="why-consult-america" className="bg-[#FFFFFF] text-[#102033] py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5A6770]">
+            WHY CONSULT AMERICA
+          </span>
+        </div>
 
-        <div className="mt-8 flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8">
+        <div className="mt-6 flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8">
           <motion.h2
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]"
+            className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-[-0.03em] text-[#102033]"
           >
             Designed for the distance between strategy and production.
           </motion.h2>
-          <p className="max-w-md text-sm sm:text-base text-[#526170]">
+          <p className="max-w-md text-sm sm:text-base text-[#5A6770]">
             How our consulting and engineering model delivers predictable enterprise outcomes.
           </p>
         </div>
 
-        {/* Minimalist Consulting Manifesto: Large Typography + Thin Dividers + Generous Whitespace (NO cards) */}
-        <div className="mt-8 divide-y divide-[#DDE4E8] border-y border-[#DDE4E8]">
+        {/* Minimalist Consulting Manifesto: Large Typography + Thin Dividers + Subtle Teal Numbers */}
+        <div className="mt-8 divide-y divide-[#DCE3E5] border-y border-[#DCE3E5]">
           {manifestoItems.map((item, idx) => (
             <motion.div
               key={item.num}
@@ -61,7 +66,7 @@ export default function WhyConsultAmericaSection() {
               className="grid grid-cols-1 gap-4 py-8 sm:py-10 sm:grid-cols-12 sm:items-baseline sm:gap-8"
             >
               <div className="sm:col-span-2">
-                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#B63A3A]">
+                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#0E514E]">
                   {item.num}
                 </span>
               </div>
@@ -71,7 +76,7 @@ export default function WhyConsultAmericaSection() {
                 </h3>
               </div>
               <div className="sm:col-span-6">
-                <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+                <p className="text-sm sm:text-base leading-relaxed text-[#5A6770]">
                   {item.description}
                 </p>
               </div>

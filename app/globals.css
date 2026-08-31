@@ -8,45 +8,49 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Consult America Modern Enterprise Palette */
-  --ca-bg: #F7F9FA;
+  /* Consult America Refined Enterprise Palette */
+  --ca-bg: #F8FAFA;
   --ca-bg-secondary: #FFFFFF;
   --ca-surface: #FFFFFF;
-  --ca-surface-soft: #F7F9FA;
-  --ca-surface-bluegray: #EEF3F4;
+  --ca-surface-soft: #F8FAFA;
+  --ca-surface-bluegray: #EEF2F3;
   --ca-text-primary: #102033;
-  --ca-text-secondary: #526170;
+  --ca-text-secondary: #5A6770;
   --ca-ink-secondary: #3B4B5B;
   
   /* Primary & Accent Reds */
-  --ca-red: #B63A3A;
-  --ca-red-hover: #942E31;
-  --ca-red-dark: #942E31;
-  --ca-burgundy: #B63A3A;
-  --ca-burgundy-hover: #942E31;
-  --ca-burgundy-accent: #B63A3A;
+  --ca-red: #BA3535;
+  --ca-red-hover: #9E2C2C;
+  --ca-red-dark: #9E2C2C;
+  --ca-burgundy: #BA3535;
+  --ca-burgundy-hover: #9E2C2C;
+  --ca-burgundy-accent: #BA3535;
 
-  /* Teal & Blue Layer Tokens */
-  --ca-teal: #357C78;
-  --ca-teal-soft: #DCEAE7;
+  /* Teal Hierarchy Tokens */
+  --ca-deep-teal: #0E514E;
+  --ca-dark-teal: #124F4C;
+  --ca-medium-teal: #2F7772;
+  --ca-teal: #0E514E;
+  --ca-teal-soft: #DCEBE8;
+  --ca-light-teal: #EDF5F3;
   --ca-enterprise-blue: #47739B;
-  --ca-blue-soft: #E5EDF4;
-  --ca-blue-accent: #47739B;
+  --ca-blue-soft: #EEF2F3;
+  --ca-blue-accent: #2F7772;
 
   /* Neutrals & Borders */
-  --ca-border: #DDE4E8;
-  --ca-border-light: #E9EEF1;
-  --ca-header-border: #E9EEF1;
+  --ca-border: #DCE3E5;
+  --ca-border-light: #E1E7E8;
+  --ca-header-border: #DCE3E5;
   --ca-navy: #102033;
-  --ca-dark-navy: #0C2233;
-  --ca-deep-navy: #0C2233;
-  --ca-dark-section: #0C2233;
+  --ca-dark-navy: #0B1F2D;
+  --ca-deep-navy: #0B1F2D;
+  --ca-dark-section: #0B1F2D;
   --ca-dark-secondary: #102033;
-  --ca-dark-card: #152B42;
-  --ca-dark-border: #1E3752;
-  --ca-text-on-dark: #F7F9FA;
+  --ca-dark-card: #142C3D;
+  --ca-dark-border: #1C384D;
+  --ca-text-on-dark: #F8FAFA;
   --ca-muted-on-dark: #97A8B7;
-  --ca-footer-bg: #0C2233;
+  --ca-footer-bg: #0B1F2D;
   --ca-footer-border: #1B354D;
   --ca-footer-hover: #E38B8B;
 

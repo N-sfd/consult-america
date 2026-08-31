@@ -18,7 +18,7 @@ export default function SectionLabel({
         tone === "light" && "text-[#97A8B7]",
         tone === "dark" && "text-[#526170]",
         tone === "blue" && "text-[#47739B]",
-        (tone === "burgundy" || tone === "red") && "text-[#B63A3A]",
+        (tone === "burgundy" || tone === "red") && "text-[#BA3535]",
         (tone === "sage" || tone === "teal") && "text-[#357C78]",
         className,
       )}

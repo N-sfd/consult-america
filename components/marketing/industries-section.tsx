@@ -42,22 +42,27 @@ export default function IndustriesSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="industries" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
-      <div className="ca-shell">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
+    <section id="industries" className="bg-[#F8FAFA] text-[#102033] py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DCE3E5]">
           <div>
-            <SectionLabel tone="burgundy">INDUSTRIES</SectionLabel>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#102033]">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5A6770]">
+                INDUSTRIES
+              </span>
+            </div>
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-[#102033]">
               Industry Practices
             </h2>
           </div>
-          <p className="max-w-md text-base text-[#526170]">
+          <p className="max-w-md text-sm sm:text-base text-[#5A6770]">
             Domain depth combining regulatory context, operational nuances, and proven delivery methods.
           </p>
         </div>
 
-        {/* 2x2 Photography Grid (No compliance badges) */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* 2x2 Photography Grid with Dark Teal / Navy Overlays */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {industries.map((ind, idx) => (
             <motion.div
               key={ind.name}
@@ -68,7 +73,7 @@ export default function IndustriesSection() {
             >
               <Link
                 href={ind.href}
-                className="group relative block h-[360px] sm:h-[400px] overflow-hidden rounded-lg border border-[#DDE4E8] bg-[#0C2233] shadow-sm"
+                className="group relative block h-[360px] sm:h-[390px] overflow-hidden rounded-[10px] border border-[#DCE3E5] bg-[#0B1F2D] shadow-sm"
               >
                 {/* Background Image */}
                 <Image
@@ -79,29 +84,29 @@ export default function IndustriesSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
 
-                {/* Subtle Navy Overlay & Gradient */}
-                <div className="absolute inset-0 bg-[#0C2233]/40 transition-colors duration-300 group-hover:bg-[#0C2233]/50" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0C2233]/90 via-[#0C2233]/40 to-transparent" />
+                {/* Subtle Navy / Dark Teal Overlay & Gradient */}
+                <div className="absolute inset-0 bg-[#0B1F2D]/45 transition-colors duration-300 group-hover:bg-[#0B1F2D]/55" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F2D]/95 via-[#0E514E]/30 to-transparent" />
 
                 {/* Content */}
                 <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white">
                   <div className="flex justify-end">
-                    <span className="rounded bg-white/15 backdrop-blur-md px-3 py-1 text-[0.68rem] font-bold tracking-wider text-white border border-white/20">
+                    <span className="rounded-[6px] bg-white/15 backdrop-blur-md px-3 py-1 text-[0.68rem] font-bold tracking-wider text-white border border-white/20">
                       {ind.focus}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-tight group-hover:text-[#F7F9FA] transition-colors">
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-tight group-hover:text-white transition-colors">
                       {ind.name}
                     </h3>
-                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#DDE4E8] line-clamp-2">
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#DCE3E5] line-clamp-2">
                       {ind.description}
                     </p>
 
                     <div className="mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white">
                       <span>Explore Practice</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5" />
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5 text-white" />
                     </div>
                   </div>
                 </div>

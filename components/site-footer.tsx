@@ -9,23 +9,33 @@ import { useContactPanel } from "@/components/providers/contact-provider";
 
 const footerColumns = [
   {
-    title: "Consulting",
+    title: "What We Do",
     links: [
       { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
-      { href: "/capabilities/enterprise-transformation", label: "Operating Model & Process" },
-      { href: "/oracle", label: "Oracle Advisory" },
-      { href: "/capabilities/managed-delivery", label: "Program Delivery & PMO" },
-      { href: "/capabilities/managed-delivery", label: "Managed Services" },
+      { href: "/oracle", label: "Oracle Transformation" },
+      { href: "/ai-data", label: "AI & Data Engineering" },
+      { href: "/capabilities/digital-engineering", label: "Application Engineering" },
+      { href: "/capabilities/managed-delivery", label: "Managed Delivery" },
     ],
   },
   {
-    title: "Technology",
+    title: "Oracle",
     links: [
-      { href: "/oracle", label: "Oracle Fusion Cloud" },
-      { href: "/ai-data", label: "AI & Data Engineering" },
-      { href: "/capabilities/digital-engineering", label: "Cloud Modernization" },
-      { href: "/capabilities/digital-engineering", label: "API & Integration Hub" },
-      { href: "/capabilities/digital-engineering", label: "Application Engineering" },
+      { href: "/oracle", label: "Financials & Ledger" },
+      { href: "/oracle", label: "Supply Chain & ERP" },
+      { href: "/oracle", label: "Procurement & S2P" },
+      { href: "/oracle", label: "Integration & OIC" },
+      { href: "/oracle", label: "Cutover & Readiness" },
+    ],
+  },
+  {
+    title: "AI & Data",
+    links: [
+      { href: "/ai-data", label: "Data Strategy & Governance" },
+      { href: "/ai-data", label: "Enterprise Agents" },
+      { href: "/ai-data", label: "Document Intelligence" },
+      { href: "/ai-data", label: "Knowledge Lineage & RAG" },
+      { href: "/ai-data", label: "Data Pipelines & Analytics" },
     ],
   },
   {
@@ -35,8 +45,7 @@ const footerColumns = [
       { href: "/ai-data", label: "Data Explorer" },
       { href: "/work/innovation/joblens", label: "JobLens" },
       { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
-      { href: "/capabilities/digital-engineering", label: "Convera" },
-      { href: "/platforms/ats", label: "HR & Talent Suite" },
+      { href: "/employee/onboarding", label: "HR & Talent Portal" },
     ],
   },
   {
@@ -49,11 +58,19 @@ const footerColumns = [
     ],
   },
   {
+    title: "Insights",
+    links: [
+      { href: "/insights", label: "Perspectives & Analysis" },
+      { href: "/insights", label: "Enterprise AI Adoption" },
+      { href: "/insights", label: "Oracle Modernization" },
+      { href: "/insights", label: "Architecture Briefs" },
+    ],
+  },
+  {
     title: "Company",
     links: [
       { href: "/about", label: "About Us" },
       { href: "/work", label: "Our Work" },
-      { href: "/insights", label: "Insights & Publications" },
       { href: "/careers", label: "Careers" },
       { href: "/contact", label: "Contact Practice Leads" },
     ],
@@ -64,13 +81,13 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="relative border-t border-[#1E3752] bg-[#0C2233] text-[#97A8B7] overflow-hidden">
+    <footer className="relative border-t-2 border-[#0E514E] bg-[#0B1F2D] text-[#97A8B7] overflow-hidden">
       {/* Prominent Pre-Footer Statement */}
-      <div className="relative z-10 border-b border-[#1E3752] bg-[#102033] py-10 sm:py-12">
-        <Shell>
+      <div className="relative z-10 border-b border-[#1C384D] bg-[#102033] py-10 sm:py-12">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <p className="text-[0.68rem] font-bold tracking-widest text-[#B63A3A] uppercase">
+              <p className="text-[0.68rem] font-bold tracking-widest text-[#0E514E] uppercase">
                 ENTERPRISE PRODUCTION DELIVERY
               </p>
               <h3 className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
@@ -81,20 +98,20 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[6px] bg-[#BA3535] px-7 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#9E2C2C] transition-all cursor-pointer"
               >
                 <span>Talk to an Expert</span>
                 <ArrowUpRight className="h-4 w-4" />
               </button>
             </div>
           </div>
-        </Shell>
+        </div>
       </div>
 
-      <Shell className="relative z-10 py-12 lg:py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10 py-12 lg:py-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           {/* Brand Col */}
-          <div className="sm:col-span-2 lg:col-span-3">
+          <div className="lg:col-span-3">
             <BrandLogo tone="light" />
             <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-[#97A8B7]">
               Enterprise transformation, Oracle Cloud, AI &amp; data, and digital application engineering delivered from strategy through production.
@@ -103,7 +120,7 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#B63A3A] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#BA3535] transition-colors cursor-pointer"
               >
                 Start a Conversation →
               </button>
@@ -116,15 +133,15 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* 5 Content Columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-5">
+          {/* 7 Content Columns */}
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-7">
             {footerColumns.map((column) => (
               <details
                 key={column.title}
                 open
-                className="group border-b border-[#1E3752] pb-4 sm:border-0 sm:pb-0"
+                className="group border-b border-[#1C384D] pb-4 sm:border-0 sm:pb-0"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.14em] text-white marker:content-none sm:cursor-default">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-white marker:content-none sm:cursor-default">
                   {column.title}
                   <ChevronDown className="h-3.5 w-3.5 text-[#97A8B7]/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
@@ -146,7 +163,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom copyright & legal */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#1E3752] pt-8 text-xs text-[#97A8B7]/70 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#1C384D] pt-8 text-xs text-[#97A8B7]/70 sm:flex-row">
           <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">
@@ -160,7 +177,7 @@ export function SiteFooter() {
             </Link>
           </div>
         </div>
-      </Shell>
+      </div>
     </footer>
   );
 }

@@ -44,9 +44,14 @@ export default function OracleFlagship() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="oracle-practice" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
-      <div className="ca-shell">
-        <SectionLabel tone="burgundy">ORACLE PRACTICE</SectionLabel>
+    <section id="oracle-practice" className="bg-[#F8FAFA] text-[#102033] py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5A6770]">
+            ORACLE PRACTICE
+          </span>
+        </div>
 
         {/* 45% Image / 55% Content Editorial Layout */}
         <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-14">
@@ -58,7 +63,7 @@ export default function OracleFlagship() {
             transition={{ duration: 0.55 }}
             className="lg:col-span-5"
           >
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] shadow-[0_16px_40px_rgba(16,32,51,0.08)]">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[10px] border border-[#DCE3E5] bg-white shadow-[0_16px_40px_rgba(16,32,51,0.08)]">
               <Image
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=85"
                 alt="Enterprise architectural structure and financial operations center"
@@ -82,24 +87,24 @@ export default function OracleFlagship() {
               Modernize the digital core.
             </h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+            <p className="text-base sm:text-lg leading-relaxed text-[#5A6770]">
               Connect Oracle applications, processes, data and integrations around the way the enterprise actually operates.
             </p>
 
             {/* 6 Editorial Rows with Thin Dividers (No technical clutter) */}
-            <div className="mt-8 divide-y divide-[#DDE4E8] border-y border-[#DDE4E8]">
+            <div className="mt-8 divide-y divide-[#DCE3E5] border-y border-[#DCE3E5]">
               {capabilities.map((cap) => (
                 <div
                   key={cap.name}
-                  className="group py-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 hover:bg-[#F7F9FA] transition-colors px-2.5 -mx-2.5 rounded"
+                  className="group py-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 hover:bg-white transition-colors px-2.5 -mx-2.5 rounded"
                 >
                   <div className="sm:w-1/3">
-                    <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                    <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#102033] group-hover:text-[#0E514E] transition-colors">
                       {cap.name}
                     </span>
                   </div>
                   <div className="sm:w-7/12">
-                    <p className="text-xs sm:text-sm text-[#526170] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#5A6770] leading-relaxed">
                       {cap.detail}
                     </p>
                   </div>
@@ -107,7 +112,7 @@ export default function OracleFlagship() {
                     <Link
                       href={cap.href}
                       aria-label={`Explore ${cap.name}`}
-                      className="text-[#526170] group-hover:text-[#B63A3A] transition-colors"
+                      className="text-[#5A6770] group-hover:text-[#0E514E] transition-colors"
                     >
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Link>
@@ -119,7 +124,7 @@ export default function OracleFlagship() {
             <div className="pt-4">
               <Link
                 href="/oracle"
-                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[6px] bg-[#BA3535] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#9E2C2C] transition-all cursor-pointer"
               >
                 <span>Explore Oracle Practice</span>
                 <ArrowUpRight className="h-4 w-4" />

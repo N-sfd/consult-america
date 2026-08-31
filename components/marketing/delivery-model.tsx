@@ -84,18 +84,18 @@ export default function DeliveryModel() {
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className={`group flex flex-col justify-between rounded-lg border p-5 text-left transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? "border-[#B63A3A] bg-white shadow-sm ring-1 ring-[#B63A3A]"
-                    : "border-[#DDE4E8] bg-white hover:border-[#B63A3A]/40"
+                    ? "border-[#BA3535] bg-white shadow-sm ring-1 ring-[#BA3535]"
+                    : "border-[#DDE4E8] bg-white hover:border-[#BA3535]/40"
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold tracking-widest text-[#B63A3A]">
+                    <span className="font-mono text-xs font-bold tracking-widest text-[#BA3535]">
                       {stage.step}
                     </span>
-                    <Icon className="h-4 w-4 text-[#526170] group-hover:text-[#B63A3A] transition-colors" />
+                    <Icon className="h-4 w-4 text-[#526170] group-hover:text-[#BA3535] transition-colors" />
                   </div>
-                  <h3 className="mt-4 text-xs font-bold uppercase tracking-wider text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                  <h3 className="mt-4 text-xs font-bold uppercase tracking-wider text-[#102033] group-hover:text-[#BA3535] transition-colors">
                     {stage.name}
                   </h3>
                   <p className="mt-2 text-xs font-semibold text-[#102033]">
@@ -110,7 +110,7 @@ export default function DeliveryModel() {
                   <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#526170]">Deliverables</p>
                   {stage.deliverables.map((item) => (
                     <div key={item} className="flex items-center gap-1.5 text-[0.65rem] text-[#526170]">
-                      <span className="h-1 w-1 rounded-full bg-[#B63A3A]" />
+                      <span className="h-1 w-1 rounded-full bg-[#BA3535]" />
                       <span>{item}</span>
                     </div>
                   ))}

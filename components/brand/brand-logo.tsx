@@ -42,13 +42,13 @@ export default function BrandLogo({
         />
       </span>
 
-          {/* Confident Enterprise Wordmark & Tagline */}
+          {/* Confident Enterprise Wordmark & Subtitle */}
           {showWordmark && (
             <span className="flex flex-col justify-center leading-none">
               <span className="flex items-center gap-1.5">
                 <span
                   className={cn(
-                    "font-serif text-[1.12rem] sm:text-[1.24rem] font-bold tracking-[-0.02em] transition-colors",
+                    "font-serif text-[1.12rem] sm:text-[1.22rem] font-bold tracking-[-0.02em] transition-colors",
                     isLight ? "text-white" : "text-[#102033]"
                   )}
                 >
@@ -56,24 +56,24 @@ export default function BrandLogo({
                 </span>
                 <span
                   className={cn(
-                    "font-serif text-[1.12rem] sm:text-[1.24rem] font-bold tracking-[-0.02em] text-[#B63A3A] transition-colors"
+                    "font-serif text-[1.12rem] sm:text-[1.22rem] font-bold tracking-[-0.02em] text-[#BA3535] transition-colors"
                   )}
                 >
                   America
                 </span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A] shrink-0" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#BA3535] shrink-0" />
               </span>
               <span
                 className={cn(
-                  "hidden sm:block mt-0.5 text-[9.5px] font-medium tracking-[0.12em] uppercase",
-                  isLight ? "text-[#97A8B7]" : "text-[#66727D]"
+                  "hidden sm:block mt-0.5 text-[9.5px] font-medium tracking-[0.06em] whitespace-nowrap",
+                  isLight ? "text-[#97A8B7]" : "text-[#596874]"
                 )}
               >
-                Enterprise Transformation · AI · Engineering
+                Transform. Modernize. Build.
               </span>
             </span>
           )}
-          <span className="sr-only">Consult America - Enterprise Transformation · AI · Engineering</span>
+          <span className="sr-only">Consult America - Transform. Modernize. Build.</span>
     </span>
   );
 
@@ -83,7 +83,7 @@ export default function BrandLogo({
     <Link
       href={href}
       aria-label="Consult America homepage"
-      className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B63A3A] rounded-md"
+      className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3535] rounded-md"
       onClick={onNavigate}
     >
       {content}

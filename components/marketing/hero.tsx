@@ -2,7 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  ArrowRight,
+  Layers,
+  Sparkles,
+  Cpu,
+  Database,
+  Cloud,
+  Code2,
+} from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { useContactPanel } from "@/components/providers/contact-provider";
@@ -12,32 +21,31 @@ export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-[#F7F9FA] border-b border-[#DDE4E8] py-14 sm:py-18 lg:py-22 xl:py-26 min-h-[650px] lg:min-h-[700px] flex items-center">
-      {/* Background Architectural Texture (Section 17 Specification) */}
-      <div
-        className="absolute inset-0 pointer-events-none bg-cover bg-right opacity-[0.14]"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(247,249,250,1) 0%, rgba(247,249,250,0.98) 38%, rgba(247,249,250,0.76) 60%, rgba(247,249,250,0.24) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80')",
-        }}
-      />
-
-      {/* Subtle Architectural Grid (Section 18 Specification: 2-3% opacity) */}
+    <section className="relative overflow-hidden bg-[#F8FAFA] border-b border-[#DCE3E5] py-12 sm:py-16 lg:py-20 min-h-[630px] lg:min-h-[670px] flex items-center">
+      {/* Subtle Cool Radial Gradient (Section 16 Specification) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(16,32,51,0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(16,32,51,0.02) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+          background:
+            "radial-gradient(circle at 70% 40%, rgba(220,235,232,0.45), transparent 42%)",
         }}
       />
 
-      <div className="ca-shell relative z-10 w-full">
-        <div className="grid grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-12 lg:items-center lg:gap-12 xl:gap-16">
+      {/* Background Architectural Texture with very low opacity */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-cover bg-right opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80')",
+        }}
+      />
+
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10 w-full">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-10 xl:gap-14">
           {/* ========================================================= */}
-          {/* LEFT COLUMN: 52–55% Split (Positioning, Messaging & CTAs) */}
+          {/* LEFT COLUMN: 47–50% Split (Positioning, Messaging & CTAs) */}
           {/* ========================================================= */}
-          <div className="lg:col-span-7 xl:col-span-6 space-y-6 sm:space-y-7">
+          <div className="lg:col-span-6 xl:col-span-6 space-y-5 sm:space-y-6">
             {/* Eyebrow */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0 }}
@@ -45,30 +53,30 @@ export default function Hero() {
               transition={{ duration: 0.35 }}
               className="inline-flex items-center gap-2"
             >
-              <span className="h-2 w-2 rounded-full bg-[#B63A3A]" />
-              <span className="text-xs sm:text-[0.78rem] font-bold uppercase tracking-[0.16em] text-[#526170]">
+              <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
+              <span className="text-xs sm:text-[0.78rem] font-bold uppercase tracking-[0.16em] text-[#5A6770]">
                 ENTERPRISE TRANSFORMATION · AI · ENGINEERING
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline with "comes next." in Dark Teal #0E514E */}
             <motion.h1
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
-              className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-[66px] font-semibold tracking-[-0.035em] text-[#102033] leading-[1.05]"
+              className="font-serif text-4xl sm:text-5xl lg:text-[54px] xl:text-[62px] font-semibold tracking-[-0.035em] text-[#102033] leading-[1.08]"
             >
               Transform the core.
               <br />
-              Build what <span className="text-[#B63A3A]">comes next.</span>
+              Build what <span className="text-[#0E514E]">comes next.</span>
             </motion.h1>
 
-            {/* Supporting Copy */}
+            {/* Supporting Copy (Max width 560px) */}
             <motion.p
               initial={shouldReduceMotion ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.45, delay: 0.1 }}
-              className="max-w-xl text-base sm:text-lg lg:text-[1.12rem] leading-relaxed text-[#526170]"
+              className="max-w-[560px] text-base sm:text-[1.06rem] leading-relaxed text-[#5A6770]"
             >
               Consult America helps organizations modernize enterprise platforms,
               connect data and workflows, operationalize AI, and engineer digital
@@ -85,95 +93,136 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="ca-button-primary !min-h-[50px] !px-7 text-sm font-semibold rounded-lg cursor-pointer flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(182,58,58,0.20)] hover:shadow-[0_6px_20px_rgba(182,58,58,0.28)] transition-all"
+                className="inline-flex h-[48px] sm:h-[50px] items-center justify-center gap-2 rounded-[6px] bg-[#BA3535] px-7 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#9E2C2C] hover:shadow-[0_6px_20px_rgba(186,53,53,0.30)] transition-all cursor-pointer"
               >
                 <span>Talk to an Expert</span>
-                <ArrowUpRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" />
               </button>
 
               <Link
                 href="/capabilities/enterprise-transformation"
-                className="inline-flex !min-h-[50px] items-center justify-center gap-2 rounded-lg border border-[#C9D1D8] bg-white px-6 text-sm font-semibold text-[#102033] shadow-2xs hover:border-[#B63A3A] hover:text-[#B63A3A] transition-all"
+                className="inline-flex h-[48px] sm:h-[50px] items-center justify-center gap-2 rounded-[6px] border border-[#DCE3E5] bg-white px-6 text-sm font-semibold text-[#102033] shadow-2xs hover:border-[#0E514E] hover:text-[#0E514E] transition-all"
               >
                 <span>Explore What We Do</span>
-                <ArrowRight className="h-4 w-4 text-[#526170]" />
+                <ArrowRight className="h-4 w-4 text-[#5A6770]" />
               </Link>
             </motion.div>
 
-            {/* Capability Line (Section 11 Requirement) */}
+            {/* Capability Navigation with Line Icons & Teal Hover (Section 15 Specification) */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="pt-4 border-t border-[#DDE4E8] text-xs sm:text-sm font-medium text-[#526170]"
+              className="pt-4 border-t border-[#DCE3E5]"
             >
-              <span>Oracle</span>
-              <span className="mx-2 text-[#DDE4E8]">·</span>
-              <span>CRM</span>
-              <span className="mx-2 text-[#DDE4E8]">·</span>
-              <span>AI &amp; Data</span>
-              <span className="mx-2 text-[#DDE4E8]">·</span>
-              <span>Cloud</span>
-              <span className="mx-2 text-[#DDE4E8]">·</span>
-              <span>Application Engineering</span>
+              <div className="flex flex-wrap items-center gap-y-2 text-xs sm:text-[0.82rem] font-medium text-[#5A6770]">
+                <Link
+                  href="/oracle"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0E514E] transition-colors"
+                >
+                  <Layers className="h-3.5 w-3.5 text-[#0E514E]" />
+                  <span>Oracle</span>
+                </Link>
+                <span className="mx-2.5 text-[#DCE3E5]">|</span>
+
+                <Link
+                  href="/crm"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0E514E] transition-colors"
+                >
+                  <Cpu className="h-3.5 w-3.5 text-[#0E514E]" />
+                  <span>CRM</span>
+                </Link>
+                <span className="mx-2.5 text-[#DCE3E5]">|</span>
+
+                <Link
+                  href="/ai-data"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0E514E] transition-colors"
+                >
+                  <Database className="h-3.5 w-3.5 text-[#0E514E]" />
+                  <span>AI &amp; Data</span>
+                </Link>
+                <span className="mx-2.5 text-[#DCE3E5]">|</span>
+
+                <Link
+                  href="/capabilities"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0E514E] transition-colors"
+                >
+                  <Cloud className="h-3.5 w-3.5 text-[#0E514E]" />
+                  <span>Cloud</span>
+                </Link>
+                <span className="mx-2.5 text-[#DCE3E5]">|</span>
+
+                <Link
+                  href="/capabilities/digital-engineering"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0E514E] transition-colors"
+                >
+                  <Code2 className="h-3.5 w-3.5 text-[#0E514E]" />
+                  <span>Application Engineering</span>
+                </Link>
+              </div>
             </motion.div>
           </div>
 
           {/* ========================================================= */}
-          {/* RIGHT COLUMN: 45–48% Split (Layered Visual Composition)   */}
+          {/* RIGHT COLUMN: 50–53% Split (Executive Collaboration Scene)*/}
           {/* ========================================================= */}
           <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, x: 18 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.55, delay: 0.12 }}
-            className="lg:col-span-5 xl:col-span-6 relative flex justify-center lg:justify-end"
+            className="lg:col-span-6 xl:col-span-6 relative flex flex-col items-center lg:items-end"
           >
-            {/* Layered Visual Background Accent (Section 15: Image 2 Layering Idea) */}
-            <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-[85%] h-[90%] rounded-lg border border-[#DDE4E8] bg-[#EEF3F4]/80 -z-0 hidden sm:block" />
+            {/* Subtle architectural frame accent */}
+            <div className="absolute -top-3 -right-3 sm:-top-3.5 sm:-right-3.5 w-[86%] h-[92%] rounded-[10px] border border-[#DCE3E5] bg-[#EEF2F3]/70 -z-0 hidden sm:block" />
 
-            {/* Main Editorial Photograph Container (550–620px width, 470–520px height, 6–10px radius) */}
-            <div className="relative z-10 w-full max-w-[580px] h-[300px] sm:h-[420px] lg:h-[490px] rounded-lg overflow-hidden border border-[#DDE4E8] bg-white shadow-[0_24px_70px_rgba(16,32,51,0.10)]">
+            {/* Main Editorial Photograph Container (580–640px width, 420–500px height, 8–10px radius) */}
+            <div className="relative z-10 w-full max-w-[620px] h-[320px] sm:h-[400px] lg:h-[460px] rounded-[10px] overflow-hidden border border-[#DCE3E5] bg-white shadow-[0_24px_70px_rgba(16,32,51,0.10)]">
               <Image
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=85"
-                alt="Senior enterprise technology consultants and business leaders collaborating in a modern corporate setting"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=85"
+                alt="Senior enterprise technology practitioners and leaders collaborating on digital transformation in a modern office"
                 fill
                 priority
                 className="object-cover object-center mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 48vw"
+                sizes="(max-width: 1024px) 100vw, 52vw"
               />
 
-              {/* Natural light vignette overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/35 via-transparent to-transparent pointer-events-none" />
+              {/* Natural subtle ambient lighting gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/30 via-transparent to-transparent pointer-events-none" />
             </div>
 
-            {/* Simple Floating Foreground Panel (Section 16 Specification) */}
+            {/* Floating Strategy Panel (Section 14 Specification: Bottom-Right over image / static on mobile) */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.25 }}
-              className="absolute -bottom-5 left-3 sm:left-6 z-20 max-w-[320px] sm:max-w-[340px] rounded-[10px] border border-[#DDE4E8] bg-white/96 p-4 sm:p-4.5 shadow-[0_16px_40px_rgba(16,32,51,0.10)] backdrop-blur-md"
+              className="mt-4 lg:mt-0 lg:absolute lg:-bottom-5 lg:right-6 z-20 w-full max-w-[240px] sm:max-w-[260px] rounded-[10px] border border-[#DCE3E5] bg-white/97 p-4 shadow-[0_18px_45px_rgba(16,32,51,0.12)] backdrop-blur-md"
             >
-              <div className="flex items-center justify-between border-b border-[#E9EEF1] pb-2">
+              <div className="flex items-center gap-2 border-b border-[#E1E7E8] pb-2">
+                <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
+                <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
+                  STRATEGY → PRODUCTION
+                </p>
+              </div>
+
+              <div className="mt-2.5 space-y-1.5 text-xs font-semibold text-[#102033]">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-[#B63A3A]" />
-                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#102033]">
-                    STRATEGY → PRODUCTION
-                  </p>
+                  <span className="h-1 w-1 rounded-full bg-[#0E514E]" />
+                  <span>Enterprise Platforms</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#0E514E]" />
+                  <span>AI + Data</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#0E514E]" />
+                  <span>Application Engineering</span>
                 </div>
               </div>
 
-              <div className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#102033]">
-                <span>Enterprise Platforms</span>
-                <span className="text-[#DDE4E8]">·</span>
-                <span>AI + Data</span>
-                <span className="text-[#DDE4E8]">·</span>
-                <span>Application Engineering</span>
-              </div>
-
-              <div className="mt-3 pt-2 border-t border-[#E9EEF1]">
+              <div className="mt-3 pt-2 border-t border-[#E1E7E8]">
                 <Link
                   href="/capabilities/enterprise-transformation"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0E514E] hover:text-[#0A3D3B] transition-colors"
                 >
                   <span>How We Work</span>
                   <ArrowRight className="h-3.5 w-3.5" />

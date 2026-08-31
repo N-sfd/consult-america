@@ -24,7 +24,7 @@ export default function OracleArchitectureDiagram() {
         <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[#102033] uppercase">
           CONNECTED ORACLE ENTERPRISE ARCHITECTURE
         </span>
-        <span className="text-[0.65rem] font-bold text-[#B63A3A]">
+        <span className="text-[0.65rem] font-bold text-[#BA3535]">
           High Availability · Zero Touch
         </span>
       </div>
@@ -52,7 +52,7 @@ export default function OracleArchitectureDiagram() {
           <div className="w-full max-w-md rounded-lg border border-[#357C78]/40 bg-[#DCEAE7] px-3 py-1.5 text-center text-xs font-bold text-[#102033]">
             Oracle Integration Cloud (OIC) &amp; FDI Analytics Fabric
           </div>
-          <ArrowDown className="h-3.5 w-3.5 text-[#B63A3A]" />
+          <ArrowDown className="h-3.5 w-3.5 text-[#BA3535]" />
           <div className="w-full max-w-md rounded-lg border border-[#1E3752] bg-[#0C2233] px-3 py-1.5 text-center text-xs font-semibold text-white">
             Enterprise Data Warehouse &amp; Governed AI Layer
           </div>
