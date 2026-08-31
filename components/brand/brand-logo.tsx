@@ -23,7 +23,7 @@ export default function BrandLogo({
   onNavigate,
 }: BrandLogoProps) {
   // tone="dark" is for LIGHT backgrounds (scrolled light header, login, portal) -> uses dark navy logo
-  // tone="light" is for DARK backgrounds (dark hero, dark footer, dark drawers) -> uses crisp light/white logo
+  // tone="light" is for DARK backgrounds (dark hero, dark footer, dark drawers) -> uses crisp white logo
   const logoSrc =
     tone === "dark"
       ? "/brand/consult-america-dark.png"
@@ -35,11 +35,12 @@ export default function BrandLogo({
         <Image
           src={logoSrc}
           alt="Consult America"
-          width={960}
-          height={160}
+          width={1350}
+          height={240}
           priority={priority}
+          unoptimized
           className={cn(
-            "h-9 sm:h-10 lg:h-11 w-auto max-w-[190px] sm:max-w-[220px] lg:max-w-[245px] object-contain opacity-100",
+            "h-9 sm:h-10 lg:h-[42px] w-auto max-w-[220px] sm:max-w-[260px] lg:max-w-[290px] object-contain opacity-100",
             markClassName
           )}
         />

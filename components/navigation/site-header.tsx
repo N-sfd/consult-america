@@ -102,7 +102,7 @@ export default function SiteHeader() {
               <BrandLogo
                 tone={isSolid ? "dark" : "light"}
                 priority
-                markClassName="h-10 sm:h-[42px] lg:h-11 w-auto max-w-[170px] sm:max-w-[195px] lg:max-w-[215px]"
+                markClassName="h-9 sm:h-10 lg:h-11 w-auto max-w-[220px] sm:max-w-[260px] lg:max-w-[290px]"
               />
 
               {/* Desktop Navigation Links with Generous 28-36px Spacing */}
