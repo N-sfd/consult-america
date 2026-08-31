@@ -1,9 +1,35 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, CheckCircle2, ShieldCheck, Database, Sparkles, FileText, Activity, Users, Layers, Cpu, Search, Check, Workflow } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowUpRight,
+  ArrowRight,
+  CheckCircle2,
+  Sparkles,
+  FileText,
+  Activity,
+  Users,
+  Layers,
+  Cpu,
+  Search,
+  Workflow,
+  ExternalLink,
+  X,
+  Code2,
+  ShoppingBag,
+  Calendar,
+  Wrench,
+  Stethoscope,
+  Bot,
+  Briefcase,
+  PenTool,
+} from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+
+import SectionLabel from "@/components/marketing/SectionLabel";
+import { useContactPanel } from "@/components/providers/contact-provider";
 
 // Corporate Browser Frame Helper
 function CorporateBrowserFrame({
@@ -14,15 +40,15 @@ function CorporateBrowserFrame({
   children: React.ReactNode;
 }) {
   return (
-    <div className="overflow-hidden rounded-[10px] border border-[#DDE4E8] bg-white p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(16,32,51,0.10)]">
+    <div className="overflow-hidden rounded-[12px] border border-[#DDE4E8] bg-white p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(16,32,51,0.10)]">
       {/* Browser Chrome Header */}
-      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F4F6F7] px-3 py-2 -mx-2 -mt-2 mb-2 sm:-mx-2.5 sm:-mt-2.5 sm:mb-2.5 rounded-t-[8px]">
+      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F4F6F7] px-3.5 py-2 -mx-2 -mt-2 mb-2 sm:-mx-2.5 sm:-mt-2.5 sm:mb-2.5 rounded-t-[10px]">
         <div className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
         </div>
-        <span className="font-mono text-[0.65rem] text-[#526170] tracking-wide">
+        <span className="font-mono text-[0.65rem] text-[#526170] tracking-wide truncate max-w-[240px] sm:max-w-none">
           {url}
         </span>
         <div className="w-8" />
@@ -32,17 +58,265 @@ function CorporateBrowserFrame({
   );
 }
 
+// 9 Application Engineering Practice Capabilities (Section 16)
+const appEngineeringCapabilities = [
+  "Enterprise Applications",
+  "AI Applications",
+  "Web Application Engineering",
+  "Digital Portals",
+  "Commerce Platforms",
+  "Booking & Workflow Systems",
+  "Integration & APIs",
+  "Product Prototyping",
+  "Cloud Deployment",
+];
+
+// Portfolio Category Filter List (Section 18)
+const portfolioCategories = [
+  { id: "all", label: "ALL" },
+  { id: "enterprise-ai", label: "ENTERPRISE AI" },
+  { id: "healthcare-ai", label: "HEALTHCARE AI" },
+  { id: "talent", label: "CAREER & TALENT" },
+  { id: "ai-commerce", label: "AI COMMERCE" },
+  { id: "content-ai", label: "CONTENT AI" },
+  { id: "ecommerce", label: "E-COMMERCE" },
+  { id: "business-service", label: "BUSINESS & SERVICE" },
+];
+
+// Level 3 Portfolio Projects from Live Portfolio (Section 17-28)
+interface PortfolioProject {
+  id: string;
+  name: string;
+  categoryKey: string;
+  categoryLabel: string;
+  headline: string;
+  description: string;
+  problem: string;
+  solution: string;
+  capabilities: string[];
+  techStack: string[];
+  liveUrl: string;
+  displayUrl: string;
+  imageSrc?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  accentColor: string;
+}
+
+const portfolioProjects: PortfolioProject[] = [
+  {
+    id: "importnest",
+    name: "ImportNest AI Agent",
+    categoryKey: "ai-commerce",
+    categoryLabel: "AI COMMERCE",
+    headline: "Compare offers with more context",
+    description: "AI-powered shopping comparison platform searching approved retailers and comparing Total Known Cost.",
+    problem: "Shoppers face hidden fees, disparate shipping rates, and complex comparison calculations across cross-border retailers.",
+    solution: "Engineered an AI agent using natural-language search to compute Total Known Cost (item + shipping + customs/fees) with automated price alerts.",
+    capabilities: [
+      "Natural-language shopping search",
+      "Approved retailer discovery",
+      "Total Known Cost calculation",
+      "Real-time price alert triggers",
+    ],
+    techStack: ["Next.js", "OpenAI API", "Tailwind CSS", "Vercel"],
+    liveUrl: "https://importnest.vercel.app",
+    displayUrl: "importnest.vercel.app",
+    icon: ShoppingBag,
+    accentColor: "#357C78",
+  },
+  {
+    id: "smartwrite",
+    name: "SmartWrite AI",
+    categoryKey: "content-ai",
+    categoryLabel: "CONTENT AI",
+    headline: "Writing enhancement & specialized workflows",
+    description: "AI writing assistant for grammar correction, rewriting, tone calibration, and readability scoring.",
+    problem: "Knowledge workers spend disproportionate time editing drafts, verifying grammar standards, and adapting corporate tones.",
+    solution: "Built a high-performance writing dashboard offering instant grammar checks, contextual tone transformations, and readability telemetry.",
+    capabilities: [
+      "Grammar & syntax correction",
+      "Context-aware rewriting",
+      "Executive tone calibration",
+      "Readability scoring metrics",
+    ],
+    techStack: ["React", "Next.js", "OpenAI API", "SaaS UI"],
+    liveUrl: "https://grammarly-app-seven.vercel.app",
+    displayUrl: "grammarly-app-seven.vercel.app",
+    icon: PenTool,
+    accentColor: "#47739B",
+  },
+  {
+    id: "bosiano",
+    name: "Bosiano",
+    categoryKey: "ecommerce",
+    categoryLabel: "E-COMMERCE & EXPERIENCE",
+    headline: "Brand experience & marketplace presentation",
+    description: "Italian heritage-inspired luxury fashion e-commerce platform with responsive shopping pages.",
+    problem: "Luxury brands require editorial visual storytelling combined with high-speed catalog navigation and responsive mobile UX.",
+    solution: "Designed and engineered an immersive fashion marketplace showcasing high-resolution collections, smooth filtering, and frictionless checkout flows.",
+    capabilities: [
+      "Luxury catalog presentation",
+      "Marketplace-style category navigation",
+      "Mobile-first responsive architecture",
+      "Optimized product detail viewports",
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Responsive UI"],
+    liveUrl: "https://bosiano.vercel.app",
+    displayUrl: "bosiano.vercel.app",
+    icon: ShoppingBag,
+    accentColor: "#B63A3A",
+  },
+  {
+    id: "sarco-appliances",
+    name: "SarCO Appliances",
+    categoryKey: "business-service",
+    categoryLabel: "BUSINESS PLATFORM",
+    headline: "Commercial sales & service delivery",
+    description: "Appliance sales and service business platform for delivery, installation, repair, and customer workflows.",
+    problem: "Commercial service companies struggle with fragmented inquiry channels and disorganized service coordination.",
+    solution: "Developed a comprehensive commercial hub for appliance catalogs, delivery scheduling, installation tracking, and technician dispatch requests.",
+    capabilities: [
+      "Appliance catalog & specifications",
+      "Installation & repair workflows",
+      "Delivery request scheduling",
+      "Customer service inquiry handling",
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    liveUrl: "https://sarco-appliances.vercel.app",
+    displayUrl: "sarco-appliances.vercel.app",
+    icon: Wrench,
+    accentColor: "#102033",
+  },
+  {
+    id: "smart-appliances",
+    name: "Smart Appliances",
+    categoryKey: "business-service",
+    categoryLabel: "SERVICE PLATFORM",
+    headline: "HVAC & home service dispatch",
+    description: "Home-service booking platform for appliance, HVAC, and repair services with customer request handling.",
+    problem: "Homeowners need transparent technician availability and streamlined diagnostic request intake.",
+    solution: "Built a dispatch and service discovery marketplace allowing customers to book HVAC diagnostics, view upfront pricing, and track technicians.",
+    capabilities: [
+      "Service discovery & diagnostics",
+      "HVAC & repair scheduling",
+      "Customer request dispatching",
+      "Automated appointment confirmation",
+    ],
+    techStack: ["Next.js", "Tailwind CSS", "Workflow Engine", "Vercel"],
+    liveUrl: "https://project-i8icw-ebon.vercel.app",
+    displayUrl: "project-i8icw-ebon.vercel.app",
+    icon: Wrench,
+    accentColor: "#357C78",
+  },
+  {
+    id: "appointease",
+    name: "AppointEase",
+    categoryKey: "business-service",
+    categoryLabel: "BOOKING PLATFORM",
+    headline: "Frictionless appointment scheduling",
+    description: "Appointment booking application for service selection, date/time scheduling, and customer confirmations.",
+    problem: "Service businesses lose prospective clients due to multi-step booking friction and calendar disconnects.",
+    solution: "Engineered an intuitive scheduling tool supporting real-time calendar availability, client contact intake, automated email triggers, and timezone handling.",
+    capabilities: [
+      "Service & practitioner selection",
+      "Interactive calendar date/time picker",
+      "Customer details verification",
+      "Automated booking confirmations",
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    liveUrl: "https://appointease-psi.vercel.app",
+    displayUrl: "appointease-psi.vercel.app",
+    icon: Calendar,
+    accentColor: "#47739B",
+  },
+];
+
 export default function LabsShowcase() {
   const shouldReduceMotion = useReducedMotion();
+  const { setOpen: setContactOpen } = useContactPanel();
+  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [activeModalProject, setActiveModalProject] = useState<PortfolioProject | null>(null);
+
+  // Filter Level 3 Projects
+  const filteredProjects = portfolioProjects.filter((proj) => {
+    if (selectedFilter === "all") return true;
+    return proj.categoryKey === selectedFilter;
+  });
 
   return (
     <div id="labs-showcase">
       {/* ======================================================== */}
-      {/* 1. LABS INTRO & DATA AGENT FLAGSHIP (Section: #0C2233) */}
+      {/* 1. APPLICATION ENGINEERING PRACTICE INTRODUCTION         */}
+      {/* ======================================================== */}
+      <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <SectionLabel tone="burgundy">APPLICATION ENGINEERING PRACTICE</SectionLabel>
+
+          <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-7 space-y-6"
+            >
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+                Build what packaged software cannot.
+              </h2>
+
+              <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+                Consult America designs and engineers focused applications, AI products, customer experiences, internal platforms, commerce systems and service workflows from idea through deployment.
+              </p>
+
+              <div className="pt-2">
+                <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A] mb-3">
+                  Core Engineering Capabilities
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {appEngineeringCapabilities.map((cap) => (
+                    <div
+                      key={cap}
+                      className="flex items-center gap-2 rounded border border-[#E9EEF1] bg-[#F7F9FA] px-3 py-2 text-xs font-semibold text-[#102033]"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
+                      <span className="truncate">{cap}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5"
+            >
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-[#DDE4E8] bg-[#0C2233] shadow-sm">
+                <Image
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
+                  alt="Consult America software engineering and AI product development teams"
+                  fill
+                  className="object-cover mkt-img-graded"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C2233]/70 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 rounded border border-white/20 bg-white/95 p-3.5 backdrop-blur-md">
+                  <p className="text-xs font-bold text-[#102033]">From Problem to Production</p>
+                  <p className="text-[0.68rem] text-[#526170] mt-0.5">Full-stack software engineering, AI workflow integration, and cloud deployment</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 2. LEVEL 1: DATA AGENT FLAGSHIP (Section: #0C2233)        */}
       {/* ======================================================== */}
       <section className="bg-[#0C2233] text-white py-20 sm:py-24 lg:py-28 border-b border-[#1E3752]">
         <div className="ca-shell">
-          {/* Labs Intro Statement */}
           <div className="max-w-3xl pb-12 border-b border-[#1E3752]">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#1E3752] bg-[#102033] px-3.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#B63A3A]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
@@ -58,9 +332,8 @@ export default function LabsShowcase() {
             </p>
           </div>
 
-          {/* DATA AGENT FLAGSHIP (40% copy / 60% screenshot) */}
+          {/* Large 2-Column Showcase (40% copy / 60% screenshot) */}
           <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column (40%): Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -69,7 +342,7 @@ export default function LabsShowcase() {
               className="lg:col-span-5 space-y-6"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                FLAGSHIP AI PRODUCT
+                FLAGSHIP AI PRODUCT · LEVEL 1
               </span>
 
               <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
@@ -80,7 +353,7 @@ export default function LabsShowcase() {
                 Transform contracts and complex enterprise documents into structured, traceable information while keeping users connected to the source.
               </p>
 
-              {/* 6 Capabilities from Section 22 / 24 */}
+              {/* 6 Capabilities (Section 20) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                 {[
                   "Dynamic extraction",
@@ -97,10 +370,10 @@ export default function LabsShowcase() {
                 ))}
               </div>
 
-              {/* Data Agent End-to-End Workflow */}
-              <div className="pt-2 border-t border-[#1E3752]">
+              {/* Verified End-to-End Workflow */}
+              <div className="pt-3 border-t border-[#1E3752]">
                 <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#97A8B7]">
-                  INTELLIGENCE PIPELINE
+                  INTELLIGENCE PIPELINE WORKFLOW
                 </p>
                 <div className="mt-2.5 flex flex-wrap items-center gap-1.5 font-mono text-[0.65rem] text-[#F7F9FA]">
                   {["INGEST", "EXTRACT", "VERIFY", "REVIEW", "ANALYZE", "INTEGRATE"].map((step, idx, arr) => (
@@ -114,7 +387,7 @@ export default function LabsShowcase() {
                 </div>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-2">
                 <Link
                   href="/work/innovation/data-agent"
                   className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
@@ -125,7 +398,7 @@ export default function LabsShowcase() {
               </div>
             </motion.div>
 
-            {/* Right Column (60%): Large Real Screenshot in White Corporate Frame */}
+            {/* Right Column (60%): Real Screenshot in Corporate Frame */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -150,12 +423,13 @@ export default function LabsShowcase() {
       </section>
 
       {/* ======================================================== */}
-      {/* 2. DATA EXPLORER (Section: #EEF3F4 | Large Screenshot | Copy) */}
+      {/* 3. LEVEL 2: STRATEGIC PRODUCTS (Alternating Layouts)     */}
       {/* ======================================================== */}
+
+      {/* 3A. DATA EXPLORER (Section: #EEF3F4 | Screenshot LEFT | Copy RIGHT) */}
       <section className="bg-[#EEF3F4] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Large Screenshot */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -167,7 +441,7 @@ export default function LabsShowcase() {
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
                   <Image
                     src="/innovation/data-agent-platform.png"
-                    alt="Data Explorer enterprise contract repository and field intelligence interface"
+                    alt="Data Explorer enterprise contract repository interface"
                     fill
                     className="object-cover object-top"
                     sizes="(max-width: 1024px) 100vw, 55vw"
@@ -176,7 +450,6 @@ export default function LabsShowcase() {
               </CorporateBrowserFrame>
             </motion.div>
 
-            {/* Right Column: Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -185,7 +458,7 @@ export default function LabsShowcase() {
               className="lg:col-span-5 order-1 lg:order-2 space-y-5"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                ENTERPRISE REPOSITORY &amp; ANALYTICS
+                STRATEGIC PRODUCT · LEVEL 2
               </span>
 
               <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
@@ -200,7 +473,7 @@ export default function LabsShowcase() {
                 {[
                   "Cross-document entity aggregation",
                   "Structured schema query & export",
-                  "Automated FAR / DFARS compliance checks",
+                  "Contract clause verification workflows",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
@@ -223,13 +496,10 @@ export default function LabsShowcase() {
         </div>
       </section>
 
-      {/* ======================================================== */}
-      {/* 3. JOBLENS (Section: #FFFFFF | Copy | Screenshot) */}
-      {/* ======================================================== */}
+      {/* 3B. JOBLENS (Section: #FFFFFF | Copy LEFT | Screenshot RIGHT) */}
       <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -237,8 +507,8 @@ export default function LabsShowcase() {
               transition={{ duration: 0.55 }}
               className="lg:col-span-5 space-y-5"
             >
-              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                TALENT INTELLIGENCE
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
+                STRATEGIC PRODUCT · LEVEL 2
               </span>
 
               <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
@@ -246,14 +516,15 @@ export default function LabsShowcase() {
               </h3>
 
               <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
-                A talent matching toolkit that explains every score it gives. Resume analysis, ATS gap detection, and status tracking with complete transparency.
+                Turn career information into clearer next steps. AI career platform for resume analysis, ATS keyword feedback, job matching, cover-letter generation, and application tracking.
               </p>
 
               <div className="space-y-2 pt-2">
                 {[
-                  "Transparent skill gap breakdown",
-                  "ATS matching algorithm insights",
-                  "Unified candidate pipeline tracking",
+                  "Resume analysis & skill gap breakdown",
+                  "ATS keyword compatibility feedback",
+                  "Job matching & tailored cover letters",
+                  "Application lifecycle tracking",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
@@ -273,7 +544,6 @@ export default function LabsShowcase() {
               </div>
             </motion.div>
 
-            {/* Right Column: Screenshot */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -297,13 +567,10 @@ export default function LabsShowcase() {
         </div>
       </section>
 
-      {/* ======================================================== */}
-      {/* 4. MEDIGUIDE AI (Section: #F3F8F6 | Healthcare Sage/Teal | Screenshot | Copy) */}
-      {/* ======================================================== */}
+      {/* 3C. MEDIGUIDE AI (Section: #F3F8F6 | Screenshot LEFT | Copy RIGHT) */}
       <section className="bg-[#F3F8F6] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Screenshot */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -315,7 +582,7 @@ export default function LabsShowcase() {
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
                   <Image
                     src="/innovation/mediguide-hero.png"
-                    alt="MediGuide AI healthcare assistant and evidence-grounded clinical workspace"
+                    alt="MediGuide AI healthcare assistant workspace"
                     fill
                     className="object-cover object-top"
                     sizes="(max-width: 1024px) 100vw, 55vw"
@@ -324,7 +591,6 @@ export default function LabsShowcase() {
               </CorporateBrowserFrame>
             </motion.div>
 
-            {/* Right Column: Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -333,7 +599,7 @@ export default function LabsShowcase() {
               className="lg:col-span-5 order-1 lg:order-2 space-y-5"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
-                CLINICAL AI &amp; HEALTHCARE
+                STRATEGIC PRODUCT · LEVEL 2
               </span>
 
               <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
@@ -341,14 +607,15 @@ export default function LabsShowcase() {
               </h3>
 
               <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
-                A private, evidence-supported assistant that explains medical documents, synthesizes lab timelines, and prepares patients and clinicians with verified citations.
+                Make complex health information easier to understand and use. A private, evidence-supported assistant for structured intake, safe boundaries, patient-friendly explanations, and responsible communication.
               </p>
 
               <div className="space-y-2 pt-2">
                 {[
-                  "Evidence citations on every response",
-                  "Lab timeline & medication trend analysis",
-                  "HIPAA-compliant privacy-first architecture",
+                  "Clearer patient health conversations",
+                  "Structured clinical intake summaries",
+                  "Patient-friendly explanations with citations",
+                  "Responsible health boundary protocols",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
@@ -371,13 +638,10 @@ export default function LabsShowcase() {
         </div>
       </section>
 
-      {/* ======================================================== */}
-      {/* 5. CONVERA (Section: #F4F7F9 | Copy | Screenshot) */}
-      {/* ======================================================== */}
+      {/* 3D. CONVERA (Section: #F4F7F9 | Copy LEFT | Screenshot RIGHT) */}
       <section className="bg-[#F4F7F9] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -386,7 +650,7 @@ export default function LabsShowcase() {
               className="lg:col-span-5 space-y-5"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                INTEGRATION &amp; MIDDLEWARE
+                STRATEGIC PRODUCT · LEVEL 2
               </span>
 
               <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
@@ -394,14 +658,14 @@ export default function LabsShowcase() {
               </h3>
 
               <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
-                Enterprise API gateway and message routing bridge connecting Oracle Fusion, Salesforce, and custom microservices with zero-trust security and sub-15ms latency.
+                Enterprise API gateway and message routing bridge connecting Oracle Fusion, CRM, and custom microservices with clean schema validation and reliable routing.
               </p>
 
               <div className="space-y-2 pt-2">
                 {[
-                  "High-throughput event streaming & OIC bridging",
+                  "Event streaming & OIC bridging",
                   "Automated payload validation & schema mapping",
-                  "Zero-downtime deployment pipelines",
+                  "Resilient error deflection & retry queues",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
@@ -421,7 +685,6 @@ export default function LabsShowcase() {
               </div>
             </motion.div>
 
-            {/* Right Column: Architectural UI */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -444,15 +707,15 @@ export default function LabsShowcase() {
                   <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
                       <p className="text-[0.62rem] text-[#526170] uppercase">Oracle Fusion Bridge</p>
-                      <p className="text-sm font-bold text-[#102033] mt-0.5">&lt; 12ms</p>
+                      <p className="text-sm font-bold text-[#102033] mt-0.5">Active</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
                       <p className="text-[0.62rem] text-[#526170] uppercase">CRM Pipeline Sync</p>
-                      <p className="text-sm font-bold text-[#357C78] mt-0.5">100% Synced</p>
+                      <p className="text-sm font-bold text-[#357C78] mt-0.5">Synchronized</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
-                      <p className="text-[0.62rem] text-[#526170] uppercase">Event Volume</p>
-                      <p className="text-sm font-bold text-[#47739B] mt-0.5">4.2M / day</p>
+                      <p className="text-[0.62rem] text-[#526170] uppercase">Routing Mode</p>
+                      <p className="text-sm font-bold text-[#47739B] mt-0.5">High Throughput</p>
                     </div>
                   </div>
                 </div>
@@ -462,13 +725,10 @@ export default function LabsShowcase() {
         </div>
       </section>
 
-      {/* ======================================================== */}
-      {/* 6. HR & TALENT (Section: #FFFFFF | Screenshot | Copy) */}
-      {/* ======================================================== */}
+      {/* 3E. HR & TALENT SUITE (Section: #FFFFFF | Screenshot LEFT | Copy RIGHT) */}
       <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: UI */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -486,29 +746,28 @@ export default function LabsShowcase() {
                     <span className="font-mono text-[0.62rem] text-[#526170]">Production Suite</span>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-2 text-center text-[0.65rem] font-bold">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-[0.65rem] font-bold">
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
                       <p className="text-[#526170]">RECRUITING</p>
-                      <p className="text-xs font-bold text-[#102033] mt-1">8 Openings</p>
+                      <p className="text-xs font-bold text-[#102033] mt-1">Active Pipeline</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
                       <p className="text-[#526170]">CANDIDATES</p>
-                      <p className="text-xs font-bold text-[#102033] mt-1">42 In Pipeline</p>
+                      <p className="text-xs font-bold text-[#102033] mt-1">Screening Flow</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
                       <p className="text-[#526170]">TIMESHEETS</p>
-                      <p className="text-xs font-bold text-[#357C78] mt-1">100% Approved</p>
+                      <p className="text-xs font-bold text-[#357C78] mt-1">Approvals Online</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
                       <p className="text-[#526170]">PAYROLL</p>
-                      <p className="text-xs font-bold text-[#B63A3A] mt-1">Reconciled</p>
+                      <p className="text-xs font-bold text-[#B63A3A] mt-1">Verified</p>
                     </div>
                   </div>
                 </div>
               </CorporateBrowserFrame>
             </motion.div>
 
-            {/* Right Column: Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -517,7 +776,7 @@ export default function LabsShowcase() {
               className="lg:col-span-5 order-1 lg:order-2 space-y-5"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                WORKFORCE PLATFORMS
+                STRATEGIC PRODUCT · LEVEL 2
               </span>
 
               <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
@@ -530,9 +789,9 @@ export default function LabsShowcase() {
 
               <div className="space-y-2 pt-2">
                 {[
-                  "End-to-end recruit to hire automated flow",
+                  "End-to-end recruit-to-hire automated flow",
                   "Employee self-service leave & time management",
-                  "Full audit logging and SOC2 access control",
+                  "Structured role-based permission architecture",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
@@ -554,6 +813,315 @@ export default function LabsShowcase() {
           </div>
         </div>
       </section>
+
+      {/* ======================================================== */}
+      {/* 4. LEVEL 3: APPLICATION PORTFOLIO & WORKING FILTERS      */}
+      {/* ======================================================== */}
+      <section className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
+            <div>
+              <SectionLabel tone="burgundy">APPLICATION DEVELOPMENT PORTFOLIO</SectionLabel>
+              <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]">
+                From idea to working product.
+              </h2>
+            </div>
+            <p className="max-w-md text-sm sm:text-base text-[#526170]">
+              Our application portfolio demonstrates how Consult America moves from business problem to interface, workflow, integration and deployed software.
+            </p>
+          </div>
+
+          {/* Interactive Category Filter Pills (Section 18) */}
+          <div className="mt-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {portfolioCategories.map((cat) => {
+              const isSelected = selectedFilter === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedFilter(cat.id)}
+                  className={`shrink-0 rounded-full px-4 py-2 text-xs font-bold tracking-wider transition-all duration-200 cursor-pointer ${
+                    isSelected
+                      ? "bg-[#102033] text-white shadow-xs"
+                      : "bg-white text-[#526170] border border-[#DDE4E8] hover:border-[#B63A3A] hover:text-[#102033]"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Portfolio Grid Cards (Level 3 Projects) */}
+          <motion.div
+            layout
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project) => {
+                const IconComponent = project.icon;
+                return (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.22 }}
+                    className="group flex flex-col justify-between rounded-xl border border-[#DDE4E8] bg-white p-5 shadow-2xs hover:border-[#B63A3A]/50 hover:shadow-md transition-all duration-200"
+                  >
+                    <div>
+                      {/* Browser Mockup Top Card */}
+                      <div className="overflow-hidden rounded-lg border border-[#E9EEF1] bg-[#F4F6F7]">
+                        <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#E9EEF1] bg-white">
+                          <div className="flex items-center gap-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#DDE4E8]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#DDE4E8]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#DDE4E8]" />
+                          </div>
+                          <span className="font-mono text-[0.6rem] text-[#526170] truncate max-w-[160px]">
+                            {project.displayUrl}
+                          </span>
+                          <span className="h-1 w-4" />
+                        </div>
+
+                        <div className="relative h-44 w-full bg-[#F7F9FA] p-5 flex flex-col justify-between overflow-hidden">
+                          <div className="flex items-center justify-between">
+                            <span className="rounded bg-white px-2 py-0.5 text-[0.62rem] font-bold text-[#102033] border border-[#DDE4E8]">
+                              {project.categoryLabel}
+                            </span>
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border border-[#DDE4E8] shadow-2xs">
+                              <IconComponent className="h-4 w-4 text-[#102033]" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="font-serif text-lg font-bold text-[#102033]">
+                              {project.name}
+                            </p>
+                            <p className="text-[0.68rem] text-[#526170] line-clamp-1 mt-0.5">
+                              {project.headline}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content Details */}
+                      <div className="mt-5 space-y-3">
+                        <h4 className="font-serif text-xl font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors">
+                          {project.name}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#526170] leading-relaxed">
+                          {project.description}
+                        </p>
+
+                        {/* Capability Tags */}
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {project.capabilities.slice(0, 3).map((cap) => (
+                            <span
+                              key={cap}
+                              className="rounded bg-[#EEF3F4] px-2 py-0.5 text-[0.65rem] font-medium text-[#102033]"
+                            >
+                              {cap}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Footer Actions: View Details + Live App */}
+                    <div className="mt-6 pt-4 border-t border-[#E9EEF1] flex items-center justify-between text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setActiveModalProject(project)}
+                        className="text-[#B63A3A] hover:underline cursor-pointer flex items-center gap-1"
+                      >
+                        <span>View Details</span>
+                        <ArrowRight className="h-3 w-3" />
+                      </button>
+
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[#526170] hover:text-[#102033] transition-colors"
+                      >
+                        <span>Live Demo</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* ======================================================== */}
+          {/* 5. APPLICATION DEVELOPMENT CTA (Section 31 Requirement)  */}
+          {/* ======================================================== */}
+          <div className="mt-16 rounded-xl border border-[#DDE4E8] bg-white p-8 sm:p-10 shadow-sm">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+              <div className="lg:col-span-8 space-y-3">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  CUSTOM SOFTWARE &amp; WORKFLOW ENGINEERING
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#102033]">
+                  Have a workflow that packaged software cannot solve?
+                </h3>
+                <p className="text-sm sm:text-base text-[#526170] leading-relaxed max-w-2xl">
+                  From AI-assisted applications to customer portals, commerce, booking and enterprise workflow tools, we design and ship focused software around the job your users actually need to perform.
+                </p>
+              </div>
+
+              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
+                <button
+                  type="button"
+                  onClick={() => setContactOpen(true)}
+                  className="ca-button-primary !min-h-[48px] !px-6 text-xs sm:text-sm font-semibold rounded-lg cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span>Discuss an Application</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+                <a
+                  href="https://agentomatix-portfolio.pages.dev/portfolio/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex !min-h-[48px] items-center justify-center gap-1.5 rounded-lg border border-[#DDE4E8] bg-white px-5 text-xs sm:text-sm font-semibold text-[#102033] hover:border-[#B63A3A] hover:text-[#B63A3A] transition-all"
+                >
+                  <span>Explore Full Portfolio</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 6. PRODUCT DETAIL MODAL (Section 40 Requirement)         */}
+      {/* ======================================================== */}
+      <AnimatePresence>
+        {activeModalProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveModalProject(null)}
+              className="absolute inset-0 bg-[#0C2233]/70 backdrop-blur-sm"
+            />
+
+            {/* Modal Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.25 }}
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl border border-[#DDE4E8] bg-white p-6 sm:p-8 shadow-2xl text-[#102033]"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setActiveModalProject(null)}
+                className="absolute top-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F9FA] text-[#526170] hover:bg-[#EEF3F4] hover:text-[#102033] transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              <div>
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  {activeModalProject.categoryLabel}
+                </span>
+                <h3 className="mt-1 font-serif text-2xl sm:text-3xl font-bold text-[#102033]">
+                  {activeModalProject.name}
+                </h3>
+                <p className="mt-1 text-sm font-semibold text-[#526170]">
+                  {activeModalProject.headline}
+                </p>
+              </div>
+
+              {/* Problem & Solution */}
+              <div className="mt-6 space-y-4 border-t border-[#E9EEF1] pt-4 text-xs sm:text-sm">
+                <div>
+                  <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-1">
+                    The Business Problem
+                  </strong>
+                  <p className="text-[#526170] leading-relaxed">
+                    {activeModalProject.problem}
+                  </p>
+                </div>
+
+                <div>
+                  <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-1">
+                    The Engineered Solution
+                  </strong>
+                  <p className="text-[#526170] leading-relaxed">
+                    {activeModalProject.solution}
+                  </p>
+                </div>
+              </div>
+
+              {/* Key Capabilities */}
+              <div className="mt-6 border-t border-[#E9EEF1] pt-4">
+                <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-2.5">
+                  Key Capabilities
+                </strong>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {activeModalProject.capabilities.map((cap) => (
+                    <div key={cap} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
+                      <span>{cap}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Technology Stack */}
+              <div className="mt-6 border-t border-[#E9EEF1] pt-4">
+                <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-2">
+                  Technology Stack
+                </strong>
+                <div className="flex flex-wrap gap-2">
+                  {activeModalProject.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded bg-[#EEF3F4] px-2.5 py-1 text-xs font-mono font-medium text-[#102033]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Modal Actions */}
+              <div className="mt-8 pt-5 border-t border-[#E9EEF1] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <a
+                  href={activeModalProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ca-button-primary w-full sm:w-auto !min-h-[44px] !px-6 text-xs font-semibold rounded-lg flex items-center justify-center gap-2"
+                >
+                  <span>Open Live Application Demo</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveModalProject(null);
+                    setContactOpen(true);
+                  }}
+                  className="text-xs font-bold text-[#B63A3A] hover:underline cursor-pointer"
+                >
+                  Inquire about a similar build →
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

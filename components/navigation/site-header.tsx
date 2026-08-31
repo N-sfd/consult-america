@@ -85,7 +85,7 @@ export default function SiteHeader() {
         {/* Main Navigation Bar */}
         <div className={`transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}>
           <div className="ca-shell">
-            <div className="flex h-16 items-center justify-between gap-4 xl:h-[68px]">
+            <div className="flex h-[74px] xl:h-[78px] items-center justify-between gap-4 xl:gap-8">
               <BrandLogo tone="dark" priority />
 
               {/* Desktop Navigation Links */}

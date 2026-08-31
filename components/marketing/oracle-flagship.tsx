@@ -35,7 +35,7 @@ const capabilities = [
   },
   {
     name: "DELIVERY",
-    detail: "End-to-end PMO governance, automated regression testing & zero-downtime cutovers.",
+    detail: "End-to-end PMO governance, automated regression testing & structured cutover rehearsals.",
     href: "/oracle",
   },
 ];
@@ -151,7 +151,7 @@ export default function OracleFlagship() {
                 De-risking large-scale multi-entity go-lives.
               </h3>
               <p className="text-sm sm:text-base text-[#DDE4E8] leading-relaxed">
-                Our practitioners combine financial subledger reconciliation, automated testing frameworks, and OIC event orchestration to guarantee clean period close and audited compliance on day one.
+                Our practitioners combine financial subledger reconciliation, automated testing frameworks, and OIC event orchestration for structured period close and audited compliance on day one.
               </p>
             </div>
           </div>

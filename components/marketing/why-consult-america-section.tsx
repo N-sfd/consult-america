@@ -22,7 +22,7 @@ const manifestoItems = [
   {
     num: "04",
     title: "PRODUCT MINDSET",
-    description: "Build focused solutions where packaged software stops.",
+    description: "We test ideas by building. Our application portfolio demonstrates how strategy, workflow design, AI and engineering become usable software.",
   },
 ];
 

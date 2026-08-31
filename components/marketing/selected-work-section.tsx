@@ -10,9 +10,9 @@ import SectionLabel from "@/components/marketing/SectionLabel";
 const featuredCase = {
   client: "GLOBAL PUBLIC-SECTOR & DEFENSE ENTERPRISE",
   title: "Multi-Entity Fusion Cloud Modernization & Core Financials Cutover",
-  challenge: "Fragmented legacy ERP systems across 12 operating entities causing delayed period-close cycles, disparate charts of accounts, and manual audit reconciliations.",
-  approach: "Architected a unified Oracle Fusion ERP & SCM environment with automated subledger accounting, custom validation rules, and live OIC data streaming.",
-  outcome: "Accelerated monthly close cycle with zero cutover downtime and complete financial audit compliance pass.",
+  challenge: "Fragmented legacy ERP systems across 12 operating entities causing delayed period-close cycles, disparate charts of accounts, and manual reconciliations.",
+  approach: "Architected a unified Oracle Fusion ERP & SCM environment with standardized subledger accounting, custom validation rules, and live OIC data streaming.",
+  outcome: "Accelerated monthly financial close cycle with standardized subledger accounting and complete audit traceability.",
   image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
   href: "/work",
 };
@@ -20,10 +20,10 @@ const featuredCase = {
 const secondaryCases = [
   {
     industry: "DEFENSE & AEROSPACE CONTRACTOR",
-    headline: "Autonomous Contract Intelligence & DFARS Clause Extraction",
-    challenge: "Complex multi-thousand page subcontracts requiring manual compliance verification across federal acquisition regulations.",
-    approach: "Deployed Data Agent platform to automatically extract, ground, and verify DFARS clauses with 100% source citations.",
-    outcome: "High-accuracy extraction and major reduction in contract review cycle times across procurement teams.",
+    headline: "Autonomous Contract Intelligence & Compliance Extraction",
+    challenge: "Complex multi-thousand page subcontracts requiring rigorous compliance verification across federal acquisition frameworks.",
+    approach: "Deployed Data Agent platform to automatically extract, ground, and verify contract clauses with traceable source citations.",
+    outcome: "Structured clause extraction and significant reduction in contract review cycle times across procurement teams.",
     linkHref: "/work/innovation/data-agent",
     tag: "Data Agent AI",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
@@ -33,7 +33,7 @@ const secondaryCases = [
     headline: "AI-Enabled Clinical Intelligence & Patient Visit Preparation",
     challenge: "High clinician cognitive load synthesizing disparate patient records, lab histories, and medication changes.",
     approach: "Engineered MediGuide AI to summarize clinical timelines and generate grounded, evidence-backed patient guidance.",
-    outcome: "Streamlined clinical chart review with fully verified source evidence for every summary item.",
+    outcome: "Streamlined clinical chart review with fully verified source citations for every summary item.",
     linkHref: "/work/innovation/mediguide-ai",
     tag: "MediGuide AI",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
