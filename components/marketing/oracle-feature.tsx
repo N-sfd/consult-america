@@ -37,7 +37,7 @@ export default function OracleFeature({
   linkToDetail?: boolean;
 }) {
   return (
-    <section id="oracle" className="mkt-section bg-[#F4EFE6]">
+    <section id="oracle" className="mkt-section bg-[#F7F9FA]">
       <div className="mkt-shell">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
@@ -53,14 +53,14 @@ export default function OracleFeature({
               <EditorialHeading
                 as={headingLevel}
                 size={headingLevel === "h1" ? "hero" : "section"}
-                className="max-w-xl text-[#261F1B]"
+                className="max-w-xl text-[#102033]"
               >
                 Transform the enterprise.
                 <br />
                 Not just the software.
               </EditorialHeading>
 
-              <p className="mkt-body-lg mt-8 max-w-md text-[#695F57]">
+              <p className="mkt-body-lg mt-8 max-w-md text-[#526170]">
                 Modernize finance, procurement, supply chain, HR, projects,
                 planning, integration, and analytics through connected Oracle
                 enterprise platforms.
@@ -86,7 +86,7 @@ export default function OracleFeature({
           </motion.div>
         </div>
 
-        <div className="mt-16 border-t border-[#D7CCBD]">
+        <div className="mt-16 border-t border-[#DDE4E8]">
           <div className="grid md:grid-cols-2 lg:grid-cols-4">
             {oracleAreas.map((area, index) => (
               <motion.div
@@ -95,12 +95,12 @@ export default function OracleFeature({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.04 }}
-                className="group border-b border-[#D7CCBD] py-7 md:border-r md:px-6 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0"
+                className="group border-b border-[#DDE4E8] py-7 md:border-r md:px-6 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0"
               >
-                <p className="text-sm font-semibold text-[#695F57]">
+                <p className="text-sm font-semibold text-[#526170]">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <p className="mt-3 text-lg font-bold text-[#261F1B] transition-colors duration-200 group-hover:text-[#7D2639]">
+                <p className="mt-3 text-lg font-bold text-[#102033] transition-colors duration-200 group-hover:text-[#B63A3A]">
                   {area}
                 </p>
               </motion.div>
@@ -108,16 +108,16 @@ export default function OracleFeature({
           </div>
         </div>
 
-        <div className="mt-14 border-t border-[#D7CCBD] pt-10">
-          <p className="mkt-eyebrow text-[#695F57]">End-to-end delivery</p>
+        <div className="mt-14 border-t border-[#DDE4E8] pt-10">
+          <p className="mkt-eyebrow text-[#526170]">End-to-end delivery</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
             {lifecycle.map((item, index) => (
               <div key={item} className="flex items-center gap-8">
-                <span className="text-sm font-semibold text-[#261F1B]">
+                <span className="text-sm font-semibold text-[#102033]">
                   {item}
                 </span>
                 {index < lifecycle.length - 1 && (
-                  <span aria-hidden="true" className="text-[#D7CCBD]">
+                  <span aria-hidden="true" className="text-[#DDE4E8]">
                     →
                   </span>
                 )}

@@ -1,259 +1,542 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, Activity, Workflow, Users, CheckCircle2, ShieldCheck, Database, FileText, Check } from "lucide-react";
+import { ArrowUpRight, ArrowRight, CheckCircle2, ShieldCheck, Database, Sparkles, FileText, Activity, Users, Layers, Cpu, Search, Check, Workflow } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+
+// Corporate Browser Frame Helper
+function CorporateBrowserFrame({
+  url,
+  children,
+}: {
+  url: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[10px] border border-[#DDE4E8] bg-white p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(16,32,51,0.10)]">
+      {/* Browser Chrome Header */}
+      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F4F6F7] px-3 py-2 -mx-2 -mt-2 mb-2 sm:-mx-2.5 sm:-mt-2.5 sm:mb-2.5 rounded-t-[8px]">
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
+          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
+          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
+        </div>
+        <span className="font-mono text-[0.65rem] text-[#526170] tracking-wide">
+          {url}
+        </span>
+        <div className="w-8" />
+      </div>
+      {children}
+    </div>
+  );
+}
 
 export default function LabsShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="labs-showcase" className="bg-[#211E1B] text-[#F7F3EC] py-20 sm:py-24 lg:py-28 relative overflow-hidden border-b border-[#3A302B]">
-      {/* Background Architectural Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(to right, #F7F3EC 1px, transparent 1px), linear-gradient(to bottom, #F7F3EC 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-      />
+    <div id="labs-showcase">
+      {/* ======================================================== */}
+      {/* 1. LABS INTRO & DATA AGENT FLAGSHIP (Section: #0C2233) */}
+      {/* ======================================================== */}
+      <section className="bg-[#0C2233] text-white py-20 sm:py-24 lg:py-28 border-b border-[#1E3752]">
+        <div className="ca-shell">
+          {/* Labs Intro Statement */}
+          <div className="max-w-3xl pb-12 border-b border-[#1E3752]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#1E3752] bg-[#102033] px-3.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#B63A3A]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
+              CONSULT AMERICA LABS
+            </div>
 
-      <div className="mkt-shell relative z-10">
-        {/* Section Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#52443D] bg-[#2B2420] px-3.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#D8C5AA]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#D8C5AA]" />
-            CONSULT AMERICA LABS
+            <h2 className="mt-4 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-white leading-[1.08]">
+              AI-powered applications built for real business.
+            </h2>
+
+            <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#97A8B7]">
+              Consult America Labs turns operational challenges into focused enterprise and AI applications.
+            </p>
           </div>
 
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-            We don&apos;t only advise.
-            <br />
-            <span className="text-[#D8C5AA]">We build.</span>
-          </h2>
+          {/* DATA AGENT FLAGSHIP (40% copy / 60% screenshot) */}
+          <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left Column (40%): Copy */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-5 space-y-6"
+            >
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                FLAGSHIP AI PRODUCT
+              </span>
 
-          <p className="mt-5 text-base sm:text-lg leading-relaxed text-[#C5BCB3]">
-            Turning recurring enterprise operational gaps into focused software applications.
-            Each lab product is engineered for production deployment alongside existing systems of record.
-          </p>
-        </div>
-
-        {/* 2x2 Large Visual Product Showcases */}
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-          {/* PRODUCT 1: DATA AGENT */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="rounded-2xl border border-[#52443D] bg-[#2B2420] p-6 lg:p-7 flex flex-col justify-between shadow-xl"
-          >
-            <div>
-              <div className="flex items-center justify-between border-b border-[#3A302B] pb-3 text-xs">
-                <span className="font-bold text-[#D8C5AA] uppercase tracking-wider text-[0.68rem]">
-                  AI &amp; DOCUMENT INTELLIGENCE
-                </span>
-                <span className="rounded bg-[#3A302B] px-2 py-0.5 text-[0.62rem] font-bold text-[#D8C5AA] border border-[#52443D]">
-                  DFARS Verified
-                </span>
-              </div>
-
-              <h3 className="mt-4 font-serif text-2xl font-bold text-white">
-                Data Agent
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
+                Turn complex documents into usable enterprise intelligence.
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#C5BCB3]">
-                Extract complex regulatory clauses, payment schedules, and obligations with verifiable source text citations.
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#97A8B7]">
+                Transform contracts and complex enterprise documents into structured, traceable information while keeping users connected to the source.
               </p>
 
-              {/* Interface Simulation Container */}
-              <div className="mt-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-4 text-xs space-y-2.5">
-                <div className="flex items-center justify-between text-[#D8C5AA] font-mono text-[0.65rem] border-b border-[#3A302B] pb-2">
-                  <span>Contract: Federal_MSA_2026.pdf</span>
-                  <span>Verified Grounding</span>
-                </div>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="font-bold text-white">FAR 52.227-14 Rights in Data</p>
-                    <p className="text-[0.68rem] text-[#A4B1BE]">Unlimited rights clause mapped to Oracle ERP</p>
+              {/* 6 Capabilities from Section 22 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                {[
+                  "Dynamic extraction",
+                  "Tables & schedules",
+                  "Clause intelligence",
+                  "Source verification",
+                  "Repository intelligence",
+                  "Cross-document exploration",
+                ].map((cap) => (
+                  <div key={cap} className="flex items-center gap-2 text-xs font-semibold text-[#F7F9FA]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
+                    <span>{cap}</span>
                   </div>
-                  <span className="text-[0.62rem] font-bold text-[#657766] bg-[#2B2420] px-1.5 py-0.5 rounded">
-                    Page 14
-                  </span>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <Link
+                  href="/work/innovation/data-agent"
+                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                >
+                  <span>Explore Data Agent</span>
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Right Column (60%): Large Real Screenshot in White Corporate Frame */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7"
+            >
+              <CorporateBrowserFrame url="https://data-agent-ca.vercel.app">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
+                  <Image
+                    src="/innovation/data-agent-hero.png"
+                    alt="Data Agent document and contract intelligence interface"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                  />
                 </div>
+              </CorporateBrowserFrame>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 2. DATA EXPLORER (Section: #EEF3F4 | Large Screenshot | Copy) */}
+      {/* ======================================================== */}
+      <section className="bg-[#EEF3F4] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left Column: Large Screenshot */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 order-2 lg:order-1"
+            >
+              <CorporateBrowserFrame url="https://data-agent-ca.vercel.app/repository">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
+                  <Image
+                    src="/innovation/data-agent-platform.png"
+                    alt="Data Explorer enterprise contract repository and field intelligence interface"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                  />
+                </div>
+              </CorporateBrowserFrame>
+            </motion.div>
+
+            {/* Right Column: Copy */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-5 order-1 lg:order-2 space-y-5"
+            >
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
+                ENTERPRISE REPOSITORY &amp; ANALYTICS
+              </span>
+
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+                Data Explorer
+              </h3>
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+                Search, filter, and compare thousands of unstructured documents across common fields, expiration schedules, and regulatory obligations with instant audit traceability.
+              </p>
+
+              <div className="space-y-2 pt-2">
+                {[
+                  "Cross-document entity aggregation",
+                  "Structured schema query & export",
+                  "Automated FAR / DFARS compliance checks",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
-            </div>
 
-            <div className="mt-6 pt-4 border-t border-[#3A302B] flex items-center justify-between">
-              <Link
-                href="/work/innovation/data-agent"
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#D8C5AA] hover:text-white transition-colors"
-              >
-                Explore Data Agent <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-              <span className="text-[0.65rem] text-[#A4B1BE]">Enterprise Ready</span>
-            </div>
-          </motion.div>
+              <div className="pt-3">
+                <Link
+                  href="/ai-data"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#47739B] hover:text-[#102033] transition-colors"
+                >
+                  <span>Explore Data Architecture</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-          {/* PRODUCT 2: MEDIGUIDE AI */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="rounded-2xl border border-[#52443D] bg-[#2B2420] p-6 lg:p-7 flex flex-col justify-between shadow-xl"
-          >
-            <div>
-              <div className="flex items-center justify-between border-b border-[#3A302B] pb-3 text-xs">
-                <span className="font-bold text-[#D8C5AA] uppercase tracking-wider text-[0.68rem]">
-                  CLINICAL INTELLIGENCE
-                </span>
-                <span className="rounded bg-[#3A302B] px-2 py-0.5 text-[0.62rem] font-bold text-[#657766] border border-[#52443D]">
-                  Clinical Governance
-                </span>
+      {/* ======================================================== */}
+      {/* 3. JOBLENS (Section: #FFFFFF | Copy | Screenshot) */}
+      {/* ======================================================== */}
+      <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left Column: Copy */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-5 space-y-5"
+            >
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                TALENT INTELLIGENCE
+              </span>
+
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+                JobLens
+              </h3>
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+                A talent matching toolkit that explains every score it gives. Resume analysis, ATS gap detection, and status tracking with complete transparency.
+              </p>
+
+              <div className="space-y-2 pt-2">
+                {[
+                  "Transparent skill gap breakdown",
+                  "ATS matching algorithm insights",
+                  "Unified candidate pipeline tracking",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
 
-              <h3 className="mt-4 font-serif text-2xl font-bold text-white">
+              <div className="pt-3">
+                <Link
+                  href="/work/innovation/joblens"
+                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-lg cursor-pointer"
+                >
+                  <span>Explore JobLens</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Right Column: Screenshot */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7"
+            >
+              <CorporateBrowserFrame url="https://joblens-seven.vercel.app">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
+                  <Image
+                    src="/innovation/joblens-hero.png"
+                    alt="JobLens talent intelligence and resume analyzer interface"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                  />
+                </div>
+              </CorporateBrowserFrame>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 4. MEDIGUIDE AI (Section: #F3F8F6 | Healthcare Sage/Teal | Screenshot | Copy) */}
+      {/* ======================================================== */}
+      <section className="bg-[#F3F8F6] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left Column: Screenshot */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 order-2 lg:order-1"
+            >
+              <CorporateBrowserFrame url="https://mediguide-ai-woad.vercel.app">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
+                  <Image
+                    src="/innovation/mediguide-hero.png"
+                    alt="MediGuide AI healthcare assistant and evidence-grounded clinical workspace"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                  />
+                </div>
+              </CorporateBrowserFrame>
+            </motion.div>
+
+            {/* Right Column: Copy */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-5 order-1 lg:order-2 space-y-5"
+            >
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
+                CLINICAL AI &amp; HEALTHCARE
+              </span>
+
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
                 MediGuide AI
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#C5BCB3]">
-                Synthesize patient lab timelines, medication history, and evidence-grounded physician visit summaries.
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+                A private, evidence-supported assistant that explains medical documents, synthesizes lab timelines, and prepares patients and clinicians with verified citations.
               </p>
 
-              {/* Lab Timeline Simulation Container */}
-              <div className="mt-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-4 text-xs space-y-2">
-                <div className="flex items-center justify-between text-[#D8C5AA] font-mono text-[0.65rem] border-b border-[#3A302B] pb-1.5">
-                  <span>Patient Lab Timeline</span>
-                  <span>Recent Panel (08/2026)</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-center text-[0.65rem]">
-                  <div className="rounded bg-[#2B2420] p-1.5">
-                    <p className="text-[#A4B1BE]">Hemoglobin</p>
-                    <p className="font-bold text-white mt-0.5">13.8 g/dL</p>
-                    <p className="text-[#657766] text-[0.6rem]">Normal</p>
+              <div className="space-y-2 pt-2">
+                {[
+                  "Evidence citations on every response",
+                  "Lab timeline & medication trend analysis",
+                  "HIPAA-compliant privacy-first architecture",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
+                    <span>{item}</span>
                   </div>
-                  <div className="rounded bg-[#2B2420] p-1.5">
-                    <p className="text-[#A4B1BE]">LDL</p>
-                    <p className="font-bold text-[#D8C5AA] mt-0.5">112 mg/dL</p>
-                    <p className="text-[#D8C5AA] text-[0.6rem]">Review</p>
-                  </div>
-                  <div className="rounded bg-[#2B2420] p-1.5">
-                    <p className="text-[#A4B1BE]">A1C</p>
-                    <p className="font-bold text-white mt-0.5">5.4%</p>
-                    <p className="text-[#657766] text-[0.6rem]">Normal</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-[#3A302B] flex items-center justify-between">
-              <Link
-                href="/work/innovation/mediguide-ai"
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#D8C5AA] hover:text-white transition-colors"
-              >
-                Explore MediGuide AI <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-              <span className="text-[0.65rem] text-[#A4B1BE]">Provider &amp; Patient Portals</span>
-            </div>
-          </motion.div>
-
-          {/* PRODUCT 3: CONVERA INTEGRATION GATEWAY */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.16 }}
-            className="rounded-2xl border border-[#52443D] bg-[#2B2420] p-6 lg:p-7 flex flex-col justify-between shadow-xl"
-          >
-            <div>
-              <div className="flex items-center justify-between border-b border-[#3A302B] pb-3 text-xs">
-                <span className="font-bold text-[#D8C5AA] uppercase tracking-wider text-[0.68rem]">
-                  INTEGRATION &amp; APIS
-                </span>
-                <span className="rounded bg-[#3A302B] px-2 py-0.5 text-[0.62rem] font-bold text-[#A4B1BE] border border-[#52443D]">
-                  &lt;15ms Latency
-                </span>
+                ))}
               </div>
 
-              <h3 className="mt-4 font-serif text-2xl font-bold text-white">
+              <div className="pt-3">
+                <Link
+                  href="/work/innovation/mediguide-ai"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#357C78] px-6 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#2B6663]"
+                >
+                  <span>Explore MediGuide AI</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 5. CONVERA (Section: #F4F7F9 | Copy | Screenshot) */}
+      {/* ======================================================== */}
+      <section className="bg-[#F4F7F9] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left Column: Copy */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-5 space-y-5"
+            >
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
+                INTEGRATION &amp; MIDDLEWARE
+              </span>
+
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
                 Convera Integration Hub
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#C5BCB3]">
-                Managed API gateway and message routing bridge connecting Oracle, Salesforce, and custom microservices.
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+                Enterprise API gateway and message routing bridge connecting Oracle Fusion, Salesforce, and custom microservices with zero-trust security and sub-15ms latency.
               </p>
 
-              {/* Architecture Gateway Diagram */}
-              <div className="mt-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-3.5 text-xs space-y-2">
-                <div className="flex items-center justify-between font-mono text-[0.62rem] text-[#A4B1BE]">
-                  <span>Source Apps (Oracle / CRM / HR)</span>
-                  <span>→ CONVERA Hub →</span>
-                  <span>Enterprise Services</span>
-                </div>
-                <div className="rounded bg-[#2B2420] p-2 flex items-center justify-between text-[0.65rem]">
-                  <span className="text-white font-semibold">Token Auth &amp; Schema Transform</span>
-                  <span className="text-[#657766] font-mono">0 Dropped Events</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-[#3A302B] flex items-center justify-between">
-              <Link
-                href="/capabilities/digital-engineering"
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#D8C5AA] hover:text-white transition-colors"
-              >
-                Explore Convera Architecture <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-              <span className="text-[0.65rem] text-[#A4B1BE]">Zero-Trust Security</span>
-            </div>
-          </motion.div>
-
-          {/* PRODUCT 4: HR & TALENT / ATS */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.24 }}
-            className="rounded-2xl border border-[#52443D] bg-[#2B2420] p-6 lg:p-7 flex flex-col justify-between shadow-xl"
-          >
-            <div>
-              <div className="flex items-center justify-between border-b border-[#3A302B] pb-3 text-xs">
-                <span className="font-bold text-[#D8C5AA] uppercase tracking-wider text-[0.68rem]">
-                  WORKFORCE PLATFORMS
-                </span>
-                <span className="rounded bg-[#3A302B] px-2 py-0.5 text-[0.62rem] font-bold text-[#657766] border border-[#52443D]">
-                  Unified Suite
-                </span>
+              <div className="space-y-2 pt-2">
+                {[
+                  "High-throughput event streaming & OIC bridging",
+                  "Automated payload validation & schema mapping",
+                  "Zero-downtime deployment pipelines",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
 
-              <h3 className="mt-4 font-serif text-2xl font-bold text-white">
-                ATS &amp; Core HR Suite
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#C5BCB3]">
-                Applicant tracking, automated convert-to-hire, timesheets, PTO approvals, and payroll reporting.
-              </p>
-
-              {/* Workforce Lifecycle Stepper */}
-              <div className="mt-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-3.5 text-xs">
-                <div className="grid grid-cols-4 gap-1.5 text-center text-[0.62rem] font-bold">
-                  <div className="rounded bg-[#2B2420] text-[#D8C5AA] py-1.5">RECRUIT</div>
-                  <div className="rounded bg-[#2B2420] text-[#D8C5AA] py-1.5">ONBOARD</div>
-                  <div className="rounded bg-[#2B2420] text-[#D8C5AA] py-1.5">TIMESHEET</div>
-                  <div className="rounded bg-[#7D2639] text-white py-1.5">PAYROLL</div>
-                </div>
+              <div className="pt-3">
+                <Link
+                  href="/capabilities/digital-engineering"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#47739B] hover:text-[#102033] transition-colors"
+                >
+                  <span>Explore Integration Services</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="mt-6 pt-4 border-t border-[#3A302B] flex items-center justify-between">
-              <Link
-                href="/platforms/ats"
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#D8C5AA] hover:text-white transition-colors"
-              >
-                Explore Talent Platform <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-              <span className="text-[0.65rem] text-[#A4B1BE]">Live in Production</span>
-            </div>
-          </motion.div>
+            {/* Right Column: Architectural UI */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7"
+            >
+              <CorporateBrowserFrame url="https://convera-gateway.consultamerica.internal">
+                <div className="p-6 bg-white space-y-4">
+                  <div className="flex items-center justify-between border-b border-[#E9EEF1] pb-3 text-xs">
+                    <div className="flex items-center gap-2">
+                      <Workflow className="h-4 w-4 text-[#47739B]" />
+                      <span className="font-bold text-[#102033]">Event Stream Controller</span>
+                    </div>
+                    <span className="font-mono text-[0.62rem] text-[#357C78] bg-[#DCEAE7] px-2 py-0.5 rounded font-bold">
+                      All Routes Operational
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
+                      <p className="text-[0.62rem] text-[#526170] uppercase">Oracle Fusion Bridge</p>
+                      <p className="text-sm font-bold text-[#102033] mt-0.5">&lt; 12ms</p>
+                    </div>
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
+                      <p className="text-[0.62rem] text-[#526170] uppercase">CRM Pipeline Sync</p>
+                      <p className="text-sm font-bold text-[#357C78] mt-0.5">100% Synced</p>
+                    </div>
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
+                      <p className="text-[0.62rem] text-[#526170] uppercase">Event Volume</p>
+                      <p className="text-sm font-bold text-[#47739B] mt-0.5">4.2M / day</p>
+                    </div>
+                  </div>
+                </div>
+              </CorporateBrowserFrame>
+            </motion.div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 6. HR & TALENT (Section: #FFFFFF | Screenshot | Copy) */}
+      {/* ======================================================== */}
+      <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+        <div className="ca-shell">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left Column: UI */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 order-2 lg:order-1"
+            >
+              <CorporateBrowserFrame url="https://workforce.consultamerica.internal">
+                <div className="p-6 bg-white space-y-4">
+                  <div className="flex items-center justify-between border-b border-[#E9EEF1] pb-3 text-xs">
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4 text-[#B63A3A]" />
+                      <span className="font-bold text-[#102033]">Core HR &amp; Workforce Portal</span>
+                    </div>
+                    <span className="font-mono text-[0.62rem] text-[#526170]">Production Suite</span>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-2 text-center text-[0.65rem] font-bold">
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
+                      <p className="text-[#526170]">RECRUITING</p>
+                      <p className="text-xs font-bold text-[#102033] mt-1">8 Openings</p>
+                    </div>
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
+                      <p className="text-[#526170]">CANDIDATES</p>
+                      <p className="text-xs font-bold text-[#102033] mt-1">42 In Pipeline</p>
+                    </div>
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
+                      <p className="text-[#526170]">TIMESHEETS</p>
+                      <p className="text-xs font-bold text-[#357C78] mt-1">100% Approved</p>
+                    </div>
+                    <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
+                      <p className="text-[#526170]">PAYROLL</p>
+                      <p className="text-xs font-bold text-[#B63A3A] mt-1">Reconciled</p>
+                    </div>
+                  </div>
+                </div>
+              </CorporateBrowserFrame>
+            </motion.div>
+
+            {/* Right Column: Copy */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="lg:col-span-5 order-1 lg:order-2 space-y-5"
+            >
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                WORKFORCE PLATFORMS
+              </span>
+
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+                HR &amp; Talent Suite
+              </h3>
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+                Connected workforce applications for talent acquisition, candidate pipeline management, employee self-service, leave requests, and payroll reporting.
+              </p>
+
+              <div className="space-y-2 pt-2">
+                {[
+                  "End-to-end recruit to hire automated flow",
+                  "Employee self-service leave & time management",
+                  "Full audit logging and SOC2 access control",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-3">
+                <Link
+                  href="/platforms/ats"
+                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-lg cursor-pointer"
+                >
+                  <span>Explore Workforce Suite</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

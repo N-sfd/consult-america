@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
 
 import AIDataStory from "@/components/marketing/ai-data-story";
-import ApplicationShowcase from "@/components/marketing/application-showcase";
-import DeliveryModel from "@/components/marketing/delivery-model";
-import EditorialImageBreak from "@/components/marketing/editorial-image-break";
-import EnterpriseMotion from "@/components/marketing/enterprise-motion";
+import BusinessOutcomes from "@/components/marketing/business-outcomes";
+import CareersFeature from "@/components/marketing/careers-feature";
+import CRMShowcase from "@/components/marketing/crm-showcase";
 import GrowthCta from "@/components/marketing/growth-cta";
 import Hero from "@/components/marketing/hero";
 import IndustriesSection from "@/components/marketing/industries-section";
 import InsightsSection from "@/components/marketing/insights-section";
+import LabsShowcase from "@/components/marketing/labs-showcase";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
 import TrustCredibility from "@/components/marketing/trust-credibility";
 import WhatWeDo from "@/components/marketing/what-we-do";
+import WhyConsultAmericaSection from "@/components/marketing/why-consult-america-section";
 import SiteHeader from "@/components/navigation/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
   description:
-    "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
+    "Consult America helps organizations modernize enterprise platforms, connect data and workflows, operationalize AI, and engineer digital products from strategy through production.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
     description:
-      "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
+      "Consult America helps organizations modernize enterprise platforms, connect data and workflows, operationalize AI, and engineer digital products from strategy through production.",
     type: "website",
     url: "https://consultamerica.net",
   },
@@ -35,51 +36,54 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* 01. Announcement / Utility Bar & Navigation with Mega Menus */}
+      {/* 01. Minimal & Sophisticated Header with Full-Width Mega Menus */}
       <SiteHeader />
 
       <main className="experience-marketing">
-        {/* 02. HERO: Photo + Command Center UI + Single Data Agent Floating Card */}
+        {/* 02. HERO: Light (#F7F9FA), 55/45 split, enterprise photography, 1 floating panel */}
         <Hero />
 
-        {/* 03. CAPABILITIES / PRACTICE LEADERSHIP STRIP: Light / Typography */}
+        {/* 03. CREDIBILITY: White (#FFFFFF) Platform Ecosystem Strip */}
         <TrustCredibility />
 
-        {/* 04. EDITORIAL IMAGE BREAK: Wide 1440x600 Photographic Moment with 'TRANSFORMATION AT ENTERPRISE SCALE' */}
-        <EditorialImageBreak />
+        {/* 04. BUSINESS OUTCOMES: Off-white (#F7F9FA) 4-column editorial typography & thin dividers */}
+        <BusinessOutcomes />
 
-        {/* 05. WHAT WE DO: Light / Reduced Density / 4 Capabilities with Clear Paragraphs */}
+        {/* 05. WHAT WE DO: White (#FFFFFF), Intro column + 4 visual modules with photography */}
         <WhatWeDo />
 
-        {/* 06. CONNECTED CORE: Dark / Architecture Node Hierarchy (Oracle → Integration → Data → AI → Apps → People) */}
-        <EnterpriseMotion />
-
-        {/* 07. ORACLE CLOUD: Light + UI + 7% Operations Background + Compact Chips */}
+        {/* 06. ORACLE: Light (#F7F9FA) architectural design, 45% image / 55% capability rows + 1 controlled dark moment */}
         <OracleFlagship />
 
-        {/* 08. AI & DATA: Dark (#211E1B) + UI + Technical Grid + Data Agent Pipeline */}
+        {/* 07. CRM: White (#FFFFFF) with customer-facing photography, journey & connected system diagram */}
+        <CRMShowcase />
+
+        {/* 08. AI & DATA: Soft blue-gray (#EEF3F4) + photography & 4-step intelligence methodology */}
         <AIDataStory />
 
-        {/* 09. BUILT BY CONSULT AMERICA: Standardized Browser Frames for Data Agent, MediGuide AI & CRM */}
-        <ApplicationShowcase />
+        {/* 09. CONSULT AMERICA LABS: Deep Navy (#0C2233) intro & Data Agent Flagship + Individual Products (Data Explorer, JobLens, MediGuide AI, Convera, HR & Talent) */}
+        <LabsShowcase />
 
-        {/* 10. DELIVERY MODEL: Strategy → Design → Build → Integrate → Operate */}
-        <DeliveryModel />
-
-        {/* 11. SELECTED WORK: 2-Column Editorial Cards (45% Image / 55% Content) with Qualitative Claims */}
+        {/* 10. SELECTED WORK: Off-white (#F7F9FA) editorial case study with 55/45 featured story & secondary modules */}
         <SelectedWorkSection />
 
-        {/* 12. INDUSTRIES: Editorial Photographic Grid (50% Government, 25% Finance, 25% Healthcare, Supporting Row) */}
+        {/* 11. INDUSTRIES: 2x2 photography grid with subtle navy overlay */}
         <IndustriesSection />
 
-        {/* 13. INSIGHTS: Magazine Publication Layout with 16:9 Featured & Editorial Thumbnails */}
+        {/* 12. WHY CONSULT AMERICA: White (#FFFFFF) 4-part editorial manifesto */}
+        <WhyConsultAmericaSection />
+
+        {/* 13. INSIGHTS: Soft gray (#F7F9FA) publication-style interface */}
         <InsightsSection />
 
-        {/* 14. CONTACT: 52% Cinematic Photo Left / 48% Floating Warm-White Form Right */}
+        {/* 14. CAREERS: 50/50 team photography + deep navy panel */}
+        <CareersFeature />
+
+        {/* 15. CONTACT CTA: Consult America Red (#B63A3A) with clean white form */}
         <GrowthCta />
       </main>
 
-      {/* 15. FOOTER: Textured Dark (#211E1B) with Pre-Footer 'BUILD WHAT'S NEXT' */}
+      {/* 16. FOOTER: Deep Navy (#0C2233 / #102033) */}
       <SiteFooter />
     </>
   );
