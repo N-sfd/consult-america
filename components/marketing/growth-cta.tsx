@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { ArrowUpRight, CheckCircle2, ShieldCheck, Clock } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowUpRight, CheckCircle2, ShieldCheck, Clock, Send } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const interestOptions = [
   "Enterprise Transformation",
@@ -14,6 +15,7 @@ const interestOptions = [
 ];
 
 export default function GrowthCta() {
+  const shouldReduceMotion = useReducedMotion();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,56 +37,68 @@ export default function GrowthCta() {
   };
 
   return (
-    <section id="contact-conversion" className="bg-[#F4EFE6] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D7CCBD]">
-      <div className="mkt-shell">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14 items-start">
-          {/* Left Column: Heading, Copy & Commitments */}
+    <section id="contact-conversion" className="relative overflow-hidden py-24 sm:py-28 lg:py-32 bg-[#211E1B] text-[#F7F3EC] border-b border-[#3A302B]">
+      {/* 1. Cinematic Background Photograph with Dark Charcoal/Burgundy Overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Image
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2200&q=85"
+          alt="Modern enterprise architecture and operations boardroom"
+          fill
+          className="object-cover object-center opacity-20 filter grayscale contrast-125"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#211E1B]/98 via-[#211E1B]/92 to-[#211E1B]/80" />
+        <div className="absolute inset-0 bg-radial-[circle_at_20%_30%] from-[#7D2639]/15 via-transparent to-transparent pointer-events-none" />
+      </div>
+
+      <div className="mkt-shell relative z-10">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center">
+          {/* Left Column: Heading, Copy & Trust Commitments */}
           <div className="lg:col-span-5 space-y-6">
-            <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#7D2639]">
-              WHAT COULD YOUR ENTERPRISE DO NEXT?
+            <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#D8C5AA] flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D8C5AA]" />
+              START A CONVERSATION
             </span>
 
             <motion.h2
-              initial={{ opacity: 0, y: 14 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="font-serif text-3xl font-semibold tracking-tight text-[#261F1B] sm:text-4xl lg:text-5xl lg:leading-[1.1]"
+              className="font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-[1.1]"
             >
-              Bring us the problem
-              <br />
-              <span className="text-[#7D2639]">that matters.</span>
+              What should your technology make possible next?
             </motion.h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
+            <p className="text-base sm:text-lg leading-relaxed text-[#C5BCB3]">
               Whether you&apos;re modernizing Oracle, connecting enterprise data,
               building an AI capability or launching a digital platform,
               our teams can help move it from idea to production.
             </p>
 
-            <div className="space-y-3 pt-6 border-t border-[#D7CCBD] text-xs text-[#695F57]">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#657766] shrink-0" />
-                <span className="text-[#261F1B] font-medium">Direct review by senior practice leaders within 1 business day</span>
+            <div className="space-y-3 pt-6 border-t border-[#3A302B] text-xs text-[#C5BCB3]">
+              <div className="flex items-center gap-2.5">
+                <CheckCircle2 className="h-4 w-4 text-[#D8C5AA] shrink-0" />
+                <span className="text-white font-medium">Direct review by senior practice leaders within 1 business day</span>
               </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-[#657766] shrink-0" />
-                <span>Confidential NDA scoping, architectural readiness, and timeline estimation</span>
+              <div className="flex items-center gap-2.5">
+                <ShieldCheck className="h-4 w-4 text-[#D8C5AA] shrink-0" />
+                <span>Confidential NDA scoping, architectural readiness &amp; timeline estimation</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-[#657766] shrink-0" />
+              <div className="flex items-center gap-2.5">
+                <Clock className="h-4 w-4 text-[#D8C5AA] shrink-0" />
                 <span>Zero obligation scoping and feasibility evaluation</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Minimal Premium Contact Form */}
+          {/* Right Column: Floating Warm-White Contact Form */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-7 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] p-7 sm:p-9 shadow-[0_16px_50px_rgba(38,31,27,0.06)]"
+            className="lg:col-span-7 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] p-7 sm:p-9 shadow-[0_22px_60px_rgba(0,0,0,0.3)] backdrop-blur-md"
           >
             {submitted ? (
               <div className="py-10 text-center space-y-4">
@@ -95,7 +109,7 @@ export default function GrowthCta() {
                   Inquiry Received
                 </h3>
                 <p className="mx-auto max-w-md text-sm text-[#695F57]">
-                  Thank you, {formData.name}. Our practice team has received your project objectives and will reach out to {formData.email} within 24 hours.
+                  Thank you, {formData.name}. Our practice leads have received your project objectives and will reach out to {formData.email} within 24 hours.
                 </p>
                 <button
                   type="button"
@@ -175,12 +189,12 @@ export default function GrowthCta() {
 
                 <div>
                   <label htmlFor="cta-objectives" className="block text-xs font-bold text-[#261F1B]">
-                    Project Objectives &amp; Timeline
+                    Project Objectives &amp; Scope
                   </label>
                   <textarea
                     id="cta-objectives"
                     rows={3}
-                    placeholder="Briefly describe what you're transforming, key constraints, target launch..."
+                    placeholder="Describe your transformation goals, key challenges, or timeline..."
                     value={formData.objectives}
                     onChange={(e) => setFormData({ ...formData, objectives: e.target.value })}
                     className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none resize-none"
@@ -194,7 +208,7 @@ export default function GrowthCta() {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="ca-button-primary w-full sm:w-auto !min-h-12 !px-8 text-sm font-semibold rounded-md cursor-pointer flex items-center justify-center gap-2"
+                    className="ca-button-primary w-full sm:w-auto !min-h-[50px] !px-8 text-sm font-semibold rounded-lg cursor-pointer flex items-center justify-center gap-2 shadow-md"
                   >
                     <span>Start the conversation</span>
                     <ArrowUpRight className="h-4 w-4" />

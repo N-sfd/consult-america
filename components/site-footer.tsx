@@ -65,9 +65,18 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="border-t border-[#3A302B] bg-[#211B18] text-[#C5BCB3]">
+    <footer className="relative border-t border-[#3A302B] bg-[#211E1B] text-[#C5BCB3] overflow-hidden">
+      {/* Subtle Abstract Architectural Texture (3% Opacity) */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(to right, #F7F3EC 1px, transparent 1px), linear-gradient(to bottom, #F7F3EC 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+
       {/* Prominent Pre-Footer Statement */}
-      <div className="border-b border-[#3A302B] bg-[#2B2420] py-10 sm:py-12">
+      <div className="relative z-10 border-b border-[#3A302B] bg-[#2B2420] py-10 sm:py-12">
         <Shell>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
@@ -82,7 +91,7 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="group ca-button-primary inline-flex items-center gap-2 !min-h-12 !px-7 text-sm font-semibold rounded-md cursor-pointer"
+                className="group ca-button-primary inline-flex items-center gap-2 !min-h-[50px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
               >
                 <span>Talk to an expert</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -92,7 +101,7 @@ export function SiteFooter() {
         </Shell>
       </div>
 
-      <Shell className="py-12 lg:py-16">
+      <Shell className="relative z-10 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand Col */}
           <div className="sm:col-span-2 lg:col-span-3">

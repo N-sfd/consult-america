@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 
 import AIDataStory from "@/components/marketing/ai-data-story";
-import ApplicationShowcase from "@/components/marketing/application-showcase";
+import BusinessOutcomes from "@/components/marketing/business-outcomes";
+import CRMShowcase from "@/components/marketing/crm-showcase";
 import DeliveryModel from "@/components/marketing/delivery-model";
 import EnterpriseMotion from "@/components/marketing/enterprise-motion";
 import GrowthCta from "@/components/marketing/growth-cta";
 import Hero from "@/components/marketing/hero";
 import IndustriesSection from "@/components/marketing/industries-section";
 import InsightsSection from "@/components/marketing/insights-section";
+import LabsShowcase from "@/components/marketing/labs-showcase";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
 import TrustCredibility from "@/components/marketing/trust-credibility";
@@ -34,48 +36,54 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* 01 & 02. Announcement / Utility Bar & Navigation with Mega Menus */}
+      {/* 01. Announcement / Utility Bar & Navigation with Mega Menus */}
       <SiteHeader />
 
       <main className="experience-marketing">
-        {/* 03. Enterprise Transformation Hero (56% copy / 44% interactive workspace) */}
+        {/* 02. Upgraded Enterprise Transformation Hero (Atmospheric Photo, Warm Ivory Overlay, Command Center, Floating UI, Capability Rail) */}
         <Hero />
 
-        {/* 04. Client / Capability Credibility Strip */}
+        {/* 03. Practice Leadership Credibility Strip */}
         <TrustCredibility />
 
-        {/* 05. What We Do (Editorial Value Proposition & 4 Minimal Columns) */}
+        {/* 04. Business Outcomes First (Large Editorial Statement with 6% Texture) */}
+        <BusinessOutcomes />
+
+        {/* 05. What We Do (4 Practices with Cohesive Photography & UI Overlays) */}
         <WhatWeDo />
 
         {/* 06. Enterprise in Motion (Dark Architectural Connected Systems #2B2420) */}
         <EnterpriseMotion />
 
-        {/* 07. Oracle Transformation (Fusion Cloud Operating Core & OIC Hub) */}
+        {/* 07. Oracle Transformation (Oracle Control Center & Connected Core Architecture) */}
         <OracleFlagship />
 
-        {/* 08. AI & Data (Governed AI, Document Intelligence & Live Workspace) */}
+        {/* 08. CRM & Customer Experience (Customer 360 Workspace & Unified Customer Journey) */}
+        <CRMShowcase />
+
+        {/* 09. Governed AI & Data (Dark Section #211E1B with 5-Step Extraction Pipeline) */}
         <AIDataStory />
 
-        {/* 09. Built by Consult America / Application Showcase (Data Agent, MediGuide AI, CRM Workspace) */}
-        <ApplicationShowcase />
+        {/* 10. Consult America Labs ("We don't only advise. We build." — Data Agent, MediGuide AI, Convera, HR & Talent) */}
+        <LabsShowcase />
 
-        {/* 10. Transformation Delivery Model (Strategy → Design → Build → Integrate → Operate) */}
+        {/* 11. Transformation Delivery Model (Strategy → Design → Build → Integrate → Operate) */}
         <DeliveryModel />
 
-        {/* 11. Selected Work (16:9 Editorial Case Studies) */}
+        {/* 12. Selected Work (Featured Oracle Case & 16:9 Editorial Stories) */}
         <SelectedWorkSection />
 
-        {/* 12. Industries (Interactive domain expertise & compliance focus) */}
+        {/* 13. Industries (4 Large Full-Bleed Photographic Panels: Government, Finance, Healthcare, Tech) */}
         <IndustriesSection />
 
-        {/* 13. Insights (Magazine Publication Layout & Perspectives) */}
+        {/* 14. Insights (50/50 Publication Layout with Editorial Thumbnails) */}
         <InsightsSection />
 
-        {/* 14. Contact CTA (Warm Ivory + Burgundy Action Form) */}
+        {/* 15. Contact CTA (Cinematic Background Photo with Floating Warm-White Form) */}
         <GrowthCta />
       </main>
 
-      {/* 15. Dark Footer with 'BUILD WHAT'S NEXT' Pre-Footer Statement */}
+      {/* 16. Textured Dark Footer with 'BUILD WHAT'S NEXT' Pre-Footer Statement */}
       <SiteFooter />
     </>
   );
