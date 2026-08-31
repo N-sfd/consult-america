@@ -15,6 +15,7 @@ import {
 import { motion, useReducedMotion } from "framer-motion";
 
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export default function Hero() {
   const { setOpen } = useContactPanel();
@@ -36,7 +37,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none bg-cover bg-right opacity-[0.04]"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80')",
+            `url('${stockImage("heroTexture", { w: 1920, q: 80 })}')`,
         }}
       />
 
@@ -178,7 +179,7 @@ export default function Hero() {
             {/* Main Editorial Photograph Container */}
             <div className="relative z-10 w-full max-w-[620px] h-[320px] sm:h-[400px] lg:h-[460px] rounded-[10px] overflow-hidden border border-[#DCE4E1] bg-white shadow-[0_24px_70px_rgba(11,51,50,0.10)]">
               <Image
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=85"
+                src={stockImage("hero", { w: 1400, q: 85 })}
                 alt="Senior enterprise technology practitioners and leaders collaborating on digital transformation in a modern office"
                 fill
                 priority
@@ -187,7 +188,7 @@ export default function Hero() {
               />
 
               {/* Natural subtle ambient lighting gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/30 via-transparent to-transparent pointer-events-none" />
+              <div className="mkt-overlay-soft" />
             </div>
 
             {/* Floating Strategy Panel */}

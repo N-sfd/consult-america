@@ -6,14 +6,14 @@ import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const industries = [
   {
     number: "01",
     title: "Government & Public Sector",
     href: "/industries/government-public-sector",
-    image:
-      "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1400&q=80",
+    image: stockImage("industriesGovernment", { w: 1400, q: 80 }),
     imageAlt: "Government and public sector administration center",
     gridClass: "lg:col-span-7 lg:row-span-2 min-h-[280px] sm:min-h-[320px] lg:min-h-[440px]",
   },
@@ -21,8 +21,7 @@ const industries = [
     number: "02",
     title: "Financial Services",
     href: "/industries/financial-services",
-    image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1000&q=80",
+    image: stockImage("industriesFinancial", { w: 1000, q: 80 }),
     imageAlt: "Financial services and market operations",
     gridClass: "lg:col-span-5 min-h-[220px] sm:min-h-[240px] lg:min-h-[210px]",
   },
@@ -30,8 +29,7 @@ const industries = [
     number: "03",
     title: "Healthcare",
     href: "/industries/healthcare",
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
+    image: stockImage("industriesHealthcare", { w: 1000, q: 80 }),
     imageAlt: "Clinical technology and healthcare operations",
     gridClass: "lg:col-span-5 min-h-[220px] sm:min-h-[240px] lg:min-h-[210px]",
   },
@@ -39,8 +37,7 @@ const industries = [
     number: "04",
     title: "Technology",
     href: "/industries/technology",
-    image:
-      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1400&q=80",
+    image: stockImage("industriesTech", { w: 1400, q: 80 }),
     imageAlt: "Engineering and technology platform infrastructure",
     gridClass: "lg:col-span-12 min-h-[220px] sm:min-h-[260px] lg:min-h-[260px]",
   },
@@ -95,7 +92,7 @@ export default function Industries() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 60vw"
                 />
                 {/* Warm charcoal gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/85 via-[#261F1B]/25 to-transparent" />
+                <div className="mkt-overlay-caption" />
 
                 <div className="absolute inset-0 flex flex-col justify-end p-4.5 sm:p-5">
                   <span className="mkt-eyebrow text-[#D8C5AA]">

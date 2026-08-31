@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const methodologySteps = [
   {
@@ -81,13 +82,13 @@ export default function AIDataStory() {
           >
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[10px] border border-white/20 bg-[#0B3332] shadow-[0_16px_40px_rgba(0,0,0,0.20)]">
               <Image
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
+                src={stockImage("aiDataStory", { w: 1200, q: 85 })}
                 alt="Data engineering and applied machine learning team collaborating on enterprise data pipelines"
                 fill
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/40 via-transparent to-transparent pointer-events-none" />
+              <div className="mkt-overlay" />
             </div>
           </motion.div>
         </div>

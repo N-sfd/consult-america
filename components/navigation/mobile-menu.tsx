@@ -6,14 +6,93 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
 import { useContactPanel } from "@/components/providers/contact-provider";
-import { platformLinks, industryLinks } from "@/lib/site-data";
+import { platformLinks, industryLinks, whatWeDoMegaMenu } from "@/lib/site-data";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
 }
 
-type Level = "root" | "what-we-do" | "applications" | "industries" | "company";
+type Level = "root" | "what-we-do" | "oracle" | "crm" | "ai-data" | "applications" | "industries" | "company";
+
+const WHAT_WE_DO_COLUMN_COLORS: Record<string, string> = {
+  TRANSFORM: "#B63A3A",
+  MODERNIZE: "#163536",
+  INTELLIGENCE: "#103F3E",
+  BUILD: "#47739B",
+  OPERATE: "#596968",
+};
+
+const whatWeDoColumns = [
+  whatWeDoMegaMenu.transform,
+  whatWeDoMegaMenu.modernize,
+  whatWeDoMegaMenu.intelligence,
+  whatWeDoMegaMenu.build,
+  whatWeDoMegaMenu.operate,
+];
+
+const oracleGroups = [
+  {
+    label: "Core Cloud Practices",
+    items: [
+      { href: "/oracle", label: "Financials & General Ledger" },
+      { href: "/oracle", label: "Procurement & Source-to-Pay" },
+      { href: "/oracle", label: "Supply Chain Management (SCM)" },
+      { href: "/oracle", label: "Projects & Portfolio (PPM)" },
+    ],
+  },
+  {
+    label: "Enterprise Foundation",
+    items: [
+      { href: "/oracle", label: "Oracle Integration Cloud (OIC)" },
+      { href: "/oracle", label: "Fusion Data Intelligence" },
+      { href: "/oracle", label: "Multi-Entity Ledgers" },
+      { href: "/work", label: "Oracle Case Studies" },
+    ],
+  },
+];
+
+const crmGroups = [
+  {
+    label: "Customer Journey",
+    items: [
+      { href: "/platforms/crm", label: "Discover: Account Intelligence" },
+      { href: "/platforms/crm", label: "Engage: Multi-Channel Outreach" },
+      { href: "/platforms/crm", label: "Sell: Pipeline & Deal Governance" },
+      { href: "/platforms/crm", label: "Serve: Case Deflection & Automation" },
+    ],
+  },
+  {
+    label: "Enterprise Integration",
+    items: [
+      { href: "/platforms/crm", label: "Customer 360 Workspace" },
+      { href: "/platforms/crm", label: "Salesforce & Oracle Integration" },
+      { href: "/platforms/crm", label: "Revenue Cloud & CPQ Workflows" },
+      { href: "/platforms/crm", label: "Customer Data Platform (CDP)" },
+    ],
+  },
+];
+
+const aiDataGroups = [
+  {
+    label: "Governed AI & Agents",
+    items: [
+      { href: "/ai-data", label: "Document Intelligence & Clause Extraction" },
+      { href: "/ai-data", label: "Task-Oriented Enterprise Agents" },
+      { href: "/ai-data", label: "Governed RAG & Source Grounding" },
+      { href: "/ai-data", label: "FAR / DFARS Regulatory Extraction" },
+    ],
+  },
+  {
+    label: "Data Foundations",
+    items: [
+      { href: "/ai-data", label: "Data Engineering & Modern Pipelines" },
+      { href: "/ai-data", label: "Enterprise Knowledge Graphs" },
+      { href: "/ai-data", label: "AI Governance & Access Controls" },
+      { href: "/ai-data", label: "Human-in-the-Loop Validation Queues" },
+    ],
+  },
+];
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const [level, setLevel] = useState<Level>("root");
@@ -96,29 +175,32 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <ChevronRight className="h-4 w-4 opacity-50" />
                   </button>
 
-                  <Link
-                    href="/oracle"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#163536] hover:text-[#B63A3A]"
+                  <button
+                    type="button"
+                    onClick={() => setLevel("oracle")}
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
                   >
                     Oracle
-                  </Link>
+                    <ChevronRight className="h-4 w-4 opacity-50" />
+                  </button>
 
-                  <Link
-                    href="/platforms/crm"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#163536] hover:text-[#B63A3A]"
+                  <button
+                    type="button"
+                    onClick={() => setLevel("crm")}
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
                   >
-                    CRM &amp; Customer Experience
-                  </Link>
+                    CRM
+                    <ChevronRight className="h-4 w-4 opacity-50" />
+                  </button>
 
-                  <Link
-                    href="/ai-data"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#163536] hover:text-[#B63A3A]"
+                  <button
+                    type="button"
+                    onClick={() => setLevel("ai-data")}
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
                   >
                     AI &amp; Data
-                  </Link>
+                    <ChevronRight className="h-4 w-4 opacity-50" />
+                  </button>
 
                   <button
                     type="button"
@@ -182,94 +264,35 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 </div>
               )}
 
-              {/* WHAT WE DO SUB-PANEL */}
+              {/* WHAT WE DO SUB-PANEL — sourced from whatWeDoMegaMenu so header/mobile menu never drift */}
               {level === "what-we-do" && (
                 <div className="space-y-6 pt-4">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                      Transform
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
-                          Enterprise Transformation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
-                          Operating Model &amp; Process
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
-                          Program Delivery &amp; PMO
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                      Modernize &amp; AI
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <Link href="/oracle" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
-                          Oracle Transformation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/platforms/crm" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
-                          CRM Transformation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/ai-data" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#357C78]">
-                          AI &amp; Data Engineering
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/digital-engineering" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#47739B]">
-                          Cloud Modernization &amp; APIs
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                      Build &amp; Operate
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <Link href="/capabilities/digital-engineering" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#47739B]">
-                          Application Engineering
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/platforms" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#47739B]">
-                          Enterprise Portals
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
-                          Managed Services
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
+                  {whatWeDoColumns.map((column) => (
+                    <div key={column.category}>
+                      <p
+                        className="text-xs font-bold uppercase tracking-[0.14em]"
+                        style={{ color: WHAT_WE_DO_COLUMN_COLORS[column.category] }}
+                      >
+                        {column.category.charAt(0) + column.category.slice(1).toLowerCase()}
+                      </p>
+                      <ul className="mt-2 space-y-2">
+                        {column.items.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
 
                   <div className="rounded-xl border border-[#DCE4E1] bg-[#EEF3F1] p-4">
                     <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                       Consult America Labs
                     </p>
                     <div className="mt-3 space-y-2">
-                      {[
-                        { href: "/work/innovation/data-agent", label: "Data Agent", detail: "AI Document Intelligence" },
-                        { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical Intelligence" },
-                        { href: "/platforms/crm", label: "CRM Workspace", detail: "Customer 360 & Deals" },
-                        { href: "/platforms/ats", label: "ATS & Talent", detail: "Recruiting Pipeline" },
-                      ].map((prod) => (
+                      {whatWeDoMegaMenu.labs.products.map((prod) => (
                         <Link
                           key={prod.label}
                           href={prod.href}
@@ -280,6 +303,93 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                         </Link>
                       ))}
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ORACLE SUB-PANEL */}
+              {level === "oracle" && (
+                <div className="space-y-6 pt-4">
+                  {oracleGroups.map((group) => (
+                    <div key={group.label}>
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                        {group.label}
+                      </p>
+                      <ul className="mt-2 space-y-2">
+                        {group.items.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <div className="rounded-xl border border-[#DCE4E1] bg-[#0C2233] p-4 text-white">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">Flagship Practice</p>
+                    <p className="mt-1.5 text-sm font-semibold">Modernize the digital core.</p>
+                    <Link href="/oracle" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-white hover:text-[#B63A3A]">
+                      Explore Oracle Transformation →
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* CRM SUB-PANEL */}
+              {level === "crm" && (
+                <div className="space-y-6 pt-4">
+                  {crmGroups.map((group) => (
+                    <div key={group.label}>
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                        {group.label}
+                      </p>
+                      <ul className="mt-2 space-y-2">
+                        {group.items.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <div className="rounded-xl border border-[#DCE4E1] bg-[#EEF3F1] p-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">Connected CRM</p>
+                    <p className="mt-1.5 text-sm font-semibold text-[#163536]">Connect every customer moment to the enterprise behind it.</p>
+                    <Link href="/platforms/crm" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-[#B63A3A]">
+                      Explore CRM Platform →
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* AI & DATA SUB-PANEL */}
+              {level === "ai-data" && (
+                <div className="space-y-6 pt-4">
+                  {aiDataGroups.map((group) => (
+                    <div key={group.label}>
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#103F3E]">
+                        {group.label}
+                      </p>
+                      <ul className="mt-2 space-y-2">
+                        {group.items.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#103F3E]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <div className="rounded-xl border border-[#DCE4E1] bg-[#EEF3F1] p-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#103F3E]">Applied Intelligence</p>
+                    <p className="mt-1.5 text-sm font-semibold text-[#163536]">Put intelligence into the work.</p>
+                    <Link href="/ai-data" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-[#103F3E]">
+                      Explore AI &amp; Data →
+                    </Link>
                   </div>
                 </div>
               )}

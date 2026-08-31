@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { stockImage } from "@/lib/marketing/stock-images";
+
 export type CareersPreviewJob = {
   slug: string;
   title: string;
@@ -17,7 +19,7 @@ interface CareersPreviewProps {
 
 export default function CareersPreview({
   jobs,
-  imageSrc = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80",
+  imageSrc = stockImage("careersPreview", { w: 1400, q: 80 }),
   imageAlt = "ConsultAmerica senior engineering and transformation consultants collaborating",
 }: CareersPreviewProps) {
   const hasOpenJobs = jobs.length > 0;
@@ -33,7 +35,7 @@ export default function CareersPreview({
           className="object-cover mkt-img-graded"
           sizes="(max-width: 1024px) 100vw, 50vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/70 via-[#101828]/20 to-transparent" />
+        <div className="mkt-overlay-caption" />
         <div className="absolute bottom-6 left-6 right-6 text-white">
           <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#EEF2F5]">
             PRACTICE DELIVERY TEAMS

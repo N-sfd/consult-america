@@ -6,13 +6,13 @@ import { notFound } from "next/navigation";
 import JobApplicationForm from "@/components/jobs/job-application-form";
 import { careerAreaLabels } from "@/data/jobs";
 import { getAllJobSlugs, getJobBySlug } from "@/lib/jobs";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 interface JobApplyPageProps {
   params: Promise<{ slug: string }>;
 }
 
-const APPLY_HERO_IMAGE =
-  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1400&q=80";
+const APPLY_HERO_IMAGE = stockImage("jobApplyHero", { w: 1400, q: 80 });
 
 export async function generateStaticParams() {
   const slugs = await getAllJobSlugs();

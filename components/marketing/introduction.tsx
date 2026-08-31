@@ -7,9 +7,9 @@ import { motion } from "framer-motion";
 import EditorialHeading from "@/components/marketing/EditorialHeading";
 import MediaPanel from "@/components/marketing/MediaPanel";
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
-const PRIMARY_IMAGE =
-  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=80";
+const PRIMARY_IMAGE = stockImage("introduction", { w: 1400, q: 80 });
 
 const pillars = [
   {

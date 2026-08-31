@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
+import { stockImage } from "@/lib/marketing/stock-images";
+
 const serviceCards = [
   {
     category: "ENTERPRISE TRANSFORMATION",
@@ -18,8 +20,7 @@ const serviceCards = [
     description:
       "Align business operations with modern digital workflows designed to survive cutover and drive adoption.",
     href: "/capabilities/enterprise-transformation",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+    image: stockImage("whatWeDoTransform", { w: 800, q: 80 }),
     imageAlt: "Executive strategy workshop with senior enterprise transformation team",
     icon: Workflow,
   },
@@ -29,8 +30,7 @@ const serviceCards = [
     description:
       "From architecture and implementation to testing, integrations, and financial reconciliation across Fusion Cloud.",
     href: "/oracle",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    image: stockImage("whatWeDoModernize", { w: 800, q: 80 }),
     imageAlt: "Modern enterprise operations and financial systems architecture",
     icon: Layers,
   },
@@ -40,8 +40,7 @@ const serviceCards = [
     description:
       "Enterprise document intelligence, task-oriented agents, governed RAG, and automated operational pipelines.",
     href: "/ai-data",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    image: stockImage("whatWeDoIntelligence", { w: 800, q: 80 }),
     imageAlt: "Data engineering and machine learning analytics team",
     icon: Database,
   },
@@ -51,8 +50,7 @@ const serviceCards = [
     description:
       "Custom enterprise portals, customer workspaces, talent intelligence platforms, and high-performance APIs.",
     href: "/capabilities/digital-engineering",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+    image: stockImage("whatWeDoBuild", { w: 800, q: 80 }),
     imageAlt: "Digital software engineering and modern interface team",
     icon: Code2,
   },
@@ -114,7 +112,7 @@ export default function WhatWeDo() {
                     className="object-cover mkt-img-graded transition-transform duration-700 group-hover:scale-[1.025]"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/30 via-transparent to-transparent pointer-events-none" />
+                  <div className="mkt-overlay-soft" />
                 </div>
 
                 {/* Body Content with Floating Icon */}

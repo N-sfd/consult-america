@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
-import { offices } from "@/lib/site-data";
+import { deliveryPhases, capabilityGroups, offices } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Company & Leadership | ConsultAmerica",
@@ -71,6 +71,51 @@ export default function AboutPage() {
                   {item.desc}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How We Deliver */}
+      <section className="mkt-section bg-[#FFFFFF] text-[#101828] border-t border-[#E2E7EC]">
+        <div className="mkt-shell">
+          <SectionLabel tone="burgundy">How We Deliver</SectionLabel>
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+            One delivery motion, five practices.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#475467]">
+            Every engagement moves through the same disciplined phases — strategy through
+            deployment — whether the work sits in enterprise transformation, Oracle,
+            AI &amp; data, digital engineering, or managed delivery.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            {deliveryPhases.map((phase, index) => (
+              <div key={phase} className="flex items-center gap-3">
+                <span className="rounded-full border border-[#E2E7EC] bg-[#F7F8FA] px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] text-[#101828]">
+                  {phase}
+                </span>
+                {index < deliveryPhases.length - 1 && (
+                  <ArrowUpRight className="h-3.5 w-3.5 rotate-45 text-[#B63838]/50" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {capabilityGroups.map((group) => (
+              <Link
+                key={group.title}
+                href={group.href}
+                className="group rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-6 shadow-2xs transition-colors hover:border-[#B63838]/40"
+              >
+                <p className="text-sm font-bold text-[#101828] group-hover:text-[#B63838] transition-colors">
+                  {group.title}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-[#475467]">
+                  {group.description}
+                </p>
+              </Link>
             ))}
           </div>
         </div>

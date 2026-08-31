@@ -214,6 +214,33 @@
   filter: saturate(0.85) contrast(1.04) brightness(0.99);
 }
 
+/* Shared photo-overlay system — nine components previously hand-rolled this same
+   bottom-to-top navy tint at slightly different opacities (two left over from the
+   old pre-recolor palette). Use these instead of a new inline gradient className. */
+.mkt-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to top, rgba(11, 51, 50, 0.4), transparent);
+}
+.mkt-overlay-soft {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to top, rgba(11, 51, 50, 0.3), transparent);
+}
+.mkt-overlay-caption {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to top,
+    rgba(11, 51, 50, 0.9),
+    rgba(11, 51, 50, 0.3) 45%,
+    transparent
+  );
+}
+
 /* Restrained Enterprise Radius Standards (4–12px max) */
 .mkt-radius-sm {
   border-radius: 6px;

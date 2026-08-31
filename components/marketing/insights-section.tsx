@@ -6,6 +6,7 @@ import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const featuredInsight = {
   category: "AI & DATA ARCHITECTURE",
@@ -14,7 +15,7 @@ const featuredInsight = {
   summary:
     "Why enterprise AI initiatives stall before reaching production workflows, and the data governance, citation boundaries, and human review needed for reliable operational deployment.",
   href: "/insights",
-  image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85",
+  image: stockImage("insightsHero", { w: 1200, q: 85 }),
 };
 
 const supportingInsights = [
@@ -24,7 +25,7 @@ const supportingInsights = [
     title: "What Oracle Cloud Modernization Requires Beyond Technology Implementation",
     summary: "Operating model redesign, financial subledger reconciliation, and change governance for long-term ERP ROI.",
     href: "/insights",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+    image: stockImage("insightsCard1", { w: 600, q: 80 }),
   },
   {
     category: "DOCUMENT INTELLIGENCE",
@@ -32,7 +33,7 @@ const supportingInsights = [
     title: "Building Trustworthy Document Intelligence with Grounded Source Verification",
     summary: "Extracting contract terms and complex financial schedules with traceable source citation lineage.",
     href: "/insights",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80",
+    image: stockImage("insightsCard2", { w: 600, q: 80 }),
   },
   {
     category: "DIGITAL ENGINEERING",
@@ -40,7 +41,7 @@ const supportingInsights = [
     title: "Enterprise Integration Architecture: Connecting Core ERP to Modern AI Workflows",
     summary: "Architecting event-driven integration and API bridges to support reliable operational decisioning across legacy environments.",
     href: "/insights",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
+    image: stockImage("insightsCard3", { w: 600, q: 80 }),
   },
 ];
 

@@ -5,11 +5,12 @@ import InsightCard from "@/components/marketing/InsightCard";
 import SectionLabel from "@/components/marketing/SectionLabel";
 import { insightCategoryLabels, type InsightCategory } from "@/data/insights";
 import { getInsightsByCategory } from "@/lib/insights";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=75",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=75",
+  stockImage("relatedInsights1", { w: 1200, q: 80 }),
+  stockImage("relatedInsights2", { w: 900, q: 75 }),
+  stockImage("relatedInsights3", { w: 900, q: 75 }),
 ];
 
 export default function RelatedInsights({

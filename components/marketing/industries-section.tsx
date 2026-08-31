@@ -6,34 +6,35 @@ import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const industries = [
   {
     name: "Government & Public Sector",
     description: "Modernizing core public service systems, grants administration, financial management, and agency workflows.",
     href: "/industries/public-sector",
-    image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1000&q=80",
+    image: stockImage("industriesSectionGovernment", { w: 1000, q: 80 }),
     focus: "Public Sector Modernization",
   },
   {
     name: "Healthcare & Life Sciences",
     description: "Clinical documentation intelligence, patient record connectivity, intake workflows, and care coordination.",
     href: "/industries/healthcare",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80",
+    image: stockImage("industriesSectionHealthcare", { w: 1000, q: 80 }),
     focus: "Clinical & Health Tech",
   },
   {
     name: "Financial Services",
     description: "Multi-entity enterprise ledgers, financial close governance, operational risk oversight, and connected customer CRM.",
     href: "/industries/financial-services",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
+    image: stockImage("industriesSectionFinancial", { w: 1000, q: 80 }),
     focus: "Financial Platforms",
   },
   {
     name: "Technology & Software",
     description: "API ecosystems, cloud platform foundations, event routing, and applied AI infrastructure for scaling digital products.",
     href: "/industries/technology",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80",
+    image: stockImage("industriesSectionTech", { w: 1000, q: 80 }),
     focus: "Cloud & Applied AI",
   },
 ];
@@ -86,7 +87,7 @@ export default function IndustriesSection() {
 
                 {/* Subtle Dark Green Overlay & Gradient */}
                 <div className="absolute inset-0 bg-[#0B3332]/50 transition-colors duration-300 group-hover:bg-[#0B3332]/60" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/95 via-[#103F3E]/40 to-transparent" />
+                <div className="mkt-overlay-caption" />
 
                 {/* Content */}
                 <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white">

@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import EditorialHeading from "@/components/marketing/EditorialHeading";
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 import { cn } from "@/lib/utils";
 
 const capabilities = [
@@ -17,8 +18,7 @@ const capabilities = [
     description:
       "Align business models, operating processes, and modern digital capabilities into measurable enterprise outcomes.",
     href: "/capabilities/enterprise-transformation",
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    image: stockImage("capabilitiesTransform", { w: 1200, q: 80 }),
     imageAlt: "Enterprise transformation strategy session",
   },
   {
@@ -28,8 +28,7 @@ const capabilities = [
     description:
       "Fusion ERP, HCM, SCM, and EPM implementations integrated with mission-critical data pipelines.",
     href: "/oracle",
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+    image: stockImage("capabilitiesModernize", { w: 1200, q: 80 }),
     imageAlt: "Oracle Cloud enterprise platform environment",
   },
   {
@@ -39,8 +38,7 @@ const capabilities = [
     description:
       "Document intelligence, multi-modal agents, source-grounded search, and governed data pipelines in production.",
     href: "/ai-data",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    image: stockImage("capabilitiesIntelligence", { w: 1200, q: 80 }),
     imageAlt: "AI and data analytics workspace",
   },
   {
@@ -50,8 +48,7 @@ const capabilities = [
     description:
       "Cloud-native architectures, API platforms, and high-reliability software engineering for complex workloads.",
     href: "/capabilities/digital-engineering",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    image: stockImage("capabilitiesBuild", { w: 1200, q: 80 }),
     imageAlt: "Digital engineering and product delivery",
   },
   {
@@ -61,8 +58,7 @@ const capabilities = [
     description:
       "Dedicated delivery squads, modern delivery governance, and continuous lifecycle support for enterprise platforms.",
     href: "/capabilities/managed-delivery",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    image: stockImage("capabilitiesOperate", { w: 1200, q: 80 }),
     imageAlt: "Program delivery and enterprise execution",
   },
 ];

@@ -1,3 +1,5 @@
+import { stockImage } from "@/lib/marketing/stock-images";
+
 export type CaseStudyOutcome = {
   title: string;
   description: string;
@@ -39,8 +41,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
     description:
       "Modernizing finance and procurement for complex multi-entity operations.",
     href: "/work/case-studies/oracle-cloud-transformation",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80",
+    image: stockImage("caseStudyOracle", { w: 1600, q: 80 }),
     imageAlt: "Enterprise finance operations center",
   },
   "ai-document-intelligence": {
@@ -50,8 +51,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
     description:
       "Turning complex contracts into structured, searchable enterprise intelligence.",
     href: "/work/case-studies/ai-document-intelligence",
-    image:
-      "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1600&q=80",
+    image: stockImage("caseStudyAiDocument", { w: 1600, q: 80 }),
     imageAlt: "Document intelligence and data extraction workspace",
   },
   "public-sector-finance-procurement": {
@@ -61,8 +61,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
     description:
       "Modernizing finance and procurement for complex government operations.",
     href: "/work/case-studies/public-sector-finance-procurement",
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80",
+    image: stockImage("caseStudyPublicSector", { w: 1600, q: 80 }),
     imageAlt: "Public sector operations and reporting environment",
   },
 };

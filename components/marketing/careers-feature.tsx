@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
+import { stockImage } from "@/lib/marketing/stock-images";
+
 export default function CareersFeature() {
   const shouldReduceMotion = useReducedMotion();
 
@@ -22,7 +24,7 @@ export default function CareersFeature() {
               className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:col-span-6 overflow-hidden bg-[#0B3332]"
             >
               <Image
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=85"
+                src={stockImage("careersHero", { w: 1200, q: 85 })}
                 alt="Consult America senior engineering and enterprise consulting team members collaborating"
                 fill
                 className="object-cover mkt-img-graded"
@@ -47,11 +49,11 @@ export default function CareersFeature() {
                 </div>
 
                 <h3 className="mt-4 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#163536] leading-[1.08]">
-                  Build what&apos;s next.
+                  Senior work, real programs.
                 </h3>
 
                 <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#596968]">
-                  Work at the intersection of enterprise transformation, AI, data and application engineering.
+                  Join practitioners who stay attached to Oracle transformations, AI &amp; data engineering, and the Consult America Labs products they ship — from architecture through cutover, not just the slide deck.
                 </p>
               </div>
 

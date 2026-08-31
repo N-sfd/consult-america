@@ -2,12 +2,33 @@
 
 import { FormEvent, useState } from "react";
 
+import { submitContactAction } from "@/app/actions/contact-actions";
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setPending(true);
+
+    const formData = new FormData(event.currentTarget);
+    const result = await submitContactAction({
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      company: String(formData.get("company") ?? ""),
+      message: String(formData.get("message") ?? ""),
+      source: "contact-page",
+    });
+
+    setPending(false);
+    if (result.ok) {
+      setSubmitted(true);
+    } else {
+      setError(result.message);
+    }
   }
 
   if (submitted) {
@@ -61,8 +82,13 @@ export function ContactForm() {
         placeholder="Message"
         className="ca-underline-input resize-none"
       />
-      <button type="submit" className="ca-button-primary mt-8 justify-self-start">
-        Submit
+      {error && <p className="text-sm text-red-400">{error}</p>}
+      <button
+        type="submit"
+        disabled={pending}
+        className="ca-button-primary mt-8 justify-self-start disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {pending ? "Submitting…" : "Submit"}
       </button>
     </form>
   );

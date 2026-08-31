@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const journeySteps = [
   { step: "01", name: "DISCOVER", detail: "Account intelligence" },
@@ -104,13 +105,13 @@ export default function CRMShowcase() {
           >
             <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-[10px] border border-[#DCE4E1] bg-white shadow-[0_16px_40px_rgba(11,51,50,0.08)]">
               <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=85"
+                src={stockImage("crmShowcase", { w: 1200, q: 85 })}
                 alt="Executive enterprise customer relationship and sales operations review"
                 fill
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/35 via-transparent to-transparent pointer-events-none" />
+              <div className="mkt-overlay" />
             </div>
           </motion.div>
         </div>

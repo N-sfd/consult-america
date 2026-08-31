@@ -258,134 +258,31 @@ export default function SiteHeader() {
               {/* 1. WHAT WE DO MEGA MENU (Section 6 Specification: 5 Columns + Labs Panel) */}
               {openMenu === "what-we-do" && (
                 <div className="grid grid-cols-12 gap-6">
-                  {/* Left 5 Pillars: Transform, Modernize, Intelligence, Build, Operate */}
+                  {/* Left 5 Pillars: Transform, Modernize, Intelligence, Build, Operate — sourced from whatWeDoMegaMenu so header/mobile menu never drift */}
                   <div className="col-span-9 grid grid-cols-5 gap-4">
-                    {/* 1. TRANSFORM */}
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                        TRANSFORM
-                      </p>
-                      <ul className="mt-3 space-y-1.5 text-xs">
-                        {[
-                          "Enterprise Transformation",
-                          "Operating Model & Process",
-                          "Program Delivery",
-                          "Testing & Quality",
-                          "Change & Adoption",
-                        ].map((label) => (
-                          <li key={label}>
-                            <Link
-                              href="/capabilities/enterprise-transformation"
-                              onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#163536] hover:text-[#B63A3A] transition-colors leading-snug"
-                            >
-                              {label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* 2. MODERNIZE */}
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#163536]">
-                        MODERNIZE
-                      </p>
-                      <ul className="mt-3 space-y-1.5 text-xs">
-                        {[
-                          { href: "/oracle", label: "Oracle Transformation" },
-                          { href: "/platforms/crm", label: "CRM Transformation" },
-                          { href: "/capabilities/digital-engineering", label: "Cloud Modernization" },
-                          { href: "/ai-data", label: "Data Modernization" },
-                        ].map((item) => (
-                          <li key={item.label}>
-                            <Link
-                              href={item.href}
-                              onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#163536] hover:text-[#B63A3A] transition-colors leading-snug"
-                            >
-                              {item.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* 3. INTELLIGENCE */}
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#103F3E]">
-                        INTELLIGENCE
-                      </p>
-                      <ul className="mt-3 space-y-1.5 text-xs">
-                        {[
-                          "AI Strategy",
-                          "Generative AI",
-                          "Agentic AI",
-                          "Document Intelligence",
-                          "Data Engineering",
-                          "AI Governance",
-                        ].map((label) => (
-                          <li key={label}>
-                            <Link
-                              href="/ai-data"
-                              onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#163536] hover:text-[#103F3E] transition-colors leading-snug"
-                            >
-                              {label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* 4. BUILD */}
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                        BUILD
-                      </p>
-                      <ul className="mt-3 space-y-1.5 text-xs">
-                        {[
-                          "Application Engineering",
-                          "Enterprise Portals",
-                          "Integration & APIs",
-                          "Digital Experience",
-                        ].map((label) => (
-                          <li key={label}>
-                            <Link
-                              href="/capabilities/digital-engineering"
-                              onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#163536] hover:text-[#47739B] transition-colors leading-snug"
-                            >
-                              {label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* 5. OPERATE */}
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#526170]">
-                        OPERATE
-                      </p>
-                      <ul className="mt-3 space-y-1.5 text-xs">
-                        {[
-                          "Managed Services",
-                          "Application Support",
-                          "Optimization",
-                        ].map((label) => (
-                          <li key={label}>
-                            <Link
-                              href="/capabilities/managed-delivery"
-                              onClick={() => setOpenMenu(null)}
-                              className="block py-0.5 text-[#163536] hover:text-[#B63A3A] transition-colors leading-snug"
-                            >
-                              {label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {whatWeDoColumns.map((column) => (
+                      <div key={column.category}>
+                        <p
+                          className="text-[0.68rem] font-bold uppercase tracking-[0.14em]"
+                          style={{ color: WHAT_WE_DO_COLUMN_COLORS[column.category] }}
+                        >
+                          {column.category}
+                        </p>
+                        <ul className="mt-3 space-y-1.5 text-xs">
+                          {column.items.map((item) => (
+                            <li key={item.label}>
+                              <Link
+                                href={item.href}
+                                onClick={() => setOpenMenu(null)}
+                                className="block py-0.5 text-[#163536] hover:text-[#B63A3A] transition-colors leading-snug"
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
 
                   {/* Right Side Feature: CONSULT AMERICA LABS in #EEF3F1 */}
@@ -402,14 +299,7 @@ export default function SiteHeader() {
                       </div>
 
                       <div className="mt-2.5 space-y-1">
-                        {[
-                          { href: "/work/innovation/data-agent", label: "Data Agent", desc: "Contract & Document Intelligence" },
-                          { href: "/ai-data", label: "Data Explorer", desc: "Enterprise Analytics & Repository" },
-                          { href: "/work/innovation/joblens", label: "JobLens", desc: "Talent Matching & ATS Analysis" },
-                          { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", desc: "Clinical Assistant & Timeline" },
-                          { href: "/capabilities/digital-engineering", label: "Convera", desc: "API Gateway & Message Hub" },
-                          { href: "/platforms/ats", label: "HR & Talent", desc: "Workforce Portals & Approvals" },
-                        ].map((item) => (
+                        {whatWeDoMegaMenu.labs.products.map((item) => (
                           <Link
                             key={item.label}
                             href={item.href}
@@ -420,7 +310,7 @@ export default function SiteHeader() {
                               <span className="text-[0.75rem] font-bold text-[#163536] group-hover/item:text-[#B63A3A] transition-colors">
                                 {item.label}
                               </span>
-                              <p className="text-[0.6rem] text-[#526170] leading-tight">{item.desc}</p>
+                              <p className="text-[0.6rem] text-[#526170] leading-tight">{item.detail}</p>
                             </div>
                             <ArrowUpRight className="h-3 w-3 text-[#B63A3A] opacity-0 group-hover/item:opacity-100 transition-opacity" />
                           </Link>
@@ -430,7 +320,7 @@ export default function SiteHeader() {
 
                     <div className="mt-3 pt-2.5 border-t border-[#DCE4E1]">
                       <Link
-                        href="/work/innovation"
+                        href={whatWeDoMegaMenu.labs.ctaHref}
                         onClick={() => setOpenMenu(null)}
                         className="inline-flex items-center gap-1 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
                       >

@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const featuredCase = {
   client: "PUBLIC SECTOR ENTERPRISE",
@@ -13,7 +14,7 @@ const featuredCase = {
   challenge: "Disparate legacy finance and procurement systems across operating units creating delayed period close cycles, inconsistent charts of accounts, and manual audit reconciliations.",
   approach: "Architected a unified Oracle Fusion ERP foundation with standardized subledger accounting, automated validation rules, and direct integration pipelines.",
   outcome: "Consolidated financial workflows across entities, streamlined monthly period close, and established complete audit traceability across general ledger transactions.",
-  image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
+  image: stockImage("selectedWorkHero", { w: 1200, q: 85 }),
   href: "/work",
 };
 
@@ -26,7 +27,7 @@ const secondaryCases = [
     outcome: "Structured clause extraction and significant reduction in review cycle times across procurement and commercial operations teams.",
     linkHref: "/work/innovation/data-agent",
     tag: "Data Agent AI",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    image: stockImage("selectedWorkProject1", { w: 800, q: 80 }),
   },
   {
     industry: "HEALTHCARE TECHNOLOGY",
@@ -36,7 +37,7 @@ const secondaryCases = [
     outcome: "Streamlined intake preparation with clear source citations for every synthesized care topic.",
     linkHref: "/work/innovation/mediguide-ai",
     tag: "MediGuide AI",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
+    image: stockImage("selectedWorkProject2", { w: 800, q: 80 }),
   },
 ];
 

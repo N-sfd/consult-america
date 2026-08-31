@@ -1,4 +1,5 @@
 import type { DetailPageContent } from "@/lib/marketing/detail-page-types";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const capabilityPages: Record<string, DetailPageContent> = {
   "enterprise-transformation": {
@@ -8,8 +9,7 @@ export const capabilityPages: Record<string, DetailPageContent> = {
     headline: "Transform strategy into operating reality.",
     description:
       "Align strategy, processes, operating models, and technology to modernize the enterprise and create measurable business value.",
-    heroImage:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("capabilityPageEnterpriseTransformation", { w: 1600, q: 80 }),
     heroImageAlt: "Enterprise strategy and transformation planning",
     focusAreas: [
       "Strategy",
@@ -70,8 +70,7 @@ export const capabilityPages: Record<string, DetailPageContent> = {
     headline: "Build modern digital products and platforms.",
     description:
       "Design and build modern digital products, applications, APIs, integrations, and experiences that connect people, processes, and platforms.",
-    heroImage:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("capabilityPageDigitalEngineering", { w: 1600, q: 80 }),
     heroImageAlt: "Digital engineering and product development",
     focusAreas: [
       "Web Applications",
@@ -132,8 +131,7 @@ export const capabilityPages: Record<string, DetailPageContent> = {
     headline: "Keep transformation moving.",
     description:
       "Provide the program leadership, functional expertise, technical delivery, testing, and operational support needed to keep transformation moving from plan to production.",
-    heroImage:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("capabilityPageManagedDelivery", { w: 1600, q: 80 }),
     heroImageAlt: "Managed delivery and program leadership",
     focusAreas: [
       "Program Management",

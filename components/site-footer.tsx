@@ -6,6 +6,7 @@ import { ChevronDown, ArrowUpRight } from "lucide-react";
 import BrandLogo from "@/components/brand/brand-logo";
 import { Shell } from "@/components/layout/grid";
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { industryLinks } from "@/lib/site-data";
 
 const footerColumns = [
   {
@@ -25,7 +26,15 @@ const footerColumns = [
       { href: "/oracle", label: "Supply Chain & ERP" },
       { href: "/oracle", label: "Procurement & S2P" },
       { href: "/oracle", label: "Integration & OIC" },
-      { href: "/oracle", label: "Cutover & Readiness" },
+    ],
+  },
+  {
+    title: "CRM",
+    links: [
+      { href: "/platforms/crm", label: "Customer 360 Workspace" },
+      { href: "/platforms/crm", label: "Sales & Pipeline Governance" },
+      { href: "/platforms/crm", label: "Service & Case Automation" },
+      { href: "/platforms/crm", label: "Customer Data Platform (CDP)" },
     ],
   },
   {
@@ -34,7 +43,6 @@ const footerColumns = [
       { href: "/ai-data", label: "Data Strategy & Governance" },
       { href: "/ai-data", label: "Enterprise Agents" },
       { href: "/ai-data", label: "Document Intelligence" },
-      { href: "/ai-data", label: "Knowledge Lineage & RAG" },
       { href: "/ai-data", label: "Data Pipelines & Analytics" },
     ],
   },
@@ -45,32 +53,19 @@ const footerColumns = [
       { href: "/ai-data", label: "Data Explorer" },
       { href: "/work/innovation/joblens", label: "JobLens" },
       { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
-      { href: "/employee/onboarding", label: "HR & Talent Portal" },
+      { href: "/platforms/ats", label: "HR & Talent Portal" },
     ],
   },
   {
     title: "Industries",
-    links: [
-      { href: "/industries/public-sector", label: "Government & Public Sector" },
-      { href: "/industries/financial-services", label: "Financial Services" },
-      { href: "/industries/healthcare", label: "Healthcare & Life Sciences" },
-      { href: "/industries/technology", label: "Technology & Software" },
-    ],
-  },
-  {
-    title: "Insights",
-    links: [
-      { href: "/insights", label: "Perspectives & Analysis" },
-      { href: "/insights", label: "Enterprise AI Adoption" },
-      { href: "/insights", label: "Oracle Modernization" },
-      { href: "/insights", label: "Architecture Briefs" },
-    ],
+    links: industryLinks.map((item) => ({ href: item.href, label: item.label })),
   },
   {
     title: "Company",
     links: [
       { href: "/about", label: "About Us" },
       { href: "/work", label: "Our Work" },
+      { href: "/insights", label: "Insights & Perspectives" },
       { href: "/careers", label: "Careers" },
       { href: "/contact", label: "Contact Practice Leads" },
     ],

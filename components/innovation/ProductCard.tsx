@@ -7,14 +7,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 import type { InnovationProduct } from "@/data/innovation-products";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const FALLBACK_IMAGES: Record<string, string> = {
-  "data-agent":
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-  "mediguide-ai":
-    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
-  joblens:
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+  "data-agent": stockImage("productCard1", { w: 1200, q: 80 }),
+  "mediguide-ai": stockImage("productCard2", { w: 1200, q: 80 }),
+  joblens: stockImage("productCard3", { w: 1200, q: 80 }),
 };
 
 export default function ProductCard({

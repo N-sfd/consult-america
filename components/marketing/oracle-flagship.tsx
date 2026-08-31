@@ -6,6 +6,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const capabilities = [
   {
@@ -65,13 +66,13 @@ export default function OracleFlagship() {
           >
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[10px] border border-[#DCE4E1] bg-white shadow-[0_16px_40px_rgba(11,51,50,0.08)]">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=85"
+                src={stockImage("oracleFlagship", { w: 1000, q: 85 })}
                 alt="Enterprise architectural structure and financial operations center"
                 fill
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 42vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/40 via-transparent to-transparent pointer-events-none" />
+              <div className="mkt-overlay" />
             </div>
           </motion.div>
 

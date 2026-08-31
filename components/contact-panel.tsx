@@ -5,14 +5,34 @@ import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { submitContactAction } from "@/app/actions/contact-actions";
 
 export default function ContactPanel() {
   const { open, setOpen } = useContactPanel();
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setPending(true);
+
+    const formData = new FormData(event.currentTarget);
+    const result = await submitContactAction({
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      company: String(formData.get("company") ?? ""),
+      message: String(formData.get("message") ?? ""),
+      source: "contact-panel",
+    });
+
+    setPending(false);
+    if (result.ok) {
+      setSubmitted(true);
+    } else {
+      setError(result.message);
+    }
   }
 
   return (
@@ -113,8 +133,13 @@ export default function ContactPanel() {
                   placeholder="Tell us about your program, platform, or timeline..."
                   className="ca-underline-input mt-2 resize-none"
                 />
-                <button type="submit" className="ca-button-primary mt-10 self-start cursor-pointer">
-                  Submit Direct Inquiry
+                {error && <p className="mt-3 text-sm text-[#B63838]">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={pending}
+                  className="ca-button-primary mt-10 self-start cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {pending ? "Submitting…" : "Submit Direct Inquiry"}
                 </button>
               </form>
             )}
