@@ -50,7 +50,7 @@ export default function LabsShowcase() {
             </div>
 
             <h2 className="mt-4 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-white leading-[1.08]">
-              AI-powered applications built for real business.
+              We don&apos;t only advise. We build.
             </h2>
 
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#97A8B7]">
@@ -80,21 +80,38 @@ export default function LabsShowcase() {
                 Transform contracts and complex enterprise documents into structured, traceable information while keeping users connected to the source.
               </p>
 
-              {/* 6 Capabilities from Section 22 */}
+              {/* 6 Capabilities from Section 22 / 24 */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                 {[
                   "Dynamic extraction",
-                  "Tables & schedules",
+                  "Table intelligence",
                   "Clause intelligence",
                   "Source verification",
                   "Repository intelligence",
-                  "Cross-document exploration",
+                  "Cross-document analysis",
                 ].map((cap) => (
                   <div key={cap} className="flex items-center gap-2 text-xs font-semibold text-[#F7F9FA]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
                     <span>{cap}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Data Agent End-to-End Workflow */}
+              <div className="pt-2 border-t border-[#1E3752]">
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#97A8B7]">
+                  INTELLIGENCE PIPELINE
+                </p>
+                <div className="mt-2.5 flex flex-wrap items-center gap-1.5 font-mono text-[0.65rem] text-[#F7F9FA]">
+                  {["INGEST", "EXTRACT", "VERIFY", "REVIEW", "ANALYZE", "INTEGRATE"].map((step, idx, arr) => (
+                    <span key={step} className="flex items-center gap-1.5">
+                      <span className="rounded bg-[#102033] px-2 py-0.5 border border-[#1E3752] font-semibold text-[#357C78]">
+                        {step}
+                      </span>
+                      {idx < arr.length - 1 && <span className="text-[#526170]">→</span>}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               <div className="pt-4">
