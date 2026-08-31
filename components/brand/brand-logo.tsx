@@ -49,24 +49,24 @@ export default function BrandLogo({
                 <span
                   className={cn(
                     "font-serif text-[1.12rem] sm:text-[1.22rem] font-bold tracking-[-0.02em] transition-colors",
-                    isLight ? "text-white" : "text-[#102033]"
+                    isLight ? "text-white" : "text-[#163536]"
                   )}
                 >
                   Consult
                 </span>
                 <span
                   className={cn(
-                    "font-serif text-[1.12rem] sm:text-[1.22rem] font-bold tracking-[-0.02em] text-[#BA3535] transition-colors"
+                    "font-serif text-[1.12rem] sm:text-[1.22rem] font-bold tracking-[-0.02em] text-[#B63A3A] transition-colors"
                   )}
                 >
                   America
                 </span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#BA3535] shrink-0" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A] shrink-0" />
               </span>
               <span
                 className={cn(
                   "hidden sm:block mt-0.5 text-[9.5px] font-medium tracking-[0.06em] whitespace-nowrap",
-                  isLight ? "text-[#97A8B7]" : "text-[#596874]"
+                  isLight ? "text-white/70" : "text-[#687773]"
                 )}
               >
                 Transform. Modernize. Build.
@@ -83,7 +83,7 @@ export default function BrandLogo({
     <Link
       href={href}
       aria-label="Consult America homepage"
-      className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#BA3535] rounded-md"
+      className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B63A3A] rounded-md"
       onClick={onNavigate}
     >
       {content}

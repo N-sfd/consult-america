@@ -15,11 +15,11 @@ export default function SectionLabel({
     <span
       className={cn(
         "mkt-eyebrow inline-flex items-center gap-1.5",
-        tone === "light" && "text-[#97A8B7]",
-        tone === "dark" && "text-[#526170]",
-        tone === "blue" && "text-[#47739B]",
-        (tone === "burgundy" || tone === "red") && "text-[#BA3535]",
-        (tone === "sage" || tone === "teal") && "text-[#357C78]",
+        tone === "light" && "text-white/80",
+        tone === "dark" && "text-[#596968]",
+        tone === "blue" && "text-[#103F3E]",
+        (tone === "burgundy" || tone === "red") && "text-[#B63A3A]",
+        (tone === "sage" || tone === "teal") && "text-[#103F3E]",
         className,
       )}
     >

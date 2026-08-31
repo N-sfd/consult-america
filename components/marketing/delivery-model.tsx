@@ -54,12 +54,12 @@ export default function DeliveryModel() {
   const [activeStage, setActiveStage] = useState(0);
 
   return (
-    <section className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+    <section className="bg-[#F7F9FA] text-[#163536] py-20 sm:py-24 border-b border-[#DDE4E8]">
       <div className="ca-shell">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
           <div>
             <SectionLabel tone="burgundy">DELIVERY METHODOLOGY</SectionLabel>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#102033]">
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#163536]">
               From architecture through production run.
             </h2>
           </div>
@@ -84,21 +84,21 @@ export default function DeliveryModel() {
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className={`group flex flex-col justify-between rounded-lg border p-5 text-left transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? "border-[#BA3535] bg-white shadow-sm ring-1 ring-[#BA3535]"
-                    : "border-[#DDE4E8] bg-white hover:border-[#BA3535]/40"
+                    ? "border-[#B63A3A] bg-white shadow-sm ring-1 ring-[#B63A3A]"
+                    : "border-[#DDE4E8] bg-white hover:border-[#B63A3A]/40"
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold tracking-widest text-[#BA3535]">
+                    <span className="font-mono text-xs font-bold tracking-widest text-[#B63A3A]">
                       {stage.step}
                     </span>
-                    <Icon className="h-4 w-4 text-[#526170] group-hover:text-[#BA3535] transition-colors" />
+                    <Icon className="h-4 w-4 text-[#526170] group-hover:text-[#B63A3A] transition-colors" />
                   </div>
-                  <h3 className="mt-4 text-xs font-bold uppercase tracking-wider text-[#102033] group-hover:text-[#BA3535] transition-colors">
+                  <h3 className="mt-4 text-xs font-bold uppercase tracking-wider text-[#163536] group-hover:text-[#B63A3A] transition-colors">
                     {stage.name}
                   </h3>
-                  <p className="mt-2 text-xs font-semibold text-[#102033]">
+                  <p className="mt-2 text-xs font-semibold text-[#163536]">
                     {stage.headline}
                   </p>
                   <p className="mt-2 text-[0.68rem] leading-relaxed text-[#526170]">
@@ -110,7 +110,7 @@ export default function DeliveryModel() {
                   <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#526170]">Deliverables</p>
                   {stage.deliverables.map((item) => (
                     <div key={item} className="flex items-center gap-1.5 text-[0.65rem] text-[#526170]">
-                      <span className="h-1 w-1 rounded-full bg-[#BA3535]" />
+                      <span className="h-1 w-1 rounded-full bg-[#B63A3A]" />
                       <span>{item}</span>
                     </div>
                   ))}

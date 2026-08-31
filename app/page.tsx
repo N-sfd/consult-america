@@ -41,53 +41,53 @@ export default function Home() {
       <SiteHeader />
 
       <main className="experience-marketing">
-        {/* 02. HERO: Light (#F7F9FA), 52/48 split, premium editorial photography */}
+        {/* 02. HERO: Very Light (#F8FAF9), 50/50 split, premium editorial photography */}
         <Hero />
 
-        {/* 03. CAPABILITY STRIP: Restrained capability typography */}
+        {/* 03. CAPABILITY STRIP: White (#FFFFFF) restrained capability typography */}
         <TrustCredibility />
 
-        {/* 04. BUSINESS OUTCOMES: 4-column editorial typography & thin dividers */}
+        {/* 04. BUSINESS OUTCOMES: Dark Green (#103F3E) 4-column editorial typography & thin dividers */}
         <BusinessOutcomes />
 
-        {/* 05. WHAT WE DO: 4 visual modules with staggered editorial layout */}
+        {/* 05. WHAT WE DO: White (#FFFFFF) 4 visual modules with staggered editorial layout */}
         <WhatWeDo />
 
-        {/* 06. ENTERPRISE TRANSFORMATION: Dedicated feature (Image left, Content right) */}
+        {/* 06. ENTERPRISE TRANSFORMATION: Light Gray-Green (#EEF3F1) dedicated feature (Image left, Content right) */}
         <EnterpriseTransformationFeature />
 
-        {/* 07. ORACLE FLAGSHIP: Clean architecture & 6 editorial practice rows */}
+        {/* 07. ORACLE FLAGSHIP: White (#FFFFFF) clean architecture & 6 editorial practice rows */}
         <OracleFlagship />
 
-        {/* 08. CRM: Customer-facing photography, journey & architecture line */}
+        {/* 08. CRM: Light Gray-Green (#EEF3F1) customer-facing photography, journey & architecture line */}
         <CRMShowcase />
 
-        {/* 09. AI & DATA: Soft blue-gray (#EEF3F4) + photography & 4-step intelligence methodology */}
+        {/* 09. AI & DATA: Dark Green (#103F3E) + photography & 4-step intelligence methodology */}
         <AIDataStory />
 
         {/* 10. APPLICATION ENGINEERING & LABS: Practice intro, Data Agent Flagship, Alternating Products & Portfolio Gallery */}
         <LabsShowcase />
 
-        {/* 11. SELECTED WORK: Transformation in Practice editorial case studies */}
+        {/* 11. SELECTED WORK: White (#FFFFFF) transformation in practice editorial case studies */}
         <SelectedWorkSection />
 
-        {/* 12. INDUSTRIES: 2x2 photography grid without compliance badges */}
+        {/* 12. INDUSTRIES: Dark Green (#103F3E) 2x2 photography grid */}
         <IndustriesSection />
 
-        {/* 13. WHY CONSULT AMERICA: 4-part minimalist consulting manifesto */}
+        {/* 13. WHY CONSULT AMERICA: White (#FFFFFF) 4-part minimalist consulting manifesto */}
         <WhyConsultAmericaSection />
 
-        {/* 14. INSIGHTS: Editorial 60/40 publication layout */}
+        {/* 14. INSIGHTS: Light (#F8FAF9) editorial publication layout */}
         <InsightsSection />
 
-        {/* 15. CAREERS: 50/50 team photography + dark panel */}
+        {/* 15. CAREERS: White (#FFFFFF) team photography + green-gray panel */}
         <CareersFeature />
 
-        {/* 16. CONTACT CTA: Consult America Red (#B63A3A) with clean form */}
+        {/* 16. CONTACT CTA: Dark Green (#103F3E / #0B3332) with clean white form */}
         <GrowthCta />
       </main>
 
-      {/* 17. FOOTER: Deep Navy (#0C2233 / #102033) */}
+      {/* 17. FOOTER: Deepest Green (#092C2D) */}
       <SiteFooter />
     </>
   );

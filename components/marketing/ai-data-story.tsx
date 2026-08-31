@@ -34,11 +34,11 @@ export default function AIDataStory() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="ai-data-story" className="bg-[#EDF5F3] text-[#102033] py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]">
+    <section id="ai-data-story" className="bg-[#103F3E] text-white py-16 sm:py-20 lg:py-24 border-b border-[#0B3332]">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="inline-flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#0E514E]">
+          <span className="h-2 w-2 rounded-full bg-[#9DC8BC]" />
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9DC8BC]">
             AI &amp; DATA PRACTICE
           </span>
         </div>
@@ -52,18 +52,18 @@ export default function AIDataStory() {
             transition={{ duration: 0.55 }}
             className="lg:col-span-6 space-y-6"
           >
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-white leading-[1.08]">
               Put intelligence into the work.
             </h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-[#5A6770]">
+            <p className="text-base sm:text-lg leading-relaxed text-white/80">
               AI creates value when trusted data, useful models, business context and real workflows come together.
             </p>
 
             <div className="pt-2">
               <Link
                 href="/ai-data"
-                className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[6px] bg-[#BA3535] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#9E2C2C] transition-all cursor-pointer"
+                className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[6px] bg-[#B63A3A] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(182,58,58,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"
               >
                 <span>Explore AI &amp; Data Practice</span>
                 <ArrowUpRight className="h-4 w-4" />
@@ -79,7 +79,7 @@ export default function AIDataStory() {
             transition={{ duration: 0.55, delay: 0.08 }}
             className="lg:col-span-6"
           >
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[10px] border border-[#DCE3E5] bg-white shadow-[0_16px_40px_rgba(16,32,51,0.08)]">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[10px] border border-white/20 bg-[#0B3332] shadow-[0_16px_40px_rgba(0,0,0,0.20)]">
               <Image
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
                 alt="Data engineering and applied machine learning team collaborating on enterprise data pipelines"
@@ -87,13 +87,13 @@ export default function AIDataStory() {
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/30 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B3332]/40 via-transparent to-transparent pointer-events-none" />
             </div>
           </motion.div>
         </div>
 
         {/* 4 Editorial Stages: Large Numbers + Whitespace + Thin Dividers */}
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-[#DCE3E5] pt-10">
+        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-white/20 pt-10">
           {methodologySteps.map((step, idx) => (
             <motion.div
               key={step.number}
@@ -104,13 +104,13 @@ export default function AIDataStory() {
               className="flex flex-col justify-between"
             >
               <div>
-                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#0E514E]">
+                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#9DC8BC]">
                   {step.number}
                 </span>
-                <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-[#102033]">
+                <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-white">
                   {step.title}
                 </h3>
-                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-[#5A6770]">
+                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-white/78">
                   {step.description}
                 </p>
               </div>

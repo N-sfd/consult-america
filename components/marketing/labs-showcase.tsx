@@ -30,15 +30,15 @@ function CorporateBrowserFrame({
   children: React.ReactNode;
 }) {
   return (
-    <div className="overflow-hidden rounded-[10px] border border-[#DDE4E8] bg-white p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(16,32,51,0.09)]">
+    <div className="overflow-hidden rounded-[10px] border border-[#DCE4E1] bg-white p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(16,32,51,0.09)]">
       {/* Browser Chrome Header */}
-      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F4F6F7] px-3.5 py-2 -mx-2 -mt-2 mb-2 sm:-mx-2.5 sm:-mt-2.5 sm:mb-2.5 rounded-t-[8px]">
+      <div className="flex items-center justify-between border-b border-[#DCE4E1] bg-[#F4F6F7] px-3.5 py-2 -mx-2 -mt-2 mb-2 sm:-mx-2.5 sm:-mt-2.5 sm:mb-2.5 rounded-t-[8px]">
         <div className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
-          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
-          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
+          <span className="h-2 w-2 rounded-full bg-[#DCE4E1]" />
+          <span className="h-2 w-2 rounded-full bg-[#DCE4E1]" />
+          <span className="h-2 w-2 rounded-full bg-[#DCE4E1]" />
         </div>
-        <span className="font-mono text-[0.65rem] text-[#526170] tracking-wide truncate max-w-[240px] sm:max-w-none">
+        <span className="font-mono text-[0.65rem] text-[#596968] tracking-wide truncate max-w-[240px] sm:max-w-none">
           {url}
         </span>
         <div className="w-8" />
@@ -214,7 +214,7 @@ export default function LabsShowcase() {
       {/* ======================================================== */}
       {/* 1. APPLICATION ENGINEERING PRACTICE (Section 19)         */}
       {/* ======================================================== */}
-      <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+      <section className="bg-[#FFFFFF] text-[#163536] py-20 sm:py-24 lg:py-28 border-b border-[#DCE4E1]">
         <div className="ca-shell">
           <SectionLabel tone="burgundy">APPLICATION ENGINEERING PRACTICE</SectionLabel>
 
@@ -227,11 +227,11 @@ export default function LabsShowcase() {
               transition={{ duration: 0.55 }}
               className="lg:col-span-6 space-y-6"
             >
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#163536] leading-[1.08]">
                 Build what packaged software cannot.
               </h2>
 
-              <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+              <p className="text-base sm:text-lg leading-relaxed text-[#596968]">
                 Design and engineer applications, portals, AI experiences and integration services around the workflows that differentiate the business.
               </p>
 
@@ -255,8 +255,8 @@ export default function LabsShowcase() {
               className="lg:col-span-6 grid grid-cols-2 gap-4"
             >
               <div className="space-y-4">
-                <div className="overflow-hidden rounded-lg border border-[#DDE4E8] bg-white shadow-sm p-1.5">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-[#0C2233]">
+                <div className="overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-sm p-1.5">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-[#0B3332]">
                     <Image
                       src="/innovation/data-agent-hero.png"
                       alt="Data Agent document intelligence interface"
@@ -265,10 +265,10 @@ export default function LabsShowcase() {
                       sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
-                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#102033] px-1">Data Agent AI</p>
+                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#163536] px-1">Data Agent AI</p>
                 </div>
 
-                <div className="overflow-hidden rounded-lg border border-[#DDE4E8] bg-white shadow-sm p-1.5">
+                <div className="overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-sm p-1.5">
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-white">
                     <Image
                       src="/innovation/joblens-hero.png"
@@ -278,13 +278,13 @@ export default function LabsShowcase() {
                       sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
-                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#102033] px-1">JobLens</p>
+                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#163536] px-1">JobLens</p>
                 </div>
               </div>
 
               <div className="space-y-4 pt-6 sm:pt-8">
-                <div className="overflow-hidden rounded-lg border border-[#DDE4E8] bg-white shadow-sm p-1.5">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-[#EDF5F3]">
+                <div className="overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-sm p-1.5">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-[#EEF3F1]">
                     <Image
                       src="/innovation/mediguide-hero.png"
                       alt="MediGuide AI clinical assistant"
@@ -293,10 +293,10 @@ export default function LabsShowcase() {
                       sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
-                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#102033] px-1">MediGuide AI</p>
+                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#163536] px-1">MediGuide AI</p>
                 </div>
 
-                <div className="overflow-hidden rounded-lg border border-[#DDE4E8] bg-white shadow-sm p-1.5">
+                <div className="overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-sm p-1.5">
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-white">
                     <Image
                       src="/innovation/data-agent-platform.png"
@@ -306,7 +306,7 @@ export default function LabsShowcase() {
                       sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
-                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#102033] px-1">Data Explorer</p>
+                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#163536] px-1">Data Explorer</p>
                 </div>
               </div>
             </motion.div>
@@ -318,9 +318,9 @@ export default function LabsShowcase() {
       {/* 2. CONSULT AMERICA LABS & DATA AGENT (Section 22-23)     */}
       {/* ======================================================== */}
       <section
-        className="py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]"
+        className="py-16 sm:py-20 lg:py-24 border-b border-[#DCE4E1]"
         style={{
-          background: "linear-gradient(135deg, #F8FAFA 0%, #EDF5F3 100%)",
+          background: "linear-gradient(135deg, #EEF3F1 0%, #EEF3F1 100%)",
         }}
       >
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
@@ -334,19 +334,19 @@ export default function LabsShowcase() {
               className="lg:col-span-4 space-y-5"
             >
               <div className="inline-flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
-                <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#0E514E]">
+                <span className="h-2 w-2 rounded-full bg-[#103F3E]" />
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#103F3E]">
                   CONSULT AMERICA LABS
                 </span>
               </div>
 
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[40px] font-semibold tracking-[-0.03em] text-[#102033] leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[40px] font-semibold tracking-[-0.03em] text-[#163536] leading-tight">
                 We don&apos;t just advise.
                 <br />
-                <span className="text-[#0E514E]">We build.</span>
+                <span className="text-[#103F3E]">We build.</span>
               </h2>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#5A6770]">
+              <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
                 Our applications solve real business problems with AI, data and
                 customer-centric design.
               </p>
@@ -363,9 +363,9 @@ export default function LabsShowcase() {
                 ].map((cap) => (
                   <div
                     key={cap}
-                    className="flex items-center gap-2 text-xs font-semibold text-[#102033]"
+                    className="flex items-center gap-2 text-xs font-semibold text-[#163536]"
                   >
-                    <CheckCircle2 className="h-3.5 w-3.5 text-[#0E514E] shrink-0" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#103F3E] shrink-0" />
                     <span>{cap}</span>
                   </div>
                 ))}
@@ -374,7 +374,7 @@ export default function LabsShowcase() {
               <div className="pt-3">
                 <Link
                   href="/work/innovation/data-agent"
-                  className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[6px] bg-[#BA3535] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#9E2C2C] transition-all cursor-pointer"
+                  className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[6px] bg-[#B63A3A] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"
                 >
                   <span>Explore our applications</span>
                   <ArrowRight className="h-4 w-4" />
@@ -410,8 +410,8 @@ export default function LabsShowcase() {
       {/* 3. ALTERNATING PRODUCT PORTFOLIO SECTIONS (Section 22-23) */}
       {/* ======================================================== */}
 
-      {/* 3A. DATA EXPLORER (Screenshot left, Copy right, soft blue-gray #EEF2F3) */}
-      <section className="bg-[#EEF2F3] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+      {/* 3A. DATA EXPLORER (Screenshot left, Copy right, soft blue-gray #EEF3F1) */}
+      <section className="bg-[#EEF3F1] text-[#163536] py-20 sm:py-24 border-b border-[#DCE4E1]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
             <motion.div
@@ -445,11 +445,11 @@ export default function LabsShowcase() {
                 DATA REPOSITORY
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#163536] leading-tight">
                 Data Explorer
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+              <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
                 Search, filter, and compare unstructured documents across common fields, expiration schedules, and obligations with instant audit traceability.
               </p>
 
@@ -459,7 +459,7 @@ export default function LabsShowcase() {
                   "Structured schema query & export",
                   "Contract clause verification workflows",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#163536]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
                     <span>{item}</span>
                   </div>
@@ -469,7 +469,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/ai-data"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#47739B] hover:text-[#102033] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#47739B] hover:text-[#163536] transition-colors"
                 >
                   <span>Explore Data Architecture</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -481,7 +481,7 @@ export default function LabsShowcase() {
       </section>
 
       {/* 3B. JOBLENS (Copy left, Screenshot right, white/blue-gray #FFFFFF) */}
-      <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+      <section className="bg-[#FFFFFF] text-[#163536] py-20 sm:py-24 border-b border-[#DCE4E1]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
             <motion.div
@@ -495,11 +495,11 @@ export default function LabsShowcase() {
                 TALENT INTELLIGENCE
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#163536] leading-tight">
                 JobLens
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+              <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
                 Turn career information into clearer next steps. AI career platform for resume analysis, ATS keyword feedback, job matching, cover-letter generation, and application tracking.
               </p>
 
@@ -510,8 +510,8 @@ export default function LabsShowcase() {
                   "Job matching & cover letter generation",
                   "Application lifecycle tracking",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-[#0E514E] shrink-0" />
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#163536]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#103F3E] shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -551,8 +551,8 @@ export default function LabsShowcase() {
         </div>
       </section>
 
-      {/* 3C. MEDIGUIDE AI (Screenshot left, Copy right, pale healthcare teal #EDF5F3) */}
-      <section className="bg-[#EDF5F3] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+      {/* 3C. MEDIGUIDE AI (Screenshot left, Copy right, pale healthcare teal #EEF3F1) */}
+      <section className="bg-[#EEF3F1] text-[#163536] py-20 sm:py-24 border-b border-[#DCE4E1]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
             <motion.div
@@ -582,15 +582,15 @@ export default function LabsShowcase() {
               transition={{ duration: 0.55 }}
               className="lg:col-span-5 order-1 lg:order-2 space-y-5"
             >
-              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#103F3E]">
                 HEALTHCARE AI
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#163536] leading-tight">
                 MediGuide AI
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#5A6770]">
+              <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
                 Make complex health information easier to understand and use. A structured assistant for intake, responsible boundaries, patient-friendly explanations, and clear communication.
               </p>
 
@@ -601,8 +601,8 @@ export default function LabsShowcase() {
                   "Patient-friendly explanations with citations",
                   "Responsible health boundary protocols",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-[#0E514E] shrink-0" />
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#163536]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#103F3E] shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -611,7 +611,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/work/innovation/mediguide-ai"
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#0E514E] px-6 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#0A3D3B]"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#103F3E] px-6 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#0A3D3B]"
                 >
                   <span>Explore MediGuide AI</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -623,7 +623,7 @@ export default function LabsShowcase() {
       </section>
 
       {/* 3D. CONVERA (Copy left, Screenshot right, cool gray #F4F7F9) */}
-      <section className="bg-[#F4F7F9] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+      <section className="bg-[#F4F7F9] text-[#163536] py-20 sm:py-24 border-b border-[#DCE4E1]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
             <motion.div
@@ -637,11 +637,11 @@ export default function LabsShowcase() {
                 INTEGRATION GATEWAY
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#163536] leading-tight">
                 Convera Integration Hub
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+              <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
                 Enterprise API gateway and message routing bridge connecting Oracle Fusion, CRM, and custom microservices with clean schema validation and reliable routing.
               </p>
 
@@ -651,7 +651,7 @@ export default function LabsShowcase() {
                   "Automated payload validation & schema mapping",
                   "Resilient error deflection & retry queues",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#163536]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
                     <span>{item}</span>
                   </div>
@@ -661,7 +661,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/capabilities/digital-engineering"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#47739B] hover:text-[#102033] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#47739B] hover:text-[#163536] transition-colors"
                 >
                   <span>Explore Integration Services</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -678,27 +678,27 @@ export default function LabsShowcase() {
             >
               <CorporateBrowserFrame url="https://convera-gateway.consultamerica.internal">
                 <div className="p-6 bg-white space-y-4">
-                  <div className="flex items-center justify-between border-b border-[#E1E7E8] pb-3 text-xs">
+                  <div className="flex items-center justify-between border-b border-[#DCE4E1] pb-3 text-xs">
                     <div className="flex items-center gap-2">
-                      <Workflow className="h-4 w-4 text-[#0E514E]" />
-                      <span className="font-bold text-[#102033]">Event Stream Controller</span>
+                      <Workflow className="h-4 w-4 text-[#103F3E]" />
+                      <span className="font-bold text-[#163536]">Event Stream Controller</span>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#0E514E] bg-[#DCEBE8] px-2 py-0.5 rounded font-bold">
+                    <span className="font-mono text-[0.62rem] text-[#103F3E] bg-[#EEF3F1] px-2 py-0.5 rounded font-bold">
                       Operational
                     </span>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-3">
-                      <p className="text-[0.62rem] text-[#5A6770] uppercase">Oracle Bridge</p>
-                      <p className="text-sm font-bold text-[#102033] mt-0.5">Active</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-3">
+                      <p className="text-[0.62rem] text-[#596968] uppercase">Oracle Bridge</p>
+                      <p className="text-sm font-bold text-[#163536] mt-0.5">Active</p>
                     </div>
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-3">
-                      <p className="text-[0.62rem] text-[#5A6770] uppercase">CRM Pipeline</p>
-                      <p className="text-sm font-bold text-[#0E514E] mt-0.5">Synced</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-3">
+                      <p className="text-[0.62rem] text-[#596968] uppercase">CRM Pipeline</p>
+                      <p className="text-sm font-bold text-[#103F3E] mt-0.5">Synced</p>
                     </div>
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-3">
-                      <p className="text-[0.62rem] text-[#5A6770] uppercase">Routing Mode</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-3">
+                      <p className="text-[0.62rem] text-[#596968] uppercase">Routing Mode</p>
                       <p className="text-sm font-bold text-[#2F7772] mt-0.5">Direct</p>
                     </div>
                   </div>
@@ -710,7 +710,7 @@ export default function LabsShowcase() {
       </section>
 
       {/* 3E. HR & TALENT SUITE (Screenshot left, Copy right, white/soft blue #FFFFFF) */}
-      <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DCE3E5]">
+      <section className="bg-[#FFFFFF] text-[#163536] py-20 sm:py-24 border-b border-[#DCE4E1]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
             <motion.div
@@ -722,30 +722,30 @@ export default function LabsShowcase() {
             >
               <CorporateBrowserFrame url="https://workforce.consultamerica.internal">
                 <div className="p-6 bg-white space-y-4">
-                  <div className="flex items-center justify-between border-b border-[#E1E7E8] pb-3 text-xs">
+                  <div className="flex items-center justify-between border-b border-[#DCE4E1] pb-3 text-xs">
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-[#BA3535]" />
-                      <span className="font-bold text-[#102033]">Core HR &amp; Workforce Portal</span>
+                      <Users className="h-4 w-4 text-[#B63A3A]" />
+                      <span className="font-bold text-[#163536]">Core HR &amp; Workforce Portal</span>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#5A6770]">Production Suite</span>
+                    <span className="font-mono text-[0.62rem] text-[#596968]">Production Suite</span>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-[0.65rem] font-bold">
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-2.5">
-                      <p className="text-[#5A6770]">RECRUITING</p>
-                      <p className="text-xs font-bold text-[#102033] mt-1">Active Pipeline</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-2.5">
+                      <p className="text-[#596968]">RECRUITING</p>
+                      <p className="text-xs font-bold text-[#163536] mt-1">Active Pipeline</p>
                     </div>
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-2.5">
-                      <p className="text-[#5A6770]">CANDIDATES</p>
-                      <p className="text-xs font-bold text-[#102033] mt-1">Screening Flow</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-2.5">
+                      <p className="text-[#596968]">CANDIDATES</p>
+                      <p className="text-xs font-bold text-[#163536] mt-1">Screening Flow</p>
                     </div>
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-2.5">
-                      <p className="text-[#5A6770]">TIMESHEETS</p>
-                      <p className="text-xs font-bold text-[#0E514E] mt-1">Approvals Online</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-2.5">
+                      <p className="text-[#596968]">TIMESHEETS</p>
+                      <p className="text-xs font-bold text-[#103F3E] mt-1">Approvals Online</p>
                     </div>
-                    <div className="rounded border border-[#DCE3E5] bg-[#F8FAFA] p-2.5">
-                      <p className="text-[#5A6770]">PAYROLL</p>
-                      <p className="text-xs font-bold text-[#BA3535] mt-1">Verified</p>
+                    <div className="rounded border border-[#DCE4E1] bg-[#EEF3F1] p-2.5">
+                      <p className="text-[#596968]">PAYROLL</p>
+                      <p className="text-xs font-bold text-[#B63A3A] mt-1">Verified</p>
                     </div>
                   </div>
                 </div>
@@ -759,15 +759,15 @@ export default function LabsShowcase() {
               transition={{ duration: 0.55 }}
               className="lg:col-span-5 order-1 lg:order-2 space-y-5"
             >
-              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                 WORKFORCE PLATFORM
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102033] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#163536] leading-tight">
                 HR &amp; Talent Suite
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
+              <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
                 Connected workforce applications for talent acquisition, candidate pipeline management, employee self-service, leave requests, and payroll reporting.
               </p>
 
@@ -777,8 +777,8 @@ export default function LabsShowcase() {
                   "Employee self-service leave & time management",
                   "Role-based permission architecture",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-[#0E514E] shrink-0" />
+                  <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#163536]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#103F3E] shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -801,16 +801,16 @@ export default function LabsShowcase() {
       {/* ======================================================== */}
       {/* 4. FULL APPLICATION PORTFOLIO GALLERY (Section 25)       */}
       {/* ======================================================== */}
-      <section className="bg-[#F8FAFA] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
+      <section className="bg-[#EEF3F1] text-[#163536] py-20 sm:py-24 border-b border-[#DCE4E1]">
         <div className="ca-shell">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DCE4E1]">
             <div>
               <SectionLabel tone="burgundy">APPLICATION DEVELOPMENT PORTFOLIO</SectionLabel>
-              <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]">
+              <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#163536]">
                 From idea to working product.
               </h2>
             </div>
-            <p className="max-w-md text-sm sm:text-base text-[#526170]">
+            <p className="max-w-md text-sm sm:text-base text-[#596968]">
               Our application portfolio demonstrates how Consult America moves from business problem to interface, workflow, integration and deployed software.
             </p>
           </div>
@@ -826,8 +826,8 @@ export default function LabsShowcase() {
                   onClick={() => setSelectedFilter(cat.id)}
                   className={`shrink-0 rounded-full px-4 py-2 text-xs font-bold tracking-wider transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? "bg-[#102033] text-white shadow-xs"
-                      : "bg-white text-[#526170] border border-[#DDE4E8] hover:border-[#BA3535] hover:text-[#102033]"
+                      ? "bg-[#163536] text-white shadow-xs"
+                      : "bg-white text-[#596968] border border-[#DCE4E1] hover:border-[#B63A3A] hover:text-[#163536]"
                   }`}
                 >
                   {cat.label}
@@ -852,38 +852,38 @@ export default function LabsShowcase() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.96 }}
                     transition={{ duration: 0.22 }}
-                    className="group flex flex-col justify-between rounded-xl border border-[#DDE4E8] bg-white p-5 shadow-2xs hover:border-[#BA3535]/50 hover:shadow-md transition-all duration-200"
+                    className="group flex flex-col justify-between rounded-xl border border-[#DCE4E1] bg-white p-5 shadow-2xs hover:border-[#B63A3A]/50 hover:shadow-md transition-all duration-200"
                   >
                     <div>
                       {/* Browser Mockup Top */}
-                      <div className="overflow-hidden rounded-lg border border-[#E9EEF1] bg-[#F4F6F7]">
-                        <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#E9EEF1] bg-white">
+                      <div className="overflow-hidden rounded-lg border border-[#DCE4E1] bg-[#F4F6F7]">
+                        <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#DCE4E1] bg-white">
                           <div className="flex items-center gap-1">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#DDE4E8]" />
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#DDE4E8]" />
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#DDE4E8]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#DCE4E1]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#DCE4E1]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#DCE4E1]" />
                           </div>
-                          <span className="font-mono text-[0.6rem] text-[#526170] truncate max-w-[160px]">
+                          <span className="font-mono text-[0.6rem] text-[#596968] truncate max-w-[160px]">
                             {project.displayUrl}
                           </span>
                           <span className="h-1 w-4" />
                         </div>
 
-                        <div className="relative h-40 w-full bg-[#F8FAFA] p-5 flex flex-col justify-between overflow-hidden">
+                        <div className="relative h-40 w-full bg-[#EEF3F1] p-5 flex flex-col justify-between overflow-hidden">
                           <div className="flex items-center justify-between">
-                            <span className="rounded bg-white px-2 py-0.5 text-[0.62rem] font-bold text-[#102033] border border-[#DDE4E8]">
+                            <span className="rounded bg-white px-2 py-0.5 text-[0.62rem] font-bold text-[#163536] border border-[#DCE4E1]">
                               {project.categoryLabel}
                             </span>
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border border-[#DDE4E8] shadow-2xs">
-                              <IconComponent className="h-4 w-4 text-[#102033]" />
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border border-[#DCE4E1] shadow-2xs">
+                              <IconComponent className="h-4 w-4 text-[#163536]" />
                             </div>
                           </div>
 
                           <div>
-                            <p className="font-serif text-lg font-bold text-[#102033]">
+                            <p className="font-serif text-lg font-bold text-[#163536]">
                               {project.name}
                             </p>
-                            <p className="text-[0.68rem] text-[#526170] line-clamp-1 mt-0.5">
+                            <p className="text-[0.68rem] text-[#596968] line-clamp-1 mt-0.5">
                               {project.headline}
                             </p>
                           </div>
@@ -892,10 +892,10 @@ export default function LabsShowcase() {
 
                       {/* Content */}
                       <div className="mt-5 space-y-2.5">
-                        <h4 className="font-serif text-lg font-bold text-[#102033] group-hover:text-[#BA3535] transition-colors">
+                        <h4 className="font-serif text-lg font-bold text-[#163536] group-hover:text-[#B63A3A] transition-colors">
                           {project.name}
                         </h4>
-                        <p className="text-xs text-[#526170] leading-relaxed line-clamp-2">
+                        <p className="text-xs text-[#596968] leading-relaxed line-clamp-2">
                           {project.description}
                         </p>
 
@@ -903,7 +903,7 @@ export default function LabsShowcase() {
                           {project.capabilities.slice(0, 3).map((cap) => (
                             <span
                               key={cap}
-                              className="rounded bg-[#EEF2F3] px-2 py-0.5 text-[0.65rem] font-medium text-[#102033]"
+                              className="rounded bg-[#EEF3F1] px-2 py-0.5 text-[0.65rem] font-medium text-[#163536]"
                             >
                               {cap}
                             </span>
@@ -913,11 +913,11 @@ export default function LabsShowcase() {
                     </div>
 
                     {/* Footer Actions */}
-                    <div className="mt-6 pt-4 border-t border-[#E9EEF1] flex items-center justify-between text-xs font-bold">
+                    <div className="mt-6 pt-4 border-t border-[#DCE4E1] flex items-center justify-between text-xs font-bold">
                       <button
                         type="button"
                         onClick={() => setActiveModalProject(project)}
-                        className="text-[#BA3535] hover:underline cursor-pointer flex items-center gap-1"
+                        className="text-[#B63A3A] hover:underline cursor-pointer flex items-center gap-1"
                       >
                         <span>View Details</span>
                         <ArrowRight className="h-3 w-3" />
@@ -927,7 +927,7 @@ export default function LabsShowcase() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[#526170] hover:text-[#102033] transition-colors"
+                        className="inline-flex items-center gap-1 text-[#596968] hover:text-[#163536] transition-colors"
                       >
                         <span>Live Demo</span>
                         <ExternalLink className="h-3 w-3" />
@@ -940,16 +940,16 @@ export default function LabsShowcase() {
           </motion.div>
 
           {/* Application Development CTA */}
-          <div className="mt-16 rounded-xl border border-[#DDE4E8] bg-white p-8 sm:p-10 shadow-sm">
+          <div className="mt-16 rounded-xl border border-[#DCE4E1] bg-white p-8 sm:p-10 shadow-sm">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-8 space-y-3">
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                   CUSTOM APPLICATION ENGINEERING
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#102033]">
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#163536]">
                   Have a workflow that packaged software cannot solve?
                 </h3>
-                <p className="text-sm sm:text-base text-[#526170] leading-relaxed max-w-2xl">
+                <p className="text-sm sm:text-base text-[#596968] leading-relaxed max-w-2xl">
                   From AI-assisted applications to customer portals, commerce, booking and enterprise workflow tools, we design and ship focused software around the job your users actually need to perform.
                 </p>
               </div>
@@ -967,7 +967,7 @@ export default function LabsShowcase() {
                   href="https://agentomatix-portfolio.pages.dev/portfolio/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex !min-h-[48px] items-center justify-center gap-1.5 rounded-lg border border-[#DDE4E8] bg-white px-5 text-xs sm:text-sm font-semibold text-[#102033] hover:border-[#BA3535] hover:text-[#BA3535] transition-all"
+                  className="inline-flex !min-h-[48px] items-center justify-center gap-1.5 rounded-lg border border-[#DCE4E1] bg-white px-5 text-xs sm:text-sm font-semibold text-[#163536] hover:border-[#B63A3A] hover:text-[#B63A3A] transition-all"
                 >
                   <span>Explore Full Portfolio</span>
                   <ExternalLink className="h-3.5 w-3.5" />
@@ -987,7 +987,7 @@ export default function LabsShowcase() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveModalProject(null)}
-              className="absolute inset-0 bg-[#0C2233]/70 backdrop-blur-sm"
+              className="absolute inset-0 bg-[#0B3332]/70 backdrop-blur-sm"
             />
 
             <motion.div
@@ -995,72 +995,72 @@ export default function LabsShowcase() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 16 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl border border-[#DDE4E8] bg-white p-6 sm:p-8 shadow-2xl text-[#102033]"
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl border border-[#DCE4E1] bg-white p-6 sm:p-8 shadow-2xl text-[#163536]"
             >
               <button
                 type="button"
                 onClick={() => setActiveModalProject(null)}
-                className="absolute top-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#F8FAFA] text-[#526170] hover:bg-[#EEF2F3] hover:text-[#102033] transition-colors cursor-pointer"
+                className="absolute top-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#EEF3F1] text-[#596968] hover:bg-[#EEF3F1] hover:text-[#163536] transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="h-4 w-4" />
               </button>
 
               <div>
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#BA3535]">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                   {activeModalProject.categoryLabel}
                 </span>
-                <h3 className="mt-1 font-serif text-2xl sm:text-3xl font-bold text-[#102033]">
+                <h3 className="mt-1 font-serif text-2xl sm:text-3xl font-bold text-[#163536]">
                   {activeModalProject.name}
                 </h3>
-                <p className="mt-1 text-sm font-semibold text-[#526170]">
+                <p className="mt-1 text-sm font-semibold text-[#596968]">
                   {activeModalProject.headline}
                 </p>
               </div>
 
-              <div className="mt-6 space-y-4 border-t border-[#E9EEF1] pt-4 text-xs sm:text-sm">
+              <div className="mt-6 space-y-4 border-t border-[#DCE4E1] pt-4 text-xs sm:text-sm">
                 <div>
-                  <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-1">
+                  <strong className="text-[#163536] font-bold uppercase tracking-wider text-[0.68rem] block mb-1">
                     The Business Problem
                   </strong>
-                  <p className="text-[#526170] leading-relaxed">
+                  <p className="text-[#596968] leading-relaxed">
                     {activeModalProject.problem}
                   </p>
                 </div>
 
                 <div>
-                  <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-1">
+                  <strong className="text-[#163536] font-bold uppercase tracking-wider text-[0.68rem] block mb-1">
                     The Engineered Solution
                   </strong>
-                  <p className="text-[#526170] leading-relaxed">
+                  <p className="text-[#596968] leading-relaxed">
                     {activeModalProject.solution}
                   </p>
                 </div>
               </div>
 
-              <div className="mt-6 border-t border-[#E9EEF1] pt-4">
-                <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-2.5">
+              <div className="mt-6 border-t border-[#DCE4E1] pt-4">
+                <strong className="text-[#163536] font-bold uppercase tracking-wider text-[0.68rem] block mb-2.5">
                   Key Capabilities
                 </strong>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {activeModalProject.capabilities.map((cap) => (
-                    <div key={cap} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-[#0E514E] shrink-0" />
+                    <div key={cap} className="flex items-center gap-2 text-xs font-semibold text-[#163536]">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#103F3E] shrink-0" />
                       <span>{cap}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-6 border-t border-[#E9EEF1] pt-4">
-                <strong className="text-[#102033] font-bold uppercase tracking-wider text-[0.68rem] block mb-2">
+              <div className="mt-6 border-t border-[#DCE4E1] pt-4">
+                <strong className="text-[#163536] font-bold uppercase tracking-wider text-[0.68rem] block mb-2">
                   Technology Stack
                 </strong>
                 <div className="flex flex-wrap gap-2">
                   {activeModalProject.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded bg-[#EEF2F3] px-2.5 py-1 text-xs font-mono font-medium text-[#102033]"
+                      className="rounded bg-[#EEF3F1] px-2.5 py-1 text-xs font-mono font-medium text-[#163536]"
                     >
                       {tech}
                     </span>
@@ -1068,7 +1068,7 @@ export default function LabsShowcase() {
                 </div>
               </div>
 
-              <div className="mt-8 pt-5 border-t border-[#E9EEF1] flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="mt-8 pt-5 border-t border-[#DCE4E1] flex flex-col sm:flex-row items-center justify-between gap-4">
                 <a
                   href={activeModalProject.liveUrl}
                   target="_blank"
@@ -1085,7 +1085,7 @@ export default function LabsShowcase() {
                     setActiveModalProject(null);
                     setContactOpen(true);
                   }}
-                  className="text-xs font-bold text-[#BA3535] hover:underline cursor-pointer"
+                  className="text-xs font-bold text-[#B63A3A] hover:underline cursor-pointer"
                 >
                   Inquire about a custom build →
                 </button>

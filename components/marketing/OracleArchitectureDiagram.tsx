@@ -18,13 +18,13 @@ const extensions = [
 
 export default function OracleArchitectureDiagram() {
   return (
-    <div className="overflow-hidden rounded-xl border border-[#DDE4E8] bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-[#DCE4E1] bg-white shadow-sm">
       {/* Top bar */}
-      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F7F9FA] px-4 py-2.5">
-        <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[#102033] uppercase">
+      <div className="flex items-center justify-between border-b border-[#DCE4E1] bg-[#F8FAF9] px-4 py-2.5">
+        <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[#163536] uppercase">
           CONNECTED ORACLE ENTERPRISE ARCHITECTURE
         </span>
-        <span className="text-[0.65rem] font-bold text-[#BA3535]">
+        <span className="text-[0.65rem] font-bold text-[#B63A3A]">
           High Availability · Zero Touch
         </span>
       </div>
@@ -32,14 +32,14 @@ export default function OracleArchitectureDiagram() {
       <div className="p-5 sm:p-6 space-y-4">
         {/* Layer 1: Fusion Applications */}
         <div>
-          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#526170]">
+          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#596968]">
             01 · Core Enterprise Cloud
           </p>
           <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
             {apps.map((app) => (
               <div
                 key={app}
-                className="rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] px-2.5 py-2 text-center text-xs font-semibold text-[#102033] shadow-xs"
+                className="rounded-lg border border-[#DCE4E1] bg-[#F8FAF9] px-2.5 py-2 text-center text-xs font-semibold text-[#163536] shadow-xs"
               >
                 {app}
               </div>
@@ -49,25 +49,25 @@ export default function OracleArchitectureDiagram() {
 
         {/* Arrow / Bus */}
         <div className="flex flex-col items-center justify-center gap-1">
-          <div className="w-full max-w-md rounded-lg border border-[#357C78]/40 bg-[#DCEAE7] px-3 py-1.5 text-center text-xs font-bold text-[#102033]">
+          <div className="w-full max-w-md rounded-lg border border-[#103F3E]/30 bg-[#EEF3F1] px-3 py-1.5 text-center text-xs font-bold text-[#163536]">
             Oracle Integration Cloud (OIC) &amp; FDI Analytics Fabric
           </div>
-          <ArrowDown className="h-3.5 w-3.5 text-[#BA3535]" />
-          <div className="w-full max-w-md rounded-lg border border-[#1E3752] bg-[#0C2233] px-3 py-1.5 text-center text-xs font-semibold text-white">
+          <ArrowDown className="h-3.5 w-3.5 text-[#B63A3A]" />
+          <div className="w-full max-w-md rounded-lg border border-[#0B3332] bg-[#103F3E] px-3 py-1.5 text-center text-xs font-semibold text-white">
             Enterprise Data Warehouse &amp; Governed AI Layer
           </div>
         </div>
 
         {/* Layer 2: Extensions & AI */}
         <div>
-          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#526170]">
+          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-[#596968]">
             02 · Custom Applications &amp; AI Agents (Consult America Labs)
           </p>
           <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
             {extensions.map((ext) => (
               <div
                 key={ext}
-                className="rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] px-2.5 py-2 text-center text-xs font-semibold text-[#102033] shadow-xs"
+                className="rounded-lg border border-[#DCE4E1] bg-[#F8FAF9] px-2.5 py-2 text-center text-xs font-semibold text-[#163536] shadow-xs"
               >
                 {ext}
               </div>
@@ -76,8 +76,8 @@ export default function OracleArchitectureDiagram() {
         </div>
       </div>
 
-      <div className="border-t border-[#E9EEF1] bg-[#F7F9FA] px-4 py-2.5">
-        <p className="text-[0.68rem] font-mono text-[#526170]">
+      <div className="border-t border-[#DCE4E1] bg-[#F8FAF9] px-4 py-2.5">
+        <p className="text-[0.68rem] font-mono text-[#596968]">
           Clean core architecture with zero invasive ERP modifications
         </p>
       </div>

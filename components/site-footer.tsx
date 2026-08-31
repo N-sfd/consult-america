@@ -81,13 +81,13 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="relative border-t-2 border-[#0E514E] bg-[#0B1F2D] text-[#97A8B7] overflow-hidden">
+    <footer className="relative border-t-2 border-[#103F3E] bg-[#092C2D] text-white/70 overflow-hidden">
       {/* Prominent Pre-Footer Statement */}
-      <div className="relative z-10 border-b border-[#1C384D] bg-[#102033] py-10 sm:py-12">
+      <div className="relative z-10 border-b border-white/10 bg-[#0B3332] py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <p className="text-[0.68rem] font-bold tracking-widest text-[#0E514E] uppercase">
+              <p className="text-[0.68rem] font-bold tracking-widest text-[#9DC8BC] uppercase">
                 ENTERPRISE PRODUCTION DELIVERY
               </p>
               <h3 className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
@@ -98,7 +98,7 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[6px] bg-[#BA3535] px-7 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(186,53,53,0.22)] hover:bg-[#9E2C2C] transition-all cursor-pointer"
+                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[6px] bg-[#B63A3A] px-7 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(182,58,58,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"
               >
                 <span>Talk to an Expert</span>
                 <ArrowUpRight className="h-4 w-4" />
@@ -113,20 +113,20 @@ export function SiteFooter() {
           {/* Brand Col */}
           <div className="lg:col-span-3">
             <BrandLogo tone="light" />
-            <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-[#97A8B7]">
+            <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-white/70">
               Enterprise transformation, Oracle Cloud, AI &amp; data, and digital application engineering delivered from strategy through production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#BA3535] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#B63A3A] transition-colors cursor-pointer"
               >
                 Start a Conversation →
               </button>
               <Link
                 href="/login"
-                className="text-xs font-medium text-[#97A8B7] hover:text-white transition-colors"
+                className="text-xs font-medium text-white/70 hover:text-white transition-colors"
               >
                 Employee Portal Login →
               </Link>
@@ -139,18 +139,18 @@ export function SiteFooter() {
               <details
                 key={column.title}
                 open
-                className="group border-b border-[#1C384D] pb-4 sm:border-0 sm:pb-0"
+                className="group border-b border-white/10 pb-4 sm:border-0 sm:pb-0"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-white marker:content-none sm:cursor-default">
                   {column.title}
-                  <ChevronDown className="h-3.5 w-3.5 text-[#97A8B7]/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
+                  <ChevronDown className="h-3.5 w-3.5 text-white/40 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
                 <ul className="mt-3.5 space-y-2.5">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-xs text-[#97A8B7] transition-colors hover:text-white"
+                        className="text-xs text-white/70 transition-colors hover:text-white"
                       >
                         {link.label}
                       </Link>
@@ -163,7 +163,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom copyright & legal */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#1C384D] pt-8 text-xs text-[#97A8B7]/70 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/60 sm:flex-row">
           <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">

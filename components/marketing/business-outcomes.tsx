@@ -34,15 +34,12 @@ export default function BusinessOutcomes() {
 
   return (
     <section
-      className="text-white py-16 sm:py-20 lg:py-24 border-b border-[#0A3D3B]"
-      style={{
-        background: "linear-gradient(100deg, #0E514E 0%, #236F6A 100%)",
-      }}
+      className="text-white py-16 sm:py-20 lg:py-24 border-b border-[#0B3332] bg-[#103F3E]"
     >
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="inline-flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#34D399]" />
-          <span className="text-xs font-bold uppercase tracking-[0.18em] text-white/80">
+          <span className="h-2 w-2 rounded-full bg-[#9DC8BC]" />
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#9DC8BC]">
             BUSINESS OUTCOMES FIRST
           </span>
         </div>
@@ -67,7 +64,7 @@ export default function BusinessOutcomes() {
             transition={{ duration: 0.55, delay: 0.1 }}
             className="lg:col-span-4 flex items-end"
           >
-            <p className="text-sm sm:text-base leading-relaxed text-white/85">
+            <p className="text-sm sm:text-base leading-relaxed text-white/80">
               We connect process, platforms, data and delivery so technology creates a
               more connected, intelligent and adaptable enterprise.
             </p>
@@ -75,7 +72,7 @@ export default function BusinessOutcomes() {
         </div>
 
         {/* 4 Outcome Columns with Vertical Separators */}
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 border-t border-white/15 pt-10">
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 border-t border-white/20 pt-10">
           {outcomes.map((item, index) => (
             <motion.div
               key={item.number}
@@ -84,11 +81,11 @@ export default function BusinessOutcomes() {
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: 0.1 + index * 0.08 }}
               className={`flex flex-col justify-between ${
-                index > 0 ? "lg:border-l lg:border-white/15 lg:pl-6" : ""
+                index > 0 ? "lg:border-l lg:border-white/20 lg:pl-6" : ""
               }`}
             >
               <div>
-                <span className="font-serif text-2xl sm:text-3xl font-normal text-white/90">
+                <span className="font-serif text-2xl sm:text-3xl font-normal text-white/35">
                   {item.number}
                 </span>
                 <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-white">

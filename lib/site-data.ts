@@ -55,10 +55,12 @@ export const whatWeDoMegaMenu = {
     title: "CONSULT AMERICA LABS",
     description: "Turning operational problems into focused enterprise products.",
     products: [
-      { href: "/work/innovation/data-agent", label: "Data Agent", detail: "Document & contract intelligence" },
-      { href: "/work/innovation/joblens", label: "JobLens", detail: "Talent & recruiting intelligence" },
-      { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical & patient intelligence" },
-      { href: "/capabilities/digital-engineering", label: "Convera", detail: "Enterprise integration & APIs" },
+      { href: "/work/innovation/data-agent", label: "Data Agent", detail: "Contract & Document Intelligence" },
+      { href: "/ai-data", label: "Data Explorer", detail: "Enterprise Analytics & Repository" },
+      { href: "/work/innovation/joblens", label: "JobLens", detail: "Talent Matching & ATS Analysis" },
+      { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical Assistant & Timeline" },
+      { href: "/capabilities/digital-engineering", label: "Convera", detail: "API Gateway & Message Hub" },
+      { href: "/platforms/ats", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
     ],
     ctaHref: "/work/innovation",
     ctaLabel: "Explore applications →",
@@ -123,7 +125,7 @@ export const industryLinks = [
   { href: "/industries/healthcare", label: "Healthcare & Life Sciences", detail: "Clinical documentation intelligence and provider workflows" },
   { href: "/industries/technology", label: "Technology & Software", detail: "Full-stack digital engineering, API hubs and AI systems" },
   { href: "/industries/retail-consumer", label: "Retail & Commerce", detail: "Omnichannel inventory, supply chain and customer 360" },
-  { href: "/industries/transportation", label: "Professional Services", detail: "Project financials, billing, and talent workforce platforms" },
+  { href: "/industries/transportation", label: "Transportation", detail: "Asset management, project controls, procurement, and workforce operations" },
 ];
 
 export const capabilityGroups = [

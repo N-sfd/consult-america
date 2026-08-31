@@ -62,7 +62,7 @@ export default function AiDataFeature({
               <EditorialHeading
                 as={headingLevel}
                 size={headingLevel === "h1" ? "hero" : "section"}
-                className="max-w-xl text-[#102033]"
+                className="max-w-xl text-[#163536]"
               >
                 Move from AI experiments
                 <br />
@@ -92,7 +92,7 @@ export default function AiDataFeature({
                   <p className="mkt-eyebrow text-[#357C78]">
                     {area.number}
                   </p>
-                  <h3 className="mt-3 text-lg font-bold tracking-[-0.02em] text-[#102033]">
+                  <h3 className="mt-3 text-lg font-bold tracking-[-0.02em] text-[#163536]">
                     {area.title}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-[#526170]">

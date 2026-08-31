@@ -48,24 +48,24 @@ export default function InsightsSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="insights" className="bg-[#F8FAFA] text-[#102033] py-16 sm:py-20 lg:py-24 border-b border-[#DCE3E5]">
+    <section id="insights" className="bg-[#F8FAF9] text-[#163536] py-16 sm:py-20 lg:py-24 border-b border-[#DCE4E1]">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DCE3E5]">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DCE4E1]">
           <div>
             <div className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#0E514E]" />
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5A6770]">
+              <span className="h-2 w-2 rounded-full bg-[#103F3E]" />
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#596968]">
                 PERSPECTIVES &amp; ANALYSIS
               </span>
             </div>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-[#102033]">
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-[#163536]">
               Enterprise Insights
             </h2>
           </div>
 
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#0E514E] hover:text-[#BA3535] transition-colors"
+            className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#103F3E] hover:text-[#B63A3A] transition-colors"
           >
             <span>Explore all publications</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -80,9 +80,9 @@ export default function InsightsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-7 rounded-[10px] border border-[#DCE3E5] bg-white overflow-hidden flex flex-col justify-between shadow-2xs hover:border-[#0E514E]/40 transition-all duration-300"
+            className="lg:col-span-7 rounded-[10px] border border-[#DCE4E1] bg-white overflow-hidden flex flex-col justify-between shadow-2xs hover:border-[#103F3E]/40 transition-all duration-300"
           >
-            <div className="relative aspect-[16/10] w-full bg-[#0B1F2D]">
+            <div className="relative aspect-[16/10] w-full bg-[#0B3332]">
               <Image
                 src={featuredInsight.image}
                 alt={featuredInsight.title}
@@ -95,27 +95,27 @@ export default function InsightsSection() {
             <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0E514E]">
+                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#103F3E]">
                     {featuredInsight.category}
                   </span>
-                  <span className="text-[0.72rem] text-[#5A6770]">
+                  <span className="text-[0.72rem] text-[#596968]">
                     {featuredInsight.readTime}
                   </span>
                 </div>
 
-                <h3 className="mt-3 font-serif text-2xl sm:text-3xl font-bold text-[#102033] leading-snug">
+                <h3 className="mt-3 font-serif text-2xl sm:text-3xl font-bold text-[#163536] leading-snug">
                   {featuredInsight.title}
                 </h3>
 
-                <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#5A6770]">
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#596968]">
                   {featuredInsight.summary}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#E1E7E8]">
+              <div className="pt-4 border-t border-[#DCE4E1]">
                 <Link
                   href={featuredInsight.href}
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#BA3535] hover:text-[#9E2C2C] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#B63A3A] hover:text-[#992F31] transition-colors"
                 >
                   <span>Read Article →</span>
                 </Link>
@@ -132,9 +132,9 @@ export default function InsightsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group rounded-[10px] border border-[#DCE3E5] bg-white p-4.5 hover:border-[#0E514E]/40 transition-all duration-300 flex items-center gap-4 flex-1 shadow-2xs"
+                className="group rounded-[10px] border border-[#DCE4E1] bg-white p-4.5 hover:border-[#103F3E]/40 transition-all duration-300 flex items-center gap-4 flex-1 shadow-2xs"
               >
-                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded bg-[#0B1F2D]">
+                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded bg-[#0B3332]">
                   <Image
                     src={insight.image}
                     alt={insight.title}
@@ -146,19 +146,19 @@ export default function InsightsSection() {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between text-[0.65rem]">
-                    <span className="font-bold uppercase tracking-wider text-[#0E514E] truncate">
+                    <span className="font-bold uppercase tracking-wider text-[#103F3E] truncate">
                       {insight.category}
                     </span>
-                    <span className="text-[#5A6770] shrink-0">{insight.readTime}</span>
+                    <span className="text-[#596968] shrink-0">{insight.readTime}</span>
                   </div>
 
-                  <h4 className="mt-1 text-sm font-bold text-[#102033] group-hover:text-[#0E514E] transition-colors leading-snug line-clamp-2">
+                  <h4 className="mt-1 text-sm font-bold text-[#163536] group-hover:text-[#103F3E] transition-colors leading-snug line-clamp-2">
                     {insight.title}
                   </h4>
 
                   <Link
                     href={insight.href}
-                    className="mt-2 inline-flex items-center gap-1 text-[0.72rem] font-bold text-[#BA3535] hover:text-[#9E2C2C]"
+                    className="mt-2 inline-flex items-center gap-1 text-[0.72rem] font-bold text-[#B63A3A] hover:text-[#992F31]"
                   >
                     <span>Read Article →</span>
                   </Link>

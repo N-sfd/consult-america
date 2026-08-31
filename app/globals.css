@@ -8,82 +8,49 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Consult America Refined Enterprise Palette */
-  --ca-bg: #F8FAFA;
-  --ca-bg-secondary: #FFFFFF;
-  --ca-surface: #FFFFFF;
-  --ca-surface-soft: #F8FAFA;
-  --ca-surface-bluegray: #EEF2F3;
-  --ca-text-primary: #102033;
-  --ca-text-secondary: #5A6770;
-  --ca-ink-secondary: #3B4B5B;
-  
-  /* Primary & Accent Reds */
-  --ca-red: #BA3535;
-  --ca-red-hover: #9E2C2C;
-  --ca-red-dark: #9E2C2C;
-  --ca-burgundy: #BA3535;
-  --ca-burgundy-hover: #9E2C2C;
-  --ca-burgundy-accent: #BA3535;
+  /* Consult America Simplified Two-Tone Palette */
+  --ca-white: #FFFFFF;
+  --ca-light: #F8FAF9;
+  --ca-surface: #EEF3F1;
+  --ca-surface-soft: #F8FAF9;
+  --ca-surface-bluegray: #EEF3F1;
 
-  /* Teal Hierarchy Tokens */
-  --ca-deep-teal: #0E514E;
-  --ca-dark-teal: #124F4C;
-  --ca-medium-teal: #2F7772;
-  --ca-teal: #0E514E;
-  --ca-teal-soft: #DCEBE8;
-  --ca-light-teal: #EDF5F3;
-  --ca-enterprise-blue: #47739B;
-  --ca-blue-soft: #EEF2F3;
-  --ca-blue-accent: #2F7772;
+  --ca-ink: #163536;
+  --ca-text-primary: #163536;
+  --ca-text-secondary: #596968;
+  --ca-ink-secondary: #596968;
+  --ca-muted: #596968;
 
-  /* Neutrals & Borders */
-  --ca-border: #DCE3E5;
-  --ca-border-light: #E1E7E8;
-  --ca-header-border: #DCE3E5;
-  --ca-navy: #102033;
-  --ca-dark-navy: #0B1F2D;
-  --ca-deep-navy: #0B1F2D;
-  --ca-dark-section: #0B1F2D;
-  --ca-dark-secondary: #102033;
-  --ca-dark-card: #142C3D;
-  --ca-dark-border: #1C384D;
-  --ca-text-on-dark: #F8FAFA;
-  --ca-muted-on-dark: #97A8B7;
-  --ca-footer-bg: #0B1F2D;
-  --ca-footer-border: #1B354D;
+  --ca-green: #103F3E;
+  --ca-green-deep: #0B3332;
+  --ca-footer: #092C2D;
+  --ca-dark-section: #103F3E;
+  --ca-dark-secondary: #0B3332;
+  --ca-dark-card: #0B3332;
+  --ca-dark-border: rgba(255, 255, 255, 0.15);
+  --ca-text-on-dark: #FFFFFF;
+  --ca-muted-on-dark: rgba(255, 255, 255, 0.78);
+  --ca-footer-bg: #092C2D;
+  --ca-footer-border: #103F3E;
   --ca-footer-hover: #E38B8B;
 
-  /* Legacy & Semantic Mappings */
-  --ca-black: #102033;
-  --ca-blue: #B63A3A;
-  --ca-blue-hover: #942E31;
-  --ca-bright: #B63A3A;
-  --ca-electric: #B63A3A;
-  --ca-slate: #526170;
-  --ca-cloud: #EEF3F4;
-  --ca-ice: #F7F9FA;
-  --ca-ice-blue: #E5EDF4;
-  --ca-ice-soft: #FFFFFF;
-  --ca-warm: #F7F9FA;
-  --ca-white: #FFFFFF;
-  --ca-off-white: #F7F9FA;
-  --ca-careers: #0C2233;
-  --ca-ink-dark: #102033;
-  --ca-ink: #FFFFFF;
-  --ca-nav: #102033;
-  --ca-text: #102033;
-  --ca-muted: #526170;
-  --ca-dim: #7A8B99;
-  --ca-line: #DDE4E8;
-  --ca-success: #357C78;
-  --ca-warning: #C77A16;
-  --ca-error: #B63A3A;
-  --ca-green: #357C78;
-  --ca-green-bright: #357C78;
-  --ca-amber: #47739B;
-  --ca-gold: #47739B;
-  
+  --ca-red: #B63A3A;
+  --ca-red-hover: #992F31;
+  --ca-red-dark: #992F31;
+  --ca-burgundy: #B63A3A;
+  --ca-burgundy-hover: #992F31;
+  --ca-burgundy-accent: #B63A3A;
+
+  --ca-border: #DCE4E1;
+  --ca-border-light: #E1E7E5;
+  --ca-header-border: #DCE4E1;
+
+  --ca-bg: #F8FAF9;
+  --ca-bg-secondary: #FFFFFF;
+  --ca-navy: #103F3E;
+  --ca-dark-navy: #0B3332;
+  --ca-deep-navy: #092C2D;
+
   --ca-max-width: 1280px;
   --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   --ca-section-y: clamp(3.75rem, 6vw, 6.5rem);
@@ -94,12 +61,12 @@
   --ca-app-sidebar: 240px;
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 64px;
-  --ca-app-bg: #F7F9FA;
+  --ca-app-bg: #F8FAF9;
   --ca-app-sidebar-bg: #FFFFFF;
-  --ca-app-ink: #102033;
-  --ca-app-muted: #526170;
-  --ca-app-border: #DDE4E8;
-  --ca-app-selected: #E5EDF4;
+  --ca-app-ink: #163536;
+  --ca-app-muted: #596968;
+  --ca-app-border: #DCE4E1;
+  --ca-app-selected: #EEF3F1;
   --ca-space-1: 0.5rem;
   --ca-space-2: 0.75rem;
   --ca-space-3: 1rem;
@@ -117,12 +84,12 @@
   --popover-foreground: var(--ca-text-primary);
   --primary: var(--ca-red);
   --primary-foreground: #FFFFFF;
-  --secondary: var(--ca-blue-soft);
-  --secondary-foreground: var(--ca-navy);
-  --muted: var(--ca-surface-bluegray);
+  --secondary: var(--ca-surface);
+  --secondary-foreground: var(--ca-green);
+  --muted: var(--ca-surface);
   --muted-foreground: var(--ca-text-secondary);
-  --accent: var(--ca-teal-soft);
-  --accent-foreground: var(--ca-navy);
+  --accent: var(--ca-surface);
+  --accent-foreground: var(--ca-green);
   --destructive: var(--ca-red);
   --border: var(--ca-border);
   --input: var(--ca-border);

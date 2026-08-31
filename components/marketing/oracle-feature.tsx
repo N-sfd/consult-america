@@ -53,7 +53,7 @@ export default function OracleFeature({
               <EditorialHeading
                 as={headingLevel}
                 size={headingLevel === "h1" ? "hero" : "section"}
-                className="max-w-xl text-[#102033]"
+                className="max-w-xl text-[#163536]"
               >
                 Transform the enterprise.
                 <br />
@@ -100,7 +100,7 @@ export default function OracleFeature({
                 <p className="text-sm font-semibold text-[#526170]">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <p className="mt-3 text-lg font-bold text-[#102033] transition-colors duration-200 group-hover:text-[#BA3535]">
+                <p className="mt-3 text-lg font-bold text-[#163536] transition-colors duration-200 group-hover:text-[#B63A3A]">
                   {area}
                 </p>
               </motion.div>
@@ -113,7 +113,7 @@ export default function OracleFeature({
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
             {lifecycle.map((item, index) => (
               <div key={item} className="flex items-center gap-8">
-                <span className="text-sm font-semibold text-[#102033]">
+                <span className="text-sm font-semibold text-[#163536]">
                   {item}
                 </span>
                 {index < lifecycle.length - 1 && (

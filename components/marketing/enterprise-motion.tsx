@@ -48,8 +48,8 @@ export default function EnterpriseMotion() {
     <section className="bg-[#0C2233] text-white py-20 sm:py-24 border-b border-[#1E3752]">
       <div className="ca-shell">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#1E3752] bg-[#102033] px-3.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#BA3535]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#BA3535]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1E3752] bg-[#163536] px-3.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#B63A3A]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
             ENTERPRISE IN MOTION
           </div>
 
@@ -75,12 +75,12 @@ export default function EnterpriseMotion() {
                   onClick={() => setActiveTab(idx)}
                   className={`w-full rounded-lg border p-4.5 text-left transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? "border-[#BA3535] bg-[#102033] shadow-md ring-1 ring-[#BA3535]"
-                      : "border-[#1E3752] bg-[#102033]/60 hover:border-[#357C78] hover:bg-[#102033]"
+                      ? "border-[#B63A3A] bg-[#163536] shadow-md ring-1 ring-[#B63A3A]"
+                      : "border-[#1E3752] bg-[#163536]/60 hover:border-[#357C78] hover:bg-[#163536]"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[0.68rem] font-bold tracking-wider text-[#BA3535]">
+                    <span className="font-mono text-[0.68rem] font-bold tracking-wider text-[#B63A3A]">
                       {st.step} · {st.category}
                     </span>
                     <span className="rounded bg-[#1E3752] px-2 py-0.5 text-[0.62rem] font-bold text-[#97A8B7]">
@@ -101,9 +101,9 @@ export default function EnterpriseMotion() {
           </div>
 
           {/* Right Column: Telemetry & Outcome Panel */}
-          <div className="lg:col-span-5 rounded-xl border border-[#1E3752] bg-[#102033] p-6 lg:p-7 shadow-xl">
+          <div className="lg:col-span-5 rounded-xl border border-[#1E3752] bg-[#163536] p-6 lg:p-7 shadow-xl">
             <div className="flex items-center justify-between border-b border-[#1E3752] pb-4">
-              <span className="font-mono text-xs font-bold text-[#BA3535] uppercase tracking-wider">
+              <span className="font-mono text-xs font-bold text-[#B63A3A] uppercase tracking-wider">
                 Telemetry &amp; Lineage
               </span>
               <span className="rounded bg-[#DCEAE7] px-2 py-0.5 text-[0.62rem] font-bold text-[#357C78]">
@@ -120,7 +120,7 @@ export default function EnterpriseMotion() {
               </div>
 
               <div className="rounded-lg border border-[#1E3752] bg-[#0C2233] p-4 space-y-2">
-                <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#BA3535]">Validated Outcome</p>
+                <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#B63A3A]">Validated Outcome</p>
                 <p className="font-mono font-bold text-white text-sm">{selectedStage.metrics}</p>
                 <p className="text-xs text-[#97A8B7] pt-2 border-t border-[#1E3752]">{selectedStage.proof}</p>
               </div>
