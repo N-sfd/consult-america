@@ -42,12 +42,12 @@ export default function SiteHeader() {
     : "border-b border-white/10 bg-black/25 text-white/75 backdrop-blur-xs";
 
   const navLinkClass = isSolid
-    ? "ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-[#261F1B] hover:text-[#B63A3A] cursor-pointer transition-colors"
-    : "ca-nav-link flex items-center gap-1 text-[0.85rem] xl:text-[0.88rem] font-medium text-white/90 hover:text-white cursor-pointer transition-colors";
+    ? "ca-nav-link flex items-center gap-1.5 text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] cursor-pointer transition-colors whitespace-nowrap"
+    : "ca-nav-link flex items-center gap-1.5 text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-white/90 hover:text-white cursor-pointer transition-colors whitespace-nowrap";
 
   const directLinkClass = isSolid
-    ? "ca-nav-link text-[0.85rem] xl:text-[0.88rem] font-medium text-[#261F1B] hover:text-[#B63A3A] transition-colors"
-    : "ca-nav-link text-[0.85rem] xl:text-[0.88rem] font-medium text-white/90 hover:text-white transition-colors";
+    ? "ca-nav-link text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] transition-colors whitespace-nowrap"
+    : "ca-nav-link text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-white/90 hover:text-white transition-colors whitespace-nowrap";
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function SiteHeader() {
       >
         {/* Top Announcement / Utility Strip */}
         <div className={`hidden py-1.5 text-[0.75rem] font-medium transition-colors duration-300 lg:block ${topStripStyle}`}>
-          <div className="ca-shell flex items-center justify-between">
+          <div className="w-full max-w-[1540px] mx-auto px-6 sm:px-8 xl:px-12 2xl:px-16 flex items-center justify-between">
             <div className="flex items-center gap-6">
               <span className={`font-semibold tracking-wide text-[0.7rem] flex items-center gap-2 ${isSolid ? "text-[#261F1B]" : "text-white"}`}>
                 <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
@@ -84,7 +84,7 @@ export default function SiteHeader() {
               >
                 Contact
               </button>
-              <span className={`h-3 w-px ${isSolid ? "bg-[#D7CCBD]" : "bg-white/20"}`} />
+              <span className={`h-3 w-px ${isSolid ? "bg-[#D8D0C5]" : "bg-white/20"}`} />
               <Link
                 href="/login"
                 className={`font-semibold transition-colors ${isSolid ? "text-[#261F1B] hover:text-[#B63A3A]" : "text-white hover:text-white/80"}`}
@@ -95,19 +95,19 @@ export default function SiteHeader() {
           </div>
         </div>
 
-        {/* Main Navigation Bar */}
+        {/* Main Navigation Bar (Wider container max-w-[1540px] + Generous Breathing Room) */}
         <div className={`transition-[background,border-color,box-shadow] duration-300 ${headerSurface}`}>
-          <div className="ca-shell">
-            <div className="flex h-20 items-center justify-between gap-4 lg:h-[82px]">
+          <div className="w-full max-w-[1540px] mx-auto px-6 sm:px-8 xl:px-12 2xl:px-16">
+            <div className="flex h-20 items-center justify-between gap-6 lg:h-[84px]">
               <BrandLogo
                 tone={isSolid ? "dark" : "light"}
                 priority
                 markClassName="h-10 sm:h-[42px] lg:h-11 w-auto max-w-[170px] sm:max-w-[195px] lg:max-w-[215px]"
               />
 
-              {/* Desktop Navigation Links */}
+              {/* Desktop Navigation Links with Generous 28-36px Spacing */}
               <nav
-                className="hidden items-center justify-center gap-2.5 xl:gap-4 lg:flex"
+                className="hidden items-center justify-center gap-5 xl:gap-[28px] 2xl:gap-[36px] lg:flex"
                 aria-label="Primary navigation"
               >
                 {/* What We Do Dropdown */}
@@ -136,7 +136,7 @@ export default function SiteHeader() {
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
-                {/* CRM Dropdown */}
+                {/* CRM & Customer Experience Dropdown */}
                 <button
                   type="button"
                   data-open={openMenu === "crm"}
@@ -145,7 +145,7 @@ export default function SiteHeader() {
                   onClick={() => setOpenMenu(openMenu === "crm" ? null : "crm")}
                   aria-expanded={openMenu === "crm"}
                 >
-                  CRM
+                  CRM &amp; Customer Experience
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
 
@@ -194,14 +194,6 @@ export default function SiteHeader() {
                   onMouseEnter={() => setOpenMenu(null)}
                 >
                   Our Work
-                </Link>
-
-                <Link
-                  href="/insights"
-                  className={directLinkClass}
-                  onMouseEnter={() => setOpenMenu(null)}
-                >
-                  Insights
                 </Link>
 
                 {/* Company Dropdown */}

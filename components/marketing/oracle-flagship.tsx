@@ -33,9 +33,9 @@ export default function OracleFlagship() {
   const [activePillar, setActivePillar] = useState(pillars[0]);
 
   return (
-    <section id="oracle-practice" className="relative overflow-hidden bg-[#FFFAF2] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D7CCBD]">
+    <section id="oracle-practice" className="relative overflow-hidden bg-[#F7F3EC] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D8D0C5]">
       {/* 1. Subtle Enterprise Operations Background Image */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.07]">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.05]">
         <Image
           src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2200&q=80"
           alt="Modern enterprise operations environment"
@@ -70,7 +70,7 @@ export default function OracleFlagship() {
             <div className="pt-2">
               <Link
                 href="/oracle"
-                className="group ca-button-primary inline-flex items-center gap-2 !min-h-[52px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                className="group ca-button-primary inline-flex items-center gap-2 !min-h-[52px] !px-7 text-sm font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31]"
               >
                 <span>Explore Oracle practice</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -78,7 +78,7 @@ export default function OracleFlagship() {
             </div>
 
             {/* Compact Capability Chips */}
-            <div className="mt-10 border-t border-[#D7CCBD] pt-6">
+            <div className="mt-10 border-t border-[#D8D0C5] pt-6">
               <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#695F57] mb-3">
                 Fusion Cloud Capabilities
               </p>
@@ -86,9 +86,9 @@ export default function OracleFlagship() {
                 {compactChips.map((chip) => (
                   <div
                     key={chip.code}
-                    className="rounded-lg border border-[#D7CCBD]/80 bg-white/90 p-2 text-center shadow-xs"
+                    className="rounded-lg border border-[#D8D0C5] bg-white/90 p-2 text-center shadow-xs"
                   >
-                    <p className="font-mono text-xs font-bold text-[#7D2639]">{chip.code}</p>
+                    <p className="font-mono text-xs font-bold text-[#B63A3A]">{chip.code}</p>
                     <p className="text-[0.6rem] text-[#695F57] truncate">{chip.label}</p>
                   </div>
                 ))}
@@ -102,27 +102,27 @@ export default function OracleFlagship() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 rounded-2xl border border-[#D7CCBD] bg-white p-6 lg:p-8 shadow-[0_20px_60px_rgba(38,31,27,0.08)] relative overflow-hidden"
+            className="lg:col-span-7 rounded-2xl border border-[#D8D0C5] bg-white p-6 lg:p-8 shadow-[0_20px_60px_rgba(38,31,27,0.06)] relative overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-[#D7CCBD] pb-4">
+            <div className="flex items-center justify-between border-b border-[#D8D0C5] pb-4">
               <div>
-                <span className="font-mono text-[0.62rem] font-bold uppercase tracking-wider text-[#7D2639]">
+                <span className="font-mono text-[0.62rem] font-bold uppercase tracking-wider text-[#B63A3A]">
                   OPERATING ARCHITECTURE
                 </span>
                 <h3 className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">
                   Oracle Fusion Cloud Ecosystem
                 </h3>
               </div>
-              <span className="rounded bg-[#DFE4DA] px-2.5 py-1 text-[0.62rem] font-bold text-[#657766]">
+              <span className="rounded bg-[#F7F3EC] border border-[#D8D0C5] px-2.5 py-1 text-[0.62rem] font-bold text-[#357C78]">
                 Clean Core Architecture
               </span>
             </div>
 
             {/* Level 1: Oracle Fusion Cloud Center Node */}
-            <div className="mt-6 rounded-xl border border-[#7D2639]/30 bg-[#FFFDF8] p-4 text-center shadow-xs">
+            <div className="mt-6 rounded-xl border border-[#B63A3A]/30 bg-[#FFFDF8] p-4 text-center shadow-xs">
               <div className="flex items-center justify-center gap-2">
-                <Database className="h-4 w-4 text-[#7D2639]" />
+                <Database className="h-4 w-4 text-[#B63A3A]" />
                 <span className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">
                   ORACLE FUSION CLOUD
                 </span>
@@ -143,15 +143,15 @@ export default function OracleFlagship() {
                       onClick={() => setActivePillar(p)}
                       className={`rounded-lg border p-2.5 transition-all cursor-pointer ${
                         isSelected
-                          ? "border-[#7D2639] bg-[#FFFAF2] shadow-xs ring-1 ring-[#7D2639]"
-                          : "border-[#D7CCBD]/80 bg-white hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]/40"
+                          ? "border-[#B63A3A] bg-[#FFFDF8] shadow-xs ring-1 ring-[#B63A3A]"
+                          : "border-[#D8D0C5] bg-white hover:border-[#B63A3A]/40 hover:bg-[#FFFDF8]/60"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-[0.55rem] font-bold text-[#7D2639] uppercase">
+                        <span className="font-mono text-[0.55rem] font-bold text-[#B63A3A] uppercase">
                           {p.code}
                         </span>
-                        <Icon className="h-3 w-3 text-[#657766]" />
+                        <Icon className="h-3 w-3 text-[#357C78]" />
                       </div>
                       <h4 className="mt-1 text-xs font-bold text-[#261F1B]">
                         {p.name}
@@ -167,69 +167,69 @@ export default function OracleFlagship() {
 
             {/* Animated Connector 1: Fusion -> Integration */}
             <div className="flex flex-col items-center justify-center my-2.5">
-              <div className="h-4 w-0.5 bg-[#D7CCBD] relative overflow-hidden">
-                <div className="absolute inset-x-0 h-2 bg-[#7D2639] animate-pulse" />
+              <div className="h-4 w-0.5 bg-[#D8D0C5] relative overflow-hidden">
+                <div className="absolute inset-x-0 h-2 bg-[#B63A3A] animate-pulse" />
               </div>
-              <span className="text-[0.55rem] font-mono font-bold text-[#7D2639] uppercase tracking-wider">
+              <span className="text-[0.55rem] font-mono font-bold text-[#B63A3A] uppercase tracking-wider">
                 ↓
               </span>
             </div>
 
             {/* Level 2: Integration & Data Layer */}
-            <div className="rounded-xl border border-[#D7CCBD] bg-[#F7F3EC] p-3.5">
-              <div className="flex items-center justify-between text-xs font-bold text-[#261F1B] border-b border-[#D7CCBD]/80 pb-1.5">
-                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-[#7D2639]">
+            <div className="rounded-xl border border-[#D8D0C5] bg-[#F7F3EC] p-3.5">
+              <div className="flex items-center justify-between text-xs font-bold text-[#261F1B] border-b border-[#D8D0C5] pb-1.5">
+                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-[#B63A3A]">
                   <Workflow className="h-3.5 w-3.5" /> Integration &amp; Data Fabric
                 </span>
-                <span className="text-[0.58rem] text-[#657766] font-mono">OIC · REST APIs · Enterprise Data</span>
+                <span className="text-[0.58rem] text-[#357C78] font-mono">OIC · REST APIs · Enterprise Data</span>
               </div>
 
               <div className="mt-2.5 grid grid-cols-4 gap-1.5 text-center">
-                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                <div className="rounded border border-[#D8D0C5] bg-white p-1.5">
                   <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">OIC</p>
-                  <p className="text-[0.52rem] text-[#657766]">Integration</p>
+                  <p className="text-[0.52rem] text-[#357C78]">Integration</p>
                 </div>
-                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                <div className="rounded border border-[#D8D0C5] bg-white p-1.5">
                   <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">REST APIs</p>
-                  <p className="text-[0.52rem] text-[#657766]">Services</p>
+                  <p className="text-[0.52rem] text-[#357C78]">Services</p>
                 </div>
-                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                <div className="rounded border border-[#D8D0C5] bg-white p-1.5">
                   <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">Data</p>
-                  <p className="text-[0.52rem] text-[#657766]">Schemas</p>
+                  <p className="text-[0.52rem] text-[#357C78]">Schemas</p>
                 </div>
-                <div className="rounded border border-[#D7CCBD] bg-white p-1.5">
+                <div className="rounded border border-[#D8D0C5] bg-white p-1.5">
                   <p className="font-mono text-[0.58rem] font-bold text-[#261F1B]">Analytics</p>
-                  <p className="text-[0.52rem] text-[#657766]">Intelligence</p>
+                  <p className="text-[0.52rem] text-[#357C78]">Intelligence</p>
                 </div>
               </div>
             </div>
 
             {/* Animated Connector 2: Integration -> AI */}
             <div className="flex flex-col items-center justify-center my-2.5">
-              <div className="h-4 w-0.5 bg-[#D7CCBD] relative overflow-hidden">
-                <div className="absolute inset-x-0 h-2 bg-[#7D2639] animate-pulse" />
+              <div className="h-4 w-0.5 bg-[#D8D0C5] relative overflow-hidden">
+                <div className="absolute inset-x-0 h-2 bg-[#B63A3A] animate-pulse" />
               </div>
-              <span className="text-[0.55rem] font-mono font-bold text-[#7D2639] uppercase tracking-wider">
+              <span className="text-[0.55rem] font-mono font-bold text-[#B63A3A] uppercase tracking-wider">
                 ↓
               </span>
             </div>
 
             {/* Level 3: AI & Automation Layer */}
-            <div className="rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] p-3">
+            <div className="rounded-xl border border-[#D8D0C5] bg-[#FFFDF8] p-3">
               <div className="flex items-center justify-between text-xs font-bold text-[#261F1B]">
-                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-[#657766]">
-                  <Sparkles className="h-3.5 w-3.5 text-[#7D2639]" /> AI &amp; Automation Layer
+                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-[#357C78]">
+                  <Sparkles className="h-3.5 w-3.5 text-[#B63A3A]" /> AI &amp; Automation Layer
                 </span>
-                <span className="text-[0.58rem] text-[#657766] font-mono">Agents · Closed-Loop Actions</span>
+                <span className="text-[0.58rem] text-[#695F57] font-mono">Agents · Closed-Loop Actions</span>
               </div>
             </div>
 
             {/* Bottom Proof Strip */}
-            <div className="mt-4 pt-3 border-t border-[#D7CCBD]/80 flex items-center justify-between text-xs text-[#695F57]">
+            <div className="mt-4 pt-3 border-t border-[#D8D0C5] flex items-center justify-between text-xs text-[#695F57]">
               <span className="text-[0.68rem]">Controlled enterprise cutover methodology across multi-entity programs</span>
               <Link
                 href="/work"
-                className="font-bold text-[#7D2639] hover:underline flex items-center gap-1 text-[0.7rem]"
+                className="font-bold text-[#B63A3A] hover:underline flex items-center gap-1 text-[0.7rem]"
               >
                 View Solution Showcases →
               </Link>

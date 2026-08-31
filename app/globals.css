@@ -8,15 +8,15 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Consult America Modern Enterprise Palette */
-  --ca-bg: #F7F9FA;
-  --ca-bg-secondary: #FFFFFF;
+  /* Consult America Simplified Primary Color Palette */
+  --ca-bg: #F7F3EC;
+  --ca-bg-secondary: #FFFDF8;
   --ca-surface: #FFFFFF;
-  --ca-surface-soft: #F7F9FA;
-  --ca-surface-bluegray: #EEF3F4;
-  --ca-text-primary: #102033;
-  --ca-text-secondary: #526170;
-  --ca-ink-secondary: #3B4B5B;
+  --ca-surface-soft: #F7F3EC;
+  --ca-surface-bluegray: #F7F3EC;
+  --ca-text-primary: #261F1B;
+  --ca-text-secondary: #695F57;
+  --ca-ink-secondary: #695F57;
   
   /* Primary & Accent Reds */
   --ca-red: #B63A3A;
@@ -26,59 +26,59 @@
   --ca-burgundy-hover: #942E31;
   --ca-burgundy-accent: #B63A3A;
 
-  /* Teal & Blue Layer Tokens */
+  /* Muted Teal Accent */
   --ca-teal: #357C78;
   --ca-teal-soft: #DCEAE7;
-  --ca-enterprise-blue: #47739B;
-  --ca-blue-soft: #E5EDF4;
-  --ca-blue-accent: #47739B;
+  --ca-enterprise-blue: #357C78;
+  --ca-blue-soft: #F7F3EC;
+  --ca-blue-accent: #357C78;
 
   /* Neutrals & Borders */
-  --ca-border: #DDE4E8;
-  --ca-border-light: #E9EEF1;
-  --ca-header-border: #E9EEF1;
-  --ca-navy: #102033;
-  --ca-dark-navy: #0C2233;
-  --ca-deep-navy: #0C2233;
-  --ca-dark-section: #0C2233;
-  --ca-dark-secondary: #102033;
-  --ca-dark-card: #152B42;
-  --ca-dark-border: #1E3752;
-  --ca-text-on-dark: #F7F9FA;
-  --ca-muted-on-dark: #97A8B7;
-  --ca-footer-bg: #0C2233;
-  --ca-footer-border: #1B354D;
-  --ca-footer-hover: #E38B8B;
+  --ca-border: #D8D0C5;
+  --ca-border-light: #D8D0C5;
+  --ca-header-border: #D8D0C5;
+  --ca-navy: #261F1B;
+  --ca-dark-navy: #211E1B;
+  --ca-deep-navy: #211E1B;
+  --ca-dark-section: #211E1B;
+  --ca-dark-secondary: #2B2420;
+  --ca-dark-card: #2B2420;
+  --ca-dark-border: #3A302B;
+  --ca-text-on-dark: #FFFDF8;
+  --ca-muted-on-dark: rgba(255, 253, 248, 0.72);
+  --ca-footer-bg: #211E1B;
+  --ca-footer-border: #3A302B;
+  --ca-footer-hover: #D8C5AA;
 
   /* Legacy & Semantic Mappings */
-  --ca-black: #102033;
+  --ca-black: #211E1B;
   --ca-blue: #B63A3A;
   --ca-blue-hover: #942E31;
   --ca-bright: #B63A3A;
   --ca-electric: #B63A3A;
-  --ca-slate: #526170;
-  --ca-cloud: #EEF3F4;
-  --ca-ice: #F7F9FA;
-  --ca-ice-blue: #E5EDF4;
-  --ca-ice-soft: #FFFFFF;
-  --ca-warm: #F7F9FA;
+  --ca-slate: #695F57;
+  --ca-cloud: #F7F3EC;
+  --ca-ice: #F7F3EC;
+  --ca-ice-blue: #F7F3EC;
+  --ca-ice-soft: #FFFDF8;
+  --ca-warm: #F7F3EC;
   --ca-white: #FFFFFF;
-  --ca-off-white: #F7F9FA;
-  --ca-careers: #0C2233;
-  --ca-ink-dark: #102033;
+  --ca-off-white: #F7F3EC;
+  --ca-careers: #211E1B;
+  --ca-ink-dark: #261F1B;
   --ca-ink: #FFFFFF;
-  --ca-nav: #102033;
-  --ca-text: #102033;
-  --ca-muted: #526170;
-  --ca-dim: #7A8B99;
-  --ca-line: #DDE4E8;
+  --ca-nav: #261F1B;
+  --ca-text: #261F1B;
+  --ca-muted: #695F57;
+  --ca-dim: #695F57;
+  --ca-line: #D8D0C5;
   --ca-success: #357C78;
   --ca-warning: #C77A16;
   --ca-error: #B63A3A;
   --ca-green: #357C78;
   --ca-green-bright: #357C78;
-  --ca-amber: #47739B;
-  --ca-gold: #47739B;
+  --ca-amber: #B63A3A;
+  --ca-gold: #D8C5AA;
   
   --ca-max-width: 1280px;
   --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);

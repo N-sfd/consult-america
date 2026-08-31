@@ -15,12 +15,12 @@ const platforms = [
 
 export default function TrustCredibility() {
   return (
-    <section className="border-b border-[#E9EEF1] bg-[#FFFFFF] py-6 sm:py-7">
+    <section className="border-b border-[#D8D0C5] bg-[#FFFDF8] py-6 sm:py-7">
       <div className="ca-shell">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#357C78]" />
-            <p className="text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#526170]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
+            <p className="text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#695F57]">
               ENTERPRISE TECHNOLOGY ACROSS THE MODERN STACK
             </p>
           </div>
@@ -36,7 +36,7 @@ export default function TrustCredibility() {
               >
                 <Link
                   href={item.href}
-                  className="inline-flex items-center rounded border border-[#E9EEF1] bg-[#F7F9FA] px-3 py-1 text-xs font-semibold text-[#102033] transition-all hover:border-[#B63A3A] hover:text-[#B63A3A] hover:bg-white"
+                  className="inline-flex items-center rounded border border-[#D8D0C5] bg-[#F7F3EC] px-3 py-1 text-xs font-semibold text-[#261F1B] transition-all hover:border-[#B63A3A] hover:text-[#B63A3A] hover:bg-white"
                 >
                   {item.name}
                 </Link>

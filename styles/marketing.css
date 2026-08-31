@@ -13,11 +13,11 @@
 
   /* Master Modern Enterprise Palette */
   --mkt-white: #FFFFFF;
-  --mkt-off-white: #F7F9FA;
-  --mkt-blue-gray: #EEF3F4;
-  --mkt-navy: #102033;
-  --mkt-deep-navy: #0C2233;
-  --mkt-text-secondary: #526170;
+  --mkt-off-white: #F7F3EC;
+  --mkt-blue-gray: #F7F3EC;
+  --mkt-navy: #261F1B;
+  --mkt-deep-navy: #211E1B;
+  --mkt-text-secondary: #695F57;
   
   --mkt-red: #B63A3A;
   --mkt-red-hover: #942E31;
@@ -25,61 +25,60 @@
   
   --mkt-teal: #357C78;
   --mkt-teal-soft: #DCEAE7;
-  --mkt-blue-enterprise: #47739B;
-  --mkt-blue-soft: #E5EDF4;
+  --mkt-blue-enterprise: #357C78;
+  --mkt-blue-soft: #F7F3EC;
   
-  --mkt-border: #DDE4E8;
-  --mkt-border-light: #E9EEF1;
+  --mkt-border: #D8D0C5;
+  --mkt-border-light: #D8D0C5;
   
-  --mkt-dark-border: #1E3752;
-  --mkt-dark-card: #152B42;
-  --mkt-text-on-dark: #F7F9FA;
-  --mkt-muted-on-dark: #97A8B7;
+  --mkt-dark-border: #3A302B;
+  --mkt-dark-card: #2B2420;
+  --mkt-text-on-dark: #FFFDF8;
+  --mkt-muted-on-dark: rgba(255, 253, 248, 0.72);
 
   /* Legacy mappings */
-  --mkt-ivory: #F7F9FA;
-  --mkt-cream: #FFFFFF;
+  --mkt-ivory: #F7F3EC;
+  --mkt-cream: #FFFDF8;
   --mkt-surface: #FFFFFF;
-  --mkt-charcoal: #102033;
-  --mkt-warm-gray: #526170;
+  --mkt-charcoal: #211E1B;
+  --mkt-warm-gray: #695F57;
   --mkt-burgundy: #B63A3A;
   --mkt-burgundy-hover: #942E31;
   --mkt-burgundy-accent: #B63A3A;
   --mkt-sage: #357C78;
   --mkt-sage-light: #DCEAE7;
-  --mkt-blue-accent: #47739B;
-  --mkt-sand: #E5EDF4;
-  --mkt-sand-light: #EEF3F4;
-  --mkt-border-dark: #1E3752;
-  --mkt-dark: #0C2233;
-  --mkt-dark-navy: #0C2233;
-  --mkt-dark-section: #0C2233;
-  --mkt-dark-secondary: #102033;
-  --mkt-footer-bg: #0C2233;
-  --mkt-footer-border: #1B354D;
-  --mkt-footer-hover: #E38B8B;
+  --mkt-blue-accent: #357C78;
+  --mkt-sand: #F7F3EC;
+  --mkt-sand-light: #FFFDF8;
+  --mkt-border-dark: #3A302B;
+  --mkt-dark: #211E1B;
+  --mkt-dark-navy: #211E1B;
+  --mkt-dark-section: #211E1B;
+  --mkt-dark-secondary: #2B2420;
+  --mkt-footer-bg: #211E1B;
+  --mkt-footer-border: #3A302B;
+  --mkt-footer-hover: #D8C5AA;
   --mkt-cta-bg: #B63A3A;
   --mkt-cta-copy: #FFFFFF;
-  --mkt-ink: #102033;
-  --mkt-royal-blue: #47739B;
+  --mkt-ink: #261F1B;
+  --mkt-royal-blue: #357C78;
   --mkt-blue: #B63A3A;
   --mkt-blue-hover: #942E31;
-  --mkt-blue-light: #47739B;
+  --mkt-blue-light: #357C78;
   --mkt-cyan: #357C78;
   --mkt-bright: #B63A3A;
-  --mkt-blue-soft: #E5EDF4;
-  --mkt-slate: #526170;
-  --mkt-muted: #526170;
-  --mkt-cloud: #EEF3F4;
-  --mkt-ice: #F7F9FA;
-  --mkt-ice-blue: #E5EDF4;
-  --mkt-ice-soft: #FFFFFF;
-  --mkt-warm: #F7F9FA;
-  --mkt-off: #F7F9FA;
-  --mkt-careers: #0C2233;
-  --mkt-text: #102033;
-  --mkt-dim: #7A8B99;
-  --mkt-nav: #102033;
+  --mkt-slate: #695F57;
+  --mkt-muted: #695F57;
+  --mkt-cloud: #F7F3EC;
+  --mkt-ice: #F7F3EC;
+  --mkt-ice-blue: #F7F3EC;
+  --mkt-ice-soft: #FFFDF8;
+  --mkt-warm: #F7F3EC;
+  --mkt-off: #F7F3EC;
+  --mkt-careers: #211E1B;
+  --mkt-text: #261F1B;
+  --mkt-dim: #695F57;
+  --mkt-nav: #261F1B;
   --mkt-success: #357C78;
   --mkt-warning: #C77A16;
   --mkt-error: #B63A3A;
@@ -207,34 +206,78 @@
   filter: saturate(0.93) contrast(1.06) brightness(1.0);
 }
 
-/* Image Shape Standard A — Hero / Editorial */
+/* Image Shape System (4 Distinct Editorial Standards) */
+
+/* SHAPE A — Architectural Hero Mask */
 .ca-img-hero {
   border-radius: 0px;
   overflow: hidden;
 }
 
-/* Image Shape Standard B — Service / Case Study (16:10 / 14px) */
-.ca-img-service,
-.ca-img-casestudy {
-  aspect-ratio: 16 / 10;
-  border-radius: 14px;
+@media (min-width: 1024px) {
+  .ca-shape-hero-mask {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 6% 100%);
+  }
+}
+
+/* SHAPE B — Offset Editorial Frame (Asymmetric Corners + Offset Sand/Burgundy Backing) */
+.ca-shape-offset-frame {
+  border-radius: 28px 8px 28px 8px;
   overflow: hidden;
 }
 
-/* Image Shape Standard C — Portrait / Industry (4:5 / 14px) */
-.ca-img-portrait,
-.ca-img-industry {
-  aspect-ratio: 4 / 5;
-  border-radius: 14px;
+.ca-shape-offset-frame-alt {
+  border-radius: 8px 28px 8px 28px;
   overflow: hidden;
 }
 
-/* Standardized Product Screenshot Frame (16px radius / 16:10 / top bar 44-48px) */
+/* SHAPE C — Arch / Window Frame (Architectural 160-180px Top Curve) */
+.ca-shape-arch {
+  border-radius: 160px 160px 18px 18px;
+  overflow: hidden;
+}
+
+.ca-shape-arch-sm {
+  border-radius: 90px 90px 14px 14px;
+  overflow: hidden;
+}
+
+/* SHAPE D — Clipped Editorial Corner / Asymmetric */
+.ca-shape-clipped-corner {
+  border-radius: 44px 10px 16px 44px;
+  overflow: hidden;
+}
+
+.ca-shape-clipped-corner-alt {
+  border-radius: 10px 44px 44px 16px;
+  overflow: hidden;
+}
+
+/* SHAPE E — Soft Secondary Detail Shapes (Pill / Circle / Squircle) */
+.ca-shape-pill {
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.ca-shape-squircle {
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* Brand Arc / Circle Motif (Echoing the CA Monogram) */
+.ca-brand-arc-motif {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(182, 58, 58, 0.16);
+  pointer-events: none;
+}
+
+/* Standardized Product Screenshot Frame (Strictly Rectangular / Precision Software Standard) */
 .ca-browser-frame {
   background: #FFFFFF;
-  border: 1px solid rgba(16, 32, 51, 0.10);
+  border: 1px solid #D8D0C5;
   border-radius: 16px;
-  box-shadow: 0 24px 60px rgba(16, 32, 51, 0.10);
+  box-shadow: 0 24px 60px rgba(38, 31, 27, 0.08);
   overflow: hidden;
 }
 

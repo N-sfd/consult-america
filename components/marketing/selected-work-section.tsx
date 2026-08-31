@@ -58,9 +58,9 @@ export default function SelectedWorkSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="selected-work" className="bg-[#FFFDF8] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D7CCBD]">
+    <section id="selected-work" className="bg-[#FFFDF8] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D8D0C5]">
       <div className="mkt-shell">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-10 border-b border-[#D7CCBD]">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-10 border-b border-[#D8D0C5]">
           <div>
             <SectionLabel tone="burgundy">SELECTED WORK &amp; SOLUTION SHOWCASES</SectionLabel>
             <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-[#261F1B] sm:text-4xl lg:text-5xl">
@@ -89,13 +89,27 @@ export default function SelectedWorkSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center rounded-2xl border border-[#D7CCBD] bg-[#FFFAF2] p-6 sm:p-8 lg:p-10 shadow-[0_16px_40px_rgba(38,31,27,0.06)]"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center rounded-2xl border border-[#D8D0C5] bg-[#F7F3EC] p-6 sm:p-8 lg:p-10 shadow-[0_16px_40px_rgba(38,31,27,0.06)]"
               >
-                {/* 1. Image Block (48% on desktop) */}
+                {/* 1. Image Block (48% on desktop) with Clipped Corner Asymmetry (Shape D & Requirement 19) */}
                 <div
                   className={`lg:col-span-6 relative ${isEven ? "lg:order-2" : "lg:order-1"}`}
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[14px] border border-[#D7CCBD] bg-[#211E1B] shadow-[0_12px_32px_rgba(38,31,27,0.08)]">
+                  {/* Offset Decorative Backing Shape */}
+                  <div
+                    className={`absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 ${
+                      isEven
+                        ? "ca-shape-clipped-corner-alt bg-[#B63A3A]/8"
+                        : "ca-shape-clipped-corner bg-[#D8C5AA]/35"
+                    } -z-10`}
+                    aria-hidden="true"
+                  />
+
+                  <div
+                    className={`relative aspect-[16/10] w-full border border-[#D8D0C5] bg-[#211E1B] shadow-[0_12px_32px_rgba(38,31,27,0.08)] ${
+                      isEven ? "ca-shape-clipped-corner-alt" : "ca-shape-clipped-corner"
+                    }`}
+                  >
                     <Image
                       src={cs.image}
                       alt={cs.headline}
@@ -106,7 +120,7 @@ export default function SelectedWorkSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/70 via-transparent to-transparent pointer-events-none" />
                     
                     <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between">
-                      <span className="rounded-full bg-[#102033]/80 backdrop-blur-md px-3 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-[#F7F9FA] border border-white/20">
+                      <span className="rounded-full bg-[#211E1B]/80 backdrop-blur-md px-3 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-[#FFFDF8] border border-white/20">
                         {cs.industry}
                       </span>
                       <span className="rounded-full bg-[#B63A3A] px-2.5 py-0.5 text-[0.58rem] font-mono font-bold uppercase tracking-wider text-white">
@@ -136,7 +150,7 @@ export default function SelectedWorkSection() {
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-[#D7CCBD] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="pt-2 border-t border-[#D8D0C5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <span className="font-mono text-[0.68rem] text-[#695F57] truncate">
                       {cs.technology}
                     </span>

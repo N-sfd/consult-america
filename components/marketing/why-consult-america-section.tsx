@@ -30,7 +30,7 @@ export default function WhyConsultAmericaSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="why-consult-america" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+    <section id="why-consult-america" className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5]">
       <div className="ca-shell">
         <SectionLabel tone="burgundy">WHY CONSULT AMERICA</SectionLabel>
 
@@ -40,17 +40,17 @@ export default function WhyConsultAmericaSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]"
+            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#261F1B]"
           >
             Built for execution, not just advice.
           </motion.h2>
-          <p className="max-w-md text-sm sm:text-base text-[#526170]">
+          <p className="max-w-md text-sm sm:text-base text-[#695F57]">
             How our consulting and engineering model delivers predictable enterprise outcomes.
           </p>
         </div>
 
         {/* Editorial Manifesto: Large Typography + Thin Dividers + Generous Whitespace (No Cards) */}
-        <div className="mt-8 divide-y divide-[#DDE4E8] border-y border-[#DDE4E8]">
+        <div className="mt-8 divide-y divide-[#D8D0C5] border-y border-[#D8D0C5]">
           {manifestoItems.map((item, idx) => (
             <motion.div
               key={item.num}
@@ -66,12 +66,12 @@ export default function WhyConsultAmericaSection() {
                 </span>
               </div>
               <div className="sm:col-span-4">
-                <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#102033]">
+                <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#261F1B]">
                   {item.title}
                 </h3>
               </div>
               <div className="sm:col-span-6">
-                <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+                <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
                   {item.description}
                 </p>
               </div>

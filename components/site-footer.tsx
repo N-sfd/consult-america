@@ -91,7 +91,7 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="group ca-button-primary inline-flex items-center gap-2 !min-h-[50px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                className="group ca-button-primary inline-flex items-center gap-2 !min-h-[50px] !px-7 text-sm font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31] text-white"
               >
                 <span>Talk to an expert</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

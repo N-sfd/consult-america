@@ -22,12 +22,12 @@ export default function BrandLogo({
   priority = false,
   onNavigate,
 }: BrandLogoProps) {
-  // tone="dark" is for LIGHT backgrounds (scrolled light header, login, portal) -> uses solid #102033 wordmark
-  // tone="light" is for DARK backgrounds (dark hero, dark footer, dark drawers) -> uses crisp #FFFFFF wordmark
+  // tone="dark" is for LIGHT backgrounds (scrolled light header, login, portal) -> uses dark navy logo
+  // tone="light" is for DARK backgrounds (dark hero, dark footer, dark drawers) -> uses crisp light/white logo
   const logoSrc =
     tone === "dark"
-      ? "/brand/consult-america-dark.svg"
-      : "/brand/consult-america-light.svg";
+      ? "/brand/consult-america-dark.png"
+      : "/brand/consult-america-light.png";
 
   const content = (
     <span className={cn("inline-flex items-center select-none", className)}>
@@ -35,12 +35,11 @@ export default function BrandLogo({
         <Image
           src={logoSrc}
           alt="Consult America"
-          width={460}
-          height={88}
+          width={960}
+          height={160}
           priority={priority}
-          unoptimized
           className={cn(
-            "h-10 sm:h-[42px] lg:h-[46px] w-auto max-w-[165px] sm:max-w-[190px] lg:max-w-[215px] object-contain opacity-100",
+            "h-9 sm:h-10 lg:h-11 w-auto max-w-[190px] sm:max-w-[220px] lg:max-w-[245px] object-contain opacity-100",
             markClassName
           )}
         />

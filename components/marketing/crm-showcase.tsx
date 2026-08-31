@@ -30,7 +30,7 @@ export default function CRMShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="crm-cx" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+    <section id="crm-cx" className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5]">
       <div className="ca-shell">
         <SectionLabel tone="burgundy">CRM &amp; CUSTOMER EXPERIENCE</SectionLabel>
 
@@ -44,11 +44,11 @@ export default function CRMShowcase() {
             transition={{ duration: 0.55 }}
             className="lg:col-span-6 space-y-6"
           >
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#261F1B] leading-[1.08]">
               Connect every customer moment to the enterprise behind it.
             </h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-[#526170]">
+            <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
               CRM delivers real value when customer data, sales, service, and backend ERP operations move together seamlessly without friction or disconnected silos.
             </p>
 
@@ -61,15 +61,15 @@ export default function CRMShowcase() {
                 {journeySteps.map((item, idx) => (
                   <div
                     key={item.name}
-                    className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5 transition-all hover:border-[#B63A3A]"
+                    className="rounded border border-[#D8D0C5] bg-[#F7F3EC] p-2.5 transition-all hover:border-[#B63A3A]"
                   >
                     <span className="font-mono text-[0.62rem] font-bold text-[#B63A3A]">
                       {item.step}
                     </span>
-                    <h3 className="mt-0.5 text-xs font-bold text-[#102033]">
+                    <h3 className="mt-0.5 text-xs font-bold text-[#261F1B]">
                       {item.name}
                     </h3>
-                    <p className="mt-1 text-[0.62rem] leading-tight text-[#526170]">
+                    <p className="mt-1 text-[0.62rem] leading-tight text-[#695F57]">
                       {item.detail}
                     </p>
                   </div>
@@ -80,7 +80,7 @@ export default function CRMShowcase() {
             <div className="pt-2">
               <Link
                 href="/platforms/crm"
-                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31]"
               >
                 <span>Explore CRM Solutions</span>
                 <ArrowUpRight className="h-4 w-4" />
@@ -88,7 +88,7 @@ export default function CRMShowcase() {
             </div>
           </motion.div>
 
-          {/* Right Column: Professional Customer Interaction in Architectural Environment */}
+          {/* Right Column: Professional Customer Interaction in Architectural Arch Frame (Shape C) */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -96,7 +96,13 @@ export default function CRMShowcase() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-6 relative flex justify-center"
           >
-            <div className="relative aspect-[4/5] w-full max-w-[500px] overflow-hidden rounded-[14px] border border-[#DDE4E8] bg-[#F7F9FA] shadow-[0_20px_50px_rgba(16,32,51,0.08)]">
+            {/* Offset Warm Sand Arch Backing (Requirement 3 & 14) */}
+            <div
+              className="absolute inset-x-4 inset-y-0 sm:inset-x-6 sm:inset-y-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 max-w-[500px] ca-shape-arch bg-[#D8C5AA]/35 -z-10"
+              aria-hidden="true"
+            />
+
+            <div className="relative aspect-[4/5] w-full max-w-[500px] border border-[#D8D0C5] bg-[#F7F3EC] shadow-[0_20px_50px_rgba(38,31,27,0.08)] ca-shape-arch">
               <Image
                 src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=85"
                 alt="Executive enterprise customer relationship and consultation inside modern workspace"
@@ -104,20 +110,20 @@ export default function CRMShowcase() {
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 45vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent pointer-events-none" />
 
-              <div className="absolute bottom-5 left-5 right-5 rounded-[10px] border border-white/25 bg-white/95 p-4 backdrop-blur-md shadow-md text-xs">
-                <p className="font-bold text-[#102033]">Customer 360 &amp; Enterprise Pipeline</p>
-                <p className="text-[0.68rem] text-[#526170] mt-0.5">Unified telemetry across Salesforce, Microsoft Dynamics, and Oracle ERP</p>
+              <div className="absolute bottom-5 left-5 right-5 rounded-[10px] border border-[#D8D0C5]/60 bg-white/95 p-4 backdrop-blur-md shadow-md text-xs">
+                <p className="font-bold text-[#261F1B]">Customer 360 &amp; Enterprise Pipeline</p>
+                <p className="text-[0.68rem] text-[#695F57] mt-0.5">Unified telemetry across Salesforce, Microsoft Dynamics, and Oracle ERP</p>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Clean Horizontal System Diagram (Section 19 Requirement) */}
-        <div className="mt-16 rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-6 lg:p-8">
-          <div className="flex items-center justify-between pb-4 border-b border-[#DDE4E8]">
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#526170]">
+        {/* Clean Horizontal System Diagram */}
+        <div className="mt-16 rounded-xl border border-[#D8D0C5] bg-[#F7F3EC] p-6 lg:p-8">
+          <div className="flex items-center justify-between pb-4 border-b border-[#D8D0C5]">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#695F57]">
               CONNECTED ENTERPRISE ARCHITECTURE
             </p>
             <span className="text-[0.68rem] font-mono font-semibold text-[#357C78]">
@@ -129,12 +135,12 @@ export default function CRMShowcase() {
             {ecosystemNodes.map((node, index) => (
               <div
                 key={node}
-                className="relative flex flex-col items-center justify-center rounded-lg border border-[#DDE4E8] bg-white p-3 text-center shadow-2xs hover:border-[#B63A3A] transition-colors"
+                className="relative flex flex-col items-center justify-center rounded-lg border border-[#D8D0C5] bg-white p-3 text-center shadow-2xs hover:border-[#B63A3A] transition-colors"
               >
-                <span className="font-mono text-[0.6rem] text-[#526170]">
+                <span className="font-mono text-[0.6rem] text-[#695F57]">
                   0{index + 1}
                 </span>
-                <span className="mt-1 text-xs font-bold text-[#102033]">
+                <span className="mt-1 text-xs font-bold text-[#261F1B]">
                   {node}
                 </span>
               </div>

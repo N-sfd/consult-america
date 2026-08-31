@@ -4,43 +4,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Clock } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 const featuredInsight = {
-  category: "ENTERPRISE AI ARCHITECTURE",
-  readTime: "7 min read",
-  title: "Designing AI-Native Enterprise Workflows: From Prototype to Production",
-  summary:
-    "Why enterprise AI proofs-of-concept frequently stall before production, and the data governance, citation boundaries, and human-in-the-loop workflows required to deploy with confidence.",
-  href: "/insights",
-  image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+  title: "Why enterprise AI deployments stall before production — and how to ground them.",
+  category: "AI & PLATFORM ARCHITECTURE",
+  readTime: "6 min read",
+  summary: "Most enterprise AI initiatives struggle not with model quality, but with source data governance, audit grounding, and bidirectional workflow integration.",
+  image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=85",
+  href: "/insights/enterprise-ai-production-architecture",
 };
 
 const supportingInsights = [
   {
-    category: "ORACLE CLOUD TRANSFORMATION",
-    readTime: "6 min read",
-    title: "What Oracle Cloud Modernization Requires Beyond Implementation",
-    summary: "How operating model redesign, subledger reconciliation, and change governance ensure long-term ERP ROI.",
-    href: "/insights",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    category: "DOCUMENT INTELLIGENCE",
+    title: "Clean-Core ERP Architecture: Modernizing Oracle Cloud without Customization Debt",
+    category: "ORACLE & ERP TRANSFORMATION",
     readTime: "5 min read",
-    title: "Building Trustworthy Document Intelligence with Grounded Source Verification",
-    summary: "Extracting FAR/DFARS compliance clauses and financial schedules with verified, auditable citation lineage.",
-    href: "/insights",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80",
+    summary: "How to decouple bespoke business logic using OIC, REST microservices, and autonomous data pipelines.",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    href: "/insights/clean-core-erp-modernization",
   },
   {
+    title: "Connecting CRM and Back-Office Operations for True Customer 360",
+    category: "CUSTOMER EXPERIENCE & REVOPS",
+    readTime: "4 min read",
+    summary: "Bridging the gap between front-office sales interactions and back-office ERP fulfillment.",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80",
+    href: "/insights/customer-360-data-lineage",
+  },
+  {
+    title: "The Shift to Continuous Modernization in Public Sector & Regulated Enterprise",
     category: "DIGITAL ENGINEERING",
-    readTime: "6 min read",
-    title: "Enterprise Integration in the Agentic Era: Connecting Core ERP to AI Swarms",
-    summary: "Architecting event-driven middleware and OIC bridges to support autonomous operational decisioning.",
-    href: "/insights",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
+    readTime: "5 min read",
+    summary: "Strategies for phasing mission-critical system overhauls while maintaining strict compliance continuity.",
+    image: "https://images.unsplash.com/photo-1517976487502-8693c0429f55?auto=format&fit=crop&w=800&q=80",
+    href: "/insights/regulated-systems-modernization",
   },
 ];
 
@@ -48,9 +46,9 @@ export default function InsightsSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="insights" className="bg-[#FFFAF2] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D7CCBD]">
+    <section id="insights" className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5]">
       <div className="mkt-shell">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-10 border-b border-[#D7CCBD]">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-10 border-b border-[#D8D0C5]">
           <div>
             <SectionLabel tone="burgundy">PERSPECTIVES &amp; ANALYSIS</SectionLabel>
             <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-[#261F1B] sm:text-4xl lg:text-5xl">
@@ -60,7 +58,7 @@ export default function InsightsSection() {
 
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#7D2639] hover:text-[#681F30]"
+            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#B63A3A] hover:text-[#942E31]"
           >
             <span>Explore all publications</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -75,7 +73,7 @@ export default function InsightsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-6 rounded-[14px] border border-[#D7CCBD] bg-[#FFFDF8] overflow-hidden flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#B63A3A]/40 transition-all"
+            className="lg:col-span-6 rounded-[14px] border border-[#D8D0C5] bg-[#F7F3EC] overflow-hidden flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#B63A3A]/40 transition-all"
           >
             <div className="relative aspect-[16/10] w-full bg-[#211E1B]">
               <Image
@@ -111,7 +109,7 @@ export default function InsightsSection() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#D7CCBD]/80">
+              <div className="mt-6 pt-4 border-t border-[#D8D0C5]">
                 <Link
                   href={featuredInsight.href}
                   className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
@@ -131,7 +129,7 @@ export default function InsightsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group rounded-[14px] border border-[#D7CCBD] bg-[#FFFDF8] p-4.5 hover:border-[#B63A3A]/40 hover:bg-[#FFFAF2] transition-all flex items-center gap-4 flex-1"
+                className="group rounded-[14px] border border-[#D8D0C5] bg-[#F7F3EC] p-4.5 hover:border-[#B63A3A]/40 hover:bg-[#FFFDF8] transition-all flex items-center gap-4 flex-1"
               >
                 <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-[10px] bg-[#211E1B]">
                   <Image
@@ -151,13 +149,13 @@ export default function InsightsSection() {
                     <span className="text-[#695F57] shrink-0">{insight.readTime}</span>
                   </div>
 
-                  <h4 className="mt-1 text-sm sm:text-base font-bold text-[#261F1B] group-hover:text-[#7D2639] transition-colors leading-snug line-clamp-2">
-                    {insight.title}
+                  <h4 className="mt-1 text-sm sm:text-base font-bold text-[#261F1B] group-hover:text-[#B63A3A] transition-colors leading-snug line-clamp-2">
+                    <Link href={insight.href}>{insight.title}</Link>
                   </h4>
 
                   <Link
                     href={insight.href}
-                    className="mt-2 inline-flex items-center gap-1 text-[0.7rem] font-bold text-[#7D2639] hover:underline"
+                    className="mt-2 inline-flex items-center gap-1 text-[0.7rem] font-bold text-[#B63A3A] hover:underline"
                   >
                     Read article →
                   </Link>
