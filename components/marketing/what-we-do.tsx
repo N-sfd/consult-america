@@ -16,8 +16,8 @@ const practices = [
       "Operating model redesign, enterprise process architecture, and modernization engineered to survive cutover and drive adoption.",
     linkHref: "/capabilities/enterprise-transformation",
     linkLabel: "Explore Consulting",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Executive strategy workshop with senior enterprise transformation team",
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1600&q=85",
+    imageAlt: "Executive enterprise transformation and strategic architecture environment",
   },
   {
     number: "02",
@@ -27,8 +27,8 @@ const practices = [
       "Clean-core implementation, OIC integrations, automated period-close, and continuous optimization across Fusion Cloud.",
     linkHref: "/oracle",
     linkLabel: "Explore Oracle Practice",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Enterprise financial operations and digital infrastructure",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+    imageAlt: "Enterprise financial operations and digital infrastructure architecture",
   },
   {
     number: "03",
@@ -39,7 +39,7 @@ const practices = [
     linkHref: "/ai-data",
     linkLabel: "Explore AI & Data",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Data analytics, machine learning, and enterprise intelligence dashboard",
+    imageAlt: "Enterprise data analytics and AI intelligence workspace",
   },
   {
     number: "04",
@@ -49,8 +49,8 @@ const practices = [
       "Full-stack digital engineering, Customer 360 workspaces, and high-throughput API gateways built for production scale.",
     linkHref: "/capabilities/digital-engineering",
     linkLabel: "Explore Digital Engineering",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1600&q=85",
-    imageAlt: "Software engineering and digital product development team",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=85",
+    imageAlt: "Software engineering and digital product development environment",
   },
 ];
 
@@ -137,17 +137,17 @@ export default function WhatWeDo() {
                     {practice.number}
                   </span>
 
-                  <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[#D7CCBD] bg-white shadow-[0_20px_50px_rgba(38,31,27,0.09)]">
+                  <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-[14px] border border-[#D7CCBD] bg-white shadow-[0_20px_50px_rgba(38,31,27,0.09)]">
                     <Image
                       src={practice.image}
                       alt={practice.imageAlt}
                       fill
-                      className="object-cover mkt-img-graded transition-transform duration-700 hover:scale-103"
+                      className="object-cover mkt-img-graded"
                       sizes="(max-width: 1024px) 100vw, 65vw"
                     />
 
                     {/* Gradient Depth Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/50 via-transparent to-transparent pointer-events-none" />
                   </div>
                 </motion.div>
               </div>

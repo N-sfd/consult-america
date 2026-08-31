@@ -75,9 +75,9 @@ export default function InsightsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-6 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] overflow-hidden flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#7D2639]/40 transition-all"
+            className="lg:col-span-6 rounded-[14px] border border-[#D7CCBD] bg-[#FFFDF8] overflow-hidden flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#B63A3A]/40 transition-all"
           >
-            <div className="relative aspect-[16/9] w-full bg-[#211E1B]">
+            <div className="relative aspect-[16/10] w-full bg-[#211E1B]">
               <Image
                 src={featuredInsight.image}
                 alt={featuredInsight.title}
@@ -85,8 +85,8 @@ export default function InsightsSection() {
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/80 via-transparent to-transparent" />
-              <span className="absolute bottom-3 left-4 rounded-full bg-white/10 backdrop-blur-md px-2.5 py-1 text-[0.62rem] font-bold text-[#D8C5AA] border border-white/15">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/80 via-transparent to-transparent pointer-events-none" />
+              <span className="absolute bottom-3.5 left-4 rounded-full bg-white/10 backdrop-blur-md px-3 py-1 text-[0.62rem] font-bold text-[#D8C5AA] border border-white/15">
                 Featured Analysis
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function InsightsSection() {
             <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#7D2639]">
+                  <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#B63A3A]">
                     {featuredInsight.category}
                   </span>
                   <span className="flex items-center gap-1 text-[#695F57]">
@@ -102,8 +102,8 @@ export default function InsightsSection() {
                   </span>
                 </div>
 
-                <h3 className="mt-3 font-serif text-2xl sm:text-3xl font-bold text-[#261F1B] leading-snug">
-                  {featuredInsight.title}
+                <h3 className="mt-3 font-serif text-2xl sm:text-3xl font-bold text-[#261F1B] leading-snug hover:text-[#B63A3A] transition-colors">
+                  <Link href={featuredInsight.href}>{featuredInsight.title}</Link>
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-[#695F57]">
@@ -114,7 +114,7 @@ export default function InsightsSection() {
               <div className="mt-6 pt-4 border-t border-[#D7CCBD]/80">
                 <Link
                   href={featuredInsight.href}
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#7D2639] hover:text-[#681F30]"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
                 >
                   Read publication <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -131,9 +131,9 @@ export default function InsightsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] p-4.5 hover:border-[#7D2639]/40 hover:bg-[#FFFAF2] transition-all flex items-center gap-4 flex-1"
+                className="group rounded-[14px] border border-[#D7CCBD] bg-[#FFFDF8] p-4.5 hover:border-[#B63A3A]/40 hover:bg-[#FFFAF2] transition-all flex items-center gap-4 flex-1"
               >
-                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-lg bg-[#211E1B]">
+                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-[10px] bg-[#211E1B]">
                   <Image
                     src={insight.image}
                     alt={insight.title}
@@ -145,7 +145,7 @@ export default function InsightsSection() {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between text-[0.65rem] font-mono">
-                    <span className="font-bold text-[#7D2639] uppercase tracking-wider truncate">
+                    <span className="font-bold text-[#B63A3A] uppercase tracking-wider truncate">
                       {insight.category}
                     </span>
                     <span className="text-[#695F57] shrink-0">{insight.readTime}</span>

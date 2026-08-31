@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 88" fill="none" width="460" height="88">
-  <!-- CONSULT AMERICA  PRODUCTION LOGO (LIGHT BACKGROUND / DARK WORDMARK) -->
+  <!-- CONSULT AMERICA — PRODUCTION LOGO (LIGHT BACKGROUND / DARK WORDMARK) -->
   
   <!-- Geometric CA Monogram -->
   <g transform="translate(6, 8)">
@@ -33,25 +33,25 @@
 
   <!-- Clean Horizontal Wordmark: CONSULT AMERICA in Solid Deep Navy #102033 -->
   <g transform="translate(122, 0)">
-    <!-- CONSULT in Solid Deep Navy #102033 -->
+    <!-- CONSULT (Semi-bold 600) in Solid Deep Navy #102033 -->
     <text
       x="0"
       y="54"
       font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
       font-size="33"
-      font-weight="700"
-      letter-spacing="0.045em"
+      font-weight="600"
+      letter-spacing="0.04em"
       fill="#102033"
     >CONSULT</text>
 
-    <!-- AMERICA in Solid Deep Navy #102033 with slight bold punch -->
+    <!-- AMERICA (Medium 500) in Solid Deep Navy #102033 -->
     <text
-      x="158"
+      x="154"
       y="54"
       font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
       font-size="33"
-      font-weight="800"
-      letter-spacing="0.045em"
+      font-weight="500"
+      letter-spacing="0.05em"
       fill="#102033"
     >AMERICA</text>
   </g>

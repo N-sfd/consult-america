@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight, CheckCircle2, ShieldCheck, Database, Sparkles, FileText, Activity, Users, Layers, Cpu, Search, Check, Workflow } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Corporate Browser Frame Helper
+// Corporate Browser Frame Helper (Requirement 16)
 function CorporateBrowserFrame({
   url = "CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT",
   children,
@@ -14,18 +14,18 @@ function CorporateBrowserFrame({
   children: React.ReactNode;
 }) {
   return (
-    <div className="overflow-hidden rounded-[10px] border border-[#DDE4E8] bg-white p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(16,32,51,0.10)]">
-      {/* Browser Chrome Header */}
-      <div className="flex items-center justify-between border-b border-[#E9EEF1] bg-[#F4F6F7] px-3 py-2 -mx-2 -mt-2 mb-2 sm:-mx-2.5 sm:-mt-2.5 sm:mb-2.5 rounded-t-[8px]">
-        <div className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
-          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
-          <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
+    <div className="overflow-hidden rounded-[16px] border border-[#102033]/10 bg-white p-2.5 sm:p-3 shadow-[0_24px_60px_rgba(16,32,51,0.10)]">
+      {/* Browser Chrome Header (44–48px height) */}
+      <div className="flex h-11 sm:h-12 items-center justify-between border-b border-[#E9EEF1] bg-[#F4F6F7] px-4 -mx-2.5 -mt-2.5 mb-2.5 sm:-mx-3 sm:-mt-3 sm:mb-3 rounded-t-[14px]">
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#DDE4E8]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#DDE4E8]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#DDE4E8]" />
         </div>
-        <span className="font-mono text-[0.62rem] sm:text-[0.65rem] font-bold text-[#526170] tracking-wider uppercase">
+        <span className="font-mono text-[0.62rem] sm:text-[0.68rem] font-bold text-[#526170] tracking-wider uppercase truncate px-2">
           CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT
         </span>
-        <div className="w-8" />
+        <div className="w-8 hidden sm:block" />
       </div>
       {children}
     </div>

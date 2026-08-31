@@ -11,8 +11,8 @@ export default function CareersFeature() {
   return (
     <section id="careers-preview" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
       <div className="ca-shell">
-        {/* 50/50 Composition (Section 30 Requirement) */}
-        <div className="overflow-hidden rounded-xl border border-[#DDE4E8] bg-white shadow-sm">
+        {/* 50/50 Composition with Standard 14px Radius */}
+        <div className="overflow-hidden rounded-[14px] border border-[#DDE4E8] bg-white shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             {/* LEFT: Large Team / Collaboration Photography */}
             <motion.div
@@ -23,7 +23,7 @@ export default function CareersFeature() {
               className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:col-span-6 overflow-hidden bg-[#0C2233]"
             >
               <Image
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=85"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=85"
                 alt="Consult America senior engineering and consulting practitioners collaborating"
                 fill
                 className="object-cover mkt-img-graded"

@@ -195,19 +195,50 @@
     var(--mkt-off-white);
 }
 
-/* Photography Color Grading (Requirement 16) */
+/* Global Photography Grading & Hover Standards */
 .mkt-img-graded {
-  filter: saturate(0.88) contrast(1.03) brightness(0.99);
-  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms ease;
+  filter: saturate(0.90) contrast(1.05) brightness(0.99);
+  transition: transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 650ms ease;
 }
 
 .group:hover .mkt-img-graded,
 .mkt-img-graded:hover {
-  transform: scale(1.02);
-  filter: saturate(0.94) contrast(1.04) brightness(1.0);
+  transform: scale(1.025);
+  filter: saturate(0.93) contrast(1.06) brightness(1.0);
 }
 
-/* Restrained Enterprise Radius Standards (4–12px max) */
+/* Image Shape Standard A — Hero / Editorial */
+.ca-img-hero {
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+/* Image Shape Standard B — Service / Case Study (16:10 / 14px) */
+.ca-img-service,
+.ca-img-casestudy {
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Image Shape Standard C — Portrait / Industry (4:5 / 14px) */
+.ca-img-portrait,
+.ca-img-industry {
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Standardized Product Screenshot Frame (16px radius / 16:10 / top bar 44-48px) */
+.ca-browser-frame {
+  background: #FFFFFF;
+  border: 1px solid rgba(16, 32, 51, 0.10);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(16, 32, 51, 0.10);
+  overflow: hidden;
+}
+
+/* Restrained Enterprise Radius Standards */
 .mkt-radius-sm {
   border-radius: 6px;
 }
@@ -215,15 +246,14 @@
   border-radius: 8px;
 }
 .mkt-radius-lg {
-  border-radius: 10px;
+  border-radius: 14px;
 }
 
-/* Corporate Product Screenshot Frame (Requirement 23) */
+/* Legacy Frame Fallback */
 .ca-corporate-frame {
   background: #FFFFFF;
-  border: 1px solid #DDE4E8;
-  border-radius: 10px;
-  padding: 8px 10px 10px 10px;
-  box-shadow: 0 20px 60px rgba(16, 32, 51, 0.10);
+  border: 1px solid rgba(16, 32, 51, 0.10);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(16, 32, 51, 0.10);
   overflow: hidden;
 }

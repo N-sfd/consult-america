@@ -88,25 +88,25 @@ export default function CRMShowcase() {
             </div>
           </motion.div>
 
-          {/* Right Column: Professional Customer-Facing Photography */}
+          {/* Right Column: Professional Customer Interaction in Architectural Environment */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-6 relative"
+            className="lg:col-span-6 relative flex justify-center"
           >
-            <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] shadow-sm">
+            <div className="relative aspect-[4/5] w-full max-w-[500px] overflow-hidden rounded-[14px] border border-[#DDE4E8] bg-[#F7F9FA] shadow-[0_20px_50px_rgba(16,32,51,0.08)]">
               <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=85"
-                alt="Executive enterprise customer meeting and relationship consultation"
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=85"
+                alt="Executive enterprise customer relationship and consultation inside modern workspace"
                 fill
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 45vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/50 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#102033]/60 via-transparent to-transparent pointer-events-none" />
 
-              <div className="absolute bottom-4 left-4 right-4 rounded border border-white/20 bg-white/95 p-3.5 backdrop-blur-md shadow-md text-xs">
+              <div className="absolute bottom-5 left-5 right-5 rounded-[10px] border border-white/25 bg-white/95 p-4 backdrop-blur-md shadow-md text-xs">
                 <p className="font-bold text-[#102033]">Customer 360 &amp; Enterprise Pipeline</p>
                 <p className="text-[0.68rem] text-[#526170] mt-0.5">Unified telemetry across Salesforce, Microsoft Dynamics, and Oracle ERP</p>
               </div>
