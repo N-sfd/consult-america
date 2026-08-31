@@ -7,6 +7,8 @@
 const stockImageIds = {
   hero: "1522071820081-009f0129c71c",
   heroTexture: "1486406146926-c627a92ad1ab",
+  heroArchitectural: "1486406146926-c627a92ad1ab",
+  heroDetail: "1551288049-bebda4e38f71",
   aiDataStory: "1551288049-bebda4e38f71",
   capabilitiesTransform: "1454165804606-c3d57bc86b40",
   capabilitiesModernize: "1518770660439-4636190af475",

@@ -1,9 +1,9 @@
-/* Consult America Marketing — Modern Enterprise Visual System */
+/* Consult America Marketing — Rich Green Visual System & Shaped Imagery */
 
 :root {
   --mkt-max: 1280px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
-  --mkt-section-y: clamp(4.5rem, 7vw, 7.5rem); /* 72–120px desktop */
+  --mkt-section-y: clamp(4.75rem, 7.5vw, 7.75rem); /* 76–124px desktop */
   --mkt-hero: clamp(2.75rem, 4.5vw, 4.75rem);
   --mkt-h2: clamp(2.15rem, 3.6vw, 3.25rem);
   --mkt-h3: clamp(1.25rem, 1.6vw, 1.65rem);
@@ -11,85 +11,97 @@
   --mkt-body: clamp(0.95rem, 0.15vw + 0.9rem, 1.075rem);
   --mkt-prose: 42rem;
 
-  /* Master Simplified Two-Tone Palette */
+  /* Consult America Master Green System */
+  --mkt-green-950: #073B3A;
+  --mkt-green-900: #0B4A47;
+  --mkt-green-800: #105A55;
+  --mkt-green-700: #176A63;
+  --mkt-green-600: #287B72;
+  --mkt-green-500: #4B9488;
+  --mkt-green-300: #9BC4B8;
+  --mkt-green-200: #C9DDD7;
+  --mkt-green-100: #E1ECE8;
+  --mkt-green-50:  #F0F6F4;
+
   --mkt-white: #FFFFFF;
-  --mkt-off-white: #F8FAF9;
-  --mkt-surface: #EEF3F1;
-  --mkt-blue-gray: #EEF3F1;
-  --mkt-green: #103F3E;
-  --mkt-green-deep: #0B3332;
-  --mkt-green-footer: #092C2D;
-  --mkt-navy: #163536;
-  --mkt-deep-navy: #0B3332;
-  --mkt-text-primary: #163536;
-  --mkt-text-secondary: #596968;
+  --mkt-off-white: #F8FBFA;
+  --mkt-surface: #E1ECE8;
+  --mkt-surface-soft: #F0F6F4;
+  --mkt-blue-gray: #E1ECE8;
+  --mkt-green: #0B4A47;
+  --mkt-green-deep: #073B3A;
+  --mkt-green-footer: #052827;
+  --mkt-navy: #122D2E;
+  --mkt-deep-navy: #073B3A;
+  --mkt-text-primary: #122D2E;
+  --mkt-text-secondary: #5B6D6B;
   
-  --mkt-red: #B63A3A;
+  --mkt-red: #B83A3A;
   --mkt-red-hover: #992F31;
   --mkt-red-dark: #992F31;
   
-  --mkt-deep-teal: #103F3E;
-  --mkt-dark-teal: #103F3E;
-  --mkt-medium-teal: #103F3E;
-  --mkt-teal: #103F3E;
-  --mkt-teal-soft: #EEF3F1;
-  --mkt-light-teal: #EEF3F1;
-  --mkt-blue-enterprise: #103F3E;
-  --mkt-blue-soft: #EEF3F1;
+  --mkt-deep-teal: #0B4A47;
+  --mkt-dark-teal: #0B4A47;
+  --mkt-medium-teal: #176A63;
+  --mkt-teal: #176A63;
+  --mkt-teal-soft: #F0F6F4;
+  --mkt-light-teal: #E1ECE8;
+  --mkt-blue-enterprise: #0B4A47;
+  --mkt-blue-soft: #E1ECE8;
   
-  --mkt-border: #DCE4E1;
-  --mkt-border-light: #E1E7E5;
+  --mkt-border: #C9DDD7;
+  --mkt-border-light: #E1ECE8;
   
-  --mkt-dark-border: rgba(255, 255, 255, 0.15);
-  --mkt-dark-card: #0B3332;
+  --mkt-dark-border: rgba(155, 196, 184, 0.18);
+  --mkt-dark-card: #0B4A47;
   --mkt-text-on-dark: #FFFFFF;
   --mkt-muted-on-dark: rgba(255, 255, 255, 0.78);
 
   /* Legacy mappings */
-  --mkt-ivory: #F8FAF9;
+  --mkt-ivory: #F8FBFA;
   --mkt-cream: #FFFFFF;
-  --mkt-charcoal: #163536;
-  --mkt-warm-gray: #596968;
-  --mkt-burgundy: #B63A3A;
+  --mkt-charcoal: #122D2E;
+  --mkt-warm-gray: #5B6D6B;
+  --mkt-burgundy: #B83A3A;
   --mkt-burgundy-hover: #992F31;
-  --mkt-burgundy-accent: #B63A3A;
-  --mkt-sage: #103F3E;
-  --mkt-sage-light: #EEF3F1;
-  --mkt-blue-accent: #103F3E;
-  --mkt-sand: #EEF3F1;
-  --mkt-sand-light: #EEF3F1;
-  --mkt-border-dark: rgba(255, 255, 255, 0.15);
-  --mkt-dark: #0B3332;
-  --mkt-dark-navy: #0B3332;
-  --mkt-dark-section: #103F3E;
-  --mkt-dark-secondary: #0B3332;
-  --mkt-footer-bg: #092C2D;
-  --mkt-footer-border: #103F3E;
-  --mkt-footer-hover: #E38B8B;
-  --mkt-cta-bg: #B63A3A;
+  --mkt-burgundy-accent: #B83A3A;
+  --mkt-sage: #0B4A47;
+  --mkt-sage-light: #E1ECE8;
+  --mkt-blue-accent: #0B4A47;
+  --mkt-sand: #E1ECE8;
+  --mkt-sand-light: #F0F6F4;
+  --mkt-border-dark: rgba(155, 196, 184, 0.18);
+  --mkt-dark: #073B3A;
+  --mkt-dark-navy: #073B3A;
+  --mkt-dark-section: #073B3A;
+  --mkt-dark-secondary: #0B4A47;
+  --mkt-footer-bg: #052827;
+  --mkt-footer-border: #0B4A47;
+  --mkt-footer-hover: #9BC4B8;
+  --mkt-cta-bg: #B83A3A;
   --mkt-cta-copy: #FFFFFF;
-  --mkt-ink: #163536;
-  --mkt-royal-blue: #103F3E;
-  --mkt-blue: #B63A3A;
+  --mkt-ink: #122D2E;
+  --mkt-royal-blue: #0B4A47;
+  --mkt-blue: #B83A3A;
   --mkt-blue-hover: #992F31;
-  --mkt-blue-light: #103F3E;
-  --mkt-cyan: #103F3E;
-  --mkt-bright: #B63A3A;
-  --mkt-slate: #596968;
-  --mkt-muted: #596968;
-  --mkt-cloud: #EEF3F1;
-  --mkt-ice: #F8FAF9;
-  --mkt-ice-blue: #EEF3F1;
+  --mkt-blue-light: #0B4A47;
+  --mkt-cyan: #176A63;
+  --mkt-bright: #B83A3A;
+  --mkt-slate: #5B6D6B;
+  --mkt-muted: #5B6D6B;
+  --mkt-cloud: #E1ECE8;
+  --mkt-ice: #F0F6F4;
+  --mkt-ice-blue: #E1ECE8;
   --mkt-ice-soft: #FFFFFF;
-  --mkt-warm: #F8FAF9;
-  --mkt-off: #F8FAF9;
-  --mkt-careers: #092C2D;
-  --mkt-text: #163536;
-  --mkt-dim: #7A8B99;
-  --mkt-nav: #163536;
-  --mkt-success: #103F3E;
+  --mkt-warm: #F0F6F4;
+  --mkt-off: #F8FBFA;
+  --mkt-careers: #052827;
+  --mkt-text: #122D2E;
+  --mkt-dim: #5B6D6B;
+  --mkt-nav: #122D2E;
+  --mkt-success: #176A63;
   --mkt-warning: #C77A16;
-  --mkt-error: #B63A3A;
+  --mkt-error: #B83A3A;
 }
 
 @media (min-width: 768px) {
@@ -187,78 +199,139 @@
 }
 
 .mkt-media-scale {
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .group:hover .mkt-media-scale,
 .mkt-media-hover:hover .mkt-media-scale {
-  transform: scale(1.02);
+  transform: scale(1.035);
 }
 
-.mkt-hero-bg {
+/* Gradients */
+.ca-grad-dark {
+  background: linear-gradient(135deg, #073B3A 0%, #0B4A47 48%, #176A63 100%);
+}
+
+.ca-grad-emerald {
+  background: linear-gradient(135deg, #073B3A 0%, #105A55 100%);
+}
+
+.ca-grad-hero {
   background:
-    radial-gradient(circle at 80% 20%, rgba(53, 124, 120, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 20% 80%, rgba(71, 115, 155, 0.05) 0%, transparent 35%),
-    var(--mkt-off-white);
+    radial-gradient(circle at 78% 38%, rgba(75, 148, 136, 0.22), transparent 38%),
+    linear-gradient(120deg, #FFFFFF 0%, #F0F6F4 58%, #DCEAE5 100%);
+}
+
+.ca-grad-light {
+  background: linear-gradient(135deg, #F8FBFA 0%, #E1ECE8 100%);
 }
 
 /* Photography Color Grading */
 .mkt-img-graded {
-  filter: saturate(0.80) contrast(1.03) brightness(0.98);
-  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms ease;
+  filter: saturate(0.78) contrast(1.04) brightness(0.97);
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms ease;
 }
 
 .group:hover .mkt-img-graded,
 .mkt-img-graded:hover {
-  transform: scale(1.02);
-  filter: saturate(0.85) contrast(1.04) brightness(0.99);
+  transform: scale(1.035);
+  filter: saturate(0.85) contrast(1.05) brightness(0.99);
 }
 
-/* Shared photo-overlay system — nine components previously hand-rolled this same
-   bottom-to-top navy tint at slightly different opacities (two left over from the
-   old pre-recolor palette). Use these instead of a new inline gradient className. */
+/* Image Shapes Library */
+.ca-shape-arch {
+  border-radius: 140px 12px 12px 12px;
+}
+
+.ca-shape-arch-tall {
+  border-radius: 100px 100px 12px 12px;
+}
+
+.ca-shape-asymmetric {
+  border-radius: 12px 100px 12px 12px;
+}
+
+.ca-shape-wide {
+  border-radius: 12px 120px 12px 12px;
+}
+
+.ca-shape-hero-main {
+  border-radius: 160px 20px 120px 20px;
+}
+
+.ca-shape-hero-sec {
+  border-radius: 50% 50% 12px 12px;
+}
+
+.ca-shape-cut {
+  clip-path: polygon(0 0, 90% 0, 100% 15%, 100% 100%, 10% 100%, 0 85%);
+}
+
+.ca-shape-cut-ai {
+  clip-path: polygon(12% 0, 100% 0, 100% 88%, 88% 100%, 0 100%, 0 12%);
+}
+
+@media (max-width: 767px) {
+  .ca-shape-arch {
+    border-radius: 64px 10px 10px 10px;
+  }
+  .ca-shape-asymmetric {
+    border-radius: 10px 64px 10px 10px;
+  }
+  .ca-shape-wide {
+    border-radius: 10px 64px 10px 10px;
+  }
+  .ca-shape-hero-main {
+    border-radius: 64px 12px 48px 12px;
+  }
+  .ca-shape-hero-sec {
+    border-radius: 36px 36px 10px 10px;
+  }
+}
+
+/* Elevated Depth Shadows */
+.ca-shadow-elevated {
+  box-shadow: 0 28px 70px rgba(7, 59, 58, 0.14);
+}
+
+.ca-shadow-overlap {
+  box-shadow: 0 18px 45px rgba(7, 59, 58, 0.18);
+}
+
+/* Shared photo-overlays */
 .mkt-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: linear-gradient(to top, rgba(11, 51, 50, 0.4), transparent);
+  background-image: linear-gradient(to top, rgba(7, 59, 58, 0.45), transparent);
 }
+
 .mkt-overlay-soft {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: linear-gradient(to top, rgba(11, 51, 50, 0.3), transparent);
+  background-image: linear-gradient(to top, rgba(7, 59, 58, 0.3), transparent);
 }
+
 .mkt-overlay-caption {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image: linear-gradient(
     to top,
-    rgba(11, 51, 50, 0.9),
-    rgba(11, 51, 50, 0.3) 45%,
+    rgba(7, 59, 58, 0.92),
+    rgba(7, 59, 58, 0.35) 45%,
     transparent
   );
-}
-
-/* Restrained Enterprise Radius Standards (4–12px max) */
-.mkt-radius-sm {
-  border-radius: 6px;
-}
-.mkt-radius {
-  border-radius: 8px;
-}
-.mkt-radius-lg {
-  border-radius: 10px;
 }
 
 /* Corporate Product Screenshot Frame */
 .ca-corporate-frame {
   background: #FFFFFF;
-  border: 1px solid #DCE4E1;
+  border: 1px solid #C9DDD7;
   border-radius: 10px;
   padding: 8px 10px 10px 10px;
-  box-shadow: 0 20px 55px rgba(11, 51, 50, 0.08);
+  box-shadow: 0 20px 55px rgba(7, 59, 58, 0.08);
   overflow: hidden;
 }
 
@@ -267,7 +340,7 @@
   position: relative;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #163536;
+  color: #122D2E;
   padding-block: 0.35rem;
   white-space: nowrap;
   transition: color 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -275,7 +348,7 @@
 
 .ca-nav-link:hover,
 .ca-nav-link[data-open="true"] {
-  color: #B63A3A;
+  color: #B83A3A;
 }
 
 .ca-nav-link::after {
@@ -285,7 +358,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #B63A3A;
+  background-color: #B83A3A;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -296,3 +369,50 @@
   transform: scaleX(1);
 }
 
+/* Gentle Micro-Animations */
+@keyframes caHeroFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.ca-hero-float {
+  animation: caHeroFloat 8s ease-in-out infinite;
+}
+
+@keyframes caBgDrift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8px, -6px) scale(1.015);
+  }
+}
+
+.ca-bg-drift {
+  animation: caBgDrift 18s ease-in-out alternate infinite;
+}
+
+@keyframes caKenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.035);
+  }
+}
+
+.ca-ken-burns {
+  animation: caKenBurns 22s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-hero-float,
+  .ca-bg-drift,
+  .ca-ken-burns {
+    animation: none !important;
+  }
+}

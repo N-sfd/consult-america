@@ -16,11 +16,11 @@ interface MobileMenuProps {
 type Level = "root" | "what-we-do" | "oracle" | "crm" | "ai-data" | "applications" | "industries" | "company";
 
 const WHAT_WE_DO_COLUMN_COLORS: Record<string, string> = {
-  TRANSFORM: "#B63A3A",
-  MODERNIZE: "#163536",
-  INTELLIGENCE: "#103F3E",
-  BUILD: "#47739B",
-  OPERATE: "#596968",
+  TRANSFORM: "#B83A3A",
+  MODERNIZE: "#122D2E",
+  INTELLIGENCE: "#0B4A47",
+  BUILD: "#176A63",
+  OPERATE: "#5B6D6B",
 };
 
 const whatWeDoColumns = [
@@ -123,7 +123,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 z-[60] bg-[#163536]/50 backdrop-blur-[2px] lg:hidden"
+            className="fixed inset-0 z-[60] bg-[#122D2E]/50 backdrop-blur-[2px] lg:hidden"
           />
 
           <motion.aside
@@ -131,22 +131,22 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-white text-[#163536] shadow-[-8px_0_40px_rgba(16,32,51,0.12)] lg:hidden"
+            className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-white text-[#122D2E] shadow-[-8px_0_40px_rgba(16,32,51,0.12)] lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
           >
             {/* Drawer Header */}
-            <div className="flex h-16 items-center justify-between border-b border-[#DCE4E1] px-5">
+            <div className="flex h-16 items-center justify-between border-b border-[#C9DDD7] px-5">
               {level === "root" ? (
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#103F3E]">
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0B4A47]">
                   Navigation
                 </p>
               ) : (
                 <button
                   type="button"
                   onClick={() => setLevel("root")}
-                  className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#103F3E] cursor-pointer"
+                  className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#0B4A47] cursor-pointer"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" />
                   Back
@@ -155,7 +155,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-[#163536] hover:bg-[#F8FAFA] cursor-pointer"
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-[#122D2E] hover:bg-[#F8FAFA] cursor-pointer"
                 aria-label="Close navigation menu"
               >
                 <X className="h-5 w-5" />
@@ -165,11 +165,11 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             {/* Drawer Body */}
             <nav className="flex-1 overflow-y-auto px-5 pb-8">
               {level === "root" && (
-                <div className="divide-y divide-[#DCE4E1]">
+                <div className="divide-y divide-[#C9DDD7]">
                   <button
                     type="button"
                     onClick={() => setLevel("what-we-do")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     What We Do
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -178,7 +178,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("oracle")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     Oracle
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -187,7 +187,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("crm")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     CRM
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -196,7 +196,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("ai-data")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     AI &amp; Data
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -205,7 +205,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("applications")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     Applications
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -214,7 +214,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("industries")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     Industries
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -223,7 +223,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/work"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#163536] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#122D2E] hover:text-[#B83A3A]"
                   >
                     Our Work
                   </Link>
@@ -231,7 +231,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <Link
                     href="/insights"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#163536] hover:text-[#B63A3A]"
+                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#122D2E] hover:text-[#B83A3A]"
                   >
                     Insights
                   </Link>
@@ -239,7 +239,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("company")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#163536]"
+                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#122D2E]"
                   >
                     Company
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -249,14 +249,14 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <Link
                       href="/careers"
                       onClick={handleClose}
-                      className="block text-sm text-[#596968] hover:text-[#B63A3A]"
+                      className="block text-sm text-[#5B6D6B] hover:text-[#B83A3A]"
                     >
                       Careers
                     </Link>
                     <Link
                       href="/login"
                       onClick={handleClose}
-                      className="block text-sm font-semibold text-[#163536] hover:text-[#B63A3A]"
+                      className="block text-sm font-semibold text-[#122D2E] hover:text-[#B83A3A]"
                     >
                       Employee Portal Login →
                     </Link>
@@ -278,7 +278,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       <ul className="mt-2 space-y-2">
                         {column.items.map((item) => (
                           <li key={item.label}>
-                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#122D2E] hover:text-[#B83A3A]">
                               {item.label}
                             </Link>
                           </li>
@@ -287,8 +287,8 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     </div>
                   ))}
 
-                  <div className="rounded-xl border border-[#DCE4E1] bg-[#EEF3F1] p-4">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <div className="rounded-xl border border-[#C9DDD7] bg-[#E1ECE8] p-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
                       Consult America Labs
                     </p>
                     <div className="mt-3 space-y-2">
@@ -297,9 +297,9 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                           key={prod.label}
                           href={prod.href}
                           onClick={handleClose}
-                          className="block text-xs font-medium text-[#163536] hover:text-[#B63A3A]"
+                          className="block text-xs font-medium text-[#122D2E] hover:text-[#B83A3A]"
                         >
-                          {prod.label} · <span className="text-[#596968]">{prod.detail}</span>
+                          {prod.label} · <span className="text-[#5B6D6B]">{prod.detail}</span>
                         </Link>
                       ))}
                     </div>
@@ -312,13 +312,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <div className="space-y-6 pt-4">
                   {oracleGroups.map((group) => (
                     <div key={group.label}>
-                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
                         {group.label}
                       </p>
                       <ul className="mt-2 space-y-2">
                         {group.items.map((item) => (
                           <li key={item.label}>
-                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#122D2E] hover:text-[#B83A3A]">
                               {item.label}
                             </Link>
                           </li>
@@ -326,10 +326,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       </ul>
                     </div>
                   ))}
-                  <div className="rounded-xl border border-[#DCE4E1] bg-[#0C2233] p-4 text-white">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">Flagship Practice</p>
+                  <div className="rounded-xl border border-[#C9DDD7] bg-[#0C2233] p-4 text-white">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">Flagship Practice</p>
                     <p className="mt-1.5 text-sm font-semibold">Modernize the digital core.</p>
-                    <Link href="/oracle" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-white hover:text-[#B63A3A]">
+                    <Link href="/oracle" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-white hover:text-[#B83A3A]">
                       Explore Oracle Transformation →
                     </Link>
                   </div>
@@ -341,13 +341,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <div className="space-y-6 pt-4">
                   {crmGroups.map((group) => (
                     <div key={group.label}>
-                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
                         {group.label}
                       </p>
                       <ul className="mt-2 space-y-2">
                         {group.items.map((item) => (
                           <li key={item.label}>
-                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#B63A3A]">
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#122D2E] hover:text-[#B83A3A]">
                               {item.label}
                             </Link>
                           </li>
@@ -355,10 +355,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       </ul>
                     </div>
                   ))}
-                  <div className="rounded-xl border border-[#DCE4E1] bg-[#EEF3F1] p-4">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">Connected CRM</p>
-                    <p className="mt-1.5 text-sm font-semibold text-[#163536]">Connect every customer moment to the enterprise behind it.</p>
-                    <Link href="/platforms/crm" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-[#B63A3A]">
+                  <div className="rounded-xl border border-[#C9DDD7] bg-[#E1ECE8] p-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">Connected CRM</p>
+                    <p className="mt-1.5 text-sm font-semibold text-[#122D2E]">Connect every customer moment to the enterprise behind it.</p>
+                    <Link href="/platforms/crm" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-[#B83A3A]">
                       Explore CRM Platform →
                     </Link>
                   </div>
@@ -370,13 +370,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 <div className="space-y-6 pt-4">
                   {aiDataGroups.map((group) => (
                     <div key={group.label}>
-                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#103F3E]">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0B4A47]">
                         {group.label}
                       </p>
                       <ul className="mt-2 space-y-2">
                         {group.items.map((item) => (
                           <li key={item.label}>
-                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#163536] hover:text-[#103F3E]">
+                            <Link href={item.href} onClick={handleClose} className="block text-sm text-[#122D2E] hover:text-[#0B4A47]">
                               {item.label}
                             </Link>
                           </li>
@@ -384,10 +384,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       </ul>
                     </div>
                   ))}
-                  <div className="rounded-xl border border-[#DCE4E1] bg-[#EEF3F1] p-4">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#103F3E]">Applied Intelligence</p>
-                    <p className="mt-1.5 text-sm font-semibold text-[#163536]">Put intelligence into the work.</p>
-                    <Link href="/ai-data" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-[#103F3E]">
+                  <div className="rounded-xl border border-[#C9DDD7] bg-[#E1ECE8] p-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0B4A47]">Applied Intelligence</p>
+                    <p className="mt-1.5 text-sm font-semibold text-[#122D2E]">Put intelligence into the work.</p>
+                    <Link href="/ai-data" onClick={handleClose} className="mt-2 inline-block text-xs font-bold text-[#0B4A47]">
                       Explore AI &amp; Data →
                     </Link>
                   </div>
@@ -397,7 +397,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {/* APPLICATIONS SUB-PANEL */}
               {level === "applications" && (
                 <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
                     Applications Suite
                   </p>
                   {platformLinks.map((item) => (
@@ -405,10 +405,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block rounded-lg border border-[#DCE4E1] bg-[#EEF3F1] p-3 transition-colors hover:border-[#B63A3A]"
+                      className="block rounded-lg border border-[#C9DDD7] bg-[#E1ECE8] p-3 transition-colors hover:border-[#B83A3A]"
                     >
-                      <p className="text-sm font-bold text-[#163536]">{item.label}</p>
-                      <p className="mt-0.5 text-xs text-[#596968]">{item.detail}</p>
+                      <p className="text-sm font-bold text-[#122D2E]">{item.label}</p>
+                      <p className="mt-0.5 text-xs text-[#5B6D6B]">{item.detail}</p>
                     </Link>
                   ))}
                 </div>
@@ -417,7 +417,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {/* INDUSTRIES SUB-PANEL */}
               {level === "industries" && (
                 <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
                     Industries
                   </p>
                   {industryLinks.map((item) => (
@@ -425,7 +425,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block border-b border-[#DCE4E1] py-2.5 text-sm font-semibold text-[#163536] hover:text-[#B63A3A]"
+                      className="block border-b border-[#C9DDD7] py-2.5 text-sm font-semibold text-[#122D2E] hover:text-[#B83A3A]"
                     >
                       {item.label}
                     </Link>
@@ -436,7 +436,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               {/* COMPANY SUB-PANEL */}
               {level === "company" && (
                 <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
                     Company
                   </p>
                   {[
@@ -451,7 +451,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block border-b border-[#DCE4E1] py-2.5 text-sm font-semibold text-[#163536] hover:text-[#B63A3A]"
+                      className="block border-b border-[#C9DDD7] py-2.5 text-sm font-semibold text-[#122D2E] hover:text-[#B83A3A]"
                     >
                       {item.label}
                     </Link>
@@ -461,7 +461,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             </nav>
 
             {/* Drawer Footer CTA */}
-            <div className="border-t border-[#DCE4E1] p-5">
+            <div className="border-t border-[#C9DDD7] p-5">
               <button
                 type="button"
                 onClick={() => {

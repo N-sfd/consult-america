@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import SectionLabel from "@/components/marketing/SectionLabel";
 
 const manifestoItems = [
   {
@@ -30,11 +29,11 @@ export default function WhyConsultAmericaSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="why-consult-america" className="bg-[#FFFFFF] text-[#163536] py-16 sm:py-20 lg:py-24 border-b border-[#DCE4E1]">
+    <section id="why-consult-america" className="bg-[#FFFFFF] text-[#122D2E] py-16 sm:py-20 lg:py-24 border-b border-[#C9DDD7]">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="inline-flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#103F3E]" />
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#596968]">
+          <span className="h-2 w-2 rounded-full bg-[#176A63]" />
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#5B6D6B]">
             WHY CONSULT AMERICA
           </span>
         </div>
@@ -45,17 +44,17 @@ export default function WhyConsultAmericaSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-[-0.03em] text-[#163536]"
+            className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-[-0.03em] text-[#122D2E]"
           >
             Designed for the distance between strategy and production.
           </motion.h2>
-          <p className="max-w-md text-sm sm:text-base text-[#596968]">
+          <p className="max-w-md text-sm sm:text-base text-[#5B6D6B]">
             How our consulting and engineering model delivers predictable enterprise outcomes.
           </p>
         </div>
 
         {/* Minimalist Consulting Manifesto: Large Typography + Thin Dividers + Muted Green Numbers */}
-        <div className="mt-8 divide-y divide-[#DCE4E1] border-y border-[#DCE4E1]">
+        <div className="mt-8 divide-y divide-[#C9DDD7] border-y border-[#C9DDD7]">
           {manifestoItems.map((item, idx) => (
             <motion.div
               key={item.num}
@@ -66,17 +65,17 @@ export default function WhyConsultAmericaSection() {
               className="grid grid-cols-1 gap-4 py-8 sm:py-10 sm:grid-cols-12 sm:items-baseline sm:gap-8"
             >
               <div className="sm:col-span-2">
-                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#9DB3AD]">
+                <span className="font-serif text-3xl sm:text-4xl font-normal text-[#9BC4B8]">
                   {item.num}
                 </span>
               </div>
               <div className="sm:col-span-4">
-                <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#163536]">
+                <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#122D2E]">
                   {item.title}
                 </h3>
               </div>
               <div className="sm:col-span-6">
-                <p className="text-sm sm:text-base leading-relaxed text-[#596968]">
+                <p className="text-sm sm:text-base leading-relaxed text-[#5B6D6B]">
                   {item.description}
                 </p>
               </div>

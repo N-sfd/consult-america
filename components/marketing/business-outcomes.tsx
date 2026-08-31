@@ -34,12 +34,20 @@ export default function BusinessOutcomes() {
 
   return (
     <section
-      className="text-white py-16 sm:py-20 lg:py-24 border-b border-[#0B3332] bg-[#103F3E]"
+      className="text-white py-16 sm:py-20 lg:py-24 border-b border-[#073B3A] ca-grad-dark relative overflow-hidden"
     >
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      {/* Subtle background ambient light */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background: "radial-gradient(circle at 80% 20%, rgba(75,148,136,0.18) 0%, transparent 50%)",
+        }}
+      />
+
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
         <div className="inline-flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#9DC8BC]" />
-          <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#9DC8BC]">
+          <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#9BC4B8]">
             BUSINESS OUTCOMES FIRST
           </span>
         </div>

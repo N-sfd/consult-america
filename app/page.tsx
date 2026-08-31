@@ -37,57 +37,57 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* 01. Minimal & Sophisticated Header with Full-Width Mega Menus */}
+      {/* 01. Minimal & Sophisticated Header with Deep Green Utility Bar */}
       <SiteHeader />
 
       <main className="experience-marketing">
-        {/* 02. HERO: Very Light (#F8FAF9), 50/50 split, premium editorial photography */}
+        {/* 02. HERO: Pale Green Atmosphere (#F0F6F4), Layered Asymmetric Arch Composition */}
         <Hero />
 
         {/* 03. CAPABILITY STRIP: White (#FFFFFF) restrained capability typography */}
         <TrustCredibility />
 
-        {/* 04. BUSINESS OUTCOMES: Dark Green (#103F3E) 4-column editorial typography & thin dividers */}
+        {/* 04. BUSINESS OUTCOMES: Dark Emerald Gradient (#073B3A -> #0B4A47 -> #176A63) */}
         <BusinessOutcomes />
 
-        {/* 05. WHAT WE DO: White (#FFFFFF) 4 visual modules with staggered editorial layout */}
+        {/* 05. WHAT WE DO: White (#FFFFFF) 4 Shaped Architectural Service Cards */}
         <WhatWeDo />
 
-        {/* 06. ENTERPRISE TRANSFORMATION: Light Gray-Green (#EEF3F1) dedicated feature (Image left, Content right) */}
+        {/* 06. ENTERPRISE TRANSFORMATION: Pale Sage (#E1ECE8) Two-Image Composition */}
         <EnterpriseTransformationFeature />
 
-        {/* 07. ORACLE FLAGSHIP: White (#FFFFFF) clean architecture & 6 editorial practice rows */}
+        {/* 07. ORACLE FLAGSHIP: White (#FFFFFF) Tall Arch Image & Geometric Backdrop Panel */}
         <OracleFlagship />
 
-        {/* 08. CRM: Light Gray-Green (#EEF3F1) customer-facing photography, journey & architecture line */}
+        {/* 08. CRM: Green 50 (#F0F6F4) Asymmetric Customer Photography & Journey Line */}
         <CRMShowcase />
 
-        {/* 09. AI & DATA: Dark Green (#103F3E) + photography & 4-step intelligence methodology */}
+        {/* 09. AI & DATA: Deep Emerald Gradient (#073B3A -> #105A55) Architectural Cut Mask */}
         <AIDataStory />
 
-        {/* 10. APPLICATION ENGINEERING & LABS: Practice intro, Data Agent Flagship, Alternating Products & Portfolio Gallery */}
+        {/* 10. APPLICATION ENGINEERING & LABS: Practice Intro, Data Agent (#073B3A), Alternating Products */}
         <LabsShowcase />
 
-        {/* 11. SELECTED WORK: White (#FFFFFF) transformation in practice editorial case studies */}
+        {/* 11. SELECTED WORK: White (#FFFFFF) Transformation in Practice Shaped Case Studies */}
         <SelectedWorkSection />
 
-        {/* 12. INDUSTRIES: Dark Green (#103F3E) 2x2 photography grid */}
+        {/* 12. INDUSTRIES: Deep Green (#073B3A) Editorial Mosaic with Mixed Shapes */}
         <IndustriesSection />
 
-        {/* 13. WHY CONSULT AMERICA: White (#FFFFFF) 4-part minimalist consulting manifesto */}
+        {/* 13. WHY CONSULT AMERICA: White (#FFFFFF) 4-part Minimalist Consulting Manifesto */}
         <WhyConsultAmericaSection />
 
-        {/* 14. INSIGHTS: Light (#F8FAF9) editorial publication layout */}
+        {/* 14. INSIGHTS: Pale Green Atmosphere (#F0F6F4) Editorial Publication Layout */}
         <InsightsSection />
 
-        {/* 15. CAREERS: White (#FFFFFF) team photography + green-gray panel */}
+        {/* 15. CAREERS: White (#FFFFFF) + Shaped Team Arch Photo & Pale Sage Panel */}
         <CareersFeature />
 
-        {/* 16. CONTACT CTA: Dark Green (#103F3E / #0B3332) with clean white form */}
+        {/* 16. CONTACT CTA: Deep Emerald Gradient (#073B3A -> #105A55) with Clean White Form */}
         <GrowthCta />
       </main>
 
-      {/* 17. FOOTER: Deepest Green (#092C2D) */}
+      {/* 17. FOOTER: Deepest Green-Black (#052827) */}
       <SiteFooter />
     </>
   );

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-import SectionLabel from "@/components/marketing/SectionLabel";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const industries = [
@@ -15,6 +14,7 @@ const industries = [
     href: "/industries/public-sector",
     image: stockImage("industriesSectionGovernment", { w: 1000, q: 80 }),
     focus: "Public Sector Modernization",
+    shape: "rounded-[120px_14px_14px_14px]", // Arch on top-left
   },
   {
     name: "Healthcare & Life Sciences",
@@ -22,6 +22,7 @@ const industries = [
     href: "/industries/healthcare",
     image: stockImage("industriesSectionHealthcare", { w: 1000, q: 80 }),
     focus: "Clinical & Health Tech",
+    shape: "rounded-[14px_100px_14px_14px]", // Top-right asymmetric
   },
   {
     name: "Financial Services",
@@ -29,6 +30,7 @@ const industries = [
     href: "/industries/financial-services",
     image: stockImage("industriesSectionFinancial", { w: 1000, q: 80 }),
     focus: "Financial Platforms",
+    shape: "rounded-[14px_14px_14px_100px]", // Bottom-left asymmetric
   },
   {
     name: "Technology & Software",
@@ -36,6 +38,7 @@ const industries = [
     href: "/industries/technology",
     image: stockImage("industriesSectionTech", { w: 1000, q: 80 }),
     focus: "Cloud & Applied AI",
+    shape: "rounded-[14px_14px_120px_14px]", // Bottom-right arch
   },
 ];
 
@@ -43,13 +46,21 @@ export default function IndustriesSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="industries" className="bg-[#103F3E] text-white py-16 sm:py-20 lg:py-24 border-b border-[#0B3332]">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+    <section id="industries" className="ca-grad-dark text-white py-16 sm:py-20 lg:py-24 border-b border-[#073B3A] relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25"
+        style={{
+          background: "radial-gradient(circle at 70% 30%, rgba(75,148,136,0.2) 0%, transparent 60%)",
+        }}
+      />
+
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-white/20">
           <div>
             <div className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#9DC8BC]" />
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9DC8BC]">
+              <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9BC4B8]">
                 INDUSTRIES
               </span>
             </div>
@@ -62,7 +73,7 @@ export default function IndustriesSection() {
           </p>
         </div>
 
-        {/* 2x2 Photography Grid with Dark Green Overlays */}
+        {/* Editorial Mosaic Grid with Shaped Image Containers (Section 31 Specification) */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {industries.map((ind, idx) => (
             <motion.div
@@ -74,25 +85,25 @@ export default function IndustriesSection() {
             >
               <Link
                 href={ind.href}
-                className="group relative block h-[360px] sm:h-[390px] overflow-hidden rounded-[10px] border border-white/20 bg-[#0B3332] shadow-sm"
+                className={`group relative block h-[360px] sm:h-[400px] overflow-hidden border border-white/20 bg-[#073B3A] ca-shadow-elevated ${ind.shape}`}
               >
-                {/* Background Image */}
+                {/* Background Image with Ken Burns hover effect */}
                 <Image
                   src={ind.image}
                   alt={ind.name}
                   fill
-                  className="object-cover mkt-img-graded transition-transform duration-700 group-hover:scale-102"
+                  className="object-cover mkt-img-graded transition-transform duration-700 group-hover:scale-103"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
 
-                {/* Subtle Dark Green Overlay & Gradient */}
-                <div className="absolute inset-0 bg-[#0B3332]/50 transition-colors duration-300 group-hover:bg-[#0B3332]/60" />
+                {/* Deep Emerald Overlay & Gradient */}
+                <div className="absolute inset-0 bg-[#073B3A]/55 transition-colors duration-300 group-hover:bg-[#073B3A]/65" />
                 <div className="mkt-overlay-caption" />
 
                 {/* Content */}
-                <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white">
+                <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white z-10">
                   <div className="flex justify-end">
-                    <span className="rounded-[6px] bg-white/15 backdrop-blur-md px-3 py-1 text-[0.68rem] font-bold tracking-wider text-white border border-white/20">
+                    <span className="rounded-[8px] bg-white/15 backdrop-blur-md px-3 py-1 text-[0.68rem] font-bold tracking-wider text-white border border-white/25">
                       {ind.focus}
                     </span>
                   </div>

@@ -26,8 +26,8 @@ export default function CareersPreview({
 
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 items-stretch">
-      {/* Left Column: Full-Height Collaborative Team Photo (50%) */}
-      <div className="relative min-h-[380px] lg:h-[480px] lg:col-span-6 overflow-hidden rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] shadow-[0_12px_36px_rgba(20,30,45,0.06)]">
+      {/* Left Column: Full-Height Collaborative Team Photo (50%) with Asymmetric Corner */}
+      <div className="relative min-h-[380px] lg:h-[480px] lg:col-span-6 overflow-hidden rounded-[120px_14px_14px_14px] border border-[#C9DDD7] bg-[#073B3A] shadow-sm">
         <Image
           src={imageSrc}
           alt={imageAlt}
@@ -37,7 +37,7 @@ export default function CareersPreview({
         />
         <div className="mkt-overlay-caption" />
         <div className="absolute bottom-6 left-6 right-6 text-white">
-          <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#EEF2F5]">
+          <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
             PRACTICE DELIVERY TEAMS
           </span>
           <p className="mt-1 text-sm font-semibold text-[#FFFFFF]">
@@ -47,47 +47,47 @@ export default function CareersPreview({
       </div>
 
       {/* Right Column: Clean White Panel with Open Requisitions (50%) */}
-      <div className="lg:col-span-6 flex flex-col justify-between rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-8 sm:p-10 shadow-[0_12px_36px_rgba(20,30,45,0.06)]">
+      <div className="lg:col-span-6 flex flex-col justify-between rounded-[14px] border border-[#C9DDD7] bg-[#FFFFFF] p-8 sm:p-10 ca-shadow-elevated">
         <div>
-          <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
+          <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
             CAREERS
           </span>
-          <h2 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.03em] text-[#101828] sm:text-4xl">
+          <h2 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.03em] text-[#122D2E] sm:text-4xl">
             Build what&apos;s next.
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-[#475467]">
+          <p className="mt-3 text-sm leading-relaxed text-[#5B6D6B]">
             Work across enterprise transformation, Oracle, AI, data and product
             engineering. Small, senior teams attached directly to client outcomes.
           </p>
 
-          <div className="mt-8 border-t border-[#E2E7EC] pt-4">
+          <div className="mt-8 border-t border-[#C9DDD7] pt-4">
             <div className="flex items-center justify-between pb-3">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
                 OPEN REQUISITIONS
               </p>
-              <span className="text-xs text-[#475467]">
+              <span className="text-xs text-[#5B6D6B]">
                 {jobs.length} Active Positions
               </span>
             </div>
 
             {hasOpenJobs ? (
-              <ul className="divide-y divide-[#E2E7EC]">
+              <ul className="divide-y divide-[#C9DDD7]">
                 {jobs.map((job) => (
                   <li key={job.slug}>
                     <Link
                       href={`/jobs/${job.slug}`}
-                      className="group flex items-start justify-between gap-4 py-4 transition-colors hover:bg-[#F7F8FA] px-3 rounded-md"
+                      className="group flex items-start justify-between gap-4 py-4 transition-colors hover:bg-[#F0F6F4] px-3 rounded-md"
                     >
                       <div>
-                        <p className="text-sm font-bold text-[#101828] transition-colors group-hover:text-[#B63838]">
+                        <p className="text-sm font-bold text-[#122D2E] transition-colors group-hover:text-[#0B4A47]">
                           {job.title}
                         </p>
-                        <p className="mt-0.5 text-xs text-[#475467]">
+                        <p className="mt-0.5 text-xs text-[#5B6D6B]">
                           {job.location} · {job.workplaceType}
                         </p>
                       </div>
                       <ArrowUpRight
-                        className="mt-1 h-3.5 w-3.5 shrink-0 text-[#B63838] opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                        className="mt-1 h-3.5 w-3.5 shrink-0 text-[#B83A3A] opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
                         aria-hidden="true"
                       />
                     </Link>
@@ -95,14 +95,14 @@ export default function CareersPreview({
                 ))}
               </ul>
             ) : (
-              <div className="py-6 text-center text-xs text-[#475467]">
+              <div className="py-6 text-center text-xs text-[#5B6D6B]">
                 No current open requisitions.
               </div>
             )}
           </div>
         </div>
 
-        <div className="mt-8 border-t border-[#E2E7EC] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-8 border-t border-[#C9DDD7] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link
             href="/careers"
             className="ca-button-primary w-full sm:w-auto text-xs font-semibold !min-h-10"
@@ -110,7 +110,7 @@ export default function CareersPreview({
             <span>View all opportunities</span>
             <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
-          <span className="text-xs text-[#475467]">
+          <span className="text-xs text-[#5B6D6B]">
             Equal Opportunity Employer
           </span>
         </div>

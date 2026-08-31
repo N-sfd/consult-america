@@ -8,48 +8,59 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Consult America Simplified Two-Tone Palette */
+  /* Consult America Rich Green Palette System */
+  --ca-green-950: #073B3A;
+  --ca-green-900: #0B4A47;
+  --ca-green-800: #105A55;
+  --ca-green-700: #176A63;
+  --ca-green-600: #287B72;
+  --ca-green-500: #4B9488;
+  --ca-green-300: #9BC4B8;
+  --ca-green-200: #C9DDD7;
+  --ca-green-100: #E1ECE8;
+  --ca-green-50:  #F0F6F4;
+
   --ca-white: #FFFFFF;
-  --ca-light: #F8FAF9;
-  --ca-surface: #EEF3F1;
-  --ca-surface-soft: #F8FAF9;
-  --ca-surface-bluegray: #EEF3F1;
+  --ca-light: #F8FBFA;
+  --ca-surface: #E1ECE8;
+  --ca-surface-soft: #F0F6F4;
+  --ca-surface-sage: #E1ECE8;
 
-  --ca-ink: #163536;
-  --ca-text-primary: #163536;
-  --ca-text-secondary: #596968;
-  --ca-ink-secondary: #596968;
-  --ca-muted: #596968;
+  --ca-ink: #122D2E;
+  --ca-text-primary: #122D2E;
+  --ca-text-secondary: #5B6D6B;
+  --ca-ink-secondary: #5B6D6B;
+  --ca-muted: #5B6D6B;
 
-  --ca-green: #103F3E;
-  --ca-green-deep: #0B3332;
-  --ca-footer: #092C2D;
-  --ca-dark-section: #103F3E;
-  --ca-dark-secondary: #0B3332;
-  --ca-dark-card: #0B3332;
-  --ca-dark-border: rgba(255, 255, 255, 0.15);
+  --ca-green: #0B4A47;
+  --ca-green-deep: #073B3A;
+  --ca-footer: #052827;
+  --ca-dark-section: #073B3A;
+  --ca-dark-secondary: #0B4A47;
+  --ca-dark-card: #0B4A47;
+  --ca-dark-border: rgba(155, 196, 184, 0.18);
   --ca-text-on-dark: #FFFFFF;
   --ca-muted-on-dark: rgba(255, 255, 255, 0.78);
-  --ca-footer-bg: #092C2D;
-  --ca-footer-border: #103F3E;
-  --ca-footer-hover: #E38B8B;
+  --ca-footer-bg: #052827;
+  --ca-footer-border: #0B4A47;
+  --ca-footer-hover: #9BC4B8;
 
-  --ca-red: #B63A3A;
+  --ca-red: #B83A3A;
   --ca-red-hover: #992F31;
   --ca-red-dark: #992F31;
-  --ca-burgundy: #B63A3A;
+  --ca-burgundy: #B83A3A;
   --ca-burgundy-hover: #992F31;
-  --ca-burgundy-accent: #B63A3A;
+  --ca-burgundy-accent: #B83A3A;
 
-  --ca-border: #DCE4E1;
-  --ca-border-light: #E1E7E5;
-  --ca-header-border: #DCE4E1;
+  --ca-border: #C9DDD7;
+  --ca-border-light: #E1ECE8;
+  --ca-header-border: #C9DDD7;
 
-  --ca-bg: #F8FAF9;
+  --ca-bg: #F0F6F4;
   --ca-bg-secondary: #FFFFFF;
-  --ca-navy: #103F3E;
-  --ca-dark-navy: #0B3332;
-  --ca-deep-navy: #092C2D;
+  --ca-navy: #0B4A47;
+  --ca-dark-navy: #073B3A;
+  --ca-deep-navy: #052827;
 
   --ca-max-width: 1280px;
   --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 
 import BrandLogo from "@/components/brand/brand-logo";
-import { Shell } from "@/components/layout/grid";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { industryLinks } from "@/lib/site-data";
 
@@ -76,13 +75,13 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="relative border-t-2 border-[#103F3E] bg-[#092C2D] text-white/70 overflow-hidden">
-      {/* Prominent Pre-Footer Statement */}
-      <div className="relative z-10 border-b border-white/10 bg-[#0B3332] py-10 sm:py-12">
+    <footer className="relative border-t-2 border-[#0B4A47] bg-[#052827] text-white/70 overflow-hidden">
+      {/* Prominent Pre-Footer Statement (Section 45) */}
+      <div className="relative z-10 border-b border-white/10 bg-[#073B3A] py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <p className="text-[0.68rem] font-bold tracking-widest text-[#9DC8BC] uppercase">
+              <p className="text-[0.68rem] font-bold tracking-widest text-[#9BC4B8] uppercase">
                 ENTERPRISE PRODUCTION DELIVERY
               </p>
               <h3 className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
@@ -93,7 +92,7 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[6px] bg-[#B63A3A] px-7 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(182,58,58,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"
+                className="inline-flex h-[50px] items-center justify-center gap-2 rounded-[8px] bg-[#B83A3A] px-7 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(184,58,58,0.25)] hover:bg-[#992F31] transition-all cursor-pointer"
               >
                 <span>Talk to an Expert</span>
                 <ArrowUpRight className="h-4 w-4" />
@@ -115,7 +114,7 @@ export function SiteFooter() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#B63A3A] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#9BC4B8] transition-colors cursor-pointer"
               >
                 Start a Conversation →
               </button>
