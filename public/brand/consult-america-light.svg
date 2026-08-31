@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 88" fill="none" width="460" height="88">
+  <!-- CONSULT AMERICA  PRODUCTION LOGO (DARK BACKGROUND / WHITE WORDMARK) -->
+  
+  <!-- Geometric CA Monogram -->
+  <g transform="translate(6, 8)">
+    <!-- 'C' Precision Arc in Consult America Burgundy #B63A3A -->
+    <path
+      d="M44 6 C23.0 6 6 23.0 6 44 C6 65.0 23.0 82 44 82 C57.2 82 68.8 75.3 75.6 65.1 L62.4 55.6 C58.4 61.6 51.9 65.8 44 65.8 C32.0 65.8 22.2 56.0 22.2 44 C22.2 32.0 32.0 22.2 44 22.2 C51.9 22.2 58.4 26.4 62.4 32.4 L75.6 22.9 C68.8 12.7 57.2 6 44 6 Z"
+      fill="#B63A3A"
+    />
+    
+    <!-- 'A' Precision Structural Triangle & Leg in Pure Crisp White #FFFFFF -->
+    <path
+      d="M44 14 L81 80 L65 80 L44 42 L34.5 60.5 L23 52.8 L44 14 Z"
+      fill="#FFFFFF"
+    />
+    
+    <!-- Inner Core Precision Pyramid in Burgundy #B63A3A -->
+    <polygon
+      points="44,42 54.8,63 33.2,63"
+      fill="#B63A3A"
+    />
+    
+    <!-- Dynamic Forward Enterprise Swoosh in Teal Accent #357C78 -->
+    <path
+      d="M12 57 C28 46 58 39 86 44 C69 50 40 55 12 57 Z"
+      fill="#357C78"
+    />
+  </g>
+
+  <!-- Vertical Divider Rule -->
+  <line x1="104" y1="20" x2="104" y2="72" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1.75" stroke-linecap="round" />
+
+  <!-- Clean Horizontal Wordmark: CONSULT AMERICA in Pure White #FFFFFF -->
+  <g transform="translate(122, 0)">
+    <!-- CONSULT in Pure White #FFFFFF -->
+    <text
+      x="0"
+      y="54"
+      font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+      font-size="33"
+      font-weight="700"
+      letter-spacing="0.045em"
+      fill="#FFFFFF"
+    >CONSULT</text>
+
+    <!-- AMERICA in Pure White #FFFFFF with slight bold punch -->
+    <text
+      x="158"
+      y="54"
+      font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+      font-size="33"
+      font-weight="800"
+      letter-spacing="0.045em"
+      fill="#FFFFFF"
+    >AMERICA</text>
+  </g>
+</svg>

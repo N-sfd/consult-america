@@ -22,24 +22,25 @@ export default function BrandLogo({
   priority = false,
   onNavigate,
 }: BrandLogoProps) {
-  // tone="dark" is for light backgrounds (like scrolled header) -> uses dark charcoal text edition
-  // tone="light" is for dark backgrounds (like dark hero, footer) -> uses luminous white text edition
+  // tone="dark" is for LIGHT backgrounds (scrolled light header, login, portal) -> uses solid #102033 wordmark
+  // tone="light" is for DARK backgrounds (dark hero, dark footer, dark drawers) -> uses crisp #FFFFFF wordmark
   const logoSrc =
     tone === "dark"
-      ? "/brand/consult-america-logo-dark.png"
-      : "/brand/consult-america-header-light.png";
+      ? "/brand/consult-america-dark.svg"
+      : "/brand/consult-america-light.svg";
 
   const content = (
-    <span className={cn("inline-flex items-center", className)}>
-      <span className="relative flex items-center justify-center transition-all duration-200">
+    <span className={cn("inline-flex items-center select-none", className)}>
+      <span className="relative flex items-center justify-center">
         <Image
           src={logoSrc}
           alt="Consult America"
-          width={280}
-          height={150}
+          width={460}
+          height={88}
           priority={priority}
+          unoptimized
           className={cn(
-            "h-10 sm:h-[42px] lg:h-[44px] w-auto max-w-[170px] sm:max-w-[195px] lg:max-w-[215px] object-contain transition-transform duration-200 hover:scale-[1.01]",
+            "h-10 sm:h-[42px] lg:h-[46px] w-auto max-w-[165px] sm:max-w-[190px] lg:max-w-[215px] object-contain opacity-100",
             markClassName
           )}
         />
@@ -54,7 +55,7 @@ export default function BrandLogo({
     <Link
       href={href}
       aria-label="Consult America homepage"
-      className="inline-flex items-center"
+      className="inline-flex items-center opacity-100 transition-none"
       onClick={onNavigate}
     >
       {content}

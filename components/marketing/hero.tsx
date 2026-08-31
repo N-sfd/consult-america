@@ -19,47 +19,27 @@ const practiceAreas = [
 export default function Hero() {
   const { setOpen } = useContactPanel();
   const shouldReduceMotion = useReducedMotion();
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      if (innerWidth < 1024) return;
-      const x = ((e.clientX / innerWidth) - 0.5) * 6; // max ±3px
-      const y = ((e.clientY / innerHeight) - 0.5) * 6;
-      setMouseOffset({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [shouldReduceMotion]);
 
   return (
     <section className="relative overflow-hidden min-h-[clamp(720px,86vh,920px)] flex items-center bg-[#14181C] border-b border-[#261F1B]/30">
-      {/* 1. LAYER 1: Full-Bleed Photographic Background with Subtle Entrance Scale */}
+      {/* 1. LAYER 1: Full-Bleed Architectural Enterprise Background (On-load entrance only: 1.025 -> 1 over 1.8s, then still) */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <motion.div
-          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.035 }}
-          animate={{
-            scale: 1,
-            x: shouldReduceMotion ? 0 : mouseOffset.x,
-            y: shouldReduceMotion ? 0 : mouseOffset.y,
-          }}
+          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.025 }}
+          animate={{ scale: 1 }}
           transition={{
-            scale: { duration: 2.0, ease: [0.2, 0.8, 0.2, 1] },
-            x: { duration: 0.8, ease: "easeOut" },
-            y: { duration: 0.8, ease: "easeOut" },
+            duration: 1.8,
+            ease: [0.2, 0.8, 0.2, 1],
           }}
           className="relative h-full w-full"
         >
           <Image
-            src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2600&q=90"
-            alt="Consult America Enterprise Technology Headquarters"
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2600&q=90"
+            alt="Consult America Enterprise Technology Architecture"
             fill
             priority
             quality={92}
-            className="object-cover object-[center_right] lg:object-center filter contrast-[1.06] brightness-[0.96]"
+            className="object-cover object-[center_right] lg:object-center filter contrast-[1.05] brightness-[0.95]"
             sizes="100vw"
           />
         </motion.div>
@@ -69,7 +49,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(16,20,24,0.96) 0%, rgba(16,20,24,0.88) 34%, rgba(16,20,24,0.58) 56%, rgba(16,20,24,0.18) 78%, rgba(16,20,24,0.04) 100%)",
+              "linear-gradient(90deg, rgba(16,20,24,0.96) 0%, rgba(16,20,24,0.88) 36%, rgba(16,20,24,0.60) 58%, rgba(16,20,24,0.20) 80%, rgba(16,20,24,0.04) 100%)",
           }}
         />
 
@@ -78,7 +58,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(14,18,22,0.65) 0%, transparent 22%, transparent 78%, rgba(14,18,22,0.6) 100%)",
+              "linear-gradient(180deg, rgba(14,18,22,0.70) 0%, transparent 22%, transparent 78%, rgba(14,18,22,0.65) 100%)",
           }}
         />
 
@@ -93,9 +73,9 @@ export default function Hero() {
           <div className="lg:col-span-8 xl:col-span-7">
             {/* Eyebrow */}
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
+              transition={{ duration: 0.4 }}
               className="flex items-center gap-3"
             >
               <span className="h-0.5 w-6 rounded-full bg-[#B63A3A]" />
@@ -106,9 +86,9 @@ export default function Hero() {
 
             {/* Headline */}
             <motion.h1
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 24 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-6 font-serif text-[clamp(46px,5.8vw,88px)] leading-[0.93] tracking-[-0.048em] text-[#FFFDF8] max-w-[780px]"
             >
               <span className="block text-[0.93em] text-[#FFFDF8]/95 font-medium">Transform the core.</span>
@@ -117,9 +97,9 @@ export default function Hero() {
 
             {/* Supporting Copy */}
             <motion.p
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 18 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
               className="mt-6 max-w-xl text-base leading-relaxed text-[#FFFDF8]/82 sm:text-lg lg:text-[1.125rem]"
             >
               Consult America helps organizations modernize enterprise platforms,
@@ -131,7 +111,7 @@ export default function Hero() {
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.34 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
               className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
             >
               <button
@@ -154,7 +134,7 @@ export default function Hero() {
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.44 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
               className="mt-12 border-t border-white/15 pt-5 max-w-2xl"
             >
               <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-white/50 mb-2.5">
