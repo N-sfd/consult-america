@@ -31,23 +31,15 @@ export default function SiteHeader() {
     };
   }, [drawerOpen]);
 
-  const isSolid = scrolled || openMenu !== null || drawerOpen;
+  const isSolid = true;
 
-  const headerSurface = isSolid
-    ? "bg-[#FFFDF8]/96 backdrop-blur-[18px] border-b border-[#261F1B]/10 shadow-[0_2px_14px_rgba(20,24,28,0.04)]"
-    : "bg-transparent border-b border-white/10";
+  const headerSurface = "bg-[#FFFDF8]/96 backdrop-blur-[18px] border-b border-[#261F1B]/10 shadow-[0_2px_14px_rgba(20,24,28,0.04)]";
 
-  const topStripStyle = isSolid
-    ? "border-b border-[#D7CCBD]/50 bg-[#FFFDF8]/90 text-[#695F57]"
-    : "border-b border-white/10 bg-black/25 text-white/75 backdrop-blur-xs";
+  const topStripStyle = "border-b border-[#D7CCBD]/50 bg-[#FFFDF8]/90 text-[#695F57]";
 
-  const navLinkClass = isSolid
-    ? "ca-nav-link flex items-center gap-1.5 text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] cursor-pointer transition-colors whitespace-nowrap"
-    : "ca-nav-link flex items-center gap-1.5 text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-white/90 hover:text-white cursor-pointer transition-colors whitespace-nowrap";
+  const navLinkClass = "ca-nav-link flex items-center gap-1.5 text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] cursor-pointer transition-colors whitespace-nowrap";
 
-  const directLinkClass = isSolid
-    ? "ca-nav-link text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] transition-colors whitespace-nowrap"
-    : "ca-nav-link text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-white/90 hover:text-white transition-colors whitespace-nowrap";
+  const directLinkClass = "ca-nav-link text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] transition-colors whitespace-nowrap";
 
   return (
     <>
@@ -100,9 +92,9 @@ export default function SiteHeader() {
           <div className="w-full max-w-[1540px] mx-auto px-6 sm:px-8 xl:px-12 2xl:px-16">
             <div className="flex h-20 items-center justify-between gap-6 lg:h-[84px]">
               <BrandLogo
-                tone={isSolid ? "dark" : "light"}
+                tone="dark"
                 priority
-                markClassName="h-8 sm:h-9 lg:h-10 w-auto"
+                markClassName="h-9 sm:h-10 lg:h-11 w-auto"
               />
 
               {/* Desktop Navigation Links with Generous 28-36px Spacing */}

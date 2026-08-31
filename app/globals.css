@@ -46,9 +46,9 @@
   --ca-dark-border: #3A302B;
   --ca-text-on-dark: #FFFDF8;
   --ca-muted-on-dark: rgba(255, 253, 248, 0.72);
-  --ca-footer-bg: #211E1B;
-  --ca-footer-border: #3A302B;
-  --ca-footer-hover: #D8C5AA;
+  --ca-footer-bg: #F7F3EC;
+  --ca-footer-border: #D8D0C5;
+  --ca-footer-hover: #B63A3A;
 
   /* Legacy & Semantic Mappings */
   --ca-black: #211E1B;
