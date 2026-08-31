@@ -25,7 +25,7 @@ const secondaryCases = [
     approach: "Deployed Data Agent platform to automatically extract, structure, and verify critical terms with traceable source citations.",
     outcome: "Structured clause extraction and significant reduction in review cycle times across procurement and commercial operations teams.",
     linkHref: "/work/innovation/data-agent",
-    tag: "Data Agent AI",
+    tag: "Data Agent",
     image: stockImage("selectedWorkProject1", { w: 800, q: 80 }),
     imageShape: "rounded-tr-[44px]",
   },

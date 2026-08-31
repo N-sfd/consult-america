@@ -1,44 +1,44 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
+import { ShapedPhoto } from "@/components/marketing/shaped-photo";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const industries = [
   {
     name: "Government & Public Sector",
-    description: "Modernizing core public service systems, grants administration, financial management, and agency workflows.",
+    description: "Modernizing core public service systems, grants administration, and agency workflows.",
     href: "/industries/public-sector",
     image: stockImage("industriesSectionGovernment", { w: 1000, q: 80 }),
     focus: "Public Sector Modernization",
-    shape: "rounded-[120px_14px_14px_14px]", // Arch on top-left
+    shape: "arch" as const,
   },
   {
     name: "Healthcare & Life Sciences",
-    description: "Clinical documentation intelligence, patient record connectivity, intake workflows, and care coordination.",
+    description: "Clinical documentation intelligence, patient record connectivity, and care coordination.",
     href: "/industries/healthcare",
     image: stockImage("industriesSectionHealthcare", { w: 1000, q: 80 }),
     focus: "Clinical & Health Tech",
-    shape: "rounded-[14px_100px_14px_14px]", // Top-right asymmetric
+    shape: "asymmetric" as const,
   },
   {
     name: "Financial Services",
-    description: "Multi-entity enterprise ledgers, financial close governance, operational risk oversight, and connected customer CRM.",
+    description: "Multi-entity ledgers, financial close governance, and connected customer CRM.",
     href: "/industries/financial-services",
     image: stockImage("industriesSectionFinancial", { w: 1000, q: 80 }),
     focus: "Financial Platforms",
-    shape: "rounded-[14px_14px_14px_100px]", // Bottom-left asymmetric
+    shape: "asymmetric" as const,
   },
   {
     name: "Technology & Software",
-    description: "API ecosystems, cloud platform foundations, event routing, and applied AI infrastructure for scaling digital products.",
+    description: "API ecosystems, cloud foundations, and applied AI infrastructure for scaling products.",
     href: "/industries/technology",
     image: stockImage("industriesSectionTech", { w: 1000, q: 80 }),
     focus: "Cloud & Applied AI",
-    shape: "rounded-[14px_14px_120px_14px]", // Bottom-right arch
+    shape: "arch" as const,
   },
 ];
 
@@ -47,16 +47,15 @@ export default function IndustriesSection() {
 
   return (
     <section id="industries" className="ca-grad-dark text-white py-16 sm:py-20 lg:py-24 border-b border-[#073B3A] relative overflow-hidden">
-      {/* Background ambient lighting */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-25"
+        className="absolute inset-0 pointer-events-none opacity-30 ca-bg-drift"
         style={{
-          background: "radial-gradient(circle at 70% 30%, rgba(75,148,136,0.2) 0%, transparent 60%)",
+          background: "radial-gradient(circle at 70% 30%, rgba(155,196,184,0.25) 0%, transparent 60%)",
         }}
       />
 
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-white/20">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#9BC4B8]/25">
           <div>
             <div className="inline-flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
@@ -73,35 +72,32 @@ export default function IndustriesSection() {
           </p>
         </div>
 
-        {/* Editorial Mosaic Grid with Shaped Image Containers (Section 31 Specification) */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {industries.map((ind, idx) => (
             <motion.div
               key={ind.name}
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
             >
               <Link
                 href={ind.href}
-                className={`group relative block h-[360px] sm:h-[400px] overflow-hidden border border-white/20 bg-[#073B3A] ca-shadow-elevated ${ind.shape}`}
+                className="group relative block overflow-hidden"
               >
-                {/* Background Image with Ken Burns hover effect */}
-                <Image
+                <ShapedPhoto
                   src={ind.image}
                   alt={ind.name}
-                  fill
-                  className="object-cover mkt-img-graded transition-transform duration-700 group-hover:scale-103"
+                  shape={ind.shape}
+                  className="h-[360px] sm:h-[400px] border-white/20"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  overlay="none"
+                  revealDirection={idx % 2 === 0 ? "left" : "right"}
                 />
+                <div className="absolute inset-0 bg-[#073B3A]/55 transition-colors duration-300 group-hover:bg-[#073B3A]/65 z-10" />
+                <div className="mkt-overlay-caption z-10" />
 
-                {/* Deep Emerald Overlay & Gradient */}
-                <div className="absolute inset-0 bg-[#073B3A]/55 transition-colors duration-300 group-hover:bg-[#073B3A]/65" />
-                <div className="mkt-overlay-caption" />
-
-                {/* Content */}
-                <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white z-10">
+                <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white z-20">
                   <div className="flex justify-end">
                     <span className="rounded-[8px] bg-white/15 backdrop-blur-md px-3 py-1 text-[0.68rem] font-bold tracking-wider text-white border border-white/25">
                       {ind.focus}
@@ -109,7 +105,7 @@ export default function IndustriesSection() {
                   </div>
 
                   <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-tight group-hover:text-white transition-colors">
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-tight">
                       {ind.name}
                     </h3>
                     <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/80 line-clamp-2">
@@ -118,7 +114,7 @@ export default function IndustriesSection() {
 
                     <div className="mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs font-bold text-white">
                       <span>Explore Practice</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5 text-white" />
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5" />
                     </div>
                   </div>
                 </div>

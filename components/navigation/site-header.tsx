@@ -106,7 +106,7 @@ export default function SiteHeader() {
         <div className={`transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}>
           <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
             <div className="flex h-[76px] xl:h-[80px] items-center justify-between gap-4 xl:gap-8">
-              <BrandLogo tone="dark" priority />
+              <BrandLogo tone="dark" />
 
               {/* Desktop Navigation Links — whitespace-nowrap prevents any line breaking */}
               <nav

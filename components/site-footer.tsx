@@ -75,14 +75,14 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="relative border-t-2 border-[#0B4A47] bg-[#052827] text-white/70 overflow-hidden">
-      {/* Prominent Pre-Footer Statement (Section 45) */}
-      <div className="relative z-10 border-b border-white/10 bg-[#073B3A] py-10 sm:py-12">
+    <footer className="relative border-t border-[#C9DDD7] bg-[#F0F6F4] text-[#0B4A47] overflow-hidden">
+      {/* Pre-footer: darker green bridge from contact */}
+      <div className="relative z-10 border-b border-[#176A63]/20 bg-[#0B4A47] py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <p className="text-[0.68rem] font-bold tracking-widest text-[#9BC4B8] uppercase">
-                ENTERPRISE PRODUCTION DELIVERY
+                Enterprise Production Delivery
               </p>
               <h3 className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 BUILD WHAT&apos;S NEXT.
@@ -104,47 +104,45 @@ export function SiteFooter() {
 
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          {/* Brand Col */}
           <div className="lg:col-span-3">
-            <BrandLogo tone="light" />
-            <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-white/70">
+            <BrandLogo tone="dark" />
+            <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-[#5B6D6B]">
               Enterprise transformation, Oracle Cloud, AI &amp; data, and digital application engineering delivered from strategy through production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#9BC4B8] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0B4A47] hover:text-[#B83A3A] transition-colors cursor-pointer"
               >
                 Start a Conversation →
               </button>
               <Link
                 href="/login"
-                className="text-xs font-medium text-white/70 hover:text-white transition-colors"
+                className="text-xs font-medium text-[#5B6D6B] hover:text-[#0B4A47] transition-colors"
               >
                 Employee Portal Login →
               </Link>
             </div>
           </div>
 
-          {/* 7 Content Columns */}
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-7">
             {footerColumns.map((column) => (
               <details
                 key={column.title}
                 open
-                className="group border-b border-white/10 pb-4 sm:border-0 sm:pb-0"
+                className="group border-b border-[#C9DDD7] pb-4 sm:border-0 sm:pb-0"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-white marker:content-none sm:cursor-default">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-[#0B4A47] marker:content-none sm:cursor-default">
                   {column.title}
-                  <ChevronDown className="h-3.5 w-3.5 text-white/40 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
+                  <ChevronDown className="h-3.5 w-3.5 text-[#9BC4B8] transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
                 <ul className="mt-3.5 space-y-2.5">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-xs text-white/70 transition-colors hover:text-white"
+                        className="text-xs text-[#5B6D6B] transition-colors hover:text-[#0B4A47]"
                       >
                         {link.label}
                       </Link>
@@ -156,17 +154,16 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom copyright & legal */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/60 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#C9DDD7] pt-8 text-xs text-[#5B6D6B] sm:flex-row">
           <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-[#0B4A47] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
+            <Link href="/terms" className="hover:text-[#0B4A47] transition-colors">
               Terms of Service
             </Link>
-            <Link href="/security" className="hover:text-white transition-colors">
+            <Link href="/security" className="hover:text-[#0B4A47] transition-colors">
               Security &amp; Compliance
             </Link>
           </div>

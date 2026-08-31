@@ -265,7 +265,7 @@ export default function LabsShowcase() {
                       sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
-                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#122D2E] px-1">Data Agent AI</p>
+                  <p className="mt-1.5 font-mono text-[0.62rem] font-bold text-[#122D2E] px-1">Data Agent</p>
                 </div>
 
                 <div className="overflow-hidden rounded-lg border border-[#C9DDD7] bg-white shadow-sm p-1.5">
@@ -688,40 +688,32 @@ export default function LabsShowcase() {
             </motion.div>
 
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.55 }}
               className="lg:col-span-7"
             >
-              <CorporateBrowserFrame url="https://convera.consultamerica.net">
-                <div className="p-6 bg-white space-y-4">
-                  <div className="flex items-center justify-between border-b border-[#C9DDD7] pb-3 text-xs">
-                    <div className="flex items-center gap-2">
-                      <Workflow className="h-4 w-4 text-[#0B4A47]" />
-                      <span className="font-bold text-[#122D2E]">Event Stream &amp; API Controller</span>
+              <div className="rounded-[14px] border border-[#9BC4B8]/45 bg-[#F0F6F4] p-6 sm:p-8 ca-shadow-elevated">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {[
+                    { label: "Oracle Fusion", detail: "Event-driven ERP connectivity" },
+                    { label: "CRM Platform", detail: "Bidirectional customer data sync" },
+                    { label: "API Gateway", detail: "Schema validation & routing" },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-lg border border-[#9BC4B8]/40 bg-white p-4">
+                      <Workflow className="h-4 w-4 text-[#176A63] mb-2" />
+                      <p className="text-xs font-bold uppercase tracking-wider text-[#073B3A]">{item.label}</p>
+                      <p className="mt-1 text-xs text-[#176A63] leading-relaxed">{item.detail}</p>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#0B4A47] bg-[#E1ECE8] px-2.5 py-1 rounded font-bold">
-                      Integration Gateway
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-3">
-                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase font-bold">Oracle Bridge</p>
-                      <p className="text-xs font-bold text-[#122D2E] mt-1">Fusion Cloud OIC</p>
-                    </div>
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-3">
-                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase font-bold">CRM Connector</p>
-                      <p className="text-xs font-bold text-[#0B4A47] mt-1">Bidirectional Event Bus</p>
-                    </div>
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-3">
-                      <p className="text-[0.62rem] text-[#5B6D6B] uppercase font-bold">API Security</p>
-                      <p className="text-xs font-bold text-[#176A63] mt-1">Schema Validated</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              </CorporateBrowserFrame>
+                <div className="mt-5 flex items-center justify-center gap-3 text-[#9BC4B8]">
+                  <span className="h-px flex-1 bg-[#9BC4B8]/40" />
+                  <span className="text-[0.62rem] font-bold uppercase tracking-widest text-[#176A63]">Convera Integration Hub</span>
+                  <span className="h-px flex-1 bg-[#9BC4B8]/40" />
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -732,44 +724,33 @@ export default function LabsShowcase() {
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.55 }}
               className="lg:col-span-7 order-2 lg:order-1"
             >
-              <CorporateBrowserFrame url="https://workforce.consultamerica.net">
-                <div className="p-6 bg-white space-y-4">
-                  <div className="flex items-center justify-between border-b border-[#C9DDD7] pb-3 text-xs">
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-[#0B4A47]" />
-                      <span className="font-bold text-[#122D2E]">Enterprise Workforce Workspace</span>
+              <div className="rounded-[14px] border border-[#9BC4B8]/45 bg-[#F0F6F4] p-6 sm:p-8 ca-shadow-elevated">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {[
+                    { label: "Recruiting", detail: "Talent pipeline" },
+                    { label: "Candidates", detail: "Evaluation workflow" },
+                    { label: "Timesheets", detail: "Manager approvals" },
+                    { label: "Payroll", detail: "Ledger integration" },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-lg border border-[#9BC4B8]/40 bg-white p-3 text-center">
+                      <Users className="h-4 w-4 text-[#176A63] mx-auto mb-2" />
+                      <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#176A63]">{item.label}</p>
+                      <p className="mt-1 text-xs font-semibold text-[#073B3A]">{item.detail}</p>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#0B4A47] bg-[#E1ECE8] px-2.5 py-1 rounded font-bold">
-                      Workforce Suite
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-[0.65rem] font-bold">
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-2.5">
-                      <p className="text-[#5B6D6B]">RECRUITING</p>
-                      <p className="text-xs font-bold text-[#122D2E] mt-1">Talent Pipeline</p>
-                    </div>
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-2.5">
-                      <p className="text-[#5B6D6B]">CANDIDATES</p>
-                      <p className="text-xs font-bold text-[#122D2E] mt-1">Evaluation Flow</p>
-                    </div>
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#F0F6F4] p-2.5">
-                      <p className="text-[#5B6D6B]">TIMESHEETS</p>
-                      <p className="text-xs font-bold text-[#0B4A47] mt-1">Manager Approvals</p>
-                    </div>
-                    <div className="rounded-lg border border-[#C9DDD7] bg-[#E1ECE8] p-2.5">
-                      <p className="text-[#5B6D6B]">PAYROLL</p>
-                      <p className="text-xs font-bold text-[#B83A3A] mt-1">Ledger Integration</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              </CorporateBrowserFrame>
+                <div className="mt-5 flex items-center justify-center gap-3 text-[#9BC4B8]">
+                  <span className="h-px flex-1 bg-[#9BC4B8]/40" />
+                  <span className="text-[0.62rem] font-bold uppercase tracking-widest text-[#176A63]">Workforce Suite</span>
+                  <span className="h-px flex-1 bg-[#9BC4B8]/40" />
+                </div>
+              </div>
             </motion.div>
 
             <motion.div

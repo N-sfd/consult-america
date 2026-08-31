@@ -204,7 +204,22 @@
 
 .group:hover .mkt-media-scale,
 .mkt-media-hover:hover .mkt-media-scale {
-  transform: scale(1.035);
+  transform: scale(1.025);
+}
+
+/* Photography hover — consulting sections only */
+.mkt-img-hoverable {
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mkt-img-hoverable:hover,
+.group:hover .mkt-img-hoverable {
+  transform: scale(1.025);
+}
+
+/* Product screenshots stay stable */
+.mkt-img-stable {
+  transition: none;
 }
 
 /* Gradients */
@@ -229,45 +244,23 @@
 /* Photography Color Grading */
 .mkt-img-graded {
   filter: saturate(0.78) contrast(1.04) brightness(0.97);
-  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms ease;
 }
 
-.group:hover .mkt-img-graded,
-.mkt-img-graded:hover {
-  transform: scale(1.035);
-  filter: saturate(0.85) contrast(1.05) brightness(0.99);
+.mkt-img-graded.mkt-img-hoverable:hover,
+.group:hover .mkt-img-graded.mkt-img-hoverable {
+  filter: saturate(0.82) contrast(1.05) brightness(0.98);
 }
 
-/* Image Shapes Library */
+/* Three-shape design language */
 .ca-shape-arch {
-  border-radius: 140px 12px 12px 12px;
-}
-
-.ca-shape-arch-tall {
-  border-radius: 100px 100px 12px 12px;
+  border-radius: 100px 14px 14px 14px;
 }
 
 .ca-shape-asymmetric {
   border-radius: 12px 100px 12px 12px;
 }
 
-.ca-shape-wide {
-  border-radius: 12px 120px 12px 12px;
-}
-
-.ca-shape-hero-main {
-  border-radius: 160px 20px 120px 20px;
-}
-
-.ca-shape-hero-sec {
-  border-radius: 50% 50% 12px 12px;
-}
-
 .ca-shape-cut {
-  clip-path: polygon(0 0, 90% 0, 100% 15%, 100% 100%, 10% 100%, 0 85%);
-}
-
-.ca-shape-cut-ai {
   clip-path: polygon(12% 0, 100% 0, 100% 88%, 88% 100%, 0 100%, 0 12%);
 }
 
@@ -278,14 +271,9 @@
   .ca-shape-asymmetric {
     border-radius: 10px 64px 10px 10px;
   }
-  .ca-shape-wide {
-    border-radius: 10px 64px 10px 10px;
-  }
-  .ca-shape-hero-main {
-    border-radius: 64px 12px 48px 12px;
-  }
-  .ca-shape-hero-sec {
-    border-radius: 36px 36px 10px 10px;
+  .ca-shape-cut {
+    clip-path: none;
+    border-radius: 12px;
   }
 }
 
@@ -370,6 +358,19 @@
 }
 
 /* Gentle Micro-Animations */
+@keyframes caPhotoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.ca-photo-float {
+  animation: caPhotoFloat 8s ease-in-out infinite;
+}
+
 @keyframes caHeroFloat {
   0%, 100% {
     transform: translateY(0);
@@ -388,7 +389,7 @@
     transform: translate(0, 0) scale(1);
   }
   50% {
-    transform: translate(8px, -6px) scale(1.015);
+    transform: translate(6px, -5px) scale(1.012);
   }
 }
 
@@ -410,9 +411,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ca-photo-float,
   .ca-hero-float,
   .ca-bg-drift,
   .ca-ken-burns {
     animation: none !important;
+  }
+
+  .mkt-img-hoverable:hover,
+  .group:hover .mkt-img-hoverable {
+    transform: none;
   }
 }
