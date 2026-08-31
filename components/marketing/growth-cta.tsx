@@ -47,6 +47,7 @@ export default function GrowthCta() {
               : {
                   scale: [1.02, 1.035, 1.02],
                   y: [0, -8, 0],
+                  x: [0, 8, 0],
                 }
           }
           transition={{

@@ -46,9 +46,22 @@ export default function AIDataStory() {
           />
         </motion.div>
 
-        {/* 2. Geometric Brand Arc Motif 2/3 (Subtle CA C-Curve in AI section) */}
-        <div
-          className="ca-brand-arc-motif -bottom-28 -left-28 w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] opacity-25"
+        {/* Enormous barely-visible burgundy C arc behind interface */}
+        <motion.div
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  x: [-8, 8, -8],
+                  y: [4, -4, 4],
+                }
+          }
+          transition={{
+            duration: 24,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] rounded-full border border-[#B63A3A]/16 opacity-[0.06] pointer-events-none"
           aria-hidden="true"
         />
 

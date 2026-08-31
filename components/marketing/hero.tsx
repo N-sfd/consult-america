@@ -19,7 +19,6 @@ const practiceAreas = [
 export default function Hero() {
   const { setOpen } = useContactPanel();
   const shouldReduceMotion = useReducedMotion();
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -30,141 +29,87 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
-  useEffect(() => {
-    if (shouldReduceMotion || !isDesktop) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      // Normalized pointer response
-      const normX = (e.clientX / innerWidth) - 0.5;
-      const normY = (e.clientY / innerHeight) - 0.5;
-      setMouseOffset({ x: normX, y: normY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [shouldReduceMotion, isDesktop]);
-
   return (
     <section className="relative overflow-hidden min-h-[clamp(720px,86vh,920px)] flex items-center bg-[#211E1B] border-b border-[#3A302B]">
-      {/* 1. LAYER 1: Large Full-Bleed Architectural Background Image (BACK LAYER) */}
+      {/* Photographic architecture — right 52%, bleeds to viewport edges */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <motion.div
-          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.04 }}
-          animate={
-            shouldReduceMotion || !isDesktop
-              ? { scale: 1 }
-              : {
-                  scale: [1.015, 1.025, 1.015],
-                  x: [0 + mouseOffset.x * 3, -7 + mouseOffset.x * 3, 0 + mouseOffset.x * 3],
-                  y: [0 + mouseOffset.y * 3, -3 + mouseOffset.y * 3, 0 + mouseOffset.y * 3],
-                }
-          }
-          transition={
-            shouldReduceMotion || !isDesktop
-              ? { duration: 1.8, ease: [0.2, 0.8, 0.2, 1] }
-              : {
-                  scale: { duration: 20, repeat: Infinity, ease: "easeInOut" },
-                  x: { duration: 20, repeat: Infinity, ease: "easeInOut" },
-                  y: { duration: 20, repeat: Infinity, ease: "easeInOut" },
-                }
-          }
-          className="relative h-full w-full ca-shape-hero-mask"
-        >
-          <Image
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2600&q=90"
-            alt="Consult America Enterprise Technology Architecture"
-            fill
-            priority
-            quality={92}
-            className="object-cover object-[center_right] lg:object-center filter contrast-[1.04] brightness-[0.96]"
-            sizes="100vw"
-          />
-        </motion.div>
-
-        {/* 2. LAYER 2: Glass/Structural Foreground Element (MID LAYER) */}
-        {!shouldReduceMotion && (
+        {/* Desktop: asymmetric C-curve mask on left edge of photograph */}
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[58%] xl:w-[55%]">
+          {/* BACK LAYER: main architectural environment — extremely slow scale only */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.02 }}
             animate={
-              isDesktop
-                ? {
-                    opacity: 0.85,
-                    x: [0 + mouseOffset.x * 4, 5 + mouseOffset.x * 4, 0 + mouseOffset.x * 4],
-                    y: [0 + mouseOffset.y * 4, -5 + mouseOffset.y * 4, 0 + mouseOffset.y * 4],
-                  }
-                : { opacity: 0.4 }
+              shouldReduceMotion || !isDesktop
+                ? { scale: 1 }
+                : { scale: [1.02, 1.035, 1.02], x: [0, -8, 0] }
             }
-            transition={{
-              opacity: { duration: 1.2, delay: 0.3 },
-              x: { duration: 13, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 13, repeat: Infinity, ease: "easeInOut" },
-            }}
-            className="hidden lg:block absolute right-0 bottom-0 top-0 w-2/5 pointer-events-none z-[1]"
+            transition={
+              shouldReduceMotion || !isDesktop
+                ? { duration: 1.8, ease: [0.2, 0.8, 0.2, 1] }
+                : {
+                    scale: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+                    x: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+                  }
+            }
+            className="relative h-full w-full ca-shape-hero-mask"
           >
-            <div className="relative h-full w-full overflow-hidden opacity-30">
+            <Image
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2600&q=90"
+              alt="Consult America Enterprise Technology Architecture"
+              fill
+              priority
+              quality={92}
+              className="object-cover object-center filter contrast-[1.04] brightness-[0.96]"
+              sizes="(max-width: 1024px) 100vw, 55vw"
+            />
+          </motion.div>
+
+          {/* FRONT LAYER: isolated architectural detail — vertical drift only 6–8px */}
+          {!shouldReduceMotion && isDesktop && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                y: [0, -7, 0],
+              }}
+              transition={{
+                opacity: { duration: 1.2, delay: 0.5 },
+                y: { duration: 11, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="absolute bottom-[12%] right-[8%] z-[2] w-[38%] max-w-[280px] aspect-[4/5] overflow-hidden rounded-t-[70px] rounded-b-[16px] border border-[#D8D0C5]/25 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+            >
               <Image
-                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80"
+                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=85"
                 alt=""
                 fill
-                className="object-cover object-left filter contrast-125"
-                sizes="40vw"
+                className="object-cover mkt-img-graded"
+                sizes="280px"
               />
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#211E1B]/60 to-[#211E1B]" />
-            </div>
-          </motion.div>
-        )}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/50 via-transparent to-transparent" />
+            </motion.div>
+          )}
+        </div>
 
-        {/* 3. LAYER 3: Architectural Human & Structural Detail (FRONT LAYER) */}
-        {!shouldReduceMotion && isDesktop && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{
-              opacity: 1,
-              y: [0 + mouseOffset.y * 6, -7 + mouseOffset.y * 6, 0 + mouseOffset.y * 6],
-              x: mouseOffset.x * 6,
-            }}
-            transition={{
-              opacity: { duration: 1.0, delay: 0.6 },
-              y: { duration: 9, repeat: Infinity, ease: "easeInOut" },
-            }}
-            className="hidden xl:block absolute right-16 bottom-16 z-[3] pointer-events-none"
-          >
-            <div className="rounded-xl border border-[#D8D0C5]/30 bg-[#211E1B]/85 backdrop-blur-md p-3.5 shadow-2xl max-w-[220px]">
-              <div className="flex items-center gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-[#357C78] animate-pulse" />
-                <span className="font-mono text-[0.62rem] font-bold uppercase tracking-wider text-[#D8C5AA]">
-                  Production Active
-                </span>
-              </div>
-              <p className="mt-1 text-[0.7rem] text-[#FFFDF8] font-medium leading-tight">
-                Oracle Cloud • AI Agents • Core ERP
-              </p>
-            </div>
-          </motion.div>
-        )}
-
-        {/* 4. Recurring Brand Arc Motif 1/3 (Subtle CA C-Curve in Hero) */}
+        {/* Subtle brand arc motif */}
         <div
-          className="ca-brand-arc-motif -top-32 -right-32 sm:-top-24 sm:-right-24 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] opacity-40 pointer-events-none"
+          className="ca-brand-arc-motif -top-32 -right-32 sm:-top-24 sm:-right-24 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] opacity-30 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Cinematic Gradient Overlays */}
+        {/* Cinematic gradient — text side stays dark, photo emerges from architecture */}
         <div
-          className="absolute inset-0 z-[2] pointer-events-none"
+          className="absolute inset-0 z-[1] pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg, rgba(33,30,27,0.98) 0%, rgba(33,30,27,0.88) 42%, rgba(33,30,27,0.45) 75%, rgba(33,30,27,0.2) 100%)",
+              "linear-gradient(90deg, rgba(33,30,27,0.98) 0%, rgba(33,30,27,0.92) 38%, rgba(33,30,27,0.55) 62%, rgba(33,30,27,0.15) 100%)",
           }}
         />
-        <div className="absolute inset-0 z-[2] bg-radial-[circle_at_15%_25%] from-[#B63A3A]/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-[1] bg-radial-[circle_at_15%_25%] from-[#B63A3A]/8 via-transparent to-transparent pointer-events-none" />
       </div>
 
       <div className="ca-shell relative z-10 w-full py-20 sm:py-24 lg:py-32">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-center">
-          {/* Left Column: 48% Headline, Copy, Practice Areas, CTAs */}
-          <div className="lg:col-span-7 xl:col-span-6 space-y-8">
+          <div className="lg:col-span-6 xl:col-span-5 space-y-8">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -197,7 +142,6 @@ export default function Hero() {
               We advise, build, and run production transformations across Oracle Cloud, enterprise AI, data engineering, and bespoke software systems.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -221,7 +165,6 @@ export default function Hero() {
               </Link>
             </motion.div>
 
-            {/* Practice Badges Strip */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -244,9 +187,6 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
-
-          {/* Right Column: 52% space for photographic composition */}
-          <div className="lg:col-span-5 xl:col-span-6 hidden lg:block" />
         </div>
       </div>
     </section>

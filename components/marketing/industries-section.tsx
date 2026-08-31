@@ -24,7 +24,7 @@ const industries = [
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=85",
     badge: "Financial Core",
     aspect: "aspect-[16/10]",
-    shapeClass: "rounded-2xl",
+    shapeClass: "ca-corner-tr-accent",
   },
   {
     name: "Healthcare & Life Sciences",
@@ -59,8 +59,8 @@ const industries = [
     href: "/platforms/ats",
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=85",
     badge: "Workforce",
-    aspect: "aspect-[4/5]",
-    shapeClass: "ca-shape-arch",
+    aspect: "aspect-[16/10]",
+    shapeClass: "rounded-2xl",
   },
 ];
 

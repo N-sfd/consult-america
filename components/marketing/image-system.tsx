@@ -95,19 +95,19 @@ export function ArchImage({
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="absolute inset-0 translate-x-3.5 translate-y-3.5 sm:translate-x-4 sm:translate-y-4 rounded-t-[160px] rounded-b-[18px] border border-[#B63A3A]/25 bg-[#D8C5AA]/20 -z-10 pointer-events-none"
+          className="absolute inset-0 translate-x-[14px] translate-y-[14px] ca-shape-arch-crm border border-[#B63A3A]/24 bg-transparent -z-10 pointer-events-none"
           aria-hidden="true"
         />
       )}
 
-      {/* Main Arch Container */}
+      {/* Main Arch Container — 4/5 aspect, 220px top curve */}
       <motion.div
         initial={shouldReduce ? {} : { opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
         className={cn(
-          "group relative w-full overflow-hidden rounded-t-[160px] rounded-b-[18px] border border-[#D8D0C5] bg-[#F7F3EC] shadow-[0_20px_50px_rgba(38,31,27,0.1)]",
+          "group relative w-full overflow-hidden ca-shape-arch-crm border border-[#D8D0C5] bg-[#F7F3EC] shadow-[0_20px_50px_rgba(38,31,27,0.1)]",
           aspectRatio,
           containerClassName
         )}
@@ -130,26 +130,25 @@ export function ArchImage({
 }
 
 /**
- * 03 — REUSABLE OFFSET IMAGE
- * What We Do & Service Features: alternating corner radiuses with offset geometric plane.
- * Image 01: accent bottom-right
- * Image 02: accent top-left
- * Image 03: accent bottom-left
- * Image 04: accent top-right
+ * 03 — SERVICE EDITORIAL IMAGE
+ * What We Do: mostly rectangular with ONE exaggerated corner per image.
+ * Overlapping detail image with arch-top shape (70px 70px 16px 16px).
  */
-type OffsetVariant = "bottom-right" | "top-left" | "bottom-left" | "top-right";
+type CornerAccent = "bottom-right" | "top-left";
 
-interface OffsetImageProps extends BaseImageProps {
-  variant?: OffsetVariant;
+interface ServiceEditorialImageProps extends BaseImageProps {
+  cornerAccent?: CornerAccent;
+  variant?: CornerAccent;
   badge?: ReactNode;
   detailImage?: string;
   detailBadge?: string;
 }
 
-export function OffsetImage({
+export function ServiceEditorialImage({
   src,
   alt,
-  variant = "bottom-right",
+  cornerAccent,
+  variant,
   priority = false,
   className,
   containerClassName,
@@ -159,56 +158,23 @@ export function OffsetImage({
   detailImage,
   detailBadge,
   overlay,
-}: OffsetImageProps) {
+}: ServiceEditorialImageProps) {
   const shouldReduce = useReducedMotion();
+  const accent = cornerAccent ?? variant ?? "bottom-right";
 
-  // Corner radius alternation (Requirements 08 & 09)
-  const isOddRadius = variant === "bottom-right" || variant === "bottom-left";
-  const frameRadiusClass = isOddRadius
-    ? "rounded-tl-[18px] rounded-tr-[4px] rounded-br-[18px] rounded-bl-[4px]"
-    : "rounded-tl-[4px] rounded-tr-[22px] rounded-br-[4px] rounded-bl-[22px]";
-
-  // Offset plane placement
-  const offsetPosition = {
-    "bottom-right": "bottom-[-12px] right-[-12px]",
-    "top-left": "top-[-12px] left-[-12px]",
-    "bottom-left": "bottom-[-12px] left-[-12px]",
-    "top-right": "top-[-12px] right-[-12px]",
-  }[variant];
-
-  const hoverAccentOffset = {
-    "bottom-right": { x: -3, y: -3 },
-    "top-left": { x: 3, y: 3 },
-    "bottom-left": { x: 3, y: -3 },
-    "top-right": { x: -3, y: 3 },
-  }[variant];
+  const cornerClass =
+    accent === "bottom-right" ? "ca-corner-br-accent" : "ca-corner-tl-accent";
 
   return (
-    <div className="group/offset relative w-full">
-      {/* Behind Offset Geometric Plane */}
+    <div className="group/service relative w-full max-w-[520px] mx-auto pb-6 sm:pb-8">
       <motion.div
-        initial={shouldReduce ? {} : { opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.12 }}
-        whileHover={shouldReduce ? {} : hoverAccentOffset}
-        className={cn(
-          "absolute w-full h-full bg-[#B63A3A]/10 border border-[#B63A3A]/15 -z-10 pointer-events-none transition-transform duration-600",
-          frameRadiusClass,
-          offsetPosition
-        )}
-        aria-hidden="true"
-      />
-
-      {/* Main Image Frame */}
-      <motion.div
-        initial={shouldReduce ? {} : { opacity: 0, y: 24, scale: 0.985 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        initial={shouldReduce ? {} : { opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
         className={cn(
-          "relative z-10 w-full overflow-hidden border border-[#D8D0C5] bg-white shadow-[0_20px_50px_rgba(38,31,27,0.06)]",
-          frameRadiusClass,
+          "relative z-10 w-full overflow-hidden border border-[#D8D0C5] bg-white shadow-[0_20px_50px_rgba(38,31,27,0.08)]",
+          cornerClass,
           aspectRatio,
           containerClassName
         )}
@@ -220,42 +186,32 @@ export function OffsetImage({
           priority={priority}
           sizes={sizes}
           className={cn(
-            "object-cover mkt-img-graded transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/offset:scale-[1.025]",
+            "object-cover mkt-img-graded transition-transform duration-600 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/service:scale-[1.02]",
             className
           )}
         />
         {overlay}
-        {badge && (
-          <div className="absolute top-3 left-3 z-20">
-            {badge}
-          </div>
-        )}
+        {badge && <div className="absolute top-3 left-3 z-20">{badge}</div>}
       </motion.div>
 
-      {/* Optional Secondary Detail Image / Overlapping Pill */}
       {detailImage && (
         <motion.div
-          initial={shouldReduce ? {} : { opacity: 0, scale: 0.9, y: 10 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className={cn(
-            "absolute z-20 w-[110px] h-[110px] sm:w-[136px] sm:h-[136px] overflow-hidden rounded-2xl border-2 border-white bg-white shadow-[0_16px_36px_rgba(38,31,27,0.18)] pointer-events-none",
-            variant === "top-left" || variant === "bottom-left"
-              ? "right-[-12px] sm:right-[-18px] bottom-[-16px]"
-              : "left-[-12px] sm:left-[-18px] bottom-[-16px]"
-          )}
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.2, 0.8, 0.2, 1] }}
+          className="absolute z-20 -bottom-2 -right-4 sm:-bottom-3 sm:-right-5 w-[110px] h-[128px] sm:w-[130px] sm:h-[150px] overflow-hidden rounded-t-[70px] rounded-b-[16px] border-2 border-white bg-white shadow-[0_16px_36px_rgba(38,31,27,0.2)] transition-transform duration-500 group-hover/service:-translate-y-1.5"
         >
           <Image
             src={detailImage}
             alt=""
             fill
-            sizes="140px"
-            className="object-cover mkt-img-graded filter contrast-110"
+            sizes="130px"
+            className="object-cover mkt-img-graded"
           />
           {detailBadge && (
-            <div className="absolute inset-x-0 bottom-0 bg-[#211E1B]/85 px-2 py-1 text-center backdrop-blur-xs">
-              <span className="text-[0.62rem] font-bold uppercase tracking-wider text-white">
+            <div className="absolute inset-x-0 bottom-0 bg-[#211E1B]/88 px-2 py-1 text-center backdrop-blur-xs">
+              <span className="text-[0.58rem] font-bold uppercase tracking-wider text-white">
                 {detailBadge}
               </span>
             </div>
@@ -265,6 +221,9 @@ export function OffsetImage({
     </div>
   );
 }
+
+/** Alias for existing imports */
+export const OffsetImage = ServiceEditorialImage;
 
 /**
  * 04 — REUSABLE CLIPPED-CORNER IMAGE

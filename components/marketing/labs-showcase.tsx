@@ -5,15 +5,33 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight, CheckCircle2, ShieldCheck, Database, Sparkles, FileText, Activity, Users, Layers, Cpu, Search, Check, Workflow } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Corporate Browser Frame Helper (Requirements 16 & 17)
+import { cn } from "@/lib/utils";
+
+// Corporate Browser Frame — tier controls visual hierarchy across Labs products
 function CorporateBrowserFrame({
   url = "CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT",
+  tier = "standard",
   children,
 }: {
   url?: string;
+  tier?: "flagship" | "primary" | "secondary" | "standard";
   children: React.ReactNode;
 }) {
   const shouldReduce = useReducedMotion();
+
+  const tierShadow = {
+    flagship: "shadow-[0_32px_80px_rgba(38,31,27,0.14)] hover:shadow-[0_36px_90px_rgba(38,31,27,0.18)]",
+    primary: "shadow-[0_24px_60px_rgba(38,31,27,0.11)] hover:shadow-[0_28px_70px_rgba(38,31,27,0.14)]",
+    secondary: "shadow-[0_18px_44px_rgba(38,31,27,0.08)] hover:shadow-[0_22px_52px_rgba(38,31,27,0.1)]",
+    standard: "shadow-[0_14px_36px_rgba(38,31,27,0.06)] hover:shadow-[0_18px_44px_rgba(38,31,27,0.08)]",
+  }[tier];
+
+  const tierScale = {
+    flagship: "scale-100",
+    primary: "scale-[0.97] origin-center",
+    secondary: "scale-[0.94] origin-center",
+    standard: "scale-[0.90] origin-center",
+  }[tier];
 
   return (
     <motion.div
@@ -22,7 +40,11 @@ function CorporateBrowserFrame({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
       whileHover={shouldReduce ? {} : { y: -3 }}
-      className="overflow-hidden rounded-[16px] border border-[#D8D0C5] bg-white p-2.5 sm:p-3 shadow-[0_24px_60px_rgba(38,31,27,0.08)] hover:shadow-[0_28px_68px_rgba(38,31,27,0.12)] transition-shadow duration-300"
+      className={cn(
+        "overflow-hidden rounded-[16px] border border-[#D8D0C5] bg-white p-2.5 sm:p-3 transition-shadow duration-300",
+        tierShadow,
+        tierScale
+      )}
     >
       {/* Browser Chrome Header (44–48px height) */}
       <div className="flex h-11 sm:h-12 items-center justify-between border-b border-[#D8D0C5] bg-[#F7F3EC] px-4 -mx-2.5 -mt-2.5 mb-2.5 sm:-mx-3 sm:-mt-3 sm:mb-3 rounded-t-[14px]">
@@ -49,7 +71,7 @@ export default function LabsShowcase() {
       {/* ======================================================== */}
       {/* 1. LABS INTRO & DATA AGENT FLAGSHIP (Warm Ivory #F7F3EC) */}
       {/* ======================================================== */}
-      <section className="bg-[#F7F3EC] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5]">
+      <section className="bg-[#F7F3EC] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D8D0C5]">
         <div className="ca-shell">
           {/* Labs Intro Statement */}
           <div className="max-w-3xl pb-12 border-b border-[#D8D0C5]">
@@ -142,7 +164,7 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7"
             >
-              <CorporateBrowserFrame url="https://data-agent-ca.vercel.app">
+              <CorporateBrowserFrame url="https://data-agent-ca.vercel.app" tier="flagship">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
                   <Image
                     src="/innovation/data-agent-hero.png"
@@ -159,53 +181,51 @@ export default function LabsShowcase() {
       </section>
 
       {/* ======================================================== */}
-      {/* 2. DATA EXPLORER (Light White #FFFDF8 | Screenshot | Copy) */}
+      {/* 2. DATA EXPLORER (~55% visual weight) */}
       {/* ======================================================== */}
-      <section className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 border-b border-[#D8D0C5]">
+      <section className="bg-[#FFFDF8] text-[#261F1B] py-14 sm:py-16 border-b border-[#D8D0C5]">
         <div className="ca-shell">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Large Screenshot */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-7 order-2 lg:order-1"
+              className="lg:col-span-6 order-2 lg:order-1"
             >
-              <CorporateBrowserFrame url="https://data-agent-ca.vercel.app/repository">
+              <CorporateBrowserFrame url="https://data-agent-ca.vercel.app/repository" tier="standard">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
                   <Image
                     src="/innovation/data-agent-platform.png"
                     alt="Data Explorer enterprise contract repository and field intelligence interface"
                     fill
                     className="object-cover object-top"
-                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
                   />
                 </div>
               </CorporateBrowserFrame>
             </motion.div>
 
-            {/* Right Column: Copy */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="lg:col-span-5 order-1 lg:order-2 space-y-5"
+              className="lg:col-span-6 order-1 lg:order-2 space-y-4"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#357C78]">
                 ENTERPRISE REPOSITORY &amp; ANALYTICS
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#261F1B] leading-tight">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#261F1B] leading-tight">
                 Data Explorer
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#695F57]">
+              <p className="text-sm leading-relaxed text-[#695F57]">
                 Search, filter, and compare thousands of unstructured documents across common fields, expiration schedules, and regulatory obligations with instant audit traceability.
               </p>
 
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2 pt-1">
                 {[
                   "Cross-document entity aggregation",
                   "Structured schema query & export",
@@ -218,7 +238,7 @@ export default function LabsShowcase() {
                 ))}
               </div>
 
-              <div className="pt-3">
+              <div className="pt-2">
                 <Link
                   href="/ai-data"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
@@ -233,32 +253,31 @@ export default function LabsShowcase() {
       </section>
 
       {/* ======================================================== */}
-      {/* 3. JOBLENS (Warm Ivory #F7F3EC | Copy | Screenshot) */}
+      {/* 3. JOBLENS (~55% visual weight) */}
       {/* ======================================================== */}
-      <section className="bg-[#F7F3EC] text-[#261F1B] py-20 sm:py-24 border-b border-[#D8D0C5]">
+      <section className="bg-[#F7F3EC] text-[#261F1B] py-14 sm:py-16 border-b border-[#D8D0C5]">
         <div className="ca-shell">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Copy */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="lg:col-span-5 space-y-5"
+              className="lg:col-span-6 space-y-4"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                 TALENT INTELLIGENCE
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#261F1B] leading-tight">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#261F1B] leading-tight">
                 JobLens
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#695F57]">
+              <p className="text-sm leading-relaxed text-[#695F57]">
                 A talent matching toolkit that explains every score it gives. Resume analysis, ATS gap detection, and status tracking with complete transparency.
               </p>
 
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2 pt-1">
                 {[
                   "Transparent skill gap breakdown",
                   "ATS matching algorithm insights",
@@ -271,10 +290,10 @@ export default function LabsShowcase() {
                 ))}
               </div>
 
-              <div className="pt-3">
+              <div className="pt-2">
                 <Link
                   href="/work/innovation/joblens"
-                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31]"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
                 >
                   <span>Explore JobLens</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -282,22 +301,21 @@ export default function LabsShowcase() {
               </div>
             </motion.div>
 
-            {/* Right Column: Screenshot */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-7"
+              className="lg:col-span-6"
             >
-              <CorporateBrowserFrame url="https://joblens-seven.vercel.app">
+              <CorporateBrowserFrame url="https://joblens-seven.vercel.app" tier="standard">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
                   <Image
                     src="/innovation/joblens-hero.png"
                     alt="JobLens talent intelligence and resume analyzer interface"
                     fill
                     className="object-cover object-top"
-                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
                   />
                 </div>
               </CorporateBrowserFrame>
@@ -312,7 +330,6 @@ export default function LabsShowcase() {
       <section className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 border-b border-[#D8D0C5]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Screenshot */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -320,7 +337,7 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7 order-2 lg:order-1"
             >
-              <CorporateBrowserFrame url="https://mediguide-ai-woad.vercel.app">
+              <CorporateBrowserFrame url="https://mediguide-ai-woad.vercel.app" tier="primary">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
                   <Image
                     src="/innovation/mediguide-hero.png"
@@ -381,32 +398,31 @@ export default function LabsShowcase() {
       </section>
 
       {/* ======================================================== */}
-      {/* 5. CONVERA (Warm Ivory #F7F3EC | Copy | Screenshot) */}
+      {/* 5. CONVERA (~65% visual weight) */}
       {/* ======================================================== */}
-      <section className="bg-[#F7F3EC] text-[#261F1B] py-20 sm:py-24 border-b border-[#D8D0C5]">
+      <section className="bg-[#F7F3EC] text-[#261F1B] py-18 sm:py-20 border-b border-[#D8D0C5]">
         <div className="ca-shell">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: Copy */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="lg:col-span-5 space-y-5"
+              className="lg:col-span-5 space-y-4"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                 INTEGRATION &amp; MIDDLEWARE
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#261F1B] leading-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#261F1B] leading-tight">
                 Convera Integration Hub
               </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-[#695F57]">
+              <p className="text-sm leading-relaxed text-[#695F57]">
                 Enterprise API gateway and message routing bridge connecting Oracle Fusion, Salesforce, and custom microservices with zero-trust security and high-throughput reliability.
               </p>
 
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2 pt-1">
                 {[
                   "High-throughput event streaming & OIC bridging",
                   "Automated payload validation & schema mapping",
@@ -419,7 +435,7 @@ export default function LabsShowcase() {
                 ))}
               </div>
 
-              <div className="pt-3">
+              <div className="pt-2">
                 <Link
                   href="/capabilities/digital-engineering"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
@@ -430,7 +446,6 @@ export default function LabsShowcase() {
               </div>
             </motion.div>
 
-            {/* Right Column: Architectural UI */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -438,7 +453,7 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7"
             >
-              <CorporateBrowserFrame>
+              <CorporateBrowserFrame tier="secondary">
                 <div className="p-6 bg-white space-y-4">
                   <div className="flex items-center justify-between border-b border-[#D8D0C5] pb-3 text-xs">
                     <div className="flex items-center gap-2">
@@ -474,18 +489,17 @@ export default function LabsShowcase() {
       {/* ======================================================== */}
       {/* 6. HR & TALENT (Light White #FFFDF8 | Screenshot | Copy) */}
       {/* ======================================================== */}
-      <section className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 border-b border-[#D8D0C5]">
+      <section className="bg-[#FFFDF8] text-[#261F1B] py-14 sm:py-16 border-b border-[#D8D0C5]">
         <div className="ca-shell">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left Column: UI */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-7 order-2 lg:order-1"
+              className="lg:col-span-6 order-2 lg:order-1"
             >
-              <CorporateBrowserFrame>
+              <CorporateBrowserFrame tier="standard">
                 <div className="p-6 bg-white space-y-4">
                   <div className="flex items-center justify-between border-b border-[#D8D0C5] pb-3 text-xs">
                     <div className="flex items-center gap-2">
@@ -523,13 +537,13 @@ export default function LabsShowcase() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="lg:col-span-5 order-1 lg:order-2 space-y-5"
+              className="lg:col-span-6 order-1 lg:order-2 space-y-4"
             >
               <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                 WORKFORCE OPERATIONS
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#261F1B] leading-tight">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#261F1B] leading-tight">
                 Core HR &amp; Workforce Suite
               </h3>
 

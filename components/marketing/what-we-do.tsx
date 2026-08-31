@@ -48,7 +48,7 @@ const practices = [
     imageAlt: "Enterprise data analytics and AI intelligence workspace",
     detailImage: "https://images.unsplash.com/photo-1517976487502-8693c0429f55?auto=format&fit=crop&w=600&q=80",
     detailBadge: "DATA LINEAGE",
-    variant: "bottom-left" as const,
+    variant: "bottom-right" as const,
   },
   {
     number: "04",
@@ -62,7 +62,7 @@ const practices = [
     imageAlt: "Software engineering and digital product development environment",
     detailImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
     detailBadge: "PRODUCTION APPS",
-    variant: "top-right" as const,
+    variant: "top-left" as const,
   },
 ];
 

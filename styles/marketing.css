@@ -214,10 +214,30 @@
   overflow: hidden;
 }
 
+/* Hero: shallow C-curve on left edge — photograph as page architecture */
 @media (min-width: 1024px) {
   .ca-shape-hero-mask {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 6% 100%);
+    clip-path: ellipse(82% 105% at 82% 50%);
   }
+}
+
+/* What We Do: one exaggerated corner per service image (48–72px accent, 10–14px others) */
+.ca-corner-br-accent {
+  border-radius: 12px 12px 64px 12px;
+}
+.ca-corner-tl-accent {
+  border-radius: 64px 12px 12px 12px;
+}
+
+/* CRM editorial arch (220px top curve) */
+.ca-shape-arch-crm {
+  border-radius: 220px 220px 18px 18px;
+  overflow: hidden;
+}
+
+/* Industries: landscape with one curved corner */
+.ca-corner-tr-accent {
+  border-radius: 12px 56px 12px 12px;
 }
 
 /* SHAPE B — Offset Editorial Frame (Asymmetric Corners + Offset Sand/Burgundy Backing) */
