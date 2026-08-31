@@ -77,7 +77,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
-      <body className="bg-[#F7F8FA] text-[#101828] antialiased">
+      <body className="bg-[#F4EFE6] text-[#261F1B] antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

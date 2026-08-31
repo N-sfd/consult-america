@@ -4,24 +4,27 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const capabilities = [
-  { name: "Oracle", href: "/oracle" },
-  { name: "CRM", href: "/platforms/crm" },
-  { name: "AI & Data", href: "/ai-data" },
-  { name: "Cloud", href: "/capabilities/digital-engineering" },
-  { name: "APIs", href: "/capabilities/digital-engineering" },
-  { name: "Digital Engineering", href: "/capabilities/digital-engineering" },
+  { name: "Oracle Fusion Cloud", href: "/oracle" },
+  { name: "Enterprise CRM & CX", href: "/platforms/crm" },
+  { name: "AI & Governed Data", href: "/ai-data" },
+  { name: "Cloud Infrastructure", href: "/capabilities/digital-engineering" },
+  { name: "API Integration & OIC", href: "/capabilities/digital-engineering" },
+  { name: "Full-Stack Digital Engineering", href: "/capabilities/digital-engineering" },
 ];
 
 export default function TrustCredibility() {
   return (
-    <section className="border-y border-[#E2E7EC] bg-[#FFFFFF] py-7 sm:py-8">
+    <section className="border-b border-[#D7CCBD] bg-[#FFFDF8] py-6 sm:py-7">
       <div className="mkt-shell">
-        <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
-          <p className="text-center text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#475467] md:text-left">
-            ENTERPRISE CAPABILITY ACROSS THE DIGITAL CORE
-          </p>
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#7D2639]" />
+            <p className="text-center text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#695F57] md:text-left">
+              ENTERPRISE CAPABILITY ACROSS THE DIGITAL CORE
+            </p>
+          </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 md:justify-end">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 md:justify-end">
             {capabilities.map((item, idx) => (
               <motion.div
                 key={item.name}
@@ -32,7 +35,7 @@ export default function TrustCredibility() {
               >
                 <Link
                   href={item.href}
-                  className="inline-flex items-center rounded-md border border-[#E2E7EC] bg-[#F7F8FA] px-3.5 py-1.5 text-xs font-semibold text-[#101828] transition-all hover:border-[#B63838] hover:text-[#B63838] hover:bg-[#FFFFFF]"
+                  className="inline-flex items-center rounded-md border border-[#D7CCBD] bg-[#FFFAF2] px-3 py-1 text-xs font-semibold text-[#261F1B] transition-all hover:border-[#7D2639] hover:text-[#7D2639] hover:bg-[#FFFDF8]"
                 >
                   {item.name}
                 </Link>

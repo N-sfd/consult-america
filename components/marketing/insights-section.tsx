@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BookOpen, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
@@ -10,139 +9,130 @@ import SectionLabel from "@/components/marketing/SectionLabel";
 const featuredInsight = {
   category: "ENTERPRISE AI ARCHITECTURE",
   readTime: "7 min read",
-  title: "Beyond the Demo: Architecting Production AI for Governed Enterprise Workflows",
+  title: "Designing AI-Native Enterprise Workflows: From Prototype to Production",
   summary:
     "Why 80% of enterprise AI proofs-of-concept stall before production, and the data governance, citation boundaries, and human-in-the-loop workflows required to deploy with confidence.",
   href: "/insights",
-  image:
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
 };
 
 const supportingInsights = [
   {
-    category: "ORACLE & ERP",
-    readTime: "5 min read",
-    title: "The Clean Core Playbook: Reducing Oracle Customizations During Cloud Migration",
+    category: "ORACLE CLOUD TRANSFORMATION",
+    readTime: "6 min read",
+    title: "What Oracle Cloud Modernization Requires Beyond Implementation",
+    summary: "How operating model redesign, subledger reconciliation, and change governance ensure long-term ERP ROI.",
     href: "/insights",
   },
   {
-    category: "CRM & OPERATIONS",
-    readTime: "6 min read",
-    title: "Unifying the Front and Back Office: Connecting Salesforce to Enterprise ERP",
+    category: "DOCUMENT INTELLIGENCE",
+    readTime: "5 min read",
+    title: "Building Trustworthy Document Intelligence with Grounded Source Verification",
+    summary: "Extracting FAR/DFARS compliance clauses and financial schedules with 100% auditable citation lineage.",
     href: "/insights",
   },
   {
     category: "DIGITAL ENGINEERING",
-    readTime: "4 min read",
-    title: "Contract Intelligence at Scale: Parsing 100,000+ DFARS Clauses with Accuracy",
+    readTime: "6 min read",
+    title: "Enterprise Integration in the Agentic Era: Connecting Core ERP to AI Swarms",
+    summary: "Architecting event-driven middleware and OIC bridges to support autonomous operational decisioning.",
     href: "/insights",
   },
 ];
 
 export default function InsightsSection() {
   return (
-    <section id="insights" className="mkt-section bg-[#F1F2EE] text-[#101828]">
+    <section id="insights" className="bg-[#FFFAF2] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D7CCBD]">
       <div className="mkt-shell">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-10 border-b border-[#D7CCBD]">
           <div>
-            <SectionLabel tone="burgundy">Perspectives &amp; Analysis</SectionLabel>
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              className="mt-4 font-serif text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:text-5xl"
-            >
+            <SectionLabel tone="burgundy">PERSPECTIVES &amp; ANALYSIS</SectionLabel>
+            <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-[#261F1B] sm:text-4xl lg:text-5xl">
               Enterprise Insights
-            </motion.h2>
+            </h2>
           </div>
 
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#B63838] hover:text-[#8F292D]"
+            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#7D2639] hover:text-[#681F30]"
           >
-            <span>Explore All Publications</span>
+            <span>Explore all publications</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
 
-        {/* Magazine Editorial Layout: Featured Left (~60%) + Supporting Column Right (~40%) */}
-        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Featured Article */}
+        {/* Publication 50/50 Layout */}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+          {/* Featured Article (~50%) */}
           <motion.article
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="overflow-hidden rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] shadow-[0_12px_36px_rgba(20,30,45,0.06)] lg:col-span-7"
+            transition={{ duration: 0.55 }}
+            className="lg:col-span-6 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] p-8 flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#7D2639]/40 transition-all"
           >
-            <div className="relative aspect-[16/9] w-full bg-[#EEF2F5]">
-              <Image
-                src={featuredInsight.image}
-                alt={featuredInsight.title}
-                fill
-                className="object-cover mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 58vw"
-              />
-            </div>
-            <div className="p-8">
-              <div className="flex items-center gap-3">
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
+            <div>
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#7D2639]">
                   {featuredInsight.category}
                 </span>
-                <span className="text-xs text-[#475467]/60">·</span>
-                <span className="text-xs text-[#475467]">
-                  {featuredInsight.readTime}
+                <span className="flex items-center gap-1 text-[#695F57]">
+                  <Clock className="h-3 w-3" /> {featuredInsight.readTime}
                 </span>
               </div>
-              <h3 className="mt-3 font-serif text-2xl font-semibold leading-tight text-[#101828] sm:text-3xl">
+
+              <h3 className="mt-4 font-serif text-2xl sm:text-3xl font-bold text-[#261F1B] leading-snug">
                 {featuredInsight.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#475467]">
+
+              <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#695F57]">
                 {featuredInsight.summary}
               </p>
-              <div className="mt-6 pt-4 border-t border-[#E2E7EC]">
-                <Link
-                  href={featuredInsight.href}
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-[#B63838] hover:text-[#8F292D]"
-                >
-                  <span>Read Full Perspective</span>
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
+            </div>
+
+            <div className="mt-8 pt-5 border-t border-[#D7CCBD]/80">
+              <Link
+                href={featuredInsight.href}
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#7D2639] hover:text-[#681F30]"
+              >
+                Read publication <ArrowUpRight className="h-4 w-4" />
+              </Link>
             </div>
           </motion.article>
 
-          {/* Supporting Publications Column */}
-          <div className="flex flex-col justify-between space-y-6 lg:col-span-5 lg:space-y-0">
-            {supportingInsights.map((art, idx) => (
+          {/* Supporting Articles Column (~50%) */}
+          <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
+            {supportingInsights.map((insight, idx) => (
               <motion.article
-                key={art.title}
-                initial={{ opacity: 0, y: 16 }}
+                key={insight.title}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.1 }}
-                className="flex flex-col justify-between rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-6 shadow-2xs"
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="group rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] p-5.5 hover:border-[#7D2639]/40 hover:bg-[#FFFAF2] transition-all flex flex-col justify-between flex-1"
               >
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
-                      {art.category}
+                  <div className="flex items-center justify-between text-[0.68rem] font-mono">
+                    <span className="font-bold text-[#7D2639] uppercase tracking-wider">
+                      {insight.category}
                     </span>
-                    <span className="text-xs text-[#475467]/60">·</span>
-                    <span className="text-xs text-[#475467]">{art.readTime}</span>
+                    <span className="text-[#695F57]">{insight.readTime}</span>
                   </div>
-                  <h3 className="mt-2 font-serif text-lg font-semibold leading-snug text-[#101828]">
-                    {art.title}
-                  </h3>
+
+                  <h4 className="mt-2 text-base font-bold text-[#261F1B] group-hover:text-[#7D2639] transition-colors leading-snug">
+                    {insight.title}
+                  </h4>
+
+                  <p className="mt-1.5 text-xs leading-relaxed text-[#695F57]">
+                    {insight.summary}
+                  </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-[#E2E7EC]/80">
+
+                <div className="mt-3 pt-2">
                   <Link
-                    href={art.href}
-                    className="group inline-flex items-center gap-1 text-xs font-semibold text-[#B63838] hover:text-[#8F292D]"
+                    href={insight.href}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#261F1B] group-hover:text-[#7D2639] transition-colors"
                   >
-                    <span>Read Article</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    Read article <ArrowUpRight className="h-3 w-3" />
                   </Link>
                 </div>
               </motion.article>

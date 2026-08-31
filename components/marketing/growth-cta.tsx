@@ -1,18 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, ShieldCheck, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const interestOptions = [
   "Enterprise Transformation",
-  "Oracle",
-  "CRM",
-  "AI & Data",
-  "Application Engineering",
-  "Enterprise Platforms",
-  "Managed Services",
+  "Oracle Cloud Modernization",
+  "AI & Data Engineering",
+  "CRM & Customer Experience",
+  "Digital Engineering & Platforms",
+  "Managed Services & Support",
 ];
 
 export default function GrowthCta() {
@@ -21,7 +19,7 @@ export default function GrowthCta() {
     email: "",
     company: "",
     areaOfInterest: "Enterprise Transformation",
-    message: "",
+    objectives: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -29,7 +27,7 @@ export default function GrowthCta() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim()) {
-      setError("Please fill in your name and business email.");
+      setError("Please provide your name and work email address.");
       return;
     }
     setError("");
@@ -37,211 +35,174 @@ export default function GrowthCta() {
   };
 
   return (
-    <section id="contact-conversion" className="relative overflow-hidden py-24 sm:py-32 bg-[#B63838] text-white">
-      {/* Background Architectural/Collaboration Image with Burgundy Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80"
-          alt="Modern enterprise workplace and conference space"
-          fill
-          className="object-cover object-center opacity-15"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#B63838]/95 via-[#B63838]/92 to-[#8F292D]/96" />
-      </div>
-
-      <div className="mkt-shell relative z-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-start">
-          {/* Left Column: Heading & Subheadline */}
+    <section id="contact-conversion" className="bg-[#F4EFE6] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D7CCBD]">
+      <div className="mkt-shell">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14 items-start">
+          {/* Left Column: Heading, Copy & Commitments */}
           <div className="lg:col-span-5 space-y-6">
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E8B4B4]">
-              START A CONVERSATION
+            <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#7D2639]">
+              WHAT COULD YOUR ENTERPRISE DO NEXT?
             </span>
+
             <motion.h2
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl lg:leading-[1.12]"
+              className="font-serif text-3xl font-semibold tracking-tight text-[#261F1B] sm:text-4xl lg:text-5xl lg:leading-[1.1]"
             >
-              What should your technology make possible next?
+              Bring us the problem
+              <br />
+              <span className="text-[#7D2639]">that matters.</span>
             </motion.h2>
-            <p className="text-base leading-relaxed text-[#F5DEDE] sm:text-lg">
-              Tell us what you&apos;re transforming, modernizing or building.
-              Our practice leaders partner directly from early strategy through
-              production go-live.
+
+            <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
+              Whether you&apos;re modernizing Oracle, connecting enterprise data,
+              building an AI capability or launching a digital platform,
+              our teams can help move it from idea to production.
             </p>
 
-            <div className="space-y-3 pt-6 border-t border-white/20 text-xs text-[#F5DEDE]">
+            <div className="space-y-3 pt-6 border-t border-[#D7CCBD] text-xs text-[#695F57]">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#DDEAE5] shrink-0" />
-                <span>Confidential review by practice leads within 1 business day</span>
+                <CheckCircle2 className="h-4 w-4 text-[#657766] shrink-0" />
+                <span className="text-[#261F1B] font-medium">Direct review by senior practice leaders within 1 business day</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#DDEAE5] shrink-0" />
-                <span>Architecture and scoping working session without sales overhead</span>
+                <ShieldCheck className="h-4 w-4 text-[#657766] shrink-0" />
+                <span>Confidential NDA scoping, architectural readiness, and timeline estimation</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-[#657766] shrink-0" />
+                <span>Zero obligation scoping and feasibility evaluation</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: High-conversion Clean White Form */}
-          <div className="lg:col-span-7">
-            <div className="rounded-xl border border-white/20 bg-[#FFFFFF] p-8 sm:p-10 text-[#101828] shadow-2xl">
-              {submitted ? (
-                <div className="py-10 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#E7ECE8] text-[#5F7D75]">
-                    <CheckCircle2 className="h-6 w-6" />
-                  </div>
-                  <h3 className="mt-4 font-serif text-2xl font-semibold text-[#101828]">
-                    Thank you for reaching out
-                  </h3>
-                  <p className="mt-2 text-sm text-[#475467]">
-                    We have received your message. A Consult America practice leader
-                    will be in touch within 24 hours.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        name: "",
-                        email: "",
-                        company: "",
-                        areaOfInterest: "Enterprise Transformation",
-                        message: "",
-                      });
-                    }}
-                    className="mt-6 text-xs font-bold text-[#B63838] hover:underline cursor-pointer"
-                  >
-                    Send another inquiry
-                  </button>
+          {/* Right Column: Minimal Premium Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+            className="lg:col-span-7 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] p-7 sm:p-9 shadow-[0_16px_50px_rgba(38,31,27,0.06)]"
+          >
+            {submitted ? (
+              <div className="py-10 text-center space-y-4">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#DFE4DA] text-[#657766]">
+                  <CheckCircle2 className="h-6 w-6" />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <div>
-                      <label
-                        htmlFor="cta-name"
-                        className="block text-xs font-bold uppercase tracking-wider text-[#101828]"
-                      >
-                        Your Name *
-                      </label>
-                      <input
-                        id="cta-name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        placeholder="Jane Doe"
-                        className="mt-1.5 w-full rounded-md border border-[#E2E7EC] bg-[#FCFCFD] px-3.5 py-2.5 text-sm text-[#101828] placeholder:text-[#475467]/50 focus:border-[#B63838] focus:outline-none focus:ring-1 focus:ring-[#B63838]"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="cta-email"
-                        className="block text-xs font-bold uppercase tracking-wider text-[#101828]"
-                      >
-                        Business Email *
-                      </label>
-                      <input
-                        id="cta-email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        placeholder="jane@company.com"
-                        className="mt-1.5 w-full rounded-md border border-[#E2E7EC] bg-[#FCFCFD] px-3.5 py-2.5 text-sm text-[#101828] placeholder:text-[#475467]/50 focus:border-[#B63838] focus:outline-none focus:ring-1 focus:ring-[#B63838]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <div>
-                      <label
-                        htmlFor="cta-company"
-                        className="block text-xs font-bold uppercase tracking-wider text-[#101828]"
-                      >
-                        Organization / Company
-                      </label>
-                      <input
-                        id="cta-company"
-                        type="text"
-                        value={formData.company}
-                        onChange={(e) =>
-                          setFormData({ ...formData, company: e.target.value })
-                        }
-                        placeholder="Acme Corp"
-                        className="mt-1.5 w-full rounded-md border border-[#E2E7EC] bg-[#FCFCFD] px-3.5 py-2.5 text-sm text-[#101828] placeholder:text-[#475467]/50 focus:border-[#B63838] focus:outline-none focus:ring-1 focus:ring-[#B63838]"
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="cta-interest"
-                        className="block text-xs font-bold uppercase tracking-wider text-[#101828]"
-                      >
-                        Primary Practice Area
-                      </label>
-                      <select
-                        id="cta-interest"
-                        value={formData.areaOfInterest}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            areaOfInterest: e.target.value,
-                          })
-                        }
-                        className="mt-1.5 w-full rounded-md border border-[#E2E7EC] bg-[#FCFCFD] px-3.5 py-2.5 text-sm text-[#101828] focus:border-[#B63838] focus:outline-none focus:ring-1 focus:ring-[#B63838]"
-                      >
-                        {interestOptions.map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
+                <h3 className="font-serif text-2xl font-bold text-[#261F1B]">
+                  Inquiry Received
+                </h3>
+                <p className="mx-auto max-w-md text-sm text-[#695F57]">
+                  Thank you, {formData.name}. Our practice team has received your project objectives and will reach out to {formData.email} within 24 hours.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 text-xs font-bold text-[#7D2639] hover:underline cursor-pointer"
+                >
+                  Submit another inquiry →
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label
-                      htmlFor="cta-message"
-                      className="block text-xs font-bold uppercase tracking-wider text-[#101828]"
-                    >
-                      Project Objectives or Timeline
+                    <label htmlFor="cta-name" className="block text-xs font-bold text-[#261F1B]">
+                      Name <span className="text-[#7D2639]">*</span>
                     </label>
-                    <textarea
-                      id="cta-message"
-                      rows={3}
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      placeholder="Briefly describe your objectives, platform requirements, or key deadlines..."
-                      className="mt-1.5 w-full rounded-md border border-[#E2E7EC] bg-[#FCFCFD] px-3.5 py-2.5 text-sm text-[#101828] placeholder:text-[#475467]/50 focus:border-[#B63838] focus:outline-none focus:ring-1 focus:ring-[#B63838]"
+                    <input
+                      id="cta-name"
+                      type="text"
+                      required
+                      placeholder="Jane Doe"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
                     />
                   </div>
 
-                  {error && (
-                    <p className="text-xs font-semibold text-[#B93838]">{error}</p>
-                  )}
-
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="group flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-[#B63838] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#8F292D] cursor-pointer"
-                    >
-                      <span>Start the conversation</span>
-                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </button>
+                  <div>
+                    <label htmlFor="cta-email" className="block text-xs font-bold text-[#261F1B]">
+                      Work Email <span className="text-[#7D2639]">*</span>
+                    </label>
+                    <input
+                      id="cta-email"
+                      type="email"
+                      required
+                      placeholder="jane@company.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                    />
                   </div>
-                </form>
-              )}
-            </div>
-          </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="cta-company" className="block text-xs font-bold text-[#261F1B]">
+                      Company / Organization
+                    </label>
+                    <input
+                      id="cta-company"
+                      type="text"
+                      placeholder="Enterprise Corp"
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="cta-interest" className="block text-xs font-bold text-[#261F1B]">
+                      Area of Interest
+                    </label>
+                    <select
+                      id="cta-interest"
+                      value={formData.areaOfInterest}
+                      onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                    >
+                      {interestOptions.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="cta-objectives" className="block text-xs font-bold text-[#261F1B]">
+                    Project Objectives &amp; Timeline
+                  </label>
+                  <textarea
+                    id="cta-objectives"
+                    rows={3}
+                    placeholder="Briefly describe what you're transforming, key constraints, target launch..."
+                    value={formData.objectives}
+                    onChange={(e) => setFormData({ ...formData, objectives: e.target.value })}
+                    className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none resize-none"
+                  />
+                </div>
+
+                {error && (
+                  <p className="text-xs font-semibold text-[#7D2639]">{error}</p>
+                )}
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="ca-button-primary w-full sm:w-auto !min-h-12 !px-8 text-sm font-semibold rounded-md cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Start the conversation</span>
+                    <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </form>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>

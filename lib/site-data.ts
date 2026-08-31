@@ -118,12 +118,12 @@ export const platformLinks = [
 ];
 
 export const industryLinks = [
-  { href: "/industries/government-public-sector", label: "Government & Public Sector" },
-  { href: "/industries/financial-services", label: "Financial Services" },
-  { href: "/industries/healthcare", label: "Healthcare" },
-  { href: "/industries/technology", label: "Technology" },
-  { href: "/industries/retail-consumer", label: "Retail & Consumer" },
-  { href: "/industries/transportation", label: "Transportation" },
+  { href: "/industries/government-public-sector", label: "Government & Public Sector", detail: "Federal & state ERP modernization and FAR/DFARS compliance" },
+  { href: "/industries/financial-services", label: "Financial Services", detail: "Multi-entity Fusion Financials, subledger accounting and CRM" },
+  { href: "/industries/healthcare", label: "Healthcare & Life Sciences", detail: "Clinical documentation intelligence and provider workflows" },
+  { href: "/industries/technology", label: "Technology & Software", detail: "Full-stack digital engineering, API hubs and AI systems" },
+  { href: "/industries/retail-consumer", label: "Retail & Commerce", detail: "Omnichannel inventory, supply chain and customer 360" },
+  { href: "/industries/transportation", label: "Professional Services", detail: "Project financials, billing, and talent workforce platforms" },
 ];
 
 export const capabilityGroups = [

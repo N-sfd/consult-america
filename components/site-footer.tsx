@@ -7,15 +7,14 @@ import BrandLogo from "@/components/brand/brand-logo";
 import { Shell } from "@/components/layout/grid";
 import { useContactPanel } from "@/components/providers/contact-provider";
 
-const SITE_DOMAIN = "consultamerica.net";
-
 const footerColumns = [
   {
     title: "Consulting",
     links: [
       { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
+      { href: "/capabilities/enterprise-transformation", label: "Operating Model & Org Design" },
       { href: "/oracle", label: "Oracle Advisory" },
-      { href: "/capabilities/managed-delivery", label: "Program Delivery" },
+      { href: "/capabilities/managed-delivery", label: "Program Delivery & PMO" },
       { href: "/capabilities/managed-delivery", label: "Managed Services" },
     ],
   },
@@ -23,8 +22,8 @@ const footerColumns = [
     title: "Technology",
     links: [
       { href: "/oracle", label: "Oracle Fusion Cloud" },
-      { href: "/ai-data", label: "AI & Data Platforms" },
-      { href: "/capabilities/digital-engineering", label: "Cloud Platforms" },
+      { href: "/ai-data", label: "AI & Data Engineering" },
+      { href: "/capabilities/digital-engineering", label: "Cloud Platforms & Infra" },
       { href: "/capabilities/digital-engineering", label: "API & Integration Hub" },
       { href: "/capabilities/digital-engineering", label: "Digital Engineering" },
     ],
@@ -36,26 +35,28 @@ const footerColumns = [
       { href: "/platforms/ats", label: "ATS & Talent Platform" },
       { href: "/platforms/hr", label: "Core HR Portal" },
       { href: "/platforms/employee", label: "Employee Self-Service" },
-      { href: "/platforms/payroll", label: "Enterprise Payroll" },
       { href: "/work/innovation/data-agent", label: "Data Agent" },
+      { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
     ],
   },
   {
     title: "Industries",
     links: [
-      { href: "/industries/government-public-sector", label: "Government" },
+      { href: "/industries/public-sector", label: "Government & Public Sector" },
       { href: "/industries/financial-services", label: "Financial Services" },
-      { href: "/industries/healthcare", label: "Healthcare" },
-      { href: "/industries/technology", label: "Technology" },
+      { href: "/industries/healthcare", label: "Healthcare & Life Sciences" },
+      { href: "/industries/technology", label: "Technology & Software" },
+      { href: "/platforms/crm", label: "Retail & Commerce" },
     ],
   },
   {
     title: "Company",
     links: [
-      { href: "/about", label: "About" },
+      { href: "/about", label: "About Us" },
       { href: "/work", label: "Selected Work" },
-      { href: "/insights", label: "Insights" },
-      { href: "/careers", label: "Careers" },
+      { href: "/insights", label: "Insights & Perspectives" },
+      { href: "/careers", label: "Careers & Open Roles" },
+      { href: "/contact", label: "Contact Practice Leads" },
     ],
   },
 ];
@@ -64,27 +65,52 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="border-t border-[#23324A] bg-[#101A2B] text-[#A4B1BE]">
+    <footer className="border-t border-[#3A302B] bg-[#211B18] text-[#C5BCB3]">
+      {/* Prominent Pre-Footer Statement */}
+      <div className="border-b border-[#3A302B] bg-[#2B2420] py-10 sm:py-12">
+        <Shell>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <p className="font-mono text-xs font-bold tracking-widest text-[#D8C5AA] uppercase">
+                Enterprise Production Delivery
+              </p>
+              <h3 className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                BUILD WHAT&apos;S NEXT.
+              </h3>
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                className="group ca-button-primary inline-flex items-center gap-2 !min-h-12 !px-7 text-sm font-semibold rounded-md cursor-pointer"
+              >
+                <span>Talk to an expert</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </button>
+            </div>
+          </div>
+        </Shell>
+      </div>
+
       <Shell className="py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand Col */}
           <div className="sm:col-span-2 lg:col-span-3">
-            <BrandLogo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#A4B1BE]">
-              Consulting, technology, and enterprise software platforms delivered to production.
+            <BrandLogo tone="light" />
+            <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-[#A4B1BE]">
+              Enterprise consulting, Oracle Cloud, AI, data, and digital engineering delivered to production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="ca-button-primary inline-flex w-fit text-xs font-semibold"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D8C5AA] hover:text-white transition-colors cursor-pointer"
               >
-                Start a Conversation
-                <ArrowUpRight className="h-3.5 w-3.5" />
+                Start a Conversation →
               </button>
               <Link
                 href="/login"
-                className="text-xs font-medium text-[#A4B1BE]/70 hover:text-[#E8B4B4] transition-colors"
+                className="text-xs font-medium text-[#A4B1BE]/70 hover:text-[#D8C5AA] transition-colors"
               >
                 Employee Portal Login →
               </Link>
@@ -97,9 +123,9 @@ export function SiteFooter() {
               <details
                 key={column.title}
                 open
-                className="group border-b border-[#23324A] pb-4 sm:border-0 sm:pb-0"
+                className="group border-b border-[#3A302B] pb-4 sm:border-0 sm:pb-0"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.14em] text-[#FFFFFF] marker:content-none sm:cursor-default">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.14em] text-white marker:content-none sm:cursor-default">
                   {column.title}
                   <ChevronDown className="h-3.5 w-3.5 text-[#A4B1BE]/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
@@ -108,7 +134,7 @@ export function SiteFooter() {
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-xs text-[#A4B1BE] transition-colors hover:text-[#E8B4B4]"
+                        className="text-xs text-[#A4B1BE] transition-colors hover:text-[#D8C5AA]"
                       >
                         {link.label}
                       </Link>
@@ -120,22 +146,19 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Footer Bottom Strip */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-[#23324A] pt-6 text-xs text-[#A4B1BE]/70 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} ConsultAmerica Inc. All rights reserved.</p>
+        {/* Bottom copyright */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#3A302B] pt-8 text-xs text-[#A4B1BE]/60 sm:flex-row">
+          <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-[#E8B4B4] transition-colors">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/about" className="hover:text-[#E8B4B4] transition-colors">
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <a
-              href={`https://${SITE_DOMAIN}`}
-              className="text-[#A4B1BE]/50 hover:text-[#E8B4B4] transition-colors"
-            >
-              {SITE_DOMAIN}
-            </a>
+            <Link href="/security" className="hover:text-white transition-colors">
+              Security &amp; Compliance
+            </Link>
           </div>
         </div>
       </Shell>
