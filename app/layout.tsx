@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
+import { Inter, Source_Serif_4 } from "next/font/google";
 
 import ContactPanel from "@/components/contact-panel";
 import { ContactProvider } from "@/components/providers/contact-provider";
 
 import "./globals.css";
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const displayFont = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-source-serif",
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
 
@@ -63,8 +76,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-[#F4EFE6] text-[#261F1B] antialiased">
+    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
+      <body className="bg-[#F7F8FA] text-[#101828] antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

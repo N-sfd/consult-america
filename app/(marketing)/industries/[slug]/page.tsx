@@ -7,6 +7,7 @@ import DetailHero from "@/components/detail-pages/DetailHero";
 import OutcomeGrid from "@/components/detail-pages/OutcomeGrid";
 import RelatedInsights from "@/components/detail-pages/RelatedInsights";
 import RelatedWork from "@/components/detail-pages/RelatedWork";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import { getIndustryPageSlugs, industryPages } from "@/lib/marketing/industry-pages";
 
 type IndustryDetailPageProps = {
@@ -40,6 +41,12 @@ export default async function IndustryDetailPage({
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Industries", path: "/industries" },
+          { name: page.title, path: `/industries/${slug}` },
+        ]}
+      />
       <DetailHero
         kicker={page.kicker}
         title={page.headline}

@@ -2,209 +2,183 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
 
+const featureCase = {
+  client: "GLOBAL FINANCIAL SERVICES INSTITUTION",
+  title: "Multi-Entity Fusion Cloud Modernization & Financial Close Acceleration",
+  summary:
+    "Consolidated 14 legacy ERP instances into a single Oracle Cloud model across 8 countries, cutting monthly close from 16 days to 4 days with zero audit discrepancies.",
+  metrics: [
+    { value: "75%", label: "Close Time Reduction" },
+    { value: "14 → 1", label: "Instances Unified" },
+    { value: "100%", label: "SOX Compliance Pass" },
+  ],
+  href: "/work/oracle-erp-transformation",
+  image:
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+};
+
+const supportingCases = [
+  {
+    client: "ENTERPRISE HEALTHCARE NETWORK",
+    title: "Clinical Document Intelligence & AI Patient Preparation",
+    summary:
+      "Automated extraction and classification across 2.4M clinical records with human-verified citations for 1,200 providers.",
+    metric: "88% faster chart review",
+    href: "/work/innovation/mediguide-ai",
+    image:
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    client: "DEFENSE & AEROSPACE CONTRACTOR",
+    title: "Autonomous Contract Intelligence & DFARS Compliance Pipeline",
+    summary:
+      "Deployed Data Agent for automated contract schedule parsing, clause risk scoring, and ERP billing sync.",
+    metric: "94% clause accuracy",
+    href: "/work/innovation/data-agent",
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+  },
+];
+
 export default function SelectedWorkSection() {
   return (
-    <section id="selected-work" className="mkt-section bg-[#FFFAF2] text-[#261F1B]">
+    <section id="selected-work" className="mkt-section bg-[#FFFFFF] text-[#101828] border-y border-[#E2E7EC]">
       <div className="mkt-shell">
-        <SectionLabel tone="burgundy">Selected Work &amp; Case Studies</SectionLabel>
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <SectionLabel tone="burgundy">Case Studies</SectionLabel>
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="mt-4 font-serif text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:text-5xl"
+            >
+              Proven outcomes in production.
+            </motion.h2>
+          </div>
 
-        <div className="mt-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="font-serif text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:text-5xl"
-          >
-            Outcomes in production.
-          </motion.h2>
           <Link
-            href="/work/case-studies"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#7D2639] hover:text-[#681F30]"
+            href="/work"
+            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#B63838] hover:text-[#8F292D]"
           >
-            <span>View All Case Studies</span>
+            <span>View All Client Stories</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
 
-        {/* 1 Dominant Featured Case Study: Oracle Transformation (58% Image / 42% Copy) */}
+        {/* Dominant Feature Case Study (55% Image / 45% Copy) */}
         <motion.article
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-16 overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_16px_40px_rgba(38,31,27,0.06)]"
+          className="mt-14 grid grid-cols-1 overflow-hidden rounded-xl border border-[#E2E7EC] bg-[#FCFCFD] lg:grid-cols-12 shadow-[0_12px_36px_rgba(20,30,45,0.06)]"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-            {/* Image Col (58%) */}
-            <div className="relative aspect-[16/10] lg:aspect-auto lg:col-span-7 min-h-[340px] overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80"
-                alt="Enterprise multi-entity finance operations center"
-                fill
-                className="object-cover mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 58vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
-              <div className="absolute top-6 left-6">
-                <span className="rounded bg-[#FFFDF8]/95 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wider text-[#7D2639] backdrop-blur-xs">
-                  Featured Oracle Case
-                </span>
+          {/* Image 55% */}
+          <div className="relative min-h-[300px] lg:col-span-7 lg:min-h-[440px] bg-[#EEF2F5]">
+            <Image
+              src={featureCase.image}
+              alt={featureCase.title}
+              fill
+              className="object-cover mkt-img-graded"
+              sizes="(max-width: 1024px) 100vw, 58vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/40 via-transparent to-transparent" />
+          </div>
+
+          {/* Copy 45% */}
+          <div className="flex flex-col justify-between p-8 lg:col-span-5 lg:p-10">
+            <div>
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
+                {featureCase.client}
+              </span>
+              <h3 className="mt-2.5 font-serif text-2xl font-semibold leading-tight text-[#101828] sm:text-3xl">
+                {featureCase.title}
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-[#475467]">
+                {featureCase.summary}
+              </p>
+
+              {/* Metrics */}
+              <div className="mt-8 grid grid-cols-3 gap-3 border-t border-[#E2E7EC] pt-6">
+                {featureCase.metrics.map((m) => (
+                  <div key={m.label}>
+                    <p className="font-serif text-2xl font-bold text-[#B63838] sm:text-3xl">
+                      {m.value}
+                    </p>
+                    <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-wider text-[#475467]">
+                      {m.label}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Copy Col (42%) */}
-            <div className="p-8 sm:p-10 lg:col-span-5 flex flex-col justify-between">
-              <div>
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#7D2639]">
-                  ORACLE CLOUD TRANSFORMATION
-                </span>
-                <h3 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.02em] text-[#261F1B] sm:text-3xl">
-                  Connecting enterprise operations across finance, procurement and projects.
-                </h3>
-
-                <div className="mt-6 space-y-4 text-xs leading-relaxed text-[#695F57]">
-                  <div>
-                    <h4 className="font-bold text-[#261F1B] uppercase tracking-wider text-[0.68rem]">
-                      Challenge
-                    </h4>
-                    <p className="mt-1">
-                      Disconnected legacy ERP instances across operating units caused
-                      delays in closing the books and required extensive manual consolidation.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#261F1B] uppercase tracking-wider text-[0.68rem]">
-                      Approach
-                    </h4>
-                    <p className="mt-1">
-                      Staged cutover with a standardized chart of accounts, monitored
-                      integration pipelines, and parallel-close validation.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#261F1B] uppercase tracking-wider text-[0.68rem]">
-                      Outcome
-                    </h4>
-                    <ul className="mt-1 space-y-1">
-                      <li className="flex items-center gap-1.5 text-[#261F1B]">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-[#657766] shrink-0" />
-                        <span>Single source of truth across all operating entities</span>
-                      </li>
-                      <li className="flex items-center gap-1.5 text-[#261F1B]">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-[#657766] shrink-0" />
-                        <span>Month-end close shortened with zero missed close cycles</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-[#D7CCBD]">
-                <Link
-                  href="/work/case-studies/oracle-cloud-transformation"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-[#7D2639] hover:text-[#681F30]"
-                >
-                  <span>Read Full Case Study</span>
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
+            <div className="mt-8 pt-4">
+              <Link
+                href={featureCase.href}
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#B63838] hover:text-[#8F292D]"
+              >
+                <span>Read Full Case Study</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
             </div>
           </div>
         </motion.article>
 
-        {/* 2 Wide Photographic Supporting Cases */}
-        <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
-          {/* Supporting 1: AI Document Intelligence */}
-          <motion.article
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_8px_24px_rgba(38,31,27,0.04)]"
-          >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#2B2420]">
-              <Image
-                src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1200&q=80"
-                alt="AI Document Intelligence workspace and data extraction pipeline"
-                fill
-                className="object-cover mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
-              <div className="absolute top-4 left-4">
-                <span className="rounded bg-[#FFFDF8]/90 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#7D2639]">
-                  AI &amp; Data Case
-                </span>
+        {/* 2 Supporting Wide Modules */}
+        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {supportingCases.map((cs, idx) => (
+            <motion.article
+              key={cs.title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="grid grid-cols-1 sm:grid-cols-12 overflow-hidden rounded-xl border border-[#E2E7EC] bg-[#FCFCFD] shadow-2xs"
+            >
+              <div className="relative min-h-[180px] sm:col-span-5 bg-[#EEF2F5]">
+                <Image
+                  src={cs.image}
+                  alt={cs.title}
+                  fill
+                  className="object-cover mkt-img-graded"
+                  sizes="(max-width: 640px) 100vw, 25vw"
+                />
               </div>
-            </div>
-            <div className="p-6">
-              <h3 className="font-serif text-xl font-semibold text-[#261F1B]">
-                AI Document Intelligence at Scale
-              </h3>
-              <p className="mt-2 text-xs leading-relaxed text-[#695F57]">
-                Automated extraction and clause verification across active contracts
-                with human review queues and traceable provenance.
-              </p>
-              <div className="mt-4 pt-3 border-t border-[#D7CCBD]/60">
-                <Link
-                  href="/work/case-studies/ai-document-intelligence"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#7D2639] hover:text-[#681F30]"
-                >
-                  <span>Read Case Study</span>
-                  <ArrowUpRight className="h-3 w-3" />
-                </Link>
+              <div className="flex flex-col justify-between p-6 sm:col-span-7">
+                <div>
+                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
+                    {cs.client}
+                  </span>
+                  <h3 className="mt-1.5 font-serif text-base font-semibold text-[#101828]">
+                    {cs.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-[#475467]">
+                    {cs.summary}
+                  </p>
+                  <p className="mt-3 text-xs font-bold text-[#5F7D75]">
+                    ✓ {cs.metric}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-[#E2E7EC]/80">
+                  <Link
+                    href={cs.href}
+                    className="group inline-flex items-center gap-1 text-xs font-semibold text-[#B63838] hover:text-[#8F292D]"
+                  >
+                    <span>Read Case Story</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </div>
               </div>
-            </div>
-          </motion.article>
-
-          {/* Supporting 2: Public Sector */}
-          <motion.article
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_8px_24px_rgba(38,31,27,0.04)]"
-          >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#2B2420]">
-              <Image
-                src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80"
-                alt="Public sector operations and reporting environment"
-                fill
-                className="object-cover mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
-              <div className="absolute top-4 left-4">
-                <span className="rounded bg-[#FFFDF8]/90 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#7D2639]">
-                  Public Sector Case
-                </span>
-              </div>
-            </div>
-            <div className="p-6">
-              <h3 className="font-serif text-xl font-semibold text-[#261F1B]">
-                Public Sector Data Platform
-              </h3>
-              <p className="mt-2 text-xs leading-relaxed text-[#695F57]">
-                Connected financial management and grant tracking with statutory
-                appropriations compliance and audit trails intact.
-              </p>
-              <div className="mt-4 pt-3 border-t border-[#D7CCBD]/60">
-                <Link
-                  href="/work/case-studies/public-sector-finance-procurement"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#7D2639] hover:text-[#681F30]"
-                >
-                  <span>Read Case Study</span>
-                  <ArrowUpRight className="h-3 w-3" />
-                </Link>
-              </div>
-            </div>
-          </motion.article>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

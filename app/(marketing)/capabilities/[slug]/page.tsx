@@ -7,6 +7,7 @@ import DetailHero from "@/components/detail-pages/DetailHero";
 import OutcomeGrid from "@/components/detail-pages/OutcomeGrid";
 import RelatedInsights from "@/components/detail-pages/RelatedInsights";
 import RelatedWork from "@/components/detail-pages/RelatedWork";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import {
   capabilityPages,
   getCapabilityPageSlugs,
@@ -43,6 +44,12 @@ export default async function CapabilityDetailPage({
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Capabilities", path: "/capabilities" },
+          { name: page.title, path: `/capabilities/${slug}` },
+        ]}
+      />
       <DetailHero
         kicker={page.kicker}
         title={page.headline}

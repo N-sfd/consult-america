@@ -36,10 +36,10 @@ export default function AboutPage() {
       <section className="mkt-hero-bg mkt-editorial-texture pt-20 pb-16 lg:pt-28 lg:pb-24">
         <div className="mkt-shell">
           <SectionLabel tone="burgundy">About Consult America</SectionLabel>
-          <h1 className="mt-6 max-w-4xl text-4xl font-extrabold tracking-[-0.03em] text-[#261F1B] sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-4xl font-serif font-semibold tracking-[-0.03em] text-[#101828] sm:text-5xl lg:text-6xl">
             A technology delivery firm built for high-stakes enterprise programs.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#695F57] sm:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#475467] sm:text-xl">
             We connect business strategy, Oracle Cloud platforms, data intelligence,
             and digital application engineering so transformation reaches production
             with less friction and measurable business return.
@@ -48,10 +48,10 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Philosophy */}
-      <section className="mkt-section bg-[#FFFAF2] text-[#261F1B]">
+      <section className="mkt-section bg-[#FCFCFD] text-[#101828] border-t border-[#E2E7EC]">
         <div className="mkt-shell">
           <SectionLabel tone="burgundy">Delivery Philosophy</SectionLabel>
-          <h2 className="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
             Strategy that stays connected to the code.
           </h2>
 
@@ -59,15 +59,15 @@ export default function AboutPage() {
             {leadershipPrinciples.map((item) => (
               <div
                 key={item.num}
-                className="rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] p-8 shadow-[0_8px_24px_rgba(38,31,27,0.04)]"
+                className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-8 shadow-[0_8px_24px_rgba(20,30,45,0.04)]"
               >
-                <span className="text-2xl font-light text-[#7D2639]">
+                <span className="font-serif text-2xl font-normal text-[#B63838]">
                   {item.num}
                 </span>
-                <h3 className="mt-3 text-lg font-bold text-[#261F1B]">
+                <h3 className="mt-3 text-lg font-bold text-[#101828]">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#695F57]">
+                <p className="mt-2 text-sm leading-relaxed text-[#475467]">
                   {item.desc}
                 </p>
               </div>
@@ -77,10 +77,10 @@ export default function AboutPage() {
       </section>
 
       {/* Delivery Hubs & Offices */}
-      <section className="mkt-section bg-[#2B2420] text-[#F7F0E7]">
+      <section className="mkt-section bg-[#F7F8FA] text-[#101828] border-t border-[#E2E7EC]">
         <div className="mkt-shell">
-          <SectionLabel tone="light">Delivery Locations</SectionLabel>
-          <h2 className="mt-4 text-3xl font-bold tracking-[-0.02em] text-[#F7F0E7] sm:text-4xl">
+          <SectionLabel tone="burgundy">Delivery Locations</SectionLabel>
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] text-[#101828] sm:text-4xl">
             National delivery centers and client hubs.
           </h2>
 
@@ -88,23 +88,23 @@ export default function AboutPage() {
             {offices.map((office) => (
               <div
                 key={office.city}
-                className="rounded-xl border border-[#6F6259] bg-[#342B27] p-6"
+                className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-6 shadow-2xs"
               >
-                <p className="text-lg font-bold text-[#F7F0E7]">{office.city}</p>
-                <p className="mt-2 text-xs leading-relaxed text-[#CFC4BA]">
+                <p className="text-lg font-bold text-[#101828]">{office.city}</p>
+                <p className="mt-2 text-xs leading-relaxed text-[#475467]">
                   {office.detail}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-14 border-t border-[#6F6259] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-[#CFC4BA]">
+          <div className="mt-14 border-t border-[#E2E7EC] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-[#475467]">
               Looking to discuss an enterprise transformation or engineering engagement?
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#FFFAF2] px-6 py-3 text-sm font-bold text-[#7D2639] hover:bg-[#FFFDF8] hover:text-[#681F30] transition-colors"
+              className="inline-flex items-center gap-2 rounded-md bg-[#B63838] px-6 py-3 text-sm font-semibold text-white hover:bg-[#8F292D] transition-colors cursor-pointer"
             >
               <span>Start a conversation</span>
               <ArrowUpRight className="h-4 w-4" />

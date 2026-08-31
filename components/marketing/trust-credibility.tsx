@@ -14,14 +14,14 @@ const capabilities = [
 
 export default function TrustCredibility() {
   return (
-    <section className="border-y border-[#D7CCBD] bg-[#FFFAF2] py-8 sm:py-10">
+    <section className="border-y border-[#E2E7EC] bg-[#FFFFFF] py-7 sm:py-8">
       <div className="mkt-shell">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <p className="text-center text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#695F57] md:text-left">
+        <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
+          <p className="text-center text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#475467] md:text-left">
             ENTERPRISE CAPABILITY ACROSS THE DIGITAL CORE
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-end">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 md:justify-end">
             {capabilities.map((item, idx) => (
               <motion.div
                 key={item.name}
@@ -32,7 +32,7 @@ export default function TrustCredibility() {
               >
                 <Link
                   href={item.href}
-                  className="inline-flex items-center rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] px-3.5 py-1.5 text-xs font-bold text-[#261F1B] transition-all hover:border-[#7D2639] hover:text-[#7D2639] hover:shadow-xs"
+                  className="inline-flex items-center rounded-md border border-[#E2E7EC] bg-[#F7F8FA] px-3.5 py-1.5 text-xs font-semibold text-[#101828] transition-all hover:border-[#B63838] hover:text-[#B63838] hover:bg-[#FFFFFF]"
                 >
                   {item.name}
                 </Link>

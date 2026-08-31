@@ -56,9 +56,9 @@ export const whatWeDoMegaMenu = {
     description: "Turning operational problems into focused enterprise products.",
     products: [
       { href: "/work/innovation/data-agent", label: "Data Agent", detail: "Document & contract intelligence" },
+      { href: "/work/innovation/joblens", label: "JobLens", detail: "Talent & recruiting intelligence" },
       { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical & patient intelligence" },
       { href: "/capabilities/digital-engineering", label: "Convera", detail: "Enterprise integration & APIs" },
-      { href: "/platforms/ats", label: "HR & Talent", detail: "Recruiting & workforce ops" },
     ],
     ctaHref: "/work/innovation",
     ctaLabel: "Explore applications →",
@@ -113,6 +113,8 @@ export const platformLinks = [
   { href: "/platforms/workforce", label: "Time & Leave", detail: "Timesheet Management & PTO Approvals" },
   { href: "/platforms/payroll", label: "Enterprise Payroll", detail: "Runs, Deductions, Earnings & Tax Reporting" },
   { href: "/work/innovation/data-agent", label: "Data Agent", detail: "AI Contract & Document Intelligence" },
+  { href: "/work/innovation/joblens", label: "JobLens", detail: "Resume Analysis & Talent Matching" },
+  { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical & Patient Intelligence" },
 ];
 
 export const industryLinks = [

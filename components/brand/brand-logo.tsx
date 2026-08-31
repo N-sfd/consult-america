@@ -22,31 +22,19 @@ export default function BrandLogo({
   priority = false,
   onNavigate,
 }: BrandLogoProps) {
-  const isDarkTone = tone === "dark"; // on light background (header)
-  // If dark tone (light background header), we can use the original light-bg logo or the new logo with clean styling
-  // If light tone (dark background footer / dark sections), we use the new dark-bg logo directly
-
-  const logoSrc = isDarkTone ? "/brand/logo.jpg" : "/brand/logo-dark.png";
+  const logoSrc = "/brand/logo-transparent.png";
 
   const content = (
-    <span className={cn("inline-flex items-center gap-3", className)}>
-      <span
-        className={cn(
-          "relative flex items-center justify-center overflow-hidden transition-all duration-200",
-          isDarkTone
-            ? "h-11 w-auto"
-            : "h-12 w-auto"
-        )}
-      >
+    <span className={cn("inline-flex items-center", className)}>
+      <span className="relative flex items-center justify-center transition-all duration-200">
         <Image
           src={logoSrc}
           alt="Consult America Logo"
-          width={180}
-          height={120}
+          width={220}
+          height={134}
           priority={priority}
           className={cn(
-            "h-10 w-auto object-contain transition-transform duration-200 hover:scale-[1.02]",
-            isDarkTone ? "mix-blend-multiply" : "brightness-105",
+            "h-10 sm:h-11 w-auto object-contain transition-transform duration-200 hover:scale-[1.02]",
             markClassName
           )}
         />

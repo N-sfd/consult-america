@@ -10,39 +10,35 @@ import SectionLabel from "@/components/marketing/SectionLabel";
 const industries = [
   {
     name: "Government & Public Sector",
-    href: "/industries/government-public-sector",
-    tagline: "Statutory compliance, appropriations controls, and mission delivery.",
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
+    description: "Modernizing core systems, grant administration, procurement, and civilian services.",
+    href: "/industries/public-sector",
+    image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Financial Services",
+    description: "Fusion ERP accounting, automated compliance, risk telemetry, and unified banking CRM.",
     href: "/industries/financial-services",
-    tagline: "Regulated platform modernization, risk controls, and automated reporting.",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Healthcare & Life Sciences",
+    description: "Clinical documentation intelligence, patient record pipelines, and secure provider portals.",
     href: "/industries/healthcare",
-    tagline: "Patient intelligence, HIPAA-compliant AI, and clinical workflows.",
-    image:
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Technology & Software",
+    description: "Digital engineering, API platform ecosystems, modern data architecture, and AI scale.",
     href: "/industries/technology",
-    tagline: "Cloud infrastructure, scalable APIs, and modern digital engineering.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
 export default function IndustriesSection() {
   return (
-    <section id="industries" className="mkt-section bg-[#F4EFE6] text-[#261F1B]">
+    <section id="industries" className="mkt-section bg-[#F7F8FA] text-[#101828]">
       <div className="mkt-shell">
-        <SectionLabel tone="burgundy">Industry Practices</SectionLabel>
+        <SectionLabel tone="burgundy">Industries</SectionLabel>
 
         <div className="mt-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <motion.h2
@@ -52,47 +48,49 @@ export default function IndustriesSection() {
             transition={{ duration: 0.55 }}
             className="font-serif text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:text-5xl"
           >
-            Built for specialized operating environments.
+            Domain depth where regulations and operations matter most.
           </motion.h2>
-          <p className="max-w-md text-sm text-[#695F57] sm:text-base">
-            Deep domain expertise across regulated sectors where compliance,
-            security, and reliability are non-negotiable.
+          <p className="max-w-md text-sm text-[#475467] sm:text-base">
+            Deep vertical experience combining regulatory compliance, industry standards, and production execution.
           </p>
         </div>
 
-        {/* 2x2 Photographic Tile Grid (Each ~380px high on desktop) */}
-        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-8">
+        {/* 2x2 Photographic Tiles with Clean Neutral Overlays */}
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {industries.map((ind, idx) => (
             <motion.div
               key={ind.name}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: idx * 0.08 }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
             >
               <Link
                 href={ind.href}
-                className="group relative block h-[360px] sm:h-[400px] w-full overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#2B2420] shadow-[0_12px_36px_rgba(38,31,27,0.06)] transition-all hover:border-[#7D2639]/50"
+                className="group relative block aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/10] overflow-hidden rounded-xl border border-[#E2E7EC] bg-[#101828]"
               >
                 <Image
                   src={ind.image}
                   alt={ind.name}
                   fill
-                  className="object-cover mkt-img-graded"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover mkt-img-graded transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/90 via-[#261F1B]/35 to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8 text-white">
-                  <h3 className="font-serif text-2xl font-semibold text-[#FFFDF8] group-hover:text-[#D8C5AA] transition-colors">
-                    {ind.name}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-[#DFE4DA] sm:text-sm">
-                    {ind.tagline}
+                {/* Neutral Dark Overlay (no brown) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/90 via-[#101828]/45 to-transparent transition-opacity duration-300 group-hover:from-[#101828]/95" />
+
+                <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-serif text-xl font-semibold text-[#FFFFFF] sm:text-2xl group-hover:text-[#F5DEDE] transition-colors">
+                      {ind.name}
+                    </h3>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFFFFF]/10 backdrop-blur-xs text-[#FFFFFF] group-hover:bg-[#B63838] transition-colors">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </div>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-[#A4B1BE] sm:text-sm">
+                    {ind.description}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-[#D8C5AA] transition-colors">
-                    <span>Explore Industry Practice</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
                 </div>
               </Link>
             </motion.div>

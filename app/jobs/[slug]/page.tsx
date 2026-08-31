@@ -31,6 +31,12 @@ export async function generateMetadata({
   };
 }
 
+const EMPLOYMENT_TYPE_SCHEMA: Record<string, string> = {
+  "Full Time": "FULL_TIME",
+  "Part Time": "PART_TIME",
+  Contract: "CONTRACTOR",
+};
+
 export default async function JobDetailPage({ params }: JobDetailPageProps) {
   const { slug } = await params;
   const job = await getJobBySlug(slug);
@@ -39,8 +45,46 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
     notFound();
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+
+  const jobPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: job.description,
+    datePosted: job.postedAt,
+    employmentType: EMPLOYMENT_TYPE_SCHEMA[job.employmentType] ?? undefined,
+    hiringOrganization: {
+      "@type": "Organization",
+      name: "Consult America",
+      sameAs: siteUrl,
+      logo: `${siteUrl}/brand/logo.jpg`,
+    },
+    jobLocationType: job.workplaceType === "Remote" ? "TELECOMMUTE" : undefined,
+    jobLocation:
+      job.workplaceType === "Remote"
+        ? undefined
+        : {
+            "@type": "Place",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: job.location,
+              addressCountry: "US",
+            },
+          },
+    identifier: {
+      "@type": "PropertyValue",
+      name: "Consult America",
+      value: job.id,
+    },
+  };
+
   return (
     <div className="bg-[var(--cr-bg)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
+      />
       <div className="bg-[var(--cr-bg-soft)]">
         <div className="cr-shell py-14 md:py-20">
           {job.isDemo && (

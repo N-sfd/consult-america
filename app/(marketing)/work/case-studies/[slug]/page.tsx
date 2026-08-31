@@ -8,6 +8,7 @@ import ProjectHero from "@/components/projects/ProjectHero";
 import ProjectNarrative from "@/components/projects/ProjectNarrative";
 import ProjectOutcomes from "@/components/projects/ProjectOutcomes";
 import TransformationDiagram from "@/components/projects/TransformationDiagram";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import { getCaseStudyBySlug, getCaseStudySlugs } from "@/data/case-studies";
 
 type ProjectDetailPageProps = {
@@ -41,6 +42,13 @@ export default async function CaseStudyDetailPage({
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Our Work", path: "/work" },
+          { name: "Case Studies", path: "/work/case-studies" },
+          { name: project.title, path: `/work/case-studies/${slug}` },
+        ]}
+      />
       <ProjectHero
         category={project.category}
         headline={project.headline}

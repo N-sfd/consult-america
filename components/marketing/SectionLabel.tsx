@@ -15,10 +15,11 @@ export default function SectionLabel({
     <span
       className={cn(
         "mkt-eyebrow",
-        tone === "light" && "text-[#D8C5AA]",
-        tone === "dark" && "text-[#695F57]",
-        (tone === "blue" || tone === "burgundy") && "text-[#7D2639]",
-        tone === "sage" && "text-[#657766]",
+        tone === "light" && "text-[#A4B1BE]",
+        tone === "dark" && "text-[#475467]",
+        tone === "blue" && "text-[#365F8D]",
+        tone === "burgundy" && "text-[#B63838]",
+        tone === "sage" && "text-[#5F7D75]",
         className,
       )}
     >

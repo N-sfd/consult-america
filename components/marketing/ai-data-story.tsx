@@ -32,9 +32,9 @@ const aiStages = [
 
 export default function AIDataStory() {
   return (
-    <section id="ai-data-story" className="mkt-section bg-[#FFFAF2] text-[#261F1B]">
+    <section id="ai-data-story" className="mkt-section bg-[#E7ECE8] text-[#101828]">
       <div className="mkt-shell">
-        <SectionLabel tone="burgundy">AI &amp; Data Practice</SectionLabel>
+        <SectionLabel tone="sage">AI &amp; Data Practice</SectionLabel>
 
         {/* Top: Headline & Strong Editorial Photo */}
         <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
@@ -45,18 +45,18 @@ export default function AIDataStory() {
             transition={{ duration: 0.55 }}
             className="lg:col-span-6 space-y-6"
           >
-            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-[#261F1B] sm:text-4xl lg:text-5xl lg:leading-[1.12]">
-              AI should move the work — not sit beside it.
+            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-[#101828] sm:text-4xl lg:text-5xl lg:leading-[1.12]">
+              Put intelligence into the work.
             </h2>
-            <p className="text-base leading-relaxed text-[#695F57]">
-              We help organizations identify valuable use cases, prepare
-              trusted data, design governed AI systems, and integrate
-              intelligence into real operational workflows.
+            <p className="text-base leading-relaxed text-[#475467]">
+              AI creates value when trusted data, useful models, business
+              context and real workflows come together — not as a feature
+              bolted onto the side of the work people already do.
             </p>
             <div className="pt-2">
               <Link
                 href="/ai-data"
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#7D2639] transition-colors hover:text-[#681F30]"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#B63838] transition-colors hover:text-[#8F292D]"
               >
                 <span>Explore AI &amp; Data Practice</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -64,7 +64,7 @@ export default function AIDataStory() {
             </div>
           </motion.div>
 
-          {/* Large Editorial Photo: Collaborative Data & AI Engineers */}
+          {/* Large Editorial Photo: Data Team & Engineers Collaborating */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -72,7 +72,7 @@ export default function AIDataStory() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-6"
           >
-            <div className="relative aspect-[16/10] lg:h-[360px] w-full overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_12px_36px_rgba(38,31,27,0.06)]">
+            <div className="relative aspect-[16/10] lg:h-[360px] w-full overflow-hidden rounded-lg border border-[#E2E7EC] bg-[#FFFFFF] shadow-[0_12px_36px_rgba(20,30,45,0.06)]">
               <Image
                 src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80"
                 alt="AI data engineering and analytics team collaborating on enterprise models"
@@ -80,12 +80,12 @@ export default function AIDataStory() {
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/50 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#D8C5AA]">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#EEF2F5]">
                   HUMAN + AI GOVERNANCE
                 </span>
-                <p className="mt-1 text-xs text-[#F7F0E7]">
+                <p className="mt-1 text-xs text-[#F5F7FA]">
                   Every model output verified against enterprise source data with human reviewers in the loop.
                 </p>
               </div>
@@ -94,8 +94,8 @@ export default function AIDataStory() {
         </div>
 
         {/* Below: 4-Step Model with Large Numbers & Thin Dividers */}
-        <div className="mt-20 border-t border-[#D7CCBD] pt-14">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#7D2639]">
+        <div className="mt-20 border-t border-[#E2E7EC] pt-14">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#5F7D75]">
             AI Transformation Framework
           </p>
 
@@ -107,16 +107,16 @@ export default function AIDataStory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="border-t border-[#D7CCBD] pt-6 flex flex-col justify-between"
+                className="border-t border-[#E2E7EC] pt-6 flex flex-col justify-between"
               >
                 <div>
-                  <span className="font-serif text-3xl font-normal text-[#7D2639]">
+                  <span className="font-serif text-3xl font-normal text-[#5F7D75]">
                     {stage.num}
                   </span>
-                  <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.12em] text-[#261F1B]">
+                  <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.12em] text-[#101828]">
                     {stage.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#695F57]">
+                  <p className="mt-2 text-sm leading-relaxed text-[#475467]">
                     {stage.desc}
                   </p>
                 </div>

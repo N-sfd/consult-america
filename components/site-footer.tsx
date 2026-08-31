@@ -64,13 +64,13 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="border-t border-[#433A35] bg-[#211B18] text-[#CFC4BA]">
+    <footer className="border-t border-[#23324A] bg-[#101A2B] text-[#A4B1BE]">
       <Shell className="py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand Col */}
           <div className="sm:col-span-2 lg:col-span-3">
             <BrandLogo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#CFC4BA]">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#A4B1BE]">
               Consulting, technology, and enterprise software platforms delivered to production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
@@ -84,7 +84,7 @@ export function SiteFooter() {
               </button>
               <Link
                 href="/login"
-                className="text-xs font-medium text-[#CFC4BA]/70 hover:text-[#E2B6C0] transition-colors"
+                className="text-xs font-medium text-[#A4B1BE]/70 hover:text-[#E8B4B4] transition-colors"
               >
                 Employee Portal Login →
               </Link>
@@ -97,18 +97,18 @@ export function SiteFooter() {
               <details
                 key={column.title}
                 open
-                className="group border-b border-[#433A35] pb-4 sm:border-0 sm:pb-0"
+                className="group border-b border-[#23324A] pb-4 sm:border-0 sm:pb-0"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.14em] text-[#FFFFFF] marker:content-none sm:cursor-default">
                   {column.title}
-                  <ChevronDown className="h-3.5 w-3.5 text-[#CFC4BA]/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
+                  <ChevronDown className="h-3.5 w-3.5 text-[#A4B1BE]/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
                 <ul className="mt-3.5 space-y-2.5">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-xs text-[#CFC4BA] transition-colors hover:text-[#E2B6C0]"
+                        className="text-xs text-[#A4B1BE] transition-colors hover:text-[#E8B4B4]"
                       >
                         {link.label}
                       </Link>
@@ -121,18 +121,18 @@ export function SiteFooter() {
         </div>
 
         {/* Footer Bottom Strip */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-[#433A35] pt-6 text-xs text-[#CFC4BA]/70 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-[#23324A] pt-6 text-xs text-[#A4B1BE]/70 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} ConsultAmerica Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-[#E2B6C0] transition-colors">
+            <Link href="/about" className="hover:text-[#E8B4B4] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/about" className="hover:text-[#E2B6C0] transition-colors">
+            <Link href="/about" className="hover:text-[#E8B4B4] transition-colors">
               Terms of Service
             </Link>
             <a
               href={`https://${SITE_DOMAIN}`}
-              className="text-[#CFC4BA]/50 hover:text-[#E2B6C0] transition-colors"
+              className="text-[#A4B1BE]/50 hover:text-[#E8B4B4] transition-colors"
             >
               {SITE_DOMAIN}
             </a>

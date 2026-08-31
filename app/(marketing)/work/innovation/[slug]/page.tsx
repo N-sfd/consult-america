@@ -7,6 +7,7 @@ import InnovationHero from "@/components/innovation/InnovationHero";
 import ProductExperience from "@/components/innovation/ProductExperience";
 import ProjectCapabilities from "@/components/projects/ProjectCapabilities";
 import ProjectNarrative from "@/components/projects/ProjectNarrative";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 import {
   getInnovationProductBySlug,
   getInnovationProductSlugs,
@@ -41,8 +42,33 @@ export default async function InnovationDetailPage({
 
   if (!product) notFound();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+  const softwareJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: product.name,
+    description: product.summary,
+    applicationCategory: product.category,
+    image: `${siteUrl}${product.heroImage}`,
+    creator: {
+      "@type": "Organization",
+      name: "Consult America",
+    },
+  };
+
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Our Work", path: "/work" },
+          { name: "Innovation", path: "/work/innovation" },
+          { name: product.name, path: `/work/innovation/${slug}` },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
       <InnovationHero
         category={product.category}
         tagline={product.tagline}
