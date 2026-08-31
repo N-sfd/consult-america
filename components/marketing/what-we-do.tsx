@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, Sparkles, Database, Layers, Cpu } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowUpRight, Layers, Database, Sparkles, Cpu } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
 
@@ -11,78 +11,64 @@ const practices = [
   {
     number: "01",
     category: "ENTERPRISE TRANSFORMATION",
-    title: "Transformation that stays connected to delivery.",
+    title: "Transformation connected directly to delivery.",
     description:
-      "Operating models, process architecture, program PMO governance and modernization engineered to survive cutover and adoption.",
+      "Operating model redesign, business process architecture, program PMO governance, and modernization engineered to survive cutover and drive adoption.",
     linkHref: "/capabilities/enterprise-transformation",
     linkLabel: "Explore Consulting",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Executive strategy workshop with senior enterprise transformation team",
-    uiOverlay: {
-      tag: "Operating Model",
-      metric: "Target State Architected",
-      status: "Cutover Governance Ready",
-      icon: Layers,
-    },
+    uiTag: "Target State Architected",
+    icon: Layers,
   },
   {
     number: "02",
     category: "ORACLE CLOUD TRANSFORMATION",
-    title: "Modernize finance, procurement, supply chain and operations.",
+    title: "Modernize finance, procurement, and supply chain.",
     description:
-      "From architecture and implementation to testing, OIC integrations and period-close optimization across Fusion ERP, SCM, HCM and EPM.",
+      "Architecture, clean-core implementation, OIC integrations, automated period-close, and continuous optimization across Fusion ERP, SCM, HCM, and EPM.",
     linkHref: "/oracle",
     linkLabel: "Explore Oracle Practice",
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Enterprise financial operations and digital infrastructure",
-    uiOverlay: {
-      tag: "Fusion Cloud ERP",
-      metric: "Multi-Entity Ledgers",
-      status: "Subledger Automation 99.4%",
-      icon: Database,
-    },
+    uiTag: "Fusion Cloud Core ERP",
+    icon: Database,
   },
   {
     number: "03",
     category: "AI & DATA ENGINEERING",
-    title: "Create trusted data foundations and production AI workflows.",
+    title: "Trusted data foundations and production AI workflows.",
     description:
-      "Enterprise AI agents, document extraction pipelines, governed RAG, analytics and workflow automation built on validated operational data.",
+      "Autonomous agents, document intelligence pipelines, governed RAG, and operational analytics grounded in validated enterprise systems of record.",
     linkHref: "/ai-data",
     linkLabel: "Explore AI & Data",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Data analytics, machine learning, and enterprise intelligence dashboard",
-    uiOverlay: {
-      tag: "Data Agent AI",
-      metric: "FAR/DFARS Verified",
-      status: "Source Grounding 99.8%",
-      icon: Sparkles,
-    },
+    uiTag: "Data Agent AI Engine",
+    icon: Sparkles,
   },
   {
     number: "04",
     category: "DIGITAL ENGINEERING & APPS",
-    title: "Build enterprise applications where packaged software stops.",
+    title: "Custom enterprise software where packaged solutions stop.",
     description:
-      "Modern application engineering, Customer 360 CRM workspaces, workforce portals and low-latency APIs engineered for production scale.",
+      "Full-stack digital engineering, Customer 360 workspaces, workforce platforms, and low-latency API gateways engineered for high-availability production scale.",
     linkHref: "/capabilities/digital-engineering",
     linkLabel: "Explore Digital Engineering",
     image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Software engineering and digital product development team",
-    uiOverlay: {
-      tag: "Platform Suite",
-      metric: "Microservices & APIs",
-      status: "Zero Downtime Deploy",
-      icon: Cpu,
-    },
+    uiTag: "Microservices & APIs",
+    icon: Cpu,
   },
 ];
 
 export default function WhatWeDo() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section className="bg-[#F4EFE6] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D7CCBD]/80">
+    <section className="bg-[#F7F3EC] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D7CCBD]/80">
       <div className="mkt-shell">
-        {/* Section Header */}
+        {/* Section Header with generous whitespace */}
         <div className="max-w-3xl">
           <SectionLabel tone="burgundy">WHAT WE DO</SectionLabel>
 
@@ -92,25 +78,25 @@ export default function WhatWeDo() {
 
           <p className="mt-5 text-base sm:text-lg leading-relaxed text-[#695F57]">
             We work across business transformation, enterprise applications,
-            AI, data and engineering—connecting strategy with the systems,
-            workflows and products organizations actually depend on.
+            AI, data, and engineering—connecting executive strategy with the systems
+            and workflows organizations depend on.
           </p>
         </div>
 
-        {/* 4 Large Alternating Practice Showcases with Editorial Photography & UI Overlays */}
-        <div className="mt-16 space-y-16 lg:space-y-20">
+        {/* 4 Spacious Editorial Capability Modules */}
+        <div className="mt-20 space-y-20 lg:space-y-28">
           {practices.map((practice, idx) => {
             const isEven = idx % 2 === 1;
-            const Icon = practice.uiOverlay.icon;
+            const Icon = practice.icon;
 
             return (
               <div
                 key={practice.number}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
               >
                 {/* Text Content Block */}
                 <motion.div
-                  initial={{ opacity: 0, x: isEven ? 16 : -16 }}
+                  initial={shouldReduceMotion ? {} : { opacity: 0, x: isEven ? 16 : -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.55 }}
@@ -129,14 +115,14 @@ export default function WhatWeDo() {
                     {practice.title}
                   </h3>
 
-                  <p className="text-sm sm:text-base leading-relaxed text-[#695F57]">
+                  <p className="text-base leading-relaxed text-[#695F57] max-w-lg">
                     {practice.description}
                   </p>
 
                   <div className="pt-2">
                     <Link
                       href={practice.linkHref}
-                      className="group inline-flex items-center gap-2 rounded-md bg-[#7D2639] px-6 py-3 text-xs sm:text-sm font-semibold text-white transition-colors hover:bg-[#681F30]"
+                      className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#7D2639] hover:text-[#681F30] transition-colors"
                     >
                       <span>{practice.linkLabel}</span>
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -144,15 +130,15 @@ export default function WhatWeDo() {
                   </div>
                 </motion.div>
 
-                {/* Image + UI Overlay Block */}
+                {/* Image + Single Clean UI Tag Block */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.98 }}
+                  initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                   className={`lg:col-span-6 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_16px_45px_rgba(38,31,27,0.08)]">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[#D7CCBD] bg-white shadow-[0_16px_45px_rgba(38,31,27,0.08)]">
                     <Image
                       src={practice.image}
                       alt={practice.imageAlt}
@@ -161,23 +147,15 @@ export default function WhatWeDo() {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
 
-                    {/* Warm Gradient Overlay */}
+                    {/* Gradient Depth Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/70 via-transparent to-transparent" />
 
-                    {/* Floating Product UI Indicator */}
-                    <div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 rounded-xl border border-white/20 bg-[#FFFDF8]/90 p-3.5 backdrop-blur-md shadow-lg flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#7D2639] text-white">
-                          <Icon className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-[#261F1B]">{practice.uiOverlay.tag}</p>
-                          <p className="text-[0.65rem] text-[#695F57]">{practice.uiOverlay.metric}</p>
-                        </div>
+                    {/* Floating Single UI Tag */}
+                    <div className="absolute bottom-4 left-4 rounded-xl border border-white/20 bg-white/95 px-4 py-2.5 backdrop-blur-md shadow-lg flex items-center gap-2.5 text-xs">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#7D2639] text-white">
+                        <Icon className="h-3.5 w-3.5" />
                       </div>
-                      <span className="rounded bg-[#DFE4DA] px-2 py-1 text-[0.62rem] font-bold text-[#657766] uppercase">
-                        {practice.uiOverlay.status}
-                      </span>
+                      <span className="font-bold text-[#261F1B]">{practice.uiTag}</span>
                     </div>
                   </div>
                 </motion.div>

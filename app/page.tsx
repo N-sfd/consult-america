@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 
 import AIDataStory from "@/components/marketing/ai-data-story";
-import BusinessOutcomes from "@/components/marketing/business-outcomes";
-import CRMShowcase from "@/components/marketing/crm-showcase";
+import ApplicationShowcase from "@/components/marketing/application-showcase";
 import DeliveryModel from "@/components/marketing/delivery-model";
+import EditorialImageBreak from "@/components/marketing/editorial-image-break";
 import EnterpriseMotion from "@/components/marketing/enterprise-motion";
 import GrowthCta from "@/components/marketing/growth-cta";
 import Hero from "@/components/marketing/hero";
 import IndustriesSection from "@/components/marketing/industries-section";
 import InsightsSection from "@/components/marketing/insights-section";
-import LabsShowcase from "@/components/marketing/labs-showcase";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
 import TrustCredibility from "@/components/marketing/trust-credibility";
@@ -40,50 +39,47 @@ export default function Home() {
       <SiteHeader />
 
       <main className="experience-marketing">
-        {/* 02. Upgraded Enterprise Transformation Hero (Atmospheric Photo, Warm Ivory Overlay, Command Center, Floating UI, Capability Rail) */}
+        {/* 02. HERO: Photo + Command Center UI + Single Data Agent Floating Card */}
         <Hero />
 
-        {/* 03. Practice Leadership Credibility Strip */}
+        {/* 03. CAPABILITIES / PRACTICE LEADERSHIP STRIP: Light / Typography */}
         <TrustCredibility />
 
-        {/* 04. Business Outcomes First (Large Editorial Statement with 6% Texture) */}
-        <BusinessOutcomes />
+        {/* 04. EDITORIAL IMAGE BREAK: Wide 1440x600 Photographic Moment with 'TRANSFORMATION AT ENTERPRISE SCALE' */}
+        <EditorialImageBreak />
 
-        {/* 05. What We Do (4 Practices with Cohesive Photography & UI Overlays) */}
+        {/* 05. WHAT WE DO: Light / Reduced Density / 4 Capabilities with Clear Paragraphs */}
         <WhatWeDo />
 
-        {/* 06. Enterprise in Motion (Dark Architectural Connected Systems #2B2420) */}
+        {/* 06. CONNECTED CORE: Dark / Architecture Node Hierarchy (Oracle → Integration → Data → AI → Apps → People) */}
         <EnterpriseMotion />
 
-        {/* 07. Oracle Transformation (Oracle Control Center & Connected Core Architecture) */}
+        {/* 07. ORACLE CLOUD: Light + UI + 7% Operations Background + Compact Chips */}
         <OracleFlagship />
 
-        {/* 08. CRM & Customer Experience (Customer 360 Workspace & Unified Customer Journey) */}
-        <CRMShowcase />
-
-        {/* 09. Governed AI & Data (Dark Section #211E1B with 5-Step Extraction Pipeline) */}
+        {/* 08. AI & DATA: Dark (#211E1B) + UI + Technical Grid + Data Agent Pipeline */}
         <AIDataStory />
 
-        {/* 10. Consult America Labs ("We don't only advise. We build." — Data Agent, MediGuide AI, Convera, HR & Talent) */}
-        <LabsShowcase />
+        {/* 09. BUILT BY CONSULT AMERICA: Standardized Browser Frames for Data Agent, MediGuide AI & CRM */}
+        <ApplicationShowcase />
 
-        {/* 11. Transformation Delivery Model (Strategy → Design → Build → Integrate → Operate) */}
+        {/* 10. DELIVERY MODEL: Strategy → Design → Build → Integrate → Operate */}
         <DeliveryModel />
 
-        {/* 12. Selected Work (Featured Oracle Case & 16:9 Editorial Stories) */}
+        {/* 11. SELECTED WORK: 2-Column Editorial Cards (45% Image / 55% Content) with Qualitative Claims */}
         <SelectedWorkSection />
 
-        {/* 13. Industries (4 Large Full-Bleed Photographic Panels: Government, Finance, Healthcare, Tech) */}
+        {/* 12. INDUSTRIES: Editorial Photographic Grid (50% Government, 25% Finance, 25% Healthcare, Supporting Row) */}
         <IndustriesSection />
 
-        {/* 14. Insights (50/50 Publication Layout with Editorial Thumbnails) */}
+        {/* 13. INSIGHTS: Magazine Publication Layout with 16:9 Featured & Editorial Thumbnails */}
         <InsightsSection />
 
-        {/* 15. Contact CTA (Cinematic Background Photo with Floating Warm-White Form) */}
+        {/* 14. CONTACT: 52% Cinematic Photo Left / 48% Floating Warm-White Form Right */}
         <GrowthCta />
       </main>
 
-      {/* 16. Textured Dark Footer with 'BUILD WHAT'S NEXT' Pre-Footer Statement */}
+      {/* 15. FOOTER: Textured Dark (#211E1B) with Pre-Footer 'BUILD WHAT'S NEXT' */}
       <SiteFooter />
     </>
   );

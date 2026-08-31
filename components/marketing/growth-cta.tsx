@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ArrowUpRight, CheckCircle2, ShieldCheck, Clock, Send } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, ShieldCheck, Clock } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const interestOptions = [
@@ -44,20 +44,20 @@ export default function GrowthCta() {
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2200&q=85"
           alt="Modern enterprise architecture and operations boardroom"
           fill
-          className="object-cover object-center opacity-20 filter grayscale contrast-125"
+          className="object-cover object-center opacity-25 filter grayscale contrast-125"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#211E1B]/98 via-[#211E1B]/92 to-[#211E1B]/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#211E1B]/98 via-[#211E1B]/90 to-[#211E1B]/80" />
         <div className="absolute inset-0 bg-radial-[circle_at_20%_30%] from-[#7D2639]/15 via-transparent to-transparent pointer-events-none" />
       </div>
 
       <div className="mkt-shell relative z-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center">
-          {/* Left Column: Heading, Copy & Trust Commitments */}
-          <div className="lg:col-span-5 space-y-6">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14 items-center">
+          {/* Left Column (52% width): Heading, Copy & Trust Commitments */}
+          <div className="lg:col-span-6 space-y-6">
             <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#D8C5AA] flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D8C5AA]" />
-              START A CONVERSATION
+              <span className="h-0.5 w-6 bg-[#D8C5AA]" />
+              WHAT COULD YOUR ENTERPRISE DO NEXT?
             </span>
 
             <motion.h2
@@ -67,12 +67,14 @@ export default function GrowthCta() {
               transition={{ duration: 0.55 }}
               className="font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-[1.1]"
             >
-              What should your technology make possible next?
+              Bring us the problem
+              <br />
+              <span className="text-[#D8C5AA]">that matters.</span>
             </motion.h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-[#C5BCB3]">
+            <p className="text-base sm:text-lg leading-relaxed text-[#C5BCB3] max-w-lg">
               Whether you&apos;re modernizing Oracle, connecting enterprise data,
-              building an AI capability or launching a digital platform,
+              building an AI capability, or launching a digital platform,
               our teams can help move it from idea to production.
             </p>
 
@@ -92,13 +94,13 @@ export default function GrowthCta() {
             </div>
           </div>
 
-          {/* Right Column: Floating Warm-White Contact Form */}
+          {/* Right Column (48% width): Floating Warm-White Contact Form */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-7 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] p-7 sm:p-9 shadow-[0_22px_60px_rgba(0,0,0,0.3)] backdrop-blur-md"
+            className="lg:col-span-6 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] p-7 sm:p-9 shadow-[0_24px_70px_rgba(0,0,0,0.3)] backdrop-blur-md"
           >
             {submitted ? (
               <div className="py-10 text-center space-y-4">
@@ -133,7 +135,7 @@ export default function GrowthCta() {
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-white focus:outline-none"
                     />
                   </div>
 
@@ -148,7 +150,7 @@ export default function GrowthCta() {
                       placeholder="jane@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-white focus:outline-none"
                     />
                   </div>
                 </div>
@@ -164,7 +166,7 @@ export default function GrowthCta() {
                       placeholder="Enterprise Corp"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-white focus:outline-none"
                     />
                   </div>
 
@@ -176,7 +178,7 @@ export default function GrowthCta() {
                       id="cta-interest"
                       value={formData.areaOfInterest}
                       onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none"
+                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] focus:border-[#7D2639] focus:bg-white focus:outline-none"
                     >
                       {interestOptions.map((opt) => (
                         <option key={opt} value={opt}>
@@ -197,7 +199,7 @@ export default function GrowthCta() {
                     placeholder="Describe your transformation goals, key challenges, or timeline..."
                     value={formData.objectives}
                     onChange={(e) => setFormData({ ...formData, objectives: e.target.value })}
-                    className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-[#FFFDF8] focus:outline-none resize-none"
+                    className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-[#FFFAF2] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#7D2639] focus:bg-white focus:outline-none resize-none"
                   />
                 </div>
 
