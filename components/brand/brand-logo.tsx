@@ -38,7 +38,7 @@ export default function BrandLogo({
         <span
           className={cn(
             "text-[0.9rem] font-semibold tracking-[0.1em] sm:text-[1.05rem]",
-            tone === "light" ? "text-white" : "text-[var(--ca-ink-dark)]",
+            tone === "light" ? "text-[#F7F0E7]" : "text-[#261F1B]",
           )}
         >
           CONSULTAMERICA

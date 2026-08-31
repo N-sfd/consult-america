@@ -13,7 +13,7 @@ export default function Hero() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="mkt-hero-bg relative overflow-hidden pt-[76px] pb-12 sm:pt-[88px] sm:pb-16 lg:pt-[104px] lg:pb-20">
+    <section className="mkt-hero-bg relative overflow-hidden pt-[76px] pb-12 sm:pt-[88px] sm:pb-16 lg:pt-[100px] lg:pb-20">
       <div className="mkt-shell relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-12 lg:items-center lg:gap-10 xl:gap-12">
           {/* Content: 52% width on desktop */}
@@ -23,7 +23,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <SectionLabel tone="blue">
+              <SectionLabel tone="burgundy">
                 Enterprise Consulting · Technology · Platforms
               </SectionLabel>
             </motion.div>
@@ -38,7 +38,7 @@ export default function Hero() {
                 as="h1"
                 size="hero"
                 reveal={false}
-                className="mkt-hero-heading--home text-[var(--mkt-navy)]"
+                className="mkt-hero-heading--home text-[#261F1B]"
               >
                 Technology that moves business forward.
               </EditorialHeading>
@@ -48,7 +48,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.16 }}
-              className="mt-4 max-w-xl text-[17px] leading-relaxed text-[var(--mkt-slate)] sm:text-lg lg:text-[20px]"
+              className="mt-4 max-w-xl text-[17px] leading-relaxed text-[#695F57] sm:text-lg lg:text-[19px]"
             >
               ConsultAmerica delivers enterprise transformation, Oracle and AI
               technologies, and unified software platforms from strategy through
@@ -59,7 +59,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.24 }}
-              className="mt-6 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center"
+              className="mt-7 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center"
             >
               <button
                 type="button"
@@ -71,7 +71,7 @@ export default function Hero() {
               </button>
               <Link
                 href="/platforms"
-                className="ca-link justify-center text-sm font-semibold sm:justify-start"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#261F1B] px-5 py-3 text-sm font-semibold text-[#261F1B] transition-colors hover:border-[#7D2639] hover:text-[#7D2639] sm:justify-start"
               >
                 Explore enterprise platforms
                 <ArrowUpRight className="h-4 w-4" />

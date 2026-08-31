@@ -45,12 +45,12 @@ export default function AiDataFeature({
   return (
     <section
       id="ai-data"
-      className="mkt-section relative overflow-hidden bg-[var(--mkt-ice-soft)]"
+      className="mkt-section relative overflow-hidden bg-[#DFE4DA]"
     >
       <div className="mkt-shell relative z-10">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <SectionLabel tone="blue">AI & Data</SectionLabel>
+            <SectionLabel tone="burgundy">AI & Data</SectionLabel>
 
             <motion.div
               initial={{ opacity: 0, y: 28 }}
@@ -62,21 +62,21 @@ export default function AiDataFeature({
               <EditorialHeading
                 as={headingLevel}
                 size={headingLevel === "h1" ? "hero" : "section"}
-                className="max-w-xl text-[var(--mkt-navy)]"
+                className="max-w-xl text-[#261F1B]"
               >
                 Move from AI experiments
                 <br />
                 to enterprise intelligence.
               </EditorialHeading>
 
-              <p className="mkt-body-lg mt-8 max-w-md">
+              <p className="mkt-body-lg mt-8 max-w-md text-[#695F57]">
                 Connect enterprise data, AI models, automation, and business
                 workflows into intelligent systems that operate securely in
                 production.
               </p>
 
               {linkToDetail && (
-                <Link href="/ai-data" className="ca-button-primary mt-10">
+                <Link href="/ai-data" className="ca-button-primary mt-10 inline-flex font-semibold">
                   Explore AI & Data
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -87,15 +87,15 @@ export default function AiDataFeature({
               {aiAreas.map((area) => (
                 <article
                   key={area.title}
-                  className="border-t border-[var(--mkt-border)] pt-5"
+                  className="border-t border-[#8C9A87] pt-5"
                 >
-                  <p className="mkt-eyebrow text-[var(--mkt-muted)]">
+                  <p className="mkt-eyebrow text-[#657766]">
                     {area.number}
                   </p>
-                  <h3 className="mt-3 text-lg font-medium tracking-[-0.02em] text-[var(--mkt-navy)]">
+                  <h3 className="mt-3 text-lg font-bold tracking-[-0.02em] text-[#261F1B]">
                     {area.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[var(--mkt-muted)]">
+                  <p className="mt-2 text-sm leading-6 text-[#695F57]">
                     {area.description}
                   </p>
                 </article>
@@ -117,4 +117,3 @@ export default function AiDataFeature({
     </section>
   );
 }
-

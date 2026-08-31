@@ -31,7 +31,7 @@ export default function WhyConsultAmerica() {
   return (
     <section
       id="why-consultamerica"
-      className="mkt-section bg-[#081a2f] text-white"
+      className="mkt-section bg-[#2B2420] text-[#F7F0E7]"
     >
       <div className="mkt-shell">
         <SectionLabel tone="light">Why ConsultAmerica</SectionLabel>
@@ -41,7 +41,7 @@ export default function WhyConsultAmerica() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-5 max-w-3xl text-2xl font-semibold leading-[1.18] tracking-[-0.03em] text-white sm:text-3xl lg:text-4xl"
+          className="mt-5 max-w-3xl text-2xl font-bold leading-[1.18] tracking-[-0.03em] text-[#F7F0E7] sm:text-3xl lg:text-4xl"
         >
           Deep enough for the enterprise.
           <br className="hidden sm:inline" /> Focused enough to stay close.
@@ -55,15 +55,15 @@ export default function WhyConsultAmerica() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.05 }}
-              className="border-t border-white/15 pt-6"
+              className="border-t border-[#6F6259] pt-6"
             >
-              <span className="text-3xl font-light tracking-tight text-[#2ea7ff] sm:text-4xl">
+              <span className="text-3xl font-light tracking-tight text-[#D8C5AA] sm:text-4xl">
                 {item.number}
               </span>
-              <h3 className="mt-3 text-lg font-semibold tracking-[-0.01em] text-white sm:text-xl">
+              <h3 className="mt-3 text-lg font-bold tracking-[-0.01em] text-[#F7F0E7] sm:text-xl">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/65 sm:text-base">
+              <p className="mt-2 text-sm leading-relaxed text-[#CFC4BA] sm:text-base">
                 {item.description}
               </p>
             </motion.article>

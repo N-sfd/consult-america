@@ -10,10 +10,10 @@
 
 /* Careers / candidate: friendly, conversion-focused */
 .experience-careers {
-  --exp-bg: #f5f8fc;
+  --exp-bg: var(--ca-bg);
   --exp-surface: var(--ca-white);
-  --exp-text: #172b4d;
-  --exp-muted: #667085;
+  --exp-text: var(--ca-text-primary);
+  --exp-muted: var(--ca-text-secondary);
 }
 
 /* HR / ATS / employee: compact, operational */

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Users, UserCheck, FolderGit2, Briefcase, CreditCard, Cpu, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Users, UserCheck, FolderGit2, Briefcase, CreditCard } from "lucide-react";
 
 import SiteHeader from "@/components/navigation/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -64,11 +64,11 @@ export default function PlatformsPage() {
       <main className="experience-marketing">
         <section className="mkt-hero-bg pt-20 pb-16">
           <div className="mkt-shell">
-            <SectionLabel tone="blue">Software Platform Suite</SectionLabel>
-            <h1 className="mkt-hero-heading mt-4 text-[var(--mkt-navy)]">
+            <SectionLabel tone="burgundy">Software Platform Suite</SectionLabel>
+            <h1 className="mkt-hero-heading mt-4 text-[#261F1B]">
               Software built around how enterprise organizations operate.
             </h1>
-            <p className="mt-4 max-w-2xl text-lg text-[var(--mkt-slate)]">
+            <p className="mt-4 max-w-2xl text-lg text-[#695F57]">
               ConsultAmerica delivers a cohesive suite of production-ready enterprise
               applications spanning customer intelligence, hiring, human resources,
               and payroll operations.
@@ -76,7 +76,7 @@ export default function PlatformsPage() {
           </div>
         </section>
 
-        <section className="mkt-section bg-[var(--mkt-white)]">
+        <section className="mkt-section bg-[#FFFAF2]">
           <div className="mkt-shell">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {PLATFORMS.map((platform) => {
@@ -85,24 +85,24 @@ export default function PlatformsPage() {
                   <Link
                     key={platform.slug}
                     href={`/platforms/${platform.slug}`}
-                    className="ca-app-window group flex flex-col justify-between p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[var(--mkt-blue)]/50 hover:shadow-lg"
+                    className="ca-app-window group flex flex-col justify-between border border-[#D7CCBD] bg-[#FFFDF8] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#7D2639]/50 hover:shadow-lg"
                   >
                     <div>
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--mkt-cloud)] text-[var(--mkt-blue)] group-hover:bg-[var(--mkt-blue)] group-hover:text-white transition-colors">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F4EFE6] text-[#7D2639] group-hover:bg-[#7D2639] group-hover:text-white transition-colors">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <h3 className="mt-4 text-xl font-bold text-[var(--mkt-navy)] group-hover:text-[var(--mkt-blue)] transition-colors">
+                      <h3 className="mt-4 text-xl font-bold text-[#261F1B] group-hover:text-[#7D2639] transition-colors">
                         {platform.name}
                       </h3>
-                      <p className="mt-1 text-xs font-semibold text-[var(--mkt-blue)]">
+                      <p className="mt-1 text-xs font-semibold text-[#657766]">
                         {platform.tagline}
                       </p>
-                      <p className="mt-2 text-xs leading-relaxed text-[var(--mkt-slate)]">
+                      <p className="mt-2 text-xs leading-relaxed text-[#695F57]">
                         {platform.description}
                       </p>
                     </div>
 
-                    <div className="mt-6 border-t border-[var(--mkt-border)] pt-4 flex items-center justify-between text-xs font-semibold text-[var(--mkt-blue)]">
+                    <div className="mt-6 border-t border-[#D7CCBD] pt-4 flex items-center justify-between text-xs font-semibold text-[#7D2639]">
                       <span>Explore Platform</span>
                       <ArrowUpRight className="h-4 w-4" />
                     </div>

@@ -37,11 +37,11 @@ export default function OracleFeature({
   linkToDetail?: boolean;
 }) {
   return (
-    <section id="oracle" className="mkt-section bg-[var(--mkt-cloud)]">
+    <section id="oracle" className="mkt-section bg-[#F4EFE6]">
       <div className="mkt-shell">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
-            <SectionLabel tone="blue">Oracle</SectionLabel>
+            <SectionLabel tone="burgundy">Oracle</SectionLabel>
 
             <motion.div
               initial={{ opacity: 0, y: 28 }}
@@ -53,21 +53,21 @@ export default function OracleFeature({
               <EditorialHeading
                 as={headingLevel}
                 size={headingLevel === "h1" ? "hero" : "section"}
-                className="max-w-xl text-[var(--mkt-navy)]"
+                className="max-w-xl text-[#261F1B]"
               >
                 Transform the enterprise.
                 <br />
                 Not just the software.
               </EditorialHeading>
 
-              <p className="mkt-body-lg mt-8 max-w-md">
+              <p className="mkt-body-lg mt-8 max-w-md text-[#695F57]">
                 Modernize finance, procurement, supply chain, HR, projects,
                 planning, integration, and analytics through connected Oracle
                 enterprise platforms.
               </p>
 
               {linkToDetail && (
-                <Link href="/oracle" className="ca-button-primary mt-10">
+                <Link href="/oracle" className="ca-button-primary mt-10 inline-flex font-semibold">
                   Explore Oracle
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -86,7 +86,7 @@ export default function OracleFeature({
           </motion.div>
         </div>
 
-        <div className="mt-16 border-t border-[var(--mkt-border)]">
+        <div className="mt-16 border-t border-[#D7CCBD]">
           <div className="grid md:grid-cols-2 lg:grid-cols-4">
             {oracleAreas.map((area, index) => (
               <motion.div
@@ -95,12 +95,12 @@ export default function OracleFeature({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.04 }}
-                className="group border-b border-[var(--mkt-border)] py-7 md:border-r md:px-6 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0"
+                className="group border-b border-[#D7CCBD] py-7 md:border-r md:px-6 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0"
               >
-                <p className="text-sm text-[var(--mkt-muted)]">
+                <p className="text-sm font-semibold text-[#695F57]">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <p className="mt-3 text-lg font-medium text-[var(--mkt-navy)] transition-colors duration-200 group-hover:text-[var(--mkt-blue)]">
+                <p className="mt-3 text-lg font-bold text-[#261F1B] transition-colors duration-200 group-hover:text-[#7D2639]">
                   {area}
                 </p>
               </motion.div>
@@ -108,16 +108,16 @@ export default function OracleFeature({
           </div>
         </div>
 
-        <div className="mt-14 border-t border-[var(--mkt-border)] pt-10">
-          <p className="mkt-eyebrow text-[var(--mkt-muted)]">End-to-end delivery</p>
+        <div className="mt-14 border-t border-[#D7CCBD] pt-10">
+          <p className="mkt-eyebrow text-[#695F57]">End-to-end delivery</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
             {lifecycle.map((item, index) => (
               <div key={item} className="flex items-center gap-8">
-                <span className="text-sm font-medium text-[var(--mkt-text)]">
+                <span className="text-sm font-semibold text-[#261F1B]">
                   {item}
                 </span>
                 {index < lifecycle.length - 1 && (
-                  <span aria-hidden="true" className="text-[var(--mkt-border)]">
+                  <span aria-hidden="true" className="text-[#D7CCBD]">
                     →
                   </span>
                 )}
@@ -129,4 +129,3 @@ export default function OracleFeature({
     </section>
   );
 }
-

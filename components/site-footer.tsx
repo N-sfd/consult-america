@@ -64,13 +64,13 @@ export function SiteFooter() {
   const { setOpen } = useContactPanel();
 
   return (
-    <footer className="border-t border-white/10 bg-[#061522] text-white">
+    <footer className="border-t border-[#433A35] bg-[#211B18] text-[#CFC4BA]">
       <Shell className="py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand Col */}
           <div className="sm:col-span-2 lg:col-span-3">
             <BrandLogo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#CFC4BA]">
               Consulting, technology, and enterprise software platforms delivered to production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
@@ -84,7 +84,7 @@ export function SiteFooter() {
               </button>
               <Link
                 href="/login"
-                className="text-xs font-medium text-white/50 hover:text-white transition-colors"
+                className="text-xs font-medium text-[#CFC4BA]/70 hover:text-[#E2B6C0] transition-colors"
               >
                 Employee Portal Login →
               </Link>
@@ -97,18 +97,18 @@ export function SiteFooter() {
               <details
                 key={column.title}
                 open
-                className="group border-b border-white/10 pb-4 sm:border-0 sm:pb-0"
+                className="group border-b border-[#433A35] pb-4 sm:border-0 sm:pb-0"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.12em] text-[#31a8ff] marker:content-none sm:cursor-default">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold uppercase tracking-[0.14em] text-[#FFFFFF] marker:content-none sm:cursor-default">
                   {column.title}
-                  <ChevronDown className="h-3.5 w-3.5 text-white/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
+                  <ChevronDown className="h-3.5 w-3.5 text-[#CFC4BA]/50 transition-transform duration-200 group-open:rotate-180 sm:hidden" />
                 </summary>
-                <ul className="mt-3.5 space-y-2">
+                <ul className="mt-3.5 space-y-2.5">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-xs text-white/65 transition-colors hover:text-white"
+                        className="text-xs text-[#CFC4BA] transition-colors hover:text-[#E2B6C0]"
                       >
                         {link.label}
                       </Link>
@@ -121,18 +121,18 @@ export function SiteFooter() {
         </div>
 
         {/* Footer Bottom Strip */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-[#433A35] pt-6 text-xs text-[#CFC4BA]/70 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} ConsultAmerica Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-white transition-colors">
+            <Link href="/about" className="hover:text-[#E2B6C0] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/about" className="hover:text-white transition-colors">
+            <Link href="/about" className="hover:text-[#E2B6C0] transition-colors">
               Terms of Service
             </Link>
             <a
               href={`https://${SITE_DOMAIN}`}
-              className="text-white/40 hover:text-white transition-colors"
+              className="text-[#CFC4BA]/50 hover:text-[#E2B6C0] transition-colors"
             >
               {SITE_DOMAIN}
             </a>

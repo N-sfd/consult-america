@@ -8,46 +8,65 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* ConsultAmerica V8 brand palette */
-  --ca-navy: #081a2f;
-  --ca-deep-navy: #081a2f;
-  --ca-enterprise-navy: #0e2b4f;
-  --ca-black: #081a2f;
-  --ca-blue: #2457f5;
-  --ca-blue-hover: #1b45c9;
-  --ca-cyan: #2ea7ff;
-  --ca-bright: #2ea7ff;
-  --ca-blue-soft: #2ea7ff;
-  --ca-electric: #2ea7ff;
-  --ca-slate: #425466;
-  --ca-cloud: #eef4fa;
-  --ca-ice: #f7f9fc;
-  --ca-ice-blue: #e8f1ff;
-  --ca-ice-soft: #f4f8fd;
-  --ca-warm: #fafaf8;
-  --ca-white: #ffffff;
-  --ca-off-white: #f7f9fc;
-  --ca-careers: #eef4fa;
-  --ca-ink-dark: #081a2f;
-  --ca-ink: #ffffff;
-  --ca-text-primary: #081a2f;
-  --ca-text-secondary: #425466;
-  --ca-nav: #1b365d;
-  --ca-text: #081a2f;
-  --ca-muted: #425466;
-  --ca-dim: #627d98;
-  --ca-line: #dce5ee;
-  --ca-border: #dce5ee;
-  --ca-border-light: #dce5ee;
-  --ca-header-border: #dce5ee;
-  --ca-surface: #ffffff;
-  --ca-success: #16a36a;
-  --ca-warning: #d99a1b;
-  --ca-error: #d94b4b;
-  --ca-green: #16a36a;
-  --ca-green-bright: #22c55e;
-  --ca-amber: #d99a1b;
-  --ca-gold: #d99a1b;
+  /* ConsultAmerica Warm Editorial Enterprise Palette */
+  --ca-bg: #F4EFE6;
+  --ca-bg-secondary: #FFFAF2;
+  --ca-surface: #FFFDF8;
+  --ca-text-primary: #261F1B;
+  --ca-text-secondary: #695F57;
+  --ca-burgundy: #7D2639;
+  --ca-burgundy-hover: #681F30;
+  --ca-sage: #657766;
+  --ca-sage-light: #DFE4DA;
+  --ca-sand: #D8C5AA;
+  --ca-sand-light: #F0E8DC;
+  --ca-border: #D7CCBD;
+  --ca-border-light: #E5DDD0;
+  --ca-header-border: #D7CCBD;
+  --ca-dark: #2B2420;
+  --ca-dark-secondary: #342B27;
+  --ca-dark-card: #3A302B;
+  --ca-dark-border: #6F6259;
+  --ca-text-on-dark: #F7F0E7;
+  --ca-muted-on-dark: #CFC4BA;
+  --ca-footer-bg: #211B18;
+  --ca-footer-border: #433A35;
+  --ca-footer-hover: #E2B6C0;
+
+  /* Legacy variable mapping to ensure 100% theme consistency */
+  --ca-navy: #261F1B;
+  --ca-deep-navy: #2B2420;
+  --ca-enterprise-navy: #342B27;
+  --ca-black: #261F1B;
+  --ca-blue: #7D2639;
+  --ca-blue-hover: #681F30;
+  --ca-blue-soft: #657766;
+  --ca-cyan: #657766;
+  --ca-bright: #7D2639;
+  --ca-electric: #7D2639;
+  --ca-slate: #695F57;
+  --ca-cloud: #FFFAF2;
+  --ca-ice: #F4EFE6;
+  --ca-ice-blue: #DFE4DA;
+  --ca-ice-soft: #FFFAF2;
+  --ca-warm: #F4EFE6;
+  --ca-white: #FFFDF8;
+  --ca-off-white: #FFFAF2;
+  --ca-careers: #2B2420;
+  --ca-ink-dark: #261F1B;
+  --ca-ink: #FFFDF8;
+  --ca-nav: #261F1B;
+  --ca-text: #261F1B;
+  --ca-muted: #695F57;
+  --ca-dim: #8A7F77;
+  --ca-line: #D7CCBD;
+  --ca-success: #657766;
+  --ca-warning: #C77A16;
+  --ca-error: #B93838;
+  --ca-green: #657766;
+  --ca-green-bright: #657766;
+  --ca-amber: #D8C5AA;
+  --ca-gold: #D8C5AA;
   --ca-max-width: 1280px;
   --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   --ca-section-y: clamp(3.5rem, 6vw, 6rem);
@@ -58,12 +77,12 @@
   --ca-app-sidebar: 240px;
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 64px;
-  --ca-app-bg: #f6f8fc;
-  --ca-app-sidebar-bg: #ffffff;
-  --ca-app-ink: #081a2f;
-  --ca-app-muted: #425466;
-  --ca-app-border: #dce5ee;
-  --ca-app-selected: #eef4fa;
+  --ca-app-bg: #F4EFE6;
+  --ca-app-sidebar-bg: #FFFDF8;
+  --ca-app-ink: #261F1B;
+  --ca-app-muted: #695F57;
+  --ca-app-border: #D7CCBD;
+  --ca-app-selected: #DFE4DA;
   --ca-space-1: 0.5rem;
   --ca-space-2: 0.75rem;
   --ca-space-3: 1rem;
@@ -79,19 +98,19 @@
   --card-foreground: var(--ca-text-primary);
   --popover: var(--ca-white);
   --popover-foreground: var(--ca-text-primary);
-  --primary: var(--ca-blue);
-  --primary-foreground: var(--ca-white);
+  --primary: var(--ca-burgundy);
+  --primary-foreground: #FFFFFF;
   --secondary: var(--ca-cloud);
   --secondary-foreground: var(--ca-navy);
-  --muted: var(--ca-ice);
+  --muted: var(--ca-cloud);
   --muted-foreground: var(--ca-text-secondary);
-  --accent: var(--ca-cloud);
+  --accent: var(--ca-sage-light);
   --accent-foreground: var(--ca-navy);
   --destructive: var(--ca-error);
   --border: var(--ca-border);
   --input: var(--ca-border);
-  --ring: var(--ca-blue);
-  --radius: 0;
+  --ring: var(--ca-burgundy);
+  --radius: 8px;
 }
 
 @theme inline {
@@ -116,9 +135,9 @@
   --max-width-ca: var(--ca-max-width);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-heading: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: "Georgia", Cambria, "Times New Roman", Times, serif;
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -148,7 +167,7 @@ html {
 body {
   background: var(--ca-ice);
   color: var(--ca-text-primary);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: clamp(0.95rem, 0.52vw + 0.51em, 1.05rem);
   line-height: 1.5;
@@ -188,30 +207,33 @@ body {
 }
 
 .ca-display {
+  font-family: var(--font-heading);
   font-size: clamp(3.25rem, 5.2vw, 5.25rem);
   line-height: 0.96;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
   font-weight: 500;
 }
 
 .ca-h1 {
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 4vw, 3.25rem);
   line-height: 1.08;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   font-weight: 600;
 }
 
 .ca-h2 {
+  font-family: var(--font-heading);
   font-size: clamp(2.35rem, 4vw, 3.5rem);
   line-height: 1.02;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   font-weight: 600;
 }
 
 .ca-h3 {
   font-size: clamp(1.2rem, 2vw, 1.55rem);
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   font-weight: 600;
 }
 
@@ -230,7 +252,7 @@ body {
 .ca-eyebrow {
   font-size: 0.72rem;
   line-height: 1;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -239,14 +261,14 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 500;
-  color: var(--ca-blue);
+  font-weight: 600;
+  color: var(--ca-burgundy);
   transition: gap 200ms ease, color 200ms ease;
 }
 
 .ca-link:hover {
   gap: 0.75rem;
-  color: var(--ca-blue-soft);
+  color: var(--ca-burgundy-hover);
 }
 
 .ca-button-primary {
@@ -254,12 +276,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  min-height: 3rem;
-  padding: 0.85em 1.45em;
-  border: 1px solid var(--ca-blue);
+  min-height: 2.85rem;
+  padding: 0.8em 1.4em;
+  border: 1px solid var(--ca-burgundy);
   border-radius: 8px;
-  background: var(--ca-blue);
-  color: var(--ca-white);
+  background: var(--ca-burgundy);
+  color: #FFFFFF;
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
@@ -269,9 +291,9 @@ body {
 }
 
 .ca-button-primary:hover {
-  background: var(--ca-blue-hover);
-  border-color: var(--ca-blue-hover);
-  color: var(--ca-white);
+  background: var(--ca-burgundy-hover);
+  border-color: var(--ca-burgundy-hover);
+  color: #FFFFFF;
   gap: 0.7em;
 }
 
@@ -280,12 +302,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  min-height: 3rem;
-  padding: 0.85em 1.45em;
-  border: 1px solid var(--ca-white);
+  min-height: 2.85rem;
+  padding: 0.8em 1.4em;
+  border: 1px solid var(--ca-border);
   border-radius: 8px;
-  background: var(--ca-white);
-  color: var(--ca-ink-dark);
+  background: var(--ca-surface);
+  color: var(--ca-burgundy);
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
@@ -294,8 +316,8 @@ body {
 }
 
 .ca-button-light:hover {
-  background: #e8eef5;
-  color: var(--ca-ink-dark);
+  background: var(--ca-bg-secondary);
+  color: var(--ca-burgundy-hover);
 }
 
 .ca-button-dark {
@@ -305,18 +327,18 @@ body {
   gap: 0.5em;
   min-height: 2.75rem;
   padding: 0.75em 1.1em;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(247, 240, 231, 0.2);
   border-radius: 8px;
   background: transparent;
-  color: var(--ca-white);
+  color: var(--ca-text-on-dark);
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .ca-button-dark:hover {
-  background: rgba(59, 130, 246, 0.12);
-  border-color: var(--ca-blue);
+  background: rgba(125, 38, 57, 0.2);
+  border-color: var(--ca-sand);
 }
 
 .ca-rule {
@@ -332,7 +354,7 @@ body {
 }
 
 .ca-nav-link:hover {
-  color: var(--ca-blue);
+  color: var(--ca-burgundy);
 }
 
 .ca-nav-link::after {
@@ -342,7 +364,7 @@ body {
   left: 0;
   height: 1.5px;
   content: "";
-  background: var(--ca-blue);
+  background: var(--ca-burgundy);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 350ms ease;
@@ -358,24 +380,24 @@ body {
   width: 100%;
   min-height: 48px;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid var(--ca-border);
   border-radius: 0;
   background: transparent;
-  color: var(--ca-white);
+  color: var(--ca-text-primary);
   padding: 0.85rem 0;
   font-size: 16px;
   outline: none;
 }
 
 .ca-underline-input:focus {
-  border-bottom-color: var(--ca-white);
+  border-bottom-color: var(--ca-burgundy);
 }
 
 .ca-tag {
   display: inline-flex;
   align-items: center;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  border-bottom: 1px solid var(--ca-border);
   border-radius: 0;
   background: transparent;
   -webkit-backdrop-filter: none;
@@ -384,7 +406,7 @@ body {
   font-size: 0.78em;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--ca-text-secondary);
   cursor: pointer;
   transition:
     border-color 200ms ease,
@@ -394,15 +416,15 @@ body {
 .ca-tag:hover,
 .ca-tag:focus-visible {
   background: transparent;
-  border-bottom-color: var(--ca-blue);
-  color: #fff;
+  border-bottom-color: var(--ca-burgundy);
+  color: var(--ca-burgundy);
   box-shadow: none;
 }
 
 .ca-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 0;
-  background: transparent;
+  border: 1px solid var(--ca-border);
+  border-radius: 8px;
+  background: var(--ca-surface);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   transition:
@@ -411,16 +433,17 @@ body {
 }
 
 .ca-card:hover {
-  border-color: rgba(59, 130, 246, 0.45);
-  background: rgba(255, 255, 255, 0.02);
+  border-color: var(--ca-sand);
+  background: var(--ca-surface);
   box-shadow: none;
 }
 
 /* —— Insights article surface —— */
 .ca-insight-title {
+  font-family: var(--font-heading);
   font-size: clamp(2.35rem, 5.5vw, 4.25rem);
   line-height: 1.08;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   font-weight: 500;
 }
 
@@ -451,31 +474,33 @@ body {
 
 .ca-insight-divider {
   margin-bottom: clamp(2rem, 4vw, 3rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--ca-border);
 }
 
 .ca-insight-section-title {
+  font-family: var(--font-heading);
   font-size: clamp(1.55rem, 2.4vw, 2rem);
   line-height: 1.2;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   font-weight: 500;
 }
 
 .ca-insight-prose {
   font-size: clamp(1.05rem, 0.4vw + 1rem, 1.2rem);
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.68);
+  color: var(--ca-text-secondary);
 }
 
 .ca-insight-pullquote {
   margin: clamp(2.5rem, 5vw, 4rem) 0;
   padding: 1.75rem 0 1.75rem 1.25rem;
-  border-left: 2px solid var(--ca-blue);
+  border-left: 2px solid var(--ca-burgundy);
+  font-family: var(--font-heading);
   font-size: clamp(1.35rem, 2vw, 1.75rem);
   line-height: 1.35;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--ca-text-primary);
 }
 
 .ca-insight-diagram {
@@ -483,8 +508,8 @@ body {
   margin-inline: calc(var(--ca-gutter) * -0.15);
   max-width: min(920px, 100%);
   padding: clamp(1.75rem, 3vw, 2.5rem);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--ca-border);
+  background: var(--ca-surface);
 }
 
 .ca-insight-cta {
@@ -501,7 +526,7 @@ body {
 }
 
 .ca-scroll-cue:hover .ca-scroll-cue-icon {
-  border-color: rgba(255, 255, 255, 0.55);
+  border-color: var(--ca-burgundy);
   animation: ca-scroll-nudge 1.1s ease-in-out infinite;
 }
 
@@ -565,8 +590,8 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 1px solid var(--ca-blue);
-  outline-offset: 3px;
+  outline: 2px solid var(--ca-burgundy);
+  outline-offset: 2px;
 }
 
 @media (max-width: 767px) {

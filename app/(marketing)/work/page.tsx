@@ -20,29 +20,29 @@ export default function WorkPage() {
 
   return (
     <>
-      <section className="mkt-section bg-[var(--mkt-cloud)] text-[var(--mkt-navy)]">
+      <section className="mkt-section bg-[#F4EFE6] text-[#261F1B]">
         <div className="mkt-shell">
-          <SectionLabel tone="blue">Work</SectionLabel>
+          <SectionLabel tone="burgundy">Work</SectionLabel>
           <EditorialHeading
             as="h1"
             size="hero"
-            className="mt-7 max-w-2xl text-[var(--mkt-navy)]"
+            className="mt-7 max-w-2xl text-[#261F1B]"
           >
             Outcomes you can see. Technology we've built.
           </EditorialHeading>
-          <p className="mkt-body-lg mt-7 max-w-lg">
+          <p className="mkt-body-lg mt-7 max-w-lg text-[#695F57]">
             Two kinds of proof: client engagements delivered end to end, and
             products our Innovation Lab has built and shipped.
           </p>
         </div>
       </section>
 
-      <section className="mkt-section bg-white">
+      <section className="mkt-section bg-[#FFFAF2]">
         <div className="mkt-shell">
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
             <Link
               href="/work/case-studies"
-              className="group block overflow-hidden rounded-2xl border border-[var(--mkt-border)] transition-colors hover:border-[var(--mkt-blue)]/40"
+              className="group block overflow-hidden rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] transition-colors hover:border-[#7D2639]/40 hover:shadow-lg"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -54,18 +54,18 @@ export default function WorkPage() {
                 />
               </div>
               <div className="p-8">
-                <p className="mkt-eyebrow text-[var(--mkt-blue)]">
+                <p className="mkt-eyebrow text-[#7D2639]">
                   Client Work
                 </p>
-                <h2 className="mt-3 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
+                <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#261F1B] group-hover:text-[#7D2639] transition-colors">
                   Case Studies
                 </h2>
-                <p className="mt-3 max-w-md text-sm leading-6 text-[var(--mkt-muted)]">
+                <p className="mt-3 max-w-md text-sm leading-6 text-[#695F57]">
                   Enterprise transformation, Oracle, and AI &amp; data
                   engagements delivered for clients — from strategy through
                   production.
                 </p>
-                <span className="ca-link mt-6 w-fit text-sm">
+                <span className="ca-link mt-6 w-fit text-sm font-semibold text-[#7D2639] group-hover:text-[#681F30]">
                   View case studies
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
@@ -74,7 +74,7 @@ export default function WorkPage() {
 
             <Link
               href="/work/innovation"
-              className="group block overflow-hidden rounded-2xl border border-[var(--mkt-border)] transition-colors hover:border-[var(--mkt-blue)]/40"
+              className="group block overflow-hidden rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] transition-colors hover:border-[#7D2639]/40 hover:shadow-lg"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -86,17 +86,17 @@ export default function WorkPage() {
                 />
               </div>
               <div className="p-8">
-                <p className="mkt-eyebrow text-[var(--mkt-blue)]">
+                <p className="mkt-eyebrow text-[#7D2639]">
                   Innovation Lab
                 </p>
-                <h2 className="mt-3 text-2xl font-medium tracking-[-0.03em] text-[var(--mkt-navy)]">
+                <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#261F1B] group-hover:text-[#7D2639] transition-colors">
                   Innovation &amp; Products
                 </h2>
-                <p className="mt-3 max-w-md text-sm leading-6 text-[var(--mkt-muted)]">
+                <p className="mt-3 max-w-md text-sm leading-6 text-[#695F57]">
                   AI platforms and digital products we've built ourselves —
                   working technology, not just consulting claims.
                 </p>
-                <span className="ca-link mt-6 w-fit text-sm">
+                <span className="ca-link mt-6 w-fit text-sm font-semibold text-[#7D2639] group-hover:text-[#681F30]">
                   Explore innovation
                   <ArrowUpRight className="h-4 w-4" />
                 </span>

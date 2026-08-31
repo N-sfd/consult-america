@@ -1,4 +1,4 @@
-/* ConsultAmerica Marketing V9 — Enterprise Software Company */
+/* ConsultAmerica Marketing V9 — Warm Editorial Enterprise System */
 
 :root {
   --mkt-max: 1280px;
@@ -11,44 +11,63 @@
   --mkt-body: clamp(0.95rem, 0.15vw + 0.9rem, 1.125rem); /* 15–18px */
   --mkt-prose: 42rem;
 
-  /* Three-Layer V9 Enterprise Color System */
-  /* Primary Dark Environment */
-  --mkt-deep-navy: #071a2b;
-  --mkt-enterprise-navy: #0b2844;
-  --mkt-navy-medium: #10385f;
-  --mkt-navy: #071a2b;
-  --mkt-ink: #071a2b;
-  --mkt-footer-bg: #061522;
+  /* Master Warm Editorial Palette */
+  --mkt-ivory: #F4EFE6;
+  --mkt-cream: #FFFAF2;
+  --mkt-surface: #FFFDF8;
+  --mkt-charcoal: #261F1B;
+  --mkt-warm-gray: #695F57;
+  --mkt-burgundy: #7D2639;
+  --mkt-burgundy-hover: #681F30;
+  --mkt-sage: #657766;
+  --mkt-sage-light: #DFE4DA;
+  --mkt-sand: #D8C5AA;
+  --mkt-sand-light: #F0E8DC;
+  --mkt-border: #D7CCBD;
+  --mkt-border-dark: #6F6259;
+  --mkt-dark: #2B2420;
+  --mkt-dark-secondary: #342B27;
+  --mkt-dark-card: #3A302B;
+  --mkt-text-on-dark: #F7F0E7;
+  --mkt-muted-on-dark: #CFC4BA;
+  --mkt-footer-bg: #211B18;
+  --mkt-footer-border: #433A35;
+  --mkt-footer-hover: #E2B6C0;
+  --mkt-cta-bg: #7D2639;
+  --mkt-cta-copy: #F1DCE1;
 
-  /* Product & Action Blue */
-  --mkt-royal-blue: #2563eb;
-  --mkt-blue: #2563eb;
-  --mkt-blue-hover: #1d4ed8;
-  --mkt-blue-light: #3388ff;
-  --mkt-cyan: #31a8ff;
-  --mkt-bright: #31a8ff;
-  --mkt-blue-soft: #31a8ff;
+  /* Semantic mappings to maintain total backwards compatibility */
+  --mkt-deep-navy: #2B2420;
+  --mkt-enterprise-navy: #342B27;
+  --mkt-navy-medium: #3A302B;
+  --mkt-navy: #261F1B;
+  --mkt-ink: #261F1B;
 
-  /* Light Application Surfaces */
-  --mkt-slate: #425466;
-  --mkt-muted: #425466;
-  --mkt-cloud: #f4f7fb;
-  --mkt-ice: #eaf1f8;
-  --mkt-ice-blue: #eaf1f8;
-  --mkt-ice-soft: #f4f7fb;
-  --mkt-warm: #fafaf8;
-  --mkt-white: #ffffff;
-  --mkt-off: #f4f7fb;
-  --mkt-careers: #f4f7fb;
-  --mkt-text: #071a2b;
-  --mkt-text-secondary: #425466;
-  --mkt-dim: #627d98;
-  --mkt-nav: #10385f;
-  --mkt-border: #dce5ee;
-  --mkt-border-dark: #1b365d;
-  --mkt-success: #16a36a;
-  --mkt-warning: #d99a1b;
-  --mkt-error: #d94b4b;
+  --mkt-royal-blue: #7D2639;
+  --mkt-blue: #7D2639;
+  --mkt-blue-hover: #681F30;
+  --mkt-blue-light: #657766;
+  --mkt-cyan: #657766;
+  --mkt-bright: #7D2639;
+  --mkt-blue-soft: #657766;
+
+  --mkt-slate: #695F57;
+  --mkt-muted: #695F57;
+  --mkt-cloud: #FFFAF2;
+  --mkt-ice: #F4EFE6;
+  --mkt-ice-blue: #DFE4DA;
+  --mkt-ice-soft: #FFFAF2;
+  --mkt-warm: #F4EFE6;
+  --mkt-white: #FFFDF8;
+  --mkt-off: #FFFAF2;
+  --mkt-careers: #2B2420;
+  --mkt-text: #261F1B;
+  --mkt-text-secondary: #695F57;
+  --mkt-dim: #8A7F77;
+  --mkt-nav: #261F1B;
+  --mkt-success: #657766;
+  --mkt-warning: #C77A16;
+  --mkt-error: #B93838;
 }
 
 @media (min-width: 768px) {
@@ -89,41 +108,43 @@
 }
 
 .mkt-hero-heading {
+  font-family: var(--font-heading);
   font-size: var(--mkt-hero);
   line-height: 0.98;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   font-weight: 600;
-  color: var(--mkt-navy);
+  color: var(--mkt-charcoal);
   max-width: 680px;
 }
 
 .mkt-section-heading {
+  font-family: var(--font-heading);
   font-size: var(--mkt-h2);
   line-height: 1.05;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   font-weight: 600;
-  color: var(--mkt-navy);
+  color: var(--mkt-charcoal);
   max-width: 720px;
 }
 
 .mkt-body-lg {
   font-size: var(--mkt-body-lg);
   line-height: 1.6;
-  color: var(--mkt-slate);
+  color: var(--mkt-warm-gray);
   max-width: var(--mkt-prose);
 }
 
 .mkt-body {
   font-size: var(--mkt-body);
   line-height: 1.6;
-  color: var(--mkt-slate);
+  color: var(--mkt-warm-gray);
   max-width: var(--mkt-prose);
 }
 
 .mkt-h3 {
   font-size: var(--mkt-h3);
   line-height: 1.15;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
   font-weight: 600;
 }
 
@@ -154,16 +175,16 @@
 
 .mkt-hero-bg {
   background:
-    radial-gradient(circle at 85% 15%, #dbeafe 0%, transparent 45%),
-    radial-gradient(circle at 15% 85%, #eff6ff 0%, transparent 40%),
-    var(--mkt-cloud);
+    radial-gradient(circle at 85% 15%, #F0E8DC 0%, transparent 45%),
+    radial-gradient(circle at 15% 85%, #FFFAF2 0%, transparent 40%),
+    var(--mkt-ivory);
 }
 
 .mkt-hero-heading.mkt-hero-heading--home {
   max-width: 680px;
   font-size: 42px;
   line-height: 1.02;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
 }
 
 @media (min-width: 640px) {
@@ -181,14 +202,14 @@
 
 @media (min-width: 1024px) {
   .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 68px;
+    font-size: 66px;
     line-height: 0.98;
   }
 }
 
 @media (min-width: 1280px) {
   .mkt-hero-heading.mkt-hero-heading--home {
-    font-size: 72px;
+    font-size: 70px;
   }
 }
 
@@ -199,19 +220,19 @@
 
 /* Application UI window frame styling */
 .ca-app-window {
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--mkt-border);
-  background: var(--mkt-white);
+  background: var(--mkt-surface);
   box-shadow:
-    0 24px 60px rgba(7, 26, 43, 0.12),
-    0 4px 16px rgba(7, 26, 43, 0.05);
+    0 20px 48px rgba(38, 31, 27, 0.08),
+    0 4px 12px rgba(38, 31, 27, 0.03);
   overflow: hidden;
 }
 
 .ca-app-window-dark {
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: #0b2844;
+  border-radius: 12px;
+  border: 1px solid var(--mkt-border-dark);
+  background: var(--mkt-dark-secondary);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.45),
     0 4px 16px rgba(0, 0, 0, 0.25);

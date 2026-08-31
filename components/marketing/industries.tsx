@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
+import SectionLabel from "@/components/marketing/SectionLabel";
+
 const industries = [
   {
     number: "01",
@@ -48,14 +50,12 @@ export default function Industries() {
   return (
     <section
       id="industries"
-      className="mkt-section bg-[var(--mkt-warm)] text-[var(--mkt-navy)]"
+      className="mkt-section bg-[#F4EFE6] text-[#261F1B]"
     >
       <div className="mkt-shell">
         <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <span className="mkt-eyebrow text-[var(--mkt-dim)]">
-              INDUSTRIES
-            </span>
+            <SectionLabel tone="burgundy">INDUSTRIES</SectionLabel>
           </div>
 
           <motion.div
@@ -65,13 +65,13 @@ export default function Industries() {
             transition={{ duration: 0.55 }}
             className="lg:col-span-8"
           >
-            <h2 className="mkt-section-heading text-[var(--mkt-navy)]">
+            <h2 className="mkt-section-heading text-[#261F1B]">
               Transformation looks different in every industry.
             </h2>
           </motion.div>
         </div>
 
-        {/* Asymmetric Editorial Mosaic — Single responsive DOM tree */}
+        {/* Asymmetric Editorial Mosaic */}
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-4">
           {industries.map((industry, index) => (
             <motion.article
@@ -84,7 +84,7 @@ export default function Industries() {
             >
               <Link
                 href={industry.href}
-                className="group relative block h-full w-full overflow-hidden rounded-xl border border-[var(--mkt-border)]"
+                className="group relative block h-full w-full overflow-hidden rounded-xl border border-[#D7CCBD]"
               >
                 <Image
                   src={industry.image}
@@ -94,18 +94,18 @@ export default function Industries() {
                   className="object-cover transition-transform duration-600 group-hover:scale-[1.025]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 60vw"
                 />
-                {/* Subtle, restrained gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--mkt-navy)]/80 via-[var(--mkt-navy)]/20 to-transparent" />
+                {/* Warm charcoal gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/85 via-[#261F1B]/25 to-transparent" />
 
                 <div className="absolute inset-0 flex flex-col justify-end p-4.5 sm:p-5">
-                  <span className="mkt-eyebrow text-white/50">
+                  <span className="mkt-eyebrow text-[#D8C5AA]">
                     {industry.number}
                   </span>
                   <div className="mt-1 flex items-end justify-between gap-3">
-                    <h3 className="text-lg font-medium tracking-[-0.02em] text-white sm:text-xl">
+                    <h3 className="text-lg font-medium tracking-[-0.02em] text-[#F7F0E7] sm:text-xl group-hover:text-white">
                       {industry.title}
                     </h3>
-                    <ArrowUpRight className="h-4.5 w-4.5 shrink-0 text-white/80 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
+                    <ArrowUpRight className="h-4.5 w-4.5 shrink-0 text-[#D8C5AA] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
                   </div>
                 </div>
               </Link>
@@ -114,7 +114,7 @@ export default function Industries() {
         </div>
 
         <div className="mt-6 flex justify-end">
-          <Link href="/industries" className="ca-link text-sm">
+          <Link href="/industries" className="ca-link text-sm font-semibold text-[#7D2639] hover:text-[#681F30]">
             Explore All Industries
             <ArrowUpRight className="h-4 w-4" />
           </Link>

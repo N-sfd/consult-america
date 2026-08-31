@@ -20,12 +20,12 @@ export default function OracleArchitectureDiagram({
   compact?: boolean;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--mkt-border)] bg-white shadow-[0_12px_36px_rgba(16,42,67,0.04)]">
-      <div className="flex items-center justify-between border-b border-[var(--mkt-border)] bg-[var(--mkt-ice)] px-4 py-2.5">
-        <span className="text-[0.68rem] font-semibold tracking-[0.14em] text-[var(--mkt-navy)] uppercase">
+    <div className="overflow-hidden rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_12px_36px_rgba(38,31,27,0.06)]">
+      <div className="flex items-center justify-between border-b border-[#D7CCBD] bg-[#F4EFE6] px-4 py-2.5">
+        <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[#261F1B] uppercase">
           Oracle Cloud Architecture
         </span>
-        <span className="text-[0.65rem] font-medium text-[var(--mkt-blue)]">
+        <span className="text-[0.65rem] font-bold text-[#7D2639]">
           Fusion · EPM · Analytics
         </span>
       </div>
@@ -36,7 +36,7 @@ export default function OracleArchitectureDiagram({
           {ROW_1.map((item) => (
             <div
               key={item}
-              className="rounded-lg border border-[var(--mkt-border)] bg-[var(--mkt-ice)] px-2.5 py-2 text-center text-xs font-medium text-[var(--mkt-navy)] shadow-xs transition-colors hover:border-[var(--mkt-blue)]/40 hover:bg-[var(--mkt-cloud)]"
+              className="rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] px-2.5 py-2 text-center text-xs font-semibold text-[#261F1B] shadow-xs transition-colors hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]"
             >
               {item}
             </div>
@@ -44,7 +44,7 @@ export default function OracleArchitectureDiagram({
           {ROW_2.map((item) => (
             <div
               key={item}
-              className="rounded-lg border border-[var(--mkt-border)] bg-[var(--mkt-ice)] px-2.5 py-2 text-center text-xs font-medium text-[var(--mkt-navy)] shadow-xs transition-colors hover:border-[var(--mkt-blue)]/40 hover:bg-[var(--mkt-cloud)]"
+              className="rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] px-2.5 py-2 text-center text-xs font-semibold text-[#261F1B] shadow-xs transition-colors hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]"
             >
               {item}
             </div>
@@ -53,27 +53,27 @@ export default function OracleArchitectureDiagram({
 
         {/* Connectors to Integration & Analytics */}
         <div className="flex flex-col items-center gap-1.5 pt-1">
-          <ArrowDown className="h-3.5 w-3.5 text-[var(--mkt-blue)]" />
-          <div className="w-full max-w-sm rounded-lg border border-[var(--mkt-blue)]/35 bg-[var(--mkt-cloud)] px-3 py-1.5 text-center text-xs font-semibold text-[var(--mkt-blue)]">
+          <ArrowDown className="h-3.5 w-3.5 text-[#657766]" />
+          <div className="w-full max-w-sm rounded-lg border border-[#657766]/50 bg-[#DFE4DA] px-3 py-1.5 text-center text-xs font-bold text-[#261F1B]">
             Integration Hub
           </div>
-          <ArrowDown className="h-3.5 w-3.5 text-[var(--mkt-navy)]" />
-          <div className="w-full max-w-sm rounded-lg border border-[var(--mkt-border)] bg-[var(--mkt-navy)] px-3 py-1.5 text-center text-xs font-medium text-white">
-            Data &amp; Analytics
+          <ArrowDown className="h-3.5 w-3.5 text-[#7D2639]" />
+          <div className="w-full max-w-sm rounded-lg border border-[#D8C5AA] bg-[#2B2420] px-3 py-1.5 text-center text-xs font-semibold text-[#F7F0E7]">
+            Data &amp; Analytics Platform
           </div>
         </div>
       </div>
 
       {/* Lifecycle footer */}
-      <div className="border-t border-[var(--mkt-border)] bg-[var(--mkt-ice-soft)] px-4 py-2.5">
+      <div className="border-t border-[#D7CCBD] bg-[#F4EFE6] px-4 py-2.5">
         <div className="flex flex-wrap items-center justify-between gap-x-1 gap-y-1">
           {FLOW_STEPS.map((step, index) => (
             <span key={step} className="flex items-center gap-1">
-              <span className="text-[0.68rem] font-medium text-[var(--mkt-muted)]">
+              <span className="text-[0.68rem] font-medium text-[#695F57]">
                 {step}
               </span>
               {index < FLOW_STEPS.length - 1 && (
-                <span className="text-[0.62rem] text-[var(--mkt-border)]">→</span>
+                <span className="text-[0.62rem] text-[#D7CCBD]">→</span>
               )}
             </span>
           ))}

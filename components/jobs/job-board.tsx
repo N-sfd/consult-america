@@ -114,16 +114,16 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
 
   return (
     <div>
-      <div className="cr-card space-y-6 p-6 md:p-8">
+      <div className="cr-card space-y-6 p-6 md:p-8 bg-[#FFFDF8] border border-[#D7CCBD]">
         <div className="grid gap-4">
           <div>
-            <label htmlFor="job-search" className="cr-label">
+            <label htmlFor="job-search" className="cr-label text-[#261F1B]">
               Search
             </label>
             <div className="relative">
               <Search
                 aria-hidden="true"
-                className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#102a43]"
+                className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#261F1B]"
               />
               <input
                 id="job-search"
@@ -131,7 +131,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search role or skill…"
-                className="cr-input pl-12 h-12 text-sm"
+                className="cr-input pl-12 h-12 text-sm bg-[#FFFDF8] border-[#D7CCBD]"
               />
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="flex h-14 items-center justify-center gap-2 rounded-xl border border-[var(--cr-border)] bg-white px-5 text-sm font-medium text-[var(--cr-text)] transition hover:border-[#b8c5d3] md:hidden"
+            className="flex h-14 items-center justify-center gap-2 rounded-xl border border-[var(--cr-border)] bg-white px-5 text-sm font-medium text-[var(--cr-text)] transition hover:border-[#B8AA96] md:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" />
             Filters
@@ -159,9 +159,9 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
       </div>
 
       <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-2xl">
+        <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-2xl bg-[#FFFDF8] text-[#261F1B]">
           <SheetHeader>
-            <SheetTitle>Filter Jobs</SheetTitle>
+            <SheetTitle className="text-[#261F1B]">Filter Jobs</SheetTitle>
           </SheetHeader>
 
           <div className="grid gap-4 px-4">
@@ -174,7 +174,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
             <button
               type="button"
               onClick={clearFilters}
-              className="h-12 flex-1 rounded-lg border border-[var(--cr-border)] text-sm font-medium text-[var(--cr-text)] transition hover:border-[#b8c5d3]"
+              className="h-12 flex-1 rounded-lg border border-[var(--cr-border)] text-sm font-medium text-[var(--cr-text)] transition hover:border-[#B8AA96]"
             >
               Clear
             </button>
@@ -182,7 +182,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
               render={
                 <button
                   type="button"
-                  className="h-12 flex-1 rounded-lg bg-[var(--cr-blue)] text-sm font-medium text-white transition hover:bg-[var(--cr-blue-hover)]"
+                  className="h-12 flex-1 rounded-lg bg-[var(--cr-blue)] text-sm font-semibold text-white transition hover:bg-[var(--cr-blue-hover)]"
                 >
                   {`Show ${filteredJobs.length} ${filteredJobs.length === 1 ? "Job" : "Jobs"}`}
                 </button>
@@ -194,7 +194,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
         <p className="text-sm text-[var(--cr-text-secondary)]">
-          <span className="font-medium text-[var(--cr-navy)]">
+          <span className="font-semibold text-[var(--cr-navy)]">
             {filteredJobs.length}
           </span>{" "}
           {filteredJobs.length === 1 ? "opportunity" : "opportunities"}
@@ -210,7 +210,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
           <button
             type="button"
             onClick={clearFilters}
-            className="text-sm font-medium text-[var(--cr-blue)] hover:text-[var(--cr-blue-hover)]"
+            className="text-sm font-semibold text-[var(--cr-blue)] hover:text-[var(--cr-blue-hover)]"
           >
             Clear Filters
           </button>

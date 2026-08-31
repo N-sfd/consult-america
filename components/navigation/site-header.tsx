@@ -40,8 +40,8 @@ export default function SiteHeader() {
 
   const headerSurface =
     scrolled || openMenu || drawerOpen
-      ? "border-[var(--ca-header-border)] bg-white/95 shadow-[0_2px_16px_rgba(8,26,47,0.05)] backdrop-blur-[12px]"
-      : "border-[var(--ca-header-border)] bg-white";
+      ? "border-[#D7CCBD] bg-[#F4EFE6]/96 shadow-[0_4px_20px_rgba(38,31,27,0.06)] backdrop-blur-[12px]"
+      : "border-[#D7CCBD] bg-[#F4EFE6]";
 
   return (
     <>
@@ -49,13 +49,13 @@ export default function SiteHeader() {
         className="sticky top-0 z-50"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        <div className="hidden bg-[var(--ca-navy)] md:block">
+        <div className="hidden bg-[#2B2420] md:block">
           <Link
             href={announcement.href}
-            className="ca-shell flex items-center justify-center gap-3 py-1.5 text-center text-[0.72rem] tracking-[0.04em] text-white/85 transition-opacity hover:opacity-75"
+            className="ca-shell flex items-center justify-center gap-3 py-1.5 text-center text-[0.72rem] tracking-[0.04em] text-[#F7F0E7] transition-colors hover:text-[#D8C5AA]"
           >
             <span>{announcement.text}</span>
-            <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
+            <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[#D8C5AA]" />
           </Link>
         </div>
 
@@ -74,7 +74,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "consulting"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium text-[#261F1B] hover:text-[#7D2639] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("consulting")}
                   onClick={() =>
                     setOpenMenu(openMenu === "consulting" ? null : "consulting")
@@ -88,7 +88,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "technology"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium text-[#261F1B] hover:text-[#7D2639] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("technology")}
                   onClick={() =>
                     setOpenMenu(openMenu === "technology" ? null : "technology")
@@ -102,7 +102,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "platforms"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium text-[#261F1B] hover:text-[#7D2639] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("platforms")}
                   onClick={() =>
                     setOpenMenu(openMenu === "platforms" ? null : "platforms")
@@ -116,7 +116,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   data-open={openMenu === "industries"}
-                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium cursor-pointer"
+                  className="ca-nav-link flex items-center gap-1 text-[0.9125rem] font-medium text-[#261F1B] hover:text-[#7D2639] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("industries")}
                   onClick={() =>
                     setOpenMenu(openMenu === "industries" ? null : "industries")
@@ -130,7 +130,7 @@ export default function SiteHeader() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="ca-nav-link text-[0.9125rem] font-medium"
+                    className="ca-nav-link text-[0.9125rem] font-medium text-[#261F1B] hover:text-[#7D2639]"
                     onMouseEnter={() => setOpenMenu(null)}
                   >
                     {item.label}
@@ -141,7 +141,7 @@ export default function SiteHeader() {
               <div className="flex items-center gap-3 sm:gap-4">
                 <Link
                   href="/login"
-                  className="hidden min-h-10 items-center px-3 text-[0.875rem] font-medium text-[var(--ca-slate)] transition-colors hover:text-[var(--ca-blue)] xl:inline-flex"
+                  className="hidden min-h-10 items-center px-3 text-[0.875rem] font-medium text-[#695F57] transition-colors hover:text-[#7D2639] xl:inline-flex"
                 >
                   Employee Login
                 </Link>
@@ -165,12 +165,12 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(true)}
-                  className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[var(--ca-border)] xl:hidden"
+                  className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] xl:hidden"
                   aria-label="Open navigation menu"
                   aria-expanded={drawerOpen}
                 >
-                  <span className="h-px w-4.5 bg-[var(--ca-navy)]" />
-                  <span className="h-px w-4.5 bg-[var(--ca-navy)]" />
+                  <span className="h-px w-4.5 bg-[#261F1B]" />
+                  <span className="h-px w-4.5 bg-[#261F1B]" />
                 </button>
               </div>
             </div>
@@ -180,7 +180,7 @@ export default function SiteHeader() {
         {/* Mega Menu Overlay */}
         {openMenu && (
           <div
-            className="hidden border-b border-[var(--ca-header-border)] bg-white shadow-xl xl:block"
+            className="hidden border-b border-[#D7CCBD] bg-[#FFFDF8] shadow-xl xl:block"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >
@@ -189,15 +189,15 @@ export default function SiteHeader() {
               {openMenu === "consulting" && (
                 <div className="grid grid-cols-12 gap-8">
                   <div className="col-span-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                       Transformation
                     </p>
-                    <ul className="mt-3 space-y-2.5">
+                    <ul className="mt-3.5 space-y-2.5">
                       {consultingGroups.transformation.map((item) => (
                         <li key={item.label}>
                           <Link
                             href={item.href}
-                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                            className="block text-sm font-medium text-[#261F1B] transition-colors hover:text-[#7D2639]"
                           >
                             {item.label}
                           </Link>
@@ -207,15 +207,15 @@ export default function SiteHeader() {
                   </div>
 
                   <div className="col-span-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                       Delivery
                     </p>
-                    <ul className="mt-3 space-y-2.5">
+                    <ul className="mt-3.5 space-y-2.5">
                       {consultingGroups.delivery.map((item) => (
                         <li key={item.label}>
                           <Link
                             href={item.href}
-                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                            className="block text-sm font-medium text-[#261F1B] transition-colors hover:text-[#7D2639]"
                           >
                             {item.label}
                           </Link>
@@ -224,14 +224,14 @@ export default function SiteHeader() {
                     </ul>
                   </div>
 
-                  <div className="col-span-4 rounded-xl border border-[var(--ca-border)] bg-[var(--ca-cloud)] p-5">
-                    <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--ca-blue)]">
+                  <div className="col-span-4 rounded-xl border border-[#D7CCBD] bg-[#F0E8DC] p-5">
+                    <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#7D2639]">
                       Featured Case Study
                     </span>
-                    <h4 className="mt-2 text-base font-semibold text-[var(--ca-navy)]">
+                    <h4 className="mt-2 text-base font-semibold text-[#261F1B]">
                       {consultingGroups.featured.title}
                     </h4>
-                    <p className="mt-1 text-xs text-[var(--ca-slate)]">
+                    <p className="mt-1.5 text-xs leading-relaxed text-[#695F57]">
                       {consultingGroups.featured.detail}
                     </p>
                     <Link
@@ -249,15 +249,15 @@ export default function SiteHeader() {
               {openMenu === "technology" && (
                 <div className="grid grid-cols-12 gap-8">
                   <div className="col-span-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                       Platforms &amp; Apps
                     </p>
-                    <ul className="mt-3 space-y-2.5">
+                    <ul className="mt-3.5 space-y-2.5">
                       {technologyGroups.platforms.map((item) => (
                         <li key={item.label}>
                           <Link
                             href={item.href}
-                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                            className="block text-sm font-medium text-[#261F1B] transition-colors hover:text-[#7D2639]"
                           >
                             {item.label}
                           </Link>
@@ -267,15 +267,15 @@ export default function SiteHeader() {
                   </div>
 
                   <div className="col-span-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                       Engineering &amp; Cloud
                     </p>
-                    <ul className="mt-3 space-y-2.5">
+                    <ul className="mt-3.5 space-y-2.5">
                       {technologyGroups.engineering.map((item) => (
                         <li key={item.label}>
                           <Link
                             href={item.href}
-                            className="block text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                            className="block text-sm font-medium text-[#261F1B] transition-colors hover:text-[#7D2639]"
                           >
                             {item.label}
                           </Link>
@@ -284,14 +284,14 @@ export default function SiteHeader() {
                     </ul>
                   </div>
 
-                  <div className="col-span-4 rounded-xl border border-[var(--ca-border)] bg-[var(--ca-cloud)] p-5">
-                    <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--ca-blue)]">
+                  <div className="col-span-4 rounded-xl border border-[#D7CCBD] bg-[#DFE4DA] p-5">
+                    <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#7D2639]">
                       Innovation Flagship
                     </span>
-                    <h4 className="mt-2 text-base font-semibold text-[var(--ca-navy)]">
+                    <h4 className="mt-2 text-base font-semibold text-[#261F1B]">
                       {technologyGroups.innovation.title}
                     </h4>
-                    <p className="mt-1 text-xs text-[var(--ca-slate)]">
+                    <p className="mt-1.5 text-xs leading-relaxed text-[#695F57]">
                       {technologyGroups.innovation.detail}
                     </p>
                     <Link
@@ -307,17 +307,17 @@ export default function SiteHeader() {
 
               {/* Platforms Mega Menu */}
               {openMenu === "platforms" && (
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-3 gap-5">
                   {platformLinks.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="group block rounded-xl border border-[var(--ca-border)] p-4 transition-all hover:border-[var(--ca-blue)]/40 hover:bg-[var(--ca-cloud)]"
+                      className="group block rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] p-4 transition-all hover:border-[#7D2639]/40 hover:bg-[#FFFAF2]"
                     >
-                      <h4 className="text-sm font-semibold text-[var(--ca-navy)] group-hover:text-[var(--ca-blue)]">
+                      <h4 className="text-sm font-semibold text-[#261F1B] group-hover:text-[#7D2639]">
                         {item.label}
                       </h4>
-                      <p className="mt-1 text-xs text-[var(--ca-slate)]">
+                      <p className="mt-1 text-xs text-[#695F57]">
                         {item.detail}
                       </p>
                     </Link>
@@ -327,12 +327,12 @@ export default function SiteHeader() {
 
               {/* Industries Mega Menu */}
               {openMenu === "industries" && (
-                <div className="grid max-w-3xl grid-cols-2 gap-x-12 gap-y-3">
+                <div className="grid max-w-3xl grid-cols-2 gap-x-12 gap-y-3.5">
                   {industryLinks.map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-sm text-[var(--ca-text-primary)] transition-colors hover:text-[var(--ca-blue)]"
+                      className="text-sm font-medium text-[#261F1B] transition-colors hover:text-[#7D2639]"
                     >
                       {item.label}
                     </Link>

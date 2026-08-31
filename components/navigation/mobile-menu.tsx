@@ -50,7 +50,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 z-[60] bg-[var(--ca-navy)]/40 backdrop-blur-[2px] xl:hidden"
+            className="fixed inset-0 z-[60] bg-[#261F1B]/40 backdrop-blur-[2px] xl:hidden"
           />
 
           <motion.aside
@@ -58,19 +58,19 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-white text-[var(--ca-navy)] shadow-[-8px_0_40px_rgba(8,26,47,0.14)] xl:hidden"
+            className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-[#FFFDF8] text-[#261F1B] shadow-[-8px_0_40px_rgba(38,31,27,0.12)] xl:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
           >
-            <div className="flex h-16 items-center justify-between border-b border-[var(--ca-border)] px-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ca-dim)]">
+            <div className="flex h-16 items-center justify-between border-b border-[#D7CCBD] px-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                 Menu
               </p>
               <button
                 type="button"
                 onClick={handleClose}
-                className="flex h-11 w-11 items-center justify-center rounded-lg text-[var(--ca-navy)] hover:bg-[var(--ca-ice)]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-[#261F1B] hover:bg-[#F4EFE6]"
                 aria-label="Close navigation menu"
               >
                 <X className="h-5 w-5" />
@@ -83,7 +83,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("consulting")}
-                    className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-base font-semibold text-[var(--ca-navy)]"
+                    className="flex w-full min-h-11 items-center justify-between border-b border-[#D7CCBD] py-4 text-left text-base font-semibold text-[#261F1B]"
                   >
                     Consulting
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -92,7 +92,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("technology")}
-                    className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-base font-semibold text-[var(--ca-navy)]"
+                    className="flex w-full min-h-11 items-center justify-between border-b border-[#D7CCBD] py-4 text-left text-base font-semibold text-[#261F1B]"
                   >
                     Technology
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -101,7 +101,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("platforms")}
-                    className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-base font-semibold text-[var(--ca-navy)]"
+                    className="flex w-full min-h-11 items-center justify-between border-b border-[#D7CCBD] py-4 text-left text-base font-semibold text-[#261F1B]"
                   >
                     Platforms
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -110,7 +110,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("industries")}
-                    className="flex w-full min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-left text-base font-semibold text-[var(--ca-navy)]"
+                    className="flex w-full min-h-11 items-center justify-between border-b border-[#D7CCBD] py-4 text-left text-base font-semibold text-[#261F1B]"
                   >
                     Industries
                     <ChevronRight className="h-4 w-4 opacity-50" />
@@ -121,19 +121,19 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.href}
                       href={item.href}
                       onClick={handleClose}
-                      className="flex min-h-11 items-center justify-between border-b border-[var(--ca-border)] py-4 text-base font-semibold text-[var(--ca-navy)]"
+                      className="flex min-h-11 items-center justify-between border-b border-[#D7CCBD] py-4 text-base font-semibold text-[#261F1B]"
                     >
                       {item.label}
-                      <ArrowUpRight className="h-4 w-4 opacity-40" />
+                      <ArrowUpRight className="h-4 w-4 opacity-40 text-[#7D2639]" />
                     </Link>
                   ))}
 
-                  <div className="my-6 border-t border-[var(--ca-border)]" />
+                  <div className="my-6 border-t border-[#D7CCBD]" />
 
                   <Link
                     href="/login"
                     onClick={handleClose}
-                    className="flex min-h-11 items-center py-2.5 text-sm font-medium text-[var(--ca-slate)]"
+                    className="flex min-h-11 items-center py-2.5 text-sm font-medium text-[#695F57] hover:text-[#7D2639]"
                   >
                     Employee Login
                   </Link>
@@ -157,12 +157,12 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("root")}
-                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[var(--ca-slate)]"
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[#695F57]"
                   >
                     <ChevronRight className="h-4 w-4 rotate-180" />
                     Back
                   </button>
-                  <p className="pt-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                  <p className="pt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                     Transformation
                   </p>
                   {consultingGroups.transformation.map((item) => (
@@ -170,13 +170,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block min-h-10 border-b border-[var(--ca-border)] py-3 text-sm text-[var(--ca-navy)]"
+                      className="block min-h-10 border-b border-[#D7CCBD] py-3 text-sm text-[#261F1B]"
                     >
                       {item.label}
                     </Link>
                   ))}
 
-                  <p className="pt-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                  <p className="pt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                     Delivery
                   </p>
                   {consultingGroups.delivery.map((item) => (
@@ -184,7 +184,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block min-h-10 border-b border-[var(--ca-border)] py-3 text-sm text-[var(--ca-navy)]"
+                      className="block min-h-10 border-b border-[#D7CCBD] py-3 text-sm text-[#261F1B]"
                     >
                       {item.label}
                     </Link>
@@ -197,12 +197,12 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("root")}
-                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[var(--ca-slate)]"
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[#695F57]"
                   >
                     <ChevronRight className="h-4 w-4 rotate-180" />
                     Back
                   </button>
-                  <p className="pt-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                  <p className="pt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                     Platforms &amp; Apps
                   </p>
                   {technologyGroups.platforms.map((item) => (
@@ -210,13 +210,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block min-h-10 border-b border-[var(--ca-border)] py-3 text-sm text-[var(--ca-navy)]"
+                      className="block min-h-10 border-b border-[#D7CCBD] py-3 text-sm text-[#261F1B]"
                     >
                       {item.label}
                     </Link>
                   ))}
 
-                  <p className="pt-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-dim)]">
+                  <p className="pt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#7D2639]">
                     Engineering &amp; Cloud
                   </p>
                   {technologyGroups.engineering.map((item) => (
@@ -224,7 +224,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block min-h-10 border-b border-[var(--ca-border)] py-3 text-sm text-[var(--ca-navy)]"
+                      className="block min-h-10 border-b border-[#D7CCBD] py-3 text-sm text-[#261F1B]"
                     >
                       {item.label}
                     </Link>
@@ -237,7 +237,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("root")}
-                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[var(--ca-slate)]"
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[#695F57]"
                   >
                     <ChevronRight className="h-4 w-4 rotate-180" />
                     Back
@@ -247,10 +247,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block min-h-11 border-b border-[var(--ca-border)] py-3 text-sm"
+                      className="block min-h-11 border-b border-[#D7CCBD] py-3 text-sm"
                     >
-                      <p className="font-semibold text-[var(--ca-navy)]">{item.label}</p>
-                      <p className="text-xs text-[var(--ca-slate)]">{item.detail}</p>
+                      <p className="font-semibold text-[#261F1B]">{item.label}</p>
+                      <p className="text-xs text-[#695F57]">{item.detail}</p>
                     </Link>
                   ))}
                 </>
@@ -261,7 +261,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <button
                     type="button"
                     onClick={() => setLevel("root")}
-                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[var(--ca-slate)]"
+                    className="mb-2 flex min-h-11 items-center gap-2 py-3 text-sm font-medium text-[#695F57]"
                   >
                     <ChevronRight className="h-4 w-4 rotate-180" />
                     Back
@@ -271,7 +271,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                       key={item.label}
                       href={item.href}
                       onClick={handleClose}
-                      className="block min-h-11 border-b border-[var(--ca-border)] py-3 text-sm text-[var(--ca-navy)]"
+                      className="block min-h-11 border-b border-[#D7CCBD] py-3 text-sm text-[#261F1B]"
                     >
                       {item.label}
                     </Link>
