@@ -30,7 +30,7 @@ const supportingInsights = [
     category: "DOCUMENT INTELLIGENCE",
     readTime: "5 min read",
     title: "Building Trustworthy Document Intelligence with Grounded Source Verification",
-    summary: "Extracting FAR/DFARS compliance clauses and financial schedules with 100% auditable citation lineage.",
+    summary: "Extracting FAR/DFARS compliance clauses and financial schedules with verified, auditable citation lineage.",
     href: "/insights",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80",
   },

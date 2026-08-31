@@ -24,7 +24,7 @@ const caseStudies = [
     challenge: "Complex multi-thousand page subcontracts requiring manual compliance verification across federal regulations.",
     solution: "Deployed Data Agent platform to automatically extract, ground, and verify DFARS clauses with direct citations.",
     technology: "Data Agent · Document AI · Vector Retrieval · Oracle ERP",
-    outcome: "Accelerated regulatory contract review with 100% auditable source-grounded evidence.",
+    outcome: "Accelerated regulatory contract review with verified, auditable source-grounded evidence.",
     image: "https://images.unsplash.com/photo-1517976487502-8693c0429f55?auto=format&fit=crop&w=1000&q=80",
     href: "/work/innovation/data-agent",
   },

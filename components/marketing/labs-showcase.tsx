@@ -62,14 +62,14 @@ export default function LabsShowcase() {
                 Data Agent
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#C5BCB3]">
-                Extract complex regulatory clauses, payment schedules, and obligations with 100% source text citations.
+                Extract complex regulatory clauses, payment schedules, and obligations with verifiable source text citations.
               </p>
 
               {/* Interface Simulation Container */}
               <div className="mt-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-4 text-xs space-y-2.5">
                 <div className="flex items-center justify-between text-[#D8C5AA] font-mono text-[0.65rem] border-b border-[#3A302B] pb-2">
                   <span>Contract: Federal_MSA_2026.pdf</span>
-                  <span>99.8% Grounded</span>
+                  <span>Verified Grounding</span>
                 </div>
                 <div className="flex items-start justify-between">
                   <div>
@@ -108,7 +108,7 @@ export default function LabsShowcase() {
                   CLINICAL INTELLIGENCE
                 </span>
                 <span className="rounded bg-[#3A302B] px-2 py-0.5 text-[0.62rem] font-bold text-[#657766] border border-[#52443D]">
-                  HIPAA Compliant
+                  Clinical Governance
                 </span>
               </div>
 

@@ -28,10 +28,10 @@ const featuredIndustries = [
   },
   {
     name: "Healthcare & Life Sciences",
-    description: "Clinical documentation intelligence, patient record pipelines, and HIPAA compliance.",
+    description: "Clinical documentation intelligence, secure patient record pipelines, and healthcare data governance.",
     href: "/industries/healthcare",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
-    badge: "HIPAA Compliant AI",
+    badge: "Clinical Intelligence",
     span: "lg:col-span-3",
     aspect: "aspect-[4/5] lg:h-[380px]",
   },
