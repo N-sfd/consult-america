@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, FileText, Database, Search, Bot, Check, Workflow, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, FileText, Database, Search, Bot, Check, Workflow, ShieldCheck } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+
+import { ProductFrame } from "@/components/marketing/image-system";
 
 const pipelineStages = [
   { step: "SOURCE", name: "Source Documents", detail: "PDFs, MSAs, Statements of Work, and contracts", icon: FileText },
@@ -18,7 +19,7 @@ export default function AIDataStory() {
 
   return (
     <section id="ai-data-story" className="bg-[#211E1B] text-[#FFFDF8] py-24 sm:py-28 lg:py-32 relative overflow-hidden border-b border-[#3A302B]">
-      {/* 1. Subtle Background Document & Architectural Wire Texture with Slow Drift (Requirement 20) */}
+      {/* 1. Subtle Background Document & Architectural Wire Texture with Slow Drift (Requirement 14) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={
@@ -29,22 +30,23 @@ export default function AIDataStory() {
                 }
           }
           transition={{
-            duration: 20,
+            duration: 26,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="relative h-full w-full opacity-[0.07]"
+          className="relative h-full w-full opacity-[0.045]"
         >
-          <Image
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80"
-            alt=""
-            fill
-            className="object-cover object-center grayscale contrast-150"
-            sizes="100vw"
+          {/* Subtle geometric wire architecture */}
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: "radial-gradient(circle at 50% 50%, rgba(255,253,248,0.25) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
           />
         </motion.div>
 
-        {/* 2. Geometric Brand Arc Motif Echoing CA Logo Curve (Requirement 15) */}
+        {/* 2. Geometric Brand Arc Motif 2/3 (Subtle CA C-Curve in AI section) */}
         <div
           className="ca-brand-arc-motif -bottom-28 -left-28 w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] opacity-25"
           aria-hidden="true"
@@ -52,7 +54,7 @@ export default function AIDataStory() {
 
         {/* Technical Grid Matrix Overlay */}
         <div
-          className="absolute inset-0 opacity-[0.035] pointer-events-none"
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
             backgroundImage: "linear-gradient(to right, #FFFDF8 1px, transparent 1px), linear-gradient(to bottom, #FFFDF8 1px, transparent 1px)",
             backgroundSize: "44px 44px",
@@ -119,88 +121,124 @@ export default function AIDataStory() {
             </div>
           </motion.div>
 
-          {/* Right Column: Precision Rectangular Data Agent Workspace (Requirement 5 & 21) */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65 }}
-            className="lg:col-span-8 rounded-2xl border border-[#3A302B] bg-[#2B2420] p-6 lg:p-8 shadow-2xl relative overflow-hidden"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-[#3A302B] pb-4 text-xs font-mono">
-              <div className="flex items-center gap-2 text-white">
-                <Sparkles className="h-4 w-4 text-[#D8C5AA]" />
-                <span className="font-bold text-sm">Data Agent Intelligence Workspace</span>
-              </div>
-              <span className="rounded bg-[#342B27] border border-[#3A302B] px-2.5 py-1 text-[0.62rem] font-bold text-[#D8C5AA]">
-                Demonstration environment
-              </span>
-            </div>
-
-            {/* Document Extraction Interface - Layered Sub-panel Entrance */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-12 gap-4">
-              {/* Left Column: Extracted Entities (Staggered Entrance) */}
-              <motion.div
-                initial={shouldReduceMotion ? {} : { opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="sm:col-span-7 space-y-3 text-xs"
-              >
-                <div className="rounded-xl border border-[#3A302B] bg-[#342B27] p-4">
-                  <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#D8C5AA]">Clause Classification</p>
-                  <p className="font-bold text-white text-sm sm:text-base mt-1">Limitation of Liability &amp; Indemnity</p>
-                  <p className="text-[0.7rem] text-[rgba(255,253,248,0.65)] mt-1 font-mono">Section 14.2 · Commercial Risk Profile</p>
-                </div>
-
-                <div className="rounded-xl border border-[#3A302B] bg-[#342B27] p-4">
-                  <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#D8C5AA]">Regulatory Review Status</p>
-                  <p className="font-bold text-white text-sm sm:text-base mt-1">DFARS 252.204-7012 (Covered Defense Information)</p>
-                  <p className="text-[0.7rem] text-[#357C78] font-bold mt-1.5 flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5" /> Source Grounded &amp; Compliant
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-[#3A302B] bg-[#342B27] p-3.5">
-                  <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#D8C5AA]">Payment Terms &amp; Accounting Line</p>
-                  <p className="font-bold text-white text-xs sm:text-sm mt-0.5">Net 30 · Early Settlement Structure</p>
-                </div>
-              </motion.div>
-
-              {/* Right Column: Grounded PDF Source Chunk (Staggered Entrance) */}
-              <motion.div
-                initial={shouldReduceMotion ? {} : { opacity: 0, x: 10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.16 }}
-                className="sm:col-span-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-4 flex flex-col justify-between text-xs"
-              >
-                <div>
-                  <div className="flex items-center gap-2 font-bold text-white text-xs">
-                    <FileText className="h-4 w-4 text-[#D8C5AA]" />
-                    <span>Source PDF · Page 18</span>
+          {/* Right Column: 65% Data Agent Interactive Production Interface */}
+          <div className="lg:col-span-8">
+            <ProductFrame
+              title="Consult America Data Agent · Document Intelligence Engine"
+              badge="DEMONSTRATION ENVIRONMENT"
+              tone="dark"
+            >
+              <div className="p-4 sm:p-6 space-y-5">
+                {/* Agent Control Header with Source Extraction Metadata */}
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#2B2420] pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#357C78]/20 text-[#357C78] border border-[#357C78]/40">
+                      <Bot className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-[#FFFDF8]">
+                          Autonomous Extraction &amp; Reconciliation Agent
+                        </span>
+                        <span className="inline-flex items-center rounded-full bg-[#357C78]/20 px-2 py-0.5 text-[0.62rem] font-semibold text-[#357C78] border border-[#357C78]/30">
+                          Active Job #4819
+                        </span>
+                      </div>
+                      <p className="text-[0.68rem] text-[rgba(255,253,248,0.6)]">
+                        Target System: Oracle Fusion Procurement &amp; AP Invoices · Model: CA-Titan Extraction v4
+                      </p>
+                    </div>
                   </div>
-                  <p className="mt-3 text-[0.72rem] text-[#C5BCB3] leading-relaxed italic border-l-2 border-[#B63A3A] pl-2.5">
-                    &ldquo;...Neither party shall be liable for indirect, incidental or punitive damages exceeding twice the fees paid under Section 4...&rdquo;
-                  </p>
+
+                  <div className="flex items-center gap-2 text-xs font-mono">
+                    <span className="rounded bg-[#2B2420] border border-[#3A302B] px-2.5 py-1 text-[#D8C5AA]">
+                      Accuracy Grounding: 99.4%
+                    </span>
+                  </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-[#3A302B] flex items-center justify-between font-mono text-[0.65rem] text-[rgba(255,253,248,0.65)]">
-                  <span>Chunk #14</span>
-                  <span className="font-bold text-[#357C78]">Source Traceable</span>
-                </div>
-              </motion.div>
-            </div>
+                {/* Staggered Entrance UI Sub-Panels (Requirement 15) */}
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                  {/* Left: Source Document Panel */}
+                  <motion.div
+                    initial={shouldReduceMotion ? {} : { opacity: 0, x: -12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.08 }}
+                    className="sm:col-span-7 space-y-3 text-xs"
+                  >
+                    <div className="rounded-xl border border-[#3A302B] bg-[#1F1A17] p-4 space-y-3">
+                      <div className="flex items-center justify-between text-[0.68rem] text-[#D8C5AA] font-mono border-b border-[#2E2722] pb-2">
+                        <span>SOURCE ARTIFACT: MSA_AMENDMENT_2025.PDF</span>
+                        <span className="text-[#357C78]">PAGE 14 OF 38</span>
+                      </div>
+                      <div className="rounded bg-[#161311] p-3 text-[0.72rem] text-[rgba(255,253,248,0.78)] font-mono leading-relaxed border border-[#2B2420]">
+                        &ldquo;...payment terms shall adhere to Net 45 schedule with a recurring license surcharge capped at $48,200 annually, subject to annual CPI-U adjustments not to exceed 3.5%...&rdquo;
+                      </div>
+                      <div className="flex items-center gap-2 text-[0.68rem] text-[#357C78]">
+                        <Check className="h-3.5 w-3.5" />
+                        <span>Entity extracted: Billing Terms, Payment Schedule, Inflation Cap</span>
+                      </div>
+                    </div>
 
-            {/* Bottom Autonomous Action Bar */}
-            <div className="mt-5 pt-4 border-t border-[#3A302B] flex items-center justify-between text-xs text-[rgba(255,253,248,0.65)]">
-              <span className="flex items-center gap-1.5 text-xs text-white font-medium">
-                <Bot className="h-4 w-4 text-[#D8C5AA]" /> Verified Sync to Oracle Procurement
-              </span>
-              <span className="font-mono text-[#D8C5AA] font-bold text-xs bg-[#342B27] px-2.5 py-1 rounded">Status: Verified</span>
-            </div>
-          </motion.div>
+                    <div className="rounded-xl border border-[#3A302B] bg-[#1F1A17] p-4">
+                      <p className="text-[0.68rem] font-bold text-[#D8C5AA] uppercase tracking-wider mb-2 font-mono">
+                        Extracted Schema Mappings
+                      </p>
+                      <div className="grid grid-cols-2 gap-2 text-[0.7rem] font-mono">
+                        <div className="rounded bg-[#161311] p-2 border border-[#2B2420]">
+                          <span className="text-[rgba(255,253,248,0.5)] block text-[0.6rem]">PAYMENT_TERMS</span>
+                          <span className="text-[#FFFDF8] font-bold">NET_45_DAYS</span>
+                        </div>
+                        <div className="rounded bg-[#161311] p-2 border border-[#2B2420]">
+                          <span className="text-[rgba(255,253,248,0.5)] block text-[0.6rem]">ANNUAL_CAP</span>
+                          <span className="text-[#FFFDF8] font-bold">$48,200.00 USD</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Right: Verification & System Action Panel */}
+                  <motion.div
+                    initial={shouldReduceMotion ? {} : { opacity: 0, x: 12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.16 }}
+                    className="sm:col-span-5 rounded-xl border border-[#3A302B] bg-[#1C1815] p-4 flex flex-col justify-between text-xs"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-wider text-[#357C78] font-mono">
+                        <ShieldCheck className="h-4 w-4" />
+                        <span>Source Grounded</span>
+                      </div>
+                      <p className="text-[0.72rem] text-[rgba(255,253,248,0.7)] leading-relaxed">
+                        Every field references page, clause, and semantic lineage. No hallucinated figures.
+                      </p>
+                      <div className="rounded bg-[#161311] p-2.5 border border-[#2B2420] text-[0.68rem] font-mono space-y-1.5">
+                        <div className="flex justify-between text-[rgba(255,253,248,0.6)]">
+                          <span>Confidence Score</span>
+                          <span className="text-[#357C78] font-bold">99.8%</span>
+                        </div>
+                        <div className="flex justify-between text-[rgba(255,253,248,0.6)]">
+                          <span>Oracle ERP Sync</span>
+                          <span className="text-[#D8C5AA] font-bold">STAGED</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-[#2B2420]">
+                      <button
+                        type="button"
+                        className="w-full rounded-lg bg-[#357C78] py-2 text-center text-xs font-bold text-white transition-colors hover:bg-[#2C6B67] cursor-pointer"
+                      >
+                        Approve &amp; Dispatch to ERP
+                      </button>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </ProductFrame>
+          </div>
         </div>
       </div>
     </section>

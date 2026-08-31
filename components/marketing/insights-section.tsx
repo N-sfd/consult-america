@@ -65,23 +65,23 @@ export default function InsightsSection() {
           </Link>
         </div>
 
-        {/* Publication 50/50 Layout */}
+        {/* Publication 55/45 Featured Editorial Layout (Requirement 22) */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Featured Article (~50%) */}
+          {/* Featured Article (~55%) with Single Curved Corner border-radius: 0 64px 0 0 */}
           <motion.article
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-6 rounded-[14px] border border-[#D8D0C5] bg-[#F7F3EC] overflow-hidden flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#B63A3A]/40 transition-all"
+            className="lg:col-span-7 rounded-tl-xl rounded-tr-[64px] rounded-b-xl border border-[#D8D0C5] bg-[#F7F3EC] overflow-hidden flex flex-col justify-between shadow-[0_12px_36px_rgba(38,31,27,0.06)] hover:border-[#B63A3A]/40 transition-all"
           >
-            <div className="relative aspect-[16/10] w-full bg-[#211E1B]">
+            <div className="relative aspect-[16/10] w-full bg-[#211E1B] overflow-hidden rounded-tr-[64px]">
               <Image
                 src={featuredInsight.image}
                 alt={featuredInsight.title}
                 fill
                 className="object-cover mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 55vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/80 via-transparent to-transparent pointer-events-none" />
               <span className="absolute bottom-3.5 left-4 rounded-full bg-white/10 backdrop-blur-md px-3 py-1 text-[0.62rem] font-bold text-[#D8C5AA] border border-white/15">
@@ -120,44 +120,42 @@ export default function InsightsSection() {
             </div>
           </motion.article>
 
-          {/* Supporting Articles Column (~50%) */}
-          <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
-            {supportingInsights.map((insight, idx) => (
+          {/* Secondary 3 Articles Column (~45%) */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+            {supportingInsights.map((art, idx) => (
               <motion.article
-                key={insight.title}
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+                key={art.title}
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group rounded-[14px] border border-[#D8D0C5] bg-[#F7F3EC] p-4.5 hover:border-[#B63A3A]/40 hover:bg-[#FFFDF8] transition-all flex items-center gap-4 flex-1"
+                className="group rounded-xl border border-[#D8D0C5] bg-white p-5 shadow-xs hover:border-[#B63A3A]/40 transition-all flex flex-col justify-between flex-1"
               >
-                <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-[10px] bg-[#211E1B]">
-                  <Image
-                    src={insight.image}
-                    alt={insight.title}
-                    fill
-                    className="object-cover mkt-img-graded"
-                    sizes="120px"
-                  />
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between text-[0.65rem] font-mono">
-                    <span className="font-bold text-[#B63A3A] uppercase tracking-wider truncate">
-                      {insight.category}
+                <div>
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-[0.62rem] font-bold uppercase tracking-wider text-[#B63A3A]">
+                      {art.category}
                     </span>
-                    <span className="text-[#695F57] shrink-0">{insight.readTime}</span>
+                    <span className="text-[#695F57] text-[0.68rem]">
+                      {art.readTime}
+                    </span>
                   </div>
 
-                  <h4 className="mt-1 text-sm sm:text-base font-bold text-[#261F1B] group-hover:text-[#B63A3A] transition-colors leading-snug line-clamp-2">
-                    <Link href={insight.href}>{insight.title}</Link>
+                  <h4 className="mt-2 font-serif text-base sm:text-lg font-bold text-[#261F1B] leading-snug group-hover:text-[#B63A3A] transition-colors">
+                    <Link href={art.href}>{art.title}</Link>
                   </h4>
 
+                  <p className="mt-1.5 text-xs leading-relaxed text-[#695F57] line-clamp-2">
+                    {art.summary}
+                  </p>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-[#D8D0C5]/60">
                   <Link
-                    href={insight.href}
-                    className="mt-2 inline-flex items-center gap-1 text-[0.7rem] font-bold text-[#B63A3A] hover:underline"
+                    href={art.href}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#261F1B] group-hover:text-[#B63A3A] transition-colors"
                   >
-                    Read article →
+                    Read article <ArrowUpRight className="h-3 w-3" />
                   </Link>
                 </div>
               </motion.article>

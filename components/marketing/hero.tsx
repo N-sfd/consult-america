@@ -35,7 +35,7 @@ export default function Hero() {
 
     const handleMouseMove = (e: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      // Background ±3px, Foreground ±8px pointer response
+      // Normalized pointer response
       const normX = (e.clientX / innerWidth) - 0.5;
       const normY = (e.clientY / innerHeight) - 0.5;
       setMouseOffset({ x: normX, y: normY });
@@ -47,26 +47,26 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden min-h-[clamp(720px,86vh,920px)] flex items-center bg-[#211E1B] border-b border-[#3A302B]">
-      {/* 1. LAYER 1: Full-Bleed Architectural Background (Shape A Mask on Desktop) */}
+      {/* 1. LAYER 1: Large Full-Bleed Architectural Background Image (BACK LAYER) */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <motion.div
-          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.045 }}
+          initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.04 }}
           animate={
             shouldReduceMotion || !isDesktop
               ? { scale: 1 }
               : {
                   scale: [1.015, 1.025, 1.015],
-                  x: [0 + mouseOffset.x * 6, -10 + mouseOffset.x * 6, 0 + mouseOffset.x * 6],
-                  y: [0 + mouseOffset.y * 6, -4 + mouseOffset.y * 6, 0 + mouseOffset.y * 6],
+                  x: [0 + mouseOffset.x * 3, -7 + mouseOffset.x * 3, 0 + mouseOffset.x * 3],
+                  y: [0 + mouseOffset.y * 3, -3 + mouseOffset.y * 3, 0 + mouseOffset.y * 3],
                 }
           }
           transition={
             shouldReduceMotion || !isDesktop
-              ? { duration: 2.0, ease: [0.2, 0.8, 0.2, 1] }
+              ? { duration: 1.8, ease: [0.2, 0.8, 0.2, 1] }
               : {
-                  scale: { duration: 22, repeat: Infinity, ease: "easeInOut" },
-                  x: { duration: 22, repeat: Infinity, ease: "easeInOut" },
-                  y: { duration: 22, repeat: Infinity, ease: "easeInOut" },
+                  scale: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+                  x: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+                  y: { duration: 20, repeat: Infinity, ease: "easeInOut" },
                 }
           }
           className="relative h-full w-full ca-shape-hero-mask"
@@ -82,7 +82,7 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* 2. LAYER 2: Foreground Architectural Element / Depth Layer (Desktop only) */}
+        {/* 2. LAYER 2: Glass/Structural Foreground Element (MID LAYER) */}
         {!shouldReduceMotion && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -90,19 +90,18 @@ export default function Hero() {
               isDesktop
                 ? {
                     opacity: 0.85,
-                    x: [0 + mouseOffset.x * 16, 4 + mouseOffset.x * 16, 0 + mouseOffset.x * 16],
-                    y: [0 + mouseOffset.y * 16, -8 + mouseOffset.y * 16, 0 + mouseOffset.y * 16],
+                    x: [0 + mouseOffset.x * 4, 5 + mouseOffset.x * 4, 0 + mouseOffset.x * 4],
+                    y: [0 + mouseOffset.y * 4, -5 + mouseOffset.y * 4, 0 + mouseOffset.y * 4],
                   }
-                : { opacity: 0.5 }
+                : { opacity: 0.4 }
             }
             transition={{
-              opacity: { duration: 1.2, delay: 0.4 },
-              x: { duration: 9.5, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 9.5, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 1.2, delay: 0.3 },
+              x: { duration: 13, repeat: Infinity, ease: "easeInOut" },
+              y: { duration: 13, repeat: Infinity, ease: "easeInOut" },
             }}
             className="hidden lg:block absolute right-0 bottom-0 top-0 w-2/5 pointer-events-none z-[1]"
           >
-            {/* Architectural structural glass facade overlay */}
             <div className="relative h-full w-full overflow-hidden opacity-30">
               <Image
                 src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80"
@@ -116,128 +115,138 @@ export default function Hero() {
           </motion.div>
         )}
 
-        {/* 3. Recurring Brand Arc / Geometric Motif (Inspired by the CA Monogram) */}
+        {/* 3. LAYER 3: Architectural Human & Structural Detail (FRONT LAYER) */}
+        {!shouldReduceMotion && isDesktop && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{
+              opacity: 1,
+              y: [0 + mouseOffset.y * 6, -7 + mouseOffset.y * 6, 0 + mouseOffset.y * 6],
+              x: mouseOffset.x * 6,
+            }}
+            transition={{
+              opacity: { duration: 1.0, delay: 0.6 },
+              y: { duration: 9, repeat: Infinity, ease: "easeInOut" },
+            }}
+            className="hidden xl:block absolute right-16 bottom-16 z-[3] pointer-events-none"
+          >
+            <div className="rounded-xl border border-[#D8D0C5]/30 bg-[#211E1B]/85 backdrop-blur-md p-3.5 shadow-2xl max-w-[220px]">
+              <div className="flex items-center gap-2.5">
+                <span className="h-2 w-2 rounded-full bg-[#357C78] animate-pulse" />
+                <span className="font-mono text-[0.62rem] font-bold uppercase tracking-wider text-[#D8C5AA]">
+                  Production Active
+                </span>
+              </div>
+              <p className="mt-1 text-[0.7rem] text-[#FFFDF8] font-medium leading-tight">
+                Oracle Cloud • AI Agents • Core ERP
+              </p>
+            </div>
+          </motion.div>
+        )}
+
+        {/* 4. Recurring Brand Arc Motif 1/3 (Subtle CA C-Curve in Hero) */}
         <div
-          className="ca-brand-arc-motif -top-32 -right-32 sm:-top-24 sm:-right-24 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] opacity-40"
+          className="ca-brand-arc-motif -top-32 -right-32 sm:-top-24 sm:-right-24 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] opacity-40 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* 4. Natural Neutral Left Gradient Scrim (WCAG AA Text Contrast while preserving photography) */}
+        {/* Cinematic Gradient Overlays */}
         <div
-          className="absolute inset-0 z-[2]"
+          className="absolute inset-0 z-[2] pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg, rgba(24,22,20,0.88) 0%, rgba(24,22,20,0.68) 38%, rgba(24,22,20,0.22) 68%, rgba(24,22,20,0) 100%)",
+              "linear-gradient(90deg, rgba(33,30,27,0.98) 0%, rgba(33,30,27,0.88) 42%, rgba(33,30,27,0.45) 75%, rgba(33,30,27,0.2) 100%)",
           }}
         />
-
-        {/* Top & Bottom Gradient Depth */}
-        <div
-          className="absolute inset-0 z-[2]"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(14,18,22,0.65) 0%, transparent 22%, transparent 78%, rgba(24,22,20,0.60) 100%)",
-          }}
-        />
-
-        {/* Subtle Warm Burgundy Accent Depth */}
-        <div className="absolute inset-0 z-[2] bg-radial-[circle_at_75%_30%] from-[#B63A3A]/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 z-[2] bg-radial-[circle_at_15%_25%] from-[#B63A3A]/10 via-transparent to-transparent pointer-events-none" />
       </div>
 
-      {/* 5. LAYER 3: Hero Content Staggered Animation Sequence */}
-      <div className="mkt-shell relative z-10 py-16 sm:py-20 lg:py-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-center">
-          {/* Left Column: ~58% width on desktop */}
-          <div className="lg:col-span-8 xl:col-span-7">
-            {/* Eyebrow */}
+      <div className="ca-shell relative z-10 w-full py-20 sm:py-24 lg:py-32">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-center">
+          {/* Left Column: 48% Headline, Copy, Practice Areas, CTAs */}
+          <div className="lg:col-span-7 xl:col-span-6 space-y-8">
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-3"
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 rounded-full border border-[#D8D0C5]/30 bg-[#2B2420]/80 px-3.5 py-1 text-xs font-semibold text-[#D8C5AA] backdrop-blur-sm"
             >
-              <span className="h-0.5 w-6 rounded-full bg-[#B63A3A]" />
-              <span className="text-[0.72rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#D8C5AA]">
-                ENTERPRISE TRANSFORMATION · AI · ENGINEERING
-              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
+              <span>ENTERPRISE TRANSFORMATION &amp; CLOUD ARCHITECTURE</span>
             </motion.div>
 
-            {/* Headline */}
             <motion.h1
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.12 }}
-              className="mt-6 font-serif text-[clamp(46px,5.8vw,88px)] leading-[0.93] tracking-[-0.048em] text-[#FFFDF8] max-w-[780px]"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-serif text-4xl font-bold tracking-tight text-[#FFFDF8] sm:text-5xl lg:text-6xl sm:leading-[1.08]"
             >
-              <span className="block text-[0.93em] text-[#FFFDF8]/95 font-medium">Transform the core.</span>
-              <span className="block text-[#FFFDF8] font-bold">Build what comes next.</span>
+              Transform the core.
+              <br />
+              <span className="text-[#D8C5AA] italic font-serif">
+                Build what comes next.
+              </span>
             </motion.h1>
 
-            {/* Supporting Copy */}
             <motion.p
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.24 }}
-              className="mt-6 max-w-xl text-base leading-relaxed text-[#FFFDF8]/82 sm:text-lg lg:text-[1.125rem]"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base sm:text-lg leading-relaxed text-[rgba(255,253,248,0.78)] max-w-xl"
             >
-              Consult America helps organizations modernize enterprise platforms,
-              connect data and workflows, operationalize AI, and engineer the
-              digital products that move the business forward.
+              We advise, build, and run production transformations across Oracle Cloud, enterprise AI, data engineering, and bespoke software systems.
             </motion.p>
 
-            {/* Action CTAs */}
+            {/* CTAs */}
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.36 }}
-              className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 pt-2"
             >
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="group/cta ca-button-primary !min-h-[54px] !px-8 text-sm font-semibold rounded-[6px] cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31] !text-white shadow-[0_8px_24px_rgba(182,58,58,0.35)] hover:shadow-[0_12px_28px_rgba(182,58,58,0.45)]"
+                className="group inline-flex items-center gap-2 rounded-lg bg-[#B63A3A] px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[#942E31] cursor-pointer"
               >
-                <span>Start a conversation</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1 group-hover/cta:-translate-y-0.5" />
+                <span>Talk to a Practice Lead</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
+
               <Link
-                href="/capabilities/enterprise-transformation"
-                className="inline-flex min-h-[54px] items-center justify-center gap-2 px-5 text-sm font-semibold text-[#FFFDF8] transition-colors hover:text-[#D8C5AA]"
+                href="/work"
+                className="inline-flex items-center gap-2 rounded-lg border border-[#D8D0C5]/40 bg-white/5 px-6 py-3.5 text-sm font-semibold text-[#FFFDF8] backdrop-blur-sm transition-all hover:bg-white/10 hover:border-[#D8D0C5]"
               >
-                Explore our capabilities →
+                <span>Explore Selected Work</span>
               </Link>
             </motion.div>
 
-            {/* Practice Areas Rail */}
+            {/* Practice Badges Strip */}
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.48 }}
-              className="mt-12 border-t border-white/15 pt-5 max-w-2xl"
+              initial={shouldReduceMotion ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="pt-4 border-t border-[#3A302B]"
             >
-              <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-white/50 mb-2.5">
-                PRACTICE AREAS
+              <p className="text-[0.68rem] font-bold uppercase tracking-widest text-[#D8C5AA]/70 mb-3">
+                CORE PRACTICES
               </p>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm font-semibold text-white/80">
-                {practiceAreas.map((item, idx) => (
-                  <div key={item.label} className="inline-flex items-center gap-4">
-                    <Link
-                      href={item.href}
-                      className="group/item relative py-0.5 hover:text-white transition-colors inline-flex items-center gap-1"
-                    >
-                      <span>{item.label}</span>
-                      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-[#B63A3A] scale-x-0 transition-transform origin-left group-hover/item:scale-x-100" />
-                    </Link>
-                    {idx < practiceAreas.length - 1 && (
-                      <span className="text-white/25 font-normal" aria-hidden="true">
-                        /
-                      </span>
-                    )}
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {practiceAreas.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="inline-flex items-center rounded-md border border-[#D8D0C5]/20 bg-[#2B2420]/60 px-3 py-1 text-xs font-medium text-[#FFFDF8]/80 hover:text-white hover:border-[#B63A3A] transition-colors"
+                  >
+                    {item.label}
+                  </Link>
                 ))}
               </div>
             </motion.div>
           </div>
+
+          {/* Right Column: 52% space for photographic composition */}
+          <div className="lg:col-span-5 xl:col-span-6 hidden lg:block" />
         </div>
       </div>
     </section>

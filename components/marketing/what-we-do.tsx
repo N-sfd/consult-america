@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { OffsetImage } from "@/components/marketing/image-system";
 
 const practices = [
   {
@@ -20,6 +20,7 @@ const practices = [
     imageAlt: "Executive enterprise transformation and strategic architecture environment",
     detailImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
     detailBadge: "OPERATING MODEL",
+    variant: "bottom-right" as const,
   },
   {
     number: "02",
@@ -33,6 +34,7 @@ const practices = [
     imageAlt: "Enterprise financial operations and digital infrastructure architecture",
     detailImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     detailBadge: "FUSION FABRIC",
+    variant: "top-left" as const,
   },
   {
     number: "03",
@@ -46,6 +48,7 @@ const practices = [
     imageAlt: "Enterprise data analytics and AI intelligence workspace",
     detailImage: "https://images.unsplash.com/photo-1517976487502-8693c0429f55?auto=format&fit=crop&w=600&q=80",
     detailBadge: "DATA LINEAGE",
+    variant: "bottom-left" as const,
   },
   {
     number: "04",
@@ -59,6 +62,7 @@ const practices = [
     imageAlt: "Software engineering and digital product development environment",
     detailImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
     detailBadge: "PRODUCTION APPS",
+    variant: "top-right" as const,
   },
 ];
 
@@ -83,7 +87,7 @@ export default function WhatWeDo() {
           </p>
         </div>
 
-        {/* 4 Spacious Editorial Capability Modules with Offset Editorial Frames (Shape B) */}
+        {/* 4 Spacious Editorial Capability Modules with Reusable Offset Editorial Frames */}
         <div className="mt-20 space-y-24 lg:space-y-32">
           {practices.map((practice, idx) => {
             const isEven = idx % 2 === 1;
@@ -93,7 +97,7 @@ export default function WhatWeDo() {
                 key={practice.number}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center"
               >
-                {/* Text Content Block (~38%) */}
+                {/* Text Content Block */}
                 <motion.div
                   initial={shouldReduceMotion ? {} : { opacity: 0, x: isEven ? 16 : -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -119,7 +123,7 @@ export default function WhatWeDo() {
                   <div className="pt-2">
                     <Link
                       href={practice.linkHref}
-                      className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors"
+                      className="group inline-flex items-center gap-2 text-sm font-semibold text-[#261F1B] hover:text-[#B63A3A] transition-colors"
                     >
                       <span>{practice.linkLabel}</span>
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -127,78 +131,20 @@ export default function WhatWeDo() {
                   </div>
                 </motion.div>
 
-                {/* Two-Layer Composition: Large Offset Frame + Overlapping Detail Layer (~62%) */}
-                <div
-                  className={`lg:col-span-7 relative ${isEven ? "lg:order-1" : "lg:order-2"}`}
-                >
-                  {/* Oversized Editorial Number Overlap */}
-                  <span
-                    className={`absolute -top-10 sm:-top-14 font-serif text-7xl sm:text-8xl lg:text-9xl font-bold text-[#B63A3A]/12 select-none z-0 pointer-events-none ${
-                      isEven ? "right-2 sm:right-6" : "left-2 sm:left-6"
-                    }`}
-                    aria-hidden="true"
-                  >
-                    {practice.number}
-                  </span>
-
-                  {/* Offset Decorative Backing Shape (Requirement 2 & 14) */}
-                  <div
-                    className={`absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 ${
-                      isEven
-                        ? "ca-shape-offset-frame-alt bg-[#B63A3A]/8"
-                        : "ca-shape-offset-frame bg-[#D8C5AA]/30"
-                    } -z-10`}
-                    aria-hidden="true"
-                  />
-
-                  {/* 1. Main Large Photograph with Offset Editorial Frame (Shape B) */}
-                  <motion.div
-                    initial={shouldReduceMotion ? {} : { opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
-                    className={`group/main relative z-10 aspect-[16/10] w-full border border-[#D8D0C5] bg-white shadow-[0_20px_50px_rgba(38,31,27,0.06)] ${
-                      isEven ? "ca-shape-offset-frame-alt" : "ca-shape-offset-frame"
-                    }`}
-                  >
-                    <Image
-                      src={practice.image}
-                      alt={practice.imageAlt}
-                      fill
-                      className="object-cover mkt-img-graded"
-                      sizes="(max-width: 1024px) 100vw, 65vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/50 via-transparent to-transparent pointer-events-none" />
-                  </motion.div>
-
-                  {/* 2. Secondary Overlapping Detail Image (Requirement 11, 12, 13) */}
-                  <motion.div
-                    initial={
-                      shouldReduceMotion
-                        ? {}
-                        : { opacity: 0, y: 34, rotate: isEven ? 2 : -2 }
-                    }
-                    whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.14 }}
-                    className={`absolute bottom-[-16px] sm:bottom-[-22px] z-20 w-[110px] h-[110px] sm:w-[140px] sm:h-[140px] shadow-[0_16px_36px_rgba(38,31,27,0.18)] border-2 border-white bg-white ca-shape-squircle overflow-hidden ${
-                      isEven ? "left-[-12px] sm:left-[-18px]" : "right-[-12px] sm:right-[-18px]"
-                    }`}
-                  >
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={practice.detailImage}
-                        alt=""
-                        fill
-                        className="object-cover mkt-img-graded"
-                        sizes="140px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/80 via-transparent to-transparent pointer-events-none" />
-                      <span className="absolute bottom-2 left-2 right-2 text-center text-[0.52rem] sm:text-[0.58rem] font-mono font-bold tracking-wider text-white uppercase truncate bg-[#211E1B]/80 backdrop-blur-xs py-0.5 rounded">
-                        {practice.detailBadge}
+                {/* Offset Image Frame with 4-way alternating geometric accent plane */}
+                <div className={`lg:col-span-7 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
+                  <OffsetImage
+                    src={practice.image}
+                    alt={practice.imageAlt}
+                    variant={practice.variant}
+                    detailImage={practice.detailImage}
+                    detailBadge={practice.detailBadge}
+                    badge={
+                      <span className="font-serif text-2xl sm:text-3xl font-bold text-white/90 drop-shadow-md">
+                        {practice.number}
                       </span>
-                    </div>
-                  </motion.div>
+                    }
+                  />
                 </div>
               </div>
             );

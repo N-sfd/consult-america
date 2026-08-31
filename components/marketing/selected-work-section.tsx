@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
+import { ClippedImage } from "@/components/marketing/image-system";
 
 const showcases = [
   {
@@ -18,6 +18,7 @@ const showcases = [
     outcome: "Streamlined monthly close operations with controlled enterprise cutover and complete audit compliance.",
     image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1600&q=85",
     href: "/work",
+    variant: "top-right" as const,
   },
   {
     type: "SOLUTION SHOWCASE",
@@ -29,6 +30,7 @@ const showcases = [
     outcome: "Accelerated regulatory contract review with verified, auditable source-grounded evidence.",
     image: "https://images.unsplash.com/photo-1517976487502-8693c0429f55?auto=format&fit=crop&w=1600&q=85",
     href: "/work/innovation/data-agent",
+    variant: "top-left" as const,
   },
   {
     type: "SOLUTION SHOWCASE",
@@ -40,6 +42,7 @@ const showcases = [
     outcome: "Synthesized clinical record timelines with verified physician point-of-care citations.",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=85",
     href: "/work/innovation/mediguide-ai",
+    variant: "bottom-right" as const,
   },
   {
     type: "CLIENT ENGAGEMENT",
@@ -51,6 +54,7 @@ const showcases = [
     outcome: "Unified Customer 360 engagement with automated transactional ERP reconciliation.",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
     href: "/platforms/crm",
+    variant: "bottom-left" as const,
   },
 ];
 
@@ -77,8 +81,8 @@ export default function SelectedWorkSection() {
           </Link>
         </div>
 
-        {/* Alternating Editorial Rows (Requirement 18: ~48% Image / ~52% Content) */}
-        <div className="mt-16 space-y-16 lg:space-y-24">
+        {/* Alternating Editorial Rows with generous 96-120px breathing room */}
+        <div className="mt-20 space-y-24 lg:space-y-28">
           {showcases.map((cs, idx) => {
             const isEven = idx % 2 === 1;
 
@@ -91,74 +95,64 @@ export default function SelectedWorkSection() {
                 transition={{ duration: 0.55 }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center rounded-2xl border border-[#D8D0C5] bg-[#F7F3EC] p-6 sm:p-8 lg:p-10 shadow-[0_16px_40px_rgba(38,31,27,0.06)]"
               >
-                {/* 1. Image Block (48% on desktop) with Clipped Corner Asymmetry (Shape D & Requirement 19) */}
+                {/* 1. Image Block (48% on desktop) with Clipped Corner Asymmetry */}
                 <div
-                  className={`lg:col-span-6 relative ${isEven ? "lg:order-2" : "lg:order-1"}`}
+                  className={`lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}
                 >
-                  {/* Offset Decorative Backing Shape */}
-                  <div
-                    className={`absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 ${
-                      isEven
-                        ? "ca-shape-clipped-corner-alt bg-[#B63A3A]/8"
-                        : "ca-shape-clipped-corner bg-[#D8C5AA]/35"
-                    } -z-10`}
-                    aria-hidden="true"
+                  <ClippedImage
+                    src={cs.image}
+                    alt={cs.headline}
+                    variant={cs.variant}
+                    overlay={
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/70 via-transparent to-transparent pointer-events-none">
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <span className="inline-flex rounded bg-[#211E1B]/80 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-[#D8C5AA] border border-[#D8D0C5]/30">
+                            {cs.industry}
+                          </span>
+                        </div>
+                      </div>
+                    }
                   />
-
-                  <div
-                    className={`relative aspect-[16/10] w-full border border-[#D8D0C5] bg-[#211E1B] shadow-[0_12px_32px_rgba(38,31,27,0.08)] ${
-                      isEven ? "ca-shape-clipped-corner-alt" : "ca-shape-clipped-corner"
-                    }`}
-                  >
-                    <Image
-                      src={cs.image}
-                      alt={cs.headline}
-                      fill
-                      className="object-cover mkt-img-graded"
-                      sizes="(max-width: 1024px) 100vw, 48vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/70 via-transparent to-transparent pointer-events-none" />
-                    
-                    <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between">
-                      <span className="rounded-full bg-[#211E1B]/80 backdrop-blur-md px-3 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-[#FFFDF8] border border-white/20">
-                        {cs.industry}
-                      </span>
-                      <span className="rounded-full bg-[#B63A3A] px-2.5 py-0.5 text-[0.58rem] font-mono font-bold uppercase tracking-wider text-white">
-                        {cs.type}
-                      </span>
-                    </div>
-                  </div>
                 </div>
 
                 {/* 2. Structured Content Block (52% on desktop) */}
                 <div
                   className={`lg:col-span-6 space-y-4 ${isEven ? "lg:order-1" : "lg:order-2"}`}
                 >
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#261F1B] leading-snug">
+                  <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#B63A3A]">
+                      {cs.type}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-tight text-[#261F1B]">
                     {cs.headline}
                   </h3>
 
-                  <div className="space-y-2.5 text-xs sm:text-sm leading-relaxed text-[#695F57]">
-                    <p>
-                      <strong className="text-[#261F1B]">Challenge:</strong> {cs.challenge}
-                    </p>
-                    <p>
-                      <strong className="text-[#261F1B]">Approach:</strong> {cs.approach}
-                    </p>
-                    <p>
-                      <strong className="text-[#261F1B]">Outcome:</strong> {cs.outcome}
-                    </p>
+                  <div className="space-y-3 pt-2 text-xs sm:text-sm">
+                    <div className="border-l-2 border-[#B63A3A] pl-3">
+                      <span className="font-bold text-[#261F1B]">Challenge: </span>
+                      <span className="text-[#695F57]">{cs.challenge}</span>
+                    </div>
+
+                    <div className="border-l-2 border-[#D8D0C5] pl-3">
+                      <span className="font-bold text-[#261F1B]">Solution: </span>
+                      <span className="text-[#695F57]">{cs.approach}</span>
+                    </div>
+
+                    <div className="border-l-2 border-[#357C78] pl-3">
+                      <span className="font-bold text-[#261F1B]">Outcome: </span>
+                      <span className="text-[#695F57]">{cs.outcome}</span>
+                    </div>
                   </div>
 
-                  <div className="pt-2 border-t border-[#D8D0C5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <span className="font-mono text-[0.68rem] text-[#695F57] truncate">
-                      {cs.technology}
-                    </span>
+                  <div className="pt-3">
                     <Link
                       href={cs.href}
-                      className="group inline-flex items-center gap-1.5 text-xs font-bold text-[#B63A3A] hover:text-[#942E31] transition-colors shrink-0"
+                      className="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#B63A3A] hover:text-[#942E31] transition-colors"
                     >
-                      <span>Explore Showcase</span>
+                      <span>Read Full Showcase</span>
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>

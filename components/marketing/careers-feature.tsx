@@ -11,15 +11,15 @@ export default function CareersFeature() {
   return (
     <section id="careers-preview" className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 border-b border-[#D8D0C5] relative overflow-hidden">
       <div className="ca-shell">
-        {/* 50/50 Composition with Offset Frame & Architectural Radius */}
+        {/* 50/50 Composition with One Curved Outer Edge (Requirement 23: 16px 120px 16px 16px) */}
         <div className="relative">
           {/* Offset Decorative Backing Shape */}
           <div
-            className="absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-[20px] bg-[#D8C5AA]/30 -z-10"
+            className="absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-tl-2xl rounded-tr-[120px] rounded-b-2xl bg-[#D8C5AA]/30 -z-10"
             aria-hidden="true"
           />
 
-          <div className="overflow-hidden rounded-[20px] border border-[#D8D0C5] bg-white shadow-sm">
+          <div className="overflow-hidden rounded-tl-2xl rounded-tr-[120px] rounded-b-2xl border border-[#D8D0C5] bg-white shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
               {/* LEFT: Large Team / Collaboration Photography */}
               <motion.div
@@ -63,7 +63,7 @@ export default function CareersFeature() {
                 <div className="pt-6 border-t border-[#3A302B]">
                   <Link
                     href="/careers"
-                    className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31]"
+                    className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31] text-white"
                   >
                     <span>Explore Careers</span>
                     <ArrowUpRight className="h-4 w-4" />

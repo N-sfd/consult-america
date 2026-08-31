@@ -38,15 +38,15 @@ export default function GrowthCta() {
 
   return (
     <section id="contact-conversion" className="relative overflow-hidden py-24 sm:py-28 lg:py-32 bg-[#211E1B] text-[#FFFDF8] border-b border-[#3A302B]">
-      {/* 1. Cinematic Background Photograph with Slow Drift Motion (Requirement 22) */}
+      {/* 1. Cinematic Background Photograph with Slow Drift Motion (Requirements 24 & 25) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={
             shouldReduceMotion
               ? {}
               : {
-                  scale: [1.02, 1.04, 1.02],
-                  y: [0, -6, 0],
+                  scale: [1.02, 1.035, 1.02],
+                  y: [0, -8, 0],
                 }
           }
           transition={{
@@ -65,14 +65,14 @@ export default function GrowthCta() {
           />
         </motion.div>
 
-        {/* 2. Foreground Structural Framing Depth Edge (Requirement 23) */}
+        {/* 2. Foreground Structural Framing Depth Edge (Requirement 25) */}
         {!shouldReduceMotion && (
           <motion.div
             animate={{
               x: [0, 5, 0],
             }}
             transition={{
-              duration: 12,
+              duration: 13,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -82,9 +82,15 @@ export default function GrowthCta() {
           </motion.div>
         )}
 
-        {/* Dark Neutral Gradient Overlay (rgba(22,20,18,0.76)) */}
+        {/* 3. Recurring Brand Arc Motif 3/3 (Subtle CA C-Curve in Contact) */}
         <div
-          className="absolute inset-0 z-[2]"
+          className="ca-brand-arc-motif -bottom-32 -right-32 sm:-bottom-24 sm:-right-24 w-[420px] h-[420px] opacity-30 pointer-events-none"
+          aria-hidden="true"
+        />
+
+        {/* Dark Neutral Gradient Overlay */}
+        <div
+          className="absolute inset-0 z-[2] pointer-events-none"
           style={{
             background:
               "linear-gradient(90deg, rgba(24,22,20,0.95) 0%, rgba(24,22,20,0.85) 45%, rgba(24,22,20,0.76) 100%)",
@@ -120,147 +126,180 @@ export default function GrowthCta() {
               our teams can help move it from idea to production.
             </p>
 
-            <div className="space-y-3 pt-6 border-t border-[#3A302B] text-xs text-[rgba(255,253,248,0.65)]">
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="h-4 w-4 text-[#D8C5AA] shrink-0" />
-                <span className="text-white font-medium">Direct engagement with enterprise practice leadership</span>
+            {/* Direct Contact Points */}
+            <div className="pt-4 space-y-3 text-xs sm:text-sm text-[rgba(255,253,248,0.8)] border-t border-[#3A302B]">
+              <div className="flex items-center gap-3">
+                <span className="font-mono font-bold text-[#D8C5AA] text-[0.68rem] uppercase w-28">PRACTICE LEAD</span>
+                <a href="mailto:inquiries@consultamerica.com" className="hover:text-white transition-colors underline decoration-[#B63A3A]">
+                  inquiries@consultamerica.com
+                </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <ShieldCheck className="h-4 w-4 text-[#D8C5AA] shrink-0" />
-                <span>Confidential NDA scoping, architectural readiness &amp; timeline estimation</span>
+              <div className="flex items-center gap-3">
+                <span className="font-mono font-bold text-[#D8C5AA] text-[0.68rem] uppercase w-28">MAIN OFFICE</span>
+                <span className="text-[rgba(255,253,248,0.65)]">Washington D.C. Metro Area &middot; Nationwide Delivery</span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Clock className="h-4 w-4 text-[#D8C5AA] shrink-0" />
-                <span>Initial discovery and architectural feasibility review</span>
+            </div>
+
+            {/* Trust Commitments */}
+            <div className="pt-2 flex flex-wrap gap-4 text-xs text-[#D8C5AA]">
+              <div className="flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5 text-[#B63A3A]" />
+                <span>Response within 1 business day</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#357C78]" />
+                <span>Direct consultation with practice leaders</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column (48% width): Floating Warm-White Contact Form */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="lg:col-span-6 rounded-2xl border border-[#D8D0C5] bg-[#FFFDF8] text-[#261F1B] p-7 sm:p-9 shadow-[0_24px_70px_rgba(0,0,0,0.3)] backdrop-blur-md"
-          >
-            {submitted ? (
-              <div className="py-10 text-center space-y-4">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#F7F3EC] text-[#357C78]">
-                  <CheckCircle2 className="h-6 w-6" />
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-[#261F1B]">
-                  Inquiry Received
-                </h3>
-                <p className="mx-auto max-w-md text-sm text-[#695F57]">
-                  Thank you, {formData.name}. Our practice leads have received your inquiry and will follow up with you at {formData.email}.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="mt-4 text-xs font-bold text-[#B63A3A] hover:underline cursor-pointer"
-                >
-                  Submit another inquiry →
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="cta-name" className="block text-xs font-bold text-[#261F1B]">
-                      Name <span className="text-[#B63A3A]">*</span>
-                    </label>
-                    <input
-                      id="cta-name"
-                      type="text"
-                      required
-                      placeholder="Jane Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D8D0C5] bg-[#F7F3EC] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#B63A3A] focus:bg-white focus:outline-none"
-                    />
+          {/* Right Column (48% width): Direct Contact Form */}
+          <div className="lg:col-span-6">
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              className="rounded-2xl border border-[#3A302B] bg-[#2B2420]/90 p-8 sm:p-10 shadow-2xl backdrop-blur-md"
+            >
+              {submitted ? (
+                <div className="py-12 text-center space-y-4">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#357C78]/20 text-[#357C78]">
+                    <CheckCircle2 className="h-8 w-8" />
                   </div>
-
-                  <div>
-                    <label htmlFor="cta-email" className="block text-xs font-bold text-[#261F1B]">
-                      Work Email <span className="text-[#B63A3A]">*</span>
-                    </label>
-                    <input
-                      id="cta-email"
-                      type="email"
-                      required
-                      placeholder="jane@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D8D0C5] bg-[#F7F3EC] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#B63A3A] focus:bg-white focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="cta-company" className="block text-xs font-bold text-[#261F1B]">
-                      Company / Organization
-                    </label>
-                    <input
-                      id="cta-company"
-                      type="text"
-                      placeholder="Enterprise Corp"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D8D0C5] bg-[#F7F3EC] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#B63A3A] focus:bg-white focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="cta-interest" className="block text-xs font-bold text-[#261F1B]">
-                      Area of Interest
-                    </label>
-                    <select
-                      id="cta-interest"
-                      value={formData.areaOfInterest}
-                      onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
-                      className="mt-1.5 w-full rounded-lg border border-[#D8D0C5] bg-[#F7F3EC] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] focus:border-[#B63A3A] focus:bg-white focus:outline-none"
-                    >
-                      {interestOptions.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="cta-objectives" className="block text-xs font-bold text-[#261F1B]">
-                    Project Objectives &amp; Scope
-                  </label>
-                  <textarea
-                    id="cta-objectives"
-                    rows={3}
-                    placeholder="Describe your transformation goals, key challenges, or timeline..."
-                    value={formData.objectives}
-                    onChange={(e) => setFormData({ ...formData, objectives: e.target.value })}
-                    className="mt-1.5 w-full rounded-lg border border-[#D8D0C5] bg-[#F7F3EC] px-3.5 py-2.5 text-xs sm:text-sm text-[#261F1B] placeholder:text-[#8A7E75] focus:border-[#B63A3A] focus:bg-white focus:outline-none resize-none"
-                  />
-                </div>
-
-                {error && (
-                  <p className="text-xs font-semibold text-[#B63A3A]">{error}</p>
-                )}
-
-                <div className="pt-2">
+                  <h3 className="font-serif text-2xl font-bold text-[#FFFDF8]">
+                    Inquiry Received
+                  </h3>
+                  <p className="text-sm text-[rgba(255,253,248,0.72)] max-w-sm mx-auto">
+                    Thank you. A senior practice leader will review your objectives and contact you within one business day.
+                  </p>
                   <button
-                    type="submit"
-                    className="ca-button-primary w-full sm:w-auto !min-h-[50px] !px-8 text-sm font-semibold rounded-lg cursor-pointer flex items-center justify-center gap-2 !bg-[#B63A3A] hover:!bg-[#942E31] shadow-md text-white"
+                    type="button"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({
+                        name: "",
+                        email: "",
+                        company: "",
+                        areaOfInterest: "Enterprise Transformation",
+                        objectives: "",
+                      });
+                    }}
+                    className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#D8C5AA] hover:text-white"
                   >
-                    <span>Start the conversation</span>
-                    <ArrowUpRight className="h-4 w-4" />
+                    Send another inquiry &rarr;
                   </button>
                 </div>
-              </form>
-            )}
-          </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                  <div className="border-b border-[#3A302B] pb-4">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#FFFDF8]">
+                      Start a Conversation
+                    </h3>
+                    <p className="mt-1 text-xs text-[rgba(255,253,248,0.65)]">
+                      Connect directly with our consulting and engineering practice leads.
+                    </p>
+                  </div>
+
+                  {error && (
+                    <div className="rounded-lg bg-[#B63A3A]/20 border border-[#B63A3A]/40 p-3 text-xs text-[#FFFDF8]">
+                      {error}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="contact-name" className="block text-xs font-medium text-[#D8C5AA] mb-1">
+                        Full Name *
+                      </label>
+                      <input
+                        id="contact-name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="e.g. Sarah Jenkins"
+                        className="w-full rounded-lg border border-[#3A302B] bg-[#1F1A17] px-3.5 py-2.5 text-xs text-[#FFFDF8] placeholder:text-[rgba(255,253,248,0.3)] focus:border-[#B63A3A] focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="contact-email" className="block text-xs font-medium text-[#D8C5AA] mb-1">
+                        Work Email *
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="sjenkins@enterprise.com"
+                        className="w-full rounded-lg border border-[#3A302B] bg-[#1F1A17] px-3.5 py-2.5 text-xs text-[#FFFDF8] placeholder:text-[rgba(255,253,248,0.3)] focus:border-[#B63A3A] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="contact-company" className="block text-xs font-medium text-[#D8C5AA] mb-1">
+                        Organization / Enterprise
+                      </label>
+                      <input
+                        id="contact-company"
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        placeholder="e.g. Apex Health Systems"
+                        className="w-full rounded-lg border border-[#3A302B] bg-[#1F1A17] px-3.5 py-2.5 text-xs text-[#FFFDF8] placeholder:text-[rgba(255,253,248,0.3)] focus:border-[#B63A3A] focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="contact-interest" className="block text-xs font-medium text-[#D8C5AA] mb-1">
+                        Area of Interest
+                      </label>
+                      <select
+                        id="contact-interest"
+                        value={formData.areaOfInterest}
+                        onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
+                        className="w-full rounded-lg border border-[#3A302B] bg-[#1F1A17] px-3.5 py-2.5 text-xs text-[#FFFDF8] focus:border-[#B63A3A] focus:outline-none"
+                      >
+                        {interestOptions.map((opt) => (
+                          <option key={opt} value={opt} className="bg-[#1F1A17]">
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-objectives" className="block text-xs font-medium text-[#D8C5AA] mb-1">
+                      Transformation Objectives or Key Questions
+                    </label>
+                    <textarea
+                      id="contact-objectives"
+                      rows={3}
+                      value={formData.objectives}
+                      onChange={(e) => setFormData({ ...formData, objectives: e.target.value })}
+                      placeholder="Share current systems, timeline, or specific challenges..."
+                      className="w-full rounded-lg border border-[#3A302B] bg-[#1F1A17] px-3.5 py-2.5 text-xs text-[#FFFDF8] placeholder:text-[rgba(255,253,248,0.3)] focus:border-[#B63A3A] focus:outline-none resize-none"
+                    />
+                  </div>
+
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      className="group w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#B63A3A] py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#942E31] cursor-pointer"
+                    >
+                      <span>Submit Inquiry to Practice Leadership</span>
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </button>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

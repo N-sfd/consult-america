@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight, CheckCircle2, ShieldCheck, Database, Sparkles, FileText, Activity, Users, Layers, Cpu, Search, Check, Workflow } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Corporate Browser Frame Helper (Requirement 16)
+// Corporate Browser Frame Helper (Requirements 16 & 17)
 function CorporateBrowserFrame({
   url = "CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT",
   children,
@@ -13,8 +13,17 @@ function CorporateBrowserFrame({
   url?: string;
   children: React.ReactNode;
 }) {
+  const shouldReduce = useReducedMotion();
+
   return (
-    <div className="overflow-hidden rounded-[16px] border border-[#D8D0C5] bg-white p-2.5 sm:p-3 shadow-[0_24px_60px_rgba(38,31,27,0.08)]">
+    <motion.div
+      initial={shouldReduce ? {} : { opacity: 0, y: 24, scale: 0.99 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+      whileHover={shouldReduce ? {} : { y: -3 }}
+      className="overflow-hidden rounded-[16px] border border-[#D8D0C5] bg-white p-2.5 sm:p-3 shadow-[0_24px_60px_rgba(38,31,27,0.08)] hover:shadow-[0_28px_68px_rgba(38,31,27,0.12)] transition-shadow duration-300"
+    >
       {/* Browser Chrome Header (44–48px height) */}
       <div className="flex h-11 sm:h-12 items-center justify-between border-b border-[#D8D0C5] bg-[#F7F3EC] px-4 -mx-2.5 -mt-2.5 mb-2.5 sm:-mx-3 sm:-mt-3 sm:mb-3 rounded-t-[14px]">
         <div className="flex items-center gap-2">
@@ -23,12 +32,12 @@ function CorporateBrowserFrame({
           <span className="h-2.5 w-2.5 rounded-full bg-[#D8D0C5]" />
         </div>
         <span className="font-mono text-[0.62rem] sm:text-[0.68rem] font-bold text-[#695F57] tracking-wider uppercase truncate px-2">
-          CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT
+          {url}
         </span>
         <div className="w-8 hidden sm:block" />
       </div>
       {children}
-    </div>
+    </motion.div>
   );
 }
 

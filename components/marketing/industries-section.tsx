@@ -23,8 +23,8 @@ const industries = [
     href: "/industries/financial-services",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=85",
     badge: "Financial Core",
-    aspect: "aspect-[3/4]",
-    shapeClass: "rounded-[24px]",
+    aspect: "aspect-[16/10]",
+    shapeClass: "rounded-2xl",
   },
   {
     name: "Healthcare & Life Sciences",
@@ -32,8 +32,8 @@ const industries = [
     href: "/industries/healthcare",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=85",
     badge: "Clinical Intelligence",
-    aspect: "aspect-[4/5]",
-    shapeClass: "ca-shape-offset-frame",
+    aspect: "aspect-[3/4]",
+    shapeClass: "rounded-2xl",
   },
   {
     name: "Technology & Software",
@@ -41,8 +41,8 @@ const industries = [
     href: "/industries/technology",
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1000&q=85",
     badge: "Cloud & APIs",
-    aspect: "aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/10]",
-    shapeClass: "rounded-[18px]",
+    aspect: "aspect-[16/10]",
+    shapeClass: "rounded-2xl",
   },
   {
     name: "Retail & Commerce",
@@ -51,7 +51,7 @@ const industries = [
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=85",
     badge: "Supply Chain",
     aspect: "aspect-[3/4]",
-    shapeClass: "rounded-[24px]",
+    shapeClass: "rounded-2xl",
   },
   {
     name: "Professional Services",
@@ -59,8 +59,8 @@ const industries = [
     href: "/platforms/ats",
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=85",
     badge: "Workforce",
-    aspect: "aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/10]",
-    shapeClass: "ca-shape-clipped-corner-alt",
+    aspect: "aspect-[4/5]",
+    shapeClass: "ca-shape-arch",
   },
 ];
 
@@ -82,7 +82,7 @@ export default function IndustriesSection() {
           </p>
         </div>
 
-        {/* Alternating Industry Shapes & Architectural Formats (Requirement 17 & 18) */}
+        {/* Varied Industry Shapes: Arch, Landscape, Portrait (Requirements 20 & 21) */}
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-end">
           {industries.map((ind, idx) => (
             <motion.div
@@ -100,12 +100,12 @@ export default function IndustriesSection() {
                   src={ind.image}
                   alt={ind.name}
                   fill
-                  className="object-cover mkt-img-graded group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                  className="object-cover mkt-img-graded group-hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 
-                {/* Subtle dark bottom gradient for text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/95 via-[#211E1B]/45 to-transparent group-hover:opacity-95 transition-opacity duration-500 pointer-events-none" />
+                {/* Dark overlay: opacity + 0.05 on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/95 via-[#211E1B]/50 to-transparent group-hover:from-[#211E1B] group-hover:via-[#211E1B]/60 transition-all duration-500 pointer-events-none" />
 
                 <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-between text-white">
                   <div className="flex justify-end">
@@ -115,19 +115,19 @@ export default function IndustriesSection() {
                   </div>
 
                   <div>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold leading-tight group-hover:text-[#D8C5AA] group-hover:-translate-y-0.5 transition-all duration-300">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold leading-tight group-hover:text-[#D8C5AA] group-hover:-translate-y-1 transition-all duration-300">
                       {ind.name}
                     </h3>
                     
-                    {/* Hover reveal burgundy underline */}
-                    <div className="h-0.5 w-0 bg-[#B63A3A] group-hover:w-9 transition-all duration-500 mt-1 mb-2" />
-
-                    <p className="text-xs sm:text-sm leading-relaxed text-[#C5BCB3] line-clamp-2">
+                    {/* Small burgundy line 0 -> 32px on hover */}
+                    <div className="h-0.5 w-0 bg-[#B63A3A] group-hover:w-8 transition-all duration-500 mt-2 mb-2" />
+                    
+                    <p className="text-xs text-[rgba(255,253,248,0.78)] line-clamp-2 leading-relaxed">
                       {ind.description}
                     </p>
-
-                    <div className="mt-3.5 flex items-center gap-1.5 text-xs font-bold text-[#D8C5AA] group-hover:text-white transition-colors">
-                      <span>Explore Industry</span>
+                    
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#D8C5AA] group-hover:text-white transition-colors">
+                      <span>Explore Sector</span>
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
                   </div>
