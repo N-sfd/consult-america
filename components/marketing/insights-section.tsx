@@ -12,7 +12,7 @@ const featuredInsight = {
   readTime: "7 min read",
   title: "Designing AI-Native Enterprise Workflows: From Prototype to Production",
   summary:
-    "Why 80% of enterprise AI proofs-of-concept stall before production, and the data governance, citation boundaries, and human-in-the-loop workflows required to deploy with confidence.",
+    "Why enterprise AI proofs-of-concept frequently stall before production, and the data governance, citation boundaries, and human-in-the-loop workflows required to deploy with confidence.",
   href: "/insights",
   image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
 };

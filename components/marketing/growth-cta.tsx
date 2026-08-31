@@ -81,7 +81,7 @@ export default function GrowthCta() {
             <div className="space-y-3 pt-6 border-t border-[#3A302B] text-xs text-[#C5BCB3]">
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="h-4 w-4 text-[#D8C5AA] shrink-0" />
-                <span className="text-white font-medium">Direct review by senior practice leaders within 1 business day</span>
+                <span className="text-white font-medium">Direct engagement with enterprise practice leadership</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <ShieldCheck className="h-4 w-4 text-[#D8C5AA] shrink-0" />
@@ -89,7 +89,7 @@ export default function GrowthCta() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Clock className="h-4 w-4 text-[#D8C5AA] shrink-0" />
-                <span>Zero obligation scoping and feasibility evaluation</span>
+                <span>Initial discovery and architectural feasibility review</span>
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function GrowthCta() {
                   Inquiry Received
                 </h3>
                 <p className="mx-auto max-w-md text-sm text-[#695F57]">
-                  Thank you, {formData.name}. Our practice leads have received your project objectives and will reach out to {formData.email} within 24 hours.
+                  Thank you, {formData.name}. Our practice leads have received your inquiry and will follow up with you at {formData.email}.
                 </p>
                 <button
                   type="button"

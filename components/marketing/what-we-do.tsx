@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Layers, Database, Sparkles, Cpu } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
@@ -13,13 +13,11 @@ const practices = [
     category: "ENTERPRISE TRANSFORMATION",
     title: "Transformation connected directly to delivery.",
     description:
-      "Operating model redesign, business process architecture, program PMO governance, and modernization engineered to survive cutover and drive adoption.",
+      "Operating model redesign, business process architecture, program governance, and modernization engineered to survive cutover and drive adoption.",
     linkHref: "/capabilities/enterprise-transformation",
     linkLabel: "Explore Consulting",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80",
     imageAlt: "Executive strategy workshop with senior enterprise transformation team",
-    uiTag: "Target State Architected",
-    icon: Layers,
   },
   {
     number: "02",
@@ -31,8 +29,6 @@ const practices = [
     linkLabel: "Explore Oracle Practice",
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80",
     imageAlt: "Enterprise financial operations and digital infrastructure",
-    uiTag: "Fusion Cloud Core ERP",
-    icon: Database,
   },
   {
     number: "03",
@@ -44,8 +40,6 @@ const practices = [
     linkLabel: "Explore AI & Data",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
     imageAlt: "Data analytics, machine learning, and enterprise intelligence dashboard",
-    uiTag: "Data Agent AI Engine",
-    icon: Sparkles,
   },
   {
     number: "04",
@@ -57,8 +51,6 @@ const practices = [
     linkLabel: "Explore Digital Engineering",
     image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1400&q=80",
     imageAlt: "Software engineering and digital product development team",
-    uiTag: "Microservices & APIs",
-    icon: Cpu,
   },
 ];
 
@@ -83,18 +75,17 @@ export default function WhatWeDo() {
           </p>
         </div>
 
-        {/* 4 Spacious Editorial Capability Modules with Oversized Numbers */}
+        {/* 4 Spacious Editorial Capability Modules with Oversized Numbers & Minimalist Restraint */}
         <div className="mt-20 space-y-24 lg:space-y-32">
           {practices.map((practice, idx) => {
             const isEven = idx % 2 === 1;
-            const Icon = practice.icon;
 
             return (
               <div
                 key={practice.number}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center"
               >
-                {/* Text Content Block (~40%) */}
+                {/* Text Content Block (~38%) */}
                 <motion.div
                   initial={shouldReduceMotion ? {} : { opacity: 0, x: isEven ? 16 : -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -128,7 +119,7 @@ export default function WhatWeDo() {
                   </div>
                 </motion.div>
 
-                {/* Larger Image Container (~60%) with Oversized Editorial Number Overlap */}
+                {/* Larger Image Container (~62%) with Oversized Editorial Number Overlap */}
                 <motion.div
                   initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -152,19 +143,11 @@ export default function WhatWeDo() {
                       alt={practice.imageAlt}
                       fill
                       className="object-cover mkt-img-graded transition-transform duration-700 hover:scale-103"
-                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      sizes="(max-width: 1024px) 100vw, 65vw"
                     />
 
                     {/* Gradient Depth Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/70 via-transparent to-transparent" />
-
-                    {/* Floating Single UI Tag */}
-                    <div className="absolute bottom-4 left-4 rounded-xl border border-white/20 bg-white/95 px-4 py-2.5 backdrop-blur-md shadow-lg flex items-center gap-2.5 text-xs">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#7D2639] text-white">
-                        <Icon className="h-3.5 w-3.5" />
-                      </div>
-                      <span className="font-bold text-[#261F1B]">{practice.uiTag}</span>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
                   </div>
                 </motion.div>
               </div>

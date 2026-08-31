@@ -7,7 +7,7 @@ export default function EditorialImageBreak() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative w-full overflow-hidden border-b border-[#D7CCBD] bg-[#211E1B] py-28 sm:py-36 lg:py-44 min-h-[500px] lg:min-h-[580px] flex items-center">
+    <section className="relative w-full overflow-hidden border-b border-[#D7CCBD] bg-[#211E1B] py-32 sm:py-40 lg:py-48 min-h-[550px] lg:min-h-[640px] flex items-center">
       {/* High-End Modern Enterprise Architecture Environment Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -36,13 +36,17 @@ export default function EditorialImageBreak() {
             </span>
           </div>
 
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-[68px] font-semibold text-white tracking-[-0.035em] leading-[1.04]">
-            Strategy. Platforms.
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-[76px] font-semibold text-white tracking-[-0.04em] leading-[1.02]">
+            Strategy.
             <br />
-            Data. Engineering.
+            Platforms.
+            <br />
+            Data.
+            <br />
+            Engineering.
           </h2>
 
-          <p className="text-base sm:text-lg text-[#C5BCB3] max-w-2xl leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-[#C5BCB3] max-w-xl leading-relaxed pt-2">
             Engineering resilient digital foundations and unified enterprise operating models designed to sustain long-term business performance.
           </p>
         </motion.div>

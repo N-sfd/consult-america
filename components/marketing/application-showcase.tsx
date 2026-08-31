@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, Sparkles, FileText, Activity, Users, ShieldCheck, Database, Layers, Bot, Building2, PhoneCall } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Sparkles, FileText, Activity, Users, ShieldCheck, Database, Layers, Bot, Building2 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
@@ -58,7 +58,7 @@ export default function ApplicationShowcase() {
               <div className="space-y-2.5 pt-2">
                 {[
                   "Automated FAR / DFARS regulatory clause extraction",
-                  "Source-grounded confidence and page citations",
+                  "Source-grounded verification and page citations",
                   "Direct export to Oracle Procurement and ERP ledgers",
                 ].map((feat) => (
                   <div key={feat} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#261F1B]">
@@ -95,12 +95,12 @@ export default function ApplicationShowcase() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D7CCBD]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D7CCBD]" />
                   </div>
-                  <div className="ml-3 hidden sm:flex items-center rounded-md bg-white/80 px-3 py-1 text-[0.68rem] text-[#695F57] font-mono border border-[#D7CCBD]/60">
-                    https://app.consultamerica.net/data-agent/workspaces/contracts
+                  <div className="ml-3 font-mono text-[0.68rem] font-bold text-[#261F1B] uppercase tracking-wider">
+                    Data Agent · Contract Intelligence
                   </div>
                 </div>
-                <span className="rounded bg-[#DFE4DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#657766]">
-                  Verified Grounding
+                <span className="rounded bg-[#EBE5DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#695F57]">
+                  DEMONSTRATION ENVIRONMENT
                 </span>
               </div>
 
@@ -109,19 +109,19 @@ export default function ApplicationShowcase() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                   <div className="rounded-xl border border-[#D7CCBD]/80 bg-[#FFFAF2] p-4">
                     <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#695F57]">Extracted Entity</p>
-                    <p className="text-base font-bold text-[#261F1B] mt-1">Federal Defense Subcontract</p>
-                    <p className="text-[0.7rem] text-[#695F57] mt-1 font-mono">Prime: Aerospace Systems Corp</p>
+                    <p className="text-base font-bold text-[#261F1B] mt-1">Federal Subcontract Agreement</p>
+                    <p className="text-[0.7rem] text-[#695F57] mt-1 font-mono">Aerospace Defense Program</p>
                   </div>
                   <div className="rounded-xl border border-[#D7CCBD]/80 bg-[#FFFAF2] p-4">
-                    <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#695F57]">Payment Terms &amp; Value</p>
-                    <p className="text-base font-bold text-[#7D2639] mt-1">$14,250,000 USD · Net 30</p>
-                    <p className="text-[0.7rem] text-[#657766] font-mono mt-1">Milestone-based disbursement</p>
+                    <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[#695F57]">Payment Terms</p>
+                    <p className="text-base font-bold text-[#7D2639] mt-1">Net 30 Milestone Schedule</p>
+                    <p className="text-[0.7rem] text-[#657766] font-mono mt-1">Progress-based disbursement</p>
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-[#D7CCBD] bg-white p-4 text-xs">
                   <div className="flex items-center justify-between font-bold text-[#261F1B]">
-                    <span>DFARS 252.204-7012 (Cybersecurity &amp; CDI)</span>
+                    <span>DFARS 252.204-7012 (Cybersecurity Review)</span>
                     <span className="text-[#657766] font-mono text-[0.7rem]">Source Citation: p. 24</span>
                   </div>
                   <p className="mt-2 text-[0.75rem] text-[#695F57] leading-relaxed italic bg-[#F7F3EC] p-3.5 rounded-lg border-l-2 border-[#7D2639]">
@@ -130,8 +130,8 @@ export default function ApplicationShowcase() {
                 </div>
 
                 <div className="flex items-center justify-between pt-1 text-xs text-[#695F57]">
-                  <span>47 Fields extracted · Full Source Traceability</span>
-                  <span className="font-bold text-[#7D2639]">Oracle ERP Synced</span>
+                  <span>Source Document Lineage Verified</span>
+                  <span className="font-bold text-[#7D2639]">Oracle ERP Integration Ready</span>
                 </div>
               </div>
             </motion.div>
@@ -154,12 +154,12 @@ export default function ApplicationShowcase() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D7CCBD]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D7CCBD]" />
                   </div>
-                  <div className="ml-3 hidden sm:flex items-center rounded-md bg-white/80 px-3 py-1 text-[0.68rem] text-[#695F57] font-mono border border-[#D7CCBD]/60">
-                    https://app.consultamerica.net/mediguide/clinical-summary
+                  <div className="ml-3 font-mono text-[0.68rem] font-bold text-[#261F1B] uppercase tracking-wider">
+                    MediGuide AI · Clinical Summary
                   </div>
                 </div>
-                <span className="rounded bg-[#DFE4DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#657766]">
-                  Clinical Data Governance
+                <span className="rounded bg-[#EBE5DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#695F57]">
+                  DEMONSTRATION ENVIRONMENT
                 </span>
               </div>
 
@@ -167,7 +167,7 @@ export default function ApplicationShowcase() {
               <div className="p-6 sm:p-7 space-y-4">
                 <div className="flex items-center justify-between border-b border-[#D7CCBD]/60 pb-3">
                   <div>
-                    <h4 className="text-base font-bold text-[#261F1B]">Patient Clinical Profile · ID #MED-8910</h4>
+                    <h4 className="text-base font-bold text-[#261F1B]">Patient Clinical Profile</h4>
                     <p className="text-[0.7rem] text-[#695F57]">Longitudinal History &amp; Lab Trajectories</p>
                   </div>
                   <span className="rounded bg-[#DFE4DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#657766]">
@@ -316,12 +316,12 @@ export default function ApplicationShowcase() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D7CCBD]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D7CCBD]" />
                   </div>
-                  <div className="ml-3 hidden sm:flex items-center rounded-md bg-white/80 px-3 py-1 text-[0.68rem] text-[#695F57] font-mono border border-[#D7CCBD]/60">
-                    https://app.consultamerica.net/crm/accounts/acme-corp
+                  <div className="ml-3 font-mono text-[0.68rem] font-bold text-[#261F1B] uppercase tracking-wider">
+                    Customer 360 Workspace
                   </div>
                 </div>
-                <span className="font-mono text-xs font-bold text-[#7D2639] uppercase">
-                  Customer 360
+                <span className="rounded bg-[#EBE5DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#695F57]">
+                  DEMONSTRATION ENVIRONMENT
                 </span>
               </div>
 
@@ -332,8 +332,8 @@ export default function ApplicationShowcase() {
                       <Building2 className="h-4 w-4" />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-[#261F1B]">Acme Corporation</h4>
-                      <p className="text-[0.68rem] text-[#695F57]">Account ID: ACME-GLOBAL-09</p>
+                      <h4 className="text-base font-bold text-[#261F1B]">Enterprise Global Account</h4>
+                      <p className="text-[0.68rem] text-[#695F57]">Strategic Account Relationship</p>
                     </div>
                   </div>
                   <span className="rounded bg-[#DFE4DA] px-2.5 py-0.5 text-[0.62rem] font-bold text-[#657766]">
@@ -348,11 +348,11 @@ export default function ApplicationShowcase() {
                   </div>
                   <div className="rounded-xl border border-[#D7CCBD]/80 bg-[#FFFAF2] p-3.5">
                     <p className="text-[0.62rem] font-bold text-[#695F57]">Active Pipeline</p>
-                    <p className="font-serif text-lg font-bold text-[#7D2639] mt-0.5">$2.4M</p>
+                    <p className="font-serif text-lg font-bold text-[#7D2639] mt-0.5">Enterprise Scale</p>
                   </div>
                   <div className="rounded-xl border border-[#D7CCBD]/80 bg-[#FFFAF2] p-3.5">
-                    <p className="text-[0.62rem] font-bold text-[#695F57]">Open Deals</p>
-                    <p className="font-serif text-lg font-bold text-[#261F1B] mt-0.5">8 Programs</p>
+                    <p className="text-[0.62rem] font-bold text-[#695F57]">Active Programs</p>
+                    <p className="font-serif text-lg font-bold text-[#261F1B] mt-0.5">Multi-Track</p>
                   </div>
                 </div>
 

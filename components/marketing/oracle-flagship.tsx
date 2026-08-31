@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, Layers, Cpu, Database, Sparkles, Workflow, Check, Activity, Network, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Layers, Cpu, Database, Sparkles, Workflow, Check, Activity, Network } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
@@ -20,12 +20,12 @@ const compactChips = [
 ];
 
 const pillars = [
-  { id: "finance", name: "Finance & GL", code: "ERP", desc: "Multi-entity accounting, subledgers, cash management", icon: Database },
+  { id: "finance", name: "Finance", code: "ERP", desc: "Multi-entity general ledger, subledgers, cash management", icon: Database },
   { id: "procure", name: "Procurement", code: "S2P", desc: "Source-to-pay, supplier contract governance", icon: Layers },
-  { id: "projects", name: "Projects PPM", code: "PPM", desc: "Costing, billing, revenue recognition", icon: Activity },
-  { id: "scm", name: "Supply Chain", code: "SCM", desc: "Demand planning, logistics, order fulfillment", icon: Workflow },
-  { id: "hcm", name: "Human Capital", code: "HCM", desc: "Core HR, payroll, talent acquisition", icon: CheckCircle2 },
-  { id: "cx", name: "Customer Exp", code: "CX", desc: "B2B service, configure-price-quote", icon: Sparkles },
+  { id: "scm", name: "Supply Chain", code: "SCM", desc: "Demand planning, inventory, order fulfillment", icon: Workflow },
+  { id: "projects", name: "Projects", code: "PPM", desc: "Costing, billing, project resource management", icon: Activity },
+  { id: "hcm", name: "Human Capital", code: "HCM", desc: "Core HR, payroll, global workforce lifecycle", icon: CheckCircle2 },
+  { id: "cx", name: "Customer Experience", code: "CX", desc: "B2B service, configure-price-quote, sales", icon: Sparkles },
 ];
 
 export default function OracleFlagship() {
@@ -34,7 +34,7 @@ export default function OracleFlagship() {
 
   return (
     <section id="oracle-practice" className="relative overflow-hidden bg-[#FFFAF2] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D7CCBD]">
-      {/* 1. Subtle Enterprise Operations Background Image (7% Opacity) */}
+      {/* 1. Subtle Enterprise Operations Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.07]">
         <Image
           src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2200&q=80"
@@ -49,7 +49,7 @@ export default function OracleFlagship() {
         <SectionLabel tone="burgundy">ORACLE PRACTICE</SectionLabel>
 
         <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-          {/* Left Column: Editorial Headline & Compact Chips (~45%) */}
+          {/* Left Column: Editorial Headline & Compact Chips (~42%) */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export default function OracleFlagship() {
             </div>
           </motion.div>
 
-          {/* Right Column: Central Oracle Cloud Hub Architecture (~55%) */}
+          {/* Right Column: Central Oracle Cloud Hub Architecture (~58%) */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -111,11 +111,11 @@ export default function OracleFlagship() {
                   OPERATING ARCHITECTURE
                 </span>
                 <h3 className="font-serif text-base sm:text-lg font-bold text-[#261F1B]">
-                  Oracle Fusion Cloud Ecosystem
+                  Oracle Fusion Cloud Architecture
                 </h3>
               </div>
               <span className="rounded bg-[#DFE4DA] px-2.5 py-1 text-[0.62rem] font-bold text-[#657766]">
-                Clean Core Standard
+                Clean Core Architecture
               </span>
             </div>
 
@@ -152,39 +152,39 @@ export default function OracleFlagship() {
               })}
             </div>
 
-            {/* Integration Layer Underneath (OIC / Data / AI) */}
+            {/* Integration & Data Fabric Underneath */}
             <div className="mt-5 rounded-xl border border-[#D7CCBD] bg-[#F7F3EC] p-4">
               <div className="flex items-center justify-between text-xs font-bold text-[#261F1B] border-b border-[#D7CCBD]/80 pb-2">
                 <span className="flex items-center gap-1.5 font-mono text-[0.68rem] uppercase tracking-wider text-[#7D2639]">
-                  <Workflow className="h-3.5 w-3.5" /> Integration &amp; Data Fabric (OIC / REST / AI)
+                  <Workflow className="h-3.5 w-3.5" /> Integration &amp; Data Fabric
                 </span>
-                <span className="text-[0.62rem] text-[#657766] font-mono">Live Bridge</span>
+                <span className="text-[0.62rem] text-[#657766] font-mono">Connected Fabric</span>
               </div>
 
               <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
                 <div className="rounded border border-[#D7CCBD] bg-white p-2">
                   <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">OIC Integration</p>
-                  <p className="text-[0.58rem] text-[#657766]">Kafka &amp; REST Streams</p>
+                  <p className="text-[0.58rem] text-[#657766]">REST Services &amp; Events</p>
                 </div>
                 <div className="rounded border border-[#D7CCBD] bg-white p-2">
-                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">Enterprise Data</p>
-                  <p className="text-[0.58rem] text-[#657766]">Subledgers Reconciled</p>
+                  <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">Subledger Integration</p>
+                  <p className="text-[0.58rem] text-[#657766]">Enterprise Accounting</p>
                 </div>
                 <div className="rounded border border-[#D7CCBD] bg-white p-2">
                   <p className="font-mono text-[0.62rem] font-bold text-[#261F1B]">AI Automation</p>
-                  <p className="text-[0.58rem] text-[#657766]">Continuous Period-Close</p>
+                  <p className="text-[0.58rem] text-[#657766]">Enterprise Analytics</p>
                 </div>
               </div>
             </div>
 
             {/* Bottom Proof Strip */}
             <div className="mt-4 pt-3 border-t border-[#D7CCBD]/80 flex items-center justify-between text-xs text-[#695F57]">
-              <span>Zero-downtime cutover methodology across multi-entity programs</span>
+              <span>Structured enterprise cutover methodology across multi-entity programs</span>
               <Link
                 href="/work"
                 className="font-bold text-[#7D2639] hover:underline flex items-center gap-1 text-[0.7rem]"
               >
-                View Case Studies →
+                View Solution Showcases →
               </Link>
             </div>
           </motion.div>
