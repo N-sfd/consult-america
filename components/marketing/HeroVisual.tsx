@@ -36,7 +36,7 @@ const DOMAINS = [
     val1: "Unified Ledger",
     metric2: "Document Vault",
     val2: "Verified E-Sign",
-    status: "SOC2 & RBAC Governed",
+    status: "RBAC & Audit Governed",
   },
   {
     id: "workforce",

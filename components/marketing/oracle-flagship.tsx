@@ -62,9 +62,9 @@ export default function OracleFlagship() {
             </h2>
 
             <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
-              From strategy and implementation to integration, cutover testing, and optimization,
-              Consult America helps organizations turn Oracle investments into connected,
-              high-performing business operations.
+              From strategy and clean-core implementation to controlled enterprise cutovers, OIC integrations,
+              and continuous optimization, Consult America helps organizations modernize finance, supply chain,
+              and human capital to support clean period-close execution and audit-ready operations from go-live.
             </p>
 
             <div className="pt-2">

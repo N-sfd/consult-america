@@ -36,7 +36,7 @@ const deliveryStages = [
     name: "CUTOVER & TESTING",
     icon: Workflow,
     headline: "Automated regression & financial reconciliation",
-    detail: "Execute end-to-end user acceptance, subledger balance validation, and zero-downtime cutover governance.",
+    detail: "Execute end-to-end user acceptance, subledger balance validation, and controlled enterprise cutover governance.",
     deliverables: ["Automated Regression Suites", "Mock Cutover Rehearsals", "Audit Sign-off Protocols"],
   },
   {

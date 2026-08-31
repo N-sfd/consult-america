@@ -107,7 +107,7 @@ export default function PortalShell({
           )}
         >
           <div className="px-4 py-5">
-            <BrandLogo href="/" tone="dark" markClassName="!h-7 !w-7" />
+            <BrandLogo href="/" tone="dark" markClassName="h-7 w-auto" />
             <p className="mt-3 text-xs text-[var(--ca-app-muted)]">
               {portalLabel} Portal
             </p>

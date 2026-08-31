@@ -80,7 +80,7 @@ export const consultingGroups = {
   ],
   featured: {
     title: "Oracle Cloud Transformation",
-    detail: "Multi-entity enterprise ERP & SCM cutover with zero downtime.",
+    detail: "Multi-entity enterprise ERP & SCM modernization with controlled cutover governance.",
     href: "/work/case-studies/oracle-cloud-transformation",
   },
 };
@@ -235,7 +235,7 @@ export const selectedProjects = [
   {
     href: "/work/case-studies/oracle-cloud-transformation",
     client: "Oracle Fusion Transformation",
-    title: "Multi-entity enterprise ERP & SCM modernization with zero downtime.",
+    title: "Multi-entity enterprise ERP & SCM modernization with controlled cutover governance.",
     body: "Staged cutover across entities with standardized charts of accounts and monitored integration hubs.",
   },
   {

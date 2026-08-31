@@ -97,7 +97,7 @@ export default function WorkforceAppShell({
     <div className="experience-app min-h-screen bg-[var(--ca-app-bg)] text-[var(--ca-app-ink)]">
       <header className="sticky top-0 z-40 border-b border-[var(--ca-app-border)] bg-white">
         <div className="flex h-16 items-center gap-4 px-4 lg:px-8">
-          <BrandLogo href="/app/dashboard" tone="dark" markClassName="!h-7 !w-7" />
+          <BrandLogo href="/app/dashboard" tone="dark" markClassName="h-7 w-auto" />
 
           <div className="mx-auto hidden max-w-md flex-1 md:block">
             <label className="relative block">

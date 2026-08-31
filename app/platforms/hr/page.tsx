@@ -60,7 +60,7 @@ export default function HRPlatformPage() {
                   <div className="rounded-lg border border-[#D7CCBD] bg-[#F4EFE6] p-3 text-xs">
                     <div className="flex justify-between font-semibold text-[#261F1B]">
                       <span>Document Vault &amp; Audit Logs</span>
-                      <span className="text-[#7D2639] font-bold">SOC2 Type II</span>
+                      <span className="text-[#7D2639] font-bold">Role-Governed</span>
                     </div>
                     <p className="mt-1 text-[0.68rem] text-[#695F57]">Role-based encrypted storage with tamper-evident logs.</p>
                   </div>

@@ -21,36 +21,37 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden border-b border-[#D7CCBD]/80 min-h-[820px] lg:min-h-[88vh] flex items-center bg-[#F7F3EC]">
-      {/* 1. Cinematic Background Image (Elevated 65% Opacity on Right, Controlled Warm Left Gradient) */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* 1. Cinematic Background Image (Senior consultants & technology leaders collaborating in modern architectural environment) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=85"
-          alt="Modern enterprise architecture and operations center"
+          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2400&q=85"
+          alt="Senior consultants and technology leaders collaborating in a modern corporate architectural environment"
           fill
           priority
-          className="object-cover object-right sm:object-[center_right] opacity-65 filter grayscale contrast-130"
+          className="object-cover object-[right_center] opacity-75 filter grayscale contrast-125"
           sizes="100vw"
         />
 
-        {/* Controlled Warm Editorial Gradient Scrim behind Left Text */}
+        {/* Multi-Stop Seamless Gradient: Fades perfectly into #F7F3EC without harsh rectangular edges */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(247,243,236,0.99) 0%, rgba(247,243,236,0.96) 34%, rgba(247,243,236,0.82) 54%, rgba(247,243,236,0.30) 78%, rgba(247,243,236,0.06) 100%)",
+              "linear-gradient(90deg, #F7F3EC 0%, #F7F3EC 36%, rgba(247,243,236,0.96) 48%, rgba(247,243,236,0.65) 65%, rgba(247,243,236,0.22) 84%, rgba(247,243,236,0.05) 100%)",
           }}
         />
 
-        {/* Subtle Bottom Fade */}
+        {/* Top and Bottom Atmosphere Fades */}
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(180deg, transparent 65%, rgba(247,243,236,0.92) 100%)",
+            background:
+              "linear-gradient(180deg, rgba(247,243,236,0.5) 0%, transparent 25%, transparent 75%, #F7F3EC 100%)",
           }}
         />
 
         {/* Atmospheric Warm Burgundy Glow */}
-        <div className="absolute inset-0 bg-radial-[circle_at_80%_25%] from-[#7D2639]/7 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-radial-[circle_at_80%_25%] from-[#7D2639]/6 via-transparent to-transparent" />
       </div>
 
       <div className="mkt-shell relative z-10 py-12 sm:py-16 w-full">

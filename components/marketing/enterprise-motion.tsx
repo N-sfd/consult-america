@@ -26,7 +26,7 @@ const motionStages = [
     title: "Governed AI & Document Intelligence",
     category: "DATA AGENT & APPLIED AI",
     description: "Automated FAR/DFARS clause extraction, complex document parsing, and audit-ready source citations.",
-    metrics: "99.8% extraction accuracy with source citations",
+    metrics: "Verifiable extraction accuracy with source citations",
     proof: "Enterprise-wide compliance and legal verification repository.",
   },
   {
@@ -35,7 +35,7 @@ const motionStages = [
     category: "CONSULT AMERICA LABS",
     description: "Purpose-built platforms for talent management, ATS candidate conversion, employee portals, and payroll reporting.",
     metrics: "End-to-end recruit-to-pay automation",
-    proof: "Adopted by enterprise workforce teams with SOC2 compliance.",
+    proof: "Adopted by enterprise workforce teams with role-based access control.",
   },
 ];
 

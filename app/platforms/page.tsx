@@ -31,7 +31,7 @@ const PLATFORMS = [
     slug: "hr",
     name: "Core HR Portal",
     tagline: "Employee Lifecycle & Compliance",
-    description: "Verified employee records, digital onboarding checklists, SOC2 compliance, and document vault.",
+    description: "Verified employee records, digital onboarding checklists, role-based access control, and document vault.",
     icon: FolderGit2,
   },
   {

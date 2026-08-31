@@ -90,8 +90,8 @@ export default function DataAgentFlagship() {
                   <span className="h-2.5 w-2.5 rounded-full bg-[#E2E7EC]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#E2E7EC]" />
                 </div>
-                <span className="text-[0.68rem] font-mono tracking-wider text-[#475467]">
-                  data-agent.consultamerica.internal
+                <span className="text-[0.62rem] sm:text-[0.68rem] font-mono font-bold tracking-wider text-[#475467] uppercase">
+                  CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT
                 </span>
                 <div className="w-8" />
               </div>

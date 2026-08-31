@@ -7,10 +7,10 @@ import { motion, useReducedMotion } from "framer-motion";
 
 // Corporate Browser Frame Helper
 function CorporateBrowserFrame({
-  url,
+  url = "CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT",
   children,
 }: {
-  url: string;
+  url?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -22,8 +22,8 @@ function CorporateBrowserFrame({
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
         </div>
-        <span className="font-mono text-[0.65rem] text-[#526170] tracking-wide">
-          {url}
+        <span className="font-mono text-[0.62rem] sm:text-[0.65rem] font-bold text-[#526170] tracking-wider uppercase">
+          CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT
         </span>
         <div className="w-8" />
       </div>
@@ -348,7 +348,7 @@ export default function LabsShowcase() {
                 {[
                   "Evidence citations on every response",
                   "Lab timeline & medication trend analysis",
-                  "HIPAA-compliant privacy-first architecture",
+                  "Privacy-first architecture designed for HIPAA-aligned healthcare workflows",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />
@@ -394,14 +394,14 @@ export default function LabsShowcase() {
               </h3>
 
               <p className="text-sm sm:text-base leading-relaxed text-[#526170]">
-                Enterprise API gateway and message routing bridge connecting Oracle Fusion, Salesforce, and custom microservices with zero-trust security and sub-15ms latency.
+                Enterprise API gateway and message routing bridge connecting Oracle Fusion, Salesforce, and custom microservices with zero-trust security and high-throughput reliability.
               </p>
 
               <div className="space-y-2 pt-2">
                 {[
                   "High-throughput event streaming & OIC bridging",
                   "Automated payload validation & schema mapping",
-                  "Zero-downtime deployment pipelines",
+                  "Resilient continuous deployment pipelines",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#47739B] shrink-0" />
@@ -429,7 +429,7 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7"
             >
-              <CorporateBrowserFrame url="https://convera-gateway.consultamerica.internal">
+              <CorporateBrowserFrame>
                 <div className="p-6 bg-white space-y-4">
                   <div className="flex items-center justify-between border-b border-[#E9EEF1] pb-3 text-xs">
                     <div className="flex items-center gap-2">
@@ -444,15 +444,15 @@ export default function LabsShowcase() {
                   <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
                       <p className="text-[0.62rem] text-[#526170] uppercase">Oracle Fusion Bridge</p>
-                      <p className="text-sm font-bold text-[#102033] mt-0.5">&lt; 12ms</p>
+                      <p className="text-sm font-bold text-[#102033] mt-0.5">Low Latency</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
                       <p className="text-[0.62rem] text-[#526170] uppercase">CRM Pipeline Sync</p>
-                      <p className="text-sm font-bold text-[#357C78] mt-0.5">100% Synced</p>
+                      <p className="text-sm font-bold text-[#357C78] mt-0.5">Active Sync</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-3">
-                      <p className="text-[0.62rem] text-[#526170] uppercase">Event Volume</p>
-                      <p className="text-sm font-bold text-[#47739B] mt-0.5">4.2M / day</p>
+                      <p className="text-[0.62rem] text-[#526170] uppercase">Event Routing</p>
+                      <p className="text-sm font-bold text-[#47739B] mt-0.5">Enterprise Scale</p>
                     </div>
                   </div>
                 </div>
@@ -476,7 +476,7 @@ export default function LabsShowcase() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7 order-2 lg:order-1"
             >
-              <CorporateBrowserFrame url="https://workforce.consultamerica.internal">
+              <CorporateBrowserFrame>
                 <div className="p-6 bg-white space-y-4">
                   <div className="flex items-center justify-between border-b border-[#E9EEF1] pb-3 text-xs">
                     <div className="flex items-center gap-2">
@@ -497,7 +497,7 @@ export default function LabsShowcase() {
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
                       <p className="text-[#526170]">TIMESHEETS</p>
-                      <p className="text-xs font-bold text-[#357C78] mt-1">100% Approved</p>
+                      <p className="text-xs font-bold text-[#357C78] mt-1">Period Approved</p>
                     </div>
                     <div className="rounded border border-[#DDE4E8] bg-[#F7F9FA] p-2.5">
                       <p className="text-[#526170]">PAYROLL</p>
@@ -532,7 +532,7 @@ export default function LabsShowcase() {
                 {[
                   "End-to-end recruit to hire automated flow",
                   "Employee self-service leave & time management",
-                  "Full audit logging and SOC2 access control",
+                  "Full audit logging and role-based enterprise access control",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-xs font-semibold text-[#102033]">
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#357C78] shrink-0" />

@@ -87,7 +87,7 @@ export default function FeaturedWork() {
                     <div>
                       <span className="font-bold text-[#7D2639]">Approach:</span>{" "}
                       <span className="text-[#695F57]">
-                        Connected Fusion architecture, automated migration pipelines, and zero-downtime cutover.
+                        Connected Fusion architecture, automated migration pipelines, and controlled enterprise cutover.
                       </span>
                     </div>
                     <div>

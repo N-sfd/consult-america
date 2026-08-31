@@ -12,8 +12,8 @@ export default function DataAgentScreenshot() {
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
           <span className="h-2 w-2 rounded-full bg-[#DDE4E8]" />
         </div>
-        <span className="font-mono text-xs text-[#526170]">
-          data-agent.consultamerica.internal
+        <span className="font-mono text-[0.62rem] sm:text-xs font-bold text-[#526170] uppercase tracking-wider">
+          CONSULT AMERICA LABS · DEMONSTRATION ENVIRONMENT
         </span>
         <div className="w-8" />
       </div>
