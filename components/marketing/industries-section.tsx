@@ -10,31 +10,31 @@ import SectionLabel from "@/components/marketing/SectionLabel";
 const industries = [
   {
     name: "Government & Public Sector",
-    description: "Core state and federal systems modernization, grants management, acquisition compliance, and public service portals.",
+    description: "Modernizing core public service systems, grants administration, financial management, and agency workflows.",
     href: "/industries/public-sector",
     image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1000&q=80",
-    badge: "Public Sector Modernization",
+    focus: "Public Sector Modernization",
   },
   {
     name: "Healthcare & Life Sciences",
-    description: "Clinical documentation intelligence, patient record pipelines, data boundaries, and provider workspaces.",
+    description: "Clinical documentation intelligence, patient record connectivity, intake workflows, and care coordination.",
     href: "/industries/healthcare",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80",
-    badge: "Clinical Intelligence",
+    focus: "Clinical & Health Tech",
   },
   {
     name: "Financial Services",
-    description: "Multi-entity Oracle Fusion ERP ledgers, financial period close governance, risk telemetry, and unified banking CRM.",
+    description: "Multi-entity enterprise ledgers, financial close governance, operational risk oversight, and connected customer CRM.",
     href: "/industries/financial-services",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
-    badge: "Financial Architecture",
+    focus: "Financial Platforms",
   },
   {
     name: "Technology & Software",
-    description: "High-throughput API ecosystems, cloud platform foundations, event routing, and applied AI infrastructure.",
+    description: "API ecosystems, cloud platform foundations, event routing, and applied AI infrastructure for scaling digital products.",
     href: "/industries/technology",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80",
-    badge: "Cloud Native & APIs",
+    focus: "Cloud & Applied AI",
   },
 ];
 
@@ -42,7 +42,7 @@ export default function IndustriesSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="industries" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+    <section id="industries" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
       <div className="ca-shell">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
           <div>
@@ -51,12 +51,12 @@ export default function IndustriesSection() {
               Industry Practices
             </h2>
           </div>
-          <p className="max-w-md text-sm sm:text-base text-[#526170]">
-            Domain depth combining regulatory frameworks, operational nuances, and verified delivery accelerators.
+          <p className="max-w-md text-base text-[#526170]">
+            Domain depth combining regulatory context, operational nuances, and proven delivery methods.
           </p>
         </div>
 
-        {/* 2x2 Photography Grid (Image height: 360–420px, Subtle navy overlay: rgba(12,34,51,.40), Text: white, CTA: Explore →) */}
+        {/* 2x2 Photography Grid (No compliance badges) */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {industries.map((ind, idx) => (
             <motion.div
@@ -79,15 +79,15 @@ export default function IndustriesSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
 
-                {/* Subtle Navy Overlay rgba(12,34,51,0.40) & gradient */}
+                {/* Subtle Navy Overlay & Gradient */}
                 <div className="absolute inset-0 bg-[#0C2233]/40 transition-colors duration-300 group-hover:bg-[#0C2233]/50" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0C2233]/90 via-[#0C2233]/40 to-transparent" />
 
                 {/* Content */}
                 <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-between text-white">
                   <div className="flex justify-end">
-                    <span className="rounded bg-white/15 backdrop-blur-md px-3 py-1 text-[0.65rem] font-bold tracking-wider text-white border border-white/20">
-                      {ind.badge}
+                    <span className="rounded bg-white/15 backdrop-blur-md px-3 py-1 text-[0.68rem] font-bold tracking-wider text-white border border-white/20">
+                      {ind.focus}
                     </span>
                   </div>
 

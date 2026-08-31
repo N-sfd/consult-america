@@ -11,10 +11,9 @@ export default function CareersFeature() {
   return (
     <section id="careers-preview" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 border-b border-[#DDE4E8]">
       <div className="ca-shell">
-        {/* 50/50 Composition (Section 30 Requirement) */}
         <div className="overflow-hidden rounded-xl border border-[#DDE4E8] bg-white shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-            {/* LEFT: Large Team / Collaboration Photography */}
+            {/* LEFT: Large Photograph */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -24,14 +23,14 @@ export default function CareersFeature() {
             >
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=85"
-                alt="Consult America senior engineering and consulting practitioners collaborating"
+                alt="Consult America senior engineering and enterprise consulting team members collaborating"
                 fill
                 className="object-cover mkt-img-graded"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </motion.div>
 
-            {/* RIGHT: #102033 Dark Panel */}
+            {/* RIGHT: Content */}
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -58,7 +57,7 @@ export default function CareersFeature() {
                   href="/careers"
                   className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
                 >
-                  <span>Explore Careers</span>
+                  <span>Explore Open Opportunities</span>
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>

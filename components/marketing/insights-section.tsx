@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, Clock } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
@@ -12,7 +12,7 @@ const featuredInsight = {
   readTime: "7 min read",
   title: "Operationalizing Enterprise AI: Moving from Experimentation to Production Delivery",
   summary:
-    "Why 80% of enterprise AI pilots fail to reach production workflows, and the data governance, citation boundaries, and human-in-the-loop validation needed for reliable deployment.",
+    "Why enterprise AI initiatives stall before reaching production workflows, and the data governance, citation boundaries, and human review needed for reliable operational deployment.",
   href: "/insights",
   image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85",
 };
@@ -22,7 +22,7 @@ const supportingInsights = [
     category: "ORACLE CLOUD",
     readTime: "6 min read",
     title: "What Oracle Cloud Modernization Requires Beyond Technology Implementation",
-    summary: "Operating model redesign, financial subledger reconciliation, and organizational change governance for long-term ERP ROI.",
+    summary: "Operating model redesign, financial subledger reconciliation, and change governance for long-term ERP ROI.",
     href: "/insights",
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
   },
@@ -30,7 +30,7 @@ const supportingInsights = [
     category: "DOCUMENT INTELLIGENCE",
     readTime: "5 min read",
     title: "Building Trustworthy Document Intelligence with Grounded Source Verification",
-    summary: "Extracting FAR/DFARS compliance clauses and complex financial schedules with 100% auditable citation lineage.",
+    summary: "Extracting contract terms and complex financial schedules with traceable source citation lineage.",
     href: "/insights",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80",
   },
@@ -38,7 +38,7 @@ const supportingInsights = [
     category: "DIGITAL ENGINEERING",
     readTime: "6 min read",
     title: "Enterprise Integration Architecture: Connecting Core ERP to Modern AI Workflows",
-    summary: "Architecting event-driven middleware and OIC bridges to support reliable operational decisioning across legacy environments.",
+    summary: "Architecting event-driven integration and API bridges to support reliable operational decisioning across legacy environments.",
     href: "/insights",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
   },
@@ -67,15 +67,15 @@ export default function InsightsSection() {
           </Link>
         </div>
 
-        {/* Publication-Style Interface (Section 29: Featured Article Left + 3 Smaller Stories Right) */}
+        {/* 60% Featured Insight Left + 3 Smaller Stories Right */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Featured Article (~50%) */}
+          {/* Featured Article (~58-60%) */}
           <motion.article
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-6 rounded-lg border border-[#DDE4E8] bg-white overflow-hidden flex flex-col justify-between shadow-2xs hover:border-[#B63A3A]/40 transition-all duration-300"
+            className="lg:col-span-7 rounded-lg border border-[#DDE4E8] bg-white overflow-hidden flex flex-col justify-between shadow-2xs hover:border-[#B63A3A]/40 transition-all duration-300"
           >
             <div className="relative aspect-[16/10] w-full bg-[#0C2233]">
               <Image
@@ -83,7 +83,7 @@ export default function InsightsSection() {
                 alt={featuredInsight.title}
                 fill
                 className="object-cover mkt-img-graded"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 60vw"
               />
             </div>
 
@@ -93,16 +93,16 @@ export default function InsightsSection() {
                   <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
                     {featuredInsight.category}
                   </span>
-                  <span className="flex items-center gap-1 text-[0.72rem] text-[#526170]">
-                    <Clock className="h-3 w-3" /> {featuredInsight.readTime}
+                  <span className="text-[0.72rem] text-[#526170]">
+                    {featuredInsight.readTime}
                   </span>
                 </div>
 
-                <h3 className="mt-3 font-serif text-2xl font-bold text-[#102033] leading-snug">
+                <h3 className="mt-3 font-serif text-2xl sm:text-3xl font-bold text-[#102033] leading-snug">
                   {featuredInsight.title}
                 </h3>
 
-                <p className="mt-3 text-sm leading-relaxed text-[#526170]">
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#526170]">
                   {featuredInsight.summary}
                 </p>
               </div>
@@ -118,8 +118,8 @@ export default function InsightsSection() {
             </div>
           </motion.article>
 
-          {/* Right Column: 3 Smaller Stories */}
-          <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
+          {/* Right Column: 3 Smaller Stories (~40-42%) */}
+          <div className="lg:col-span-5 space-y-4 flex flex-col justify-between">
             {supportingInsights.map((insight, idx) => (
               <motion.article
                 key={insight.title}
@@ -127,7 +127,7 @@ export default function InsightsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group rounded-lg border border-[#DDE4E8] bg-white p-4.5 hover:border-[#B63A3A]/40 transition-all duration-300 flex items-center gap-4.5 flex-1 shadow-2xs"
+                className="group rounded-lg border border-[#DDE4E8] bg-white p-4.5 hover:border-[#B63A3A]/40 transition-all duration-300 flex items-center gap-4 flex-1 shadow-2xs"
               >
                 <div className="relative h-20 w-24 sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded bg-[#0C2233]">
                   <Image
@@ -147,7 +147,7 @@ export default function InsightsSection() {
                     <span className="text-[#526170] shrink-0">{insight.readTime}</span>
                   </div>
 
-                  <h4 className="mt-1 text-sm sm:text-base font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors leading-snug line-clamp-2">
+                  <h4 className="mt-1 text-sm font-bold text-[#102033] group-hover:text-[#B63A3A] transition-colors leading-snug line-clamp-2">
                     {insight.title}
                   </h4>
 

@@ -42,50 +42,10 @@ export default function SiteHeader() {
         className="sticky top-0 z-50 transition-all duration-200"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        {/* Top Announcement / Utility Strip */}
-        <div className="hidden border-b border-[#E9EEF1] bg-[#F7F9FA] py-1.5 text-[0.75rem] font-medium text-[#526170] lg:block">
-          <div className="ca-shell flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <span className="text-[#102033] font-semibold tracking-wide text-[0.7rem] flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
-                ENTERPRISE TRANSFORMATION · ORACLE · AI &amp; DATA · ENGINEERING
-              </span>
-            </div>
-            <div className="flex items-center gap-6">
-              <Link
-                href="/careers"
-                className="transition-colors hover:text-[#B63A3A]"
-              >
-                Careers
-              </Link>
-              <Link
-                href="/insights"
-                className="transition-colors hover:text-[#B63A3A]"
-              >
-                Insights
-              </Link>
-              <button
-                type="button"
-                onClick={() => setContactOpen(true)}
-                className="cursor-pointer transition-colors hover:text-[#B63A3A]"
-              >
-                Contact
-              </button>
-              <span className="h-3 w-px bg-[#DDE4E8]" />
-              <Link
-                href="/login"
-                className="font-semibold text-[#102033] transition-colors hover:text-[#B63A3A]"
-              >
-                Employee Portal
-              </Link>
-            </div>
-          </div>
-        </div>
-
         {/* Main Navigation Bar */}
         <div className={`transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}>
           <div className="ca-shell">
-            <div className="flex h-[74px] xl:h-[78px] items-center justify-between gap-4 xl:gap-8">
+            <div className="flex h-[76px] xl:h-[80px] items-center justify-between gap-4 xl:gap-8">
               <BrandLogo tone="dark" priority />
 
               {/* Desktop Navigation Links */}
@@ -202,19 +162,26 @@ export default function SiteHeader() {
               </nav>
 
               {/* Utility / Right Action */}
-              <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex items-center gap-3 sm:gap-4.5">
                 <Link
                   href="/careers"
-                  className="hidden text-xs font-semibold text-[#526170] hover:text-[#B63A3A] md:block"
+                  className="hidden text-xs xl:text-sm font-semibold text-[#526170] hover:text-[#B63A3A] transition-colors md:block"
                 >
                   Careers
                 </Link>
                 <button
                   type="button"
                   onClick={() => setContactOpen(true)}
-                  className="ca-button-primary hidden !min-h-[40px] !px-4 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer"
+                  className="hidden text-xs xl:text-sm font-semibold text-[#526170] hover:text-[#B63A3A] transition-colors md:block cursor-pointer"
                 >
-                  Talk to an Expert
+                  Contact
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setContactOpen(true)}
+                  className="ca-button-primary hidden !min-h-[42px] !px-4.5 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer shadow-2xs"
+                >
+                  <span>Talk to an Expert</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </button>
 

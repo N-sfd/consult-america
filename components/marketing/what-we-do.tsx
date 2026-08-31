@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Layers, Database, Sparkles, Cpu } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
 
@@ -13,19 +13,15 @@ const modules = [
     title: "Operating models, delivery governance, and process architecture.",
     description: "Align business operations with modern digital workflows designed to survive cutover and drive adoption.",
     href: "/capabilities/enterprise-transformation",
-    icon: Layers,
-    iconColor: "text-[#B63A3A] bg-[#B63A3A]/10",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Executive strategy workshop with senior enterprise transformation team",
   },
   {
     category: "ORACLE TRANSFORMATION",
     title: "Modernize finance, supply chain, procurement, and projects.",
-    description: "From architecture and implementation to testing, OIC integrations, and subledger reconciliation across Fusion Cloud.",
+    description: "From architecture and implementation to testing, integrations, and financial reconciliation across Fusion Cloud.",
     href: "/oracle",
-    icon: Database,
-    iconColor: "text-[#47739B] bg-[#47739B]/10",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Modern enterprise operations and financial systems architecture",
   },
   {
@@ -33,109 +29,98 @@ const modules = [
     title: "Create trusted data foundations and production AI workflows.",
     description: "Enterprise document intelligence, task-oriented agents, governed RAG, and automated operational pipelines.",
     href: "/ai-data",
-    icon: Sparkles,
-    iconColor: "text-[#357C78] bg-[#357C78]/10",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Data engineering and machine learning analytics team",
   },
   {
     category: "APPLICATION ENGINEERING",
     title: "Build focused digital software where packaged systems stop.",
-    description: "Custom enterprise portals, Customer 360 workspaces, talent intelligence platforms, and high-performance APIs.",
+    description: "Custom enterprise portals, customer workspaces, talent intelligence platforms, and high-performance APIs.",
     href: "/capabilities/digital-engineering",
-    icon: Cpu,
-    iconColor: "text-[#102033] bg-[#102033]/10",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Digital software engineering and modern interface team",
   },
 ];
 
 export default function WhatWeDo() {
-  return (
-    <section className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
-      <div className="ca-shell">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
-          {/* Left Intro Column (Section 14 Specification) */}
-          <div className="lg:col-span-4 space-y-6">
-            <SectionLabel tone="burgundy">FROM STRATEGY TO PRODUCTION</SectionLabel>
+  const shouldReduceMotion = useReducedMotion();
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033] leading-[1.08]">
+  return (
+    <section id="what-we-do" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+      <div className="ca-shell">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-12 border-b border-[#DDE4E8]">
+          <div>
+            <SectionLabel tone="burgundy">PRACTICES &amp; CAPABILITIES</SectionLabel>
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]">
               What We Do
             </h2>
-
-            <p className="text-base leading-relaxed text-[#526170]">
-              We work across business transformation, enterprise applications, AI, data, and digital engineering — connecting strategy with the systems and workflows organizations depend on.
-            </p>
-
-            <div className="pt-4 border-t border-[#E9EEF1]">
-              <Link
-                href="/capabilities"
-                className="ca-link text-xs sm:text-sm font-semibold text-[#B63A3A]"
-              >
-                View all practice areas <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
           </div>
+          <p className="max-w-md text-base text-[#526170]">
+            We work across business transformation, enterprise applications, AI, data, and digital engineering — connecting strategy with the systems organizations depend on.
+          </p>
+        </div>
 
-          {/* Right 4 Visual Modules (2x2 Grid) */}
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {modules.map((mod, idx) => {
-              const Icon = mod.icon;
-              return (
-                <motion.article
-                  key={mod.category}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
-                  className="group flex flex-col justify-between rounded-lg border border-[#DDE4E8] bg-white overflow-hidden shadow-2xs hover:border-[#B63A3A]/40 hover:shadow-md transition-all duration-300"
+        {/* Staggered Editorial Visual Practice Modules (No identical repetitive cards) */}
+        <div className="mt-12 space-y-16 lg:space-y-20">
+          {modules.map((mod, idx) => {
+            const isEven = idx % 2 === 1;
+            return (
+              <motion.article
+                key={mod.category}
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: idx * 0.05 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center"
+              >
+                {/* Image Side (Staggered Left/Right) */}
+                <div
+                  className={`lg:col-span-7 ${
+                    isEven ? "lg:order-2" : "lg:order-1"
+                  }`}
                 >
-                  {/* Photograph */}
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F7F9FA]">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] shadow-[0_12px_36px_rgba(16,32,51,0.06)]">
                     <Image
                       src={mod.image}
                       alt={mod.imageAlt}
                       fill
-                      className="object-cover mkt-img-graded transition-transform duration-600 group-hover:scale-102"
-                      sizes="(max-width: 640px) 100vw, 40vw"
+                      className="object-cover mkt-img-graded transition-transform duration-700 hover:scale-[1.02]"
+                      sizes="(max-width: 1024px) 100vw, 55vw"
                     />
                   </div>
+                </div>
 
-                  {/* Content Block */}
-                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center gap-2.5">
-                        <div className={`flex h-7 w-7 items-center justify-center rounded ${mod.iconColor}`}>
-                          <Icon className="h-3.5 w-3.5" />
-                        </div>
-                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#526170]">
-                          {mod.category}
-                        </span>
-                      </div>
+                {/* Content Side */}
+                <div
+                  className={`lg:col-span-5 space-y-5 ${
+                    isEven ? "lg:order-1" : "lg:order-2"
+                  }`}
+                >
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#B63A3A]">
+                    {mod.category}
+                  </span>
 
-                      <h3 className="mt-3 font-serif text-lg sm:text-xl font-bold text-[#102033] leading-snug group-hover:text-[#B63A3A] transition-colors">
-                        {mod.title}
-                      </h3>
+                  <h3 className="font-serif text-2xl sm:text-3xl lg:text-3xl font-bold text-[#102033] leading-snug">
+                    {mod.title}
+                  </h3>
 
-                      <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#526170]">
-                        {mod.description}
-                      </p>
-                    </div>
+                  <p className="text-base leading-relaxed text-[#526170]">
+                    {mod.description}
+                  </p>
 
-                    <div className="pt-3 border-t border-[#E9EEF1]">
-                      <Link
-                        href={mod.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B63A3A] group-hover:gap-2.5 transition-all"
-                      >
-                        <span>Learn More</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
-                    </div>
+                  <div className="pt-2">
+                    <Link
+                      href={mod.href}
+                      className="group inline-flex items-center gap-2 text-sm font-bold text-[#102033] hover:text-[#B63A3A] transition-colors"
+                    >
+                      <span>Explore Practice</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5 text-[#B63A3A]" />
+                    </Link>
                   </div>
-                </motion.article>
-              );
-            })}
-          </div>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

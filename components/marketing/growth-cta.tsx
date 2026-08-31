@@ -38,14 +38,11 @@ export default function GrowthCta() {
   return (
     <section
       id="contact-cta"
-      className="relative overflow-hidden py-20 sm:py-24 lg:py-28 text-white"
-      style={{
-        background: "linear-gradient(135deg, #B63A3A 0%, #8F292D 100%)",
-      }}
+      className="relative overflow-hidden py-20 sm:py-24 lg:py-28 text-white bg-[#B63A3A]"
     >
       <div className="ca-shell relative z-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center">
-          {/* Left Column: Heading, Supporting copy, Trust commitments */}
+          {/* Left Column */}
           <div className="lg:col-span-5 space-y-6">
             <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/80 flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
@@ -73,16 +70,16 @@ export default function GrowthCta() {
               </div>
               <div className="flex items-center gap-2.5">
                 <ShieldCheck className="h-4 w-4 text-white shrink-0" />
-                <span>Confidential NDA scoping, architectural readiness &amp; feasibility assessment</span>
+                <span>Confidential scoping, architectural readiness &amp; feasibility assessment</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Clock className="h-4 w-4 text-white shrink-0" />
-                <span>Zero obligation timeline and technical roadmap evaluation</span>
+                <span>Timeline and delivery roadmap evaluation</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Clean White Form with Minimal Borders & Clear Validation */}
+          {/* Right Column: Clean White Form */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -110,7 +107,7 @@ export default function GrowthCta() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4.5">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="cta-name" className="block text-xs font-bold text-[#102033]">

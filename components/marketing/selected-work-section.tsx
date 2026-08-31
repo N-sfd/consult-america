@@ -8,32 +8,32 @@ import { motion, useReducedMotion } from "framer-motion";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 const featuredCase = {
-  client: "GLOBAL PUBLIC-SECTOR & DEFENSE ENTERPRISE",
-  title: "Multi-Entity Fusion Cloud Modernization & Core Financials Cutover",
-  challenge: "Fragmented legacy ERP systems across 12 operating entities causing delayed period-close cycles, disparate charts of accounts, and manual reconciliations.",
-  approach: "Architected a unified Oracle Fusion ERP & SCM environment with standardized subledger accounting, custom validation rules, and live OIC data streaming.",
-  outcome: "Accelerated monthly financial close cycle with standardized subledger accounting and complete audit traceability.",
+  client: "PUBLIC SECTOR ENTERPRISE",
+  title: "Multi-Entity Financial Platform Modernization & Operations Cutover",
+  challenge: "Disparate legacy finance and procurement systems across operating units creating delayed period close cycles, inconsistent charts of accounts, and manual audit reconciliations.",
+  approach: "Architected a unified Oracle Fusion ERP foundation with standardized subledger accounting, automated validation rules, and direct integration pipelines.",
+  outcome: "Consolidated financial workflows across entities, streamlined monthly period close, and established complete audit traceability across general ledger transactions.",
   image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
   href: "/work",
 };
 
 const secondaryCases = [
   {
-    industry: "DEFENSE & AEROSPACE CONTRACTOR",
-    headline: "Autonomous Contract Intelligence & Compliance Extraction",
-    challenge: "Complex multi-thousand page subcontracts requiring rigorous compliance verification across federal acquisition frameworks.",
-    approach: "Deployed Data Agent platform to automatically extract, ground, and verify contract clauses with traceable source citations.",
-    outcome: "Structured clause extraction and significant reduction in contract review cycle times across procurement teams.",
+    industry: "COMMERCIAL & AEROSPACE CONTRACTING",
+    headline: "Autonomous Contract Intelligence & Compliance Analysis",
+    challenge: "High overhead and friction reviewing complex multi-hundred page master agreements and vendor obligation schedules.",
+    approach: "Deployed Data Agent platform to automatically extract, structure, and verify critical terms with traceable source citations.",
+    outcome: "Structured clause extraction and significant reduction in review cycle times across procurement and commercial operations teams.",
     linkHref: "/work/innovation/data-agent",
     tag: "Data Agent AI",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
   },
   {
     industry: "HEALTHCARE TECHNOLOGY",
-    headline: "AI-Enabled Clinical Intelligence & Patient Visit Preparation",
-    challenge: "High clinician cognitive load synthesizing disparate patient records, lab histories, and medication changes.",
-    approach: "Engineered MediGuide AI to summarize clinical timelines and generate grounded, evidence-backed patient guidance.",
-    outcome: "Streamlined clinical chart review with fully verified source citations for every summary item.",
+    headline: "Clinical Intelligence & Structured Patient Intake Workflows",
+    challenge: "High cognitive load synthesizing fragmented health histories, intake records, and care instructions.",
+    approach: "Engineered MediGuide AI to summarize clinical timelines and generate grounded, evidence-backed patient guidance with safety guardrails.",
+    outcome: "Streamlined intake preparation with clear source citations for every synthesized care topic.",
     linkHref: "/work/innovation/mediguide-ai",
     tag: "MediGuide AI",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
@@ -44,13 +44,13 @@ export default function SelectedWorkSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="selected-work" className="bg-[#F7F9FA] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
+    <section id="selected-work" className="bg-[#FFFFFF] text-[#102033] py-20 sm:py-24 lg:py-28 border-b border-[#DDE4E8]">
       <div className="ca-shell">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#DDE4E8]">
           <div>
             <SectionLabel tone="burgundy">CASE STUDIES</SectionLabel>
             <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]">
-              Transformation in practice.
+              Transformation in Practice
             </h2>
           </div>
 
@@ -122,7 +122,7 @@ export default function SelectedWorkSection() {
           </div>
         </motion.article>
 
-        {/* 2 Secondary Case-Study Modules with Large Photography (No generic cards) */}
+        {/* 2 Secondary Case-Study Modules with Large Photography */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           {secondaryCases.map((cs, idx) => (
             <motion.article

@@ -12,12 +12,12 @@ const manifestoItems = [
   {
     num: "02",
     title: "TECHNOLOGY DEPTH",
-    description: "Connect enterprise platforms, data, AI and engineering.",
+    description: "Connect enterprise platforms, data, AI and engineering across the modern stack.",
   },
   {
     num: "03",
     title: "PRODUCTION DISCIPLINE",
-    description: "Design with implementation, testing, adoption and operations in mind.",
+    description: "Design with implementation, testing, adoption and operations in mind from day one.",
   },
   {
     num: "04",
@@ -42,14 +42,14 @@ export default function WhyConsultAmericaSection() {
             transition={{ duration: 0.55 }}
             className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#102033]"
           >
-            Built for execution, not just advice.
+            Designed for the distance between strategy and production.
           </motion.h2>
           <p className="max-w-md text-sm sm:text-base text-[#526170]">
             How our consulting and engineering model delivers predictable enterprise outcomes.
           </p>
         </div>
 
-        {/* Editorial Manifesto: Large Typography + Thin Dividers + Generous Whitespace (No Cards) */}
+        {/* Minimalist Consulting Manifesto: Large Typography + Thin Dividers + Generous Whitespace (NO cards) */}
         <div className="mt-8 divide-y divide-[#DDE4E8] border-y border-[#DDE4E8]">
           {manifestoItems.map((item, idx) => (
             <motion.div

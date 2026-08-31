@@ -4,6 +4,7 @@ import AIDataStory from "@/components/marketing/ai-data-story";
 import BusinessOutcomes from "@/components/marketing/business-outcomes";
 import CareersFeature from "@/components/marketing/careers-feature";
 import CRMShowcase from "@/components/marketing/crm-showcase";
+import EnterpriseTransformationFeature from "@/components/marketing/enterprise-transformation-feature";
 import GrowthCta from "@/components/marketing/growth-cta";
 import Hero from "@/components/marketing/hero";
 import IndustriesSection from "@/components/marketing/industries-section";
@@ -40,50 +41,53 @@ export default function Home() {
       <SiteHeader />
 
       <main className="experience-marketing">
-        {/* 02. HERO: Light (#F7F9FA), 55/45 split, enterprise photography, 1 floating panel */}
+        {/* 02. HERO: Light (#F7F9FA), 52/48 split, premium editorial photography */}
         <Hero />
 
-        {/* 03. CREDIBILITY: White (#FFFFFF) Platform Ecosystem Strip */}
+        {/* 03. CAPABILITY STRIP: Restrained capability typography */}
         <TrustCredibility />
 
-        {/* 04. BUSINESS OUTCOMES: Off-white (#F7F9FA) 4-column editorial typography & thin dividers */}
+        {/* 04. BUSINESS OUTCOMES: 4-column editorial typography & thin dividers */}
         <BusinessOutcomes />
 
-        {/* 05. WHAT WE DO: White (#FFFFFF), Intro column + 4 visual modules with photography */}
+        {/* 05. WHAT WE DO: 4 visual modules with staggered editorial layout */}
         <WhatWeDo />
 
-        {/* 06. ORACLE: Light (#F7F9FA) architectural design, 45% image / 55% capability rows + 1 controlled dark moment */}
+        {/* 06. ENTERPRISE TRANSFORMATION: Dedicated feature (Image left, Content right) */}
+        <EnterpriseTransformationFeature />
+
+        {/* 07. ORACLE FLAGSHIP: Clean architecture & 6 editorial practice rows */}
         <OracleFlagship />
 
-        {/* 07. CRM: White (#FFFFFF) with customer-facing photography, journey & connected system diagram */}
+        {/* 08. CRM: Customer-facing photography, journey & architecture line */}
         <CRMShowcase />
 
-        {/* 08. AI & DATA: Soft blue-gray (#EEF3F4) + photography & 4-step intelligence methodology */}
+        {/* 09. AI & DATA: Soft blue-gray (#EEF3F4) + photography & 4-step intelligence methodology */}
         <AIDataStory />
 
-        {/* 09. CONSULT AMERICA LABS: Deep Navy (#0C2233) intro & Data Agent Flagship + Individual Products (Data Explorer, JobLens, MediGuide AI, Convera, HR & Talent) */}
+        {/* 10. APPLICATION ENGINEERING & LABS: Practice intro, Data Agent Flagship, Alternating Products & Portfolio Gallery */}
         <LabsShowcase />
 
-        {/* 10. SELECTED WORK: Off-white (#F7F9FA) editorial case study with 55/45 featured story & secondary modules */}
+        {/* 11. SELECTED WORK: Transformation in Practice editorial case studies */}
         <SelectedWorkSection />
 
-        {/* 11. INDUSTRIES: 2x2 photography grid with subtle navy overlay */}
+        {/* 12. INDUSTRIES: 2x2 photography grid without compliance badges */}
         <IndustriesSection />
 
-        {/* 12. WHY CONSULT AMERICA: White (#FFFFFF) 4-part editorial manifesto */}
+        {/* 13. WHY CONSULT AMERICA: 4-part minimalist consulting manifesto */}
         <WhyConsultAmericaSection />
 
-        {/* 13. INSIGHTS: Soft gray (#F7F9FA) publication-style interface */}
+        {/* 14. INSIGHTS: Editorial 60/40 publication layout */}
         <InsightsSection />
 
-        {/* 14. CAREERS: 50/50 team photography + deep navy panel */}
+        {/* 15. CAREERS: 50/50 team photography + dark panel */}
         <CareersFeature />
 
-        {/* 15. CONTACT CTA: Consult America Red (#B63A3A) with clean white form */}
+        {/* 16. CONTACT CTA: Consult America Red (#B63A3A) with clean form */}
         <GrowthCta />
       </main>
 
-      {/* 16. FOOTER: Deep Navy (#0C2233 / #102033) */}
+      {/* 17. FOOTER: Deep Navy (#0C2233 / #102033) */}
       <SiteFooter />
     </>
   );
