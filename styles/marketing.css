@@ -221,21 +221,54 @@
 /* Background Image Overlay Utilities */
 .mkt-bg-overlay-light {
   background: linear-gradient(
-    rgba(244, 239, 230, 0.82),
-    rgba(244, 239, 230, 0.94)
+    rgba(244, 239, 230, 0.84),
+    rgba(244, 239, 230, 0.95)
   );
 }
 
 .mkt-bg-overlay-dark {
   background: linear-gradient(
-    rgba(38, 31, 27, 0.72),
-    rgba(38, 31, 27, 0.88)
+    rgba(43, 36, 32, 0.88),
+    rgba(43, 36, 32, 0.94)
+  );
+}
+
+.mkt-bg-overlay-burgundy {
+  background: linear-gradient(
+    rgba(125, 38, 57, 0.92),
+    rgba(104, 31, 48, 0.96)
   );
 }
 
 .mkt-editorial-texture {
   background-image: radial-gradient(rgba(38, 31, 27, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+.mkt-grid-pattern {
+  background-image: linear-gradient(to right, rgba(38, 31, 27, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(38, 31, 27, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Image Color Grading & Restrained Transitions */
+.mkt-img-graded {
+  filter: saturate(0.85) contrast(1.03) brightness(0.98);
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms ease;
+}
+
+.group:hover .mkt-img-graded,
+.mkt-img-graded:hover {
+  transform: scale(1.025);
+  filter: saturate(0.92) contrast(1.04) brightness(0.99);
+}
+
+/* Restrained Enterprise Radius Standards (6-10px max) */
+.mkt-radius {
+  border-radius: 8px;
+}
+.mkt-radius-lg {
+  border-radius: 10px;
 }
 
 /* Application UI window frame styling */

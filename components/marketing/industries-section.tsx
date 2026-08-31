@@ -50,7 +50,7 @@ export default function IndustriesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="text-3xl font-bold tracking-[-0.03em] sm:text-4xl lg:text-5xl"
+            className="font-serif text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:text-5xl"
           >
             Built for specialized operating environments.
           </motion.h2>
@@ -60,8 +60,8 @@ export default function IndustriesSection() {
           </p>
         </div>
 
-        {/* 4 Large Industry Modules */}
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-10">
+        {/* 2x2 Photographic Tile Grid (Each ~380px high on desktop) */}
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-8">
           {industries.map((ind, idx) => (
             <motion.div
               key={ind.name}
@@ -72,29 +72,27 @@ export default function IndustriesSection() {
             >
               <Link
                 href={ind.href}
-                className="group relative block overflow-hidden rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_12px_36px_rgba(38,31,27,0.06)] transition-all hover:border-[#7D2639]/50 hover:shadow-xl"
+                className="group relative block h-[360px] sm:h-[400px] w-full overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#2B2420] shadow-[0_12px_36px_rgba(38,31,27,0.06)] transition-all hover:border-[#7D2639]/50"
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={ind.image}
-                    alt={ind.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/85 via-[#261F1B]/30 to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6 text-white">
-                    <h3 className="text-xl font-bold text-[#FFFDF8] sm:text-2xl group-hover:text-[#D8C5AA] transition-colors">
-                      {ind.name}
-                    </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-[#DFE4DA] sm:text-sm">
-                      {ind.tagline}
-                    </p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#D8C5AA] transition-colors">
-                      <span>Explore Industry Practice</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
-                  </div>
+                <Image
+                  src={ind.image}
+                  alt={ind.name}
+                  fill
+                  className="object-cover mkt-img-graded"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/90 via-[#261F1B]/35 to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8 text-white">
+                  <h3 className="font-serif text-2xl font-semibold text-[#FFFDF8] group-hover:text-[#D8C5AA] transition-colors">
+                    {ind.name}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-[#DFE4DA] sm:text-sm">
+                    {ind.tagline}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-[#D8C5AA] transition-colors">
+                    <span>Explore Industry Practice</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </div>
               </Link>
             </motion.div>

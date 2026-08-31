@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -7,7 +8,7 @@ import { motion } from "framer-motion";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 const journeySteps = [
-  { step: "01", name: "DISCOVER", detail: "Intent & Audience Signals" },
+  { step: "01", name: "DISCOVER", detail: "Intent & Account Intelligence" },
   { step: "02", name: "ENGAGE", detail: "Personalized Outreach" },
   { step: "03", name: "SELL", detail: "Pipeline & Deal Staging" },
   { step: "04", name: "SERVE", detail: "Case & Service Governance" },
@@ -25,132 +26,119 @@ const connectedLayers = [
   "Analytics",
 ];
 
-const capabilities = [
-  "CRM Strategy & Architecture",
-  "Sales Cloud Modernization",
-  "Omnichannel Service Governance",
-  "Customer Data Platforms (CDP)",
-  "Digital Experience & Portals",
-  "Integration & API Workflows",
-  "Revenue Process Automation",
-  "AI-Enabled Customer Intelligence",
-  "Ongoing Managed Services",
-];
-
 export default function CRMShowcase() {
   return (
     <section id="crm-cx" className="mkt-section bg-[#F4EFE6] text-[#261F1B]">
       <div className="mkt-shell">
         <SectionLabel tone="burgundy">CRM &amp; Customer Experience</SectionLabel>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-12">
+        {/* Split Layout: Headline & Journey Left (~58%), Large Photography Right (~42%) */}
+        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-7"
+            className="lg:col-span-7 space-y-6"
           >
-            <h2 className="text-3xl font-bold tracking-[-0.03em] text-[#261F1B] sm:text-4xl lg:text-5xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-[#261F1B] sm:text-4xl lg:text-5xl lg:leading-[1.12]">
               Connect every customer moment to the enterprise behind it.
             </h2>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="lg:col-span-5"
-          >
-            <p className="text-base leading-relaxed text-[#695F57]">
+            <p className="max-w-xl text-base leading-relaxed text-[#695F57]">
               CRM works best when customer data, sales, service, operations and
               enterprise systems move together without disjointed handoffs or
               isolated silos.
             </p>
+
+            {/* Customer Journey Stepper */}
+            <div className="pt-4">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#7D2639]">
+                Unified Customer Journey
+              </p>
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-5">
+                {journeySteps.map((item, idx) => (
+                  <div
+                    key={item.name}
+                    className="rounded-md border border-[#D7CCBD] bg-[#FFFDF8] p-3 shadow-xs"
+                  >
+                    <span className="text-[0.65rem] font-bold text-[#7D2639]">
+                      {item.step}
+                    </span>
+                    <h3 className="mt-1 text-xs font-bold text-[#261F1B]">
+                      {item.name}
+                    </h3>
+                    <p className="mt-1 text-[0.68rem] leading-tight text-[#695F57]">
+                      {item.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/platforms/crm"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#7D2639] transition-colors hover:text-[#681F30]"
+              >
+                <span>Explore CRM &amp; Customer Experience</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right: Large Contextual Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65 }}
+            className="lg:col-span-5"
+          >
+            <div className="relative aspect-[4/3] lg:h-[440px] w-full overflow-hidden rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] shadow-[0_12px_36px_rgba(38,31,27,0.06)]">
+              <Image
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80"
+                alt="Executive sales and customer experience strategy session"
+                fill
+                className="object-cover mkt-img-graded"
+                sizes="(max-width: 1024px) 100vw, 42vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#D8C5AA]">
+                  CONNECTED REVENUE OPERATIONS
+                </span>
+                <p className="mt-1 text-xs text-[#F7F0E7]">
+                  Bridging front-office engagement to back-office ERP fulfillment and billing.
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        {/* Customer Journey Stepper Visual */}
+        {/* Connected Enterprise Flow Strip */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-14 rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] p-8 lg:p-10 shadow-[0_12px_36px_rgba(38,31,27,0.04)]"
+          transition={{ duration: 0.5 }}
+          className="mt-16 rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] p-6 shadow-xs"
         >
-          <p className="text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#7D2639]">
-            Unified Customer Journey
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#695F57]">
+            Connected Enterprise Architecture
           </p>
-
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {journeySteps.map((item, idx) => (
-              <div
-                key={item.name}
-                className="relative flex flex-col justify-between rounded-xl border border-[#D7CCBD] bg-[#FFFAF2] p-4.5"
-              >
-                <div>
-                  <span className="text-xs font-bold text-[#7D2639]">
-                    {item.step}
-                  </span>
-                  <h3 className="mt-2 text-base font-bold text-[#261F1B]">
-                    {item.name}
-                  </h3>
-                  <p className="mt-1 text-xs text-[#695F57]">{item.detail}</p>
-                </div>
-                {idx < journeySteps.length - 1 && (
-                  <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                    <ArrowRight className="h-4 w-4 text-[#7D2639]" />
-                  </div>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            {connectedLayers.map((layer, idx) => (
+              <div key={layer} className="flex items-center gap-3">
+                <span className="text-xs font-semibold text-[#261F1B]">
+                  {layer}
+                </span>
+                {idx < connectedLayers.length - 1 && (
+                  <ArrowRight className="h-3.5 w-3.5 text-[#7D2639] hidden sm:block" />
                 )}
               </div>
             ))}
           </div>
-
-          {/* Connected Enterprise Fabric */}
-          <div className="mt-8 border-t border-[#D7CCBD] pt-6">
-            <p className="text-xs font-semibold text-[#695F57]">
-              Connected across the digital core:
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {connectedLayers.map((layer) => (
-                <span
-                  key={layer}
-                  className="rounded-md border border-[#D7CCBD] bg-[#F4EFE6] px-3 py-1.5 text-xs font-semibold text-[#261F1B]"
-                >
-                  {layer}
-                </span>
-              ))}
-            </div>
-          </div>
         </motion.div>
-
-        {/* Capabilities Grid */}
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {capabilities.map((cap, idx) => (
-            <motion.div
-              key={cap}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.03 }}
-              className="flex items-center gap-3 rounded-xl border border-[#D7CCBD] bg-[#FFFDF8] p-4 transition-colors hover:border-[#7D2639]/40"
-            >
-              <span className="h-2 w-2 rounded-full bg-[#7D2639]" />
-              <span className="text-sm font-semibold text-[#261F1B]">{cap}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-10 flex justify-start">
-          <Link
-            href="/platforms/crm"
-            className="group inline-flex items-center gap-2 font-bold text-sm text-[#7D2639] hover:text-[#681F30]"
-          >
-            <span>Explore CRM &amp; Customer Experience</span>
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-        </div>
       </div>
     </section>
   );

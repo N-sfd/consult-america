@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -36,11 +37,23 @@ export default function GrowthCta() {
   };
 
   return (
-    <section id="contact-conversion" className="bg-[#7D2639] py-16 sm:py-24 text-white">
-      <div className="mkt-shell">
+    <section id="contact-conversion" className="relative overflow-hidden py-24 sm:py-32 bg-[#7D2639] text-white">
+      {/* Background Architectural/Collaboration Image with Dark Burgundy Overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80"
+          alt="Modern enterprise workplace and conference space"
+          fill
+          className="object-cover object-center opacity-15"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#7D2639]/95 via-[#7D2639]/92 to-[#681F30]/96" />
+      </div>
+
+      <div className="mkt-shell relative z-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-start">
-          {/* Left Column: Heading & Copy */}
-          <div className="lg:col-span-5">
+          {/* Left Column: Heading & Subheadline */}
+          <div className="lg:col-span-5 space-y-6">
             <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#D8C5AA]">
               START A CONVERSATION
             </span>
@@ -49,40 +62,37 @@ export default function GrowthCta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="mt-4 text-3xl font-extrabold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl"
+              className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl lg:leading-[1.12]"
             >
               What should your technology make possible next?
             </motion.h2>
-            <p className="mt-4 text-base leading-relaxed text-[#F1DCE1] sm:text-lg">
+            <p className="text-base leading-relaxed text-[#F1DCE1] sm:text-lg">
               Tell us what you&apos;re transforming, modernizing or building.
               Our practice leaders partner directly from early strategy through
               production go-live.
             </p>
 
-            <div className="mt-8 space-y-3 text-xs text-[#F1DCE1]">
-              <p className="font-semibold text-white uppercase tracking-wider">
-                What happens next?
-              </p>
+            <div className="space-y-3 pt-6 border-t border-white/20 text-xs text-[#F1DCE1]">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#DFE4DA]" />
+                <CheckCircle2 className="h-4 w-4 text-[#DFE4DA] shrink-0" />
                 <span>Confidential review by practice leads within 1 business day</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#DFE4DA]" />
-                <span>Architecture and scoping working session without slide-deck fluff</span>
+                <CheckCircle2 className="h-4 w-4 text-[#DFE4DA] shrink-0" />
+                <span>Architecture and scoping working session without sales overhead</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: High-conversion Form */}
+          {/* Right Column: High-conversion Warm White Form */}
           <div className="lg:col-span-7">
-            <div className="rounded-2xl border border-white/20 bg-[#FFFDF8] p-8 sm:p-10 text-[#261F1B] shadow-2xl">
+            <div className="rounded-lg border border-white/20 bg-[#FFFDF8] p-8 sm:p-10 text-[#261F1B] shadow-2xl">
               {submitted ? (
                 <div className="py-10 text-center">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#DFE4DA] text-[#657766]">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
-                  <h3 className="mt-4 text-2xl font-bold text-[#261F1B]">
+                  <h3 className="mt-4 font-serif text-2xl font-semibold text-[#261F1B]">
                     Thank you for reaching out
                   </h3>
                   <p className="mt-2 text-sm text-[#695F57]">
@@ -107,9 +117,9 @@ export default function GrowthCta() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {error && (
-                    <div className="rounded-lg bg-[#B93838]/10 p-3 text-xs font-semibold text-[#B93838]">
+                    <div className="rounded-md bg-[#B93838]/10 p-3 text-xs font-semibold text-[#B93838]">
                       {error}
                     </div>
                   )}
@@ -126,7 +136,7 @@ export default function GrowthCta() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your full name"
-                        className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none"
+                        className="mt-1.5 w-full rounded-md border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none"
                       />
                     </div>
 
@@ -141,7 +151,7 @@ export default function GrowthCta() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="name@company.com"
-                        className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none"
+                        className="mt-1.5 w-full rounded-md border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -157,7 +167,7 @@ export default function GrowthCta() {
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         placeholder="Organization name"
-                        className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none"
+                        className="mt-1.5 w-full rounded-md border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none"
                       />
                     </div>
 
@@ -169,7 +179,7 @@ export default function GrowthCta() {
                         id="areaOfInterest"
                         value={formData.areaOfInterest}
                         onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
-                        className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] focus:border-[#7D2639] focus:outline-none"
+                        className="mt-1.5 w-full rounded-md border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] focus:border-[#7D2639] focus:outline-none"
                       >
                         {interestOptions.map((opt) => (
                           <option key={opt} value={opt}>
@@ -190,17 +200,17 @@ export default function GrowthCta() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Briefly describe what you are looking to solve or build..."
-                      className="mt-1.5 w-full rounded-lg border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none resize-none"
+                      className="mt-1.5 w-full rounded-md border border-[#D7CCBD] bg-white px-3.5 py-2.5 text-sm text-[#261F1B] placeholder:text-[#695F57]/60 focus:border-[#7D2639] focus:outline-none resize-none"
                     />
                   </div>
 
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#7D2639] px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#681F30] cursor-pointer"
+                      className="group flex w-full items-center justify-center gap-2 rounded-md bg-[#7D2639] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#681F30] cursor-pointer"
                     >
                       <span>Submit Inquiry</span>
-                      <ArrowUpRight className="h-4 w-4" />
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </button>
                   </div>
                 </form>

@@ -28,7 +28,7 @@ const outcomes = [
 
 export default function BusinessOutcomes() {
   return (
-    <section className="mkt-section bg-[#F4EFE6] text-[#261F1B]">
+    <section className="mkt-section bg-[#F4EFE6] text-[#261F1B] border-b border-[#D7CCBD]/60">
       <div className="mkt-shell">
         <SectionLabel tone="burgundy">Business Outcomes First</SectionLabel>
 
@@ -39,7 +39,7 @@ export default function BusinessOutcomes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-2xl font-bold tracking-[-0.03em] sm:text-3xl lg:col-span-7 lg:text-4xl xl:text-[42px] xl:leading-[1.14]"
+            className="font-serif text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:col-span-7 lg:text-4xl xl:text-[44px] xl:leading-[1.12]"
           >
             Technology transformation should change how the business works — not
             just the systems it runs.
@@ -60,8 +60,8 @@ export default function BusinessOutcomes() {
           </motion.div>
         </div>
 
-        {/* 4 Outcome Modules in Editorial Columns */}
-        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-[#D7CCBD] pt-10">
+        {/* 4 Outcome Modules in Large Numbered Editorial Columns */}
+        <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-[#D7CCBD] pt-12">
           {outcomes.map((item, index) => (
             <motion.div
               key={item.number}
@@ -72,10 +72,10 @@ export default function BusinessOutcomes() {
               className="flex flex-col justify-between"
             >
               <div>
-                <span className="text-2xl font-light tracking-tight text-[#7D2639]">
+                <span className="font-serif text-3xl font-normal text-[#7D2639]">
                   {item.number}
                 </span>
-                <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.1em] text-[#261F1B]">
+                <h3 className="mt-4 text-xs font-bold uppercase tracking-[0.12em] text-[#261F1B]">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#695F57]">
