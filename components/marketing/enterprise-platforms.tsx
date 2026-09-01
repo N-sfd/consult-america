@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 import SectionLabel from "@/components/marketing/SectionLabel";
 
-const ATS_REQS = [
+const TALENT_ROLES = [
   { role: "Senior Oracle Fusion Lead", applicants: "14 applicants", stage: "Interview Loop" },
   { role: "Enterprise Data Engineer", applicants: "9 applicants", stage: "Technical Screen" },
   { role: "Transformation Analyst", applicants: "6 applicants", stage: "Offer Stage" },
@@ -126,7 +126,7 @@ export default function EnterprisePlatforms() {
             </div>
           </motion.div>
 
-          {/* 2. ATS & Talent Intelligence */}
+          {/* 2. HR & Talent */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export default function EnterprisePlatforms() {
                     <span className="h-2 w-2 rounded-full bg-[#657766]" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-[0.1em] text-[#261F1B]">
-                    ATS &amp; Talent Platform
+                    HR &amp; Talent Suite
                   </span>
                 </div>
                 <span className="rounded-full bg-[#DFE4DA] px-2 py-0.5 text-[0.65rem] font-bold text-[#657766]">
@@ -164,7 +164,7 @@ export default function EnterprisePlatforms() {
 
               {/* Sanitized Requisition Queue */}
               <div className="mt-3.5 space-y-2">
-                {ATS_REQS.map((req) => (
+                {TALENT_ROLES.map((req) => (
                   <div
                     key={req.role}
                     className="rounded-lg border border-[#D7CCBD] bg-[#FFFDF8] p-2.5 text-xs"
@@ -190,8 +190,8 @@ export default function EnterprisePlatforms() {
             </div>
 
             <div className="mt-6 border-t border-[#D7CCBD] pt-4">
-              <Link href="/platforms/ats" className="ca-link text-xs font-semibold text-[#7D2639] hover:text-[#681F30]">
-                Explore ATS Platform
+              <Link href="/work/innovation" className="ca-link text-xs font-semibold text-[#7D2639] hover:text-[#681F30]">
+                Explore Applications
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
             </div>

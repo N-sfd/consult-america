@@ -29,7 +29,7 @@ export default function PositioningSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-white py-24 sm:py-28 lg:py-32 xl:py-36">
       <SectionBackdrop variant="positioning" />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">

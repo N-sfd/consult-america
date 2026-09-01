@@ -20,7 +20,7 @@ export default function Hero() {
       <SectionBackdrop variant="hero" />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1440px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-12 lg:gap-14 lg:px-8 xl:px-10">
-        <div className="lg:col-span-6 xl:col-span-7">
+        <div className="lg:col-span-5 xl:col-span-5">
           <motion.p
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,33 +79,49 @@ export default function Hero() {
           initial={shouldReduceMotion ? {} : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.12, ease: revealEase }}
-          className="relative lg:col-span-6 xl:col-span-5"
+          className="relative lg:col-span-7 xl:col-span-7"
         >
-          <div className="ca-photo-hover relative aspect-[4/3] overflow-hidden rounded-[22px] border border-[#DCE4E1] bg-white shadow-[0_28px_70px_rgba(7,59,58,0.10)]">
-            <Image
-              src={stockImage("hero", { w: 1200, q: 85 })}
-              alt="Enterprise technology leaders collaborating"
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 42vw"
-            />
-          </div>
+          <div className="ca-hero-visual relative min-h-[360px] sm:min-h-[440px] lg:min-h-[560px]">
+            {/* Background: enterprise team image */}
+            <div className="ca-hero-main-photo relative ml-auto w-[88%] overflow-hidden rounded-[22px] border border-[#DCE4E1] bg-white shadow-[0_28px_70px_rgba(7,59,58,0.10)]">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src={stockImage("hero", { w: 1200, q: 85 })}
+                  alt="Enterprise technology leaders collaborating"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 88vw, 48vw"
+                />
+              </div>
+            </div>
 
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 14, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.75, delay: 0.22, ease: revealEase }}
-            className="ca-product-hover ca-photo-float absolute -bottom-8 left-0 w-[54%] max-w-[300px] overflow-hidden rounded-lg border border-[rgba(7,59,58,0.12)] bg-white p-1.5 shadow-[0_20px_50px_rgba(7,59,58,0.12)] sm:-bottom-6 sm:left-2"
-          >
-            <Image
-              src="/innovation/data-agent-hero.png"
-              alt="Data Agent product interface"
-              width={640}
-              height={400}
-              className="h-auto w-full rounded-md object-cover object-top"
-            />
-          </motion.div>
+            {/* Foreground: Data Agent UI */}
+            <div className="ca-hero-product-ui absolute bottom-6 left-0 w-[56%] max-w-[420px] overflow-hidden rounded-[14px] border border-[rgba(7,59,58,0.12)] bg-white p-1.5 shadow-[0_28px_70px_rgba(7,59,58,0.12)] sm:bottom-8">
+              <Image
+                src="/innovation/data-agent-hero.png"
+                alt="Data Agent product interface"
+                width={640}
+                height={400}
+                className="h-auto w-full rounded-[10px] object-cover object-top"
+              />
+            </div>
+
+            {/* Secondary: architecture status panel */}
+            <div className="ca-hero-status-panel absolute right-2 top-4 hidden w-[38%] max-w-[200px] rounded-[16px] border border-[#DDE6E3] bg-white/95 p-4 shadow-[0_16px_40px_rgba(7,59,58,0.08)] backdrop-blur-sm sm:block lg:right-0 lg:top-8">
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+                Connected Platform
+              </p>
+              <ul className="mt-3 space-y-2">
+                {["Oracle Cloud", "Data Agent", "CRM"].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs font-medium text-[#073B3A]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#9BC4B8]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

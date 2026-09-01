@@ -136,6 +136,93 @@
     linear-gradient(90deg, rgba(240, 246, 244, 0.4) 0%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 80%, rgba(240, 246, 244, 0.4) 100%);
 }
 
+/* Coupa-style side panels */
+.ca-side-panel {
+  border-radius: 16px;
+  border: 1px solid #dde6e3;
+  padding: 1.5rem;
+  transition:
+    transform 400ms var(--ease-ca),
+    box-shadow 400ms var(--ease-ca),
+    border-color 400ms var(--ease-ca);
+}
+
+a.ca-side-panel:hover,
+button.ca-side-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(7, 59, 58, 0.08);
+}
+
+.ca-product-frame {
+  background: #fff;
+}
+
+.ca-ui-callout {
+  max-width: 180px;
+}
+
+/* Hero platform composition */
+.ca-hero-visual {
+  position: relative;
+}
+
+.ca-hero-main-photo {
+  position: relative;
+}
+
+.ca-hero-product-ui {
+  z-index: 2;
+}
+
+.ca-hero-status-panel {
+  z-index: 3;
+}
+
+/* Oracle enterprise model motion */
+@keyframes caOraclePulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes caOracleDrift {
+  0%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+  50% {
+    stroke-dashoffset: 12;
+    opacity: 0.5;
+  }
+}
+
+@keyframes caOracleDot {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.ca-oracle-ring-pulse {
+  animation: caOraclePulse 16s ease-in-out infinite;
+}
+
+.ca-oracle-ring-drift {
+  animation: caOracleDrift 18s ease-in-out infinite;
+}
+
+.ca-oracle-dot {
+  animation: caOracleDot 14s ease-in-out infinite;
+}
+
 .ca-header-glass {
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(14px);
@@ -159,6 +246,12 @@
   .ca-product-hover:hover,
   .ca-photo-float {
     transform: none;
+    animation: none !important;
+  }
+
+  .ca-oracle-ring-pulse,
+  .ca-oracle-ring-drift,
+  .ca-oracle-dot {
     animation: none !important;
   }
 

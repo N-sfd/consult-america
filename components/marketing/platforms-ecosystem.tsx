@@ -15,9 +15,9 @@ const journeyTiers = [
   },
   {
     stage: "02. TALENT",
-    domain: "ATS & Recruiting",
-    items: ["Requisitions", "Candidates", "Interview Loops", "Offers"],
-    href: "/platforms/ats",
+    domain: "JobLens",
+    items: ["Resume Analysis", "ATS Feedback", "Job Matching", "Applications"],
+    href: "/work/innovation/joblens",
   },
   {
     stage: "03. PEOPLE",

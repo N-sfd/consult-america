@@ -6,8 +6,6 @@ import { ArrowRight, ArrowUpRight, CheckCircle2, Users, Workflow } from "lucide-
 import { motion, useReducedMotion } from "framer-motion";
 
 import ApplicationPortfolio from "@/components/marketing/application-portfolio";
-import SectionBackdrop from "@/components/marketing/section-backdrop";
-import SectionLabel from "@/components/marketing/SectionLabel";
 
 // Corporate Browser Frame Helper (Section 24 Requirement)
 function CorporateBrowserFrame({
@@ -41,203 +39,7 @@ export default function LabsShowcase() {
 
   return (
     <div id="labs-showcase">
-      {/* ======================================================== */}
-      {/* 1. APPLICATION ENGINEERING PRACTICE (Section 19)         */}
-      {/* ======================================================== */}
-      <section className="relative overflow-hidden border-b border-[#C9DDD7] bg-white py-20 text-[#122D2E] sm:py-24 lg:py-28">
-        <SectionBackdrop variant="applications" />
-        <div className="ca-shell relative z-10">
-          <SectionLabel tone="burgundy">APPLICATION ENGINEERING PRACTICE</SectionLabel>
-
-          <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-            {/* Left: Editorial Copy */}
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              className="lg:col-span-6 space-y-6"
-            >
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#122D2E] leading-[1.08]">
-                Build what packaged software cannot.
-              </h2>
-
-              <p className="text-base sm:text-lg leading-relaxed text-[#5B6D6B]">
-                Design and engineer applications, portals, AI experiences and integration services around the workflows that differentiate the business.
-              </p>
-
-              <div className="pt-2">
-                <Link
-                  href="/capabilities/digital-engineering"
-                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-full cursor-pointer"
-                >
-                  <span>Explore Engineering Capabilities</span>
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Right: Overlapping product screenshots */}
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-6 relative min-h-[360px]"
-            >
-              <div className="absolute left-0 top-0 w-[72%] z-10 overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-[0_16px_48px_rgba(7,59,58,0.1)]">
-                <div className="relative aspect-[16/10] w-full">
-                  <Image
-                    src="/innovation/data-agent-hero.png"
-                    alt="Data Agent document intelligence interface"
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 1024px) 80vw, 35vw"
-                  />
-                </div>
-              </div>
-              <div className="absolute right-0 top-12 w-[58%] z-20 overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-[0_20px_56px_rgba(7,59,58,0.12)]">
-                <div className="relative aspect-[16/10] w-full">
-                  <Image
-                    src="/innovation/mediguide-hero.png"
-                    alt="MediGuide AI clinical assistant interface"
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 1024px) 70vw, 30vw"
-                  />
-                </div>
-              </div>
-              <div className="absolute left-[18%] bottom-0 w-[52%] z-30 overflow-hidden rounded-lg border border-[#DCE4E1] bg-white shadow-[0_24px_64px_rgba(7,59,58,0.14)]">
-                <div className="relative aspect-[16/10] w-full">
-                  <Image
-                    src="/innovation/joblens-hero.png"
-                    alt="JobLens resume analysis interface"
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 1024px) 65vw, 28vw"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 2. CONSULT AMERICA LABS & DATA AGENT (Section 24 & 27)   */}
-      {/* ======================================================== */}
-      <section
-        className="py-16 sm:py-20 lg:py-24 border-b border-[#073B3A] bg-[#073B3A] text-white relative overflow-hidden"
-      >
-        {/* Subtle ambient light */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-30"
-          style={{
-            background: "radial-gradient(circle at 80% 30%, rgba(40,123,114,0.3) 0%, transparent 60%)",
-          }}
-        />
-
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
-            {/* Left ~34%: Copy */}
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              className="lg:col-span-4 space-y-5"
-            >
-              <div className="inline-flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
-                <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9BC4B8]">
-                  CONSULT AMERICA LABS
-                </span>
-              </div>
-
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[40px] font-semibold tracking-[-0.03em] text-white leading-tight">
-                We don&apos;t only advise.
-                <br />
-                <span className="text-[#9BC4B8]">We build.</span>
-              </h2>
-
-              <p className="text-sm sm:text-base leading-relaxed text-white/80">
-                Our applications solve real business problems with AI, data and
-                customer-centric design.
-              </p>
-
-              {/* 6 Capabilities */}
-              <div className="grid grid-cols-1 gap-2 pt-1">
-                {[
-                  "Dynamic extraction",
-                  "Table intelligence",
-                  "Clause intelligence",
-                  "Source verification",
-                  "Repository intelligence",
-                  "Cross-document analysis",
-                ].map((cap) => (
-                  <div
-                    key={cap}
-                    className="flex items-center gap-2 text-xs font-semibold text-white/90"
-                  >
-                    <CheckCircle2 className="h-3.5 w-3.5 text-[#9BC4B8] shrink-0" />
-                    <span>{cap}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-3">
-                <Link
-                  href="/work/innovation/data-agent"
-                  className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[8px] bg-[#B83A3A] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(184,58,58,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"
-                >
-                  <span>Explore our applications</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Right ~66%: Large Real Screenshot with Muted Teal Arch Backdrop (Section 27 Specification) */}
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-8 relative flex flex-col items-center"
-            >
-              <div className="relative w-full">
-                {/* Large Muted Teal Arch behind Screenshot (Section 27) */}
-                <div
-                  className="absolute -top-6 -right-6 w-[94%] h-[94%] rounded-t-[140px] rounded-b-[16px] pointer-events-none -z-0 hidden sm:block"
-                  style={{
-                    background: "linear-gradient(145deg, #0B4A47, #287B72)",
-                    opacity: 0.25,
-                  }}
-                />
-
-                <div className="relative z-10">
-                  <CorporateBrowserFrame url="https://data-agent-ca.vercel.app">
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-white">
-                      <Image
-                        src="/innovation/data-agent-hero.png"
-                        alt="Data Agent document and contract intelligence interface"
-                        fill
-                        className="object-cover object-top"
-                        sizes="(max-width: 1024px) 100vw, 66vw"
-                      />
-                    </div>
-                  </CorporateBrowserFrame>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 3. ALTERNATING PRODUCT PORTFOLIO SECTIONS (Section 22-23) */}
-      {/* ======================================================== */}
-
-      {/* 3A. DATA EXPLORER (Screenshot left, Copy right, soft blue-gray #E1ECE8) */}
+      {/* Product portfolio sections */}
       <section className="bg-[#E1ECE8] text-[#122D2E] py-20 sm:py-24 border-b border-[#C9DDD7]">
         <div className="ca-shell">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
@@ -596,10 +398,10 @@ export default function LabsShowcase() {
 
               <div className="pt-2">
                 <Link
-                  href="/platforms/ats"
+                  href="/work/innovation"
                   className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-full cursor-pointer"
                 >
-                  <span>Explore Workforce Suite</span>
+                  <span>Explore Applications</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>

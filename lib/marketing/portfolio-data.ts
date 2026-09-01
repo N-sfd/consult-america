@@ -112,7 +112,7 @@ export const portfolioProjects: PortfolioProject[] = [
     image: "/portfolio/hr-talent.png",
     imageAlt: "HR and Talent workforce management portal interface",
     imageFit: "cover",
-    detailHref: "/platforms/ats",
+    detailHref: "/work/innovation",
     tier: 2,
     layoutSpan: "standard",
   },

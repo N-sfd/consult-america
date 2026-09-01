@@ -10,7 +10,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net"
 const platformRoutes = [
   "/platforms",
   "/platforms/crm",
-  "/platforms/ats",
   "/platforms/hr",
   "/platforms/employee",
   "/platforms/workforce",

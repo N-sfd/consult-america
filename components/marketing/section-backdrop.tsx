@@ -87,8 +87,8 @@ export default function SectionBackdrop({
               className="ca-shape ca-shape--float-three ca-shape--delay-2 h-[220px] w-[220px] rounded-full border border-[#C9DDD7]/60 bg-[#F0F6F4]/40 opacity-60"
             />
           </ShapeLayer>
-          <ShapeLayer className="top-[70px] right-[2%]" style={parallax(offset.slow)}>
-            <div className="ca-shape ca-shape--float-one ca-shape--delay-1 ca-shape--hero-arc h-[520px] w-[520px] rounded-full bg-[#9BC4B8] opacity-[0.15]" />
+          <ShapeLayer className="top-[70px] -right-[120px]" style={parallax(offset.slow)}>
+            <div className="ca-shape ca-shape--float-one ca-shape--delay-1 ca-shape--hero-arc h-[560px] w-[560px] rounded-full bg-[rgba(155,196,184,0.18)]" />
           </ShapeLayer>
           <ShapeLayer className="right-[6%] top-[10%] hidden md:block" style={parallax(offset.mid)}>
             <div

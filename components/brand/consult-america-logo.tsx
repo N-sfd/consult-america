@@ -37,7 +37,7 @@ const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
 };
 
 const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
-  header: "clamp(36px, 4.5vw, 48px)",
+  header: "clamp(38px, 4vw, 44px)",
   footer: "56px",
   compact: "64px",
   mark: "clamp(40px, 10vw, 56px)",
@@ -46,7 +46,7 @@ const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
 };
 
 const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
-  header: "clamp(180px, 22vw, 280px)",
+  header: "clamp(200px, 20vw, 235px)",
   footer: "280px",
   compact: "320px",
   mark: "72px",

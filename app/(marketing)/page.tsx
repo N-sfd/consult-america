@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 
 import AIDataStory from "@/components/marketing/ai-data-story";
+import ApplicationPlatform from "@/components/marketing/application-platform";
 import CareersFeature from "@/components/marketing/careers-feature";
-import ClientTrust from "@/components/marketing/client-trust";
 import CRMShowcase from "@/components/marketing/crm-showcase";
-import DataAgentFlagship from "@/components/marketing/data-agent-flagship";
-import GlanceStats from "@/components/marketing/glance-stats";
 import Hero from "@/components/marketing/hero";
 import IndustriesSection from "@/components/marketing/industries-section";
 import InsightsSection from "@/components/marketing/insights-section";
 import LabsShowcase from "@/components/marketing/labs-showcase";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
-import PlatformStrip from "@/components/marketing/platform-strip";
 import PositioningSection from "@/components/marketing/positioning-section";
 import PreFooterCta from "@/components/marketing/pre-footer-cta";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
@@ -37,19 +34,16 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ClientTrust />
-      <PlatformStrip />
       <PositioningSection />
-      <GlanceStats />
       <OracleFlagship />
-      <CRMShowcase />
       <AIDataStory />
+      <ApplicationPlatform />
       <LabsShowcase />
-      <DataAgentFlagship />
-      <WorkforceJourney />
+      <CRMShowcase />
       <SelectedWorkSection />
       <IndustriesSection />
       <InsightsSection />
+      <WorkforceJourney />
       <CareersFeature />
       <PreFooterCta />
     </>

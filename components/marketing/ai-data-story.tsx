@@ -1,34 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-import { ShapedPhoto } from "@/components/marketing/shaped-photo";
+import PlatformLineSystem from "@/components/marketing/platform-line-system";
 import SectionBackdrop from "@/components/marketing/section-backdrop";
-import { stockImage } from "@/lib/marketing/stock-images";
 
-const methodologySteps = [
-  {
-    number: "01",
-    title: "FIND THE VALUE",
-    description: "Identify where trusted data and AI automation create measurable return.",
-  },
-  {
-    number: "02",
-    title: "BUILD THE FOUNDATION",
-    description: "Govern and pipeline operational data into architectures teams can query.",
-  },
-  {
-    number: "03",
-    title: "PUT AI INTO THE WORK",
-    description: "Deploy agents and assistance directly inside day-to-day workflows.",
-  },
-  {
-    number: "04",
-    title: "OPERATE WITH TRUST",
-    description: "Ground outputs in source citations, access controls, and human review.",
-  },
+const capabilities = [
+  "Enterprise Agents",
+  "Document Intelligence",
+  "Data Engineering",
+  "Governed AI",
+];
+
+const callouts = [
+  { label: "VERIFY", detail: "Source-linked evidence" },
+  { label: "EXTRACT", detail: "Dynamic field intelligence" },
 ];
 
 export default function AIDataStory() {
@@ -37,85 +26,99 @@ export default function AIDataStory() {
   return (
     <section
       id="ai-data-story"
-      className="relative overflow-hidden border-b border-[#073B3A] py-16 text-white sm:py-20 lg:py-24"
+      className="relative overflow-hidden border-b border-[#073B3A] py-24 text-white sm:py-28 lg:py-32 xl:py-36"
       style={{
-        background:
-          "linear-gradient(135deg, #073B3A 0%, #0B4A47 52%, #176A63 100%)",
+        background: "linear-gradient(135deg, #073B3A 0%, #0B4A47 52%, #176A63 100%)",
       }}
     >
       <SectionBackdrop variant="ai" />
+      <PlatformLineSystem className="opacity-[0.07]" />
 
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
-        <div className="inline-flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9BC4B8]">
-            AI &amp; DATA PRACTICE
-          </span>
-        </div>
-
-        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-16">
+          {/* Left: copy + capabilities */}
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-6 space-y-6"
+            className="lg:col-span-4 space-y-6"
           >
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-white leading-[1.08]">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9BC4B8]">
+                AI &amp; DATA
+              </span>
+            </div>
+
+            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl lg:leading-[1.08]">
               Put intelligence into the work.
             </h2>
 
-            <p className="text-base sm:text-lg leading-relaxed text-white/80 max-w-xl">
-              AI creates value when trusted data, useful models, business context and real workflows come together.
+            <p className="max-w-md text-base leading-relaxed text-white/80 sm:text-lg">
+              AI creates value when trusted data, useful models, business context, and real
+              workflows come together.
             </p>
 
-            <div className="pt-2">
+            <ul className="space-y-2 pt-2">
+              {capabilities.map((cap) => (
+                <li
+                  key={cap}
+                  className="text-xs font-bold uppercase tracking-[0.12em] text-[#9BC4B8]"
+                >
+                  {cap}
+                </li>
+              ))}
+            </ul>
+
+            <div className="pt-4">
               <Link
                 href="/ai-data"
-                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[8px] bg-[#B83A3A] px-6 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(184,58,58,0.22)] hover:bg-[#992F31] transition-all cursor-pointer"
+                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[8px] bg-[#B83A3A] px-6 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(184,58,58,0.22)] transition-all hover:bg-[#992F31]"
               >
-                <span>Explore AI &amp; Data Practice</span>
+                Explore AI &amp; Data
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
           </motion.div>
 
-          <div className="lg:col-span-6 relative flex flex-col items-center">
-            <div className="relative w-full max-w-[560px]">
-              <div className="absolute -inset-3 rounded-[14px] border border-[#9BC4B8]/25 -z-0 hidden sm:block ca-bg-drift" />
-              <ShapedPhoto
-                src={stockImage("aiDataStory", { w: 1200, q: 85 })}
-                alt="Data engineering and applied machine learning team collaborating on enterprise data pipelines"
-                shape="cut"
-                className="h-[320px] sm:h-[390px] border-[#9BC4B8]/30 shadow-[0_20px_50px_rgba(0,0,0,0.30)]"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                overlay="caption"
-                revealDirection="right"
-              />
-            </div>
-          </div>
-        </div>
+          {/* Right: large Data Agent screenshot */}
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.08 }}
+            className="relative lg:col-span-8"
+          >
+            <div className="relative">
+              <div className="ca-product-frame ml-auto w-full overflow-hidden rounded-[16px] border border-[rgba(7,59,58,0.12)] bg-white p-2 shadow-[0_28px_70px_rgba(7,59,58,0.12)] sm:w-[92%] lg:w-[88%] xl:w-[85%]">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
+                  <Image
+                    src="/innovation/data-agent-hero.png"
+                    alt="Data Agent document intelligence interface"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 58vw"
+                  />
+                </div>
+              </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-[#9BC4B8]/25 pt-10">
-          {methodologySteps.map((step, idx) => (
-            <motion.div
-              key={step.number}
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: idx * 0.08 }}
-            >
-              <span className="font-serif text-3xl sm:text-4xl font-normal text-[#9BC4B8]">
-                {step.number}
-              </span>
-              <h3 className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-white">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/75">
-                {step.description}
-              </p>
-            </motion.div>
-          ))}
+              {/* Callouts */}
+              {callouts.map((callout, i) => (
+                <div
+                  key={callout.label}
+                  className={`ca-ui-callout absolute hidden rounded-[14px] border border-[#DDE6E3] bg-white px-4 py-3 shadow-[0_16px_40px_rgba(7,59,58,0.08)] sm:block ${
+                    i === 0 ? "left-0 top-[18%]" : "bottom-[12%] right-[4%]"
+                  }`}
+                >
+                  <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+                    {callout.label}
+                  </p>
+                  <p className="mt-1 text-xs text-[#5B6D6B]">{callout.detail}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -32,7 +32,7 @@ export const engineeringMegaMenu = {
     { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
     { href: "/work/innovation/joblens", label: "JobLens" },
     { href: "/ai-data", label: "Data Explorer" },
-    { href: "/platforms/ats", label: "HR & Talent" },
+    { href: "/#application-platform", label: "HR & Talent" },
   ],
   featured: {
     title: "Consult America Labs",
@@ -149,7 +149,7 @@ export const whatWeDoMegaMenu = {
       { href: "/work/innovation/joblens", label: "JobLens", detail: "Talent Matching & ATS Analysis" },
       { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical Assistant & Timeline" },
       { href: "/capabilities/digital-engineering", label: "Convera", detail: "API Gateway & Message Hub" },
-      { href: "/platforms/ats", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
+      { href: "/#application-platform", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
     ],
     ctaHref: "/work/innovation",
     ctaLabel: "Explore applications →",
@@ -198,7 +198,7 @@ export const technologyGroups = {
 
 export const platformLinks = [
   { href: "/platforms/crm", label: "CRM Workspace", detail: "Customer 360, Opportunity & Pipeline" },
-  { href: "/platforms/ats", label: "ATS & Talent Intelligence", detail: "Requisitions, Screening & Interview Pipeline" },
+  { href: "/#application-platform", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
   { href: "/platforms/hr", label: "Core HR Portal", detail: "Employee Records, Verification & Compliance" },
   { href: "/platforms/employee", label: "Employee Self-Service", detail: "Profile, Onboarding, Documents & Requests" },
   { href: "/platforms/workforce", label: "Time & Leave", detail: "Timesheet Management & PTO Approvals" },
