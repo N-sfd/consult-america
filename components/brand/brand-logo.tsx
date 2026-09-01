@@ -8,7 +8,9 @@ interface BrandLogoProps {
   className?: string;
   markClassName?: string;
   showWordmark?: boolean;
+  showTagline?: boolean;
   tone?: "light" | "dark";
+  variant?: "default" | "footer";
   priority?: boolean;
   onNavigate?: () => void;
 }
@@ -18,15 +20,35 @@ export default function BrandLogo({
   className,
   markClassName,
   showWordmark = true,
+  showTagline = true,
   tone = "dark",
+  variant = "default",
   priority = false,
   onNavigate,
 }: BrandLogoProps) {
-  // tone="light" is for DARK backgrounds (charcoal footer #211E1B, dark drawers) -> uses crisp white #FFFDF8 and sand/gold #D8C5AA
-  // tone="dark" is for LIGHT backgrounds (light header, login, portal) -> uses deep charcoal #261F1B and warm slate #695F57
+  // tone="light" is for DARK backgrounds (charcoal sections, dark drawers) -> white wordmark
+  // tone="dark" is for LIGHT backgrounds (header, light footer) -> charcoal wordmark
   const isDarkTone = tone === "dark";
 
-  const content = (
+  const footerLockup = (
+    <span className={cn("inline-flex select-none", className)}>
+      <Image
+        src="/brand/logo-footer.png"
+        alt="Consult America"
+        width={440}
+        height={120}
+        priority={priority}
+        unoptimized
+        className="h-auto w-[170px] sm:w-[185px] lg:w-[220px] object-contain object-left"
+      />
+      <span className="sr-only">Consult America</span>
+    </span>
+  );
+
+  const content =
+    variant === "footer" ? (
+      footerLockup
+    ) : (
     <span className={cn("inline-flex items-center select-none gap-2.5 sm:gap-3", className)}>
       {/* 1. CA Ribbon Monogram Mark */}
       <span className="relative flex items-center justify-center shrink-0">
@@ -56,6 +78,7 @@ export default function BrandLogo({
                 AMERICA
               </span>
             </span>
+            {showTagline && (
             <span
               className={cn(
                 "text-[0.40rem] sm:text-[0.44rem] lg:text-[0.48rem] font-bold uppercase tracking-[0.06em] mt-1 flex items-center gap-1 whitespace-nowrap flex-nowrap shrink-0",
@@ -70,12 +93,13 @@ export default function BrandLogo({
               <span className="text-[#B63A3A] text-[0.55rem] shrink-0">•</span>
               <span className="shrink-0">ENGINEERING</span>
             </span>
+            )}
           </span>
         </>
       )}
       <span className="sr-only">Consult America</span>
     </span>
-  );
+    );
 
   if (!href) return content;
 

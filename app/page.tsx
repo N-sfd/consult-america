@@ -39,7 +39,7 @@ export default function Home() {
       {/* 01. Minimal & Sophisticated Header with Full-Width Mega Menus */}
       <SiteHeader />
 
-      <main className="experience-marketing">
+      <main className="experience-marketing w-full max-w-[100vw] overflow-x-hidden">
         {/* 02. HERO: Light (#F7F9FA), 55/45 split, enterprise photography, 1 floating panel */}
         <Hero />
 
@@ -83,7 +83,7 @@ export default function Home() {
         <GrowthCta />
       </main>
 
-      {/* 16. FOOTER: Deep Navy (#0C2233 / #102033) */}
+      {/* 16. FOOTER: Light ivory with dark production logo */}
       <SiteFooter />
     </>
   );

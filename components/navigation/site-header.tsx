@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, ChevronDown, Sparkles, Building2, Layers, Cpu, Database, Workflow, ShieldCheck, FileText, Activity, Users } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import BrandLogo from "@/components/brand/brand-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
@@ -11,11 +11,19 @@ import { industryLinks, platformLinks } from "@/lib/site-data";
 
 type MenuType = "what-we-do" | "oracle" | "crm" | "ai-data" | "applications" | "industries" | "company" | null;
 
+type NavMode = "compact" | "desktop";
+
+const HEADER_NAV_GAP = 32;
+const HEADER_DIVIDER_SPACE = 48;
+
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<MenuType>(null);
+  const [navMode, setNavMode] = useState<NavMode>("compact");
   const { setOpen: setContactOpen } = useContactPanel();
+  const headerInnerRef = useRef<HTMLDivElement>(null);
+  const navMeasureRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -31,32 +39,188 @@ export default function SiteHeader() {
     };
   }, [drawerOpen]);
 
+  useLayoutEffect(() => {
+    const header = headerInnerRef.current;
+    const navMeasure = navMeasureRef.current;
+    if (!header || !navMeasure) return;
+
+    const evaluateNavMode = () => {
+      const width = header.clientWidth;
+      if (width < 1180) {
+        setNavMode("compact");
+        return;
+      }
+
+      const brand = header.querySelector("[data-header-brand]") as HTMLElement | null;
+      const cta = header.querySelector("[data-header-cta]") as HTMLElement | null;
+      if (!brand || !cta) return;
+
+      const reserved =
+        brand.offsetWidth + cta.offsetWidth + HEADER_DIVIDER_SPACE + HEADER_NAV_GAP;
+      const available = width - reserved;
+
+      setNavMode(navMeasure.scrollWidth <= available ? "desktop" : "compact");
+    };
+
+    evaluateNavMode();
+    const observer = new ResizeObserver(evaluateNavMode);
+    observer.observe(header);
+    window.addEventListener("resize", evaluateNavMode, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", evaluateNavMode);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (navMode === "compact") {
+      setOpenMenu(null);
+    }
+  }, [navMode]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth < 1180) {
+        setOpenMenu(null);
+      }
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   const isSolid = true;
 
   const headerSurface = "bg-[#FFFDF8]/96 backdrop-blur-[18px] border-b border-[#261F1B]/10 shadow-[0_2px_14px_rgba(20,24,28,0.04)]";
 
   const topStripStyle = "border-b border-[#D7CCBD]/50 bg-[#FFFDF8]/90 text-[#695F57]";
 
-  const navLinkClass = "ca-nav-link flex items-center gap-1.5 text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] cursor-pointer transition-colors whitespace-nowrap";
+  const navLinkClass =
+    "ca-header-nav-link cursor-pointer";
 
-  const directLinkClass = "ca-nav-link text-[14px] xl:text-[15px] font-medium tracking-[-0.01em] text-[#261F1B] hover:text-[#B63A3A] transition-colors whitespace-nowrap";
+  const directLinkClass = "ca-header-nav-link";
+
+  const isDesktopNav = navMode === "desktop";
+
+  const renderNavItems = (interactive: boolean, forMeasure = false) => (
+    <>
+      <button
+        type="button"
+        data-open={openMenu === "what-we-do"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("what-we-do") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "what-we-do" ? null : "what-we-do") : undefined}
+        aria-expanded={interactive ? openMenu === "what-we-do" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        What We Do
+        <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform duration-200" />
+      </button>
+
+      <button
+        type="button"
+        data-open={openMenu === "oracle"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("oracle") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "oracle" ? null : "oracle") : undefined}
+        aria-expanded={interactive ? openMenu === "oracle" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        Oracle
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </button>
+
+      <button
+        type="button"
+        data-open={openMenu === "crm"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("crm") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "crm" ? null : "crm") : undefined}
+        aria-expanded={interactive ? openMenu === "crm" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        CRM<span className={forMeasure ? "inline" : "hidden min-[1440px]:inline"}> &amp; Customer Experience</span>
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </button>
+
+      <button
+        type="button"
+        data-open={openMenu === "ai-data"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("ai-data") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "ai-data" ? null : "ai-data") : undefined}
+        aria-expanded={interactive ? openMenu === "ai-data" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        AI &amp; Data
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </button>
+
+      <button
+        type="button"
+        data-open={openMenu === "applications"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("applications") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "applications" ? null : "applications") : undefined}
+        aria-expanded={interactive ? openMenu === "applications" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        Applications
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </button>
+
+      <button
+        type="button"
+        data-open={openMenu === "industries"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("industries") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "industries" ? null : "industries") : undefined}
+        aria-expanded={interactive ? openMenu === "industries" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        Industries
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </button>
+
+      <Link
+        href="/work"
+        className={directLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu(null) : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        Our Work
+      </Link>
+
+      <button
+        type="button"
+        data-open={openMenu === "company"}
+        className={navLinkClass}
+        onMouseEnter={interactive ? () => setOpenMenu("company") : undefined}
+        onClick={interactive ? () => setOpenMenu(openMenu === "company" ? null : "company") : undefined}
+        aria-expanded={interactive ? openMenu === "company" : undefined}
+        tabIndex={interactive ? 0 : -1}
+      >
+        Company
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </button>
+    </>
+  );
 
   return (
     <>
       <header
-        className="sticky top-0 z-50 transition-all duration-300"
+        className="sticky top-0 z-50 w-full transition-all duration-300"
         onMouseLeave={() => setOpenMenu(null)}
       >
         {/* Top Announcement / Utility Strip */}
-        <div className={`hidden py-1.5 text-[0.75rem] font-medium transition-colors duration-300 lg:block ${topStripStyle}`}>
-          <div className="w-full max-w-[1540px] mx-auto px-6 sm:px-8 xl:px-12 2xl:px-16 flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <span className={`font-semibold tracking-wide text-[0.7rem] flex items-center gap-2 ${isSolid ? "text-[#261F1B]" : "text-white"}`}>
+        <div className={`py-1.5 text-[0.75rem] font-medium transition-colors duration-300 ${topStripStyle} ${isDesktopNav ? "" : "hidden"}`}>
+          <div className="ca-header-bar flex min-w-0 items-center justify-between gap-4">
+            <div className="flex min-w-0 items-center gap-6">
+              <span className={`min-w-0 truncate font-semibold tracking-wide text-[0.7rem] flex items-center gap-2 ${isSolid ? "text-[#261F1B]" : "text-white"}`}>
                 <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
                 ENTERPRISE TRANSFORMATION · ORACLE · AI &amp; DATA · ENGINEERING
               </span>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex shrink-0 items-center gap-6">
               <Link
                 href="/careers"
                 className={`transition-colors ${isSolid ? "hover:text-[#B63A3A]" : "hover:text-white"}`}
@@ -87,160 +251,73 @@ export default function SiteHeader() {
           </div>
         </div>
 
-        {/* Main Navigation Bar (Wider container max-w-[1540px] + Generous Breathing Room) */}
+        {/* Main Navigation Bar */}
         <div className={`transition-[background,border-color,box-shadow] duration-300 ${headerSurface}`}>
-          <div className="w-full max-w-[1540px] mx-auto px-6 sm:px-8 xl:px-12 2xl:px-16">
-            <div className="flex h-20 items-center justify-between gap-6 lg:h-[84px]">
-              <BrandLogo
-                tone="dark"
-                priority
-                markClassName="h-9 sm:h-10 lg:h-11 w-auto"
-              />
+          <div className="ca-header-bar">
+            <div ref={headerInnerRef} className="ca-header-inner relative h-[4.5rem] min-[1280px]:h-[84px]">
+              <div className="ca-header-brand" data-header-brand>
+                <BrandLogo
+                  tone="dark"
+                  priority
+                  showTagline={false}
+                  markClassName="h-9 w-auto"
+                />
+              </div>
 
-              {/* Desktop Navigation Links with Generous 28-36px Spacing */}
+              {isDesktopNav && (
+                <div className="ca-header-divider" aria-hidden="true" />
+              )}
+
+              {/* Hidden measure row — drives compact vs desktop switch */}
               <nav
-                className="hidden items-center justify-center gap-5 xl:gap-[28px] 2xl:gap-[36px] lg:flex"
-                aria-label="Primary navigation"
+                ref={navMeasureRef}
+                className="ca-header-nav pointer-events-none absolute left-[-10000px] top-0 opacity-0"
+                aria-hidden="true"
               >
-                {/* What We Do Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "what-we-do"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("what-we-do")}
-                  onClick={() => setOpenMenu(openMenu === "what-we-do" ? null : "what-we-do")}
-                  aria-expanded={openMenu === "what-we-do"}
-                >
-                  What We Do
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform duration-200" />
-                </button>
-
-                {/* Oracle Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "oracle"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("oracle")}
-                  onClick={() => setOpenMenu(openMenu === "oracle" ? null : "oracle")}
-                  aria-expanded={openMenu === "oracle"}
-                >
-                  Oracle
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* CRM & Customer Experience Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "crm"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("crm")}
-                  onClick={() => setOpenMenu(openMenu === "crm" ? null : "crm")}
-                  aria-expanded={openMenu === "crm"}
-                >
-                  CRM &amp; Customer Experience
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* AI & Data Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "ai-data"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("ai-data")}
-                  onClick={() => setOpenMenu(openMenu === "ai-data" ? null : "ai-data")}
-                  aria-expanded={openMenu === "ai-data"}
-                >
-                  AI &amp; Data
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* Applications Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "applications"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("applications")}
-                  onClick={() => setOpenMenu(openMenu === "applications" ? null : "applications")}
-                  aria-expanded={openMenu === "applications"}
-                >
-                  Applications
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* Industries Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "industries"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("industries")}
-                  onClick={() => setOpenMenu(openMenu === "industries" ? null : "industries")}
-                  aria-expanded={openMenu === "industries"}
-                >
-                  Industries
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                <Link
-                  href="/work"
-                  className={directLinkClass}
-                  onMouseEnter={() => setOpenMenu(null)}
-                >
-                  Our Work
-                </Link>
-
-                {/* Company Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "company"}
-                  className={navLinkClass}
-                  onMouseEnter={() => setOpenMenu("company")}
-                  onClick={() => setOpenMenu(openMenu === "company" ? null : "company")}
-                  aria-expanded={openMenu === "company"}
-                >
-                  Company
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
+                {renderNavItems(false, true)}
               </nav>
 
-              {/* Utility / Right Action */}
-              <div className="flex items-center gap-3 sm:gap-4">
-                <Link
-                  href="/careers"
-                  className={`hidden text-xs font-semibold md:block transition-colors ${isSolid ? "text-[#695F57] hover:text-[#B63A3A]" : "text-white/80 hover:text-white"}`}
-                >
-                  Careers
-                </Link>
+              {isDesktopNav && (
+                <nav className="ca-header-nav" aria-label="Primary navigation">
+                  {renderNavItems(true)}
+                </nav>
+              )}
+
+              <div className="ca-header-actions" data-header-actions>
                 <button
                   type="button"
+                  data-header-cta
                   onClick={() => setContactOpen(true)}
-                  className="ca-button-primary hidden !min-h-[42px] !px-5 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer !bg-[#B63A3A] hover:!bg-[#9E2E2E] !text-white rounded-[6px]"
+                  className="ca-button-primary !inline-flex !min-h-[42px] !px-4 text-xs font-semibold cursor-pointer !bg-[#B63A3A] hover:!bg-[#9E2E2E] !text-white rounded-[6px]"
                 >
                   Talk to an Expert
-                  <ArrowUpRight className="h-3.5 w-3.5" />
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => setDrawerOpen(true)}
-                  className={`flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border lg:hidden cursor-pointer transition-colors ${
-                    isSolid
-                      ? "border-[#D7CCBD] bg-white"
-                      : "border-white/20 bg-white/10"
-                  }`}
-                  aria-label="Open navigation menu"
-                  aria-expanded={drawerOpen}
-                >
-                  <span className={`h-0.5 w-4.5 ${isSolid ? "bg-[#261F1B]" : "bg-white"}`} />
-                  <span className={`h-0.5 w-4.5 ${isSolid ? "bg-[#261F1B]" : "bg-white"}`} />
-                  <span className={`h-0.5 w-4.5 ${isSolid ? "bg-[#261F1B]" : "bg-white"}`} />
-                </button>
+                {!isDesktopNav && (
+                  <button
+                    type="button"
+                    onClick={() => setDrawerOpen(true)}
+                    className={`flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border cursor-pointer transition-colors ${
+                      isSolid
+                        ? "border-[#D7CCBD] bg-white"
+                        : "border-white/20 bg-white/10"
+                    }`}
+                    aria-label="Open navigation menu"
+                    aria-expanded={drawerOpen}
+                  >
+                    <span className={`h-0.5 w-4.5 ${isSolid ? "bg-[#261F1B]" : "bg-white"}`} />
+                    <span className={`h-0.5 w-4.5 ${isSolid ? "bg-[#261F1B]" : "bg-white"}`} />
+                    <span className={`h-0.5 w-4.5 ${isSolid ? "bg-[#261F1B]" : "bg-white"}`} />
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
 
         {/* 1. What We Do Mega Menu */}
-        {openMenu === "what-we-do" && (
+        {isDesktopNav && openMenu === "what-we-do" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("what-we-do")}
@@ -401,7 +478,7 @@ export default function SiteHeader() {
         )}
 
         {/* 2. Oracle Mega Menu */}
-        {openMenu === "oracle" && (
+        {isDesktopNav && openMenu === "oracle" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("oracle")}
@@ -476,7 +553,7 @@ export default function SiteHeader() {
         )}
 
         {/* 3. CRM Mega Menu */}
-        {openMenu === "crm" && (
+        {isDesktopNav && openMenu === "crm" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("crm")}
@@ -536,7 +613,7 @@ export default function SiteHeader() {
         )}
 
         {/* 4. AI & Data Mega Menu */}
-        {openMenu === "ai-data" && (
+        {isDesktopNav && openMenu === "ai-data" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("ai-data")}
@@ -597,7 +674,7 @@ export default function SiteHeader() {
         )}
 
         {/* 5. Applications Mega Menu */}
-        {openMenu === "applications" && (
+        {isDesktopNav && openMenu === "applications" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("applications")}
@@ -629,7 +706,7 @@ export default function SiteHeader() {
         )}
 
         {/* 6. Industries Mega Menu */}
-        {openMenu === "industries" && (
+        {isDesktopNav && openMenu === "industries" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("industries")}
@@ -661,7 +738,7 @@ export default function SiteHeader() {
         )}
 
         {/* 7. Company Mega Menu */}
-        {openMenu === "company" && (
+        {isDesktopNav && openMenu === "company" && (
           <div
             className="absolute inset-x-0 top-full border-b border-[#D7CCBD] bg-[#FFFDF8] text-[#261F1B] shadow-[0_20px_40px_rgba(20,24,28,0.08)] backdrop-blur-md transition-all animate-in fade-in slide-in-from-top-2 duration-200"
             onMouseEnter={() => setOpenMenu("company")}

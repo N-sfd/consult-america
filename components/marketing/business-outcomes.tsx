@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 const outcomes = [
@@ -27,12 +28,48 @@ const outcomes = [
 ];
 
 export default function BusinessOutcomes() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section className="bg-[#F7F3EC] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5]">
-      <div className="ca-shell">
+    <section className="relative mkt-section-clip bg-[#F7F3EC] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5] overflow-hidden">
+      {/* Slow-moving architectural background */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <motion.div
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  scale: [1.025, 1.04, 1.025],
+                  x: [-5, 5, -5],
+                }
+          }
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute inset-[-4%] opacity-[0.14]"
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2200&q=80"
+            alt=""
+            fill
+            className="object-cover object-center mkt-img-graded"
+            sizes="100%"
+          />
+        </motion.div>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(247,243,236,0.97) 0%, rgba(247,243,236,0.88) 38%, rgba(247,243,236,0.42) 62%, rgba(247,243,236,0) 82%)",
+          }}
+        />
+      </div>
+
+      <div className="ca-shell relative z-10">
         <SectionLabel tone="burgundy">Business Outcomes First</SectionLabel>
 
-        {/* Large Editorial Statement */}
         <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-14">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -58,7 +95,6 @@ export default function BusinessOutcomes() {
           </motion.div>
         </div>
 
-        {/* 4 Outcome Columns: Typography + Whitespace + Thin Dividers (No colored cards) */}
         <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 border-t border-[#D8D0C5] pt-12">
           {outcomes.map((item, index) => (
             <motion.div

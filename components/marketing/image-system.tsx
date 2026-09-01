@@ -166,7 +166,7 @@ export function ServiceEditorialImage({
     accent === "bottom-right" ? "ca-corner-br-accent" : "ca-corner-tl-accent";
 
   return (
-    <div className="group/service relative w-full max-w-[520px] mx-auto pb-6 sm:pb-8">
+    <div className="group/service relative w-full max-w-[520px] mx-auto pb-6 sm:pb-8 overflow-x-clip">
       <motion.div
         initial={shouldReduce ? {} : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -186,7 +186,7 @@ export function ServiceEditorialImage({
           priority={priority}
           sizes={sizes}
           className={cn(
-            "object-cover mkt-img-graded transition-transform duration-600 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/service:scale-[1.02]",
+            "object-cover mkt-img-graded transition-transform duration-[650ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/service:scale-[1.025]",
             className
           )}
         />
@@ -200,7 +200,10 @@ export function ServiceEditorialImage({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.12, ease: [0.2, 0.8, 0.2, 1] }}
-          className="absolute z-20 -bottom-2 -right-4 sm:-bottom-3 sm:-right-5 w-[110px] h-[128px] sm:w-[130px] sm:h-[150px] overflow-hidden rounded-t-[70px] rounded-b-[16px] border-2 border-white bg-white shadow-[0_16px_36px_rgba(38,31,27,0.2)] transition-transform duration-500 group-hover/service:-translate-y-1.5"
+          className={cn(
+            "absolute z-20 -bottom-2 -right-4 sm:-bottom-3 sm:-right-5 w-[110px] h-[128px] sm:w-[130px] sm:h-[150px] overflow-hidden rounded-t-[70px] rounded-b-[16px] border-2 border-white bg-white shadow-[0_16px_36px_rgba(38,31,27,0.2)] transition-transform duration-500 group-hover/service:-translate-y-1.5",
+            !shouldReduce && "ca-detail-float"
+          )}
         >
           <Image
             src={detailImage}

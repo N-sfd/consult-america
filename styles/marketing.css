@@ -1,7 +1,7 @@
 /* Consult America Marketing — Modern Enterprise Visual System */
 
 :root {
-  --mkt-max: 1280px;
+  --mkt-max: 1200px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   --mkt-section-y: clamp(4.5rem, 7vw, 7.5rem); /* 72–120px desktop */
   --mkt-hero: clamp(2.75rem, 4.5vw, 4.75rem);
@@ -101,16 +101,35 @@
 .site-container,
 .mkt-shell,
 .ca-shell {
-  width: min(100% - 48px, 1280px);
+  width: 100%;
+  max-width: var(--ca-content-max, 1200px);
   margin-inline: auto;
+  padding-inline: var(--ca-gutter, clamp(1rem, 2.5vw, 2rem));
+  box-sizing: border-box;
 }
 
-@media (max-width: 767px) {
-  .site-container,
-  .mkt-shell,
-  .ca-shell {
-    width: min(100% - 32px, 1280px);
-  }
+/* Prevent decorative layers from causing horizontal scroll */
+.experience-marketing {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.mkt-section-clip {
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Light ivory footer — locked for logo visibility on dark production mark */
+.ca-site-footer {
+  background-color: var(--mkt-footer-bg, #F3EEE5);
+  color: #261F1B;
+}
+
+.ca-site-footer .ca-site-footer-cta {
+  background-color: #F7F3EC;
+  border-color: rgba(38, 31, 27, 0.1);
 }
 
 .mkt-section {
@@ -214,7 +233,20 @@
   overflow: hidden;
 }
 
-/* Hero: shallow C-curve on left edge — photograph as page architecture */
+.ca-detail-float {
+  animation: ca-detail-float 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-detail-float {
+    animation: none;
+  }
+}
+
+@keyframes ca-detail-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
 @media (min-width: 1024px) {
   .ca-shape-hero-mask {
     clip-path: ellipse(82% 105% at 82% 50%);

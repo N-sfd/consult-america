@@ -68,8 +68,33 @@ export default function IndustriesSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="industries" className="bg-[#F7F3EC] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D8D0C5]">
-      <div className="mkt-shell">
+    <section id="industries" className="relative mkt-section-clip bg-[#F7F3EC] text-[#261F1B] py-24 sm:py-28 lg:py-32 border-b border-[#D8D0C5] overflow-hidden">
+      {/* Slow architectural background behind industries introduction */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] overflow-hidden" aria-hidden="true">
+        <motion.div
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  y: [10, -10, 10],
+                  scale: [1.02, 1.035, 1.02],
+                }
+          }
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-[-6%] opacity-[0.10]"
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
+            alt=""
+            fill
+            className="object-cover object-center mkt-img-graded"
+            sizes="100%"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F3EC]/40 via-[#F7F3EC]/85 to-[#F7F3EC]" />
+      </div>
+
+      <div className="mkt-shell relative z-10">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-10 border-b border-[#D8D0C5]">
           <div>
             <SectionLabel tone="burgundy">INDUSTRIES</SectionLabel>
@@ -100,7 +125,7 @@ export default function IndustriesSection() {
                   src={ind.image}
                   alt={ind.name}
                   fill
-                  className="object-cover mkt-img-graded group-hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                  className="object-cover mkt-img-graded group-hover:scale-[1.025] transition-transform duration-[650ms] ease-[cubic-bezier(0.2,0.8,0.2,1)]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 

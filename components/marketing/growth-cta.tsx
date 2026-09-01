@@ -37,32 +37,30 @@ export default function GrowthCta() {
   };
 
   return (
-    <section id="contact-conversion" className="relative overflow-hidden py-24 sm:py-28 lg:py-32 bg-[#211E1B] text-[#FFFDF8] border-b border-[#3A302B]">
-      {/* 1. Cinematic Background Photograph with Slow Drift Motion (Requirements 24 & 25) */}
+    <section id="contact-conversion" className="relative w-full max-w-[100vw] overflow-hidden py-16 sm:py-20 lg:py-24 bg-[#211E1B] text-[#FFFDF8] border-b border-[#3A302B]">
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={
             shouldReduceMotion
               ? {}
               : {
-                  scale: [1.02, 1.035, 1.02],
-                  y: [0, -8, 0],
-                  x: [0, 8, 0],
+                  scale: [1.025, 1.04, 1.025],
+                  x: [-6, 6, -6],
                 }
           }
           transition={{
-            duration: 20,
+            duration: 22,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="relative h-full w-full"
+          className="absolute inset-[-3%]"
         >
           <Image
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2200&q=85"
             alt="Modern enterprise architecture and operations boardroom"
             fill
-            className="object-cover object-center opacity-30 filter grayscale contrast-125"
-            sizes="100vw"
+            className="object-cover object-center opacity-45 filter grayscale contrast-125"
+            sizes="100%"
           />
         </motion.div>
 
@@ -85,16 +83,15 @@ export default function GrowthCta() {
 
         {/* 3. Recurring Brand Arc Motif 3/3 (Subtle CA C-Curve in Contact) */}
         <div
-          className="ca-brand-arc-motif -bottom-32 -right-32 sm:-bottom-24 sm:-right-24 w-[420px] h-[420px] opacity-30 pointer-events-none"
+          className="ca-brand-arc-motif bottom-[-6rem] right-[6%] w-[320px] h-[320px] opacity-20 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Dark Neutral Gradient Overlay */}
         <div
           className="absolute inset-0 z-[2] pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg, rgba(24,22,20,0.95) 0%, rgba(24,22,20,0.85) 45%, rgba(24,22,20,0.76) 100%)",
+              "linear-gradient(90deg, rgba(25,23,21,0.88) 0%, rgba(25,23,21,0.78) 45%, rgba(25,23,21,0.62) 100%)",
           }}
         />
         <div className="absolute inset-0 z-[2] bg-radial-[circle_at_20%_30%] from-[#B63A3A]/15 via-transparent to-transparent pointer-events-none" />

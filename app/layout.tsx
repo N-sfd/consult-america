@@ -83,8 +83,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <ContactProvider>
-          {children}
-          <ContactPanel />
+          <div className="w-full max-w-[100vw] overflow-x-hidden">
+            {children}
+            <ContactPanel />
+          </div>
         </ContactProvider>
       </body>
     </html>

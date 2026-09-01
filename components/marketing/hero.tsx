@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 import { useContactPanel } from "@/components/providers/contact-provider";
 
@@ -19,7 +19,20 @@ const practiceAreas = [
 export default function Hero() {
   const { setOpen } = useContactPanel();
   const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
   const [isDesktop, setIsDesktop] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const bgScrollY = useTransform(scrollYProgress, [0, 1], [0, 20]);
+  const fgScrollY = useTransform(scrollYProgress, [0, 1], [0, -12]);
+  const contentScrollY = useTransform(scrollYProgress, [0, 1], [0, 4]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -29,74 +42,121 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const t = setTimeout(() => setHasEntered(true), 1800);
+    return () => clearTimeout(t);
+  }, [shouldReduceMotion]);
+
+  useEffect(() => {
+    if (shouldReduceMotion || !isDesktop) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+      const normX = e.clientX / innerWidth - 0.5;
+      const normY = e.clientY / innerHeight - 0.5;
+      setMouseOffset({ x: normX, y: normY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [shouldReduceMotion, isDesktop]);
+
+  const bgPointerX = isDesktop ? mouseOffset.x * 3 : 0;
+  const bgPointerY = isDesktop ? mouseOffset.y * 3 : 0;
+  const fgPointerX = isDesktop ? mouseOffset.x * 7 : 0;
+  const fgPointerY = isDesktop ? mouseOffset.y * 7 : 0;
+
   return (
-    <section className="relative overflow-hidden min-h-[clamp(720px,86vh,920px)] flex items-center bg-[#211E1B] border-b border-[#3A302B]">
-      {/* Photographic architecture — right 52%, bleeds to viewport edges */}
+    <section
+      ref={sectionRef}
+      className="relative w-full max-w-[100vw] overflow-hidden min-h-[clamp(520px,72vh,920px)] flex items-center bg-[#211E1B] border-b border-[#3A302B]"
+    >
+      {/* Photographic architecture — clipped inside section */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        {/* Desktop: asymmetric C-curve mask on left edge of photograph */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[58%] xl:w-[55%]">
-          {/* BACK LAYER: main architectural environment — extremely slow scale only */}
+        <div className="absolute inset-0 overflow-hidden lg:inset-y-0 lg:left-auto lg:right-0 lg:w-[58%] xl:w-[55%]">
+          {/* BACK LAYER: inset -2%, image 104%, cinematic drift */}
           <motion.div
-            initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.02 }}
-            animate={
-              shouldReduceMotion || !isDesktop
-                ? { scale: 1 }
-                : { scale: [1.02, 1.035, 1.02], x: [0, -8, 0] }
-            }
-            transition={
-              shouldReduceMotion || !isDesktop
-                ? { duration: 1.8, ease: [0.2, 0.8, 0.2, 1] }
-                : {
-                    scale: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-                    x: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-                  }
-            }
-            className="relative h-full w-full ca-shape-hero-mask"
+            style={shouldReduceMotion ? {} : { y: bgScrollY }}
+            className="absolute inset-[-2%] overflow-hidden"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2600&q=90"
-              alt="Consult America Enterprise Technology Architecture"
-              fill
-              priority
-              quality={92}
-              className="object-cover object-center filter contrast-[1.04] brightness-[0.96]"
-              sizes="(max-width: 1024px) 100vw, 55vw"
-            />
+            <motion.div
+              initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.045 }}
+              animate={
+                shouldReduceMotion
+                  ? { scale: 1 }
+                  : hasEntered
+                    ? {
+                        scale: isDesktop ? [1.02, 1.035, 1.02] : [1.015, 1.025, 1.015],
+                        x: isDesktop ? [0 + bgPointerX, -8 + bgPointerX, 0 + bgPointerX] : 0,
+                        y: isDesktop ? [0 + bgPointerY, -4 + bgPointerY, 0 + bgPointerY] : [0, -4, 0],
+                      }
+                    : { scale: 1.02 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0.01 }
+                  : hasEntered
+                    ? {
+                        scale: { duration: isDesktop ? 20 : 24, repeat: Infinity, ease: "easeInOut" },
+                        x: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+                        y: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+                      }
+                    : { duration: 1.8, ease: [0.2, 0.8, 0.2, 1] }
+              }
+              className="relative h-full w-full ca-shape-hero-mask"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2600&q=90"
+                alt="Consult America Enterprise Technology Architecture"
+                fill
+                priority
+                quality={92}
+                className="object-cover object-center scale-[1.04] filter contrast-[1.04] brightness-[0.96]"
+                sizes="55vw"
+              />
+            </motion.div>
           </motion.div>
 
-          {/* FRONT LAYER: isolated architectural detail — vertical drift only 6–8px */}
-          {!shouldReduceMotion && isDesktop && (
+          {/* FRONT LAYER: independent drift + pointer depth */}
+          {!shouldReduceMotion && (
             <motion.div
+              style={isDesktop ? { y: fgScrollY } : {}}
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
-                y: [0, -7, 0],
+                y: isDesktop
+                  ? [0 + fgPointerY, -8 + fgPointerY, 0 + fgPointerY]
+                  : [0, -4, 0],
+                x: isDesktop
+                  ? [0 + fgPointerX, 5 + fgPointerX, 0 + fgPointerX]
+                  : 0,
               }}
               transition={{
                 opacity: { duration: 1.2, delay: 0.5 },
-                y: { duration: 11, repeat: Infinity, ease: "easeInOut" },
+                y: { duration: isDesktop ? 10 : 18, repeat: Infinity, ease: "easeInOut" },
+                x: { duration: isDesktop ? 10 : 18, repeat: Infinity, ease: "easeInOut" },
               }}
-              className="absolute bottom-[12%] right-[8%] z-[2] w-[38%] max-w-[280px] aspect-[4/5] overflow-hidden rounded-t-[70px] rounded-b-[16px] border border-[#D8D0C5]/25 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+              className="absolute bottom-[10%] right-[6%] sm:right-[8%] z-[2] w-[34%] max-w-[260px] aspect-[4/5] overflow-hidden rounded-t-[70px] rounded-b-[16px] border border-[#D8D0C5]/25 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
             >
               <Image
                 src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=85"
                 alt=""
                 fill
                 className="object-cover mkt-img-graded"
-                sizes="280px"
+                sizes="260px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/50 via-transparent to-transparent" />
             </motion.div>
           )}
+
+          {/* Brand arc — inside photo column, clipped */}
+          <div
+            className="ca-brand-arc-motif top-[-5rem] right-[8%] w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] opacity-20 pointer-events-none"
+            aria-hidden="true"
+          />
         </div>
 
-        {/* Subtle brand arc motif */}
-        <div
-          className="ca-brand-arc-motif -top-32 -right-32 sm:-top-24 sm:-right-24 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] opacity-30 pointer-events-none"
-          aria-hidden="true"
-        />
-
-        {/* Cinematic gradient — text side stays dark, photo emerges from architecture */}
         <div
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
@@ -107,17 +167,20 @@ export default function Hero() {
         <div className="absolute inset-0 z-[1] bg-radial-[circle_at_15%_25%] from-[#B63A3A]/8 via-transparent to-transparent pointer-events-none" />
       </div>
 
-      <div className="ca-shell relative z-10 w-full py-20 sm:py-24 lg:py-32">
+      <motion.div
+        style={shouldReduceMotion ? {} : { y: contentScrollY, opacity: contentOpacity }}
+        className="ca-shell relative z-10 w-full max-w-full py-20 sm:py-24 lg:py-32"
+      >
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-center">
-          <div className="lg:col-span-6 xl:col-span-5 space-y-8">
+          <div className="lg:col-span-6 xl:col-span-5 space-y-8 min-w-0">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 rounded-full border border-[#D8D0C5]/30 bg-[#2B2420]/80 px-3.5 py-1 text-xs font-semibold text-[#D8C5AA] backdrop-blur-sm"
+              className="inline-flex items-center gap-2.5 rounded-full border border-[#D8D0C5]/30 bg-[#2B2420]/80 px-3.5 py-1 text-xs font-semibold text-[#D8C5AA] backdrop-blur-sm max-w-full"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A]" />
-              <span>ENTERPRISE TRANSFORMATION &amp; CLOUD ARCHITECTURE</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A] shrink-0" />
+              <span className="truncate sm:whitespace-normal">ENTERPRISE TRANSFORMATION &amp; CLOUD ARCHITECTURE</span>
             </motion.div>
 
             <motion.h1
@@ -188,7 +251,7 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
