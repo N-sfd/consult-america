@@ -1,31 +1,72 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, ChevronDown, Sparkles, Building2, Layers, Cpu, Database, Workflow, ShieldCheck, FileText, Activity, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import BrandLogo from "@/components/brand/brand-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import MobileMenu from "@/components/navigation/mobile-menu";
-import { industryLinks, platformLinks, whatWeDoMegaMenu } from "@/lib/site-data";
+import {
+  aiDataMegaMenu,
+  engineeringMegaMenu,
+  industryLinks,
+  oracleMegaMenu,
+  transformationMegaMenu,
+  whatWeDoMegaMenu,
+} from "@/lib/site-data";
 
-const WHAT_WE_DO_COLUMN_COLORS: Record<string, string> = {
-  TRANSFORM: "#B83A3A",
-  MODERNIZE: "#122D2E",
-  INTELLIGENCE: "#0B4A47",
-  BUILD: "#0B4A47",
-  OPERATE: "#5B6D6B",
-};
+type MenuType =
+  | "transformation"
+  | "oracle"
+  | "crm"
+  | "ai-data"
+  | "engineering"
+  | "industries"
+  | "company"
+  | null;
 
-const whatWeDoColumns = [
-  whatWeDoMegaMenu.transform,
-  whatWeDoMegaMenu.modernize,
-  whatWeDoMegaMenu.intelligence,
-  whatWeDoMegaMenu.build,
-  whatWeDoMegaMenu.operate,
+const utilityLinks = [
+  { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
+  { href: "/oracle", label: "Oracle" },
+  { href: "/ai-data", label: "AI" },
+  { href: "/capabilities/digital-engineering", label: "Application Engineering" },
 ];
 
-type MenuType = "what-we-do" | "oracle" | "crm" | "ai-data" | "applications" | "industries" | "company" | null;
+const crmJourney = [
+  { label: "Discover", detail: "Account intelligence" },
+  { label: "Engage", detail: "Multi-channel outreach" },
+  { label: "Sell", detail: "Pipeline governance" },
+  { label: "Serve", detail: "Service automation" },
+  { label: "Expand", detail: "Lifecycle expansion" },
+];
+
+function NavButton({
+  label,
+  menuKey,
+  openMenu,
+  setOpenMenu,
+}: {
+  label: string;
+  menuKey: MenuType;
+  openMenu: MenuType;
+  setOpenMenu: (menu: MenuType) => void;
+}) {
+  return (
+    <button
+      type="button"
+      data-open={openMenu === menuKey}
+      className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[14px] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
+      onMouseEnter={() => setOpenMenu(menuKey)}
+      onClick={() => setOpenMenu(openMenu === menuKey ? null : menuKey)}
+      aria-expanded={openMenu === menuKey}
+    >
+      <span>{label}</span>
+      <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform duration-200" />
+    </button>
+  );
+}
 
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -60,8 +101,8 @@ export default function SiteHeader() {
 
   const headerSurface =
     scrolled || openMenu || drawerOpen
-      ? "bg-white/95 backdrop-blur-[12px] border-b border-[#C9DDD7] shadow-[0_4px_20px_rgba(16,63,62,0.04)]"
-      : "bg-white/94 backdrop-blur-[8px] border-b border-[#C9DDD7]";
+      ? "bg-white/96 backdrop-blur-[12px] border-b border-[rgba(7,59,58,0.08)] shadow-[0_4px_20px_rgba(7,59,58,0.04)]"
+      : "bg-white/96 backdrop-blur-[12px] border-b border-[rgba(7,59,58,0.08)]";
 
   return (
     <>
@@ -69,26 +110,24 @@ export default function SiteHeader() {
         className="sticky top-0 z-50 transition-all duration-200"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        {/* Top Dark Green Utility Bar: #0B4A47, 28-32px */}
-        <div className="hidden border-b border-[#073B3A] bg-[#0B4A47] py-1.5 text-[11px] sm:text-[12px] font-medium text-white/90 lg:block">
-          <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#72C2A4]" />
-              <span className="tracking-wide">
-                Enterprise Transformation · Oracle · AI · Application Engineering
-              </span>
+        <div className="hidden h-7 border-b border-[#052F2E] bg-[#073B3A] text-[11px] font-medium text-white/88 lg:block">
+          <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-6 lg:px-8 xl:px-10">
+            <div className="flex items-center gap-4">
+              {utilityLinks.map((link, idx) => (
+                <span key={link.href + link.label} className="flex items-center gap-4">
+                  <Link href={link.href} className="transition-colors hover:text-white">
+                    {link.label}
+                  </Link>
+                  {idx < utilityLinks.length - 1 && (
+                    <span className="text-white/30" aria-hidden="true">
+                      ·
+                    </span>
+                  )}
+                </span>
+              ))}
             </div>
-            <div className="flex items-center gap-5 text-white/85">
-              <Link
-                href="/insights"
-                className="transition-colors hover:text-white"
-              >
-                Insights
-              </Link>
-              <Link
-                href="/careers"
-                className="transition-colors hover:text-white"
-              >
+            <div className="flex items-center gap-5">
+              <Link href="/careers" className="transition-colors hover:text-white">
                 Careers
               </Link>
               <button
@@ -102,116 +141,42 @@ export default function SiteHeader() {
           </div>
         </div>
 
-        {/* Main Navigation Bar (Section 5 Specification: 74-82px, Max Width 1440px) */}
         <div className={`transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}>
           <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-            <div className="flex h-[76px] xl:h-[80px] items-center justify-between gap-4 xl:gap-8">
+            <div className="flex h-[76px] items-center justify-between gap-6">
               <BrandLogo tone="dark" />
 
-              {/* Desktop Navigation Links — whitespace-nowrap prevents any line breaking */}
               <nav
-                className="hidden items-center justify-center gap-3 xl:gap-5.5 lg:flex flex-nowrap shrink-0"
+                className="hidden items-center justify-center gap-[26px] lg:flex flex-nowrap shrink-0"
                 aria-label="Primary navigation"
               >
-                {/* What We Do Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "what-we-do"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
-                  onMouseEnter={() => setOpenMenu("what-we-do")}
-                  onClick={() => setOpenMenu(openMenu === "what-we-do" ? null : "what-we-do")}
-                  aria-expanded={openMenu === "what-we-do"}
-                >
-                  <span>What We Do</span>
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform duration-200" />
-                </button>
+                <NavButton label="Transformation" menuKey="transformation" openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                <NavButton label="Oracle" menuKey="oracle" openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                <NavButton label="CRM" menuKey="crm" openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                <NavButton label="AI & Data" menuKey="ai-data" openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                <NavButton label="Engineering" menuKey="engineering" openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                <NavButton label="Industries" menuKey="industries" openMenu={openMenu} setOpenMenu={setOpenMenu} />
+              </nav>
 
-                {/* Oracle Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "oracle"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
-                  onMouseEnter={() => setOpenMenu("oracle")}
-                  onClick={() => setOpenMenu(openMenu === "oracle" ? null : "oracle")}
-                  aria-expanded={openMenu === "oracle"}
-                >
-                  <span>Oracle</span>
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* CRM Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "crm"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
-                  onMouseEnter={() => setOpenMenu("crm")}
-                  onClick={() => setOpenMenu(openMenu === "crm" ? null : "crm")}
-                  aria-expanded={openMenu === "crm"}
-                >
-                  <span>CRM</span>
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* AI & Data Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "ai-data"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
-                  onMouseEnter={() => setOpenMenu("ai-data")}
-                  onClick={() => setOpenMenu(openMenu === "ai-data" ? null : "ai-data")}
-                  aria-expanded={openMenu === "ai-data"}
-                >
-                  <span>AI &amp; Data</span>
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* Applications Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "applications"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
-                  onMouseEnter={() => setOpenMenu("applications")}
-                  onClick={() => setOpenMenu(openMenu === "applications" ? null : "applications")}
-                  aria-expanded={openMenu === "applications"}
-                >
-                  <span>Applications</span>
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
-                {/* Industries Dropdown */}
-                <button
-                  type="button"
-                  data-open={openMenu === "industries"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
-                  onMouseEnter={() => setOpenMenu("industries")}
-                  onClick={() => setOpenMenu(openMenu === "industries" ? null : "industries")}
-                  aria-expanded={openMenu === "industries"}
-                >
-                  <span>Industries</span>
-                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
-                </button>
-
+              <div className="hidden items-center gap-[26px] lg:flex shrink-0">
                 <Link
                   href="/work"
-                  className="ca-nav-link whitespace-nowrap text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A]"
+                  className="ca-nav-link whitespace-nowrap text-[14px] font-medium text-[#122D2E] hover:text-[#B83A3A]"
                   onMouseEnter={() => setOpenMenu(null)}
                 >
-                  <span>Our Work</span>
+                  Work
                 </Link>
-
                 <Link
                   href="/insights"
-                  className="ca-nav-link whitespace-nowrap text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A]"
+                  className="ca-nav-link whitespace-nowrap text-[14px] font-medium text-[#122D2E] hover:text-[#B83A3A]"
                   onMouseEnter={() => setOpenMenu(null)}
                 >
-                  <span>Insights</span>
+                  Insights
                 </Link>
-
-                {/* Company Dropdown */}
                 <button
                   type="button"
                   data-open={openMenu === "company"}
-                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[0.84rem] xl:text-[0.88rem] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
+                  className="ca-nav-link whitespace-nowrap flex items-center gap-1 text-[14px] font-medium text-[#122D2E] hover:text-[#B83A3A] cursor-pointer"
                   onMouseEnter={() => setOpenMenu("company")}
                   onClick={() => setOpenMenu(openMenu === "company" ? null : "company")}
                   aria-expanded={openMenu === "company"}
@@ -219,428 +184,297 @@ export default function SiteHeader() {
                   <span>Company</span>
                   <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
-              </nav>
-
-              {/* Right Action CTA */}
-              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setContactOpen(true)}
-                  className="ca-button-primary hidden !min-h-[44px] !px-5 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer shadow-2xs whitespace-nowrap"
+                  className="ca-button-primary hidden !min-h-[44px] !px-5 text-xs sm:text-sm font-semibold sm:!inline-flex cursor-pointer whitespace-nowrap"
                 >
                   <span>Talk to an Expert</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </button>
-
-                <button
-                  type="button"
-                  onClick={() => setDrawerOpen(true)}
-                  className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#C9DDD7] bg-white lg:hidden cursor-pointer"
-                  aria-label="Open navigation menu"
-                  aria-expanded={drawerOpen}
-                >
-                  <span className="h-0.5 w-4.5 bg-[#122D2E]" />
-                  <span className="h-0.5 w-4.5 bg-[#122D2E]" />
-                </button>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setDrawerOpen(true)}
+                className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#DCE4E1] bg-white lg:hidden cursor-pointer"
+                aria-label="Open navigation menu"
+                aria-expanded={drawerOpen}
+              >
+                <span className="h-0.5 w-4.5 bg-[#122D2E]" />
+                <span className="h-0.5 w-4.5 bg-[#122D2E]" />
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Full-Width Mega Menus */}
         {openMenu && (
           <div
-            className="hidden border-b border-[#C9DDD7] bg-white shadow-[0_18px_50px_rgba(16,32,51,0.08)] lg:block transition-all duration-200"
+            className="hidden border-t border-[#DCE4E1] bg-white shadow-[0_18px_50px_rgba(7,59,58,0.08)] lg:block"
             onMouseEnter={() => setOpenMenu(openMenu)}
             onMouseLeave={() => setOpenMenu(null)}
           >
             <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 py-8">
-              {/* 1. WHAT WE DO MEGA MENU (Section 6 Specification: 5 Columns + Labs Panel) */}
-              {openMenu === "what-we-do" && (
-                <div className="grid grid-cols-12 gap-6">
-                  {/* Left 5 Pillars: Transform, Modernize, Intelligence, Build, Operate — sourced from whatWeDoMegaMenu so header/mobile menu never drift */}
-                  <div className="col-span-9 grid grid-cols-5 gap-4">
-                    {whatWeDoColumns.map((column) => (
-                      <div key={column.category}>
-                        <p
-                          className="text-[0.68rem] font-bold uppercase tracking-[0.14em]"
-                          style={{ color: WHAT_WE_DO_COLUMN_COLORS[column.category] }}
-                        >
-                          {column.category}
-                        </p>
-                        <ul className="mt-3 space-y-1.5 text-xs">
-                          {column.items.map((item) => (
-                            <li key={item.label}>
-                              <Link
-                                href={item.href}
-                                onClick={() => setOpenMenu(null)}
-                                className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A] transition-colors leading-snug"
-                              >
-                                {item.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Right Side Feature: CONSULT AMERICA LABS in #E1ECE8 */}
-                  <div className="col-span-3 rounded-xl border border-[#C9DDD7] bg-[#E1ECE8] p-4.5 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between pb-2 border-b border-[#C9DDD7]">
-                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A] flex items-center gap-1.5">
-                          <Sparkles className="h-3.5 w-3.5 text-[#B83A3A]" />
-                          Consult America Labs
-                        </span>
-                        <span className="text-[0.62rem] font-semibold text-[#0B4A47] uppercase">
-                          Portfolio
-                        </span>
-                      </div>
-
-                      <div className="mt-2.5 space-y-1">
-                        {whatWeDoMegaMenu.labs.products.map((item) => (
+              {openMenu === "transformation" && (
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-5">
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+                      TRANSFORMATION
+                    </p>
+                    <ul className="mt-4 space-y-2">
+                      {transformationMegaMenu.links.map((item) => (
+                        <li key={item.label}>
                           <Link
-                            key={item.label}
                             href={item.href}
                             onClick={() => setOpenMenu(null)}
-                            className="group/item flex items-center justify-between rounded-md border border-transparent bg-white p-1.5 px-2 transition-all hover:border-[#C9DDD7] hover:shadow-2xs"
+                            className="block py-1 text-sm text-[#122D2E] hover:text-[#B83A3A] transition-colors"
                           >
-                            <div>
-                              <span className="text-[0.75rem] font-bold text-[#122D2E] group-hover/item:text-[#B83A3A] transition-colors">
-                                {item.label}
-                              </span>
-                              <p className="text-[0.6rem] text-[#5B6D6B] leading-tight">{item.detail}</p>
-                            </div>
-                            <ArrowUpRight className="h-3 w-3 text-[#B83A3A] opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                            {item.label}
                           </Link>
-                        ))}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="col-span-7 rounded-xl border border-[#DCE4E1] bg-[#F0F6F4] overflow-hidden grid grid-cols-2">
+                    <div className="p-6 flex flex-col justify-between">
+                      <div>
+                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
+                          FEATURED
+                        </span>
+                        <h4 className="mt-2 font-serif text-xl font-semibold text-[#073B3A]">
+                          {transformationMegaMenu.featured.title}
+                        </h4>
+                        <p className="mt-2 text-sm text-[#5B6D6B] leading-relaxed">
+                          {transformationMegaMenu.featured.detail}
+                        </p>
                       </div>
-                    </div>
-
-                    <div className="mt-3 pt-2.5 border-t border-[#C9DDD7]">
                       <Link
-                        href={whatWeDoMegaMenu.labs.ctaHref}
+                        href={transformationMegaMenu.featured.href}
                         onClick={() => setOpenMenu(null)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#B83A3A] hover:text-[#942E31] transition-colors"
+                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]"
                       >
-                        <span>Explore Applications</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
+                        Explore Transformation <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
+                    </div>
+                    <div className="relative min-h-[200px]">
+                      <Image
+                        src={transformationMegaMenu.featured.image}
+                        alt="Enterprise transformation program delivery"
+                        fill
+                        className="object-cover object-top"
+                        sizes="400px"
+                      />
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* 2. ORACLE MEGA MENU */}
               {openMenu === "oracle" && (
                 <div className="grid grid-cols-12 gap-8">
                   <div className="col-span-8 grid grid-cols-3 gap-6">
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                        CORE CLOUD PRACTICES
-                      </p>
-                      <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Financials &amp; General Ledger</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Procurement &amp; Source-to-Pay</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Supply Chain Management (SCM)</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Projects &amp; Portfolio (PPM)</Link></li>
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">TRANSFORM</p>
+                      <ul className="mt-3 space-y-2 text-sm">
+                        {oracleMegaMenu.transform.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={() => setOpenMenu(null)} className="text-[#122D2E] hover:text-[#B83A3A]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
-
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                        ENTERPRISE FOUNDATION
-                      </p>
-                      <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Oracle Integration Cloud (OIC)</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Fusion Data Intelligence</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Multi-Entity Ledgers</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Testing &amp; Cutover Control</Link></li>
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">CONNECT</p>
+                      <ul className="mt-3 space-y-2 text-sm">
+                        {oracleMegaMenu.connect.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={() => setOpenMenu(null)} className="text-[#122D2E] hover:text-[#B83A3A]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
-
                     <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#5B6D6B]">
-                        DELIVERY ENGAGEMENTS
-                      </p>
-                      <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Full Lifecycle Implementation</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Period Close Optimization</Link></li>
-                        <li><Link href="/oracle" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Subledger Reconciliation</Link></li>
-                        <li><Link href="/work" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#B83A3A]">Oracle Case Studies</Link></li>
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">DELIVER</p>
+                      <ul className="mt-3 space-y-2 text-sm">
+                        {oracleMegaMenu.deliver.map((item) => (
+                          <li key={item.label}>
+                            <Link href={item.href} onClick={() => setOpenMenu(null)} className="text-[#122D2E] hover:text-[#B83A3A]">
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
-
-                  <div className="col-span-4 rounded-xl border border-[#C9DDD7] bg-[#073B3A] text-white p-6 flex flex-col justify-between">
+                  <div className="col-span-4 rounded-xl border border-[#DCE4E1] bg-[#F0F6F4] p-6 flex flex-col justify-between">
                     <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                        FLAGSHIP PRACTICE
-                      </span>
-                      <h4 className="mt-2 font-serif text-lg font-semibold">
-                        Modernize the digital core.
+                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">FEATURED</span>
+                      <h4 className="mt-2 font-serif text-lg font-semibold text-[#073B3A]">
+                        {oracleMegaMenu.featured.title}
                       </h4>
-                      <p className="mt-2 text-xs text-[#97A8B7] leading-relaxed">
-                        Connect Oracle applications, processes, data and integrations around the way the enterprise actually operates.
-                      </p>
-                    </div>
-                    <div className="mt-6 pt-3 border-t border-[#1E3752]">
-                      <Link
-                        href="/oracle"
-                        onClick={() => setOpenMenu(null)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#FFFFFF] hover:text-[#B83A3A] transition-colors"
-                      >
-                        Explore Oracle Transformation →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* 3. CRM MEGA MENU */}
-              {openMenu === "crm" && (
-                <div className="grid grid-cols-12 gap-8">
-                  <div className="col-span-8 grid grid-cols-2 gap-6">
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                        CUSTOMER JOURNEY
-                      </p>
-                      <ul className="mt-3 space-y-2.5 text-xs">
-                        <li><strong className="text-[#122D2E]">01 Discover:</strong> <span className="text-[#5B6D6B]">Account intelligence &amp; intent signals</span></li>
-                        <li><strong className="text-[#122D2E]">02 Engage:</strong> <span className="text-[#5B6D6B]">Personalized multi-channel outreach</span></li>
-                        <li><strong className="text-[#122D2E]">03 Sell:</strong> <span className="text-[#5B6D6B]">Pipeline, pricing &amp; deal governance</span></li>
-                        <li><strong className="text-[#122D2E]">04 Serve:</strong> <span className="text-[#5B6D6B]">Case deflection &amp; service automation</span></li>
-                        <li><strong className="text-[#122D2E]">05 Expand:</strong> <span className="text-[#5B6D6B]">Renewal telemetry &amp; lifecycle expansion</span></li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                        ENTERPRISE INTEGRATION
-                      </p>
-                      <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Customer 360 Workspace</Link></li>
-                        <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Salesforce &amp; Oracle Integration</Link></li>
-                        <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Revenue Cloud &amp; CPQ Workflows</Link></li>
-                        <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Customer Data Platform (CDP)</Link></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="col-span-4 rounded-xl border border-[#C9DDD7] bg-[#E1ECE8] p-5.5 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                        CONNECTED CRM
-                      </span>
-                      <h4 className="mt-2 text-sm font-bold text-[#122D2E]">
-                        Connect every customer moment to the enterprise behind it.
-                      </h4>
-                      <p className="mt-1.5 text-xs text-[#5B6D6B]">
-                        Unify Customer Data, CRM, Service, Marketing, AI, ERP, Integration, and Analytics.
-                      </p>
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-[#C9DDD7]">
-                      <Link
-                        href="/platforms/crm"
-                        onClick={() => setOpenMenu(null)}
-                        className="ca-link text-xs font-semibold text-[#B83A3A]"
-                      >
-                        Explore CRM Platform →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* 4. AI & DATA MEGA MENU */}
-              {openMenu === "ai-data" && (
-                <div className="grid grid-cols-12 gap-8">
-                  <div className="col-span-8 grid grid-cols-2 gap-6">
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0B4A47]">
-                        GOVERNED AI &amp; AGENTS
-                      </p>
-                      <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#0B4A47]">Document Intelligence &amp; Clause Extraction</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#0B4A47]">Task-Oriented Enterprise Agents</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#0B4A47]">Governed RAG &amp; Source Grounding</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#0B4A47]">FAR / DFARS Regulatory Extraction</Link></li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                        DATA FOUNDATIONS
-                      </p>
-                      <ul className="mt-3 space-y-2 text-xs">
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Data Engineering &amp; Modern Pipelines</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Enterprise Knowledge Graphs</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">AI Governance &amp; Access Controls</Link></li>
-                        <li><Link href="/ai-data" onClick={() => setOpenMenu(null)} className="block py-0.5 text-[#122D2E] hover:text-[#47739B]">Human-in-the-Loop Validation Queues</Link></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="col-span-4 rounded-xl border border-[#C9DDD7] bg-[#E1ECE8] p-5.5 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#0B4A47]">
-                        APPLIED INTELLIGENCE
-                      </span>
-                      <h4 className="mt-2 text-sm font-bold text-[#122D2E]">
-                        Put intelligence into the work.
-                      </h4>
-                      <p className="mt-1.5 text-xs text-[#5B6D6B]">
-                        AI creates value when trusted data, useful models, business context and real workflows come together.
-                      </p>
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-[#C9DDD7]">
-                      <Link
-                        href="/ai-data"
-                        onClick={() => setOpenMenu(null)}
-                        className="ca-link text-xs font-semibold text-[#0B4A47]"
-                      >
-                        Explore AI &amp; Data →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* 5. APPLICATIONS MEGA MENU */}
-              {openMenu === "applications" && (
-                <div>
-                  <div className="flex items-center justify-between pb-4 border-b border-[#E9EEF1]">
-                    <div>
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                        ENTERPRISE APPLICATIONS &amp; LABS SOFTWARE
-                      </p>
-                      <p className="text-xs text-[#5B6D6B] mt-0.5">
-                        Focused operational software engineered and deployed by Consult America
-                      </p>
+                      <p className="mt-2 text-sm text-[#5B6D6B]">{oracleMegaMenu.featured.detail}</p>
                     </div>
                     <Link
-                      href="/platforms"
+                      href={oracleMegaMenu.featured.href}
                       onClick={() => setOpenMenu(null)}
-                      className="text-xs font-semibold text-[#B83A3A] hover:underline"
+                      className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]"
                     >
-                      View platform architecture →
+                      Explore Oracle <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
-                  <div className="mt-6 grid grid-cols-3 gap-4">
-                    {platformLinks.map((item) => (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        onClick={() => setOpenMenu(null)}
-                        className="group block rounded-xl border border-[#C9DDD7] bg-white p-4 transition-all hover:border-[#B83A3A]/40 hover:bg-[#E1ECE8] shadow-2xs"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-bold text-[#122D2E] group-hover:text-[#B83A3A] transition-colors">
-                            {item.label}
-                          </h4>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#B83A3A] opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                        <p className="mt-1 text-xs text-[#5B6D6B]">
-                          {item.detail}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
                 </div>
               )}
 
-              {/* 6. INDUSTRIES MEGA MENU */}
-              {openMenu === "industries" && (
-                <div>
-                  <div className="pb-4 border-b border-[#E9EEF1]">
-                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                      INDUSTRY PRACTICES
-                    </p>
-                    <p className="text-xs text-[#5B6D6B] mt-0.5">
-                      Tailored compliance boundaries, operational workflows, and delivery accelerators
-                    </p>
-                  </div>
-                  <div className="mt-6 grid grid-cols-4 gap-4">
-                    {industryLinks.map((item) => (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        onClick={() => setOpenMenu(null)}
-                        className="group rounded-xl border border-[#C9DDD7] bg-white p-4.5 transition-all hover:border-[#B83A3A]/40 hover:bg-[#E1ECE8] shadow-2xs"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-bold text-[#122D2E] group-hover:text-[#B83A3A] transition-colors">
-                            {item.label}
-                          </span>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#B83A3A] opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                        <p className="mt-1.5 text-xs text-[#5B6D6B]">
-                          {item.detail}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 7. COMPANY MEGA MENU */}
-              {openMenu === "company" && (
+              {openMenu === "crm" && (
                 <div className="grid grid-cols-12 gap-8">
-                  <div className="col-span-8 grid grid-cols-2 gap-4">
-                    {[
-                      { href: "/about", label: "About Consult America", desc: "Our firm, consulting methodology, and delivery focus" },
-                      { href: "/about", label: "Delivery Philosophy", desc: "Senior practitioners attached directly to code and outcomes" },
-                      { href: "/about", label: "National Delivery Centers", desc: "Offices in Washington DC, New York, Chicago, Dallas & SF" },
-                      { href: "/careers", label: "Careers & Open Positions", desc: "Join senior practitioners delivering complex programs" },
-                      { href: "/insights", label: "Insights & Perspectives", desc: "Executive publications on Oracle, AI, and digital core" },
-                      { href: "/contact", label: "Contact Practice Leads", desc: "Schedule an architecture scoping session" },
-                    ].map((item) => (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        onClick={() => setOpenMenu(null)}
-                        className="group block rounded-xl border border-[#C9DDD7] bg-white p-4 transition-all hover:border-[#B83A3A]/40 hover:bg-[#E1ECE8] shadow-2xs"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-bold text-[#122D2E] group-hover:text-[#B83A3A] transition-colors">
-                            {item.label}
-                          </h4>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#B83A3A] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="col-span-7">
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">CUSTOMER JOURNEY</p>
+                    <div className="mt-4 grid grid-cols-5 gap-3">
+                      {crmJourney.map((step) => (
+                        <div key={step.label} className="border-t-2 border-[#9BC4B8] pt-3">
+                          <p className="text-xs font-bold uppercase tracking-wider text-[#073B3A]">{step.label}</p>
+                          <p className="mt-1 text-xs text-[#5B6D6B]">{step.detail}</p>
                         </div>
-                        <p className="mt-1 text-xs text-[#5B6D6B]">
-                          {item.desc}
-                        </p>
+                      ))}
+                    </div>
+                    <ul className="mt-6 space-y-2 text-sm">
+                      <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="text-[#122D2E] hover:text-[#B83A3A]">Customer 360 Workspace</Link></li>
+                      <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="text-[#122D2E] hover:text-[#B83A3A]">Salesforce &amp; Oracle Integration</Link></li>
+                      <li><Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="text-[#122D2E] hover:text-[#B83A3A]">Revenue Cloud &amp; CPQ</Link></li>
+                    </ul>
+                  </div>
+                  <div className="col-span-5 rounded-xl border border-[#DCE4E1] bg-[#F0F6F4] p-6">
+                    <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">CONNECTED CRM</span>
+                    <h4 className="mt-2 font-serif text-lg font-semibold text-[#073B3A]">
+                      Connect every customer moment to the enterprise behind it.
+                    </h4>
+                    <Link href="/platforms/crm" onClick={() => setOpenMenu(null)} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]">
+                      Explore CRM <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {openMenu === "ai-data" && (
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-5">
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">AI &amp; DATA</p>
+                    <ul className="mt-4 space-y-2">
+                      {aiDataMegaMenu.links.map((item) => (
+                        <li key={item.label}>
+                          <Link href={item.href} onClick={() => setOpenMenu(null)} className="block py-1 text-sm text-[#122D2E] hover:text-[#B83A3A]">
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="col-span-7 rounded-xl border border-[#DCE4E1] overflow-hidden grid grid-cols-2 bg-[#F0F6F4]">
+                    <div className="p-6 flex flex-col justify-between">
+                      <div>
+                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">FEATURED</span>
+                        <h4 className="mt-2 font-serif text-xl font-semibold text-[#073B3A]">{aiDataMegaMenu.featured.title}</h4>
+                        <p className="mt-2 text-sm text-[#5B6D6B]">{aiDataMegaMenu.featured.detail}</p>
+                      </div>
+                      <Link href={aiDataMegaMenu.featured.href} onClick={() => setOpenMenu(null)} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]">
+                        Explore Data Agent <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
-                    ))}
+                    </div>
+                    <div className="relative min-h-[200px]">
+                      <Image
+                        src={aiDataMegaMenu.featured.image}
+                        alt="Data Agent document intelligence screenshot"
+                        fill
+                        className="object-cover object-top"
+                        sizes="400px"
+                      />
+                    </div>
                   </div>
+                </div>
+              )}
 
-                  <div className="col-span-4 rounded-xl border border-[#C9DDD7] bg-[#122D2E] text-white p-6 flex flex-col justify-between">
-                    <div>
+              {openMenu === "engineering" && (
+                <div className="grid grid-cols-12 gap-8">
+                  <div className="col-span-5">
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">ENGINEERING</p>
+                    <ul className="mt-4 space-y-2">
+                      {engineeringMegaMenu.links.map((item) => (
+                        <li key={item.label}>
+                          <Link href={item.href} onClick={() => setOpenMenu(null)} className="block py-1 text-sm text-[#122D2E] hover:text-[#B83A3A]">
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="col-span-7 rounded-xl border border-[#DCE4E1] bg-[#E1ECE8] p-6">
+                    <div className="flex items-center justify-between border-b border-[#DCE4E1] pb-3">
                       <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
-                        CONSULT AMERICA
+                        Consult America Labs
                       </span>
-                      <h4 className="mt-2 font-serif text-lg font-semibold text-white">
-                        Built for execution, not just advice.
-                      </h4>
-                      <p className="mt-2 text-xs leading-relaxed text-[#97A8B7]">
-                        From operating model design to production software deployment, we partner with enterprises to turn complex technology programs into working reality.
-                      </p>
                     </div>
-
-                    <div className="mt-6 pt-3 border-t border-[#1E3752]">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOpenMenu(null);
-                          setContactOpen(true);
-                        }}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#B83A3A] transition-colors cursor-pointer"
-                      >
-                        Start a conversation →
-                      </button>
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                      {whatWeDoMegaMenu.labs.products.slice(0, 4).map((item) => (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => setOpenMenu(null)}
+                          className="rounded-lg border border-transparent bg-white p-3 transition-all hover:border-[#DCE4E1] hover:shadow-sm"
+                        >
+                          <p className="text-sm font-semibold text-[#073B3A]">{item.label}</p>
+                          <p className="mt-0.5 text-xs text-[#5B6D6B]">{item.detail}</p>
+                        </Link>
+                      ))}
                     </div>
+                    <Link
+                      href={whatWeDoMegaMenu.labs.ctaHref}
+                      onClick={() => setOpenMenu(null)}
+                      className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]"
+                    >
+                      Explore Applications <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
+                </div>
+              )}
+
+              {openMenu === "industries" && (
+                <div className="grid grid-cols-3 gap-4">
+                  {industryLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setOpenMenu(null)}
+                      className="group rounded-xl border border-[#DCE4E1] bg-white p-4 transition-all hover:border-[#176A63]/30 hover:shadow-sm"
+                    >
+                      <p className="text-sm font-semibold text-[#073B3A] group-hover:text-[#B83A3A]">{item.label}</p>
+                      <p className="mt-1 text-xs text-[#5B6D6B]">{item.detail}</p>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {openMenu === "company" && (
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { href: "/about", label: "About Consult America", desc: "Our firm and delivery focus" },
+                    { href: "/about", label: "Delivery Philosophy", desc: "Senior practitioners on outcomes" },
+                    { href: "/careers", label: "Careers", desc: "Join our consulting teams" },
+                    { href: "/insights", label: "Insights", desc: "Executive perspectives" },
+                    { href: "/contact", label: "Contact", desc: "Speak with practice leads" },
+                  ].map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setOpenMenu(null)}
+                      className="group rounded-xl border border-[#DCE4E1] bg-white p-4 hover:border-[#176A63]/30"
+                    >
+                      <p className="text-sm font-semibold text-[#073B3A] group-hover:text-[#B83A3A]">{item.label}</p>
+                      <p className="mt-1 text-xs text-[#5B6D6B]">{item.desc}</p>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>

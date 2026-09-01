@@ -8,6 +8,7 @@ interface BrandLogoProps {
   className?: string;
   markClassName?: string;
   showWordmark?: boolean;
+  showTagline?: boolean;
   tone?: "light" | "dark";
   onNavigate?: () => void;
 }
@@ -17,49 +18,60 @@ export default function BrandLogo({
   className,
   markClassName,
   showWordmark = true,
+  showTagline = true,
   tone = "dark",
   onNavigate,
 }: BrandLogoProps) {
   const isLight = tone === "light";
 
   const content = (
-    <span className={cn("inline-flex items-center gap-3 sm:gap-3.5 select-none group", className)}>
+    <span className={cn("inline-flex items-center gap-3 select-none group", className)}>
       <span
         className={cn(
-          "relative flex h-11 w-14 sm:h-12 sm:w-16 shrink-0 items-center justify-center transition-transform duration-200 group-hover:scale-105",
+          "relative flex h-10 w-[3.25rem] sm:h-11 sm:w-[3.6rem] shrink-0 items-center justify-center transition-transform duration-200 group-hover:scale-[1.02]",
           markClassName
         )}
       >
-        <BrandMark tone={isLight ? "light" : "dark"} className="drop-shadow-sm" />
+        <BrandMark tone={isLight ? "light" : "dark"} />
       </span>
 
       {showWordmark && (
-        <span className="flex flex-col justify-center leading-none">
-          <span className="flex items-center gap-1.5">
+        <span className="flex flex-col justify-center leading-none min-w-0">
+          <span className="flex items-baseline gap-0">
             <span
               className={cn(
-                "font-serif text-[1.2rem] sm:text-[1.35rem] font-bold tracking-[-0.02em] transition-colors",
-                isLight ? "text-white" : "text-[#0B4A47]"
+                "font-serif text-[1.125rem] sm:text-[1.25rem] font-semibold tracking-[-0.025em]",
+                isLight ? "text-white" : "text-[#073B3A]"
               )}
             >
               Consult
             </span>
-            <span className="font-serif text-[1.2rem] sm:text-[1.35rem] font-bold tracking-[-0.02em] text-[#B83A3A] transition-colors">
+            <span className="font-serif text-[1.125rem] sm:text-[1.25rem] font-semibold tracking-[-0.025em] text-[#B83A3A]">
               America
             </span>
-            <span className="h-1.5 w-1.5 rounded-full bg-[#B83A3A] shrink-0" />
           </span>
-          <span
-            className={cn(
-              "hidden sm:block mt-1 text-[10px] font-semibold tracking-[0.12em] whitespace-nowrap uppercase",
-              isLight ? "text-white/75" : "text-[#176A63]"
-            )}
-          >
-            Strategy · Technology · Results
-          </span>
+
+          {showTagline && (
+            <span
+              className={cn(
+                "hidden sm:flex items-center gap-2 mt-1.5 text-[9px] font-medium tracking-[0.14em] uppercase whitespace-nowrap",
+                isLight ? "text-white/72" : "text-[#176A63]"
+              )}
+            >
+              <span
+                className={cn("h-px w-3", isLight ? "bg-white/35" : "bg-[#9BC4B8]")}
+                aria-hidden="true"
+              />
+              <span>Strategy · Technology · Results</span>
+              <span
+                className={cn("h-px w-3", isLight ? "bg-white/35" : "bg-[#9BC4B8]")}
+                aria-hidden="true"
+              />
+            </span>
+          )}
         </span>
       )}
-      <span className="sr-only">Consult America - Strategy, Technology, Results</span>
+      <span className="sr-only">Consult America — Strategy, Technology, Results</span>
     </span>
   );
 

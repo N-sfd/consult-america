@@ -342,13 +342,13 @@
 .ca-nav-link::after {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
+  bottom: -4px;
+  left: 50%;
+  width: 18px;
   height: 2px;
+  margin-left: -9px;
   background-color: #B83A3A;
   transform: scaleX(0);
-  transform-origin: left center;
   transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 

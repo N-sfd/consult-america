@@ -15,17 +15,6 @@ const journeySteps = [
   { step: "05", name: "EXPAND", detail: "Lifecycle retention" },
 ];
 
-const architectureNodes = [
-  "Customer Data",
-  "CRM",
-  "Service",
-  "Marketing",
-  "AI",
-  "ERP",
-  "Integration",
-  "Analytics",
-];
-
 export default function CRMShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
@@ -119,24 +108,6 @@ export default function CRMShowcase() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="mt-14 border-t border-[#9BC4B8]/40 pt-8">
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#176A63] mb-4">
-            CONNECTED ENTERPRISE ARCHITECTURE
-          </p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs sm:text-sm font-semibold text-[#073B3A]">
-            {architectureNodes.map((node, idx) => (
-              <div key={node} className="inline-flex items-center gap-6">
-                <span className="hover:text-[#176A63] transition-colors">{node}</span>
-                {idx < architectureNodes.length - 1 && (
-                  <span className="text-[#9BC4B8] font-normal" aria-hidden="true">
-                    →
-                  </span>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </div>

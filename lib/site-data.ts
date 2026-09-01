@@ -3,6 +3,73 @@ export const announcement = {
   text: "Enterprise leaders read: How to Prepare for a Successful Oracle Cloud Transformation",
 };
 
+export const transformationMegaMenu = {
+  links: [
+    { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
+    { href: "/capabilities/enterprise-transformation", label: "Operating Model & Process" },
+    { href: "/capabilities/managed-delivery", label: "Program Delivery" },
+    { href: "/capabilities/managed-delivery", label: "Testing & Quality" },
+    { href: "/capabilities/enterprise-transformation", label: "Change & Adoption" },
+  ],
+  featured: {
+    title: "Enterprise Transformation",
+    detail: "Align strategy, processes, and technology to modernize how the enterprise operates.",
+    href: "/capabilities/enterprise-transformation",
+    image: "/innovation/data-agent-platform.png",
+  },
+};
+
+export const engineeringMegaMenu = {
+  links: [
+    { href: "/capabilities/digital-engineering", label: "Application Engineering" },
+    { href: "/platforms", label: "Enterprise Portals" },
+    { href: "/capabilities/digital-engineering", label: "Integration & APIs" },
+    { href: "/capabilities/digital-engineering", label: "Digital Experience" },
+    { href: "/capabilities/digital-engineering", label: "Application Modernization" },
+  ],
+};
+
+export const oracleMegaMenu = {
+  transform: [
+    { href: "/oracle", label: "Finance" },
+    { href: "/oracle", label: "Procurement" },
+    { href: "/oracle", label: "Supply Chain" },
+    { href: "/oracle", label: "Projects" },
+  ],
+  connect: [
+    { href: "/oracle", label: "Integration" },
+    { href: "/oracle", label: "Data" },
+    { href: "/oracle", label: "Reporting" },
+  ],
+  deliver: [
+    { href: "/oracle", label: "Testing" },
+    { href: "/oracle", label: "Release Readiness" },
+    { href: "/oracle", label: "Managed Support" },
+  ],
+  featured: {
+    title: "Oracle Transformation",
+    detail: "Connect Oracle applications, processes, and integrations around how the enterprise operates.",
+    href: "/oracle",
+  },
+};
+
+export const aiDataMegaMenu = {
+  links: [
+    { href: "/ai-data", label: "AI Strategy" },
+    { href: "/ai-data", label: "Generative AI" },
+    { href: "/ai-data", label: "Agentic AI" },
+    { href: "/work/innovation/data-agent", label: "Document Intelligence" },
+    { href: "/ai-data", label: "Data Engineering" },
+    { href: "/ai-data", label: "AI Governance" },
+  ],
+  featured: {
+    title: "Data Agent",
+    detail: "Contract and document intelligence with source grounding and human review.",
+    href: "/work/innovation/data-agent",
+    image: "/innovation/data-agent-hero.png",
+  },
+};
+
 export const whatWeDoMegaMenu = {
   transform: {
     category: "TRANSFORM",
