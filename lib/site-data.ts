@@ -20,6 +20,28 @@ export const transformationMegaMenu = {
 };
 
 export const engineeringMegaMenu = {
+  services: [
+    { href: "/capabilities/digital-engineering", label: "Application Engineering" },
+    { href: "/capabilities/digital-engineering", label: "Application Modernization" },
+    { href: "/platforms", label: "Enterprise Portals" },
+    { href: "/capabilities/digital-engineering", label: "Integration & APIs" },
+    { href: "/capabilities/digital-engineering", label: "Digital Experience" },
+  ],
+  products: [
+    { href: "/work/innovation/data-agent", label: "Data Agent" },
+    { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
+    { href: "/work/innovation/joblens", label: "JobLens" },
+    { href: "/ai-data", label: "Data Explorer" },
+    { href: "/platforms/ats", label: "HR & Talent" },
+  ],
+  featured: {
+    title: "Consult America Labs",
+    detail: "Focused enterprise products engineered from real delivery programs.",
+    href: "/work/innovation",
+    image: "/innovation/data-agent-hero.png",
+    ctaLabel: "Explore Applications",
+  },
+  /** @deprecated Use services/products instead */
   links: [
     { href: "/capabilities/digital-engineering", label: "Application Engineering" },
     { href: "/platforms", label: "Enterprise Portals" },
@@ -342,6 +364,131 @@ export const offices = [
     city: "San Francisco",
     detail: "AI, data, and digital product delivery",
   },
+];
+
+export const solutionsMegaMenu = {
+  links: [
+    { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
+    { href: "/platforms/crm", label: "CRM & Customer Experience" },
+    { href: "/capabilities/enterprise-transformation", label: "Cloud & Integration" },
+    { href: "/capabilities/managed-delivery", label: "Managed Delivery" },
+  ],
+  transform: [
+    { href: "/capabilities/enterprise-transformation", label: "Strategy & Advisory" },
+    { href: "/capabilities/enterprise-transformation", label: "Process Modernization" },
+    { href: "/capabilities/enterprise-transformation", label: "Platform Transformation" },
+    { href: "/capabilities/managed-delivery", label: "Testing & Readiness" },
+  ],
+  featured: {
+    title: "Transform the enterprise.",
+    detail: "Connect strategy, platforms, data and operations.",
+    href: "/capabilities/enterprise-transformation",
+    image: "/innovation/data-agent-platform.png",
+    cta: "Explore Solutions",
+  },
+};
+
+export const oracleMegaMenuGrouped = {
+  finance: [
+    { href: "/oracle", label: "Financials" },
+    { href: "/oracle", label: "Accounting" },
+    { href: "/oracle", label: "Projects" },
+  ],
+  operations: [
+    { href: "/oracle", label: "Procurement" },
+    { href: "/oracle", label: "Supply Chain" },
+    { href: "/oracle", label: "Order Management" },
+  ],
+  platform: [
+    { href: "/oracle", label: "Integration" },
+    { href: "/oracle", label: "Data & Reporting" },
+    { href: "/oracle", label: "Testing & Releases" },
+  ],
+  featured: {
+    title: "Oracle Transformation",
+    detail: "Modernize the digital core.",
+    href: "/oracle",
+    cta: "Explore Oracle",
+  },
+};
+
+export const aiDataMegaMenuGrouped = {
+  ai: [
+    { href: "/ai-data", label: "AI Strategy" },
+    { href: "/ai-data", label: "Generative AI" },
+    { href: "/ai-data", label: "Enterprise Agents" },
+    { href: "/work/innovation/data-agent", label: "Document Intelligence" },
+  ],
+  data: [
+    { href: "/ai-data", label: "Data Engineering" },
+    { href: "/ai-data", label: "Analytics" },
+    { href: "/ai-data", label: "Enterprise Search" },
+    { href: "/ai-data", label: "AI Governance" },
+  ],
+  featured: {
+    title: "Data Agent",
+    detail: "Turn complex documents into usable intelligence.",
+    href: "/work/innovation/data-agent",
+    image: "/innovation/data-agent-hero.png",
+    cta: "Explore AI & Data",
+  },
+};
+
+export const applicationsMegaMenu = {
+  build: [
+    { href: "/capabilities/digital-engineering", label: "Application Engineering" },
+    { href: "/capabilities/digital-engineering", label: "Application Modernization" },
+    { href: "/platforms", label: "Enterprise Portals" },
+    { href: "/capabilities/digital-engineering", label: "Integration & APIs" },
+  ],
+  products: [
+    { href: "/work/innovation/data-agent", label: "Data Agent" },
+    { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
+    { href: "/work/innovation/joblens", label: "JobLens" },
+    { href: "/ai-data", label: "Data Explorer" },
+  ],
+  workforce: [
+    { href: "/careers", label: "Careers" },
+    { href: "/jobs", label: "Talent & Recruiting" },
+    { href: "/platforms/employee", label: "Employee Experience" },
+  ],
+  featured: {
+    title: "Consult America Labs",
+    detail: "We don't only advise. We build.",
+    href: "/work/innovation",
+    image: "/innovation/data-agent-hero.png",
+    cta: "Explore Applications",
+  },
+};
+
+export const resourcesMegaMenu = {
+  links: [
+    { href: "/insights", label: "Insights" },
+    { href: "/work", label: "Our Work" },
+    { href: "/work/case-studies", label: "Case Studies" },
+    { href: "/insights", label: "Perspectives" },
+  ],
+};
+
+export const companyMegaMenu = {
+  links: [
+    { href: "/about", label: "About Consult America" },
+    { href: "/about", label: "Leadership" },
+    { href: "/careers", label: "Careers" },
+    { href: "/contact", label: "Contact" },
+  ],
+  portals: [
+    { href: "/jobs", label: "Candidate Portal" },
+    { href: "/login", label: "Employee Portal" },
+  ],
+};
+
+export const platformStripLinks = [
+  { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
+  { href: "/oracle", label: "Oracle" },
+  { href: "/platforms/crm", label: "CRM" },
+  { href: "/ai-data", label: "AI & Data" },
+  { href: "/capabilities/digital-engineering", label: "Application Engineering" },
 ];
 
 export const faqs = [

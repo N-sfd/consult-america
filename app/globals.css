@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "../styles/marketing.css";
+@import "../styles/motion.css";
 @import "../styles/careers.css";
 @import "../styles/experiences.css";
 
@@ -63,6 +64,11 @@
   --ca-deep-navy: #052827;
 
   --ca-max-width: 1280px;
+  --page-max: 1440px;
+  --page-wide: 1760px;
+  --gutter-desktop: 48px;
+  --gutter-tablet: 32px;
+  --gutter-mobile: 20px;
   --ca-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   --ca-section-y: clamp(3.75rem, 6vw, 6.5rem);
   --ca-insight-reading: 760px;
@@ -106,6 +112,11 @@
   --input: var(--ca-border);
   --ring: var(--ca-red);
   --radius: 8px;
+
+  --ease-ca: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-fast: 450ms;
+  --motion-medium: 750ms;
+  --motion-slow: 18s;
 }
 
 @theme inline {
@@ -180,8 +191,133 @@ body {
   }
 }
 
+/* Header shell — structural grid (also in marketing.css; kept here for safety) */
+.ca-header-container {
+  width: 100%;
+  max-width: var(--page-max, 1440px);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 2.5vw, 48px);
+  box-sizing: border-box;
+}
+
+.ca-header-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: clamp(18px, 1.6vw, 28px);
+  min-height: 76px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1280px) {
+  .ca-header-inner {
+    min-height: 80px;
+  }
+}
+
+.ca-header-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
+  grid-column: 1;
+}
+
+.ca-header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(16px, 1.2vw, 24px);
+  white-space: nowrap;
+  min-width: 0;
+  grid-column: 2;
+}
+
+.ca-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+@media (min-width: 1280px) {
+  .ca-header-actions {
+    grid-column: 3;
+  }
+}
+
+@media (max-width: 1279px) {
+  .ca-header-nav {
+    display: none !important;
+  }
+
+  .ca-header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ca-header-brand {
+    grid-column: 1;
+    min-width: 0;
+  }
+
+  .ca-header-actions {
+    grid-column: 2;
+  }
+}
+
+.ca-header-cta {
+  flex-shrink: 0;
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
+.ca-header-cta--full,
+.ca-header-cta--tablet {
+  display: none !important;
+}
+
+@media (min-width: 1280px) {
+  .ca-header-cta--full {
+    display: inline-flex !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .ca-header-cta--tablet {
+    display: inline-flex !important;
+  }
+}
+
+.ca-header-cta--full {
+  min-height: 48px;
+  padding-inline: 22px;
+}
+
+.ca-header-cta--tablet {
+  min-height: 44px;
+  padding-inline: 18px;
+}
+
+.brand-logo {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-lockup img.brand-logo {
+  overflow: visible;
+}
+
+.ca-mega-panel {
+  width: min(calc(100vw - 48px), var(--page-max, 1440px));
+  margin-inline: auto;
+}
+
 .ca-page-pad {
-  padding-top: var(--header-offset);
+  padding-top: 0;
 }
 
 .ca-shell {
@@ -275,7 +411,7 @@ body {
   min-height: 2.75rem;
   padding: 0.75em 1.5em;
   border: 1px solid var(--ca-red);
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--ca-red);
   color: #FFFFFF;
   font-weight: 600;
@@ -302,7 +438,7 @@ body {
   min-height: 2.75rem;
   padding: 0.75em 1.4em;
   border: 1px solid var(--ca-border);
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--ca-white);
   color: var(--ca-navy);
   font-weight: 600;
@@ -326,7 +462,7 @@ body {
   min-height: 2.75rem;
   padding: 0.75em 1.25em;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 999px;
   background: transparent;
   color: #FFFFFF;
   font-weight: 500;
@@ -347,8 +483,10 @@ body {
   position: relative;
   display: inline-flex;
   padding-block: 0.35rem;
-  color: var(--ca-nav);
-  transition: color 200ms ease;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ca-ink);
+  transition: color 200ms var(--ease-ca);
 }
 
 .ca-nav-link:hover {
@@ -393,14 +531,15 @@ body {
 
 .ca-card {
   border: 1px solid var(--ca-border);
-  border-radius: 10px;
+  border-radius: 16px;
   background: var(--ca-white);
-  transition: border-color 200ms ease, box-shadow 200ms ease;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
 }
 
 .ca-card:hover {
   border-color: var(--ca-border-light);
-  box-shadow: 0 12px 32px rgba(16, 32, 51, 0.05);
+  box-shadow: 0 20px 48px rgba(16, 32, 51, 0.09);
+  transform: translateY(-2px);
 }
 
 /* Product Screenshot Corporate Frame Standard */

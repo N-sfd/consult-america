@@ -6,6 +6,7 @@ import { ArrowRight, ArrowUpRight, CheckCircle2, Users, Workflow } from "lucide-
 import { motion, useReducedMotion } from "framer-motion";
 
 import ApplicationPortfolio from "@/components/marketing/application-portfolio";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 // Corporate Browser Frame Helper (Section 24 Requirement)
@@ -43,8 +44,9 @@ export default function LabsShowcase() {
       {/* ======================================================== */}
       {/* 1. APPLICATION ENGINEERING PRACTICE (Section 19)         */}
       {/* ======================================================== */}
-      <section className="bg-[#FFFFFF] text-[#122D2E] py-20 sm:py-24 lg:py-28 border-b border-[#C9DDD7]">
-        <div className="ca-shell">
+      <section className="relative overflow-hidden border-b border-[#C9DDD7] bg-white py-20 text-[#122D2E] sm:py-24 lg:py-28">
+        <SectionBackdrop variant="applications" />
+        <div className="ca-shell relative z-10">
           <SectionLabel tone="burgundy">APPLICATION ENGINEERING PRACTICE</SectionLabel>
 
           <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
@@ -67,7 +69,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/capabilities/digital-engineering"
-                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer"
+                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-full cursor-pointer"
                 >
                   <span>Explore Engineering Capabilities</span>
                   <ArrowUpRight className="h-4 w-4" />
@@ -345,7 +347,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/work/innovation/joblens"
-                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-lg cursor-pointer"
+                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-full cursor-pointer"
                 >
                   <span>Explore JobLens</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -436,7 +438,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/work/innovation/mediguide-ai"
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#0B4A47] px-6 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#0A3D3B]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#0B4A47] px-6 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#0A3D3B]"
                 >
                   <span>Explore MediGuide AI</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -595,7 +597,7 @@ export default function LabsShowcase() {
               <div className="pt-2">
                 <Link
                   href="/platforms/ats"
-                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-lg cursor-pointer"
+                  className="ca-button-primary inline-flex items-center gap-2 !min-h-[44px] !px-6 text-xs font-semibold rounded-full cursor-pointer"
                 >
                   <span>Explore Workforce Suite</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />

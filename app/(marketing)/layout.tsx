@@ -9,7 +9,7 @@ export default function MarketingLayout({
   return (
     <>
       <SiteHeader />
-      <main className="experience-marketing ca-page-pad">{children}</main>
+      <main className="experience-marketing">{children}</main>
       <SiteFooter />
     </>
   );

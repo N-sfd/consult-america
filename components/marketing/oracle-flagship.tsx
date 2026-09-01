@@ -6,6 +6,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { LayeredPhoto } from "@/components/marketing/shaped-photo";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const capabilities = [
@@ -45,13 +46,8 @@ export default function OracleFlagship() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="oracle-practice" className="bg-[#F0F6F4] text-[#0B4A47] py-16 sm:py-20 lg:py-24 border-b border-[#9BC4B8]/40 relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-60"
-        style={{
-          background: "radial-gradient(circle at 12% 50%, rgba(155,196,184,0.35) 0%, transparent 55%)",
-        }}
-      />
+    <section id="oracle-practice" className="relative overflow-hidden border-b border-[#9BC4B8]/40 bg-[#F0F6F4] py-16 text-[#0B4A47] sm:py-20 lg:py-24">
+      <SectionBackdrop variant="oracle" />
 
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
         <div className="inline-flex items-center gap-2">

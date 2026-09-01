@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { ShapedPhoto } from "@/components/marketing/shaped-photo";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const methodologySteps = [
@@ -34,14 +35,15 @@ export default function AIDataStory() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="ai-data-story" className="ca-grad-emerald text-white py-16 sm:py-20 lg:py-24 border-b border-[#073B3A] relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20 ca-bg-drift"
-        style={{
-          backgroundImage: "linear-gradient(to right, rgba(155, 196, 184, 0.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(155, 196, 184, 0.14) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+    <section
+      id="ai-data-story"
+      className="relative overflow-hidden border-b border-[#073B3A] py-16 text-white sm:py-20 lg:py-24"
+      style={{
+        background:
+          "linear-gradient(135deg, #073B3A 0%, #0B4A47 52%, #176A63 100%)",
+      }}
+    >
+      <SectionBackdrop variant="ai" />
 
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
         <div className="inline-flex items-center gap-2">

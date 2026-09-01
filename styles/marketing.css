@@ -2,13 +2,22 @@
 
 :root {
   --mkt-max: 1280px;
+  --page-max: 1440px;
+  --page-wide: 1760px;
+  --gutter-desktop: 48px;
+  --gutter-tablet: 32px;
+  --gutter-mobile: 20px;
+  --section-xl: 128px;
+  --section-lg: 104px;
+  --section-md: 80px;
+  --section-sm: 64px;
   --mkt-gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   --mkt-section-y: clamp(4.75rem, 7.5vw, 7.75rem); /* 76–124px desktop */
-  --mkt-hero: clamp(2.75rem, 4.5vw, 4.75rem);
-  --mkt-h2: clamp(2.15rem, 3.6vw, 3.25rem);
-  --mkt-h3: clamp(1.25rem, 1.6vw, 1.65rem);
-  --mkt-body-lg: clamp(1.05rem, 0.4vw + 0.95rem, 1.2rem);
-  --mkt-body: clamp(0.95rem, 0.15vw + 0.9rem, 1.075rem);
+  --mkt-hero: clamp(3rem, 5vw, 4.75rem);
+  --mkt-h2: clamp(2.375rem, 4vw, 3.5rem);
+  --mkt-h3: clamp(1.5625rem, 2.2vw, 2.125rem);
+  --mkt-body-lg: clamp(1rem, 1.15vw, 1.125rem);
+  --mkt-body: clamp(1rem, 1.15vw, 1.125rem);
   --mkt-prose: 42rem;
 
   /* Consult America Master Green System */
@@ -323,7 +332,12 @@
   overflow: hidden;
 }
 
-/* Executive Navigation Underline System */
+/* Executive Navigation — structural rules live in globals.css; mega panel only here */
+.ca-mega-panel {
+  width: min(calc(100vw - 48px), var(--page-max));
+  margin-inline: auto;
+}
+
 .ca-nav-link {
   position: relative;
   font-size: 0.875rem;

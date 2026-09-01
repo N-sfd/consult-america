@@ -5,14 +5,17 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { ShapedPhoto } from "@/components/marketing/shaped-photo";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 export default function CareersFeature() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="careers-preview" className="bg-[#F0F6F4] text-[#073B3A] py-16 sm:py-20 lg:py-24 border-b border-[#9BC4B8]/40">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+    <section id="careers-preview" className="relative overflow-hidden border-b border-[#9BC4B8]/40 bg-[#F0F6F4] py-16 text-[#073B3A] sm:py-20 lg:py-24">
+      <SectionBackdrop variant="soft" />
+
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="overflow-hidden rounded-[16px] border border-[#9BC4B8]/45 bg-[#E1ECE8] ca-shadow-elevated">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             <motion.div

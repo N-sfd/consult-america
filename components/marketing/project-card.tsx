@@ -14,28 +14,21 @@ interface ProjectCardProps {
 }
 
 const spanClasses: Record<string, string> = {
-  flagship: "lg:col-span-8",
+  flagship: "lg:col-span-12",
   large: "lg:col-span-6",
   standard: "lg:col-span-4",
 };
 
 const imageHeights: Record<number, string> = {
-  1: "h-[260px] sm:h-[280px]",
-  2: "h-[240px] sm:h-[250px]",
-  3: "h-[220px] sm:h-[240px]",
+  1: "h-[240px] sm:h-[280px] lg:h-[300px]",
+  2: "h-[220px] sm:h-[250px] lg:h-[260px]",
+  3: "h-[200px] sm:h-[220px] lg:h-[240px]",
 };
 
 export default function ProjectCard({ project, onViewDetails, className = "" }: ProjectCardProps) {
   const isExternalDetail = project.detailHref.startsWith("http");
   const imageHeight = imageHeights[project.tier] ?? imageHeights[3];
   const span = spanClasses[project.layoutSpan ?? "standard"];
-
-  const imageRadius =
-    project.imageShape === "arch"
-      ? "rounded-t-[8px] rounded-br-[32px]"
-      : project.imageShape === "offset"
-        ? "rounded-t-[8px] rounded-bl-[24px]"
-        : "rounded-t-[8px]";
 
   return (
     <motion.article
@@ -44,18 +37,20 @@ export default function ProjectCard({ project, onViewDetails, className = "" }: 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.22 }}
-      className={`group flex flex-col bg-white border border-[#DCE4E1] rounded-lg shadow-[0_2px_12px_rgba(7,59,58,0.04)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(7,59,58,0.08)] ${span} ${className}`}
+      className={`group flex flex-col bg-white border border-[#DDE6E3] rounded-xl shadow-[0_2px_12px_rgba(7,59,58,0.04)] transition-all duration-[600ms] hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(7,59,58,0.08)] ${span} ${className}`}
     >
-      <div className={`relative w-full overflow-hidden ${imageHeight} ${imageRadius}`}>
-        <Image
-          src={project.image}
-          alt={project.imageAlt}
-          fill
-          className={`transition-transform duration-300 group-hover:scale-[1.02] ${
-            project.imageFit === "contain" ? "object-contain bg-[#F0F6F4] p-2" : "object-cover object-top"
-          }`}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+      <div className={`relative w-full overflow-hidden ${imageHeight} rounded-t-[11px] bg-white`}>
+        <div className="absolute inset-2 sm:inset-2.5 overflow-hidden rounded-[10px] border border-[#DDE6E3] bg-white shadow-[0_18px_50px_rgba(7,59,58,0.08)]">
+          <Image
+            src={project.image}
+            alt={project.imageAlt}
+            fill
+            className={`transition-transform duration-[600ms] group-hover:scale-[1.02] ${
+              project.imageFit === "contain" ? "object-contain bg-[#F0F6F4] p-2" : "object-cover object-top"
+            }`}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
@@ -89,7 +84,7 @@ export default function ProjectCard({ project, onViewDetails, className = "" }: 
               onClick={() => onViewDetails(project)}
               className="inline-flex min-h-[44px] items-center gap-1 text-[#B83A3A] hover:gap-2 transition-all cursor-pointer"
             >
-              <span>View Project</span>
+              <span>View Details</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </button>
           ) : isExternalDetail ? (
@@ -99,7 +94,7 @@ export default function ProjectCard({ project, onViewDetails, className = "" }: 
               rel="noopener noreferrer"
               className="inline-flex min-h-[44px] items-center gap-1 text-[#B83A3A] hover:gap-2 transition-all"
             >
-              <span>View Project</span>
+              <span>View Details</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </a>
           ) : (
@@ -107,7 +102,7 @@ export default function ProjectCard({ project, onViewDetails, className = "" }: 
               href={project.detailHref}
               className="inline-flex min-h-[44px] items-center gap-1 text-[#B83A3A] hover:gap-2 transition-all"
             >
-              <span>View Project</span>
+              <span>View Details</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           )}

@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { ShapedPhoto } from "@/components/marketing/shaped-photo";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const journeySteps = [
@@ -19,15 +20,10 @@ export default function CRMShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="crm-cx" className="bg-[#F0F6F4] text-[#073B3A] py-16 sm:py-20 lg:py-24 border-b border-[#9BC4B8]/40 relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-70"
-        style={{
-          background: "radial-gradient(circle at 88% 20%, rgba(155,196,184,0.28) 0%, transparent 50%)",
-        }}
-      />
+    <section id="crm-cx" className="relative overflow-hidden border-b border-[#9BC4B8]/40 bg-[#F0F6F4] py-16 text-[#073B3A] sm:py-20 lg:py-24">
+      <SectionBackdrop variant="soft" />
 
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="inline-flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-[#176A63]" />
           <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#176A63]">

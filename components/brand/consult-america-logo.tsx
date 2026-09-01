@@ -1,174 +1,137 @@
-import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import type { CSSProperties } from "react";
 
-const EXECUTIVE_TEAL_MARK = "/brand/executive-teal-mark.png";
+import { brandAssets, brandDimensions, type BrandAssetKey } from "@/lib/brandAssets";
+import { cn } from "@/lib/utils";
 
 export type ConsultAmericaLogoVariant = "light" | "dark" | "compact" | "mark";
 export type ConsultAmericaLogoSize = "header" | "footer" | "compact" | "mark";
+export type LogoLockup = "header" | "footer" | "compact" | "mark" | "full" | "horizontal";
 
 export interface ConsultAmericaLogoProps {
   href?: string;
   className?: string;
-  markClassName?: string;
   variant?: ConsultAmericaLogoVariant;
   size?: ConsultAmericaLogoSize;
-  showWordmark?: boolean;
+  lockup?: LogoLockup;
+  /** Max rendered height — scales width proportionally. */
+  maxHeight?: number | string;
+  /** Max rendered width — scales height proportionally. */
+  maxWidth?: number | string;
+  /** @deprecated Tagline is baked into image assets — this prop is ignored. */
   showTagline?: boolean;
+  /** @deprecated Wordmark is baked into image assets — this prop is ignored. */
+  showWordmark?: boolean;
   onNavigate?: () => void;
 }
 
-const sizeConfig = {
-  header: {
-    mark: "h-[62px] w-[70px]",
-    wordmark: "text-[1.625rem] sm:text-[1.8125rem]",
-    tagline: "text-[10.5px] xl:text-[11px]",
-    gap: "gap-[15px]",
-    maxWidth: "max-w-[390px]",
-  },
-  footer: {
-    mark: "h-[64px] w-[72px] sm:h-[68px] sm:w-[76px]",
-    wordmark: "text-[1.75rem] sm:text-[1.9375rem]",
-    tagline: "text-[10.5px] sm:text-[11px]",
-    gap: "gap-4",
-    maxWidth: "max-w-[410px]",
-  },
-  compact: {
-    mark: "h-[52px] w-[58px]",
-    wordmark: "text-[1.375rem]",
-    tagline: "text-[10px]",
-    gap: "gap-3",
-    maxWidth: "max-w-[320px]",
-  },
-  mark: {
-    mark: "h-[44px] w-[50px]",
-    wordmark: "",
-    tagline: "",
-    gap: "",
-    maxWidth: "",
-  },
-} as const;
+type RasterAsset = "full" | "compact" | "mark" | "horizontal";
 
-function Tagline({
-  variant,
+const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
+  header: "compact",
+  footer: "compact",
+  compact: "compact",
+  mark: "mark",
+  full: "full",
+  horizontal: "horizontal",
+};
+
+const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
+  header: "clamp(36px, 4.5vw, 48px)",
+  footer: "56px",
+  compact: "64px",
+  mark: "clamp(40px, 10vw, 56px)",
+  full: "120px",
+  horizontal: "72px",
+};
+
+const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
+  header: "clamp(180px, 22vw, 280px)",
+  footer: "280px",
+  compact: "320px",
+  mark: "72px",
+  full: "320px",
+  horizontal: "480px",
+};
+
+function toCss(value?: number | string) {
+  if (value === undefined) return undefined;
+  return typeof value === "number" ? `${value}px` : value;
+}
+
+function RasterLogo({
+  asset,
   className,
+  maxHeight,
+  maxWidth,
+  style,
+  priority,
 }: {
-  variant: "light" | "dark";
+  asset: RasterAsset;
   className?: string;
+  maxHeight?: string;
+  maxWidth?: string;
+  style?: CSSProperties;
+  priority?: boolean;
 }) {
-  const isDark = variant === "dark";
+  const dim = brandDimensions[asset];
 
   return (
-    <span
-      className={cn(
-        "items-center gap-2 mt-1.5 font-sans font-semibold uppercase whitespace-nowrap leading-[1.2]",
-        className
-      )}
-    >
-      <span
-        className={cn("h-px w-4 shrink-0", isDark ? "bg-[#9BC4B8]/55" : "bg-[#9BC4B8]")}
-        aria-hidden="true"
-      />
-      <span className={cn("tracking-[0.13em]", isDark ? "text-[#C9DDD7]" : "text-[#176A63]")}>
-        STRATEGY
-        <span className="text-[#C52F32] mx-1">•</span>
-        TECHNOLOGY
-        <span className="text-[#C52F32] mx-1">•</span>
-        RESULTS
-      </span>
-      <span
-        className={cn("h-px w-4 shrink-0", isDark ? "bg-[#9BC4B8]/55" : "bg-[#9BC4B8]")}
-        aria-hidden="true"
-      />
-    </span>
+    // Native img bypasses Next.js image optimizer cache (fixes stale logo after asset swaps).
+    <img
+      src={brandAssets[asset]}
+      alt="Consult America"
+      width={dim.width}
+      height={dim.height}
+      decoding="async"
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : undefined}
+      className={cn("brand-logo block h-auto w-auto max-w-full object-contain object-left", className)}
+      style={{
+        maxHeight,
+        maxWidth,
+        width: "auto",
+        height: "auto",
+        aspectRatio: `${dim.width} / ${dim.height}`,
+        ...style,
+      }}
+    />
   );
 }
 
 export default function ConsultAmericaLogo({
   href = "/",
   className,
-  markClassName,
   variant = "light",
-  size = "header",
-  showWordmark = true,
-  showTagline,
+  size,
+  lockup,
+  maxHeight,
+  maxWidth,
   onNavigate,
 }: ConsultAmericaLogoProps) {
-  const isMarkOnly = variant === "mark" || size === "mark";
-  const isCompact = variant === "compact" || size === "compact";
-  const isDarkBg = variant === "dark";
+  const resolvedLockup: LogoLockup =
+    lockup ??
+    (variant === "mark" || size === "mark"
+      ? "mark"
+      : variant === "compact" || size === "compact"
+        ? "compact"
+        : size === "footer"
+          ? "footer"
+          : "header");
 
-  const resolvedSize = isMarkOnly ? "mark" : isCompact ? "compact" : size;
-  const config = sizeConfig[resolvedSize];
-
-  const resolvedShowTagline =
-    showTagline ?? (isMarkOnly || isCompact ? false : true);
-
-  const taglineVisibility =
-    resolvedShowTagline && !isMarkOnly
-      ? size === "footer"
-        ? "flex"
-        : "hidden xl:flex"
-      : "hidden";
+  const asset = LOCKUP_ASSET[resolvedLockup];
+  const heightCss = toCss(maxHeight) ?? DEFAULT_MAX_HEIGHT[resolvedLockup];
+  const widthCss = toCss(maxWidth) ?? DEFAULT_MAX_WIDTH[resolvedLockup];
 
   const content = (
-    <span
-      className={cn(
-        "inline-flex items-center select-none group",
-        config.gap,
-        config.maxWidth,
-        className
-      )}
-    >
-      <span
-        className={cn(
-          "relative shrink-0 flex items-center justify-center transition-transform duration-200 group-hover:scale-[1.015]",
-          config.mark,
-          markClassName
-        )}
-      >
-        <Image
-          src={EXECUTIVE_TEAL_MARK}
-          alt=""
-          width={152}
-          height={120}
-          priority
-          className="h-full w-full object-contain object-center"
-          sizes="(max-width: 768px) 58px, 76px"
-        />
-      </span>
-
-      {showWordmark && !isMarkOnly && (
-        <span className="flex flex-col justify-center leading-none min-w-0">
-          <span className="flex items-baseline whitespace-nowrap">
-            <span
-              className={cn(
-                "font-serif font-semibold tracking-[-0.02em] leading-none",
-                config.wordmark,
-                isDarkBg ? "text-white" : "text-[#073B3A]"
-              )}
-            >
-              Consult
-            </span>
-            <span
-              className={cn(
-                "font-serif font-semibold tracking-[-0.02em] leading-none",
-                config.wordmark,
-                isDarkBg ? "text-[#E14A4C]" : "text-[#C52F32]"
-              )}
-            >
-              America
-            </span>
-          </span>
-
-          <Tagline
-            variant={isDarkBg ? "dark" : "light"}
-            className={taglineVisibility}
-          />
-        </span>
-      )}
-
-      <span className="sr-only">Consult America — Strategy, Technology, Results</span>
+    <span className={cn("brand-lockup inline-flex min-w-0 max-w-full items-center", className)}>
+      <RasterLogo
+        asset={asset}
+        priority={resolvedLockup === "header"}
+        maxHeight={heightCss}
+        maxWidth={widthCss}
+      />
+      <span className="sr-only">Consult America — Enterprise Transformation</span>
     </span>
   );
 
@@ -178,10 +141,12 @@ export default function ConsultAmericaLogo({
     <Link
       href={href}
       aria-label="Consult America homepage"
-      className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C52F32] rounded-md shrink-0"
+      className="inline-flex min-w-0 max-w-full shrink items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C52F32]"
       onClick={onNavigate}
     >
       {content}
     </Link>
   );
 }
+
+export { brandAssets, brandDimensions, type BrandAssetKey };

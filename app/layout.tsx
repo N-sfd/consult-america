@@ -5,6 +5,7 @@ import ContactPanel from "@/components/contact-panel";
 import { ContactProvider } from "@/components/providers/contact-provider";
 
 import "./globals.css";
+import "../styles/marketing.css";
 
 const bodyFont = Inter({
   subsets: ["latin"],
@@ -32,10 +33,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: [
-      { url: "/brand/ca-favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
-    ],
+    icon: [{ url: "/favicon.png", sizes: "32x32", type: "image/png" }],
     apple: "/favicon.png",
   },
   openGraph: {
@@ -47,9 +45,9 @@ export const metadata: Metadata = {
       "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
     images: [
       {
-        url: "/brand/consult-america-executive-teal.jpg",
-        width: 1200,
-        height: 1200,
+        url: "/brand/ca-logo-horizontal.png",
+        width: 1600,
+        height: 380,
         alt: "Consult America — Strategy, Technology, Results",
       },
     ],
@@ -67,7 +65,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "Consult America",
   url: siteUrl,
-  logo: `${siteUrl}/brand/ca-favicon.svg`,
+  logo: `${siteUrl}/brand/ca-logo-horizontal.png`,
   description:
     "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
   address: {

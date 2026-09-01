@@ -2,10 +2,6 @@
 
 import { motion } from "framer-motion";
 
-import Container from "@/components/layout/container";
-import Section from "@/components/layout/section";
-import SectionLabel from "@/components/shared/section-label";
-
 const credibilityItems = [
   "Oracle",
   "Enterprise Transformation",
@@ -15,92 +11,28 @@ const credibilityItems = [
   "Program Delivery",
 ];
 
-const proofPoints = [
-  {
-    value: "17+",
-    label: "Years of enterprise experience",
-  },
-  {
-    value: "End-to-End",
-    label: "Strategy through implementation and support",
-  },
-  {
-    value: "Oracle",
-    label: "Enterprise transformation expertise",
-  },
-];
-
 export default function ClientTrust() {
   return (
-    <Section className="bg-white">
-      <Container>
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-4">
-            <SectionLabel>TRUST & CREDIBILITY</SectionLabel>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-8"
-          >
-            <h2 className="ca-h3 max-w-3xl">
-              Trusted to deliver complex enterprise transformation.
-            </h2>
-
-            <p className="ca-body mt-6 max-w-2xl">
-              ConsultAmerica combines enterprise experience, technology depth,
-              and execution-focused delivery to help organizations move
-              transformation initiatives forward.
-            </p>
-          </motion.div>
-        </div>
-
-        <div className="mt-16 border-y border-[var(--ca-border-light)]">
-          <div className="grid grid-cols-2 md:grid-cols-3">
-            {credibilityItems.map((item, index) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.05,
-                }}
-                className="flex min-h-28 items-center px-5 py-7 md:min-h-32 md:px-8"
-              >
-                <p className="text-sm font-medium uppercase tracking-[0.12em] text-[var(--ca-ink)]">
-                  {item}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-14 grid border-t border-[var(--ca-border-light)] md:grid-cols-3">
-          {proofPoints.map((item, index) => (
-            <div
-              key={item.label}
-              className={`py-8 md:px-8 ${
-                index !== proofPoints.length - 1
-                  ? "md:border-r md:border-[var(--ca-border-light)]"
-                  : ""
-              } ${index === 0 ? "md:pl-0" : ""}`}
+    <section className="border-y border-[#E1ECE8] bg-[#F8FBFA] py-6">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-4 px-6 sm:flex-row sm:justify-between lg:px-8 xl:px-10">
+        <p className="shrink-0 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#5B6D6B]">
+          Depth across
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 sm:justify-end">
+          {credibilityItems.map((item, index) => (
+            <motion.span
+              key={item}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.04 }}
+              className="text-sm font-medium text-[#122D2E]"
             >
-              <p className="text-3xl font-medium tracking-[-0.04em]">
-                {item.value}
-              </p>
-
-              <p className="mt-3 max-w-xs text-sm leading-6 text-[var(--ca-muted)]">
-                {item.label}
-              </p>
-            </div>
+              {item}
+            </motion.span>
           ))}
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

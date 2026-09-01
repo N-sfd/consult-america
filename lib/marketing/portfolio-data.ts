@@ -42,7 +42,6 @@ export const portfolioProjects: PortfolioProject[] = [
     liveUrl: "https://data-agent-ca.vercel.app",
     tier: 1,
     layoutSpan: "flagship",
-    imageShape: "arch",
   },
   {
     id: "mediguide",

@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { stockImage } from "@/lib/marketing/stock-images";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 
 const featuredCase = {
   client: "PUBLIC SECTOR ENTERPRISE",
@@ -46,8 +47,10 @@ export default function SelectedWorkSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="selected-work" className="bg-[#FFFFFF] text-[#122D2E] py-16 sm:py-20 lg:py-24 border-b border-[#C9DDD7]">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+    <section id="selected-work" className="relative overflow-hidden border-b border-[#C9DDD7] bg-white py-16 text-[#122D2E] sm:py-20 lg:py-24">
+      <SectionBackdrop variant="soft" />
+
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#C9DDD7]">
           <div>
             <div className="inline-flex items-center gap-2">

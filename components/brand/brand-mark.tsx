@@ -11,7 +11,10 @@ interface BrandMarkProps {
   tone?: BrandMarkTone;
 }
 
-/** Executive Teal CA symbol — layered ribbons, preserved geometry. */
+/**
+ * @deprecated Replaced by approved Executive Teal raster assets in lib/brandAssets.ts.
+ * Retained only for reference — do not use in new UI.
+ */
 export default function BrandMark({ className, tone = "executive" }: BrandMarkProps) {
   const uid = useId().replace(/:/g, "");
   const isInverse = tone === "inverse";

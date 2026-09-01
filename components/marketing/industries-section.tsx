@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { ShapedPhoto } from "@/components/marketing/shaped-photo";
+import SectionBackdrop from "@/components/marketing/section-backdrop";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const industries = [
@@ -46,15 +47,10 @@ export default function IndustriesSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="industries" className="ca-grad-dark text-white py-16 sm:py-20 lg:py-24 border-b border-[#073B3A] relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-30 ca-bg-drift"
-        style={{
-          background: "radial-gradient(circle at 70% 30%, rgba(155,196,184,0.25) 0%, transparent 60%)",
-        }}
-      />
+    <section id="industries" className="ca-grad-dark relative overflow-hidden border-b border-[#073B3A] py-16 text-white sm:py-20 lg:py-24">
+      <SectionBackdrop variant="dark" />
 
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end pb-8 border-b border-[#9BC4B8]/25">
           <div>
             <div className="inline-flex items-center gap-2">

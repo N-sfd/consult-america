@@ -66,7 +66,7 @@ export default function DataAgentFlagship() {
             <div className="pt-4">
               <Link
                 href="/work/innovation/data-agent"
-                className="group inline-flex min-h-12 items-center gap-2 rounded-md bg-[#B83A3A] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#992F31] cursor-pointer"
+                className="group inline-flex min-h-12 items-center gap-2 rounded-full bg-[#B83A3A] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#992F31] cursor-pointer"
               >
                 <span>Explore Data Agent</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

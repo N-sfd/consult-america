@@ -1,0 +1,182 @@
+/* Consult America — restrained enterprise motion */
+
+:root {
+  --ease-ca: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-fast: 450ms;
+  --motion-medium: 750ms;
+  --motion-slow: 18s;
+}
+
+@keyframes caFloatOne {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(12px, -10px, 0) rotate(1deg);
+  }
+}
+
+@keyframes caFloatTwo {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-10px, 14px, 0);
+  }
+}
+
+@keyframes caFloatThree {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(12px, -8px, 0);
+  }
+}
+
+@keyframes caLineDrift {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 48px 24px;
+  }
+}
+
+.ca-shape {
+  pointer-events: none;
+  position: absolute;
+  will-change: transform;
+}
+
+.ca-shape--float-one {
+  animation: caFloatOne 18s ease-in-out infinite;
+}
+
+.ca-shape--float-two {
+  animation: caFloatTwo 22s ease-in-out infinite;
+}
+
+.ca-shape--float-three {
+  animation: caFloatThree 20s ease-in-out infinite;
+}
+
+.ca-shape--delay-1 {
+  animation-delay: -4s;
+}
+
+.ca-shape--delay-2 {
+  animation-delay: -9s;
+}
+
+.ca-shape--delay-3 {
+  animation-delay: -14s;
+}
+
+.ca-ai-line-pattern {
+  background-image:
+    linear-gradient(125deg, transparent 48%, rgba(155, 196, 184, 0.35) 49%, rgba(155, 196, 184, 0.35) 51%, transparent 52%),
+    linear-gradient(35deg, transparent 48%, rgba(155, 196, 184, 0.2) 49%, rgba(155, 196, 184, 0.2) 51%, transparent 52%);
+  background-size: 120px 120px, 160px 160px;
+  animation: caLineDrift 32s ease-in-out infinite;
+  opacity: 0.07;
+}
+
+.ca-hero-bg,
+.ca-grad-hero {
+  background:
+    radial-gradient(circle at 78% 38%, rgba(75, 148, 136, 0.2), transparent 38%),
+    radial-gradient(circle at 8% 72%, rgba(155, 196, 184, 0.12), transparent 32%),
+    linear-gradient(120deg, #ffffff 0%, #f7faf9 52%, #f0f6f4 100%);
+}
+
+.ca-photo-hover {
+  transition: transform 600ms var(--ease-ca);
+}
+
+.ca-photo-hover:hover {
+  transform: scale(1.025);
+}
+
+.ca-product-reveal {
+  transition:
+    transform 700ms var(--ease-ca),
+    opacity 700ms var(--ease-ca);
+}
+
+.ca-product-hover:hover {
+  transform: scale(1.015);
+}
+
+.ca-pillar {
+  border-top: 1px solid var(--ca-green-700);
+  transition:
+    border-color var(--motion-fast) var(--ease-ca),
+    transform var(--motion-fast) var(--ease-ca);
+}
+
+.ca-pillar:hover {
+  border-color: var(--ca-green-950);
+}
+
+.ca-pillar:hover .ca-pillar-title {
+  transform: translateX(2px);
+}
+
+.ca-pillar-title {
+  transition: transform var(--motion-fast) var(--ease-ca);
+}
+
+.ca-platform-strip {
+  background:
+    linear-gradient(90deg, rgba(240, 246, 244, 0.4) 0%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 80%, rgba(240, 246, 244, 0.4) 100%);
+}
+
+.ca-header-glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: rgba(7, 59, 58, 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-shape,
+  .animated-shape,
+  .ca-shape--float-one,
+  .ca-shape--float-two,
+  .ca-shape--float-three,
+  .ca-ai-line-pattern,
+  .ca-bg-drift {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .ca-photo-hover:hover,
+  .ca-product-hover:hover,
+  .ca-photo-float {
+    transform: none;
+    animation: none !important;
+  }
+
+  .ca-pillar:hover .ca-pillar-title {
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .ca-shape--hero-arc {
+    width: 280px !important;
+    height: 280px !important;
+    right: -18% !important;
+    opacity: 0.1 !important;
+  }
+
+  .ca-shape--hero-arch,
+  .ca-shape--positioning-arc {
+    display: none;
+  }
+}
