@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import BrandLogo from "@/components/brand/brand-logo";
+import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import MobileMenu from "@/components/navigation/mobile-menu";
 import {
@@ -143,11 +143,11 @@ export default function SiteHeader() {
 
         <div className={`transition-[background,border-color,box-shadow] duration-200 ${headerSurface}`}>
           <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-            <div className="flex h-[76px] items-center justify-between gap-6">
-              <BrandLogo tone="dark" />
+            <div className="flex h-[76px] items-center justify-between gap-4 xl:gap-5">
+              <ConsultAmericaLogo variant="light" size="header" className="shrink-0" />
 
               <nav
-                className="hidden items-center justify-center gap-[26px] lg:flex flex-nowrap shrink-0"
+                className="hidden items-center justify-center gap-[20px] lg:gap-[22px] xl:gap-[24px] lg:flex flex-nowrap shrink-0"
                 aria-label="Primary navigation"
               >
                 <NavButton label="Transformation" menuKey="transformation" openMenu={openMenu} setOpenMenu={setOpenMenu} />
@@ -158,7 +158,7 @@ export default function SiteHeader() {
                 <NavButton label="Industries" menuKey="industries" openMenu={openMenu} setOpenMenu={setOpenMenu} />
               </nav>
 
-              <div className="hidden items-center gap-[26px] lg:flex shrink-0">
+              <div className="hidden items-center gap-[20px] lg:gap-[22px] xl:gap-[24px] lg:flex shrink-0">
                 <Link
                   href="/work"
                   className="ca-nav-link whitespace-nowrap text-[14px] font-medium text-[#122D2E] hover:text-[#B83A3A]"

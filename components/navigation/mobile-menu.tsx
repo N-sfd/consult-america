@@ -5,7 +5,7 @@ import { ArrowUpRight, ChevronDown, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
-import BrandLogo from "@/components/brand/brand-logo";
+import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import {
   aiDataMegaMenu,
@@ -113,7 +113,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             aria-label="Navigation menu"
           >
             <div className="flex h-16 items-center justify-between border-b border-[#DCE4E1] px-5">
-              <BrandLogo tone="dark" />
+              <ConsultAmericaLogo variant="light" size="compact" href="/" onNavigate={handleClose} />
               <button
                 type="button"
                 onClick={handleClose}

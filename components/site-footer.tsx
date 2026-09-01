@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 
-import BrandLogo from "@/components/brand/brand-logo";
+import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { industryLinks } from "@/lib/site-data";
 
@@ -104,9 +104,9 @@ export function SiteFooter() {
 
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10 relative z-10 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-3">
-            <BrandLogo tone="dark" />
-            <p className="mt-4 max-w-xs text-xs sm:text-sm leading-relaxed text-[#5B6D6B]">
+          <div className="lg:col-span-4 max-w-[400px]">
+            <ConsultAmericaLogo variant="light" size="footer" href="/" />
+            <p className="mt-6 max-w-[380px] text-xs sm:text-sm leading-relaxed text-[#5B6D6B]">
               Enterprise transformation, Oracle Cloud, AI &amp; data, and digital application engineering delivered from strategy through production.
             </p>
             <div className="mt-6 flex flex-col gap-2.5">
@@ -126,7 +126,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-7">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-7">
             {footerColumns.map((column) => (
               <details
                 key={column.title}

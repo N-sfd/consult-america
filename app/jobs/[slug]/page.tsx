@@ -58,7 +58,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
       "@type": "Organization",
       name: "Consult America",
       sameAs: siteUrl,
-      logo: `${siteUrl}/brand/logo.jpg`,
+      logo: `${siteUrl}/brand/ca-favicon.svg`,
     },
     jobLocationType: job.workplaceType === "Remote" ? "TELECOMMUTE" : undefined,
     jobLocation:

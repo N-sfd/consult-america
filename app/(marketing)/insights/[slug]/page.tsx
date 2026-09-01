@@ -61,7 +61,7 @@ export default async function InsightDetailPage({
       name: "Consult America",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/brand/logo.jpg`,
+        url: `${siteUrl}/brand/consult-america-executive-teal.jpg`,
       },
     },
     mainEntityOfPage: {

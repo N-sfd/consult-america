@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import BrandLogo from "@/components/brand/brand-logo";
+import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 
 export const metadata: Metadata = {
   title: "Employee Login | ConsultAmerica Workforce",
@@ -40,7 +40,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[var(--ca-app-bg)] text-[var(--ca-app-ink)]">
       <header className="border-b border-black/8 bg-white">
         <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-5">
-          <BrandLogo tone="dark" />
+          <ConsultAmericaLogo variant="light" size="compact" showTagline={false} />
           <Link
             href="/"
             className="text-sm text-black/45 transition-colors hover:text-[var(--ca-blue)]"
