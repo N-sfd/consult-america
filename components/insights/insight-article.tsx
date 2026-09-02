@@ -31,9 +31,9 @@ function tocItems(insight: Insight) {
 
 function ArticleCta({ cta }: { cta: InsightCta }) {
   return (
-    <aside className="ca-insight-cta" aria-label="How ConsultAmerica can help">
+    <aside className="ca-insight-cta" aria-label="How Consult America can help">
       <p className="ca-eyebrow text-[var(--ca-blue)]">
-        How ConsultAmerica can help
+        How Consult America can help
       </p>
       <h2 className="mt-6 max-w-xl text-[clamp(1.65rem,2.4vw,2.35rem)] font-medium leading-[1.2] tracking-[-0.03em] text-white">
         {cta.headline}

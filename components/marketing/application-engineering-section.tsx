@@ -7,6 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 import ImageReveal from "@/components/marketing/inner-page/image-reveal";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import SectionBackdrop from "@/components/marketing/section-backdrop";
+import { portfolioProjects } from "@/lib/marketing/portfolio-data";
 
 const strategicApps = [
   { name: "MediGuide AI", href: "/work/innovation/mediguide-ai", image: "/innovation/mediguide-hero.png" },
@@ -15,14 +16,7 @@ const strategicApps = [
   { name: "Convera", href: "/capabilities/digital-engineering", image: "/innovation/data-agent-platform.png" },
 ];
 
-const otherApps = [
-  "ImportNest",
-  "SmartWrite",
-  "Bosiano",
-  "Sarco",
-  "Smart Appliances",
-  "AppointEase",
-];
+const otherApps = portfolioProjects.filter((project) => project.tier === 3);
 
 export default function ApplicationEngineeringSection() {
   return (
@@ -106,13 +100,16 @@ export default function ApplicationEngineeringSection() {
             Other Applications
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
-            {otherApps.map((name) => (
-              <span
-                key={name}
-                className="rounded-full border border-[#E1ECE8] bg-[#F8FAF9] px-3 py-1.5 text-xs font-medium text-[#5B6D6B]"
+            {otherApps.map((app) => (
+              <a
+                key={app.id}
+                href={app.liveUrl ?? app.detailHref}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-[#E1ECE8] bg-[#F8FAF9] px-3 py-1.5 text-xs font-medium text-[#5B6D6B] transition-colors hover:border-[#176A63] hover:text-[#176A63]"
               >
-                {name}
-              </span>
+                {app.name}
+              </a>
             ))}
           </div>
           <Link

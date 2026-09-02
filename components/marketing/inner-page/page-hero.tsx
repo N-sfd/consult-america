@@ -221,7 +221,7 @@ function HeroImage({
             alt={imageAlt}
             fill
             priority={priority}
-            className="ca-hero-img object-cover"
+            className="ca-hero-img ca-ken-burns object-cover"
             sizes="(max-width: 1024px) 100vw, 46vw"
           />
         </div>

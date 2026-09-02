@@ -540,7 +540,7 @@ function ReviewStep({
           className="mt-0.5 h-4 w-4"
         />
         <span>
-          By submitting this application, you agree that ConsultAmerica may
+          By submitting this application, you agree that Consult America may
           process the information provided for recruiting purposes.{" "}
           <Link href="/privacy" className="text-[var(--cr-blue)] hover:underline">
             Privacy Policy

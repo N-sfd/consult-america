@@ -6,7 +6,6 @@ import ContactCTA from "@/components/detail-pages/ContactCTA";
 import { PageHero } from "@/components/marketing/inner-page";
 import PageSection from "@/components/marketing/inner-page/page-section";
 import Reveal from "@/components/marketing/inner-page/reveal";
-import FeatureCard from "@/components/marketing/inner-page/feature-card";
 import { capabilityPages } from "@/lib/marketing/capability-pages";
 import { stockImage } from "@/lib/marketing/stock-images";
 

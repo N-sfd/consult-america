@@ -11,9 +11,9 @@ import { listInnovationProducts } from "@/data/innovation-products";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Work | ConsultAmerica",
+  title: "Work | Consult America",
   description:
-    "Client case studies and Innovation Lab products from ConsultAmerica.",
+    "Client case studies and Innovation Lab products from Consult America.",
 };
 
 export default function WorkPage() {

@@ -68,7 +68,7 @@ export const innovationProducts: Record<string, InnovationProduct> = {
     ],
     technology: ["Next.js", "Python", "AI APIs", "Cloud"],
     metaDescription:
-      "Data Agent — an enterprise document and contract intelligence platform built by ConsultAmerica's Innovation Lab.",
+      "Data Agent — an enterprise document and contract intelligence platform built by Consult America's Innovation Lab.",
   },
 
   "mediguide-ai": {
@@ -109,7 +109,7 @@ export const innovationProducts: Record<string, InnovationProduct> = {
     ],
     technology: ["Next.js", "Python", "AI APIs", "Local Processing"],
     metaDescription:
-      "MediGuide AI — a private, evidence-supported healthcare assistant built by ConsultAmerica's Innovation Lab.",
+      "MediGuide AI — a private, evidence-supported healthcare assistant built by Consult America's Innovation Lab.",
   },
 
   joblens: {
@@ -150,7 +150,7 @@ export const innovationProducts: Record<string, InnovationProduct> = {
     ],
     technology: ["Next.js", "Python", "AI APIs", "Cloud"],
     metaDescription:
-      "JobLens — an AI-powered job search and talent intelligence toolkit built by ConsultAmerica's Innovation Lab.",
+      "JobLens — an AI-powered job search and talent intelligence toolkit built by Consult America's Innovation Lab.",
   },
 };
 

@@ -6,19 +6,13 @@ import { PageHero } from "@/components/marketing/inner-page";
 import PageSection from "@/components/marketing/inner-page/page-section";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { listInnovationProducts } from "@/data/innovation-products";
+import { portfolioProjects } from "@/lib/marketing/portfolio-data";
 
 const strategicSlugs = ["mediguide-ai", "joblens"];
-const otherApps = [
-  "ImportNest",
-  "SmartWrite",
-  "Bosiano",
-  "Sarco",
-  "Smart Appliances",
-  "AppointEase",
-];
+const otherApps = portfolioProjects.filter((project) => project.tier === 3);
 
 export const metadata: Metadata = {
-  title: "Applications | ConsultAmerica",
+  title: "Applications | Consult America",
   description:
     "Application engineering portfolio — Data Agent, MediGuide, JobLens, and focused enterprise products.",
 };
@@ -91,13 +85,16 @@ export default function InnovationPage() {
 
       <PageSection tone="sage" eyebrow="Other Applications" title="Additional portfolio products.">
         <div className="flex flex-wrap gap-2">
-          {otherApps.map((name) => (
-            <span
-              key={name}
-              className="rounded-full border border-[#C9DDD7] bg-white px-4 py-2 text-sm font-medium text-[#5B6D6B]"
+          {otherApps.map((app) => (
+            <a
+              key={app.id}
+              href={app.liveUrl ?? app.detailHref}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-[#C9DDD7] bg-white px-4 py-2 text-sm font-medium text-[#5B6D6B] transition-colors hover:border-[#176A63] hover:text-[#176A63]"
             >
-              {name}
-            </span>
+              {app.name}
+            </a>
           ))}
         </div>
       </PageSection>

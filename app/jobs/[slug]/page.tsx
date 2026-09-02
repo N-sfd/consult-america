@@ -22,11 +22,11 @@ export async function generateMetadata({
   const job = await getJobBySlug(slug);
 
   if (!job) {
-    return { title: "Role Not Found | ConsultAmerica Careers" };
+    return { title: "Role Not Found | Consult America Careers" };
   }
 
   return {
-    title: `${job.title} | ConsultAmerica Careers`,
+    title: `${job.title} | Consult America Careers`,
     description: job.summary,
   };
 }
@@ -45,7 +45,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
     notFound();
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
 
   const jobPostingJsonLd = {
     "@context": "https://schema.org",
@@ -190,10 +190,10 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           <aside className="lg:col-span-4">
             <div className="cr-card p-6 lg:sticky lg:top-28">
               <h2 className="text-lg font-medium text-[var(--cr-navy)]">
-                About ConsultAmerica
+                About Consult America
               </h2>
               <p className="mt-4 text-sm leading-7 text-[var(--cr-text-secondary)]">
-                ConsultAmerica helps organizations move from strategy to
+                Consult America helps organizations move from strategy to
                 execution across enterprise transformation, Oracle platforms, AI,
                 data, and digital engineering.
               </p>

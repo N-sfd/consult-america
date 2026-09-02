@@ -78,19 +78,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#DCE4E1] pt-8 text-xs text-[#5B6D6B] sm:flex-row">
+        <div className="mt-12 border-t border-[#DCE4E1] pt-8 text-center text-xs text-[#5B6D6B]">
           <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-[#073B3A]">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-[#073B3A]">
-              Terms
-            </Link>
-            <Link href="/security" className="hover:text-[#073B3A]">
-              Security
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

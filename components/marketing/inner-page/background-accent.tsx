@@ -1,6 +1,6 @@
 "use client";
 
-import ParallaxShape from "@/components/marketing/inner-page/parallax-shape";
+import ParallaxShape, { type ParallaxSpeed } from "@/components/marketing/inner-page/parallax-shape";
 import { cn } from "@/lib/utils";
 
 export type AccentPreset =
@@ -23,7 +23,7 @@ export type AccentPreset =
 type AccentConfig = {
   shapes: Array<{
     variant: "arc" | "arch" | "panel" | "circle";
-    speed: "slow" | "slower";
+    speed: ParallaxSpeed;
     className: string;
   }>;
   grid?: boolean;
@@ -35,9 +35,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
     shapes: [
       {
         variant: "circle",
-        speed: "slower",
+        speed: "spin-slow",
         className:
-          "right-[-4%] top-[8%] h-[min(340px,42vw)] w-[min(340px,42vw)] border border-[#C9DDD7]/35 bg-[#E1ECE8]/25",
+          "right-[-4%] top-[8%] h-[min(340px,42vw)] w-[min(340px,42vw)] border border-dashed border-[#C9DDD7]/40 bg-[#E1ECE8]/25",
       },
       {
         variant: "arch",
@@ -64,15 +64,15 @@ const presets: Record<AccentPreset, AccentConfig> = {
       },
       {
         variant: "circle",
-        speed: "slow",
+        speed: "spin-slow",
         className:
-          "left-[52%] top-[8%] h-[min(380px,44vw)] w-[min(380px,44vw)] border border-[#C9DDD7]/45 bg-transparent",
+          "left-[52%] top-[8%] h-[min(380px,44vw)] w-[min(380px,44vw)] border border-dashed border-[#C9DDD7]/50 bg-transparent",
       },
       {
         variant: "circle",
-        speed: "slower",
+        speed: "spin",
         className:
-          "left-[56%] top-[14%] h-[min(260px,30vw)] w-[min(260px,30vw)] border border-[#4B9488]/15 bg-[#4B9488]/4",
+          "left-[56%] top-[14%] h-[min(260px,30vw)] w-[min(260px,30vw)] border border-dashed border-[#4B9488]/20 bg-[#4B9488]/4",
       },
     ],
     lines: true,
@@ -98,9 +98,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
     shapes: [
       {
         variant: "circle",
-        speed: "slow",
+        speed: "spin-slow",
         className:
-          "right-[-6%] top-[6%] h-[min(420px,48vw)] w-[min(420px,48vw)] border border-white/8 bg-white/[0.03]",
+          "right-[-6%] top-[6%] h-[min(420px,48vw)] w-[min(420px,48vw)] border border-dashed border-white/10 bg-white/[0.03]",
       },
       {
         variant: "panel",
@@ -138,9 +138,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
       },
       {
         variant: "circle",
-        speed: "slow",
+        speed: "spin",
         className:
-          "left-[-4%] bottom-[14%] h-[min(220px,28vw)] w-[min(220px,28vw)] border border-[#C9DDD7]/40 bg-transparent",
+          "left-[-4%] bottom-[14%] h-[min(220px,28vw)] w-[min(220px,28vw)] border border-dashed border-[#C9DDD7]/45 bg-transparent",
       },
     ],
     grid: true,
@@ -166,9 +166,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
     shapes: [
       {
         variant: "circle",
-        speed: "slower",
+        speed: "spin-slow",
         className:
-          "left-[-5%] top-[12%] h-[min(300px,36vw)] w-[min(300px,36vw)] border border-[#C9DDD7]/35 bg-[#E1ECE8]/20",
+          "left-[-5%] top-[12%] h-[min(300px,36vw)] w-[min(300px,36vw)] border border-dashed border-[#C9DDD7]/40 bg-[#E1ECE8]/20",
       },
       {
         variant: "panel",
@@ -222,9 +222,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
       },
       {
         variant: "circle",
-        speed: "slow",
+        speed: "spin",
         className:
-          "left-[-5%] bottom-[10%] h-[min(220px,26vw)] w-[min(220px,26vw)] border border-[#C9DDD7]/30 bg-transparent",
+          "left-[-5%] bottom-[10%] h-[min(220px,26vw)] w-[min(220px,26vw)] border border-dashed border-[#C9DDD7]/35 bg-transparent",
       },
     ],
     lines: true,
@@ -243,9 +243,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
     shapes: [
       {
         variant: "circle",
-        speed: "slow",
+        speed: "spin-slow",
         className:
-          "right-[-5%] top-[10%] h-[min(360px,40vw)] w-[min(360px,40vw)] border border-white/6 bg-white/[0.02]",
+          "right-[-5%] top-[10%] h-[min(360px,40vw)] w-[min(360px,40vw)] border border-dashed border-white/8 bg-white/[0.02]",
       },
       {
         variant: "panel",
@@ -260,9 +260,9 @@ const presets: Record<AccentPreset, AccentConfig> = {
     shapes: [
       {
         variant: "circle",
-        speed: "slow",
+        speed: "spin-slow",
         className:
-          "right-[-8%] top-[-20%] h-[min(400px,45vw)] w-[min(400px,45vw)] border border-white/10 bg-white/[0.04]",
+          "right-[-8%] top-[-20%] h-[min(400px,45vw)] w-[min(400px,45vw)] border border-dashed border-white/12 bg-white/[0.04]",
       },
       {
         variant: "arch",

@@ -6,9 +6,9 @@ import JobBoard from "@/components/jobs/job-board";
 import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
 
 export const metadata: Metadata = {
-  title: "Open Roles | ConsultAmerica Careers",
+  title: "Open Roles | Consult America Careers",
   description:
-    "Explore career opportunities at ConsultAmerica across Oracle, AI, data, consulting, and enterprise transformation.",
+    "Explore career opportunities at Consult America across Oracle, AI, data, consulting, and enterprise transformation.",
 };
 
 export default async function JobsPage() {
@@ -23,11 +23,11 @@ export default async function JobsPage() {
           Find your next opportunity.
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-[1.65] text-[var(--cr-text-secondary)]">
-          Join ConsultAmerica and work on complex enterprise transformation,
+          Join Consult America and work on complex enterprise transformation,
           Oracle, AI, data, and digital engineering initiatives.
         </p>
         <Link href="/careers" className="ca-link mt-8 inline-flex text-sm">
-          Life at ConsultAmerica
+          Life at Consult America
         </Link>
       </div>
 
@@ -43,7 +43,7 @@ export default async function JobsPage() {
         </Suspense>
 
         <p className="mt-16 border-t border-[var(--cr-border)] pt-8 text-xs leading-6 text-[var(--cr-text-secondary)]">
-          ConsultAmerica is committed to providing equal employment opportunities
+          Consult America is committed to providing equal employment opportunities
           to qualified applicants and employees in accordance with applicable
           law.
         </p>

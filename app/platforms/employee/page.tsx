@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Employee Self-Service | ConsultAmerica Platforms",
+  title: "Employee Self-Service | Consult America Platforms",
   description: "Employee self-service portal for onboarding, documents, requests, and profile updates.",
 };
 

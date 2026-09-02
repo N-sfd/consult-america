@@ -26,12 +26,12 @@ export async function generateMetadata({
   const job = await getJobBySlug(slug);
 
   if (!job) {
-    return { title: "Apply | ConsultAmerica Careers" };
+    return { title: "Apply | Consult America Careers" };
   }
 
   return {
-    title: `Apply — ${job.title} | ConsultAmerica Careers`,
-    description: `Apply for the ${job.title} opportunity at ConsultAmerica.`,
+    title: `Apply — ${job.title} | Consult America Careers`,
+    description: `Apply for the ${job.title} opportunity at Consult America.`,
   };
 }
 
@@ -79,7 +79,7 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
               <div className="relative aspect-[16/9] overflow-hidden rounded-2xl lg:aspect-[4/3]">
                 <Image
                   src={APPLY_HERO_IMAGE}
-                  alt="ConsultAmerica professionals collaborating"
+                  alt="Consult America professionals collaborating"
                   fill
                   priority
                   className="object-cover"

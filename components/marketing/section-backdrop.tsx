@@ -84,7 +84,7 @@ export default function SectionBackdrop({
         <>
           <ShapeLayer className="top-[8%] -left-[6%]" style={parallax(offset.slow)}>
             <div
-              className="ca-shape ca-shape--float-three ca-shape--delay-2 h-[220px] w-[220px] rounded-full border border-[#C9DDD7]/60 bg-[#F0F6F4]/40 opacity-60"
+              className="ca-shape ca-shape--spin ca-shape--delay-2 h-[220px] w-[220px] rounded-full border border-dashed border-[#C9DDD7]/65 bg-[#F0F6F4]/40 opacity-60"
             />
           </ShapeLayer>
           <ShapeLayer className="top-[70px] -right-[120px]" style={parallax(offset.slow)}>
@@ -111,7 +111,7 @@ export default function SectionBackdrop({
       {variant === "positioning" && (
         <>
           <ShapeLayer className="-right-[12%] top-[8%]" style={parallax(offset.slow)}>
-            <div className="ca-shape ca-shape--float-three ca-shape--delay-1 ca-shape--positioning-arc h-[640px] w-[640px] rounded-full border border-[#E1ECE8] bg-[#F0F6F4] opacity-[0.09]" />
+            <div className="ca-shape ca-shape--spin-slow ca-shape--delay-1 ca-shape--positioning-arc h-[640px] w-[640px] rounded-full border border-dashed border-[#E1ECE8] bg-[#F0F6F4] opacity-[0.09]" />
           </ShapeLayer>
           <ShapeLayer className="-left-[8%] bottom-[6%] hidden md:block" style={parallax(offset.fast)}>
             <div
@@ -131,7 +131,7 @@ export default function SectionBackdrop({
             />
           </ShapeLayer>
           <ShapeLayer className="left-[4%] top-[18%] hidden xl:block" style={parallax(offset.fast)}>
-            <div className="ca-shape ca-shape--float-one ca-shape--delay-1 h-[180px] w-[180px] rounded-full border border-[#C9DDD7]/50 bg-white/40" />
+            <div className="ca-shape ca-shape--spin ca-shape--delay-1 h-[180px] w-[180px] rounded-full border border-dashed border-[#C9DDD7]/55 bg-white/40" />
           </ShapeLayer>
         </>
       )}
@@ -188,7 +188,7 @@ export default function SectionBackdrop({
           />
           <ShapeLayer className="-right-[6%] top-[15%]" style={parallax(offset.slow)}>
             <div
-              className="ca-shape ca-shape--float-three ca-shape--delay-1 h-[360px] w-[360px] rounded-full border border-[#E1ECE8] bg-white/50"
+              className="ca-shape ca-shape--spin-slow ca-shape--delay-1 h-[360px] w-[360px] rounded-full border border-dashed border-[#E1ECE8] bg-white/50"
             />
           </ShapeLayer>
           <ShapeLayer className="left-[2%] bottom-[10%] hidden md:block" style={parallax(offset.fast)}>
@@ -211,7 +211,7 @@ export default function SectionBackdrop({
           />
           <ShapeLayer className="-right-[10%] -top-[8%] hidden md:block" style={parallax(offset.slow)}>
             <div
-              className="ca-shape ca-shape--float-two ca-shape--delay-2 h-[480px] w-[480px] rounded-full border border-[#9BC4B8]/15 bg-[#0B4A47]/30"
+              className="ca-shape ca-shape--spin-slow ca-shape--delay-2 h-[480px] w-[480px] rounded-full border border-dashed border-[#9BC4B8]/20 bg-[#0B4A47]/30"
             />
           </ShapeLayer>
           <ShapeLayer className="-left-[6%] bottom-[5%] hidden lg:block" style={parallax(offset.fast)}>
@@ -234,7 +234,7 @@ export default function SectionBackdrop({
           />
           <ShapeLayer className="right-[4%] top-[8%] hidden md:block" style={parallax(offset.slow)}>
             <div
-              className="ca-shape ca-shape--float-three ca-shape--delay-2 h-[320px] w-[320px] rounded-full border border-white/10 bg-white/[0.03]"
+              className="ca-shape ca-shape--spin ca-shape--delay-2 h-[320px] w-[320px] rounded-full border border-dashed border-white/14 bg-white/[0.03]"
             />
           </ShapeLayer>
           <ShapeLayer className="-left-[4%] bottom-[0%] hidden lg:block" style={parallax(offset.fast)}>

@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "CRM Workspace | ConsultAmerica Platforms",
+  title: "CRM Workspace | Consult America Platforms",
   description: "Enterprise CRM platform with Customer 360, opportunity pipeline management, and account intelligence.",
 };
 
@@ -21,7 +21,7 @@ export default function CRMPlatformPage() {
           <div className="mkt-shell">
             <SectionLabel tone="burgundy">Enterprise Platforms</SectionLabel>
             <h1 className="mkt-hero-heading mt-4 text-[#261F1B]">
-              ConsultAmerica CRM Workspace
+              Consult America CRM Workspace
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-[#695F57]">
               A unified customer intelligence and opportunity management workspace

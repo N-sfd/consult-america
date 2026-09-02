@@ -27,6 +27,15 @@
   }
 }
 
+@keyframes caShapeSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes caFloatThree {
   0%,
   100% {
@@ -74,6 +83,14 @@
 
 .ca-shape--float-three {
   animation: caFloatThree 20s ease-in-out infinite;
+}
+
+.ca-shape--spin {
+  animation: caShapeSpin 54s linear infinite;
+}
+
+.ca-shape--spin-slow {
+  animation: caShapeSpin 80s linear infinite;
 }
 
 .ca-shape--delay-1 {
@@ -247,6 +264,9 @@ button.ca-side-panel:hover {
   .ca-shape--float-one,
   .ca-shape--float-two,
   .ca-shape--float-three,
+  .ca-shape--spin,
+  .ca-shape--spin-slow,
+  .ca-hero-ring,
   .ca-ai-line-pattern,
   .ca-bg-drift {
     animation: none !important;
@@ -255,7 +275,8 @@ button.ca-side-panel:hover {
 
   .ca-photo-hover:hover,
   .ca-product-hover:hover,
-  .ca-photo-float {
+  .ca-photo-float,
+  .ca-ken-burns {
     transform: none;
     animation: none !important;
   }

@@ -5,9 +5,9 @@ import { ContactForm } from "@/components/contact-form";
 import Reveal from "@/components/marketing/inner-page/reveal";
 
 export const metadata: Metadata = {
-  title: "Contact & Practice Inquiry | ConsultAmerica",
+  title: "Contact & Practice Inquiry | Consult America",
   description:
-    "Start a conversation with ConsultAmerica leadership regarding Oracle transformation, AI & data, enterprise platforms, or application engineering.",
+    "Start a conversation with Consult America leadership regarding Oracle transformation, AI & data, enterprise platforms, or application engineering.",
 };
 
 export default function ContactPage() {

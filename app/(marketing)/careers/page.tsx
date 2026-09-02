@@ -16,9 +16,9 @@ import { stockImage } from "@/lib/marketing/stock-images";
 const CAREERS_HERO_IMAGE = stockImage("careersPageHero", { w: 1200, q: 82 });
 
 export const metadata: Metadata = {
-  title: "Careers | ConsultAmerica",
+  title: "Careers | Consult America",
   description:
-    "Build what's next at ConsultAmerica — enterprise transformation, Oracle, AI, data, and digital engineering careers.",
+    "Build what's next at Consult America — enterprise transformation, Oracle, AI, data, and digital engineering careers.",
 };
 
 export default function CareersPage() {
@@ -33,7 +33,7 @@ export default function CareersPage() {
         title="Build what's next."
         description="Work on enterprise transformation, Oracle, AI, data, and digital engineering with teams that stay attached to delivery."
         image={CAREERS_HERO_IMAGE}
-        imageAlt="ConsultAmerica team collaborating"
+        imageAlt="Consult America team collaborating"
         primaryCta={{ label: "Explore Open Roles", href: "/jobs" }}
       />
 
@@ -59,7 +59,7 @@ export default function CareersPage() {
         </div>
       </PageSection>
 
-      <PageSection tone="sage" eyebrow="Career paths" title="Find your path at ConsultAmerica.">
+      <PageSection tone="sage" eyebrow="Career paths" title="Find your path at Consult America.">
         <div className="grid gap-5 md:grid-cols-2">
           {careerPaths.map((path, index) => (
             <Reveal key={path.title} delay={index * 0.08}>

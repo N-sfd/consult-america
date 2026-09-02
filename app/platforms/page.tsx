@@ -7,9 +7,9 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Enterprise Platforms | ConsultAmerica",
+  title: "Enterprise Platforms | Consult America",
   description:
-    "Explore ConsultAmerica's unified software platform suite: CRM, Core HR, Employee Self-Service, Workforce Time & Leave, and Payroll.",
+    "Explore Consult America's unified software platform suite: CRM, Core HR, Employee Self-Service, Workforce Time & Leave, and Payroll.",
 };
 
 const PLATFORMS = [
@@ -62,7 +62,7 @@ export default function PlatformsPage() {
               Software built around how enterprise organizations operate.
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-[#695F57]">
-              ConsultAmerica delivers a cohesive suite of production-ready enterprise
+              Consult America delivers a cohesive suite of production-ready enterprise
               applications spanning customer intelligence, hiring, human resources,
               and payroll operations.
             </p>
