@@ -67,9 +67,9 @@ export const industryPages: Record<string, DetailPageContent> = {
     slug: "financial-services",
     kicker: "Industries",
     title: "Financial Services",
-    headline: "Operational control across finance, data, and platforms.",
+    headline: "Modernize operations without losing control.",
     description:
-      "Connect finance, data, automation, reporting, and enterprise platforms for the operational control regulated institutions need.",
+      "Connect financial operations, data, governance and enterprise systems across complex regulated environments.",
     heroImage: stockImage("industryPageFinancial", { w: 1600, q: 80 }),
     heroImageAlt: "Financial operations and market data environment",
     focusAreas: [

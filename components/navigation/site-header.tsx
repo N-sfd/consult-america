@@ -84,10 +84,9 @@ export default function SiteHeader() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const headerSurface =
-    scrolled || openMenu || drawerOpen
-      ? "border-b border-[rgba(7,59,58,0.08)] bg-white shadow-[0_2px_16px_rgba(7,59,58,0.04)]"
-      : "ca-header-glass border-b";
+  const headerSurface = scrolled || openMenu || drawerOpen
+    ? "ca-header-scrolled border-b"
+    : "ca-header-glass border-b";
 
   return (
     <>
@@ -153,17 +152,15 @@ export default function SiteHeader() {
           {openMenu && (
             <div className="pointer-events-none absolute inset-x-0 top-full z-[70] hidden min-[1280px]:block">
               <div
-                className="pointer-events-auto border-t border-[#E1ECE8] bg-white py-7 shadow-[0_12px_36px_rgba(7,59,58,0.06)]"
+                className="ca-mega-surface pointer-events-auto"
                 onMouseEnter={() => setOpenMenu(openMenu)}
                 onMouseLeave={() => setOpenMenu(null)}
               >
-                <div className="ca-header-container py-7">
-                  <div className="ca-mega-panel mx-auto px-1">
-                    <MegaMenuPanels
-                      activeMenu={openMenu}
-                      onNavigate={() => setOpenMenu(null)}
-                    />
-                  </div>
+                <div className="ca-mega-panel">
+                  <MegaMenuPanels
+                    activeMenu={openMenu}
+                    onNavigate={() => setOpenMenu(null)}
+                  />
                 </div>
               </div>
             </div>

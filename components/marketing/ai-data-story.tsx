@@ -1,24 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-import PlatformLineSystem from "@/components/marketing/platform-line-system";
-import SectionBackdrop from "@/components/marketing/section-backdrop";
-
-const capabilities = [
-  "Enterprise Agents",
-  "Document Intelligence",
-  "Data Engineering",
-  "Governed AI",
-];
-
-const callouts = [
-  { label: "VERIFY", detail: "Source-linked evidence" },
-  { label: "EXTRACT", detail: "Dynamic field intelligence" },
-];
+const stages = ["Connect", "Understand", "Verify", "Act"];
 
 export default function AIDataStory() {
   const shouldReduceMotion = useReducedMotion();
@@ -26,97 +12,67 @@ export default function AIDataStory() {
   return (
     <section
       id="ai-data-story"
-      className="relative overflow-hidden border-b border-[#073B3A] py-24 text-white sm:py-28 lg:py-32 xl:py-36"
+      className="border-b border-[#073B3A] py-14 text-white sm:py-16 lg:py-20"
       style={{
         background: "linear-gradient(135deg, #073B3A 0%, #0B4A47 52%, #176A63 100%)",
       }}
     >
-      <SectionBackdrop variant="ai" />
-      <PlatformLineSystem className="opacity-[0.07]" />
-
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-16">
-          {/* Left: copy + capabilities */}
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
           <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-4 space-y-6"
+            transition={{ duration: 0.45 }}
+            className="lg:col-span-5"
           >
-            <div className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#9BC4B8]" />
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#9BC4B8]">
-                AI &amp; DATA
-              </span>
-            </div>
-
-            <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl lg:leading-[1.08]">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
+              Governed AI &amp; Data
+            </p>
+            <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
               Put intelligence into the work.
             </h2>
-
-            <p className="max-w-md text-base leading-relaxed text-white/80 sm:text-lg">
-              AI creates value when trusted data, useful models, business context, and real
-              workflows come together.
+            <p className="mt-4 max-w-md text-[1.0625rem] leading-relaxed text-white/80">
+              Move beyond AI experiments with document intelligence, enterprise agents, and
+              governed workflows connected to real operational data.
             </p>
 
-            <ul className="space-y-2 pt-2">
-              {capabilities.map((cap) => (
-                <li
-                  key={cap}
-                  className="text-xs font-bold uppercase tracking-[0.12em] text-[#9BC4B8]"
-                >
-                  {cap}
-                </li>
+            <div className="mt-6 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#9BC4B8]">
+              {stages.map((stage, index) => (
+                <span key={stage} className="inline-flex items-center gap-2">
+                  {index > 0 && <span className="text-white/30">→</span>}
+                  <span>{stage}</span>
+                </span>
               ))}
-            </ul>
-
-            <div className="pt-4">
-              <Link
-                href="/ai-data"
-                className="inline-flex h-[48px] items-center justify-center gap-2 rounded-[8px] bg-[#B83A3A] px-6 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(184,58,58,0.22)] transition-all hover:bg-[#992F31]"
-              >
-                Explore AI &amp; Data
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
             </div>
+
+            <Link
+              href="/ai-data"
+              className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#9BC4B8] hover:text-white"
+            >
+              Explore AI &amp; Data
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </motion.div>
 
-          {/* Right: large Data Agent screenshot */}
           <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="relative lg:col-span-8"
+            transition={{ duration: 0.45, delay: 0.06 }}
+            className="lg:col-span-7"
           >
-            <div className="relative">
-              <div className="ca-product-frame ml-auto w-full overflow-hidden rounded-[16px] border border-[rgba(7,59,58,0.12)] bg-white p-2 shadow-[0_28px_70px_rgba(7,59,58,0.12)] sm:w-[92%] lg:w-[88%] xl:w-[85%]">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
-                  <Image
-                    src="/innovation/data-agent-hero.png"
-                    alt="Data Agent document intelligence interface"
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                  />
-                </div>
-              </div>
-
-              {/* Callouts */}
-              {callouts.map((callout, i) => (
-                <div
-                  key={callout.label}
-                  className={`ca-ui-callout absolute hidden rounded-[14px] border border-[#DDE6E3] bg-white px-4 py-3 shadow-[0_16px_40px_rgba(7,59,58,0.08)] sm:block ${
-                    i === 0 ? "left-0 top-[18%]" : "bottom-[12%] right-[4%]"
-                  }`}
-                >
-                  <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-                    {callout.label}
-                  </p>
-                  <p className="mt-1 text-xs text-[#5B6D6B]">{callout.detail}</p>
-                </div>
-              ))}
+            <div className="overflow-hidden rounded-[11px] border border-[#DDE6E3] bg-white p-2 shadow-[0_18px_50px_rgba(7,59,58,0.12)]">
+              {/* Native img keeps the 1440×900 source sharp — no optimizer upscaling */}
+              <img
+                src="/innovation/data-agent-hero.png"
+                alt="Data Agent document intelligence interface"
+                width={1440}
+                height={900}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-full rounded-[8px]"
+              />
             </div>
           </motion.div>
         </div>

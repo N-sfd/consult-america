@@ -399,16 +399,22 @@ export const oracleMegaMenuGrouped = {
     { href: "/oracle", label: "Supply Chain" },
     { href: "/oracle", label: "Order Management" },
   ],
+  workforce: [
+    { href: "/oracle", label: "HCM" },
+    { href: "/oracle", label: "Talent" },
+    { href: "/oracle", label: "Workforce Planning" },
+  ],
   platform: [
-    { href: "/oracle", label: "Integration" },
+    { href: "/oracle", label: "Integration & Data" },
     { href: "/oracle", label: "Data & Reporting" },
-    { href: "/oracle", label: "Testing & Releases" },
+    { href: "/oracle", label: "Testing & Readiness" },
   ],
   featured: {
-    title: "Oracle Transformation",
-    detail: "Modernize the digital core.",
+    title: "Modernize the digital core.",
+    detail: "Transform finance, procurement, supply chain, projects and workforce through Oracle Cloud.",
     href: "/oracle",
     cta: "Explore Oracle",
+    image: "/innovation/data-agent-platform.png",
   },
 };
 
@@ -484,10 +490,10 @@ export const companyMegaMenu = {
 };
 
 export const platformStripLinks = [
-  { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
   { href: "/oracle", label: "Oracle" },
   { href: "/platforms/crm", label: "CRM" },
   { href: "/ai-data", label: "AI & Data" },
+  { href: "/capabilities/digital-engineering", label: "Cloud" },
   { href: "/capabilities/digital-engineering", label: "Application Engineering" },
 ];
 

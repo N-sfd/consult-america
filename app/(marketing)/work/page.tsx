@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import EditorialHeading from "@/components/marketing/EditorialHeading";
-import SectionLabel from "@/components/marketing/SectionLabel";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import Reveal from "@/components/marketing/inner-page/reveal";
 import { listCaseStudies } from "@/data/case-studies";
 import { listInnovationProducts } from "@/data/innovation-products";
 
@@ -20,91 +21,79 @@ export default function WorkPage() {
 
   return (
     <>
-      <section className="mkt-section bg-[#F4EFE6] text-[#261F1B]">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">Work</SectionLabel>
-          <EditorialHeading
-            as="h1"
-            size="hero"
-            className="mt-7 max-w-2xl text-[#261F1B]"
-          >
-            Outcomes you can see. Technology we've built.
-          </EditorialHeading>
-          <p className="mkt-body-lg mt-7 max-w-lg text-[#695F57]">
-            Two kinds of proof: client engagements delivered end to end, and
-            products our Innovation Lab has built and shipped.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        variant="default"
+        layout="stacked"
+        eyebrow="Work"
+        title="Outcomes you can see. Technology we've built."
+        description="Two kinds of proof: client engagements delivered end to end, and products our Innovation Lab has built and shipped."
+        primaryCta={{ label: "View case studies", href: "/work/case-studies" }}
+        secondaryCta={{ label: "Explore innovation", href: "/work/innovation", variant: "secondary" }}
+      />
 
-      <section className="mkt-section bg-[#FFFAF2]">
-        <div className="mkt-shell">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+      <PageSection tone="soft" eyebrow="Proof" title="Case studies and products.">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Reveal>
             <Link
               href="/work/case-studies"
-              className="group block overflow-hidden rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] transition-colors hover:border-[#7D2639]/40 hover:shadow-lg"
+              className="ca-feature-card ca-feature-card--hover group block overflow-hidden rounded-2xl border border-[#C9DDD7] bg-white"
             >
-              <div className="relative aspect-[16/10] overflow-hidden">
+              <div className="ca-editorial-row-image relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={caseStudies[0].image}
                   alt=""
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="mkt-img-hoverable object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
               <div className="p-8">
-                <p className="mkt-eyebrow text-[#7D2639]">
-                  Client Work
-                </p>
-                <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#261F1B] group-hover:text-[#7D2639] transition-colors">
+                <p className="mkt-eyebrow text-[#176A63]">Client Work</p>
+                <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#122D2E] group-hover:text-[#B83A3A]">
                   Case Studies
                 </h2>
-                <p className="mt-3 max-w-md text-sm leading-6 text-[#695F57]">
-                  Enterprise transformation, Oracle, and AI &amp; data
-                  engagements delivered for clients — from strategy through
-                  production.
+                <p className="mt-3 text-sm leading-6 text-[#5B6D6B]">
+                  Enterprise transformation, Oracle, and AI engagements delivered
+                  from strategy through production.
                 </p>
-                <span className="ca-link mt-6 w-fit text-sm font-semibold text-[#7D2639] group-hover:text-[#681F30]">
-                  View case studies
-                  <ArrowUpRight className="h-4 w-4" />
+                <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]">
+                  View case studies <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
             </Link>
+          </Reveal>
 
+          <Reveal delay={0.1}>
             <Link
               href="/work/innovation"
-              className="group block overflow-hidden rounded-2xl border border-[#D7CCBD] bg-[#FFFDF8] transition-colors hover:border-[#7D2639]/40 hover:shadow-lg"
+              className="ca-feature-card ca-feature-card--hover group block overflow-hidden rounded-2xl border border-[#C9DDD7] bg-white"
             >
-              <div className="relative aspect-[16/10] overflow-hidden">
+              <div className="ca-editorial-row-image relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={products[0].heroImage}
                   alt=""
                   fill
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="mkt-img-hoverable object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
               <div className="p-8">
-                <p className="mkt-eyebrow text-[#7D2639]">
-                  Innovation Lab
-                </p>
-                <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#261F1B] group-hover:text-[#7D2639] transition-colors">
+                <p className="mkt-eyebrow text-[#176A63]">Innovation Lab</p>
+                <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#122D2E] group-hover:text-[#B83A3A]">
                   Innovation &amp; Products
                 </h2>
-                <p className="mt-3 max-w-md text-sm leading-6 text-[#695F57]">
-                  AI platforms and digital products we've built ourselves —
-                  working technology, not just consulting claims.
+                <p className="mt-3 text-sm leading-6 text-[#5B6D6B]">
+                  AI platforms and digital products we&apos;ve built — working
+                  technology, not just consulting claims.
                 </p>
-                <span className="ca-link mt-6 w-fit text-sm font-semibold text-[#7D2639] group-hover:text-[#681F30]">
-                  Explore innovation
-                  <ArrowUpRight className="h-4 w-4" />
+                <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]">
+                  Explore innovation <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
             </Link>
-          </div>
+          </Reveal>
         </div>
-      </section>
+      </PageSection>
     </>
   );
 }

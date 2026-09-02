@@ -46,7 +46,9 @@ export default function ProjectCard({ project, onViewDetails, className = "" }: 
             alt={project.imageAlt}
             fill
             className={`transition-transform duration-[600ms] group-hover:scale-[1.02] ${
-              project.imageFit === "contain" ? "object-contain bg-[#F0F6F4] p-2" : "object-cover object-top"
+              project.imageFit === "contain" || project.image.includes("/innovation/")
+                ? "object-contain object-top bg-[#F7FAF9] p-1"
+                : "object-cover object-top"
             }`}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />

@@ -27,7 +27,7 @@ export default function IndustryTile({
     <Link
       href={href}
       className={cn(
-        "group relative block min-h-[280px] overflow-hidden md:min-h-[320px]",
+        "ca-industry-tile group relative block min-h-[280px] md:min-h-[320px]",
         className,
       )}
     >

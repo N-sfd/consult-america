@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import SectionLabel from "@/components/marketing/SectionLabel";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import FeatureCard from "@/components/marketing/inner-page/feature-card";
+import Reveal from "@/components/marketing/inner-page/reveal";
 import { deliveryPhases, capabilityGroups, offices } from "@/lib/site-data";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
   title: "Company & Leadership | ConsultAmerica",
@@ -32,131 +36,84 @@ const leadershipPrinciples = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="mkt-hero-bg mkt-editorial-texture pt-20 pb-16 lg:pt-28 lg:pb-24">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">About Consult America</SectionLabel>
-          <h1 className="mt-6 max-w-4xl text-4xl font-serif font-semibold tracking-[-0.03em] text-[#101828] sm:text-5xl lg:text-6xl">
-            A technology delivery firm built for high-stakes enterprise programs.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#475467] sm:text-xl">
-            We connect business strategy, Oracle Cloud platforms, data intelligence,
-            and digital application engineering so transformation reaches production
-            with less friction and measurable business return.
-          </p>
+      <PageHero
+        variant="company"
+        layout="split-left"
+        imageShape="arch"
+        eyebrow="Company"
+        title="Built to move from strategy to production."
+        description="We connect business strategy, Oracle Cloud platforms, data intelligence, and digital application engineering so transformation reaches production with less friction and measurable business return."
+        image={stockImage("introduction", { w: 1400, q: 80 })}
+        imageAlt="Consult America team and delivery environment"
+        primaryCta={{ label: "Start a conversation", href: "/contact" }}
+        secondaryCta={{ label: "Explore careers", href: "/careers", variant: "secondary" }}
+      />
+
+      <PageSection tone="soft" eyebrow="Delivery Philosophy" title="Strategy that stays connected to the code.">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {leadershipPrinciples.map((item, index) => (
+            <FeatureCard key={item.num} delay={index * 0.08}>
+              <span className="font-serif text-2xl font-normal text-[#B83A3A]">{item.num}</span>
+              <h3 className="mt-3 text-lg font-semibold text-[#122D2E]">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#5B6D6B]">{item.desc}</p>
+            </FeatureCard>
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* Leadership Philosophy */}
-      <section className="mkt-section bg-[#FCFCFD] text-[#101828] border-t border-[#E2E7EC]">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">Delivery Philosophy</SectionLabel>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-            Strategy that stays connected to the code.
-          </h2>
-
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {leadershipPrinciples.map((item) => (
-              <div
-                key={item.num}
-                className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-8 shadow-[0_8px_24px_rgba(20,30,45,0.04)]"
-              >
-                <span className="font-serif text-2xl font-normal text-[#B63838]">
-                  {item.num}
-                </span>
-                <h3 className="mt-3 text-lg font-bold text-[#101828]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#475467]">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+      <PageSection
+        tone="white"
+        eyebrow="How We Work"
+        title="One delivery motion, five practices."
+        lead="Every engagement moves through the same disciplined phases — strategy through deployment — whether the work sits in enterprise transformation, Oracle, AI & data, digital engineering, or managed delivery."
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          {deliveryPhases.map((phase, index) => (
+            <Reveal key={phase} delay={index * 0.04}>
+              <span className="ca-step-pill">{phase}</span>
+            </Reveal>
+          ))}
         </div>
-      </section>
 
-      {/* How We Deliver */}
-      <section className="mkt-section bg-[#FFFFFF] text-[#101828] border-t border-[#E2E7EC]">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">How We Deliver</SectionLabel>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-            One delivery motion, five practices.
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#475467]">
-            Every engagement moves through the same disciplined phases — strategy through
-            deployment — whether the work sits in enterprise transformation, Oracle,
-            AI &amp; data, digital engineering, or managed delivery.
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            {deliveryPhases.map((phase, index) => (
-              <div key={phase} className="flex items-center gap-3">
-                <span className="rounded-full border border-[#E2E7EC] bg-[#F7F8FA] px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] text-[#101828]">
-                  {phase}
-                </span>
-                {index < deliveryPhases.length - 1 && (
-                  <ArrowUpRight className="h-3.5 w-3.5 rotate-45 text-[#B63838]/50" />
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {capabilityGroups.map((group) => (
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {capabilityGroups.map((group, index) => (
+            <Reveal key={group.title} delay={index * 0.05}>
               <Link
-                key={group.title}
                 href={group.href}
-                className="group rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-6 shadow-2xs transition-colors hover:border-[#B63838]/40"
+                className="ca-feature-card ca-feature-card--hover group block rounded-xl border border-[#E1ECE8] bg-[#F8FAF9] p-5"
               >
-                <p className="text-sm font-bold text-[#101828] group-hover:text-[#B63838] transition-colors">
+                <p className="text-sm font-bold text-[#122D2E] group-hover:text-[#B83A3A]">
                   {group.title}
                 </p>
-                <p className="mt-2 text-xs leading-relaxed text-[#475467]">
+                <p className="mt-2 text-xs leading-relaxed text-[#5B6D6B]">
                   {group.description}
                 </p>
               </Link>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* Delivery Hubs & Offices */}
-      <section className="mkt-section bg-[#F7F8FA] text-[#101828] border-t border-[#E2E7EC]">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">Delivery Locations</SectionLabel>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] text-[#101828] sm:text-4xl">
-            National delivery centers and client hubs.
-          </h2>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {offices.map((office) => (
-              <div
-                key={office.city}
-                className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-6 shadow-2xs"
-              >
-                <p className="text-lg font-bold text-[#101828]">{office.city}</p>
-                <p className="mt-2 text-xs leading-relaxed text-[#475467]">
-                  {office.detail}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-14 border-t border-[#E2E7EC] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-[#475467]">
-              Looking to discuss an enterprise transformation or engineering engagement?
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-md bg-[#B63838] px-6 py-3 text-sm font-semibold text-white hover:bg-[#8F292D] transition-colors cursor-pointer"
-            >
-              <span>Start a conversation</span>
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
+      <PageSection tone="sage" eyebrow="Delivery Locations" title="National delivery centers and client hubs.">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {offices.map((office, index) => (
+            <FeatureCard key={office.city} delay={index * 0.05} hover>
+              <p className="text-lg font-bold text-[#122D2E]">{office.city}</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#5B6D6B]">{office.detail}</p>
+            </FeatureCard>
+          ))}
         </div>
-      </section>
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[#C9DDD7] pt-8 sm:flex-row sm:items-center">
+          <p className="text-sm text-[#5B6D6B]">
+            Looking to discuss an enterprise transformation or engineering engagement?
+          </p>
+          <Link href="/contact" className="ca-button-primary inline-flex items-center gap-2">
+            Start a conversation
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </PageSection>
     </>
   );
 }

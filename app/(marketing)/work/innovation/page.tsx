@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
-import EditorialHeading from "@/components/marketing/EditorialHeading";
-import SectionLabel from "@/components/marketing/SectionLabel";
 import ProductCard from "@/components/innovation/ProductCard";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import Reveal from "@/components/marketing/inner-page/reveal";
 import { listInnovationProducts } from "@/data/innovation-products";
 
 export const metadata: Metadata = {
@@ -13,36 +15,56 @@ export const metadata: Metadata = {
 
 export default function InnovationPage() {
   const products = listInnovationProducts();
+  const flagship = products.find((p) => p.slug === "data-agent");
+  const strategic = products.filter((p) => p.slug !== "data-agent");
 
   return (
     <>
-      <section className="mkt-section bg-[var(--mkt-cloud)] text-[var(--mkt-navy)]">
-        <div className="mkt-shell">
-          <SectionLabel tone="blue">Innovation &amp; Products</SectionLabel>
-          <EditorialHeading
-            as="h1"
-            size="hero"
-            className="mt-7 max-w-2xl text-[var(--mkt-navy)]"
-          >
-            We don&apos;t just advise. We build.
-          </EditorialHeading>
-          <p className="mkt-body-lg mt-7 max-w-lg">
-            AI platforms and digital products developed to turn emerging
-            technologies into working business experiences — built by
-            ConsultAmerica&apos;s Innovation Lab, not slideware.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        variant="applications"
+        layout="product"
+        eyebrow="Application Engineering"
+        title="Build where packaged software stops."
+        description="Design and engineer focused applications around real operational needs."
+        productScreens={[
+          { src: "/innovation/data-agent-hero.png", alt: "Data Agent platform" },
+          { src: "/innovation/mediguide-hero.png", alt: "MediGuide AI" },
+          { src: "/innovation/joblens-hero.png", alt: "JobLens" },
+        ]}
+        primaryCta={{ label: "Explore Data Agent", href: "/work/innovation/data-agent" }}
+        secondaryCta={{ label: "View all products", href: "#portfolio", variant: "secondary" }}
+      />
 
-      <section className="mkt-section bg-white">
-        <div className="mkt-shell">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-            {products.map((product, index) => (
-              <ProductCard key={product.slug} product={product} index={index} />
-            ))}
-          </div>
+      <PageSection id="portfolio" tone="soft" eyebrow="Flagship" title="Data Agent">
+        {flagship ? (
+          <Reveal>
+            <div className="max-w-2xl">
+              <ProductCard product={flagship} index={0} />
+            </div>
+          </Reveal>
+        ) : null}
+      </PageSection>
+
+      <PageSection
+        tone="white"
+        eyebrow="Strategic Applications"
+        title="Focused products from delivery programs."
+      >
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {strategic.map((product, index) => (
+            <Reveal key={product.slug} delay={index * 0.08}>
+              <ProductCard product={product} index={index + 1} />
+            </Reveal>
+          ))}
         </div>
-      </section>
+        <p className="mt-10 text-sm text-[#5B6D6B]">
+          Additional portfolio applications include Data Explorer and Convera —{" "}
+          <Link href="/ai-data" className="font-semibold text-[#B83A3A] hover:underline">
+            explore AI &amp; Data
+          </Link>
+          .
+        </p>
+      </PageSection>
     </>
   );
 }

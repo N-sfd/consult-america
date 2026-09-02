@@ -3,6 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "../styles/marketing.css";
 @import "../styles/motion.css";
+@import "../styles/inner-pages.css";
 @import "../styles/careers.css";
 @import "../styles/experiences.css";
 

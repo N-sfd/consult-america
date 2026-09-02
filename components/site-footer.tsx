@@ -18,7 +18,7 @@ const footerColumns = [
     title: "Applications",
     links: [
       { href: "/work/innovation/data-agent", label: "Data Agent" },
-      { href: "/work/innovation/mediguide-ai", label: "MediGuide" },
+      { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
       { href: "/work/innovation/joblens", label: "JobLens" },
       { href: "/ai-data", label: "Data Explorer" },
     ],

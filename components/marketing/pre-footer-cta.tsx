@@ -9,11 +9,11 @@ export default function PreFooterCta() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section className="ca-grad-dark relative overflow-hidden py-20 sm:py-24 lg:py-28">
+    <section className="ca-grad-dark relative overflow-hidden py-16 sm:py-20 lg:py-24">
       <SectionBackdrop variant="cta" />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 text-center lg:px-8 xl:px-10">
-        <h2 className="font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl lg:text-[2.75rem]">
+        <h2 className="font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
           Ready to move your technology forward?
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-white/80">

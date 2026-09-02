@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { CheckCircle2, Mail, MapPin } from "lucide-react";
 
-import SectionLabel from "@/components/marketing/SectionLabel";
 import { ContactForm } from "@/components/contact-form";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import FeatureCard from "@/components/marketing/inner-page/feature-card";
+import Reveal from "@/components/marketing/inner-page/reveal";
 
 export const metadata: Metadata = {
   title: "Contact & Practice Inquiry | ConsultAmerica",
@@ -12,51 +15,53 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="bg-[#F7F8FA] text-[#101828] min-h-[calc(100vh-140px)] py-16 sm:py-24">
-      <div className="mkt-shell">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
-          {/* Left Column */}
-          <div className="lg:col-span-5 space-y-6">
-            <SectionLabel tone="burgundy">Contact</SectionLabel>
-            <h1 className="font-serif text-4xl font-semibold tracking-[-0.03em] text-[#101828] sm:text-5xl">
-              Tell us what you&apos;re looking to build.
-            </h1>
-            <p className="text-lg leading-relaxed text-[#475467]">
-              Share a brief overview of your program, timeline, or operating
-              challenge. Practice leads review every inquiry directly.
-            </p>
+    <>
+      <PageHero
+        variant="default"
+        layout="stacked"
+        eyebrow="Contact"
+        title="Tell us what you're looking to build."
+        description="Share a brief overview of your program, timeline, or operating challenge. Practice leads review every inquiry directly."
+      />
 
-            <div className="space-y-4 pt-6 border-t border-[#E2E7EC]">
-              <div className="flex items-start gap-3 text-sm text-[#475467]">
-                <CheckCircle2 className="h-5 w-5 text-[#5F7D75] shrink-0 mt-0.5" />
-                <span>Confidential review by senior practice leaders within 1 business day</span>
-              </div>
-              <div className="flex items-start gap-3 text-sm text-[#475467]">
-                <CheckCircle2 className="h-5 w-5 text-[#5F7D75] shrink-0 mt-0.5" />
-                <span>Architecture and scoping working session without sales overhead</span>
-              </div>
+      <PageSection tone="soft" accent>
+        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="space-y-6 lg:col-span-5">
+            <div className="grid gap-4">
+              {[
+                "Confidential review by senior practice leaders within 1 business day",
+                "Architecture and scoping working session without sales overhead",
+              ].map((item, index) => (
+                <FeatureCard key={item} delay={index * 0.08} hover={false}>
+                  <div className="flex items-start gap-3 text-sm text-[#5B6D6B]">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#176A63]" />
+                    <span>{item}</span>
+                  </div>
+                </FeatureCard>
+              ))}
             </div>
 
-            <div className="pt-6 border-t border-[#E2E7EC] space-y-3 text-sm text-[#475467]">
-              <div className="flex items-center gap-2.5">
-                <Mail className="h-4 w-4 text-[#B63838]" />
-                <span className="font-medium text-[#101828]">inquiries@consultamerica.com</span>
+            <Reveal delay={0.15}>
+              <div className="space-y-3 rounded-2xl border border-[#C9DDD7] bg-white/80 p-6 text-sm text-[#5B6D6B] backdrop-blur-sm">
+                <div className="flex items-center gap-2.5">
+                  <Mail className="h-4 w-4 text-[#B83A3A]" />
+                  <span className="font-medium text-[#122D2E]">inquiries@consultamerica.com</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#B83A3A]" />
+                  <span>Washington, D.C. · New York · Chicago · Dallas · San Francisco</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <MapPin className="h-4 w-4 text-[#B63838]" />
-                <span>Washington, D.C. · New York · Chicago · Dallas · San Francisco</span>
-              </div>
-            </div>
+            </Reveal>
           </div>
 
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-8 sm:p-10 shadow-lg">
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <div className="rounded-2xl border border-[#C9DDD7] bg-white p-8 shadow-[0_20px_56px_rgba(7,59,58,0.08)] sm:p-10">
               <ContactForm />
             </div>
-          </div>
+          </Reveal>
         </div>
-      </div>
-    </div>
+      </PageSection>
+    </>
   );
 }

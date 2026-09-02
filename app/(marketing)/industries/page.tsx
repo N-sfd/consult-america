@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
 import ContactCTA from "@/components/detail-pages/ContactCTA";
-import EditorialHeading from "@/components/marketing/EditorialHeading";
 import IndustryTile from "@/components/marketing/IndustryTile";
-import SectionLabel from "@/components/marketing/SectionLabel";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
 import { getIndustryPageSlugs, industryPages } from "@/lib/marketing/industry-pages";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
   title: "Industries | Consult America",
@@ -19,22 +20,20 @@ export default function IndustriesPage() {
 
   return (
     <>
-      <section className="mkt-section bg-[var(--mkt-warm)] text-[var(--mkt-navy)]">
-        <div className="mkt-shell">
-          <SectionLabel tone="dark">Industries</SectionLabel>
-          <EditorialHeading as="h1" size="hero" className="mt-6 max-w-3xl text-[var(--mkt-navy)]">
-            Sector context, not generic playbooks.
-          </EditorialHeading>
-          <p className="mkt-body-lg mt-6 max-w-xl">
-            We work with public sector, regulated enterprise, and
-            high-growth operators who need systems that hold up under
-            scrutiny.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        variant="industries"
+        layout="split-right"
+        imageShape="wide"
+        eyebrow="Industries"
+        title="Technology grounded in industry operations."
+        description="Bring enterprise platforms, data, AI and engineering into the context of how organizations actually operate."
+        image={stockImage("industriesSectionFinancial", { w: 1400, q: 80 })}
+        imageAlt="Industry operations and enterprise technology"
+        primaryCta={{ label: "Explore industries", href: "/industries/financial-services" }}
+      />
 
-      <section className="bg-[var(--mkt-warm)] pb-20 lg:pb-24">
-        <div className="mkt-shell grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <PageSection tone="soft" eyebrow="Sectors" title="Domain context, not generic playbooks.">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map(([slug, index]) => {
             const page = industryPages[slug];
             return (
@@ -50,7 +49,7 @@ export default function IndustriesPage() {
             );
           })}
         </div>
-      </section>
+      </PageSection>
 
       <ContactCTA />
     </>
