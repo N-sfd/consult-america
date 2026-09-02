@@ -55,9 +55,9 @@ export default function CapabilitiesPage() {
         variant="solutions"
         layout="split-left"
         imageShape="wide"
-        eyebrow="Enterprise Transformation"
+        eyebrow="Solutions"
         title="Move strategy into execution."
-        description="Connect enterprise platforms, workflows, data and engineering around the outcomes that matter."
+        description="Connect enterprise platforms, workflows, data and engineering around measurable operational outcomes."
         image={stockImage("capabilityPageEnterpriseTransformation", { w: 1400, q: 80 })}
         imageAlt="Enterprise transformation team collaborating"
         primaryCta={{ label: "Explore capabilities", href: "/capabilities/enterprise-transformation" }}

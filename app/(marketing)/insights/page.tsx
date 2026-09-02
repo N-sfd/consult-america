@@ -29,7 +29,7 @@ export default function InsightsPage() {
       <PageHero
         variant="resources"
         layout="stacked"
-        eyebrow="Resources"
+        eyebrow="Insights"
         title="Ideas for modern enterprise technology."
         description="Short briefings on Oracle, AI and data, enterprise transformation, and the operating decisions that determine whether programs reach production."
         primaryCta={{ label: "Browse insights", href: "#insights-index" }}

@@ -14,6 +14,8 @@ export type { AccentPreset } from "./background-accent";
 export { default as PageSection } from "./page-section";
 export type { SectionTone } from "./page-section";
 export { default as FeatureCard } from "./feature-card";
+export { default as ImageReveal } from "./image-reveal";
+export { default as StaggerGroup, StaggerItem } from "./stagger-group";
 
 export function industryHeroShape(slug: string): import("./page-hero").HeroImageShape {
   switch (slug) {

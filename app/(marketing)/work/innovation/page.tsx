@@ -7,16 +7,26 @@ import PageSection from "@/components/marketing/inner-page/page-section";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { listInnovationProducts } from "@/data/innovation-products";
 
+const strategicSlugs = ["mediguide-ai", "joblens"];
+const otherApps = [
+  "ImportNest",
+  "SmartWrite",
+  "Bosiano",
+  "Sarco",
+  "Smart Appliances",
+  "AppointEase",
+];
+
 export const metadata: Metadata = {
-  title: "Innovation & Products | ConsultAmerica",
+  title: "Applications | ConsultAmerica",
   description:
-    "AI platforms and digital products built by ConsultAmerica's Innovation Lab — working technology, not just consulting claims.",
+    "Application engineering portfolio — Data Agent, MediGuide, JobLens, and focused enterprise products.",
 };
 
 export default function InnovationPage() {
   const products = listInnovationProducts();
   const flagship = products.find((p) => p.slug === "data-agent");
-  const strategic = products.filter((p) => p.slug !== "data-agent");
+  const strategic = products.filter((p) => strategicSlugs.includes(p.slug));
 
   return (
     <>
@@ -32,7 +42,7 @@ export default function InnovationPage() {
           { src: "/innovation/joblens-hero.png", alt: "JobLens" },
         ]}
         primaryCta={{ label: "Explore Data Agent", href: "/work/innovation/data-agent" }}
-        secondaryCta={{ label: "View all products", href: "#portfolio", variant: "secondary" }}
+        secondaryCta={{ label: "View portfolio", href: "#portfolio", variant: "secondary" }}
       />
 
       <PageSection id="portfolio" tone="soft" eyebrow="Flagship" title="Data Agent">
@@ -45,25 +55,51 @@ export default function InnovationPage() {
         ) : null}
       </PageSection>
 
-      <PageSection
-        tone="white"
-        eyebrow="Strategic Applications"
-        title="Focused products from delivery programs."
-      >
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <PageSection tone="white" eyebrow="Strategic Applications" title="Products from delivery programs.">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {strategic.map((product, index) => (
             <Reveal key={product.slug} delay={index * 0.08}>
               <ProductCard product={product} index={index + 1} />
             </Reveal>
           ))}
+          <Reveal delay={0.16}>
+            <Link
+              href="/ai-data"
+              className="ca-feature-card flex h-full flex-col justify-between rounded-2xl border border-[#C9DDD7] bg-[#F8FAF9] p-5"
+            >
+              <div>
+                <h3 className="font-semibold text-[#122D2E]">Data Explorer</h3>
+                <p className="mt-2 text-sm text-[#5B6D6B]">Enterprise analytics and repository intelligence.</p>
+              </div>
+              <span className="mt-4 text-sm font-semibold text-[#B83A3A]">Explore →</span>
+            </Link>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <Link
+              href="/capabilities/digital-engineering"
+              className="ca-feature-card flex h-full flex-col justify-between rounded-2xl border border-[#C9DDD7] bg-[#F8FAF9] p-5"
+            >
+              <div>
+                <h3 className="font-semibold text-[#122D2E]">Convera</h3>
+                <p className="mt-2 text-sm text-[#5B6D6B]">API gateway and enterprise message hub.</p>
+              </div>
+              <span className="mt-4 text-sm font-semibold text-[#B83A3A]">Explore →</span>
+            </Link>
+          </Reveal>
         </div>
-        <p className="mt-10 text-sm text-[#5B6D6B]">
-          Additional portfolio applications include Data Explorer and Convera —{" "}
-          <Link href="/ai-data" className="font-semibold text-[#B83A3A] hover:underline">
-            explore AI &amp; Data
-          </Link>
-          .
-        </p>
+      </PageSection>
+
+      <PageSection tone="sage" eyebrow="Other Applications" title="Additional portfolio products.">
+        <div className="flex flex-wrap gap-2">
+          {otherApps.map((name) => (
+            <span
+              key={name}
+              className="rounded-full border border-[#C9DDD7] bg-white px-4 py-2 text-sm font-medium text-[#5B6D6B]"
+            >
+              {name}
+            </span>
+          ))}
+        </div>
       </PageSection>
     </>
   );

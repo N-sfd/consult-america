@@ -1,11 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-
-import { stockImage } from "@/lib/marketing/stock-images";
 
 const principles = [
   "Business context first",
@@ -36,7 +33,6 @@ export default function HomepageClosingSection() {
 
   return (
     <>
-      {/* Why Consult America — compact strip */}
       <section className="border-b border-[#E1ECE8] bg-white py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
@@ -55,7 +51,6 @@ export default function HomepageClosingSection() {
         </div>
       </section>
 
-      {/* Industries — link row */}
       <section id="industries" className="border-b border-[#E1ECE8] bg-[#F7FAF9] py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Industries</p>
@@ -86,74 +81,45 @@ export default function HomepageClosingSection() {
         </div>
       </section>
 
-      {/* Insights + Careers */}
       <section className="border-b border-[#E1ECE8] bg-white py-12 sm:py-14">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-7"
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl"
+          >
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Insights</p>
+            <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
+              Ideas for modern enterprise technology.
+            </h2>
+            <Link
+              href={featuredInsight.href}
+              className="mt-5 block rounded-[12px] border border-[#DDE6E3] bg-[#F8FAF9] p-5 transition-colors hover:border-[#176A63]"
             >
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Insights</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
-                Ideas for modern enterprise technology.
-              </h2>
-              <Link
-                href={featuredInsight.href}
-                className="mt-5 block rounded-[12px] border border-[#DDE6E3] bg-[#F7FAF9] p-5 transition-colors hover:border-[#176A63]"
-              >
-                <p className="font-medium text-[#073B3A]">{featuredInsight.title}</p>
-                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#176A63]">
-                  Read article
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </span>
-              </Link>
-              <ul className="mt-4 space-y-2">
-                {supportingInsights.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href} className="text-sm text-[#5B6D6B] hover:text-[#176A63]">
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 }}
-              className="lg:col-span-5"
+              <p className="font-medium text-[#073B3A]">{featuredInsight.title}</p>
+              <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#176A63]">
+                Read article
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </span>
+            </Link>
+            <ul className="mt-4 space-y-2">
+              {supportingInsights.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-[#5B6D6B] hover:text-[#176A63]">
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/insights"
+              className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
             >
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Careers</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
-                Senior work, real programs.
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[#5B6D6B]">
-                Join practitioners attached to Oracle transformations, AI and data engineering, and
-                the applications they ship.
-              </p>
-              <div className="relative mt-5 h-[220px] max-h-[320px] overflow-hidden rounded-[12px] border border-[#DDE6E3]">
-                <Image
-                  src={stockImage("careersHero", { w: 1000, q: 85 })}
-                  alt="Consult America team"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 35vw"
-                />
-              </div>
-              <Link
-                href="/careers"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
-              >
-                Explore Careers
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </motion.div>
-          </div>
+              Browse all insights
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
         </div>
       </section>
     </>

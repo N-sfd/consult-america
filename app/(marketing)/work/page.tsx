@@ -24,14 +24,19 @@ export default function WorkPage() {
       <PageHero
         variant="default"
         layout="stacked"
-        eyebrow="Work"
-        title="Outcomes you can see. Technology we've built."
-        description="Two kinds of proof: client engagements delivered end to end, and products our Innovation Lab has built and shipped."
-        primaryCta={{ label: "View case studies", href: "/work/case-studies" }}
-        secondaryCta={{ label: "Explore innovation", href: "/work/innovation", variant: "secondary" }}
+        eyebrow="Featured Work"
+        title={
+          <>
+            Solving complex challenges.
+            <br />
+            Creating lasting value.
+          </>
+        }
+        description="Selected examples of strategy, platforms, data, and engineering in delivery."
+        primaryCta={{ label: "View all work", href: "/work" }}
       />
 
-      <PageSection tone="soft" eyebrow="Proof" title="Case studies and products.">
+      <PageSection tone="soft" eyebrow="Work" title="Case studies and innovation.">
         <div className="grid gap-8 lg:grid-cols-2">
           <Reveal>
             <Link

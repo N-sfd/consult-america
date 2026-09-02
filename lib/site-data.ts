@@ -470,7 +470,7 @@ export const applicationsMegaMenu = {
 export const resourcesMegaMenu = {
   links: [
     { href: "/insights", label: "Insights" },
-    { href: "/work", label: "Our Work" },
+    { href: "/work", label: "Work" },
     { href: "/work/case-studies", label: "Case Studies" },
     { href: "/insights", label: "Perspectives" },
   ],

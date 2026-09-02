@@ -34,7 +34,7 @@ export default function OracleFlagship() {
             className="lg:col-span-5"
           >
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-              Oracle Practice
+              Oracle Flagship Practice
             </p>
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Modernize the digital core.
@@ -68,7 +68,7 @@ export default function OracleFlagship() {
             transition={{ duration: 0.45, delay: 0.06 }}
             className="lg:col-span-7"
           >
-            <div className="relative ml-auto max-h-[420px] w-full max-w-[600px] overflow-hidden rounded-[14px] border border-[#DDE6E3]">
+            <div className="relative ml-auto max-h-[420px] w-full max-w-[600px] overflow-hidden ca-hero-shape-arch ring-1 ring-[#DDE6E3]">
               <div className="relative aspect-[4/3] w-full max-h-[420px]">
                 <Image
                   src={stockImage("oracleFlagship", { w: 1400, q: 85 })}

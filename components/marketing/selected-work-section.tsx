@@ -48,8 +48,7 @@ export default function SelectedWorkSection() {
               Creating lasting value.
             </h2>
             <p className="mt-4 max-w-xl text-base text-[#5B6D6B]">
-              Selected examples of how strategy, enterprise platforms, data, and engineering
-              come together in delivery.
+              Selected examples of strategy, platforms, data, and engineering in delivery.
             </p>
           </div>
           <Link

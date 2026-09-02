@@ -34,7 +34,7 @@ export default function Hero() {
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.52, delay: 0.05, ease: revealEase }}
-            className="mt-4 max-w-[680px] font-serif text-[clamp(2.375rem,4.4vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-[#073B3A]"
+            className="mt-4 max-w-[38.75rem] font-serif text-[clamp(2.375rem,4vw,4.375rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-[#073B3A]"
           >
             Transform the core.
             <br />
@@ -81,8 +81,8 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.12, ease: revealEase }}
           className="relative lg:col-span-7"
         >
-          <div className="relative ml-auto w-[92%] max-h-[480px] overflow-hidden rounded-[18px] border border-[#DCE4E1] bg-white shadow-[0_24px_60px_rgba(7,59,58,0.10)]">
-            <div className="relative aspect-[16/10] w-full max-h-[480px]">
+          <div className="relative ml-auto w-[92%] max-h-[480px] overflow-hidden ca-hero-shape-arch shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DCE4E1]">
+            <div className="relative aspect-[4/3] w-full max-h-[480px]">
               <Image
                 src={stockImage("hero", { w: 1400, q: 85 })}
                 alt="Enterprise technology leaders collaborating"

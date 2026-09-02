@@ -1,7 +1,8 @@
 /* Consult America — Inner page design system */
 
 :root {
-  --mkt-inner-hero: clamp(2.125rem, 4vw, 4rem); /* 34–64px */
+  --mkt-inner-hero: clamp(2.125rem, 4vw, 3.875rem); /* 34–62px */
+  --mkt-home-hero: clamp(2.375rem, 4vw, 4.375rem); /* ~38–70px */
   --mkt-inner-hero-lh: 1.04;
   --mkt-inner-hero-max: 45rem; /* 720px */
   --mkt-inner-body-max: 38.75rem; /* 620px */
@@ -313,7 +314,7 @@
 
 /* Mega menu surface */
 .ca-mega-surface {
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 14px 14px;
   border: 1px solid rgba(7, 59, 58, 0.08);
   border-top: none;
   box-shadow: 0 16px 48px rgba(7, 59, 58, 0.08);
@@ -364,6 +365,35 @@
 
 .ca-header-scrolled .ca-header-inner {
   min-height: 72px;
+}
+
+/* Contact page emerald moment */
+.ca-contact-emerald {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(75, 148, 136, 0.2), transparent 40%),
+    linear-gradient(135deg, #073b3a 0%, #0b4a47 55%, #105a55 100%);
+  color: #ffffff;
+}
+
+.ca-contact-emerald::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+  .ca-parallax,
+  .ca-background-motion,
+  .ca-shape {
+    display: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
