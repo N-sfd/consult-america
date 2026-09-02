@@ -12,6 +12,7 @@ import {
   formatInsightDate,
 } from "@/lib/insights";
 import { insightCategoryLabels } from "@/data/insights";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
   title: "Insights | ConsultAmerica",
@@ -28,10 +29,14 @@ export default function InsightsPage() {
     <>
       <PageHero
         variant="resources"
-        layout="stacked"
+        layout="editorial-wide"
+        imageShape="asymmetric"
+        photoScale="editorial"
         eyebrow="Insights"
         title="Ideas for modern enterprise technology."
         description="Short briefings on Oracle, AI and data, enterprise transformation, and the operating decisions that determine whether programs reach production."
+        image={stockImage("insightsHero", { w: 1000, q: 82 })}
+        imageAlt="Editorial insight visual"
         primaryCta={{ label: "Browse insights", href: "#insights-index" }}
       />
 

@@ -7,7 +7,7 @@ export default function AiDataPageHero() {
     <PageHero
       variant="ai-dark"
       layout="split-left"
-      imageShape="rect"
+      imageMode="product"
       eyebrow="AI & Data"
       eyebrowTone="light"
       title={

@@ -62,7 +62,7 @@ export default function OraclePageSections() {
           </>
         }
         description="Transform finance, procurement, supply chain, projects and workforce operations through connected Oracle Cloud delivery."
-        image={stockImage("oracleFlagship", { w: 1400, q: 80 })}
+        image={stockImage("oracleFlagship", { w: 1200, q: 82 })}
         imageAlt="Oracle Cloud transformation team and architecture"
         overlayImage={{
           src: "/innovation/data-agent-platform.png",
@@ -117,8 +117,9 @@ export default function OraclePageSections() {
 
       <PageSection
         tone="sage"
-        eyebrow="Implementation approach"
-        title="Structured delivery from discovery through operate."
+        eyebrow="Delivery approach"
+        title="Structured delivery from discovery through go-live."
+        lead="Cutover planning, regression coverage, and release governance are built into the program — not bolted on before launch weekend."
       >
         <div className="flex flex-wrap gap-3">
           {lifecycle.map((step, index) => (
@@ -130,30 +131,18 @@ export default function OraclePageSections() {
             </Reveal>
           ))}
         </div>
-      </PageSection>
-
-      <PageSection
-        tone="white"
-        eyebrow="Testing & readiness"
-        title="Go-live with confidence."
-        lead="Cutover planning, regression coverage, and release governance built into the program — not bolted on before launch weekend."
-      >
-        <Reveal delay={0.1}>
-          <div className="max-w-2xl rounded-2xl border border-[#C9DDD7] bg-gradient-to-br from-[#F8FAF9] to-white p-7 shadow-[0_12px_40px_rgba(7,59,58,0.06)]">
-            <ul className="space-y-4 text-sm text-[#5B6D6B]">
-              {[
-                "Test strategy aligned to business process risk",
-                "Data migration validation and reconciliation",
-                "Release readiness checkpoints with executive sponsors",
-                "Hypercare and stabilization support post go-live",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#176A63]" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <Reveal delay={0.12} className="mt-8 grid gap-4 sm:grid-cols-2">
+          {[
+            "Test strategy aligned to business process risk",
+            "Data migration validation and reconciliation",
+            "Release readiness checkpoints with executive sponsors",
+            "Hypercare and stabilization support post go-live",
+          ].map((item) => (
+            <p key={item} className="flex items-start gap-3 text-sm text-[#5B6D6B]">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#176A63]" />
+              {item}
+            </p>
+          ))}
         </Reveal>
       </PageSection>
     </>

@@ -40,10 +40,11 @@ export default function AboutPage() {
         variant="company"
         layout="split-left"
         imageShape="arch"
+        photoScale="editorial"
         eyebrow="Company"
         title="Built to move from strategy to production."
-        description="We connect business strategy, Oracle Cloud platforms, data intelligence, and digital application engineering so transformation reaches production with less friction and measurable business return."
-        image={stockImage("introduction", { w: 1400, q: 80 })}
+        description="We connect Oracle Cloud, data intelligence, and application engineering so transformation reaches production with measurable business return."
+        image={stockImage("introduction", { w: 1200, q: 82 })}
         imageAlt="Consult America team and delivery environment"
         primaryCta={{ label: "Start a conversation", href: "/contact" }}
         secondaryCta={{ label: "Explore careers", href: "/careers", variant: "secondary" }}
@@ -62,10 +63,11 @@ export default function AboutPage() {
       </PageSection>
 
       <PageSection
+        id="how-we-work"
         tone="white"
         eyebrow="How We Work"
         title="One delivery motion, five practices."
-        lead="Every engagement moves through the same disciplined phases — strategy through deployment — whether the work sits in enterprise transformation, Oracle, AI & data, digital engineering, or managed delivery."
+        lead="Every engagement moves through the same disciplined phases — strategy through deployment."
       >
         <div className="flex flex-wrap items-center gap-3">
           {deliveryPhases.map((phase, index) => (
@@ -75,7 +77,7 @@ export default function AboutPage() {
           ))}
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {capabilityGroups.map((group, index) => (
             <Reveal key={group.title} delay={index * 0.05}>
               <Link
@@ -92,22 +94,14 @@ export default function AboutPage() {
             </Reveal>
           ))}
         </div>
-      </PageSection>
 
-      <PageSection tone="sage" eyebrow="Delivery Locations" title="National delivery centers and client hubs.">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          {offices.map((office, index) => (
-            <FeatureCard key={office.city} delay={index * 0.05} hover>
-              <p className="text-lg font-bold text-[#122D2E]">{office.city}</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#5B6D6B]">{office.detail}</p>
-            </FeatureCard>
-          ))}
-        </div>
-
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[#C9DDD7] pt-8 sm:flex-row sm:items-center">
-          <p className="text-sm text-[#5B6D6B]">
-            Looking to discuss an enterprise transformation or engineering engagement?
-          </p>
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[#C9DDD7] pt-8 sm:flex-row sm:items-center">
+          <div>
+            <p className="text-sm font-semibold text-[#122D2E]">National delivery centers</p>
+            <p className="mt-2 text-sm text-[#5B6D6B]">
+              {offices.map((office) => office.city).join(" · ")}
+            </p>
+          </div>
           <Link href="/contact" className="ca-button-primary inline-flex items-center gap-2">
             Start a conversation
             <ArrowUpRight className="h-4 w-4" />

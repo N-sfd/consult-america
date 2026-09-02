@@ -84,7 +84,7 @@ function FeaturedPanel({
   return (
     <div className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-[#DCE4E1] bg-[#F7FAF9] shadow-[0_8px_24px_rgba(7,59,58,0.04)] transition-shadow duration-200 hover:shadow-[0_12px_32px_rgba(7,59,58,0.08)]">
       {image ? (
-        <div className="relative h-[120px] w-full border-b border-[#DCE4E1]">
+        <div className="relative h-[100px] w-full border-b border-[#DCE4E1]">
           <Image src={image} alt="" fill className="object-cover object-top" sizes="280px" />
         </div>
       ) : null}
@@ -262,7 +262,12 @@ export default function MegaMenuPanels({
         <div className="col-span-8 grid grid-cols-2 gap-2">
           {resourcesMegaMenu.links.map((item) => (
             <Link key={item.label} href={item.href} onClick={onNavigate} className="ca-mega-link">
-              <span className="font-medium">{item.label}</span>
+              <span className="min-w-0">
+                <span className="font-medium">{item.label}</span>
+                {"detail" in item && item.detail ? (
+                  <span className="ca-mega-link-desc">{item.detail}</span>
+                ) : null}
+              </span>
             </Link>
           ))}
         </div>
@@ -286,7 +291,7 @@ export default function MegaMenuPanels({
         <div className="col-span-5">
           <LinkList
             title="Company"
-            links={companyMegaMenu.links.map((l) => ({ ...l, detail: undefined }))}
+            links={companyMegaMenu.links}
             onNavigate={onNavigate}
           />
         </div>
@@ -311,10 +316,10 @@ export default function MegaMenuPanels({
         <div className="col-span-4">
           <FeaturedPanel
             eyebrow="Featured"
-            title="Built to move from strategy to production."
-            detail="Enterprise transformation, Oracle, AI, and application engineering."
-            href="/about"
-            cta="About Consult America"
+            title="Build what's next."
+            detail="Join delivery teams across Oracle, AI, data, and engineering."
+            href="/careers"
+            cta="Explore careers"
             onNavigate={onNavigate}
           />
         </div>

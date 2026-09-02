@@ -32,7 +32,7 @@ export const engineeringMegaMenu = {
     { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
     { href: "/work/innovation/joblens", label: "JobLens" },
     { href: "/ai-data", label: "Data Explorer" },
-    { href: "/#application-platform", label: "HR & Talent" },
+    { href: "/platforms/hr", label: "HR & Talent" },
   ],
   featured: {
     title: "Consult America Labs",
@@ -149,7 +149,7 @@ export const whatWeDoMegaMenu = {
       { href: "/work/innovation/joblens", label: "JobLens", detail: "Talent Matching & ATS Analysis" },
       { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical Assistant & Timeline" },
       { href: "/capabilities/digital-engineering", label: "Convera", detail: "API Gateway & Message Hub" },
-      { href: "/#application-platform", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
+      { href: "/platforms/hr", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
     ],
     ctaHref: "/work/innovation",
     ctaLabel: "Explore applications →",
@@ -198,7 +198,7 @@ export const technologyGroups = {
 
 export const platformLinks = [
   { href: "/platforms/crm", label: "CRM Workspace", detail: "Customer 360, Opportunity & Pipeline" },
-  { href: "/#application-platform", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
+  { href: "/platforms/hr", label: "HR & Talent", detail: "Workforce Portals & Approvals" },
   { href: "/platforms/hr", label: "Core HR Portal", detail: "Employee Records, Verification & Compliance" },
   { href: "/platforms/employee", label: "Employee Self-Service", detail: "Profile, Onboarding, Documents & Requests" },
   { href: "/platforms/workforce", label: "Time & Leave", detail: "Timesheet Management & PTO Approvals" },
@@ -368,21 +368,53 @@ export const offices = [
 
 export const solutionsMegaMenu = {
   links: [
-    { href: "/capabilities/enterprise-transformation", label: "Enterprise Transformation" },
-    { href: "/platforms/crm", label: "CRM & Customer Experience" },
-    { href: "/capabilities/enterprise-transformation", label: "Cloud & Integration" },
-    { href: "/capabilities/managed-delivery", label: "Managed Delivery" },
+    {
+      href: "/capabilities/enterprise-transformation",
+      label: "Enterprise Transformation",
+      detail: "Strategy, operating model, and platform change",
+    },
+    {
+      href: "/platforms/crm",
+      label: "CRM & Customer Experience",
+      detail: "Sales, service, and customer 360 delivery",
+    },
+    {
+      href: "/capabilities/digital-engineering",
+      label: "Cloud & Integration",
+      detail: "APIs, portals, and connected systems",
+    },
+    {
+      href: "/capabilities/managed-delivery",
+      label: "Managed Delivery",
+      detail: "Program leadership through go-live",
+    },
   ],
   transform: [
-    { href: "/capabilities/enterprise-transformation", label: "Strategy & Advisory" },
-    { href: "/capabilities/enterprise-transformation", label: "Process Modernization" },
-    { href: "/capabilities/enterprise-transformation", label: "Platform Transformation" },
-    { href: "/capabilities/managed-delivery", label: "Testing & Readiness" },
+    {
+      href: "/capabilities/enterprise-transformation",
+      label: "Strategy & Advisory",
+      detail: "Roadmaps tied to production outcomes",
+    },
+    {
+      href: "/capabilities/enterprise-transformation",
+      label: "Process Modernization",
+      detail: "Workflows that survive audit and scale",
+    },
+    {
+      href: "/oracle",
+      label: "Platform Transformation",
+      detail: "Oracle Cloud across finance and operations",
+    },
+    {
+      href: "/capabilities/managed-delivery",
+      label: "Testing & Readiness",
+      detail: "Cutover, regression, and release governance",
+    },
   ],
   featured: {
     title: "Transform the enterprise.",
     detail: "Connect strategy, platforms, data and operations.",
-    href: "/capabilities/enterprise-transformation",
+    href: "/capabilities",
     image: "/innovation/data-agent-platform.png",
     cta: "Explore Solutions",
   },
@@ -390,24 +422,24 @@ export const solutionsMegaMenu = {
 
 export const oracleMegaMenuGrouped = {
   finance: [
-    { href: "/oracle", label: "Financials" },
-    { href: "/oracle", label: "Accounting" },
-    { href: "/oracle", label: "Projects" },
+    { href: "/oracle", label: "Financials", detail: "Close, reporting, and accounting" },
+    { href: "/oracle", label: "Accounting", detail: "Multi-entity and subledger control" },
+    { href: "/oracle", label: "Projects", detail: "Costing, billing, and controls" },
   ],
   operations: [
-    { href: "/oracle", label: "Procurement" },
-    { href: "/oracle", label: "Supply Chain" },
-    { href: "/oracle", label: "Order Management" },
+    { href: "/oracle", label: "Procurement", detail: "Source-to-pay with policy" },
+    { href: "/oracle", label: "Supply Chain", detail: "Planning, inventory, fulfillment" },
+    { href: "/oracle", label: "Order Management", detail: "Quote-to-cash orchestration" },
   ],
   workforce: [
-    { href: "/oracle", label: "HCM" },
-    { href: "/oracle", label: "Talent" },
-    { href: "/oracle", label: "Workforce Planning" },
+    { href: "/oracle", label: "HCM", detail: "Core HR and payroll operations" },
+    { href: "/oracle", label: "Talent", detail: "Recruiting and workforce programs" },
+    { href: "/oracle", label: "Workforce Planning", detail: "Capacity and skills alignment" },
   ],
   platform: [
-    { href: "/oracle", label: "Integration & Data" },
-    { href: "/oracle", label: "Data & Reporting" },
-    { href: "/oracle", label: "Testing & Readiness" },
+    { href: "/oracle", label: "Integration & Data", detail: "OIC and enterprise connectivity" },
+    { href: "/oracle", label: "Data & Reporting", detail: "Analytics across the core" },
+    { href: "/oracle", label: "Testing & Readiness", detail: "Regression and cutover planning" },
   ],
   featured: {
     title: "Modernize the digital core.",
@@ -420,16 +452,16 @@ export const oracleMegaMenuGrouped = {
 
 export const aiDataMegaMenuGrouped = {
   ai: [
-    { href: "/ai-data", label: "AI Strategy" },
-    { href: "/ai-data", label: "Generative AI" },
-    { href: "/ai-data", label: "Enterprise Agents" },
-    { href: "/work/innovation/data-agent", label: "Document Intelligence" },
+    { href: "/ai-data", label: "AI Strategy", detail: "Prioritize governed use cases" },
+    { href: "/ai-data", label: "Generative AI", detail: "Enterprise workflows with guardrails" },
+    { href: "/ai-data", label: "Enterprise Agents", detail: "Operational assistants in production" },
+    { href: "/work/innovation/data-agent", label: "Document Intelligence", detail: "Contracts and complex documents" },
   ],
   data: [
-    { href: "/ai-data", label: "Data Engineering" },
-    { href: "/ai-data", label: "Analytics" },
-    { href: "/ai-data", label: "Enterprise Search" },
-    { href: "/ai-data", label: "AI Governance" },
+    { href: "/ai-data", label: "Data Engineering", detail: "Pipelines, contracts, and quality" },
+    { href: "/ai-data", label: "Analytics", detail: "Dashboards leaders actually use" },
+    { href: "/ai-data", label: "Enterprise Search", detail: "Find answers across systems" },
+    { href: "/ai-data", label: "AI Governance", detail: "Policy, monitoring, and controls" },
   ],
   featured: {
     title: "Data Agent",
@@ -442,21 +474,21 @@ export const aiDataMegaMenuGrouped = {
 
 export const applicationsMegaMenu = {
   build: [
-    { href: "/capabilities/digital-engineering", label: "Application Engineering" },
-    { href: "/capabilities/digital-engineering", label: "Application Modernization" },
-    { href: "/platforms", label: "Enterprise Portals" },
-    { href: "/capabilities/digital-engineering", label: "Integration & APIs" },
+    { href: "/capabilities/digital-engineering", label: "Application Engineering", detail: "Products around real workflows" },
+    { href: "/capabilities/digital-engineering", label: "Application Modernization", detail: "Retire legacy with confidence" },
+    { href: "/platforms", label: "Enterprise Portals", detail: "Employee and customer experiences" },
+    { href: "/capabilities/digital-engineering", label: "Integration & APIs", detail: "Connect systems without sprawl" },
   ],
   products: [
-    { href: "/work/innovation/data-agent", label: "Data Agent" },
-    { href: "/work/innovation/mediguide-ai", label: "MediGuide AI" },
-    { href: "/work/innovation/joblens", label: "JobLens" },
-    { href: "/ai-data", label: "Data Explorer" },
+    { href: "/work/innovation/data-agent", label: "Data Agent", detail: "Document and contract intelligence" },
+    { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical workflow assistance" },
+    { href: "/work/innovation/joblens", label: "JobLens", detail: "Resume analysis and matching" },
+    { href: "/ai-data", label: "Data Explorer", detail: "Governed analytics experiences" },
   ],
   workforce: [
-    { href: "/careers", label: "Careers" },
-    { href: "/jobs", label: "Talent & Recruiting" },
-    { href: "/platforms/employee", label: "Employee Experience" },
+    { href: "/careers", label: "Careers", detail: "Join delivery and engineering teams" },
+    { href: "/jobs", label: "Talent & Recruiting", detail: "Open roles and candidate portal" },
+    { href: "/platforms/employee", label: "Employee Experience", detail: "Self-service HR portals" },
   ],
   featured: {
     title: "Consult America Labs",
@@ -469,19 +501,19 @@ export const applicationsMegaMenu = {
 
 export const resourcesMegaMenu = {
   links: [
-    { href: "/insights", label: "Insights" },
-    { href: "/work", label: "Work" },
-    { href: "/work/case-studies", label: "Case Studies" },
-    { href: "/insights", label: "Perspectives" },
+    { href: "/insights", label: "Insights", detail: "Briefings on Oracle, AI, and transformation" },
+    { href: "/work", label: "Featured Work", detail: "Programs and delivery highlights" },
+    { href: "/work/case-studies", label: "Case Studies", detail: "Outcomes from recent programs" },
+    { href: "/insights/what-stalls-fusion-programs", label: "Perspectives", detail: "Featured editorial from delivery" },
   ],
 };
 
 export const companyMegaMenu = {
   links: [
-    { href: "/about", label: "About Consult America" },
-    { href: "/about", label: "Leadership" },
-    { href: "/careers", label: "Careers" },
-    { href: "/contact", label: "Contact" },
+    { href: "/about", label: "About", detail: "Mission, model, and delivery philosophy" },
+    { href: "/about#how-we-work", label: "How We Work", detail: "One delivery motion, five practices" },
+    { href: "/careers", label: "Careers", detail: "Open roles across practices" },
+    { href: "/contact", label: "Contact", detail: "Start a conversation with our team" },
   ],
   portals: [
     { href: "/jobs", label: "Candidate Portal" },

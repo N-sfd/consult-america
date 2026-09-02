@@ -65,7 +65,7 @@ export default function PageSection({
 
       <div className="mkt-shell relative z-10">
         {(eyebrow || title || lead) && (
-          <header className={cn("mb-10 max-w-3xl", headerClassName)}>
+          <header className={cn("mb-8 max-w-3xl", headerClassName)}>
             {eyebrow ? (
               <Reveal>
                 <p

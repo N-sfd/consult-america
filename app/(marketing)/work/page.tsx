@@ -8,6 +8,7 @@ import PageSection from "@/components/marketing/inner-page/page-section";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { listCaseStudies } from "@/data/case-studies";
 import { listInnovationProducts } from "@/data/innovation-products";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
   title: "Work | ConsultAmerica",
@@ -23,7 +24,9 @@ export default function WorkPage() {
     <>
       <PageHero
         variant="default"
-        layout="stacked"
+        layout="editorial-wide"
+        imageShape="offset"
+        photoScale="editorial"
         eyebrow="Featured Work"
         title={
           <>
@@ -33,7 +36,10 @@ export default function WorkPage() {
           </>
         }
         description="Selected examples of strategy, platforms, data, and engineering in delivery."
-        primaryCta={{ label: "View all work", href: "/work" }}
+        image={stockImage("selectedWorkHero", { w: 1100, q: 82 })}
+        imageAlt="Consult America client delivery"
+        primaryCta={{ label: "View case studies", href: "/work/case-studies" }}
+        secondaryCta={{ label: "Explore applications", href: "/work/innovation", variant: "secondary" }}
       />
 
       <PageSection tone="soft" eyebrow="Work" title="Case studies and innovation.">

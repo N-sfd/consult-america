@@ -9,6 +9,10 @@ export type AccentPreset =
   | "hero-ai"
   | "hero-ai-dark"
   | "hero-product"
+  | "hero-careers"
+  | "hero-industries"
+  | "hero-company"
+  | "hero-resources"
   | "section-soft"
   | "section-sage"
   | "section-white"
@@ -123,6 +127,74 @@ const presets: Record<AccentPreset, AccentConfig> = {
       },
     ],
     grid: true,
+  },
+  "hero-careers": {
+    shapes: [
+      {
+        variant: "arch",
+        speed: "slower",
+        className:
+          "right-[2%] top-[6%] h-[min(300px,38vw)] w-[min(380px,44vw)] bg-[#E1ECE8]/50",
+      },
+      {
+        variant: "circle",
+        speed: "slow",
+        className:
+          "left-[-4%] bottom-[14%] h-[min(220px,28vw)] w-[min(220px,28vw)] border border-[#C9DDD7]/40 bg-transparent",
+      },
+    ],
+    grid: true,
+  },
+  "hero-industries": {
+    shapes: [
+      {
+        variant: "panel",
+        speed: "slower",
+        className:
+          "right-[-2%] top-[10%] h-[min(360px,46vh)] w-[min(240px,26vw)] bg-[#4B9488]/8",
+      },
+      {
+        variant: "circle",
+        speed: "slow",
+        className:
+          "left-[8%] bottom-[8%] h-[min(200px,24vw)] w-[min(200px,24vw)] bg-[#E1ECE8]/55",
+      },
+    ],
+    lines: true,
+  },
+  "hero-company": {
+    shapes: [
+      {
+        variant: "circle",
+        speed: "slower",
+        className:
+          "left-[-5%] top-[12%] h-[min(300px,36vw)] w-[min(300px,36vw)] border border-[#C9DDD7]/35 bg-[#E1ECE8]/20",
+      },
+      {
+        variant: "panel",
+        speed: "slow",
+        className:
+          "right-[6%] bottom-[6%] h-[min(180px,22vh)] w-[min(150px,16vw)] bg-[#176A63]/6",
+      },
+    ],
+    grid: true,
+  },
+  "hero-resources": {
+    shapes: [
+      {
+        variant: "arch",
+        speed: "slow",
+        className:
+          "right-[4%] bottom-[10%] h-[min(240px,30vw)] w-[min(320px,38vw)] bg-[#E1ECE8]/45",
+      },
+      {
+        variant: "circle",
+        speed: "slower",
+        className:
+          "left-[-3%] top-[18%] h-[min(180px,22vw)] w-[min(180px,22vw)] bg-[#4B9488]/6",
+      },
+    ],
+    lines: true,
   },
   "section-soft": {
     shapes: [

@@ -44,9 +44,9 @@ export default function Reveal({
       whileInView={animate}
       viewport={{ once: true, amount: 0.25 }}
       transition={{
-        duration: variant === "image" ? 0.8 : 0.6,
+        duration: variant === "image" ? 0.78 : 0.58,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.2, 0.8, 0.2, 1],
       }}
     >
       {children}

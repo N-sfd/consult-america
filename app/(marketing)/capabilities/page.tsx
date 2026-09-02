@@ -53,12 +53,12 @@ export default function CapabilitiesPage() {
     <>
       <PageHero
         variant="solutions"
-        layout="split-left"
-        imageShape="wide"
+        layout="split-right"
+        imageShape="offset"
         eyebrow="Solutions"
         title="Move strategy into execution."
         description="Connect enterprise platforms, workflows, data and engineering around measurable operational outcomes."
-        image={stockImage("capabilityPageEnterpriseTransformation", { w: 1400, q: 80 })}
+        image={stockImage("capabilityPageEnterpriseTransformation", { w: 1200, q: 82 })}
         imageAlt="Enterprise transformation team collaborating"
         primaryCta={{ label: "Explore capabilities", href: "/capabilities/enterprise-transformation" }}
         secondaryCta={{ label: "Talk to an expert", href: "/contact", variant: "secondary" }}

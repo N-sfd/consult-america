@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, ChevronDown, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
 import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
@@ -46,6 +46,7 @@ function AccordionSection({
   children: React.ReactNode;
 }) {
   const isOpen = openSection === sectionKey;
+  const reduceMotion = useReducedMotion();
   return (
     <div className="border-b border-[#DCE4E1]">
       <button
@@ -57,19 +58,23 @@ function AccordionSection({
         {title}
         <ChevronDown className={`h-4 w-4 opacity-50 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div className="space-y-2 pb-4">{children}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {reduceMotion ? (
+        isOpen ? <div className="space-y-2 pb-4">{children}</div> : null
+      ) : (
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="space-y-2 pb-4">{children}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </div>
   );
 }
@@ -88,7 +93,7 @@ function MobileLinks({
           key={item.label}
           href={item.href}
           onClick={onClose}
-          className="block py-1.5 text-sm text-[#122D2E] hover:text-[#B83A3A]"
+          className="block min-h-[44px] py-2.5 text-[0.9375rem] text-[#122D2E] hover:text-[#B83A3A]"
         >
           {item.label}
         </Link>

@@ -4,7 +4,7 @@
   --ease-ca: cubic-bezier(0.2, 0.8, 0.2, 1);
   --motion-fast: 450ms;
   --motion-medium: 750ms;
-  --motion-slow: 18s;
+  --motion-slow: 24s;
 }
 
 @keyframes caFloatOne {
@@ -47,6 +47,17 @@
   }
 }
 
+@keyframes caMegaEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .ca-shape {
   pointer-events: none;
   position: absolute;
@@ -58,7 +69,7 @@
 }
 
 .ca-shape--float-two {
-  animation: caFloatTwo 22s ease-in-out infinite;
+  animation: caFloatTwo 24s ease-in-out infinite;
 }
 
 .ca-shape--float-three {

@@ -1,14 +1,17 @@
 /* Consult America — Inner page design system */
 
 :root {
-  --mkt-inner-hero: clamp(2.125rem, 4vw, 3.875rem); /* 34–62px */
-  --mkt-home-hero: clamp(2.375rem, 4vw, 4.375rem); /* ~38–70px */
-  --mkt-inner-hero-lh: 1.04;
+  --mkt-inner-hero: clamp(2.375rem, 4vw, 3.875rem); /* 38–62px */
+  --mkt-home-hero: clamp(2.875rem, 5vw, 4.25rem); /* 46–68px */
+  --mkt-inner-hero-lh: 1.05;
   --mkt-inner-hero-max: 45rem; /* 720px */
-  --mkt-inner-body-max: 38.75rem; /* 620px */
+  --mkt-inner-body-max: 40rem; /* 640px */
   --mkt-inner-body: clamp(1.0625rem, 1.1vw, 1.1875rem); /* 17–19px */
-  --mkt-hero-pad-y: clamp(3.5rem, 6.5vw, 6.875rem); /* 56–110px */
-  --mkt-hero-img-max-h: min(31.25rem, 50vh); /* 500px cap */
+  --mkt-hero-pad-y: clamp(3.5rem, 5.5vw, 6.875rem); /* 56–110px */
+  --mkt-hero-img-max-h: min(31.25rem, 46vh); /* 500px cap */
+  --mkt-hero-img-careers: min(27.5rem, 42vh); /* 440px */
+  --mkt-hero-img-editorial: min(28.75rem, 44vh); /* 460px */
+  --mkt-section-heading: clamp(2.125rem, 3.5vw, 3.25rem); /* 34–52px H2 */
 }
 
 .mkt-inner-hero {
@@ -38,6 +41,12 @@
   max-width: var(--mkt-inner-body-max);
 }
 
+@media (min-width: 768px) {
+  .mkt-inner-hero-body {
+    line-height: 1.62;
+  }
+}
+
 .mkt-inner-hero-body--light {
   color: rgba(255, 255, 255, 0.72);
 }
@@ -50,7 +59,9 @@
 }
 
 .mkt-hero-bg--oracle {
-  background: linear-gradient(135deg, #ffffff 0%, #f6f9f8 52%, #e9f1ee 100%);
+  background:
+    radial-gradient(circle at 84% 24%, rgba(75, 148, 136, 0.12), transparent 38%),
+    linear-gradient(135deg, #ffffff 0%, #f6f9f8 52%, #e9f1ee 100%);
 }
 
 .mkt-hero-bg--ai {
@@ -60,7 +71,9 @@
 }
 
 .mkt-hero-bg--ai-dark {
-  background: linear-gradient(135deg, #073b3a 0%, #0b4a47 58%, #105a55 100%);
+  background:
+    radial-gradient(circle at 78% 18%, rgba(75, 148, 136, 0.2), transparent 38%),
+    linear-gradient(135deg, #073b3a 0%, #0b4a47 50%, #176a63 100%);
   color: #ffffff;
 }
 
@@ -72,12 +85,14 @@
 
 .mkt-hero-bg--industries {
   background:
-    radial-gradient(circle at 88% 40%, rgba(75, 148, 136, 0.12), transparent 38%),
-    linear-gradient(120deg, #ffffff 0%, #f8faf9 52%, #f0f6f4 100%);
+    radial-gradient(circle at 86% 36%, rgba(75, 148, 136, 0.13), transparent 40%),
+    linear-gradient(120deg, #ffffff 0%, #f8faf9 52%, #eef5f2 100%);
 }
 
 .mkt-hero-bg--careers {
-  background: linear-gradient(135deg, #ffffff 0%, #f8faf9 55%, #eff5f2 100%);
+  background:
+    radial-gradient(circle at 78% 28%, rgba(75, 148, 136, 0.14), transparent 38%),
+    linear-gradient(135deg, #ffffff 0%, #f8faf9 55%, #eff5f2 100%);
 }
 
 .mkt-hero-bg--company {
@@ -96,6 +111,24 @@
   background:
     radial-gradient(circle at 82% 32%, rgba(75, 148, 136, 0.14), transparent 36%),
     linear-gradient(120deg, #ffffff 0%, #f7faf9 50%, #eef5f2 100%);
+}
+
+.mkt-section {
+  padding-block: clamp(3rem, 5vw, 4.5rem);
+}
+
+.mkt-section-compact {
+  padding-block: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.mkt-section-heading {
+  font-family: var(--font-heading);
+  font-size: var(--mkt-section-heading);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: var(--mkt-navy);
+  max-width: 640px;
 }
 
 .mkt-editorial-texture {
@@ -121,11 +154,46 @@
 }
 
 .ca-hero-shape-offset {
-  border-radius: 24px 110px 24px 24px;
+  border-radius: 24px 120px 24px 24px;
+}
+
+.ca-hero-shape-asymmetric {
+  border-radius: 120px 24px 120px 24px;
 }
 
 .ca-hero-shape-careers {
   border-radius: 180px 24px 120px 24px;
+}
+
+.ca-hero-shape-cut {
+  clip-path: polygon(0 0, 88% 0, 100% 14%, 100% 100%, 12% 100%, 0 86%);
+}
+
+.ca-hero-photo--careers .ca-hero-img-frame,
+.ca-hero-photo--careers .ca-hero-img {
+  max-height: var(--mkt-hero-img-careers);
+}
+
+.ca-hero-photo--editorial .ca-hero-img-frame,
+.ca-hero-photo--editorial .ca-hero-img {
+  max-height: var(--mkt-hero-img-editorial);
+}
+
+.ca-hero-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(75, 148, 136, 0.12);
+  background: rgba(75, 148, 136, 0.04);
+  pointer-events: none;
+}
+
+.ca-product-screenshot {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: var(--mkt-hero-img-max-h);
+  object-fit: contain;
+  object-position: top;
 }
 
 .ca-hero-shape-panel {
@@ -147,10 +215,15 @@
 
 .ca-product-frame {
   border-radius: 12px;
-  border: 1px solid #c9ddd7;
+  border: 1px solid #dde6e3;
   background: #ffffff;
-  box-shadow: 0 20px 55px rgba(7, 59, 58, 0.1);
+  box-shadow: 0 18px 50px rgba(7, 59, 58, 0.09);
   overflow: hidden;
+  transition: transform 550ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ca-product-frame:hover {
+  transform: scale(1.015);
 }
 
 /* Section backgrounds */
@@ -315,17 +388,23 @@
 /* Mega menu surface */
 .ca-mega-surface {
   border-radius: 0 0 14px 14px;
-  border: 1px solid rgba(7, 59, 58, 0.08);
+  border: 1px solid #e1e8e5;
   border-top: none;
-  box-shadow: 0 16px 48px rgba(7, 59, 58, 0.08);
+  box-shadow: 0 22px 60px rgba(7, 59, 58, 0.1);
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
+  animation: caMegaEnter 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .ca-mega-panel {
   width: min(calc(100vw - 48px), 1280px);
+  max-width: 1280px;
   margin-inline: auto;
-  padding: clamp(1.75rem, 2.5vw, 2.25rem);
+  padding: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.ca-mega-featured-img {
+  height: 100px;
 }
 
 .ca-mega-link {
@@ -388,11 +467,44 @@
   pointer-events: none;
 }
 
+.mkt-img-hoverable {
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+a:hover .mkt-img-hoverable,
+.mkt-img-hoverable:hover {
+  transform: scale(1.025);
+}
+
+@media (max-width: 767px) {
+  .ca-hero-shape-arch {
+    border-radius: 80px 80px 18px 18px;
+  }
+
+  .ca-hero-shape-offset {
+    border-radius: 18px 64px 18px 18px;
+  }
+
+  .ca-hero-shape-asymmetric,
+  .ca-hero-shape-careers {
+    border-radius: 64px 18px 64px 18px;
+  }
+
+  .ca-hero-shape-cut {
+    clip-path: none;
+    border-radius: 18px 64px 18px 18px;
+  }
+}
+
 @media (max-width: 1023px) {
   .ca-parallax,
   .ca-background-motion,
   .ca-shape {
     display: none !important;
+  }
+
+  .ca-product-frame:hover {
+    transform: none;
   }
 }
 
@@ -400,8 +512,21 @@
   .ca-motion,
   .ca-parallax,
   .ca-background-motion,
-  .ca-data-lines {
+  .ca-data-lines,
+  .ca-shape,
+  .ca-floating-shape {
     animation: none !important;
+    transform: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .ca-mega-surface {
+    animation: none !important;
+  }
+
+  .ca-product-frame:hover,
+  a:hover .mkt-img-hoverable,
+  .mkt-img-hoverable:hover {
     transform: none !important;
   }
 }

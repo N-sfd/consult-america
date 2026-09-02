@@ -3,6 +3,7 @@ export type {
   HeroBackgroundVariant,
   HeroImageShape,
   HeroLayout,
+  HeroPhotoScale,
   PageHeroCta,
   PageHeroProps,
   ProductScreen,
@@ -25,7 +26,7 @@ export function industryHeroShape(slug: string): import("./page-hero").HeroImage
     case "government-public-sector":
       return "arch";
     case "technology":
-      return "rect";
+      return "asymmetric";
     case "retail-consumer":
       return "wide";
     default:

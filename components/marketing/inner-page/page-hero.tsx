@@ -24,8 +24,9 @@ export type HeroBackgroundVariant =
   | "resources"
   | "detail";
 
-export type HeroLayout = "split-left" | "split-right" | "stacked" | "product";
-export type HeroImageShape = "arch" | "offset" | "careers" | "rect" | "wide";
+export type HeroLayout = "split-left" | "split-right" | "stacked" | "product" | "editorial-wide";
+export type HeroImageShape = "arch" | "offset" | "careers" | "asymmetric" | "rect" | "wide" | "cut";
+export type HeroPhotoScale = "default" | "careers" | "editorial";
 
 const bgClass: Record<HeroBackgroundVariant, string> = {
   default: "mkt-hero-bg",
@@ -45,8 +46,16 @@ const shapeClass: Record<HeroImageShape, string> = {
   arch: "ca-hero-shape-arch",
   offset: "ca-hero-shape-offset",
   careers: "ca-hero-shape-careers",
+  asymmetric: "ca-hero-shape-asymmetric",
   rect: "rounded-xl",
   wide: "rounded-2xl",
+  cut: "ca-hero-shape-cut",
+};
+
+const photoScaleClass: Record<HeroPhotoScale, string> = {
+  default: "",
+  careers: "ca-hero-photo--careers",
+  editorial: "ca-hero-photo--editorial",
 };
 
 const heroAccent: Record<HeroBackgroundVariant, AccentPreset> = {
@@ -55,11 +64,11 @@ const heroAccent: Record<HeroBackgroundVariant, AccentPreset> = {
   ai: "hero-ai",
   "ai-dark": "hero-ai-dark",
   applications: "hero-product",
-  industries: "hero",
-  careers: "hero",
-  company: "hero",
+  industries: "hero-industries",
+  careers: "hero-careers",
+  company: "hero-company",
   solutions: "hero",
-  resources: "hero",
+  resources: "hero-resources",
   detail: "hero",
 };
 
@@ -85,7 +94,10 @@ export type PageHeroProps = {
   imageShape?: HeroImageShape;
   image?: string;
   imageAlt?: string;
+  imageMode?: "photo" | "product";
+  photoScale?: HeroPhotoScale;
   overlayImage?: { src: string; alt: string };
+  secondaryImage?: { src: string; alt: string; shape?: HeroImageShape };
   productScreens?: ProductScreen[];
   primaryCta?: PageHeroCta;
   secondaryCta?: PageHeroCta;
@@ -135,50 +147,111 @@ function CtaButton({ cta, isDark }: { cta: PageHeroCta; isDark: boolean }) {
   );
 }
 
+function ProductScreenshot({
+  src,
+  alt,
+  priority = true,
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) {
+  return (
+    <Reveal variant="image" className="relative mx-auto w-full max-w-[520px] lg:max-w-[92%]">
+      <div className="ca-hero-glow" aria-hidden="true" />
+      <div className="ca-product-frame relative z-10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={alt}
+          width={1440}
+          height={900}
+          loading={priority ? "eager" : "lazy"}
+          className="ca-product-screenshot"
+        />
+      </div>
+    </Reveal>
+  );
+}
+
 function HeroImage({
   image,
   imageAlt,
   imageShape,
+  photoScale = "default",
   overlayImage,
+  secondaryImage,
   priority = true,
 }: {
   image: string;
   imageAlt: string;
   imageShape: HeroImageShape;
+  photoScale?: HeroPhotoScale;
   overlayImage?: { src: string; alt: string };
+  secondaryImage?: { src: string; alt: string; shape?: HeroImageShape };
   priority?: boolean;
 }) {
+  const secondaryShape = secondaryImage?.shape ?? "offset";
+
   return (
-    <div className="relative mx-auto w-full max-w-[680px] lg:max-w-none">
+    <div className={cn("relative mx-auto w-full max-w-[580px] lg:max-w-none", photoScaleClass[photoScale])}>
       <div className="ca-hero-glow" aria-hidden="true" />
+      <div
+        aria-hidden="true"
+        className="ca-hero-ring right-[4%] top-[4%] hidden h-[min(200px,28vw)] w-[min(200px,28vw)] lg:block"
+      />
       <ParallaxShape
-        variant="circle"
+        variant="arch"
         speed="slower"
         className={cn(
-          "right-[8%] top-[6%] h-[min(280px,42vw)] w-[min(280px,42vw)] bg-[#E1ECE8]/80",
-          imageShape === "offset" && "left-[4%] right-auto",
+          "right-[6%] top-[8%] h-[min(220px,34vw)] w-[min(300px,40vw)] bg-[#E1ECE8]/70",
+          imageShape === "offset" && "left-[2%] right-auto",
+          imageShape === "cut" && "left-[4%] right-auto top-[12%]",
         )}
       />
       <Reveal variant="image" className="ca-hero-img-frame relative">
-        <div className={cn("relative aspect-[4/3] max-h-[500px] w-full overflow-hidden shadow-[0_24px_56px_rgba(7,59,58,0.12)] ring-1 ring-[#C9DDD7]/60", shapeClass[imageShape])}>
+        <div
+          className={cn(
+            "relative aspect-[5/4] w-full overflow-hidden shadow-[0_20px_48px_rgba(7,59,58,0.1)] ring-1 ring-[#DDE6E3]/80",
+            shapeClass[imageShape],
+          )}
+        >
           <Image
             src={image}
             alt={imageAlt}
             fill
             priority={priority}
-            className="ca-hero-img mkt-img-graded object-cover"
+            className="ca-hero-img object-cover"
             sizes="(max-width: 1024px) 100vw, 46vw"
           />
         </div>
+        {secondaryImage ? (
+          <div
+            className={cn(
+              "absolute -bottom-5 -right-2 z-20 hidden w-[42%] max-w-[200px] overflow-hidden shadow-[0_16px_40px_rgba(7,59,58,0.12)] ring-1 ring-[#DDE6E3]/80 sm:block",
+              shapeClass[secondaryShape],
+            )}
+          >
+            <div className="relative aspect-[4/3]">
+              <Image
+                src={secondaryImage.src}
+                alt={secondaryImage.alt}
+                fill
+                className="object-cover"
+                sizes="200px"
+              />
+            </div>
+          </div>
+        ) : null}
         {overlayImage ? (
-          <div className="ca-product-frame absolute -bottom-4 -left-4 hidden w-[38%] max-w-[200px] sm:block">
+          <div className="ca-product-frame absolute -bottom-4 -left-4 hidden w-[38%] max-w-[190px] sm:block">
             <div className="relative aspect-[4/3]">
               <Image
                 src={overlayImage.src}
                 alt={overlayImage.alt}
                 fill
                 className="object-cover object-top"
-                sizes="200px"
+                sizes="190px"
               />
             </div>
           </div>
@@ -192,50 +265,46 @@ function ProductComposition({ screens }: { screens: ProductScreen[] }) {
   const [primary, ...secondary] = screens;
 
   return (
-    <Reveal variant="image" className="relative mx-auto w-full max-w-[560px] lg:max-w-none">
+    <Reveal variant="image" className="relative mx-auto w-full max-w-[520px] lg:max-w-none">
       <div className="ca-hero-glow" aria-hidden="true" />
       <ParallaxShape
         variant="arch"
         speed="slow"
-        className="-left-[6%] bottom-[8%] h-[min(220px,35vw)] w-[min(320px,55vw)] bg-[#E1ECE8]/70"
+        className="-left-[6%] bottom-[8%] h-[min(200px,32vw)] w-[min(280px,48vw)] bg-[#E1ECE8]/70"
       />
-      <div className="relative min-h-[280px]">
-        <div className="ca-product-frame relative z-20 mx-auto w-[88%] max-w-[480px]">
-          <div className="relative aspect-[16/10]">
-            <Image
-              src={primary.src}
-              alt={primary.alt}
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 1024px) 88vw, 480px"
-              priority
-            />
-          </div>
+      <div className="relative min-h-[240px]">
+        <div className="ca-product-frame relative z-20 mx-auto w-[90%] max-w-[440px]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={primary.src}
+            alt={primary.alt}
+            width={1440}
+            height={900}
+            className="ca-product-screenshot"
+          />
         </div>
         {secondary[0] ? (
-          <div className="ca-product-frame absolute right-0 top-[18%] z-30 w-[42%] max-w-[220px] shadow-lg">
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={secondary[0].src}
-                alt={secondary[0].alt}
-                fill
-                className="object-cover object-top"
-                sizes="220px"
-              />
-            </div>
+          <div className="ca-product-frame absolute right-0 top-[16%] z-30 w-[40%] max-w-[200px] shadow-lg">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={secondary[0].src}
+              alt={secondary[0].alt}
+              width={800}
+              height={600}
+              className="ca-product-screenshot !max-h-[180px]"
+            />
           </div>
         ) : null}
         {secondary[1] ? (
-          <div className="ca-product-frame absolute bottom-0 left-[4%] z-10 w-[36%] max-w-[180px] opacity-95">
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={secondary[1].src}
-                alt={secondary[1].alt}
-                fill
-                className="object-cover object-top"
-                sizes="180px"
-              />
-            </div>
+          <div className="ca-product-frame absolute bottom-0 left-[4%] z-10 w-[34%] max-w-[160px] opacity-95">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={secondary[1].src}
+              alt={secondary[1].alt}
+              width={800}
+              height={600}
+              className="ca-product-screenshot !max-h-[150px]"
+            />
           </div>
         ) : null}
       </div>
@@ -252,7 +321,10 @@ export default function PageHero({
   imageShape = "arch",
   image,
   imageAlt = "",
+  imageMode = "photo",
+  photoScale = "default",
   overlayImage,
+  secondaryImage,
   productScreens,
   primaryCta,
   secondaryCta,
@@ -301,12 +373,16 @@ export default function PageHero({
   const visual =
     layout === "product" && productScreens?.length ? (
       <ProductComposition screens={productScreens} />
+    ) : image && imageMode === "product" ? (
+      <ProductScreenshot src={image} alt={imageAlt} />
     ) : image ? (
       <HeroImage
         image={image}
         imageAlt={imageAlt}
         imageShape={imageShape}
+        photoScale={photoScale}
         overlayImage={overlayImage}
+        secondaryImage={secondaryImage}
       />
     ) : null;
 
@@ -322,19 +398,28 @@ export default function PageHero({
     >
       <BackgroundAccent
         preset={layout === "product" ? "hero-product" : heroAccent[variant]}
-        intensity="rich"
+        intensity="normal"
       />
-      {variant === "careers" && (
+      {variant === "careers" ? (
         <ParallaxShape
           variant="arch"
           speed="slower"
-          className="right-[6%] top-[10%] h-[min(320px,42vw)] w-[min(420px,50vw)] bg-[#E1ECE8]/60"
+          className="right-[6%] top-[10%] h-[min(280px,38vw)] w-[min(360px,46vw)] bg-[#E1ECE8]/50"
         />
-      )}
+      ) : null}
 
       <div className="mkt-shell relative z-10">
         {layout === "stacked" ? (
           <div className="max-w-3xl">{content}</div>
+        ) : layout === "editorial-wide" ? (
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">{content}</div>
+            {visual ? (
+              <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:self-end">
+                {visual}
+              </div>
+            ) : null}
+          </div>
         ) : (
           <div
             className={cn(

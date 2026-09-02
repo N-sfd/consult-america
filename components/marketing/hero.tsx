@@ -33,8 +33,8 @@ export default function Hero() {
           <motion.h1
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.52, delay: 0.05, ease: revealEase }}
-            className="mt-4 max-w-[38.75rem] font-serif text-[clamp(2.375rem,4vw,4.375rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-[#073B3A]"
+            transition={{ duration: 0.58, delay: 0.05, ease: revealEase }}
+            className="mt-4 max-w-[45rem] font-serif text-[clamp(2.875rem,5vw,4.25rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-[#073B3A]"
           >
             Transform the core.
             <br />
@@ -45,7 +45,7 @@ export default function Hero() {
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: revealEase }}
-            className="mt-5 max-w-[34rem] text-[1.0625rem] leading-relaxed text-[#5B6D6B]"
+            className="mt-5 max-w-[40rem] text-[clamp(1.0625rem,1.1vw,1.1875rem)] leading-[1.62] text-[#5B6D6B]"
           >
             Consult America helps organizations modernize enterprise platforms, activate AI,
             and engineer the applications that move their business forward.
@@ -76,13 +76,13 @@ export default function Hero() {
         </div>
 
         <motion.div
-          initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12, ease: revealEase }}
+          initial={shouldReduceMotion ? {} : { opacity: 0, y: 12, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.78, delay: 0.12, ease: revealEase }}
           className="relative lg:col-span-7"
         >
-          <div className="relative ml-auto w-[92%] max-h-[480px] overflow-hidden ca-hero-shape-arch shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DCE4E1]">
-            <div className="relative aspect-[4/3] w-full max-h-[480px]">
+          <div className="relative ml-auto w-[92%] max-h-[min(31.25rem,46vh)] overflow-hidden ca-hero-shape-arch shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
+            <div className="relative aspect-[4/3] w-full">
               <Image
                 src={stockImage("hero", { w: 1400, q: 85 })}
                 alt="Enterprise technology leaders collaborating"
@@ -92,6 +92,16 @@ export default function Hero() {
                 sizes="(max-width: 1024px) 92vw, 52vw"
               />
             </div>
+          </div>
+          <div className="ca-product-frame absolute -bottom-4 -left-2 z-10 hidden w-[44%] max-w-[240px] sm:block lg:-left-6">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/innovation/data-agent-hero.png"
+              alt="Data Agent enterprise interface"
+              width={1440}
+              height={900}
+              className="ca-product-screenshot !max-h-[160px]"
+            />
           </div>
         </motion.div>
       </div>
