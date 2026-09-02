@@ -1,5 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 
+import FeatureCard from "@/components/marketing/inner-page/feature-card";
+import PageSection from "@/components/marketing/inner-page/page-section";
 import type { DetailPageOutcome } from "@/lib/marketing/detail-page-types";
 
 export default function OutcomeGrid({
@@ -10,24 +12,18 @@ export default function OutcomeGrid({
   items: DetailPageOutcome[];
 }) {
   return (
-    <section className="mkt-section bg-white">
-      <div className="mkt-shell">
-        <h2 className="mkt-section-heading text-[var(--mkt-navy)]">{heading}</h2>
-
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {items.map((item) => (
-            <div key={item.title} className="border-t border-[var(--mkt-border)] pt-6">
-              <CheckCircle2 className="h-5 w-5 text-[var(--mkt-blue)]" />
-              <h3 className="mt-4 text-lg font-medium tracking-[-0.02em] text-[var(--mkt-navy)]">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[var(--mkt-muted)]">
-                {item.description}
-              </p>
-            </div>
-          ))}
-        </div>
+    <PageSection tone="white" eyebrow="Outcomes" title={heading}>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, index) => (
+          <FeatureCard key={item.title} delay={index * 0.08}>
+            <CheckCircle2 className="h-5 w-5 text-[#176A63]" />
+            <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em] text-[#122D2E]">
+              {item.title}
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-[#5B6D6B]">{item.description}</p>
+          </FeatureCard>
+        ))}
       </div>
-    </section>
+    </PageSection>
   );
 }

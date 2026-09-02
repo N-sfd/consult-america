@@ -6,9 +6,9 @@ import SectionLabel from "@/components/marketing/SectionLabel";
 import { listCaseStudies } from "@/data/case-studies";
 
 export const metadata: Metadata = {
-  title: "Work | ConsultAmerica",
+  title: "Work | Consult America",
   description:
-    "Case studies from ConsultAmerica's enterprise transformation, Oracle, and AI & data engagements.",
+    "Case studies from Consult America's enterprise transformation, Oracle, and AI & data engagements.",
 };
 
 export default function CaseStudiesPage() {

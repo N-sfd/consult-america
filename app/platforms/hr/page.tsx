@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Core HR Portal | ConsultAmerica Platforms",
+  title: "Core HR Portal | Consult America Platforms",
   description: "Enterprise Core HR platform for verified employee records, digital onboarding, and compliance.",
 };
 

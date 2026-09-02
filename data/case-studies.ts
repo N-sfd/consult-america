@@ -1,3 +1,5 @@
+import { stockImage } from "@/lib/marketing/stock-images";
+
 export type CaseStudyOutcome = {
   title: string;
   description: string;
@@ -39,8 +41,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
     description:
       "Modernizing finance and procurement for complex multi-entity operations.",
     href: "/work/case-studies/oracle-cloud-transformation",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80",
+    image: stockImage("caseStudyOracle", { w: 1600, q: 80 }),
     imageAlt: "Enterprise finance operations center",
   },
   "ai-document-intelligence": {
@@ -50,8 +51,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
     description:
       "Turning complex contracts into structured, searchable enterprise intelligence.",
     href: "/work/case-studies/ai-document-intelligence",
-    image:
-      "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1600&q=80",
+    image: stockImage("caseStudyAiDocument", { w: 1600, q: 80 }),
     imageAlt: "Document intelligence and data extraction workspace",
   },
   "public-sector-finance-procurement": {
@@ -61,8 +61,7 @@ const RELATED_WORK_POOL: Record<string, CaseStudyRelatedWork> = {
     description:
       "Modernizing finance and procurement for complex government operations.",
     href: "/work/case-studies/public-sector-finance-procurement",
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80",
+    image: stockImage("caseStudyPublicSector", { w: 1600, q: 80 }),
     imageAlt: "Public sector operations and reporting environment",
   },
 };
@@ -95,7 +94,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     challenge:
       "Public-sector finance and procurement environments often span multiple business units, approval paths, legacy integrations, project accounting structures, and reporting requirements. The transformation required more than a system replacement. It required connected processes, stronger controls, and a clear path from design through testing and production readiness.",
     approach:
-      "ConsultAmerica supported an end-to-end transformation approach across financial management, procurement, projects, integrations, testing, reporting, and operational readiness — sequencing the program so legacy processes could be retired without a gap in appropriations tracking, encumbrances, or audit trails.",
+      "Consult America supported an end-to-end transformation approach across financial management, procurement, projects, integrations, testing, reporting, and operational readiness — sequencing the program so legacy processes could be retired without a gap in appropriations tracking, encumbrances, or audit trails.",
     solution:
       "Oracle Cloud Financials and Procurement now operate as a connected system of record, with Project Portfolio Management carrying capital and grant-funded work, integrations replacing manual bridges between agencies, and a shared reporting layer giving finance leadership one auditable source of truth instead of reconciled spreadsheets.",
     outcomes: [
@@ -122,7 +121,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     relatedWork: relatedTo("oracle-cloud-transformation", "ai-document-intelligence"),
     metaDescription:
-      "How ConsultAmerica modernized finance and procurement for a multi-agency public-sector organization on Oracle Cloud.",
+      "How Consult America modernized finance and procurement for a multi-agency public-sector organization on Oracle Cloud.",
   },
 
   "oracle-cloud-transformation": {
@@ -147,7 +146,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     challenge:
       "Each entity had grown its own chart of accounts, approval hierarchy, and close process. A single Oracle Cloud rollout risked breaking close timelines the business depended on if sequencing and data migration weren't handled entity by entity.",
     approach:
-      "ConsultAmerica ran a phased, entity-by-entity migration — standardizing the chart of accounts first, then cutting over financials and procurement per entity with a parallel-close validation step before each legacy system was retired.",
+      "Consult America ran a phased, entity-by-entity migration — standardizing the chart of accounts first, then cutting over financials and procurement per entity with a parallel-close validation step before each legacy system was retired.",
     solution:
       "Oracle Cloud Financials and Procurement now run as the single system of record across every entity, with standardized approval workflows and a consolidated close process that no longer depends on manual entity-by-entity reconciliation.",
     outcomes: [
@@ -169,7 +168,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     relatedWork: relatedTo("public-sector-finance-procurement", "ai-document-intelligence"),
     metaDescription:
-      "How ConsultAmerica modernized finance and procurement across a multi-entity organization on Oracle Cloud.",
+      "How Consult America modernized finance and procurement across a multi-entity organization on Oracle Cloud.",
   },
 
   "ai-document-intelligence": {
@@ -194,7 +193,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     challenge:
       "Contract terms — renewal dates, obligations, pricing structures — existed only inside scanned and native PDFs. Manual review didn't scale, and off-the-shelf extraction tools produced results nobody trusted enough to act on without re-checking the source document.",
     approach:
-      "ConsultAmerica built a document-intelligence pipeline combining extraction, clause detection, and confidence scoring, with a review queue that routes low-confidence extractions to a human reviewer instead of silently guessing.",
+      "Consult America built a document-intelligence pipeline combining extraction, clause detection, and confidence scoring, with a review queue that routes low-confidence extractions to a human reviewer instead of silently guessing.",
     solution:
       "Contracts are now ingested, extracted, and indexed automatically, with structured terms searchable across the organization and a governance layer that keeps a human in the loop wherever extraction confidence drops.",
     outcomes: [
@@ -216,7 +215,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     relatedWork: relatedTo("public-sector-finance-procurement", "oracle-cloud-transformation"),
     metaDescription:
-      "How ConsultAmerica built a production document-intelligence pipeline for contract data at scale.",
+      "How Consult America built a production document-intelligence pipeline for contract data at scale.",
   },
 };
 

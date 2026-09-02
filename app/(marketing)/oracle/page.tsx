@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import ContactCTA from "@/components/detail-pages/ContactCTA";
 import RelatedInsights from "@/components/detail-pages/RelatedInsights";
-import OracleFeature from "@/components/marketing/oracle-feature";
+import OraclePageSections from "@/components/marketing/oracle-page-sections";
 
 export const metadata: Metadata = {
   title: "Oracle | Consult America",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function OraclePage() {
   return (
     <>
-      <OracleFeature headingLevel="h1" linkToDetail={false} />
+      <OraclePageSections />
       <RelatedInsights category="oracle" />
       <ContactCTA headline="Ready to modernize your Oracle estate?" />
     </>

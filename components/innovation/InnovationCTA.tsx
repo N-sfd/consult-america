@@ -39,7 +39,7 @@ export default function InnovationCTA({
         </div>
 
         <p className="mt-10 max-w-2xl border-t border-white/12 pt-8 text-sm leading-6 text-white/40">
-          {productName} is an active build from ConsultAmerica's Innovation
+          {productName} is an active build from ConsultAmerica&apos;s Innovation
           Lab — a working product, not a mockup. Screenshots and functionality
           reflect the live application.
         </p>

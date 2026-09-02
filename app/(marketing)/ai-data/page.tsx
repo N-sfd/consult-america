@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ContactCTA from "@/components/detail-pages/ContactCTA";
 import OutcomeGrid from "@/components/detail-pages/OutcomeGrid";
 import RelatedInsights from "@/components/detail-pages/RelatedInsights";
-import AiDataFeature from "@/components/marketing/ai-data-feature";
+import AiDataPageHero from "@/components/marketing/ai-data-page-hero";
 
 export const metadata: Metadata = {
   title: "AI & Data | Consult America",
@@ -32,7 +32,7 @@ const outcomes = [
 export default function AiDataPage() {
   return (
     <>
-      <AiDataFeature headingLevel="h1" linkToDetail={false} />
+      <AiDataPageHero />
       <OutcomeGrid heading="What good looks like" items={outcomes} />
       <RelatedInsights category="ai-data" />
       <ContactCTA headline="Ready to put AI to work on your data?" />

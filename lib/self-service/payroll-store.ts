@@ -111,7 +111,7 @@ export async function calculatePayrollRun(payPeriodId: string) {
     (e) => e.employmentStatus === "ACTIVE",
   );
 
-  let existing = getRunForPeriod(payPeriodId);
+  const existing = getRunForPeriod(payPeriodId);
   if (existing && existing.status === "LOCKED") {
     throw new Error("This pay period is already locked");
   }

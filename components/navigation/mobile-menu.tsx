@@ -1,26 +1,113 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, ChevronRight, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, ChevronDown, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
+import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
-import { platformLinks, industryLinks } from "@/lib/site-data";
+import {
+  aiDataMegaMenuGrouped,
+  applicationsMegaMenu,
+  companyMegaMenu,
+  industryLinks,
+  oracleMegaMenuGrouped,
+  resourcesMegaMenu,
+  solutionsMegaMenu,
+} from "@/lib/site-data";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
 }
 
-type Level = "root" | "what-we-do" | "applications" | "industries" | "company";
+type AccordionKey =
+  | "solutions"
+  | "oracle"
+  | "ai-data"
+  | "applications"
+  | "industries"
+  | "resources"
+  | "company"
+  | null;
+
+function AccordionSection({
+  title,
+  sectionKey,
+  openSection,
+  setOpenSection,
+  children,
+}: {
+  title: string;
+  sectionKey: AccordionKey;
+  openSection: AccordionKey;
+  setOpenSection: (key: AccordionKey) => void;
+  children: React.ReactNode;
+}) {
+  const isOpen = openSection === sectionKey;
+  const reduceMotion = useReducedMotion();
+  return (
+    <div className="border-b border-[#DCE4E1]">
+      <button
+        type="button"
+        onClick={() => setOpenSection(isOpen ? null : sectionKey)}
+        className="flex min-h-[48px] w-full cursor-pointer items-center justify-between py-4 text-left text-base font-semibold text-[#073B3A]"
+        aria-expanded={isOpen}
+      >
+        {title}
+        <ChevronDown className={`h-4 w-4 opacity-50 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+      </button>
+      {reduceMotion ? (
+        isOpen ? <div className="space-y-2 pb-4">{children}</div> : null
+      ) : (
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="space-y-2 pb-4">{children}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+}
+
+function MobileLinks({
+  links,
+  onClose,
+}: {
+  links: { href: string; label: string }[];
+  onClose: () => void;
+}) {
+  return (
+    <>
+      {links.map((item) => (
+        <Link
+          key={item.label}
+          href={item.href}
+          onClick={onClose}
+          className="block min-h-[44px] py-2.5 text-[0.9375rem] text-[#122D2E] hover:text-[#B83A3A]"
+        >
+          {item.label}
+        </Link>
+      ))}
+    </>
+  );
+}
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
-  const [level, setLevel] = useState<Level>("root");
+  const [openSection, setOpenSection] = useState<AccordionKey>(null);
   const { setOpen: setContactOpen } = useContactPanel();
 
   const handleClose = useCallback(() => {
-    setLevel("root");
+    setOpenSection(null);
     onClose();
   }, [onClose]);
 
@@ -44,7 +131,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 z-[60] bg-[#261F1B]/50 backdrop-blur-[2px] lg:hidden"
+            className="fixed inset-0 z-[100] bg-[#073B3A]/40 backdrop-blur-[2px] min-[1280px]:hidden"
           />
 
           <motion.aside
@@ -52,313 +139,80 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-[#FFFDF8] text-[#261F1B] shadow-[-8px_0_40px_rgba(20,24,28,0.14)] lg:hidden"
+            className="fixed inset-y-0 right-0 z-[100] flex w-full max-w-sm flex-col bg-white text-[#073B3A] shadow-[-8px_0_40px_rgba(7,59,58,0.12)] min-[1280px]:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
           >
-            {/* Drawer Header */}
-            <div className="flex h-16 items-center justify-between border-b border-[#D7CCBD] px-5">
-              {level === "root" ? (
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                  Navigation
-                </p>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setLevel("root")}
-                  className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A] cursor-pointer"
-                >
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                  Back
-                </button>
-              )}
+            <div className="flex h-16 items-center justify-between border-b border-[#DCE4E1] px-5">
+              <ConsultAmericaLogo variant="compact" lockup="compact" href="/" onNavigate={handleClose} />
               <button
                 type="button"
                 onClick={handleClose}
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-[#261F1B] hover:bg-[#F7F9FA] cursor-pointer"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-[#073B3A] hover:bg-[#F0F6F4]"
                 aria-label="Close navigation menu"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* Drawer Body */}
             <nav className="flex-1 overflow-y-auto px-5 pb-8">
-              {level === "root" && (
-                <div className="divide-y divide-[#D7CCBD]">
-                  <button
-                    type="button"
-                    onClick={() => setLevel("what-we-do")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#261F1B]"
-                  >
-                    What We Do
-                    <ChevronRight className="h-4 w-4 opacity-50" />
-                  </button>
+              <AccordionSection title="Solutions" sectionKey="solutions" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks links={[...solutionsMegaMenu.links, ...solutionsMegaMenu.transform]} onClose={handleClose} />
+              </AccordionSection>
 
-                  <Link
-                    href="/oracle"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                  >
-                    Oracle
-                  </Link>
+              <AccordionSection title="Oracle" sectionKey="oracle" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks
+                  links={[
+                    ...oracleMegaMenuGrouped.finance,
+                    ...oracleMegaMenuGrouped.operations,
+                    ...oracleMegaMenuGrouped.platform,
+                  ]}
+                  onClose={handleClose}
+                />
+              </AccordionSection>
 
-                  <Link
-                    href="/platforms/crm"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                  >
-                    CRM &amp; Customer Experience
-                  </Link>
+              <AccordionSection title="AI & Data" sectionKey="ai-data" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks
+                  links={[...aiDataMegaMenuGrouped.ai, ...aiDataMegaMenuGrouped.data]}
+                  onClose={handleClose}
+                />
+              </AccordionSection>
 
-                  <Link
-                    href="/ai-data"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                  >
-                    AI &amp; Data
-                  </Link>
+              <AccordionSection title="Applications" sectionKey="applications" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks
+                  links={[
+                    ...applicationsMegaMenu.build,
+                    ...applicationsMegaMenu.products,
+                    ...applicationsMegaMenu.workforce,
+                  ]}
+                  onClose={handleClose}
+                />
+              </AccordionSection>
 
-                  <button
-                    type="button"
-                    onClick={() => setLevel("applications")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#261F1B]"
-                  >
-                    Applications
-                    <ChevronRight className="h-4 w-4 opacity-50" />
-                  </button>
+              <AccordionSection title="Industries" sectionKey="industries" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks links={industryLinks.map((i) => ({ href: i.href, label: i.label }))} onClose={handleClose} />
+              </AccordionSection>
 
-                  <button
-                    type="button"
-                    onClick={() => setLevel("industries")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#261F1B]"
-                  >
-                    Industries
-                    <ChevronRight className="h-4 w-4 opacity-50" />
-                  </button>
+              <AccordionSection title="Resources" sectionKey="resources" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks links={resourcesMegaMenu.links} onClose={handleClose} />
+              </AccordionSection>
 
-                  <Link
-                    href="/work"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                  >
-                    Our Work
-                  </Link>
-
-                  <Link
-                    href="/insights"
-                    onClick={handleClose}
-                    className="flex min-h-11 items-center py-4 text-base font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                  >
-                    Insights
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={() => setLevel("company")}
-                    className="flex w-full min-h-11 items-center justify-between py-4 text-left text-base font-semibold text-[#261F1B]"
-                  >
-                    Company
-                    <ChevronRight className="h-4 w-4 opacity-50" />
-                  </button>
-
-                  <div className="pt-4 pb-2 space-y-2">
-                    <Link
-                      href="/careers"
-                      onClick={handleClose}
-                      className="block text-sm text-[#526170] hover:text-[#B63A3A]"
-                    >
-                      Careers
-                    </Link>
-                    <Link
-                      href="/login"
-                      onClick={handleClose}
-                      className="block text-sm font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                    >
-                      Employee Portal Login →
-                    </Link>
-                  </div>
-                </div>
-              )}
-
-              {/* WHAT WE DO SUB-PANEL */}
-              {level === "what-we-do" && (
-                <div className="space-y-6 pt-4">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                      Transform
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#B63A3A]">
-                          Enterprise Transformation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/enterprise-transformation" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#B63A3A]">
-                          Operating Model &amp; Process
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#B63A3A]">
-                          Program Delivery &amp; PMO
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                      Modernize &amp; AI
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <Link href="/oracle" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#B63A3A]">
-                          Oracle Transformation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/platforms/crm" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#B63A3A]">
-                          CRM Transformation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/ai-data" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#357C78]">
-                          AI &amp; Data Engineering
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/digital-engineering" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#47739B]">
-                          Cloud Modernization &amp; APIs
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#47739B]">
-                      Build &amp; Operate
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <Link href="/capabilities/digital-engineering" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#47739B]">
-                          Application Engineering
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/platforms" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#47739B]">
-                          Enterprise Portals
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/capabilities/managed-delivery" onClick={handleClose} className="block text-sm text-[#261F1B] hover:text-[#B63A3A]">
-                          Managed Services
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-xl border border-[#DDE4E8] bg-[#F7F9FA] p-4">
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                      Consult America Labs
-                    </p>
-                    <div className="mt-3 space-y-2">
-                      {[
-                        { href: "/work/innovation/data-agent", label: "Data Agent", detail: "AI Document Intelligence" },
-                        { href: "/work/innovation/mediguide-ai", label: "MediGuide AI", detail: "Clinical Intelligence" },
-                        { href: "/platforms/crm", label: "CRM Workspace", detail: "Customer 360 & Deals" },
-                        { href: "/platforms/ats", label: "ATS & Talent", detail: "Recruiting Pipeline" },
-                      ].map((prod) => (
-                        <Link
-                          key={prod.label}
-                          href={prod.href}
-                          onClick={handleClose}
-                          className="block text-xs font-medium text-[#261F1B] hover:text-[#B63A3A]"
-                        >
-                          {prod.label} · <span className="text-[#526170]">{prod.detail}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* APPLICATIONS SUB-PANEL */}
-              {level === "applications" && (
-                <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                    Applications Suite
-                  </p>
-                  {platformLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      onClick={handleClose}
-                      className="block rounded-lg border border-[#DDE4E8] bg-[#F7F9FA] p-3 transition-colors hover:border-[#B63A3A]"
-                    >
-                      <p className="text-sm font-bold text-[#261F1B]">{item.label}</p>
-                      <p className="mt-0.5 text-xs text-[#526170]">{item.detail}</p>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* INDUSTRIES SUB-PANEL */}
-              {level === "industries" && (
-                <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                    Industries
-                  </p>
-                  {industryLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      onClick={handleClose}
-                      className="block border-b border-[#D7CCBD] py-2.5 text-sm font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* COMPANY SUB-PANEL */}
-              {level === "company" && (
-                <div className="space-y-3 pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                    Company
-                  </p>
-                  {[
-                    { href: "/about", label: "About Consult America" },
-                    { href: "/about", label: "Delivery Philosophy" },
-                    { href: "/about", label: "National Delivery Centers" },
-                    { href: "/careers", label: "Careers & Open Positions" },
-                    { href: "/insights", label: "Insights & Publications" },
-                    { href: "/contact", label: "Contact Practice Leads" },
-                  ].map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      onClick={handleClose}
-                      className="block border-b border-[#D7CCBD] py-2.5 text-sm font-semibold text-[#261F1B] hover:text-[#B63A3A]"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <AccordionSection title="Company" sectionKey="company" openSection={openSection} setOpenSection={setOpenSection}>
+                <MobileLinks links={companyMegaMenu.links} onClose={handleClose} />
+                <p className="pt-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#176A63]">Portals</p>
+                <MobileLinks links={companyMegaMenu.portals} onClose={handleClose} />
+              </AccordionSection>
             </nav>
 
-            {/* Drawer Footer CTA */}
-            <div className="border-t border-[#D7CCBD] p-5">
+            <div className="border-t border-[#DCE4E1] p-5">
               <button
                 type="button"
                 onClick={() => {
                   handleClose();
                   setContactOpen(true);
                 }}
-                className="ca-button-primary flex w-full items-center justify-center gap-2 font-semibold cursor-pointer"
+                className="ca-button-primary flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-2 font-semibold"
               >
                 Talk to an Expert
                 <ArrowUpRight className="h-4 w-4" />

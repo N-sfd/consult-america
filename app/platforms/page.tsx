@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Users, UserCheck, FolderGit2, Briefcase, CreditCard } from "lucide-react";
+import { ArrowUpRight, Users, FolderGit2, Briefcase, CreditCard } from "lucide-react";
 
 import SiteHeader from "@/components/navigation/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Enterprise Platforms | ConsultAmerica",
+  title: "Enterprise Platforms | Consult America",
   description:
-    "Explore ConsultAmerica's unified software platform suite: CRM, ATS, Core HR, Employee Self-Service, Workforce Time & Leave, and Payroll.",
+    "Explore Consult America's unified software platform suite: CRM, Core HR, Employee Self-Service, Workforce Time & Leave, and Payroll.",
 };
 
 const PLATFORMS = [
@@ -19,13 +19,6 @@ const PLATFORMS = [
     tagline: "Customer 360 & Pipeline Intelligence",
     description: "Account intelligence, opportunity tracking, deal staging, and customer service governance.",
     icon: Users,
-  },
-  {
-    slug: "ats",
-    name: "ATS & Talent Platform",
-    tagline: "From Requisition to Hire",
-    description: "Job requisitions, candidate pipeline management, interview scoring, and automated offer letters.",
-    icon: UserCheck,
   },
   {
     slug: "hr",
@@ -69,7 +62,7 @@ export default function PlatformsPage() {
               Software built around how enterprise organizations operate.
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-[#695F57]">
-              ConsultAmerica delivers a cohesive suite of production-ready enterprise
+              Consult America delivers a cohesive suite of production-ready enterprise
               applications spanning customer intelligence, hiring, human resources,
               and payroll operations.
             </p>

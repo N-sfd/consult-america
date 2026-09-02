@@ -1,4 +1,4 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
 
 export type BreadcrumbItem = {
   name: string;

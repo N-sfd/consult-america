@@ -26,10 +26,10 @@ export async function generateMetadata({
 }: InnovationDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = getInnovationProductBySlug(slug);
-  if (!product) return { title: "Product Not Found | ConsultAmerica" };
+  if (!product) return { title: "Product Not Found | Consult America" };
 
   return {
-    title: `${product.name} | ConsultAmerica Innovation Lab`,
+    title: `${product.name} | Consult America Innovation Lab`,
     description: product.metaDescription,
   };
 }
@@ -42,7 +42,7 @@ export default async function InnovationDetailPage({
 
   if (!product) notFound();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
   const softwareJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

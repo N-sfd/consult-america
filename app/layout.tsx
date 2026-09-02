@@ -5,6 +5,7 @@ import ContactPanel from "@/components/contact-panel";
 import { ContactProvider } from "@/components/providers/contact-provider";
 
 import "./globals.css";
+import "../styles/marketing.css";
 
 const bodyFont = Inter({
   subsets: ["latin"],
@@ -18,7 +19,7 @@ const displayFont = Source_Serif_4({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,8 +33,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "/brand/ca-mark.svg",
-    apple: "/brand/ca-mark.svg",
+    icon: [{ url: "/favicon.png", sizes: "32x32", type: "image/png" }],
+    apple: "/favicon.png",
   },
   openGraph: {
     type: "website",
@@ -42,6 +43,14 @@ export const metadata: Metadata = {
     title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
     description:
       "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
+    images: [
+      {
+        url: "/brand/ca-logo-horizontal.png",
+        width: 1600,
+        height: 380,
+        alt: "Consult America — Strategy, Technology, Results",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -56,7 +65,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "Consult America",
   url: siteUrl,
-  logo: `${siteUrl}/brand/logo.jpg`,
+  logo: `${siteUrl}/brand/ca-logo-horizontal.png`,
   description:
     "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
   address: {
@@ -83,10 +92,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <ContactProvider>
-          <div className="w-full max-w-[100vw] overflow-x-hidden">
-            {children}
-            <ContactPanel />
-          </div>
+          {children}
+          <ContactPanel />
         </ContactProvider>
       </body>
     </html>

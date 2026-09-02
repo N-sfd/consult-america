@@ -57,6 +57,8 @@ export default async function CapabilityDetailPage({
         focusAreas={page.focusAreas}
         image={page.heroImage}
         imageAlt={page.heroImageAlt}
+        slug={slug}
+        layout={slug === "managed-delivery" ? "split-right" : "split-left"}
       />
       <CapabilityOverview heading="Where we focus" items={page.overview} />
       <OutcomeGrid items={page.outcomes} />

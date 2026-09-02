@@ -1,99 +1,85 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-import SectionLabel from "@/components/marketing/SectionLabel";
-import { ArchImage } from "@/components/marketing/image-system";
+import { stockImage } from "@/lib/marketing/stock-images";
 
-const journeySteps = [
-  { step: "01", name: "DISCOVER", detail: "Account intelligence & intent signals" },
-  { step: "02", name: "ENGAGE", detail: "Personalized multi-channel outreach" },
-  { step: "03", name: "SELL", detail: "Pipeline, quotes & deal governance" },
-  { step: "04", name: "SERVE", detail: "Case deflection & omni-channel support" },
-  { step: "05", name: "EXPAND", detail: "Lifecycle health & contract renewal" },
-];
+const journeySteps = ["DISCOVER", "ENGAGE", "SELL", "SERVE", "EXPAND"];
+const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function CRMShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="crm-cx" className="bg-[#FFFDF8] text-[#261F1B] py-20 sm:py-24 lg:py-28 border-b border-[#D8D0C5]">
-      <div className="ca-shell">
-        <SectionLabel tone="burgundy">CRM &amp; CUSTOMER EXPERIENCE</SectionLabel>
-
-        {/* 50/50 Split: Left Content + Journey, Right Professional Customer-Facing Photography */}
-        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-14">
-          {/* Left Column: Heading, Copy, Journey Steps */}
+    <section id="crm-cx" className="border-b border-[#E1ECE8] bg-white py-14 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
           <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="lg:col-span-6 space-y-6"
+            transition={{ duration: 0.78, ease: revealEase }}
+            className="lg:col-span-6 lg:order-1"
           >
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] text-[#261F1B] leading-[1.08]">
-              Connect every customer moment to the enterprise behind it.
-            </h2>
-
-            <p className="text-base sm:text-lg leading-relaxed text-[#695F57]">
-              CRM delivers real value when customer data, sales, service, and backend ERP operations move together seamlessly without friction or disconnected silos.
-            </p>
-
-            {/* Journey: DISCOVER → ENGAGE → SELL → SERVE → EXPAND */}
-            <div className="pt-2">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63A3A]">
-                Unified Customer Journey
-              </p>
-              <div className="mt-3 grid grid-cols-1 sm:grid-cols-5 gap-2">
-                {journeySteps.map((item) => (
-                  <div
-                    key={item.name}
-                    className="rounded border border-[#D8D0C5] bg-[#F7F3EC] p-2.5 transition-all hover:border-[#B63A3A]"
-                  >
-                    <span className="font-mono text-[0.62rem] font-bold text-[#B63A3A]">
-                      {item.step}
-                    </span>
-                    <h3 className="mt-0.5 text-xs font-bold text-[#261F1B]">
-                      {item.name}
-                    </h3>
-                    <p className="mt-1 text-[0.62rem] leading-tight text-[#695F57]">
-                      {item.detail}
-                    </p>
-                  </div>
-                ))}
+            <div className="ca-home-compose relative mx-auto max-w-[520px] lg:mx-0">
+              <div
+                aria-hidden="true"
+                className="ca-home-ring ca-home-orbit -left-[8%] top-[20%] hidden h-[280px] w-[280px] opacity-40 lg:block"
+              />
+              <div className="ca-home-frame-wide ca-home-photo-overlay relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]">
+                <div className="ca-home-img-major relative aspect-[16/10] w-full max-h-[400px]">
+                  <Image
+                    src={stockImage("crmShowcase", { w: 1200, q: 85 })}
+                    alt="Enterprise customer relationship operations"
+                    fill
+                    className="ca-home-photo object-cover"
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                  />
+                </div>
               </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/platforms/crm"
-                className="ca-button-primary inline-flex items-center gap-2 !min-h-[48px] !px-7 text-sm font-semibold rounded-lg cursor-pointer !bg-[#B63A3A] hover:!bg-[#942E31] text-white"
-              >
-                <span>Explore CRM Solutions</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
             </div>
           </motion.div>
 
-          {/* Right Column: Professional Customer Interaction in Architectural Arch Frame (Shape C) */}
-          <div className="lg:col-span-6">
-            <ArchImage
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=85"
-              alt="Executive enterprise customer relationship and consultation inside modern workspace"
-              showBackingArc={true}
-              overlay={
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#261F1B]/60 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-5 left-5 right-5 rounded-[10px] border border-[#D8D0C5]/60 bg-white/95 p-4 backdrop-blur-md shadow-md text-xs">
-                    <p className="font-bold text-[#261F1B]">Customer 360 &amp; Enterprise Pipeline</p>
-                    <p className="text-[0.68rem] text-[#695F57] mt-0.5">Unified telemetry across Salesforce, Microsoft Dynamics, and Oracle ERP</p>
-                  </div>
-                </>
-              }
-            />
-          </div>
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: revealEase }}
+            className="lg:col-span-6 lg:order-2"
+          >
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+              CRM &amp; Customer Experience
+            </p>
+            <h2 className="mt-4 max-w-xl font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
+              Connect every customer moment to the enterprise behind it.
+            </h2>
+
+            <div className="mt-8 flex flex-wrap gap-2 border-t border-[#DDE6E3] pt-6">
+              {journeySteps.map((step, idx) => (
+                <div
+                  key={step}
+                  className={`rounded-full px-4 py-2 text-[0.68rem] font-bold tracking-[0.1em] ${
+                    idx === 2
+                      ? "bg-[#073B3A] text-white"
+                      : "border border-[#DDE6E3] bg-[#F7FAF9] text-[#073B3A]"
+                  }`}
+                >
+                  {step}
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/platforms/crm"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
+            >
+              Explore CRM
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

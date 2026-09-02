@@ -2,256 +2,144 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
+import HomeBackgroundArc from "@/components/marketing/home-background-arc";
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { stockImage } from "@/lib/marketing/stock-images";
 
-const practiceAreas = [
-  { label: "Oracle", href: "/oracle" },
-  { label: "CRM", href: "/platforms/crm" },
-  { label: "AI + Data", href: "/ai-data" },
-  { label: "Cloud", href: "/capabilities/digital-engineering" },
-  { label: "Application Engineering", href: "/capabilities/digital-engineering" },
-];
+const focusAreas = ["Oracle Cloud", "AI & Data", "Application Engineering", "Managed Delivery"];
+const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function Hero() {
   const { setOpen } = useContactPanel();
   const shouldReduceMotion = useReducedMotion();
-  const sectionRef = useRef<HTMLElement>(null);
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const bgScrollY = useTransform(scrollYProgress, [0, 1], [0, 20]);
-  const fgScrollY = useTransform(scrollYProgress, [0, 1], [0, -12]);
-  const contentScrollY = useTransform(scrollYProgress, [0, 1], [0, 4]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const t = setTimeout(() => setHasEntered(true), 1800);
-    return () => clearTimeout(t);
-  }, [shouldReduceMotion]);
-
-  useEffect(() => {
-    if (shouldReduceMotion || !isDesktop) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const normX = e.clientX / innerWidth - 0.5;
-      const normY = e.clientY / innerHeight - 0.5;
-      setMouseOffset({ x: normX, y: normY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [shouldReduceMotion, isDesktop]);
-
-  const bgPointerX = isDesktop ? mouseOffset.x * 3 : 0;
-  const bgPointerY = isDesktop ? mouseOffset.y * 3 : 0;
-  const fgPointerX = isDesktop ? mouseOffset.x * 7 : 0;
-  const fgPointerY = isDesktop ? mouseOffset.y * 7 : 0;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full max-w-[100vw] overflow-hidden min-h-[clamp(520px,72vh,920px)] flex items-center bg-[#211E1B] border-b border-[#3A302B]"
-    >
-      {/* Photographic architecture — clipped inside section */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden lg:inset-y-0 lg:left-auto lg:right-0 lg:w-[58%] xl:w-[55%]">
-          {/* BACK LAYER: inset -2%, image 104%, cinematic drift */}
-          <motion.div
-            style={shouldReduceMotion ? {} : { y: bgScrollY }}
-            className="absolute inset-[-2%] overflow-hidden"
+    <section className="ca-grad-hero ca-home-hero-grid relative overflow-hidden border-b border-[#E1ECE8] py-[90px] sm:py-[100px] lg:py-[110px]">
+      <HomeBackgroundArc className="-right-[12%] top-[8%] opacity-90" />
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[1440px] grid-cols-1 items-center gap-10 px-6 lg:grid-cols-12 lg:gap-12 lg:px-8 xl:px-10">
+        <div className="lg:col-span-5">
+          <motion.p
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: revealEase }}
+            className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]"
           >
-            <motion.div
-              initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.045 }}
-              animate={
-                shouldReduceMotion
-                  ? { scale: 1 }
-                  : hasEntered
-                    ? {
-                        scale: isDesktop ? [1.02, 1.035, 1.02] : [1.015, 1.025, 1.015],
-                        x: isDesktop ? [0 + bgPointerX, -8 + bgPointerX, 0 + bgPointerX] : 0,
-                        y: isDesktop ? [0 + bgPointerY, -4 + bgPointerY, 0 + bgPointerY] : [0, -4, 0],
-                      }
-                    : { scale: 1.02 }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0.01 }
-                  : hasEntered
-                    ? {
-                        scale: { duration: isDesktop ? 20 : 24, repeat: Infinity, ease: "easeInOut" },
-                        x: { duration: 20, repeat: Infinity, ease: "easeInOut" },
-                        y: { duration: 20, repeat: Infinity, ease: "easeInOut" },
-                      }
-                    : { duration: 1.8, ease: [0.2, 0.8, 0.2, 1] }
-              }
-              className="relative h-full w-full ca-shape-hero-mask"
+            Enterprise Technology + AI
+          </motion.p>
+
+          <motion.h1
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.58, delay: 0.05, ease: revealEase }}
+            className="mt-4 max-w-[42.5rem] font-serif text-[clamp(3.125rem,4.7vw,4.25rem)] font-semibold leading-[1.0] tracking-[-0.035em] text-[#073B3A]"
+          >
+            Transform the core.
+            <br />
+            Build what&apos;s next.
+          </motion.h1>
+
+          <motion.p
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: revealEase }}
+            className="mt-5 max-w-[36rem] text-[clamp(1.0625rem,1.1vw,1.1875rem)] leading-[1.62] text-[#5B6D6B]"
+          >
+            Consult America helps organizations modernize enterprise platforms, activate AI,
+            and engineer the applications that move their business forward.
+          </motion.p>
+
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: revealEase }}
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#B83A3A] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#992F31]"
             >
-              <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2600&q=90"
-                alt="Consult America Enterprise Technology Architecture"
-                fill
-                priority
-                quality={92}
-                className="object-cover object-center scale-[1.04] filter contrast-[1.04] brightness-[0.96]"
-                sizes="55vw"
-              />
-            </motion.div>
+              Talk to an Expert
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
+            <Link
+              href="/capabilities"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#C9DDD7] bg-white px-6 text-sm font-semibold text-[#073B3A] transition-colors hover:border-[#176A63]"
+            >
+              Explore Our Capabilities
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </motion.div>
 
-          {/* FRONT LAYER: independent drift + pointer depth */}
-          {!shouldReduceMotion && (
-            <motion.div
-              style={isDesktop ? { y: fgScrollY } : {}}
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-                y: isDesktop
-                  ? [0 + fgPointerY, -8 + fgPointerY, 0 + fgPointerY]
-                  : [0, -4, 0],
-                x: isDesktop
-                  ? [0 + fgPointerX, 5 + fgPointerX, 0 + fgPointerX]
-                  : 0,
-              }}
-              transition={{
-                opacity: { duration: 1.2, delay: 0.5 },
-                y: { duration: isDesktop ? 10 : 18, repeat: Infinity, ease: "easeInOut" },
-                x: { duration: isDesktop ? 10 : 18, repeat: Infinity, ease: "easeInOut" },
-              }}
-              className="absolute bottom-[10%] right-[6%] sm:right-[8%] z-[2] w-[34%] max-w-[260px] aspect-[4/5] overflow-hidden rounded-t-[70px] rounded-b-[16px] border border-[#D8D0C5]/25 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=85"
-                alt=""
-                fill
-                className="object-cover mkt-img-graded"
-                sizes="260px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#211E1B]/50 via-transparent to-transparent" />
-            </motion.div>
-          )}
-
-          {/* Brand arc — inside photo column, clipped */}
-          <div
-            className="ca-brand-arc-motif top-[-5rem] right-[8%] w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] opacity-20 pointer-events-none"
-            aria-hidden="true"
-          />
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22, ease: revealEase }}
+            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-[#DDE6E3] pt-6"
+          >
+            {focusAreas.map((area) => (
+              <span key={area} className="text-sm font-medium text-[#5B6D6B]">
+                {area}
+              </span>
+            ))}
+          </motion.div>
         </div>
 
-        <div
-          className="absolute inset-0 z-[1] pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(33,30,27,0.98) 0%, rgba(33,30,27,0.92) 38%, rgba(33,30,27,0.55) 62%, rgba(33,30,27,0.15) 100%)",
-          }}
-        />
-        <div className="absolute inset-0 z-[1] bg-radial-[circle_at_15%_25%] from-[#B63A3A]/8 via-transparent to-transparent pointer-events-none" />
-      </div>
+        <div className="relative lg:col-span-7">
+          <div className="ca-home-compose relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0">
+            {/* Layer 1 — pale sage disc + ring */}
+            <div
+              aria-hidden="true"
+              className="ca-home-sage-disc ca-home-moving--slow right-[-6%] top-[-8%] hidden h-[min(480px,48vw)] w-[min(480px,48vw)] opacity-70 lg:block"
+            />
+            <div
+              aria-hidden="true"
+              className="ca-home-ring right-[2%] top-[2%] hidden h-[min(360px,38vw)] w-[min(360px,38vw)] lg:block"
+            />
 
-      <motion.div
-        style={shouldReduceMotion ? {} : { y: contentScrollY, opacity: contentOpacity }}
-        className="ca-shell relative z-10 w-full max-w-full py-20 sm:py-24 lg:py-32"
-      >
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-center">
-          <div className="lg:col-span-6 xl:col-span-5 space-y-8 min-w-0">
+            {/* Layer 2 — primary photo */}
             <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 rounded-full border border-[#D8D0C5]/30 bg-[#2B2420]/80 px-3.5 py-1 text-xs font-semibold text-[#D8C5AA] backdrop-blur-sm max-w-full"
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.12, ease: revealEase }}
+              className="ca-home-frame-offset ca-home-photo-overlay relative z-10 mx-auto w-[92%] max-w-[680px] shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3] sm:w-[88%] lg:ml-auto lg:mr-[4%]"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#B63A3A] shrink-0" />
-              <span className="truncate sm:whitespace-normal">ENTERPRISE TRANSFORMATION &amp; CLOUD ARCHITECTURE</span>
-            </motion.div>
-
-            <motion.h1
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-serif text-4xl font-bold tracking-tight text-[#FFFDF8] sm:text-5xl lg:text-6xl sm:leading-[1.08]"
-            >
-              Transform the core.
-              <br />
-              <span className="text-[#D8C5AA] italic font-serif">
-                Build what comes next.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg leading-relaxed text-[rgba(255,253,248,0.78)] max-w-xl"
-            >
-              We advise, build, and run production transformations across Oracle Cloud, enterprise AI, data engineering, and bespoke software systems.
-            </motion.p>
-
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
-              <button
-                type="button"
-                onClick={() => setOpen(true)}
-                className="group inline-flex items-center gap-2 rounded-lg bg-[#B63A3A] px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[#942E31] cursor-pointer"
-              >
-                <span>Talk to a Practice Lead</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
-
-              <Link
-                href="/work"
-                className="inline-flex items-center gap-2 rounded-lg border border-[#D8D0C5]/40 bg-white/5 px-6 py-3.5 text-sm font-semibold text-[#FFFDF8] backdrop-blur-sm transition-all hover:bg-white/10 hover:border-[#D8D0C5]"
-              >
-                <span>Explore Selected Work</span>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="pt-4 border-t border-[#3A302B]"
-            >
-              <p className="text-[0.68rem] font-bold uppercase tracking-widest text-[#D8C5AA]/70 mb-3">
-                CORE PRACTICES
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {practiceAreas.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="inline-flex items-center rounded-md border border-[#D8D0C5]/20 bg-[#2B2420]/60 px-3 py-1 text-xs font-medium text-[#FFFDF8]/80 hover:text-white hover:border-[#B63A3A] transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              <div className="ca-home-img-hero relative aspect-[3/2] w-full">
+                <Image
+                  src={stockImage("hero", { w: 1400, q: 85 })}
+                  alt="Enterprise technology leaders collaborating"
+                  fill
+                  priority
+                  className="ca-home-photo object-cover object-center"
+                  sizes="(max-width: 1024px) 92vw, 46vw"
+                />
               </div>
+            </motion.div>
+
+            {/* Layer 3 — product UI + connector */}
+            <div aria-hidden="true" className="ca-home-connector bottom-[22%] left-[28%] z-20 hidden lg:block" />
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.24, ease: revealEase }}
+              className="ca-home-product-ui absolute -bottom-3 left-0 z-30 w-[min(340px,58%)] max-w-[340px] sm:-bottom-4 sm:left-2 lg:-left-2"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/innovation/data-agent-hero.png"
+                alt="Data Agent enterprise interface"
+                width={1440}
+                height={900}
+                className="max-h-[170px] w-full object-cover object-top"
+              />
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

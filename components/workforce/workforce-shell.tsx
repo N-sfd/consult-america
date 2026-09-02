@@ -17,7 +17,7 @@ import {
   Wallet,
 } from "lucide-react";
 
-import BrandLogo from "@/components/brand/brand-logo";
+import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -92,7 +92,7 @@ export default function WorkforceShell({
     <div className="min-h-screen bg-[var(--ca-app-bg)] text-[var(--ca-app-ink)]">
       <header className="sticky top-0 z-40 border-b border-black/8 bg-white">
         <div className="flex h-14 items-center gap-4 px-4 lg:px-5">
-          <BrandLogo href="/workforce" tone="dark" markClassName="h-7 w-auto" />
+          <ConsultAmericaLogo href="/workforce" variant="light" size="compact" showTagline={false} />
 
           <div className="mx-auto hidden max-w-md flex-1 md:block">
             <label className="relative block">

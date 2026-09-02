@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface SectionLabelProps {
   children: React.ReactNode;
-  tone?: "light" | "dark" | "blue" | "burgundy" | "sage" | "teal" | "red";
+  tone?: "light" | "dark" | "blue" | "burgundy" | "sage" | "teal" | "red" | "emerald";
   className?: string;
 }
 
@@ -15,11 +15,12 @@ export default function SectionLabel({
     <span
       className={cn(
         "mkt-eyebrow inline-flex items-center gap-1.5",
-        tone === "light" && "text-[#97A8B7]",
-        tone === "dark" && "text-[#526170]",
-        tone === "blue" && "text-[#47739B]",
-        (tone === "burgundy" || tone === "red") && "text-[#B63A3A]",
-        (tone === "sage" || tone === "teal") && "text-[#357C78]",
+        tone === "light" && "text-white/80",
+        tone === "dark" && "text-[#5B6D6B]",
+        tone === "blue" && "text-[#176A63]",
+        (tone === "burgundy" || tone === "red") && "text-[#B83A3A]",
+        (tone === "sage" || tone === "teal") && "text-[#176A63]",
+        tone === "emerald" && "text-[#9BC4B8]",
         className,
       )}
     >

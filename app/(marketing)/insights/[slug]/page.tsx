@@ -23,11 +23,11 @@ export async function generateMetadata({
   const insight = getInsightBySlug(slug);
 
   if (!insight) {
-    return { title: "Insight Not Found | ConsultAmerica" };
+    return { title: "Insight Not Found | Consult America" };
   }
 
   return {
-    title: `${insight.title} | ConsultAmerica Insights`,
+    title: `${insight.title} | Consult America Insights`,
     description: insight.summary,
   };
 }
@@ -43,7 +43,7 @@ export default async function InsightDetailPage({
   }
 
   const related = getRelatedInsights(insight.slug, 3);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -61,7 +61,7 @@ export default async function InsightDetailPage({
       name: "Consult America",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/brand/logo.jpg`,
+        url: `${siteUrl}/brand/ca-logo-horizontal.png`,
       },
     },
     mainEntityOfPage: {

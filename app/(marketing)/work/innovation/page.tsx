@@ -1,48 +1,103 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
-import EditorialHeading from "@/components/marketing/EditorialHeading";
-import SectionLabel from "@/components/marketing/SectionLabel";
 import ProductCard from "@/components/innovation/ProductCard";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import Reveal from "@/components/marketing/inner-page/reveal";
 import { listInnovationProducts } from "@/data/innovation-products";
+import { portfolioProjects } from "@/lib/marketing/portfolio-data";
+
+const strategicSlugs = ["mediguide-ai", "joblens"];
+const otherApps = portfolioProjects.filter((project) => project.tier === 3);
 
 export const metadata: Metadata = {
-  title: "Innovation & Products | ConsultAmerica",
+  title: "Applications | Consult America",
   description:
-    "AI platforms and digital products built by ConsultAmerica's Innovation Lab — working technology, not just consulting claims.",
+    "Application engineering portfolio — Data Agent, MediGuide, JobLens, and focused enterprise products.",
 };
 
 export default function InnovationPage() {
   const products = listInnovationProducts();
+  const flagship = products.find((p) => p.slug === "data-agent");
+  const strategic = products.filter((p) => strategicSlugs.includes(p.slug));
 
   return (
     <>
-      <section className="mkt-section bg-[var(--mkt-cloud)] text-[var(--mkt-navy)]">
-        <div className="mkt-shell">
-          <SectionLabel tone="blue">Innovation &amp; Products</SectionLabel>
-          <EditorialHeading
-            as="h1"
-            size="hero"
-            className="mt-7 max-w-2xl text-[var(--mkt-navy)]"
-          >
-            We don&apos;t just advise. We build.
-          </EditorialHeading>
-          <p className="mkt-body-lg mt-7 max-w-lg">
-            AI platforms and digital products developed to turn emerging
-            technologies into working business experiences — built by
-            ConsultAmerica&apos;s Innovation Lab, not slideware.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        variant="applications"
+        layout="product"
+        eyebrow="Application Engineering"
+        title="Build where packaged software stops."
+        description="Design and engineer focused applications around real operational needs."
+        productScreens={[
+          { src: "/innovation/data-agent-hero.png", alt: "Data Agent platform" },
+          { src: "/innovation/mediguide-hero.png", alt: "MediGuide AI" },
+          { src: "/innovation/joblens-hero.png", alt: "JobLens" },
+        ]}
+        primaryCta={{ label: "Explore Data Agent", href: "/work/innovation/data-agent" }}
+        secondaryCta={{ label: "View portfolio", href: "#portfolio", variant: "secondary" }}
+      />
 
-      <section className="mkt-section bg-white">
-        <div className="mkt-shell">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-            {products.map((product, index) => (
-              <ProductCard key={product.slug} product={product} index={index} />
-            ))}
-          </div>
+      <PageSection id="portfolio" tone="soft" eyebrow="Flagship" title="Data Agent">
+        {flagship ? (
+          <Reveal>
+            <div className="max-w-2xl">
+              <ProductCard product={flagship} index={0} />
+            </div>
+          </Reveal>
+        ) : null}
+      </PageSection>
+
+      <PageSection tone="white" eyebrow="Strategic Applications" title="Products from delivery programs.">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {strategic.map((product, index) => (
+            <Reveal key={product.slug} delay={index * 0.08}>
+              <ProductCard product={product} index={index + 1} />
+            </Reveal>
+          ))}
+          <Reveal delay={0.16}>
+            <Link
+              href="/ai-data"
+              className="ca-feature-card flex h-full flex-col justify-between rounded-2xl border border-[#C9DDD7] bg-[#F8FAF9] p-5"
+            >
+              <div>
+                <h3 className="font-semibold text-[#122D2E]">Data Explorer</h3>
+                <p className="mt-2 text-sm text-[#5B6D6B]">Enterprise analytics and repository intelligence.</p>
+              </div>
+              <span className="mt-4 text-sm font-semibold text-[#B83A3A]">Explore →</span>
+            </Link>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <Link
+              href="/capabilities/digital-engineering"
+              className="ca-feature-card flex h-full flex-col justify-between rounded-2xl border border-[#C9DDD7] bg-[#F8FAF9] p-5"
+            >
+              <div>
+                <h3 className="font-semibold text-[#122D2E]">Convera</h3>
+                <p className="mt-2 text-sm text-[#5B6D6B]">API gateway and enterprise message hub.</p>
+              </div>
+              <span className="mt-4 text-sm font-semibold text-[#B83A3A]">Explore →</span>
+            </Link>
+          </Reveal>
         </div>
-      </section>
+      </PageSection>
+
+      <PageSection tone="sage" eyebrow="Other Applications" title="Additional portfolio products.">
+        <div className="flex flex-wrap gap-2">
+          {otherApps.map((app) => (
+            <a
+              key={app.id}
+              href={app.liveUrl ?? app.detailHref}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-[#C9DDD7] bg-white px-4 py-2 text-sm font-medium text-[#5B6D6B] transition-colors hover:border-[#176A63] hover:text-[#176A63]"
+            >
+              {app.name}
+            </a>
+          ))}
+        </div>
+      </PageSection>
     </>
   );
 }

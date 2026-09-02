@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import SectionLabel from "@/components/marketing/SectionLabel";
-import { offices } from "@/lib/site-data";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import FeatureCard from "@/components/marketing/inner-page/feature-card";
+import Reveal from "@/components/marketing/inner-page/reveal";
+import { deliveryPhases, capabilityGroups, offices } from "@/lib/site-data";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Company & Leadership | ConsultAmerica",
+  title: "Company & Leadership | Consult America",
   description:
-    "ConsultAmerica connects business strategy, Oracle transformation, AI intelligence, and application engineering from early architecture through production delivery.",
+    "Consult America connects business strategy, Oracle transformation, AI intelligence, and application engineering from early architecture through production delivery.",
 };
 
 const leadershipPrinciples = [
@@ -32,86 +36,78 @@ const leadershipPrinciples = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="mkt-hero-bg mkt-editorial-texture pt-20 pb-16 lg:pt-28 lg:pb-24">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">About Consult America</SectionLabel>
-          <h1 className="mt-6 max-w-4xl text-4xl font-serif font-semibold tracking-[-0.03em] text-[#101828] sm:text-5xl lg:text-6xl">
-            A technology delivery firm built for high-stakes enterprise programs.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#475467] sm:text-xl">
-            We connect business strategy, Oracle Cloud platforms, data intelligence,
-            and digital application engineering so transformation reaches production
-            with less friction and measurable business return.
-          </p>
+      <PageHero
+        variant="company"
+        layout="split-left"
+        imageShape="arch"
+        photoScale="editorial"
+        eyebrow="Company"
+        title="Built to move from strategy to production."
+        description="We connect Oracle Cloud, data intelligence, and application engineering so transformation reaches production with measurable business return."
+        image={stockImage("introduction", { w: 1200, q: 82 })}
+        imageAlt="Consult America team and delivery environment"
+        primaryCta={{ label: "Start a conversation", href: "/contact" }}
+        secondaryCta={{ label: "Explore careers", href: "/careers", variant: "secondary" }}
+      />
+
+      <PageSection tone="soft" eyebrow="Delivery Philosophy" title="Strategy that stays connected to the code.">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {leadershipPrinciples.map((item, index) => (
+            <FeatureCard key={item.num} delay={index * 0.08}>
+              <span className="font-serif text-2xl font-normal text-[#B83A3A]">{item.num}</span>
+              <h3 className="mt-3 text-lg font-semibold text-[#122D2E]">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#5B6D6B]">{item.desc}</p>
+            </FeatureCard>
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* Leadership Philosophy */}
-      <section className="mkt-section bg-[#FCFCFD] text-[#101828] border-t border-[#E2E7EC]">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">Delivery Philosophy</SectionLabel>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-            Strategy that stays connected to the code.
-          </h2>
-
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {leadershipPrinciples.map((item) => (
-              <div
-                key={item.num}
-                className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-8 shadow-[0_8px_24px_rgba(20,30,45,0.04)]"
-              >
-                <span className="font-serif text-2xl font-normal text-[#B63838]">
-                  {item.num}
-                </span>
-                <h3 className="mt-3 text-lg font-bold text-[#101828]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#475467]">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+      <PageSection
+        id="how-we-work"
+        tone="white"
+        eyebrow="How We Work"
+        title="One delivery motion, five practices."
+        lead="Every engagement moves through the same disciplined phases — strategy through deployment."
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          {deliveryPhases.map((phase, index) => (
+            <Reveal key={phase} delay={index * 0.04}>
+              <span className="ca-step-pill">{phase}</span>
+            </Reveal>
+          ))}
         </div>
-      </section>
 
-      {/* Delivery Hubs & Offices */}
-      <section className="mkt-section bg-[#F7F8FA] text-[#101828] border-t border-[#E2E7EC]">
-        <div className="mkt-shell">
-          <SectionLabel tone="burgundy">Delivery Locations</SectionLabel>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-[-0.02em] text-[#101828] sm:text-4xl">
-            National delivery centers and client hubs.
-          </h2>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {offices.map((office) => (
-              <div
-                key={office.city}
-                className="rounded-xl border border-[#E2E7EC] bg-[#FFFFFF] p-6 shadow-2xs"
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {capabilityGroups.map((group, index) => (
+            <Reveal key={group.title} delay={index * 0.05}>
+              <Link
+                href={group.href}
+                className="ca-feature-card ca-feature-card--hover group block rounded-xl border border-[#E1ECE8] bg-[#F8FAF9] p-5"
               >
-                <p className="text-lg font-bold text-[#101828]">{office.city}</p>
-                <p className="mt-2 text-xs leading-relaxed text-[#475467]">
-                  {office.detail}
+                <p className="text-sm font-bold text-[#122D2E] group-hover:text-[#B83A3A]">
+                  {group.title}
                 </p>
-              </div>
-            ))}
-          </div>
+                <p className="mt-2 text-xs leading-relaxed text-[#5B6D6B]">
+                  {group.description}
+                </p>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
 
-          <div className="mt-14 border-t border-[#E2E7EC] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-[#475467]">
-              Looking to discuss an enterprise transformation or engineering engagement?
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[#C9DDD7] pt-8 sm:flex-row sm:items-center">
+          <div>
+            <p className="text-sm font-semibold text-[#122D2E]">National delivery centers</p>
+            <p className="mt-2 text-sm text-[#5B6D6B]">
+              {offices.map((office) => office.city).join(" · ")}
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-md bg-[#B63838] px-6 py-3 text-sm font-semibold text-white hover:bg-[#8F292D] transition-colors cursor-pointer"
-            >
-              <span>Start a conversation</span>
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
           </div>
+          <Link href="/contact" className="ca-button-primary inline-flex items-center gap-2">
+            Start a conversation
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
         </div>
-      </section>
+      </PageSection>
     </>
   );
 }

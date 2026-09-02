@@ -2,14 +2,16 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import InsightCard from "@/components/marketing/InsightCard";
-import SectionLabel from "@/components/marketing/SectionLabel";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import Reveal from "@/components/marketing/inner-page/reveal";
 import { insightCategoryLabels, type InsightCategory } from "@/data/insights";
 import { getInsightsByCategory } from "@/lib/insights";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=75",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=75",
+  stockImage("relatedInsights1", { w: 1200, q: 80 }),
+  stockImage("relatedInsights2", { w: 900, q: 75 }),
+  stockImage("relatedInsights3", { w: 900, q: 75 }),
 ];
 
 export default function RelatedInsights({
@@ -25,20 +27,25 @@ export default function RelatedInsights({
   if (insights.length === 0) return null;
 
   return (
-    <section className="mkt-section border-t border-[var(--mkt-border)] bg-white">
-      <div className="mkt-shell">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionLabel tone="dark">Related Insights</SectionLabel>
-          <Link href="/insights" className="ca-link">
-            All insights
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <div className="mt-8 grid gap-8 sm:grid-cols-2">
-          {insights.map((insight, index) => (
+    <PageSection
+      tone="sage"
+      eyebrow="Related Insights"
+      title="Continue reading"
+      headerClassName="!mb-8"
+    >
+      <div className="mb-8 flex justify-end">
+        <Link
+          href="/insights"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]"
+        >
+          All insights
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
+      </div>
+      <div className="grid gap-8 sm:grid-cols-2">
+        {insights.map((insight, index) => (
+          <Reveal key={insight.slug} delay={index * 0.1}>
             <InsightCard
-              key={insight.slug}
               href={`/insights/${insight.slug}`}
               image={FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
               imageAlt={insight.title}
@@ -46,9 +53,9 @@ export default function RelatedInsights({
               title={insight.title}
               readingTime={insight.readingTime}
             />
-          ))}
-        </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </PageSection>
   );
 }

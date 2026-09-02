@@ -1,4 +1,5 @@
 import type { DetailPageContent } from "@/lib/marketing/detail-page-types";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const industryPages: Record<string, DetailPageContent> = {
   "government-public-sector": {
@@ -8,8 +9,7 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Modernize public-sector operations without losing control.",
     description:
       "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery with the controls and accountability oversight requires.",
-    heroImage:
-      "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("industryPageGovernment", { w: 1600, q: 80 }),
     heroImageAlt: "Legislative chamber interior",
     focusAreas: [
       "Public Finance",
@@ -67,11 +67,10 @@ export const industryPages: Record<string, DetailPageContent> = {
     slug: "financial-services",
     kicker: "Industries",
     title: "Financial Services",
-    headline: "Operational control across finance, data, and platforms.",
+    headline: "Modernize operations without losing control.",
     description:
-      "Connect finance, data, automation, reporting, and enterprise platforms for the operational control regulated institutions need.",
-    heroImage:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1600&q=80",
+      "Connect financial operations, data, governance and enterprise systems across complex regulated environments.",
+    heroImage: stockImage("industryPageFinancial", { w: 1600, q: 80 }),
     heroImageAlt: "Financial operations and market data environment",
     focusAreas: [
       "Core Finance Systems",
@@ -131,8 +130,7 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Modernize operations without disrupting care.",
     description:
       "Modernize enterprise operations, workforce, financial systems, and clinical technology environments while protecting continuity of care.",
-    heroImage:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("industryPageHealthcare", { w: 1600, q: 80 }),
     heroImageAlt: "Clinical technology and healthcare systems",
     focusAreas: [
       "Clinical Systems",
@@ -192,8 +190,7 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Connected commerce. Smarter operations.",
     description:
       "We help retail and consumer organizations modernize commerce, product discovery, customer experience, inventory visibility, data, and intelligent automation.",
-    heroImage:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("industryPageRetail", { w: 1600, q: 80 }),
     heroImageAlt: "Retail commerce and product discovery environment",
     focusAreas: [
       "Digital Commerce",
@@ -253,8 +250,7 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Modernize the systems behind the network.",
     description:
       "Improve asset, project, procurement, workforce, and operational processes across transportation and infrastructure organizations.",
-    heroImage:
-      "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("industryPageTransportation", { w: 1600, q: 80 }),
     heroImageAlt: "Transportation infrastructure and logistics network",
     focusAreas: [
       "Asset Management",
@@ -314,8 +310,7 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Build platforms that scale with the business.",
     description:
       "Scale enterprise platforms, automate operations, integrate systems, and turn data into decisions for technology and software organizations.",
-    heroImage:
-      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1600&q=80",
+    heroImage: stockImage("industryPageTechnology", { w: 1600, q: 80 }),
     heroImageAlt: "Engineering and data technology environment",
     focusAreas: [
       "Cloud-Native Applications",

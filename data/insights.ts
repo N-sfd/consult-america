@@ -71,7 +71,7 @@ export const insightCategoryHeadings: Record<InsightCategory, string> = {
 
 const defaultCta: InsightCta = {
   headline: "We solve complex enterprise problems through strategy, technology and execution.",
-  body: "ConsultAmerica partners with leaders on Oracle, AI, data, and transformation programs that have to work in production—not only in workshops.",
+  body: "Consult America partners with leaders on Oracle, AI, data, and transformation programs that have to work in production—not only in workshops.",
   primaryHref: "/oracle",
   primaryLabel: "Explore Oracle",
   secondaryHref: "/contact",
@@ -91,7 +91,7 @@ export const insights: Insight[] = [
     featured: true,
     body: [
       "Most Oracle Fusion programs do not stall because of missing configuration knowledge. They stall when the operating model, process ownership, and cutover decisions remain unresolved after workshops feel complete.",
-      "ConsultAmerica approaches Fusion delivery as enterprise transformation: process design, solution architecture, integration, testing, adoption, and production support working as one program.",
+      "Consult America approaches Fusion delivery as enterprise transformation: process design, solution architecture, integration, testing, adoption, and production support working as one program.",
     ],
     introduction: [
       "Oracle Cloud transformations succeed when strategy, data, integration, and execution are treated as one operating system—not as a sequence of disconnected workstreams.",
@@ -171,7 +171,7 @@ export const insights: Insight[] = [
           "Convert what the business must operate and audit on day one. Archive the rest with a retrieval path. History volume without reconciliation owners slows conversion and confuses hypercare.",
       },
       {
-        question: "What does ConsultAmerica own in these programs?",
+        question: "What does Consult America own in these programs?",
         answer:
           "We partner across strategy, Oracle architecture, integration, testing, cutover, and production support—so transformation is measured by what runs, not by what was designed.",
       },
@@ -388,19 +388,19 @@ export const insights: Insight[] = [
     slug: "consultamerica-careers-platform-direction",
     title: "Building the foundation for careers and delivery talent",
     summary:
-      "How ConsultAmerica is connecting public careers experiences to a future recruiting and HR platform.",
+      "How Consult America is connecting public careers experiences to a future recruiting and HR platform.",
     category: "news",
     publishedAt: "2026-08-20",
     updatedAt: "2026-08-20",
     readingTime: "3 min",
     body: [
-      "ConsultAmerica is expanding its digital platform from corporate marketing into careers, recruiting, and eventual employee experiences.",
+      "Consult America is expanding its digital platform from corporate marketing into careers, recruiting, and eventual employee experiences.",
       "The public careers and jobs experience is intentionally designed as the front door to a later ATS and HR foundation—without exposing internal administration on the marketing site.",
       "The architectural rule is simple: Candidate becomes Employee through hire conversion, not through disconnected databases.",
       "This foundation supports long-term delivery capacity across Oracle, AI, data, and enterprise transformation programs.",
     ],
     introduction: [
-      "ConsultAmerica is expanding its digital platform from corporate marketing into careers, recruiting, and eventual employee experiences.",
+      "Consult America is expanding its digital platform from corporate marketing into careers, recruiting, and eventual employee experiences.",
     ],
     sections: [
       {

@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Enterprise Payroll | ConsultAmerica Platforms",
+  title: "Enterprise Payroll | Consult America Platforms",
   description: "Enterprise payroll platform for automated pay runs, deductions, tax reporting, and GL export.",
 };
 

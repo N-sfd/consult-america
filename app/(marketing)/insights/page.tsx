@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import InsightsIndex from "@/components/insights/insights-index";
-import { Section, SectionEyebrow, SectionLead } from "@/components/section";
+import { PageHero } from "@/components/marketing/inner-page";
+import PageSection from "@/components/marketing/inner-page/page-section";
+import FeatureCard from "@/components/marketing/inner-page/feature-card";
 import {
   getFeaturedInsights,
   getInsightCategories,
@@ -10,11 +12,12 @@ import {
   formatInsightDate,
 } from "@/lib/insights";
 import { insightCategoryLabels } from "@/data/insights";
+import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Insights | ConsultAmerica",
+  title: "Insights | Consult America",
   description:
-    "Practical notes on Oracle, AI & data, enterprise transformation, and industry delivery from ConsultAmerica.",
+    "Practical notes on Oracle, AI & data, enterprise transformation, and industry delivery from Consult America.",
 };
 
 export default function InsightsPage() {
@@ -24,47 +27,43 @@ export default function InsightsPage() {
 
   return (
     <>
-      <Section tone="navy">
-        <SectionEyebrow onDark>Insights</SectionEyebrow>
-        <h1 className="ca-h1 mt-6 max-w-4xl">
-          Practical notes from delivery, not thought-leadership filler.
-        </h1>
-        <SectionLead onDark>
-          Short briefings on Oracle, AI and data, enterprise transformation, and
-          the operating decisions that determine whether programs reach
-          production.
-        </SectionLead>
-      </Section>
+      <PageHero
+        variant="resources"
+        layout="editorial-wide"
+        imageShape="asymmetric"
+        photoScale="editorial"
+        eyebrow="Insights"
+        title="Ideas for modern enterprise technology."
+        description="Short briefings on Oracle, AI and data, enterprise transformation, and the operating decisions that determine whether programs reach production."
+        image={stockImage("insightsHero", { w: 1000, q: 82 })}
+        imageAlt="Editorial insight visual"
+        primaryCta={{ label: "Browse insights", href: "#insights-index" }}
+      />
 
-      <Section tone="navy" className="!pt-0">
-        <div className="mb-16 border-t border-white/10 pt-10">
-          <p className="ca-eyebrow text-white/45">Featured</p>
-          <div className="mt-8 grid gap-8 lg:grid-cols-3">
-            {featured.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/insights/${item.slug}`}
-                className="group border-t border-white/15 pt-6 transition-colors duration-200"
-              >
-                <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-blue)]">
+      <PageSection tone="soft" eyebrow="Featured Insight" title="Editorial perspectives from delivery.">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {featured.map((item, index) => (
+            <FeatureCard key={item.slug} delay={index * 0.08}>
+              <Link href={`/insights/${item.slug}`} className="group block">
+                <p className="text-xs uppercase tracking-[0.12em] text-[#176A63]">
                   {insightCategoryLabels[item.category]}
                 </p>
-                <h2 className="mt-4 text-xl font-medium tracking-[-0.03em] transition-colors duration-200 group-hover:text-[#93c5fd]">
+                <h2 className="mt-4 text-xl font-semibold tracking-[-0.03em] text-[#122D2E] transition-colors group-hover:text-[#B83A3A]">
                   {item.title}
                 </h2>
-                <p className="mt-3 text-sm leading-6 text-white/55">
-                  {item.summary}
-                </p>
-                <p className="mt-4 text-xs text-white/35">
+                <p className="mt-3 text-sm leading-6 text-[#5B6D6B]">{item.summary}</p>
+                <p className="mt-4 text-xs text-[#5B6D6B]/70">
                   {formatInsightDate(item.publishedAt)} · {item.readingTime}
                 </p>
               </Link>
-            ))}
-          </div>
+            </FeatureCard>
+          ))}
         </div>
+      </PageSection>
 
+      <PageSection id="insights-index" tone="white" eyebrow="All insights" title="Case studies and perspectives.">
         <InsightsIndex insights={insights} categories={categories} />
-      </Section>
+      </PageSection>
     </>
   );
 }
