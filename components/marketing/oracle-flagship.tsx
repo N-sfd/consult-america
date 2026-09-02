@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const capabilities = [
   {
-    name: "Financials",
+    name: "Finance",
     detail: "Close, reporting, multi-entity accounting, and controlled financial operations.",
     imageKey: "oracleFlagship" as const,
   },
@@ -31,14 +31,14 @@ const capabilities = [
     imageKey: "capabilitiesTransform" as const,
   },
   {
-    name: "HCM",
-    detail: "Core HR, payroll foundations, and workforce programs on Oracle Cloud.",
-    imageKey: "careersPreview" as const,
-  },
-  {
     name: "Integration & Data",
     detail: "OIC connectivity, data quality, and reporting across the enterprise.",
     imageKey: "capabilitiesIntelligence" as const,
+  },
+  {
+    name: "Testing & Readiness",
+    detail: "Cutover planning, regression testing, and readiness for production go-live.",
+    imageKey: "capabilitiesBuild" as const,
   },
 ];
 
@@ -52,7 +52,7 @@ export default function OracleFlagship() {
   return (
     <section
       id="oracle-practice"
-      className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F8FAF9] py-14 sm:py-16 lg:py-20"
+      className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F8FAF9] py-12 sm:py-14 lg:py-16"
     >
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">

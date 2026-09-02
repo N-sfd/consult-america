@@ -34,7 +34,7 @@ const CAPABILITIES: Capability[] = [
     label: "AI & Data",
     short: "Governed intelligence",
     detail:
-      "Put trusted data and AI into operational workflows with document intelligence and enterprise agents.",
+      "Build trusted data foundations and practical AI inside business workflows.",
     href: "/ai-data",
     cta: "Explore AI & Data",
     angle: 60,
@@ -104,7 +104,7 @@ export default function CapabilityEcosystem() {
   return (
     <section
       id="capabilities-ecosystem"
-      className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F0F6F4] py-14 sm:py-16 lg:py-20"
+      className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F0F6F4] py-12 sm:py-14 lg:py-16"
     >
       <div
         aria-hidden="true"
@@ -114,13 +114,15 @@ export default function CapabilityEcosystem() {
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="max-w-2xl">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-            Capability Ecosystem
+            What We Do
           </p>
           <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
-            Capabilities built around transformation.
+            Connected capabilities.
+            <br className="hidden sm:block" />
+            Built around the enterprise.
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-[#5B6D6B]">
-            Strategy, platforms, data and engineering connected around how enterprises actually operate.
+            Transformation works best when strategy, platforms, data and engineering move together.
           </p>
         </div>
 

@@ -23,6 +23,7 @@ export default function SelectedWorkSection() {
   const [paused, setPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const story = stories[index];
+  const supporting = stories.filter((_, i) => i !== index);
 
   const goTo = useCallback((next: number) => {
     setIndex(((next % stories.length) + stories.length) % stories.length);
@@ -42,7 +43,7 @@ export default function SelectedWorkSection() {
   return (
     <section
       id="featured-work"
-      className="border-b border-[#E1ECE8] bg-white py-14 sm:py-16 lg:py-20"
+      className="border-b border-[#E1ECE8] bg-white py-12 sm:py-14 lg:py-16"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -85,7 +86,7 @@ export default function SelectedWorkSection() {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
+        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
           <div className="relative lg:col-span-7">
             <AnimatePresence mode="wait">
               <motion.div
@@ -94,7 +95,7 @@ export default function SelectedWorkSection() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: shouldReduceMotion ? 0.2 : 0.6, ease: revealEase }}
-                className="ca-home-frame-wide ca-home-photo-overlay relative ca-home-img-work h-[260px] sm:h-[340px] lg:h-[400px] shadow-[0_18px_44px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]"
+                className="ca-home-frame-wide ca-home-photo-overlay relative ca-home-img-work h-[240px] sm:h-[300px] lg:h-[360px] shadow-[0_18px_44px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]"
               >
                 <Image
                   src={story.image}
@@ -117,43 +118,71 @@ export default function SelectedWorkSection() {
                 transition={{ duration: shouldReduceMotion ? 0.2 : 0.55, ease: revealEase }}
               >
                 <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-                  Case Study
+                  {story.category}
                 </p>
-                <h3 className="mt-3 font-serif text-2xl font-semibold leading-snug text-[#073B3A] sm:text-[1.75rem]">
+                <h3 className="mt-3 font-serif text-xl font-semibold leading-snug text-[#073B3A] sm:text-2xl">
                   {story.headline}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-[#5B6D6B]">{story.summary}</p>
+                <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-[#5B6D6B]">
+                  {story.summary}
+                </p>
 
-                <dl className="mt-6 space-y-3 border-t border-[#DDE6E3] pt-5">
-                  <div>
-                    <dt className="text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#8A9A97]">
-                      Industry
-                    </dt>
-                    <dd className="mt-1 text-sm font-medium text-[#073B3A]">{story.category}</dd>
-                  </div>
+                <dl className="mt-5 space-y-2 border-t border-[#DDE6E3] pt-4">
                   <div>
                     <dt className="text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#8A9A97]">
                       Capabilities
                     </dt>
                     <dd className="mt-1 text-sm font-medium text-[#073B3A]">
-                      {story.capabilities.join(" · ")}
+                      {story.capabilities.slice(0, 4).join(" · ")}
                     </dd>
                   </div>
                 </dl>
 
                 <Link
                   href={`/work/case-studies/${story.slug}`}
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#B83A3A] hover:text-[#992F31]"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#B83A3A] hover:text-[#992F31]"
                 >
                   Read Story
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </motion.div>
             </AnimatePresence>
+
+            <div className="mt-6 hidden space-y-2 lg:block">
+              {supporting.map((item) => {
+                const idx = stories.findIndex((s) => s.slug === item.slug);
+                return (
+                  <button
+                    key={item.slug}
+                    type="button"
+                    onClick={() => goTo(idx)}
+                    className="flex w-full items-start gap-3 rounded-lg border border-[#E1ECE8] bg-[#F8FAF9] p-3 text-left transition-colors hover:border-[#176A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#176A63]"
+                  >
+                    <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-md">
+                      <Image
+                        src={item.image}
+                        alt=""
+                        fill
+                        className="ca-home-photo object-cover"
+                        sizes="80px"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.1em] text-[#176A63]">
+                        {item.category}
+                      </p>
+                      <p className="mt-0.5 line-clamp-2 text-xs font-medium leading-snug text-[#073B3A]">
+                        {item.headline}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 flex gap-2" role="tablist" aria-label="Featured stories">
+        <div className="mt-6 flex gap-2" role="tablist" aria-label="Featured stories">
           {stories.map((item, i) => (
             <button
               key={item.slug}
@@ -172,7 +201,7 @@ export default function SelectedWorkSection() {
 
         <Link
           href="/work"
-          className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
         >
           Explore all case studies
           <ArrowUpRight className="h-4 w-4" />

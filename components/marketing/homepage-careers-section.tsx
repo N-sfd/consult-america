@@ -14,7 +14,7 @@ export default function HomepageCareersSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="careers" className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F0F6F4] py-14 sm:py-16 lg:py-20">
+    <section id="careers" className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F0F6F4] py-10 sm:py-12 lg:max-h-[420px] lg:py-14">
       <div
         aria-hidden="true"
         className="ca-home-ring ca-home-orbit right-[4%] top-[12%] hidden h-[240px] w-[240px] opacity-30 lg:block"
@@ -30,12 +30,12 @@ export default function HomepageCareersSection() {
               transition={{ duration: 0.5, ease: revealEase }}
             >
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Careers</p>
-              <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
-                Build what&apos;s next with us.
+              <h2 className="mt-3 font-serif text-[clamp(1.5rem,2.8vw,2.25rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
+                Build what&apos;s next.
               </h2>
-              <p className="mt-4 max-w-lg text-base leading-relaxed text-[#5B6D6B]">
-                Join practitioners attached to Oracle transformations, AI and data engineering,
-                and the applications they ship.
+              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#5B6D6B]">
+                Join teams working across enterprise transformation, Oracle, AI, data and application
+                engineering.
               </p>
             </motion.div>
 

@@ -31,6 +31,13 @@ const stages = [
   },
 ];
 
+const aiTimeline = [
+  { num: "01", label: "Find the value" },
+  { num: "02", label: "Build the foundation" },
+  { num: "03", label: "Put AI into the work" },
+  { num: "04", label: "Operate with trust" },
+];
+
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function AIDataStory() {
@@ -41,7 +48,7 @@ export default function AIDataStory() {
   return (
     <section
       id="ai-data-story"
-      className="relative overflow-hidden border-b border-[#073B3A] py-14 text-white sm:py-16 lg:py-20"
+      className="relative overflow-hidden border-b border-[#073B3A] py-12 text-white sm:py-14 lg:py-16"
       style={{
         background: "linear-gradient(135deg, #073B3A 0%, #0B4A47 50%, #176A63 100%)",
       }}
@@ -67,10 +74,28 @@ export default function AIDataStory() {
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
               Put intelligence into the work.
             </h2>
-            <p className="mt-4 max-w-md text-[1.0625rem] leading-relaxed text-white/80">
+            <p className="mt-4 max-w-md text-base leading-relaxed text-white/80">
               Move beyond AI experiments with document intelligence, enterprise agents, and
               governed workflows connected to real operational data.
             </p>
+
+            <div className="mt-6 flex flex-wrap gap-3 border-t border-white/15 pt-5">
+              {aiTimeline.map((step, i) => (
+                <div key={step.num} className="flex items-center gap-2">
+                  <span className="text-[0.65rem] font-bold tracking-[0.12em] text-[#9BC4B8]">
+                    {step.num}
+                  </span>
+                  <span className="text-[0.72rem] font-semibold uppercase tracking-[0.08em] text-white/85">
+                    {step.label}
+                  </span>
+                  {i < aiTimeline.length - 1 ? (
+                    <span className="hidden text-white/30 sm:inline" aria-hidden="true">
+                      →
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+            </div>
 
             <div
               className="mt-7 flex flex-wrap gap-2"

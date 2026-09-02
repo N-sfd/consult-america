@@ -3,10 +3,12 @@ import type { Metadata } from "next";
 import AIDataStory from "@/components/marketing/ai-data-story";
 import ApplicationEngineeringSection from "@/components/marketing/application-engineering-section";
 import CapabilityEcosystem from "@/components/marketing/capability-ecosystem";
+import CRMShowcase from "@/components/marketing/crm-showcase";
 import EnterpriseTransformSection from "@/components/marketing/enterprise-transform-section";
 import Hero from "@/components/marketing/hero";
 import HomepageCareersSection from "@/components/marketing/homepage-careers-section";
 import HomepageClosingSection from "@/components/marketing/homepage-closing-section";
+import HomepageContactSection from "@/components/marketing/homepage-contact-section";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
 import PositioningSection from "@/components/marketing/positioning-section";
 import PreFooterCta from "@/components/marketing/pre-footer-cta";
@@ -36,11 +38,13 @@ export default function Home() {
       <CapabilityEcosystem />
       <EnterpriseTransformSection />
       <OracleFlagship />
+      <CRMShowcase />
       <AIDataStory />
       <ApplicationEngineeringSection />
       <SelectedWorkSection />
       <HomepageClosingSection />
       <HomepageCareersSection />
+      <HomepageContactSection />
       <PreFooterCta />
     </>
   );

@@ -31,7 +31,7 @@ export default function ContactPage() {
 
             <Reveal delay={0.1} className="mt-8 space-y-4">
               {[
-                "Confidential review by senior practice leaders within 1 business day",
+                "Your inquiry will be routed to the appropriate practice team",
                 "Architecture and scoping working session without sales overhead",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3 text-sm text-white/75">

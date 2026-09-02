@@ -33,17 +33,17 @@ const SLIDES: HeroSlide[] = [
   {
     id: "transform",
     navLabel: "Enterprise",
-    eyebrow: "Enterprise Technology + AI",
+    eyebrow: "Enterprise Transformation",
     headline: (
       <>
         Transform the core.
         <br />
-        Build what&apos;s next.
+        Build what comes next.
       </>
     ),
     supporting:
-      "Modernize enterprise platforms, connect workflows, activate trusted data and build intelligent products from strategy through production.",
-    primaryCta: { label: "Explore Our Capabilities", href: "/capabilities" },
+      "Modernize enterprise platforms, connect data and workflows, operationalize AI, and engineer digital products from strategy through production.",
+    primaryCta: { label: "Explore What We Do", href: "#capabilities-ecosystem" },
     secondaryCta: { label: "Talk to an Expert", action: "contact" },
     tone: "transform",
     visual: "photo-overlay",
@@ -64,7 +64,7 @@ const SLIDES: HeroSlide[] = [
       </>
     ),
     supporting:
-      "Connect finance, procurement, supply chain, projects and workforce operations through modern Oracle Cloud delivery.",
+      "Connect finance, procurement, supply chain, projects, workforce operations and enterprise data through modern Oracle Cloud delivery.",
     primaryCta: { label: "Explore Oracle", href: "/oracle" },
     tone: "oracle",
     visual: "tall-arch",
@@ -83,7 +83,7 @@ const SLIDES: HeroSlide[] = [
       </>
     ),
     supporting:
-      "Turn enterprise data, documents and workflows into governed AI experiences and production-ready digital products.",
+      "Turn trusted enterprise data and workflows into governed AI experiences and production-ready digital products.",
     primaryCta: { label: "Explore AI & Applications", href: "/ai-data" },
     tone: "ai",
     visual: "product",
@@ -162,7 +162,7 @@ export default function Hero() {
 
   const contentTransition = shouldReduceMotion
     ? { duration: 0.25, ease: "easeOut" as const }
-    : { duration: 0.7, ease: revealEase };
+    : { duration: 0.72, ease: revealEase };
 
   const visualVariants = shouldReduceMotion
     ? {
@@ -171,9 +171,9 @@ export default function Hero() {
         exit: { opacity: 0 },
       }
     : {
-        enter: { opacity: 0, x: 22, scale: 1.015 },
+        enter: { opacity: 0, x: 20, scale: 1.015 },
         center: { opacity: 1, x: 0, scale: 1 },
-        exit: { opacity: 0, x: -18, scale: 1 },
+        exit: { opacity: 0, x: -20, scale: 1 },
       };
 
   return (

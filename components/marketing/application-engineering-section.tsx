@@ -26,7 +26,7 @@ export default function ApplicationEngineeringSection() {
   return (
     <section
       id="application-engineering"
-      className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-14 sm:py-16 lg:py-20"
+      className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-12 sm:py-14 lg:py-16"
     >
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         {/* Engineering composition */}
@@ -36,11 +36,17 @@ export default function ApplicationEngineeringSection() {
               Application Engineering
             </p>
             <h2 className="mt-3 max-w-xl font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
-              Build where packaged software stops.
+              Build what packaged software cannot.
             </h2>
             <p className="mt-4 max-w-md text-base leading-relaxed text-[#5B6D6B]">
               Engineering teams attached to delivery — building focused applications around real
               operational workflows.
+            </p>
+            <p className="mt-4 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+              Consult America Labs
+            </p>
+            <p className="mt-1 max-w-md text-sm leading-relaxed text-[#5B6D6B]">
+              Where consulting ideas become working software.
             </p>
             <Link
               href="/work/innovation"
@@ -257,16 +263,16 @@ export default function ApplicationEngineeringSection() {
         {/* Broader portfolio */}
         <div className="mt-12">
           <p className="text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#5B6D6B]">
-            Broader Portfolio
+            Other Applications
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {otherApps.map((app) => (
               <a
                 key={app.id}
                 href={app.liveUrl ?? app.detailHref}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-lg border border-[#E1ECE8] bg-[#F8FAF9] px-3 py-1.5 text-xs font-medium text-[#5B6D6B] transition-colors hover:border-[#176A63] hover:text-[#176A63]"
+                className="rounded-lg border border-[#E1ECE8] bg-[#F8FAF9] px-4 py-3 text-sm font-medium text-[#5B6D6B] transition-colors hover:border-[#176A63] hover:text-[#176A63]"
               >
                 {app.name}
               </a>

@@ -8,18 +8,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const links = [
-  {
-    title: "Strategy & operating models",
-    href: "/capabilities/enterprise-transformation",
-  },
-  {
-    title: "Program leadership",
-    href: "/capabilities/managed-delivery",
-  },
-  {
-    title: "Change & adoption",
-    href: "/capabilities/enterprise-transformation",
-  },
+  { title: "Strategy & operating models", href: "/capabilities/enterprise-transformation" },
+  { title: "Program leadership", href: "/capabilities/managed-delivery" },
+  { title: "Change & adoption", href: "/capabilities/enterprise-transformation" },
+  { title: "Integration & data", href: "/capabilities/digital-engineering" },
 ];
 
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
@@ -28,7 +20,7 @@ export default function EnterpriseTransformSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-14 sm:py-16 lg:py-20">
+    <section className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-12 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <motion.div
@@ -68,9 +60,9 @@ export default function EnterpriseTransformSection() {
               Enterprise Transformation
             </p>
             <h2 className="mt-3 max-w-xl font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
-              Move strategy into execution.
+              Transformation that stays connected to delivery.
             </h2>
-            <p className="mt-4 max-w-lg text-[1.0625rem] leading-relaxed text-[#5B6D6B]">
+            <p className="mt-4 max-w-lg text-base leading-relaxed text-[#5B6D6B]">
               Align operating models, platforms, and delivery so modernization programs reach
               production — with governance teams can trust.
             </p>

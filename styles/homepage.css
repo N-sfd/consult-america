@@ -327,7 +327,18 @@
 }
 
 .ca-home-img-work {
-  max-height: min(25rem, 40vh); /* 400px */
+  max-height: min(22.5rem, 36vh); /* 360px featured work */
+}
+
+/* Compact section helpers */
+.ca-home-outcomes {
+  max-height: 320px;
+}
+
+@media (min-width: 1024px) {
+  .ca-home-outcomes .ca-home-pillar {
+    padding-top: 0.75rem;
+  }
 }
 
 @media (max-width: 1179px) {
