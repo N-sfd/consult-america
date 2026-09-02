@@ -82,9 +82,9 @@ export default function SectionBackdrop({
     >
       {variant === "hero" && (
         <>
-          <ShapeLayer className="top-[8%] -left-[6%]" style={parallax(offset.slow)}>
+          <ShapeLayer className="top-[6%] -left-[6%]" style={parallax(offset.slow)}>
             <div
-              className="ca-shape ca-shape--spin ca-shape--delay-2 h-[220px] w-[220px] rounded-full border border-dashed border-[#C9DDD7]/65 bg-[#F0F6F4]/40 opacity-60"
+              className="ca-shape ca-shape--spin ca-shape--delay-2 h-[280px] w-[280px] rounded-full border-2 border-dashed border-[#176A63]/30 bg-[#F0F6F4]/30"
             />
           </ShapeLayer>
           <ShapeLayer className="top-[70px] -right-[120px]" style={parallax(offset.slow)}>
@@ -102,7 +102,7 @@ export default function SectionBackdrop({
           </ShapeLayer>
           <ShapeLayer className="bottom-[12%] right-[18%] hidden lg:block" style={parallax(offset.fast)}>
             <div
-              className="ca-shape ca-shape--float-one ca-shape--delay-2 h-[140px] w-[140px] rounded-full bg-[#176A63]/10"
+              className="ca-shape ca-shape--spin ca-shape--delay-1 h-[160px] w-[160px] rounded-full border border-dashed border-[#B83A3A]/20 bg-[#176A63]/8"
             />
           </ShapeLayer>
         </>

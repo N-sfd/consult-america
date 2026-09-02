@@ -9,6 +9,8 @@ import SectionBackdrop from "@/components/marketing/section-backdrop";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { stockImage } from "@/lib/marketing/stock-images";
 
+const focusAreas = ["Oracle Cloud", "AI & Data", "Application Engineering", "Managed Delivery"];
+
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function Hero() {
@@ -73,6 +75,19 @@ export default function Hero() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>
+
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22, ease: revealEase }}
+            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-[#DDE6E3] pt-6"
+          >
+            {focusAreas.map((area) => (
+              <span key={area} className="text-sm font-medium text-[#5B6D6B]">
+                {area}
+              </span>
+            ))}
+          </motion.div>
         </div>
 
         <motion.div
@@ -81,6 +96,11 @@ export default function Hero() {
           transition={{ duration: 0.78, delay: 0.12, ease: revealEase }}
           className="relative lg:col-span-7"
         >
+          <div className="ca-hero-glow" aria-hidden="true" />
+          <div
+            aria-hidden="true"
+            className="ca-hero-ring right-[4%] top-[2%] hidden h-[min(180px,22vw)] w-[min(180px,22vw)] lg:block"
+          />
           <div className="relative ml-auto w-[92%] max-h-[min(31.25rem,46vh)] overflow-hidden ca-hero-shape-arch shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
             <div className="relative aspect-[4/3] w-full">
               <Image
@@ -88,7 +108,7 @@ export default function Hero() {
                 alt="Enterprise technology leaders collaborating"
                 fill
                 priority
-                className="object-cover object-center"
+                className="ca-ken-burns object-cover object-center"
                 sizes="(max-width: 1024px) 92vw, 52vw"
               />
             </div>

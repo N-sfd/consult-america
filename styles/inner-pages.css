@@ -182,7 +182,7 @@
 .ca-hero-ring {
   position: absolute;
   border-radius: 9999px;
-  border: 1.5px dashed rgba(75, 148, 136, 0.22);
+  border: 2px dashed rgba(75, 148, 136, 0.35);
   background: rgba(75, 148, 136, 0.04);
   pointer-events: none;
   animation: caShapeSpin 60s linear infinite;
