@@ -437,7 +437,8 @@
 }
 
 .ca-ken-burns {
-  animation: caKenBurns 22s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+  /* NU: photography stays stable after entrance — no continuous zoom */
+  animation: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

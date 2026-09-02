@@ -17,7 +17,7 @@ export default function HomeBackgroundArc({
       className={cn(
         "ca-home-bg-arc ca-background-arc pointer-events-none",
         tone === "light" && "ca-home-bg-arc--light",
-        moving && "ca-home-moving",
+        moving && "ca-decor-drift--slow",
         className,
       )}
     />

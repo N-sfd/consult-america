@@ -64,10 +64,13 @@ export default function ApplicationEngineeringSection() {
             transition={{ duration: 0.78, ease: revealEase }}
             className="lg:col-span-7"
           >
-            <div className="ca-home-compose relative mx-auto max-w-[590px] lg:ml-auto lg:mr-0">
+            <div className="ca-home-compose ca-practice-stable relative mx-auto max-w-[590px] lg:ml-auto lg:mr-0">
               <div
                 aria-hidden="true"
-                className="ca-practice-tech-quarter ca-home-moving--slow -right-[16%] bottom-[-12%] hidden h-[320px] w-[320px] opacity-70 lg:block"
+                className={cn(
+                  "ca-practice-tech-quarter -right-[16%] bottom-[-12%] hidden h-[320px] w-[320px] opacity-70 lg:block",
+                  !shouldReduceMotion && "ca-decor-drift--slow",
+                )}
               />
               <div className="ca-practice-tech-cut ca-home-photo-overlay ca-photo-interactive relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
                 <div className="ca-practice-img-tech relative aspect-[3/2] w-full">
@@ -138,7 +141,7 @@ export default function ApplicationEngineeringSection() {
         <div className="relative mt-14 overflow-hidden border-t border-[#E1ECE8] pt-12">
           <div
             aria-hidden="true"
-            className="ca-home-sage-disc ca-home-moving--slow -right-[8%] top-[20%] hidden h-[360px] w-[360px] opacity-50 lg:block"
+            className="ca-home-sage-disc -right-[8%] top-[20%] hidden h-[360px] w-[360px] opacity-50 lg:block"
           />
 
           <div className="relative z-10 flex items-end justify-between gap-4">

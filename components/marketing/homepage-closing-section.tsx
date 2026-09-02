@@ -116,7 +116,7 @@ export default function HomepageClosingSection() {
               transition={{ duration: 0.78, ease: revealEase }}
               className="lg:col-span-5"
             >
-              <div className="ca-home-compose relative mx-auto max-w-[440px] lg:mx-0">
+              <div className="ca-home-compose ca-practice-stable relative mx-auto max-w-[440px] lg:mx-0">
                 <div
                   aria-hidden="true"
                   className={cn(
@@ -124,8 +124,11 @@ export default function HomepageClosingSection() {
                     activeIndustry === 1
                       ? "ca-practice-healthcare-oval -right-[10%] top-[4%] h-[260px] w-[260px]"
                       : activeIndustry === 3
-                        ? "ca-practice-tech-quarter ca-home-moving--slow -right-[18%] bottom-[-20%] opacity-80"
-                        : "ca-home-sage-disc ca-home-moving--slow -right-[8%] top-[6%] h-[240px] w-[240px] opacity-70",
+                        ? cn(
+                            "ca-practice-tech-quarter -right-[18%] bottom-[-20%] opacity-80",
+                            !shouldReduceMotion && "ca-decor-drift--slow",
+                          )
+                        : "ca-home-sage-disc -right-[8%] top-[6%] h-[240px] w-[240px] opacity-70",
                   )}
                 />
                 <div

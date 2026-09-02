@@ -190,10 +190,13 @@
 .ca-hero-ring {
   position: absolute;
   border-radius: 9999px;
-  border: 2px dashed rgba(75, 148, 136, 0.35);
-  background: rgba(75, 148, 136, 0.04);
+  border: 1px solid rgba(7, 59, 58, 0.08);
+  background: transparent;
   pointer-events: none;
-  animation: caShapeSpin 60s linear infinite;
+}
+
+.ca-hero-ring.ca-decor-orbit {
+  animation: caOrbit 62s linear infinite;
   will-change: transform;
 }
 

@@ -122,7 +122,26 @@
   width: min(100%, 600px);
 }
 
-/* ── Shared photography treatment ── */
+/* ── Stable content: no continuous motion on photos or UI ── */
+.ca-practice-stable,
+.ca-practice-stable img,
+.ca-practice-stable .ca-home-photo,
+.ca-practice-stable .ca-hero-img,
+.ca-home-product-ui,
+.ca-home-product-ui img {
+  animation: none !important;
+}
+
+.ca-practice-oracle-ring.ca-decor-orbit {
+  animation-duration: 58s;
+}
+
+.ca-practice-ai-paths.ca-decor-drift--slow {
+  animation-duration: 32s;
+  opacity: 0.85;
+}
+
+/* Shared photography treatment ── */
 .ca-home-photo,
 .ca-hero-img.ca-home-photo {
   filter: saturate(0.88) contrast(1.03) brightness(0.98);
@@ -179,8 +198,9 @@
 }
 
 @media (max-width: 1023px) {
-  .ca-practice-oracle-ring.ca-home-orbit,
-  .ca-practice-tech-quarter.ca-home-moving {
+  .ca-practice-oracle-ring.ca-decor-orbit,
+  .ca-practice-tech-quarter.ca-decor-drift--slow,
+  .ca-practice-ai-paths.ca-decor-drift--slow {
     animation: none !important;
   }
 }

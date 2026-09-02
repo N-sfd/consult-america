@@ -90,7 +90,7 @@ const SLIDES: HeroSlide[] = [
     visual: "product",
     imageAlt: "Data Agent document intelligence interface",
     productSrc: "/innovation/data-agent-hero.png",
-    secondaryProductSrc: "/innovation/mediguide-hero.png",
+    secondaryProductSrc: "/innovation/data-agent-platform.png",
   },
 ];
 
@@ -212,7 +212,7 @@ export default function Hero() {
         className={cn(
           "ca-home-sage-disc pointer-events-none absolute hidden lg:block",
           slide.tone === "ai" ? "right-[-8%] top-[6%] h-[420px] w-[420px] opacity-50" : "right-[-4%] top-[-6%] h-[480px] w-[480px] opacity-65",
-          !shouldReduceMotion && "ca-home-moving--slow",
+          slide.tone !== "ai" && !shouldReduceMotion && "ca-decor-drift--slow",
         )}
       />
       <div
@@ -227,7 +227,7 @@ export default function Hero() {
           "opacity-70",
           slide.tone === "ai" ? "-left-[16%] bottom-[-20%]" : "-right-[14%] top-[4%]",
         )}
-        moving={!shouldReduceMotion}
+        moving={!shouldReduceMotion && slide.tone === "transform"}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-between px-6 py-16 sm:py-20 lg:min-h-[640px] lg:px-8 lg:py-20 xl:px-10">
@@ -284,7 +284,7 @@ export default function Hero() {
                 animate="center"
                 exit="exit"
                 transition={contentTransition}
-                className="ca-home-compose relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0"
+                className="ca-home-compose ca-practice-stable relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0"
               >
                 {slide.visual === "photo-overlay" && slide.imageKey ? (
                   <>
@@ -329,12 +329,14 @@ export default function Hero() {
                 ) : null}
 
                 {slide.visual === "tall-arch" && slide.imageKey ? (
-                  <div className="relative mx-auto max-w-[460px] lg:mr-8 lg:ml-auto">
+                  <div className="ca-practice-stable relative mx-auto max-w-[460px] lg:mr-8 lg:ml-auto">
                     <div aria-hidden="true" className="ca-practice-oracle-panel hidden lg:block" />
                     <div
                       aria-hidden="true"
-                      className="ca-practice-oracle-ring ca-home-orbit left-[-10%] top-[8%] hidden h-[min(420px,40vw)] w-[min(420px,40vw)] lg:block"
-                      style={{ animationDuration: "55s" }}
+                      className={cn(
+                        "ca-practice-oracle-ring left-[-10%] top-[8%] hidden h-[min(420px,40vw)] w-[min(420px,40vw)] lg:block",
+                        !shouldReduceMotion && "ca-decor-orbit",
+                      )}
                     />
                     <div className="ca-practice-oracle-arch ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
                       <div className="ca-practice-img-oracle relative aspect-[4/5] w-full">
@@ -347,13 +349,29 @@ export default function Hero() {
                         />
                       </div>
                     </div>
+                    <div className="ca-practice-workflow-panel -bottom-3 -right-2 hidden lg:block">
+                      <div className="relative aspect-[4/3] w-full">
+                        <Image
+                          src={stockImage("oracleWorkflowDetail", { w: 480, q: 85 })}
+                          alt="Enterprise finance and operations workflow"
+                          fill
+                          className="ca-home-photo object-cover object-center"
+                          sizes="220px"
+                        />
+                      </div>
+                    </div>
                   </div>
                 ) : null}
 
                 {slide.visual === "product" && slide.productSrc ? (
-                  <div className="ca-home-compose relative mx-auto max-w-[640px] lg:ml-auto">
+                  <div className="ca-home-compose ca-practice-stable relative mx-auto max-w-[640px] lg:ml-auto">
                     <div aria-hidden="true" className="ca-practice-ai-panel hidden lg:block" />
-                    <PracticeAiPaths className="ca-practice-ai-paths absolute inset-0 hidden lg:block" />
+                    <PracticeAiPaths
+                      className={cn(
+                        "ca-practice-ai-paths absolute inset-0 hidden lg:block",
+                        !shouldReduceMotion && "ca-decor-drift--slow",
+                      )}
+                    />
                     <div className="ca-home-product-ui ca-practice-img-ai-ui relative z-10">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -369,7 +387,7 @@ export default function Hero() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={slide.secondaryProductSrc}
-                          alt="MediGuide AI interface"
+                          alt="Data Agent verification interface"
                           width={800}
                           height={500}
                           className="max-h-[120px] w-full object-cover object-top"

@@ -28,7 +28,7 @@ const capabilities = [
   {
     name: "Projects",
     detail: "Costing, billing, and project controls for complex delivery organizations.",
-    imageKey: "capabilitiesTransform" as const,
+    imageKey: "oracleEnterprisePlanning" as const,
   },
   {
     name: "Integration & Data",
@@ -63,14 +63,14 @@ export default function OracleFlagship() {
             transition={{ duration: 0.8, ease: revealEase }}
             className="lg:col-span-5"
           >
-            <div className="ca-home-compose relative mx-auto w-full max-w-[480px] lg:mx-0">
+            <div className="ca-home-compose ca-practice-stable relative mx-auto w-full max-w-[480px] lg:mx-0">
               <div aria-hidden="true" className="ca-practice-oracle-panel hidden lg:block" />
               <div
                 aria-hidden="true"
                 className={cn(
-                  "ca-practice-oracle-ring ca-home-orbit left-[-14%] top-[4%] hidden h-[min(520px,48vw)] w-[min(520px,48vw)] lg:block",
+                  "ca-practice-oracle-ring left-[-14%] top-[4%] hidden h-[min(520px,48vw)] w-[min(520px,48vw)] lg:block",
+                  !shouldReduceMotion && "ca-decor-orbit",
                 )}
-                style={{ animationDuration: "58s" }}
               />
               <AnimatePresence mode="wait">
                 <motion.div

@@ -73,8 +73,14 @@
     transform: translate3d(0, 0, 0) rotate(0deg);
   }
   50% {
-    transform: translate3d(14px, -10px, 0) rotate(1.5deg);
+    transform: translate3d(8px, -8px, 0) rotate(0.8deg);
   }
+}
+
+.ca-background-arc,
+.ca-home-bg-arc.ca-decor-drift--slow,
+.ca-home-bg-arc.ca-home-moving {
+  animation: caArcDrift 32s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 @keyframes caOrbit {
@@ -110,13 +116,33 @@
 }
 
 .ca-home-orbit {
-  animation: caOrbit 48s linear infinite;
+  animation: caOrbit 58s linear infinite;
   will-change: transform;
 }
 
-.ca-background-arc,
-.ca-home-bg-arc.ca-home-moving {
-  animation: caArcDrift 24s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+/* Ultra-slow decorative drift — background geometry only */
+@keyframes caDecorDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(8px, -10px, 0);
+  }
+}
+
+.ca-decor-drift {
+  animation: caDecorDrift 28s ease-in-out infinite;
+  will-change: transform;
+}
+
+.ca-decor-drift--slow {
+  animation: caDecorDrift 32s ease-in-out infinite;
+}
+
+.ca-decor-orbit {
+  animation: caOrbit 62s linear infinite;
+  will-change: transform;
 }
 
 .ca-shape {
@@ -320,7 +346,14 @@ button.ca-side-panel:hover {
   .ca-shape--spin-slow,
   .ca-hero-ring,
   .ca-ai-line-pattern,
-  .ca-bg-drift {
+  .ca-bg-drift,
+  .ca-home-moving,
+  .ca-home-moving--slow,
+  .ca-home-moving--fast,
+  .ca-decor-drift,
+  .ca-decor-drift--slow,
+  .ca-decor-orbit,
+  .ca-home-orbit {
     animation: none !important;
     transform: none !important;
   }

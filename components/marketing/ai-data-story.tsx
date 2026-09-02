@@ -55,11 +55,18 @@ export default function AIDataStory() {
         background: "linear-gradient(135deg, #073B3A 0%, #0B4A47 50%, #176A63 100%)",
       }}
     >
-      <PracticeAiPaths className="ca-practice-ai-paths ca-home-moving--slow hidden lg:block" />
+      <PracticeAiPaths
+        className={cn(
+          "ca-practice-ai-paths hidden lg:block",
+          !shouldReduceMotion && "ca-decor-drift--slow",
+        )}
+      />
       <div
         aria-hidden="true"
-        className="ca-home-ring ca-home-orbit right-[-8%] top-[15%] hidden h-[min(380px,36vw)] w-[min(380px,36vw)] border-white/10 lg:block"
-        style={{ animationDuration: "62s" }}
+        className={cn(
+          "ca-home-ring right-[-8%] top-[15%] hidden h-[min(380px,36vw)] w-[min(380px,36vw)] border-white/10 lg:block",
+          !shouldReduceMotion && "ca-decor-orbit",
+        )}
       />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
@@ -154,7 +161,7 @@ export default function AIDataStory() {
             transition={{ duration: 0.7, delay: 0.1, ease: revealEase }}
             className="lg:col-span-7"
           >
-            <div className="ca-home-compose relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0">
+            <div className="ca-home-compose ca-practice-stable relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0">
               <div aria-hidden="true" className="ca-practice-ai-panel hidden lg:block" />
               <AnimatePresence mode="wait">
                 <motion.div

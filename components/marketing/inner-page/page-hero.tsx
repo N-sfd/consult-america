@@ -240,7 +240,7 @@ function HeroImage({
             fill
             priority={priority}
             className={cn(
-              "ca-hero-img ca-ken-burns object-cover",
+              "ca-hero-img object-cover",
               imageShape !== "rect" && imageShape !== "wide" && "ca-home-photo",
             )}
             sizes="(max-width: 1024px) 100vw, 46vw"
