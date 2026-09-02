@@ -1,14 +1,42 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-const stages = ["Connect", "Understand", "Verify", "Act"];
+import { cn } from "@/lib/utils";
+
+const stages = [
+  {
+    id: "extract",
+    label: "Extract",
+    detail: "Turn documents into structured enterprise information.",
+    image: "/innovation/data-agent-hero.png",
+    alt: "Data Agent extracting structured fields from enterprise documents",
+  },
+  {
+    id: "verify",
+    label: "Verify",
+    detail: "Trace extracted values back to their source.",
+    image: "/innovation/data-agent-platform.png",
+    alt: "Data Agent source verification and grounded document review",
+  },
+  {
+    id: "explore",
+    label: "Explore",
+    detail: "Compare information across documents and contracts.",
+    image: "/innovation/data-agent-platform.png",
+    alt: "Data Agent repository exploration across contracts",
+  },
+];
+
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function AIDataStory() {
+  const [active, setActive] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const current = stages[active];
 
   return (
     <section
@@ -34,7 +62,7 @@ export default function AIDataStory() {
             className="lg:col-span-5"
           >
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
-              Governed AI &amp; Data
+              AI &amp; Data
             </p>
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
               Put intelligence into the work.
@@ -44,20 +72,49 @@ export default function AIDataStory() {
               governed workflows connected to real operational data.
             </p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#9BC4B8]">
-              {stages.map((stage, index) => (
-                <span key={stage} className="inline-flex items-center gap-2">
-                  {index > 0 && <span className="text-white/30">→</span>}
-                  <span>{stage}</span>
-                </span>
+            <div
+              className="mt-7 flex flex-wrap gap-2"
+              role="tablist"
+              aria-label="Data Agent product story"
+            >
+              {stages.map((stage, i) => (
+                <button
+                  key={stage.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === active}
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    "rounded-lg px-4 py-2 text-[0.7rem] font-bold uppercase tracking-[0.12em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50",
+                    i === active
+                      ? "bg-white text-[#073B3A]"
+                      : "border border-white/25 bg-transparent text-[#9BC4B8] hover:border-white/50 hover:text-white",
+                  )}
+                >
+                  {stage.label}
+                </button>
               ))}
             </div>
 
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={current.id}
+                initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-4 max-w-md text-sm leading-relaxed text-white/75"
+                role="tabpanel"
+              >
+                {current.detail}
+              </motion.p>
+            </AnimatePresence>
+
             <Link
-              href="/ai-data"
+              href="/work/innovation/data-agent"
               className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#9BC4B8] hover:text-white"
             >
-              Explore AI &amp; Data
+              Explore Data Agent
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </motion.div>
@@ -74,18 +131,27 @@ export default function AIDataStory() {
                 aria-hidden="true"
                 className="absolute right-[4%] top-[8%] z-0 hidden h-[min(320px,32vw)] w-[min(320px,32vw)] rounded-full bg-[#4B9488]/20 lg:block"
               />
-              <div className="ca-home-product-ui relative z-10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/innovation/data-agent-hero.png"
-                  alt="Data Agent document intelligence interface"
-                  width={1440}
-                  height={900}
-                  loading="lazy"
-                  decoding="async"
-                  className="max-h-[440px] w-full"
-                />
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current.image + current.id}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.45, ease: revealEase }}
+                  className="ca-home-product-ui relative z-10"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={current.image}
+                    alt={current.alt}
+                    width={1440}
+                    height={900}
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-[440px] w-full object-cover object-top"
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>

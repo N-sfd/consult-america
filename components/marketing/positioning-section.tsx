@@ -5,10 +5,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import HomeBackgroundArc from "@/components/marketing/home-background-arc";
 
 const pillars = [
-  { num: "01", title: "Transform", detail: "Modernize enterprise platforms and operating models." },
-  { num: "02", title: "Connect", detail: "Unify data, workflows, and customer experiences." },
-  { num: "03", title: "Activate", detail: "Put AI into daily operations with governance." },
-  { num: "04", title: "Build", detail: "Engineer applications where packaged software stops." },
+  { num: "01", title: "Transform", detail: "Modernize platforms and operating models." },
+  { num: "02", title: "Connect", detail: "Unify workflows and enterprise systems." },
+  { num: "03", title: "Activate", detail: "Put trusted data and AI into daily work." },
+  { num: "04", title: "Build", detail: "Engineer digital products where packaged software stops." },
 ];
 
 const revealEase = [0.2, 0.8, 0.2, 1] as const;

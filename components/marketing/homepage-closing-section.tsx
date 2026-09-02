@@ -19,6 +19,7 @@ const industries = [
   { name: "Financial Services", href: "/industries/financial-services" },
   { name: "Healthcare & Life Sciences", href: "/industries/healthcare" },
   { name: "Technology & Software", href: "/industries/technology" },
+  { name: "Retail & Consumer", href: "/industries/retail-consumer" },
 ];
 
 const featuredInsight = {
@@ -94,7 +95,7 @@ export default function HomepageClosingSection() {
             <div className="lg:col-span-7">
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Industries</p>
               <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
-                Industry practices.
+                Technology grounded in industry operations.
               </h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#5B6D6B]">
                 Domain knowledge for complex, regulated, and technology-intensive operations.

@@ -18,6 +18,7 @@
     linear-gradient(rgba(7, 59, 58, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(7, 59, 58, 0.025) 1px, transparent 1px);
   background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, black 10%, transparent 75%);
   mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, black 10%, transparent 75%);
 }
 
@@ -52,6 +53,11 @@
   overflow: hidden;
 }
 
+.ca-home-frame-hero-asym {
+  border-radius: 26px 150px 26px 100px;
+  overflow: hidden;
+}
+
 @media (max-width: 767px) {
   .ca-home-frame-tall {
     border-radius: 100px 100px 18px 18px;
@@ -60,13 +66,53 @@
   .ca-home-frame-offset,
   .ca-home-frame-apps,
   .ca-home-frame-careers,
-  .ca-home-frame-wide {
+  .ca-home-frame-wide,
+  .ca-home-frame-hero-asym {
     border-radius: 24px 72px 24px 24px;
   }
 
   .ca-home-frame-cut {
     clip-path: none;
     border-radius: 24px 72px 24px 24px;
+  }
+}
+
+/* Hero story progress fill */
+@keyframes caHeroProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.ca-hero-progress-fill {
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: caHeroProgress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Capability ecosystem rings */
+.ca-ecosystem {
+  isolation: isolate;
+}
+
+.ca-ecosystem-spin {
+  animation: caOrbit 62s linear infinite;
+}
+
+.ca-ecosystem-spin-reverse {
+  animation: caOrbit 80s linear infinite reverse;
+}
+
+@media (max-width: 1023px) {
+  .ca-ecosystem-spin,
+  .ca-ecosystem-spin-reverse {
+    animation: none !important;
   }
 }
 
@@ -266,8 +312,15 @@
   .ca-home-bg-arc,
   .ca-moving-shape,
   .ca-rotating-ring,
-  .ca-background-arc {
+  .ca-background-arc,
+  .ca-ecosystem-spin,
+  .ca-ecosystem-spin-reverse,
+  .ca-hero-progress-fill {
     animation: none !important;
     transform: none !important;
+  }
+
+  .ca-hero-progress-fill {
+    transform: scaleX(1) !important;
   }
 }

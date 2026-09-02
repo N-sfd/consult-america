@@ -2,16 +2,15 @@ import type { Metadata } from "next";
 
 import AIDataStory from "@/components/marketing/ai-data-story";
 import ApplicationEngineeringSection from "@/components/marketing/application-engineering-section";
-import CRMShowcase from "@/components/marketing/crm-showcase";
+import CapabilityEcosystem from "@/components/marketing/capability-ecosystem";
+import EnterpriseTransformSection from "@/components/marketing/enterprise-transform-section";
 import Hero from "@/components/marketing/hero";
 import HomepageCareersSection from "@/components/marketing/homepage-careers-section";
 import HomepageClosingSection from "@/components/marketing/homepage-closing-section";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
-import PlatformStrip from "@/components/marketing/platform-strip";
 import PositioningSection from "@/components/marketing/positioning-section";
 import PreFooterCta from "@/components/marketing/pre-footer-cta";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
-import WhatWeDoSection from "@/components/marketing/what-we-do-section";
 
 export const metadata: Metadata = {
   title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
@@ -33,16 +32,15 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <PlatformStrip />
       <PositioningSection />
-      <WhatWeDoSection />
+      <CapabilityEcosystem />
+      <EnterpriseTransformSection />
       <OracleFlagship />
-      <CRMShowcase />
       <AIDataStory />
       <ApplicationEngineeringSection />
       <SelectedWorkSection />
-      <HomepageCareersSection />
       <HomepageClosingSection />
+      <HomepageCareersSection />
       <PreFooterCta />
     </>
   );
