@@ -67,12 +67,12 @@ export default function ApplicationEngineeringSection() {
             <div className="ca-home-compose relative mx-auto max-w-[590px] lg:ml-auto lg:mr-0">
               <div
                 aria-hidden="true"
-                className="ca-home-sage-disc ca-home-moving--fast -left-[10%] bottom-0 hidden h-[260px] w-[260px] opacity-70 lg:block"
+                className="ca-practice-tech-quarter ca-home-moving--slow -right-[16%] bottom-[-12%] hidden h-[320px] w-[320px] opacity-70 lg:block"
               />
-              <div className="ca-home-frame-apps ca-home-photo-overlay relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
-                <div className="ca-home-img-major relative aspect-[3/2] w-full max-h-[420px]">
+              <div className="ca-practice-tech-cut ca-home-photo-overlay ca-photo-interactive relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
+                <div className="ca-practice-img-tech relative aspect-[3/2] w-full">
                   <Image
-                    src={stockImage("capabilitiesBuild", { w: 1200, q: 85 })}
+                    src={stockImage("technologyEngineering", { w: 1200, q: 88 })}
                     alt="Engineering team building enterprise applications"
                     fill
                     className="ca-home-photo object-cover"
@@ -83,8 +83,8 @@ export default function ApplicationEngineeringSection() {
               <div className="ca-home-product-ui absolute -bottom-3 -right-1 z-20 hidden w-[min(280px,48%)] sm:block">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/innovation/mediguide-hero.png"
-                  alt="MediGuide AI application interface"
+                  src="/innovation/data-agent-hero.png"
+                  alt="Data Agent application interface"
                   width={800}
                   height={500}
                   loading="lazy"

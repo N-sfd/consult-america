@@ -23,10 +23,11 @@ export function industryHeroShape(slug: string): import("./page-hero").HeroImage
     case "financial-services":
       return "offset";
     case "healthcare":
+      return "healthcare-soft";
     case "government-public-sector":
-      return "arch";
+      return "wide";
     case "technology":
-      return "asymmetric";
+      return "cut";
     case "retail-consumer":
       return "wide";
     default:

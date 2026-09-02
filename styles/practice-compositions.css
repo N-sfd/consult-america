@@ -1,0 +1,193 @@
+/* Consult America — practice-specific image compositions */
+
+/* ── Oracle: tall arch + vertical panel + ring ── */
+.ca-practice-oracle-arch {
+  border-radius: 240px 240px 26px 26px;
+  overflow: hidden;
+}
+
+.ca-practice-oracle-panel {
+  position: absolute;
+  z-index: 0;
+  width: min(390px, 82%);
+  height: min(500px, 92%);
+  background: #e1ece8;
+  border-radius: 220px 220px 24px 24px;
+  transform: translate(55px, 35px);
+  pointer-events: none;
+}
+
+.ca-practice-oracle-ring {
+  position: absolute;
+  z-index: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(7, 59, 58, 0.08);
+  pointer-events: none;
+}
+
+.ca-practice-workflow-panel {
+  position: absolute;
+  z-index: 20;
+  width: min(220px, 46%);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #dde6e3;
+  border-radius: 12px;
+  box-shadow: 0 18px 45px rgba(7, 59, 58, 0.1);
+}
+
+.ca-practice-img-oracle {
+  max-height: min(31.25rem, 500px);
+  width: min(100%, 500px);
+}
+
+/* ── AI: diagonal panel + data paths ── */
+.ca-practice-ai-panel {
+  position: absolute;
+  z-index: 0;
+  inset: 8% 0 6% 4%;
+  clip-path: polygon(12% 0, 100% 0, 100% 86%, 88% 100%, 0 100%, 0 14%);
+  background: rgba(155, 196, 184, 0.35);
+  pointer-events: none;
+}
+
+.ca-practice-ai-paths {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.ca-practice-ai-paths path,
+.ca-practice-ai-paths circle {
+  fill: none;
+  stroke: rgba(155, 196, 184, 0.12);
+  stroke-width: 1;
+}
+
+.ca-practice-ai-ui-secondary {
+  position: absolute;
+  z-index: 25;
+  width: min(260px, 42%);
+}
+
+.ca-practice-img-ai-ui {
+  max-height: min(28.75rem, 440px);
+}
+
+/* ── Healthcare: soft arch + warm field ── */
+.ca-practice-healthcare-arch {
+  border-radius: 160px 32px 160px 32px;
+  overflow: hidden;
+}
+
+.ca-practice-healthcare-bg {
+  background:
+    radial-gradient(circle at 78% 34%, rgba(155, 196, 184, 0.18), transparent 30%),
+    linear-gradient(120deg, #ffffff, #f3f8f6);
+}
+
+.ca-practice-healthcare-oval {
+  position: absolute;
+  z-index: 0;
+  border-radius: 9999px;
+  background: #e1ece8;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.ca-practice-img-healthcare {
+  max-height: min(28.75rem, 460px);
+}
+
+/* ── Technology: architectural cut + quarter circle ── */
+.ca-practice-tech-cut {
+  border-radius: 28px 150px 28px 90px;
+  overflow: hidden;
+}
+
+.ca-practice-tech-quarter {
+  position: absolute;
+  z-index: 0;
+  width: min(360px, 55vw);
+  height: min(360px, 55vw);
+  border-radius: 50%;
+  background: #e1ece8;
+  pointer-events: none;
+}
+
+.ca-practice-img-tech {
+  max-height: min(26.875rem, 430px);
+  width: min(100%, 600px);
+}
+
+/* ── Shared photography treatment ── */
+.ca-home-photo,
+.ca-hero-img.ca-home-photo {
+  filter: saturate(0.88) contrast(1.03) brightness(0.98);
+}
+
+.ca-photo-interactive {
+  overflow: hidden;
+}
+
+.ca-photo-interactive .ca-home-photo,
+.ca-photo-interactive .ca-hero-img {
+  transition: transform 550ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ca-photo-interactive:hover .ca-home-photo,
+.ca-photo-interactive:hover .ca-hero-img {
+  transform: scale(1.025);
+}
+
+.ca-reveal-photo {
+  opacity: 0;
+  transform: translateY(14px) scale(0.985);
+}
+
+.ca-reveal-photo.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 780ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 780ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (max-width: 767px) {
+  .ca-practice-oracle-arch {
+    border-radius: 100px 100px 20px 20px;
+  }
+
+  .ca-practice-oracle-panel {
+    display: none;
+  }
+
+  .ca-practice-workflow-panel,
+  .ca-practice-ai-ui-secondary {
+    display: none !important;
+  }
+
+  .ca-practice-healthcare-arch {
+    border-radius: 80px 24px 80px 24px;
+  }
+
+  .ca-practice-tech-cut {
+    border-radius: 24px 72px 24px 24px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ca-practice-oracle-ring.ca-home-orbit,
+  .ca-practice-tech-quarter.ca-home-moving {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-photo-interactive:hover .ca-home-photo,
+  .ca-photo-interactive:hover .ca-hero-img {
+    transform: none;
+  }
+}

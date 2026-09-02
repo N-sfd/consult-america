@@ -319,7 +319,7 @@
 }
 
 .ca-home-img-oracle {
-  max-height: min(35rem, 58vh); /* ~560px tall arch */
+  max-height: min(31.25rem, 500px);
 }
 
 .ca-home-img-careers {

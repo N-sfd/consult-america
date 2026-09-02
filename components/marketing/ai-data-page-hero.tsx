@@ -18,8 +18,16 @@ export default function AiDataPageHero() {
         </>
       }
       description="Bring governed AI, trusted data and enterprise workflows together in practical operational experiences."
-      image="/innovation/data-agent-hero.png"
-      imageAlt="Data Agent enterprise document intelligence interface"
+      productScreens={[
+        {
+          src: "/innovation/data-agent-hero.png",
+          alt: "Data Agent enterprise document intelligence interface",
+        },
+        {
+          src: "/innovation/data-agent-platform.png",
+          alt: "Data Agent source verification view",
+        },
+      ]}
       primaryCta={{ label: "Explore Data Agent", href: "/work/innovation/data-agent" }}
       secondaryCta={{ label: "Talk to our team", href: "/contact", variant: "secondary" }}
     />

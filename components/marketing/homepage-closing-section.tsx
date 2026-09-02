@@ -20,11 +20,35 @@ const industries: {
   name: string;
   href: string;
   imageKey: StockImageKey;
+  frameClass: string;
+  overlay?: { src: string; alt: string };
 }[] = [
-  { name: "Public Sector", href: "/industries/government-public-sector", imageKey: "industriesGovernment" },
-  { name: "Healthcare & Life Sciences", href: "/industries/healthcare", imageKey: "industriesHealthcare" },
-  { name: "Financial Services", href: "/industries/financial-services", imageKey: "industriesFinancial" },
-  { name: "Technology & Software", href: "/industries/technology", imageKey: "industriesTech" },
+  {
+    name: "Public Sector",
+    href: "/industries/government-public-sector",
+    imageKey: "industriesGovernment",
+    frameClass: "ca-home-frame-wide",
+  },
+  {
+    name: "Healthcare & Life Sciences",
+    href: "/industries/healthcare",
+    imageKey: "healthcareClinical",
+    frameClass: "ca-practice-healthcare-arch",
+    overlay: { src: "/innovation/mediguide-hero.png", alt: "MediGuide clinical interface" },
+  },
+  {
+    name: "Financial Services",
+    href: "/industries/financial-services",
+    imageKey: "industriesFinancial",
+    frameClass: "ca-home-frame-offset",
+  },
+  {
+    name: "Technology & Software",
+    href: "/industries/technology",
+    imageKey: "technologyEngineering",
+    frameClass: "ca-practice-tech-cut",
+    overlay: { src: "/innovation/joblens-hero.png", alt: "JobLens application interface" },
+  },
 ];
 
 const featuredInsight = {
@@ -76,7 +100,13 @@ export default function HomepageClosingSection() {
         </div>
       </section>
 
-      <section id="industries" className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F7FAF9] py-10 sm:py-12">
+      <section
+        id="industries"
+        className={cn(
+          "relative overflow-hidden border-b border-[#E1ECE8] py-10 sm:py-12",
+          activeIndustry === 1 ? "ca-practice-healthcare-bg" : "bg-[#F7FAF9]",
+        )}
+      >
         <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <motion.div
@@ -89,13 +119,27 @@ export default function HomepageClosingSection() {
               <div className="ca-home-compose relative mx-auto max-w-[440px] lg:mx-0">
                 <div
                   aria-hidden="true"
-                  className="ca-home-sage-disc ca-home-moving--slow -right-[8%] top-[6%] hidden h-[240px] w-[240px] opacity-70 lg:block"
+                  className={cn(
+                    "hidden lg:block",
+                    activeIndustry === 1
+                      ? "ca-practice-healthcare-oval -right-[10%] top-[4%] h-[260px] w-[260px]"
+                      : activeIndustry === 3
+                        ? "ca-practice-tech-quarter ca-home-moving--slow -right-[18%] bottom-[-20%] opacity-80"
+                        : "ca-home-sage-disc ca-home-moving--slow -right-[8%] top-[6%] h-[240px] w-[240px] opacity-70",
+                  )}
                 />
-                <div className="ca-home-frame-cut ca-home-photo-overlay relative z-10 shadow-[0_18px_44px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]">
+                <div
+                  className={cn(
+                    industry.frameClass,
+                    "ca-home-photo-overlay ca-photo-interactive relative z-10 shadow-[0_18px_44px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]",
+                    activeIndustry === 1 && "ca-practice-img-healthcare",
+                    activeIndustry === 3 && "ca-practice-img-tech",
+                  )}
+                >
                   <div className="ca-home-img-major relative aspect-[4/5] w-full">
                     <Image
                       key={industry.imageKey}
-                      src={stockImage(industry.imageKey, { w: 1000, q: 85 })}
+                      src={stockImage(industry.imageKey, { w: 1000, q: 88 })}
                       alt={industry.name}
                       fill
                       className="ca-home-photo object-cover transition-opacity duration-500"
@@ -103,6 +147,19 @@ export default function HomepageClosingSection() {
                     />
                   </div>
                 </div>
+                {industry.overlay ? (
+                  <div className="ca-home-product-ui absolute -bottom-2 -right-1 z-20 hidden w-[min(240px,44%)] sm:block">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={industry.overlay.src}
+                      alt={industry.overlay.alt}
+                      width={800}
+                      height={500}
+                      loading="lazy"
+                      className="max-h-[130px] w-full object-cover object-top"
+                    />
+                  </div>
+                ) : null}
               </div>
             </motion.div>
 

@@ -130,8 +130,8 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Modernize operations without disrupting care.",
     description:
       "Modernize enterprise operations, workforce, financial systems, and clinical technology environments while protecting continuity of care.",
-    heroImage: stockImage("industryPageHealthcare", { w: 1600, q: 80 }),
-    heroImageAlt: "Clinical technology and healthcare systems",
+    heroImage: stockImage("healthcareClinical", { w: 1600, q: 88 }),
+    heroImageAlt: "Clinician and care team reviewing patient information",
     focusAreas: [
       "Clinical Systems",
       "Workforce Operations",
@@ -310,8 +310,8 @@ export const industryPages: Record<string, DetailPageContent> = {
     headline: "Build platforms that scale with the business.",
     description:
       "Scale enterprise platforms, automate operations, integrate systems, and turn data into decisions for technology and software organizations.",
-    heroImage: stockImage("industryPageTechnology", { w: 1600, q: 80 }),
-    heroImageAlt: "Engineering and data technology environment",
+    heroImage: stockImage("technologyEngineering", { w: 1600, q: 88 }),
+    heroImageAlt: "Product engineering and software architecture collaboration",
     focusAreas: [
       "Cloud-Native Applications",
       "AI Products",

@@ -7,6 +7,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
+import PracticeAiPaths from "@/components/marketing/practice-ai-paths";
+
 const stages = [
   {
     id: "extract",
@@ -53,10 +55,11 @@ export default function AIDataStory() {
         background: "linear-gradient(135deg, #073B3A 0%, #0B4A47 50%, #176A63 100%)",
       }}
     >
-      <div aria-hidden="true" className="ca-home-ai-paths ca-home-moving--slow" />
+      <PracticeAiPaths className="ca-practice-ai-paths ca-home-moving--slow hidden lg:block" />
       <div
         aria-hidden="true"
-        className="ca-home-ring ca-home-orbit right-[-8%] top-[15%] hidden h-[min(420px,40vw)] w-[min(420px,40vw)] border-white/10 lg:block"
+        className="ca-home-ring ca-home-orbit right-[-8%] top-[15%] hidden h-[min(380px,36vw)] w-[min(380px,36vw)] border-white/10 lg:block"
+        style={{ animationDuration: "62s" }}
       />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
@@ -151,19 +154,16 @@ export default function AIDataStory() {
             transition={{ duration: 0.7, delay: 0.1, ease: revealEase }}
             className="lg:col-span-7"
           >
-            <div className="ca-home-compose relative mx-auto max-w-[680px] lg:ml-auto lg:mr-0">
-              <div
-                aria-hidden="true"
-                className="absolute right-[4%] top-[8%] z-0 hidden h-[min(320px,32vw)] w-[min(320px,32vw)] rounded-full bg-[#4B9488]/20 lg:block"
-              />
+            <div className="ca-home-compose relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0">
+              <div aria-hidden="true" className="ca-practice-ai-panel hidden lg:block" />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current.image + current.id}
-                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.985 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.45, ease: revealEase }}
-                  className="ca-home-product-ui relative z-10"
+                  transition={{ duration: 0.78, ease: revealEase }}
+                  className="ca-home-product-ui ca-practice-img-ai-ui relative z-10 mx-auto w-full max-w-[680px]"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -171,12 +171,25 @@ export default function AIDataStory() {
                     alt={current.alt}
                     width={1440}
                     height={900}
-                    loading="lazy"
+                    loading={active === 0 ? "eager" : "lazy"}
                     decoding="async"
-                    className="max-h-[440px] w-full object-cover object-top"
+                    className="max-h-[420px] w-full object-cover object-top"
                   />
                 </motion.div>
               </AnimatePresence>
+              {active !== 0 ? (
+                <div className="ca-practice-ai-ui-secondary ca-home-product-ui -bottom-2 -left-1 hidden sm:block">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/innovation/data-agent-hero.png"
+                    alt="Document extraction preview"
+                    width={800}
+                    height={500}
+                    loading="lazy"
+                    className="max-h-[140px] w-full object-cover object-top"
+                  />
+                </div>
+              ) : null}
             </div>
           </motion.div>
         </div>

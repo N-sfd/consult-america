@@ -52,7 +52,8 @@ export default function OraclePageSections() {
       <PageHero
         variant="oracle"
         layout="split-left"
-        imageShape="arch"
+        imageShape="oracle-tall"
+        photoScale="editorial"
         eyebrow="Oracle Transformation"
         title={
           <>
@@ -62,11 +63,12 @@ export default function OraclePageSections() {
           </>
         }
         description="Transform finance, procurement, supply chain, projects and workforce operations through connected Oracle Cloud delivery."
-        image={stockImage("oracleFlagship", { w: 1200, q: 82 })}
-        imageAlt="Oracle Cloud transformation team and architecture"
-        overlayImage={{
-          src: "/innovation/data-agent-platform.png",
-          alt: "Oracle architecture interface",
+        image={stockImage("oracleFinanceOps", { w: 1400, q: 88 })}
+        imageAlt="Enterprise finance and operations transformation"
+        secondaryImage={{
+          src: stockImage("oracleWorkflowDetail", { w: 480, q: 85 }),
+          alt: "Finance and procurement workflow",
+          shape: "rect",
         }}
         primaryCta={{ label: "Talk to an Oracle expert", href: "/contact" }}
         secondaryCta={{ label: "View case studies", href: "/work/case-studies", variant: "secondary" }}

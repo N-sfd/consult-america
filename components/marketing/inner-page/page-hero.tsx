@@ -25,7 +25,16 @@ export type HeroBackgroundVariant =
   | "detail";
 
 export type HeroLayout = "split-left" | "split-right" | "stacked" | "product" | "editorial-wide";
-export type HeroImageShape = "arch" | "offset" | "careers" | "asymmetric" | "rect" | "wide" | "cut";
+export type HeroImageShape =
+  | "arch"
+  | "oracle-tall"
+  | "healthcare-soft"
+  | "offset"
+  | "careers"
+  | "asymmetric"
+  | "rect"
+  | "wide"
+  | "cut";
 export type HeroPhotoScale = "default" | "careers" | "editorial";
 
 const bgClass: Record<HeroBackgroundVariant, string> = {
@@ -44,6 +53,8 @@ const bgClass: Record<HeroBackgroundVariant, string> = {
 
 const shapeClass: Record<HeroImageShape, string> = {
   arch: "ca-hero-shape-arch",
+  "oracle-tall": "ca-hero-shape-oracle-tall",
+  "healthcare-soft": "ca-hero-shape-healthcare-soft",
   offset: "ca-hero-shape-offset",
   careers: "ca-hero-shape-careers",
   asymmetric: "ca-hero-shape-asymmetric",
@@ -191,10 +202,17 @@ function HeroImage({
   secondaryImage?: { src: string; alt: string; shape?: HeroImageShape };
   priority?: boolean;
 }) {
-  const secondaryShape = secondaryImage?.shape ?? "offset";
-
   return (
     <div className={cn("relative mx-auto w-full max-w-[580px] lg:max-w-none", photoScaleClass[photoScale])}>
+      {imageShape === "oracle-tall" ? (
+        <div aria-hidden="true" className="ca-practice-oracle-panel hidden lg:block" />
+      ) : null}
+      {imageShape === "healthcare-soft" ? (
+        <div
+          aria-hidden="true"
+          className="ca-practice-healthcare-oval -right-[8%] top-[6%] hidden h-[240px] w-[240px] lg:block"
+        />
+      ) : null}
       <div className="ca-hero-glow" aria-hidden="true" />
       <div
         aria-hidden="true"
@@ -221,24 +239,22 @@ function HeroImage({
             alt={imageAlt}
             fill
             priority={priority}
-            className="ca-hero-img ca-ken-burns object-cover"
+            className={cn(
+              "ca-hero-img ca-ken-burns object-cover",
+              imageShape !== "rect" && imageShape !== "wide" && "ca-home-photo",
+            )}
             sizes="(max-width: 1024px) 100vw, 46vw"
           />
         </div>
         {secondaryImage ? (
-          <div
-            className={cn(
-              "absolute -bottom-5 -right-2 z-20 hidden w-[42%] max-w-[200px] overflow-hidden shadow-[0_16px_40px_rgba(7,59,58,0.12)] ring-1 ring-[#DDE6E3]/80 sm:block",
-              shapeClass[secondaryShape],
-            )}
-          >
-            <div className="relative aspect-[4/3]">
+          <div className="ca-practice-workflow-panel -bottom-4 -right-3 z-20 hidden sm:block">
+            <div className="relative aspect-[4/3] w-full min-w-[180px] max-w-[220px]">
               <Image
                 src={secondaryImage.src}
                 alt={secondaryImage.alt}
                 fill
-                className="object-cover"
-                sizes="200px"
+                className="ca-home-photo object-cover"
+                sizes="220px"
               />
             </div>
           </div>

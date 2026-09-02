@@ -153,6 +153,14 @@
   border-radius: 180px 180px 24px 24px;
 }
 
+.ca-hero-shape-oracle-tall {
+  border-radius: 240px 240px 26px 26px;
+}
+
+.ca-hero-shape-healthcare-soft {
+  border-radius: 160px 32px 160px 32px;
+}
+
 .ca-hero-shape-offset {
   border-radius: 24px 120px 24px 24px;
 }

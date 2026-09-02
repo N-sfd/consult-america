@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
 
 import HomeBackgroundArc from "@/components/marketing/home-background-arc";
+import PracticeAiPaths from "@/components/marketing/practice-ai-paths";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { cn } from "@/lib/utils";
 import { stockImage, type StockImageKey } from "@/lib/marketing/stock-images";
@@ -68,7 +69,7 @@ const SLIDES: HeroSlide[] = [
     primaryCta: { label: "Explore Oracle", href: "/oracle" },
     tone: "oracle",
     visual: "tall-arch",
-    imageKey: "oracleFlagship",
+    imageKey: "oracleFinanceOps",
     imageAlt: "Enterprise operations and Oracle Cloud transformation",
   },
   {
@@ -329,14 +330,16 @@ export default function Hero() {
 
                 {slide.visual === "tall-arch" && slide.imageKey ? (
                   <div className="relative mx-auto max-w-[460px] lg:mr-8 lg:ml-auto">
+                    <div aria-hidden="true" className="ca-practice-oracle-panel hidden lg:block" />
                     <div
                       aria-hidden="true"
-                      className="ca-home-sage-panel absolute -right-5 top-8 hidden h-[420px] w-[180px] opacity-80 lg:block"
+                      className="ca-practice-oracle-ring ca-home-orbit left-[-10%] top-[8%] hidden h-[min(420px,40vw)] w-[min(420px,40vw)] lg:block"
+                      style={{ animationDuration: "55s" }}
                     />
-                    <div className="ca-home-frame-tall ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
-                      <div className="relative aspect-[4/5] w-full max-h-[480px]">
+                    <div className="ca-practice-oracle-arch ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]">
+                      <div className="ca-practice-img-oracle relative aspect-[4/5] w-full">
                         <Image
-                          src={stockImage(slide.imageKey, { w: 1200, q: 85 })}
+                          src={stockImage(slide.imageKey, { w: 1200, q: 88 })}
                           alt={slide.imageAlt}
                           fill
                           className="ca-home-photo object-cover object-center"
@@ -348,12 +351,10 @@ export default function Hero() {
                 ) : null}
 
                 {slide.visual === "product" && slide.productSrc ? (
-                  <div className="relative mx-auto max-w-[640px] lg:ml-auto">
-                    <div
-                      aria-hidden="true"
-                      className="ca-home-sage-disc absolute -right-6 top-[-6%] hidden h-[360px] w-[360px] opacity-70 lg:block"
-                    />
-                    <div className="ca-home-product-ui relative z-10">
+                  <div className="ca-home-compose relative mx-auto max-w-[640px] lg:ml-auto">
+                    <div aria-hidden="true" className="ca-practice-ai-panel hidden lg:block" />
+                    <PracticeAiPaths className="ca-practice-ai-paths absolute inset-0 hidden lg:block" />
+                    <div className="ca-home-product-ui ca-practice-img-ai-ui relative z-10">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={slide.productSrc}

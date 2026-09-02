@@ -13,7 +13,7 @@ const capabilities = [
   {
     name: "Finance",
     detail: "Close, reporting, multi-entity accounting, and controlled financial operations.",
-    imageKey: "oracleFlagship" as const,
+    imageKey: "oracleFinanceOps" as const,
   },
   {
     name: "Procurement",
@@ -23,7 +23,7 @@ const capabilities = [
   {
     name: "Supply Chain",
     detail: "Planning, inventory, and fulfillment connected to the digital core.",
-    imageKey: "capabilitiesOperate" as const,
+    imageKey: "oracleSupplyChain" as const,
   },
   {
     name: "Projects",
@@ -57,21 +57,20 @@ export default function OracleFlagship() {
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
           <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 14, scale: 0.985 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.78, ease: revealEase }}
+            transition={{ duration: 0.8, ease: revealEase }}
             className="lg:col-span-5"
           >
-            <div className="ca-home-compose relative mx-auto max-w-[480px] lg:mx-0">
+            <div className="ca-home-compose relative mx-auto w-full max-w-[480px] lg:mx-0">
+              <div aria-hidden="true" className="ca-practice-oracle-panel hidden lg:block" />
               <div
                 aria-hidden="true"
-                className="ca-home-sage-panel absolute -right-6 top-8 hidden h-[420px] w-[200px] opacity-80 lg:block"
-              />
-              <div
-                aria-hidden="true"
-                className="ca-home-ring ca-home-orbit left-[-12%] top-[10%] hidden h-[min(380px,36vw)] w-[min(380px,36vw)] opacity-[0.08] lg:block"
-                style={{ animationDuration: "52s" }}
+                className={cn(
+                  "ca-practice-oracle-ring ca-home-orbit left-[-14%] top-[4%] hidden h-[min(520px,48vw)] w-[min(520px,48vw)] lg:block",
+                )}
+                style={{ animationDuration: "58s" }}
               />
               <AnimatePresence mode="wait">
                 <motion.div
@@ -80,12 +79,12 @@ export default function OracleFlagship() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="ca-home-frame-tall ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]"
+                  className="ca-practice-oracle-arch ca-home-photo-overlay ca-photo-interactive relative z-10 shadow-[0_24px_56px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3]"
                 >
-                  <div className="ca-home-img-oracle relative aspect-[4/5] w-full max-h-[560px]">
+                  <div className="ca-practice-img-oracle relative aspect-[4/5] w-full">
                     <Image
-                      src={stockImage(current.imageKey, { w: 1200, q: 85 })}
-                      alt={`${current.name} — Oracle Cloud transformation`}
+                      src={stockImage(current.imageKey, { w: 1200, q: 88 })}
+                      alt={`${current.name} — Oracle Cloud enterprise operations`}
                       fill
                       className="ca-home-photo object-cover object-center"
                       sizes="(max-width: 1024px) 100vw, 38vw"
@@ -93,14 +92,14 @@ export default function OracleFlagship() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-              <div className="ca-home-detail-photo ca-home-photo-overlay -bottom-2 -right-3 hidden h-[210px] lg:block">
-                <div className="relative h-full w-full">
+              <div className="ca-practice-workflow-panel -bottom-3 -right-2 hidden lg:block">
+                <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src={stockImage("heroDetail", { w: 400, q: 85 })}
-                    alt="Enterprise operations detail"
+                    src={stockImage("oracleWorkflowDetail", { w: 480, q: 85 })}
+                    alt="Enterprise finance and operations workflow"
                     fill
-                    className="ca-home-photo object-cover"
-                    sizes="170px"
+                    className="ca-home-photo object-cover object-center"
+                    sizes="220px"
                   />
                 </div>
               </div>
@@ -114,7 +113,7 @@ export default function OracleFlagship() {
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Modernize the digital core.
             </h2>
-            <p className="mt-4 max-w-md text-[1.0625rem] leading-relaxed text-[#5B6D6B]">
+            <p className="mt-4 max-w-md text-base leading-relaxed text-[#5B6D6B]">
               Modernize finance, procurement, supply chain, projects, and workforce operations
               with connected Oracle Cloud transformation.
             </p>
