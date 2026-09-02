@@ -67,6 +67,58 @@
   }
 }
 
+@keyframes caArcDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(14px, -10px, 0) rotate(1.5deg);
+  }
+}
+
+@keyframes caOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes caShapeFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-10px, 14px, 0);
+  }
+}
+
+.ca-home-moving {
+  animation: caShapeFloat 25s ease-in-out infinite;
+  will-change: transform;
+}
+
+.ca-home-moving--slow {
+  animation: caShapeFloat 27s ease-in-out infinite;
+}
+
+.ca-home-moving--fast {
+  animation: caShapeFloat 21s ease-in-out infinite;
+}
+
+.ca-home-orbit {
+  animation: caOrbit 48s linear infinite;
+  will-change: transform;
+}
+
+.ca-background-arc,
+.ca-home-bg-arc.ca-home-moving {
+  animation: caArcDrift 24s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
 .ca-shape {
   pointer-events: none;
   position: absolute;

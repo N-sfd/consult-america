@@ -1,0 +1,273 @@
+/* Consult America — Homepage art-direction composition system */
+
+/* Hero surface */
+.ca-grad-hero {
+  background:
+    radial-gradient(circle at 82% 28%, rgba(75, 148, 136, 0.19), transparent 29%),
+    radial-gradient(circle at 67% 76%, rgba(155, 196, 184, 0.18), transparent 24%),
+    linear-gradient(115deg, #ffffff 0%, #f8fbfa 48%, #eaf3f0 100%);
+}
+
+.ca-home-hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 1;
+  background-image:
+    linear-gradient(rgba(7, 59, 58, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 59, 58, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, black 10%, transparent 75%);
+}
+
+/* Photography frames — homepage vocabulary */
+.ca-home-frame-tall {
+  border-radius: 220px 220px 24px 24px;
+  overflow: hidden;
+}
+
+.ca-home-frame-offset {
+  border-radius: 160px 28px 110px 28px;
+  overflow: hidden;
+}
+
+.ca-home-frame-cut {
+  clip-path: polygon(0 0, 88% 0, 100% 15%, 100% 100%, 14% 100%, 0 84%);
+  overflow: hidden;
+}
+
+.ca-home-frame-wide {
+  border-radius: 24px 130px 24px 24px;
+  overflow: hidden;
+}
+
+.ca-home-frame-careers {
+  border-radius: 24px 180px 24px 100px;
+  overflow: hidden;
+}
+
+.ca-home-frame-apps {
+  border-radius: 28px 150px 28px 90px;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .ca-home-frame-tall {
+    border-radius: 100px 100px 18px 18px;
+  }
+
+  .ca-home-frame-offset,
+  .ca-home-frame-apps,
+  .ca-home-frame-careers,
+  .ca-home-frame-wide {
+    border-radius: 24px 72px 24px 24px;
+  }
+
+  .ca-home-frame-cut {
+    clip-path: none;
+    border-radius: 24px 72px 24px 24px;
+  }
+}
+
+/* Graded photography only — never on software UI */
+.ca-home-photo {
+  filter: saturate(0.88) contrast(1.02) brightness(0.98);
+}
+
+.ca-home-photo-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(rgba(7, 59, 58, 0.02), rgba(7, 59, 58, 0.06));
+}
+
+/* Layered composition helpers */
+.ca-home-compose {
+  position: relative;
+}
+
+.ca-home-sage-disc {
+  position: absolute;
+  border-radius: 9999px;
+  background: #e1ece8;
+  pointer-events: none;
+}
+
+.ca-home-sage-panel {
+  position: absolute;
+  background: #e1ece8;
+  pointer-events: none;
+  border-radius: 180px 180px 24px 24px;
+}
+
+.ca-home-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(7, 59, 58, 0.1);
+  background: transparent;
+  pointer-events: none;
+}
+
+.ca-home-connector {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 1px solid rgba(23, 106, 99, 0.28);
+  pointer-events: none;
+}
+
+.ca-home-connector::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 9999px;
+  background: #176a63;
+  opacity: 0.55;
+}
+
+/* Product UI frame — always rectangular */
+.ca-home-product-ui {
+  background: #ffffff;
+  border: 1px solid rgba(7, 59, 58, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 22px 60px rgba(7, 59, 58, 0.15);
+  overflow: hidden;
+}
+
+.ca-home-product-ui img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: top;
+}
+
+/* Data Agent emerald stage */
+.ca-home-product-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(75, 148, 136, 0.22), transparent 40%),
+    linear-gradient(135deg, #073b3a 0%, #0b4a47 55%, #176a63 100%);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Background drafting arc */
+.ca-home-bg-arc {
+  position: absolute;
+  width: min(520px, 55vw);
+  height: min(520px, 55vw);
+  border: 1px solid rgba(7, 59, 58, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ca-home-bg-arc::before,
+.ca-home-bg-arc::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(7, 59, 58, 0.06);
+  border-radius: 50%;
+}
+
+.ca-home-bg-arc::after {
+  inset: 24%;
+  border-color: rgba(7, 59, 58, 0.045);
+}
+
+.ca-home-bg-arc--light {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.ca-home-bg-arc--light::before,
+.ca-home-bg-arc--light::after {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Outcomes / pillars */
+.ca-home-pillar {
+  border-top: 1px solid #176a63;
+  padding-top: 1rem;
+  transition: border-color 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ca-home-pillar:hover {
+  border-top-width: 2px;
+}
+
+.ca-home-pillar:hover .ca-home-pillar-label {
+  transform: translateX(3px);
+}
+
+.ca-home-pillar-label {
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ca-home-pillar-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #176a63;
+}
+
+/* AI curved paths */
+.ca-home-ai-paths {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    radial-gradient(circle at 70% 40%, transparent 42%, rgba(155, 196, 184, 0.9) 43%, transparent 44%),
+    radial-gradient(circle at 75% 45%, transparent 55%, rgba(155, 196, 184, 0.7) 56%, transparent 57%);
+}
+
+/* Size caps */
+.ca-home-img-hero {
+  max-height: min(28.75rem, 46vh); /* 460px */
+}
+
+.ca-home-img-major {
+  max-height: min(26.25rem, 42vh); /* 420px */
+}
+
+.ca-home-img-oracle {
+  max-height: min(35rem, 58vh); /* ~560px tall arch */
+}
+
+.ca-home-img-careers {
+  max-height: min(26.25rem, 42vh); /* 420px */
+}
+
+.ca-home-img-work {
+  max-height: min(25rem, 40vh); /* 400px */
+}
+
+@media (max-width: 1023px) {
+  .ca-home-bg-arc,
+  .ca-home-moving,
+  .ca-home-orbit,
+  .ca-home-connector {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-home-moving,
+  .ca-home-orbit,
+  .ca-home-bg-arc,
+  .ca-moving-shape,
+  .ca-rotating-ring,
+  .ca-background-arc {
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -1,26 +1,54 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { stockImage } from "@/lib/marketing/stock-images";
-import Image from "next/image";
 
 const journeySteps = ["DISCOVER", "ENGAGE", "SELL", "SERVE", "EXPAND"];
+const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function CRMShowcase() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="crm-cx" className="border-b border-[#E1ECE8] bg-white py-16 sm:py-20 lg:py-24">
+    <section id="crm-cx" className="border-b border-[#E1ECE8] bg-white py-14 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
+          <motion.div
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.78, ease: revealEase }}
+            className="lg:col-span-6 lg:order-1"
+          >
+            <div className="ca-home-compose relative mx-auto max-w-[520px] lg:mx-0">
+              <div
+                aria-hidden="true"
+                className="ca-home-ring ca-home-orbit -left-[8%] top-[20%] hidden h-[280px] w-[280px] opacity-40 lg:block"
+              />
+              <div className="ca-home-frame-wide ca-home-photo-overlay relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]">
+                <div className="ca-home-img-major relative aspect-[16/10] w-full max-h-[400px]">
+                  <Image
+                    src={stockImage("crmShowcase", { w: 1200, q: 85 })}
+                    alt="Enterprise customer relationship operations"
+                    fill
+                    className="ca-home-photo object-cover"
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-6"
+            transition={{ duration: 0.5, ease: revealEase }}
+            className="lg:col-span-6 lg:order-2"
           >
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
               CRM &amp; Customer Experience
@@ -51,26 +79,6 @@ export default function CRMShowcase() {
               Explore CRM
               <ArrowUpRight className="h-4 w-4" />
             </Link>
-          </motion.div>
-
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.06 }}
-            className="lg:col-span-6"
-          >
-            <div className="relative ml-auto max-h-[420px] w-full max-w-[560px] overflow-hidden rounded-[14px] border border-[#DDE6E3]">
-              <div className="relative aspect-[16/10] max-h-[420px] w-full">
-                <Image
-                  src={stockImage("crmShowcase", { w: 1200, q: 85 })}
-                  alt="Enterprise customer relationship operations"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 42vw"
-                />
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

@@ -31,18 +31,20 @@ const supportingCases = [
   },
 ];
 
+const revealEase = [0.2, 0.8, 0.2, 1] as const;
+
 export default function SelectedWorkSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="featured-work" className="border-b border-[#E1ECE8] bg-[#F7FAF9] py-16 sm:py-20 lg:py-24">
+    <section id="featured-work" className="border-b border-[#E1ECE8] bg-white py-14 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
               Featured Work
             </p>
-            <h2 className="mt-3 font-serif text-[clamp(2rem,3.2vw,2.75rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
+            <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Solving complex challenges.
               <br />
               Creating lasting value.
@@ -62,18 +64,19 @@ export default function SelectedWorkSection() {
 
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <motion.article
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            className="overflow-hidden rounded-[14px] border border-[#DDE6E3] bg-white lg:col-span-7"
+            transition={{ duration: 0.78, ease: revealEase }}
+            className="overflow-hidden rounded-[14px] border border-[#DDE6E3] bg-[#F8FAF9] lg:col-span-7"
           >
-            <div className="relative h-[280px] sm:h-[360px] lg:h-[400px]">
+            <div className="ca-home-frame-wide ca-home-photo-overlay relative ca-home-img-work h-[280px] sm:h-[340px] lg:h-[400px]">
               <Image
                 src={featuredCase.image}
                 alt={featuredCase.title}
                 fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="ca-home-photo object-cover"
+                sizes="(max-width: 1024px) 100vw, 58vw"
               />
             </div>
             <div className="p-6 sm:p-8">
@@ -101,15 +104,15 @@ export default function SelectedWorkSection() {
                 initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.06 }}
-                className="flex flex-1 overflow-hidden rounded-[14px] border border-[#DDE6E3] bg-white"
+                transition={{ duration: 0.5, delay: idx * 0.06, ease: revealEase }}
+                className="flex flex-1 overflow-hidden rounded-[14px] border border-[#DDE6E3] bg-[#F8FAF9]"
               >
                 <div className="relative h-[140px] w-[38%] shrink-0 sm:h-[160px] lg:h-auto lg:min-h-[180px]">
                   <Image
                     src={item.image}
                     alt={item.headline}
                     fill
-                    className="object-cover"
+                    className="ca-home-photo object-cover"
                     sizes="200px"
                   />
                 </div>
