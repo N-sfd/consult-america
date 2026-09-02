@@ -7,6 +7,7 @@ import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import MegaMenuPanels, { type MegaMenuKey } from "@/components/navigation/mega-menu-panels";
 import MobileMenu from "@/components/navigation/mobile-menu";
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { cn } from "@/lib/utils";
 
 const navItems: { label: string; key: MegaMenuKey }[] = [
   { label: "Solutions", key: "solutions" },
@@ -29,17 +30,27 @@ function NavButton({
   openMenu: MegaMenuKey | null;
   setOpenMenu: (menu: MegaMenuKey | null) => void;
 }) {
+  const isOpen = openMenu === menuKey;
   return (
     <button
       type="button"
-      data-open={openMenu === menuKey}
-      className="ca-nav-link flex cursor-pointer items-center gap-1 whitespace-nowrap text-[15px] font-medium text-[#122D2E]"
+      data-open={isOpen}
+      className={cn(
+        "ca-nav-link flex cursor-pointer items-center gap-1 whitespace-nowrap px-1 py-2 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#176A63] focus-visible:ring-offset-2",
+        isOpen ? "text-[#176A63]" : "text-[#122D2E]",
+      )}
       onMouseEnter={() => setOpenMenu(menuKey)}
-      onClick={() => setOpenMenu(openMenu === menuKey ? null : menuKey)}
-      aria-expanded={openMenu === menuKey}
+      onClick={() => setOpenMenu(isOpen ? null : menuKey)}
+      aria-expanded={isOpen}
+      aria-haspopup="true"
     >
       <span>{label}</span>
-      <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      <ChevronDown
+        className={cn(
+          "h-3.5 w-3.5 shrink-0 opacity-60 transition-transform duration-200",
+          isOpen && "rotate-180 opacity-100",
+        )}
+      />
     </button>
   );
 }

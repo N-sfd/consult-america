@@ -66,11 +66,12 @@ export default function OracleFlagship() {
             <div className="ca-home-compose relative mx-auto max-w-[480px] lg:mx-0">
               <div
                 aria-hidden="true"
-                className="ca-home-sage-panel ca-home-moving--slow -right-6 top-8 hidden h-[420px] w-[200px] opacity-80 lg:block"
+                className="ca-home-sage-panel absolute -right-6 top-8 hidden h-[420px] w-[200px] opacity-80 lg:block"
               />
               <div
                 aria-hidden="true"
-                className="ca-home-ring ca-home-orbit left-[-12%] top-[10%] hidden h-[min(380px,36vw)] w-[min(380px,36vw)] lg:block"
+                className="ca-home-ring ca-home-orbit left-[-12%] top-[10%] hidden h-[min(380px,36vw)] w-[min(380px,36vw)] opacity-[0.08] lg:block"
+                style={{ animationDuration: "52s" }}
               />
               <AnimatePresence mode="wait">
                 <motion.div
@@ -92,6 +93,17 @@ export default function OracleFlagship() {
                   </div>
                 </motion.div>
               </AnimatePresence>
+              <div className="ca-home-detail-photo ca-home-photo-overlay -bottom-2 -right-3 hidden h-[210px] lg:block">
+                <div className="relative h-full w-full">
+                  <Image
+                    src={stockImage("heroDetail", { w: 400, q: 85 })}
+                    alt="Enterprise operations detail"
+                    fill
+                    className="ca-home-photo object-cover"
+                    sizes="170px"
+                  />
+                </div>
+              </div>
             </div>
           </motion.div>
 

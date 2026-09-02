@@ -29,7 +29,7 @@ export default function PreFooterCta() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="mt-9 inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#B83A3A] px-7 text-sm font-semibold text-white transition-colors hover:bg-[#992F31]"
+            className="mt-9 inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#B83A3A] px-7 text-sm font-semibold text-white transition-colors hover:bg-[#992F31]"
           >
             Start a Conversation
             <ArrowUpRight className="h-4 w-4" />

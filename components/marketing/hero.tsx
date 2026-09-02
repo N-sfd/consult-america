@@ -98,11 +98,11 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 const toneBackground: Record<HeroSlide["tone"], string> = {
   transform:
-    "radial-gradient(circle at 82% 28%, rgba(75,148,136,.19), transparent 29%), radial-gradient(circle at 67% 76%, rgba(155,196,184,.18), transparent 24%), linear-gradient(115deg, #FFFFFF 0%, #F8FBFA 48%, #EAF3F0 100%)",
+    "radial-gradient(circle at 82% 28%, rgba(75,148,136,.22), transparent 29%), radial-gradient(circle at 67% 76%, rgba(11,74,71,.14), transparent 24%), linear-gradient(115deg, #F8FAF9 0%, #EAF3F0 48%, #D7E8E3 100%)",
   oracle:
-    "radial-gradient(circle at 78% 32%, rgba(75,148,136,.22), transparent 30%), radial-gradient(circle at 20% 80%, rgba(155,196,184,.16), transparent 26%), linear-gradient(120deg, #FFFFFF 0%, #F0F6F4 55%, #E1ECE8 100%)",
+    "radial-gradient(circle at 78% 32%, rgba(75,148,136,.24), transparent 30%), radial-gradient(circle at 20% 80%, rgba(11,74,71,.10), transparent 26%), linear-gradient(120deg, #F8FAF9 0%, #EAF3F0 55%, #D7E8E3 100%)",
   ai:
-    "radial-gradient(circle at 86% 24%, rgba(23,106,99,.18), transparent 28%), radial-gradient(circle at 18% 78%, rgba(155,196,184,.14), transparent 24%), linear-gradient(125deg, #F8FAF9 0%, #EAF3F0 45%, #D7E8E3 100%)",
+    "radial-gradient(circle at 86% 24%, rgba(23,106,99,.20), transparent 28%), radial-gradient(circle at 18% 78%, rgba(11,74,71,.12), transparent 24%), linear-gradient(125deg, #F0F6F4 0%, #E1ECE8 45%, #C9DDD7 100%)",
 };
 
 export default function Hero() {
@@ -217,9 +217,8 @@ export default function Hero() {
       <div
         aria-hidden="true"
         className={cn(
-          "ca-home-ring pointer-events-none absolute hidden lg:block",
+          "ca-home-ring pointer-events-none absolute hidden opacity-[0.10] lg:block",
           slide.tone === "oracle" ? "left-[-8%] bottom-[-18%] h-[420px] w-[420px]" : "right-[8%] top-[18%] h-[340px] w-[340px]",
-          !shouldReduceMotion && "ca-home-orbit",
         )}
       />
       <HomeBackgroundArc
@@ -244,7 +243,7 @@ export default function Hero() {
                 <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
                   {slide.eyebrow}
                 </p>
-                <h1 className="mt-4 max-w-[42.5rem] font-serif text-[clamp(3.125rem,4.7vw,4.25rem)] font-semibold leading-[1.0] tracking-[-0.035em] text-[#073B3A]">
+                <h1 className="mt-4 max-w-[680px] font-serif text-[clamp(3.125rem,4.7vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-[#073B3A]">
                   {slide.headline}
                 </h1>
                 <p className="mt-5 max-w-[36rem] text-[clamp(1.0625rem,1.1vw,1.1875rem)] leading-[1.62] text-[#5B6D6B]">
@@ -288,7 +287,7 @@ export default function Hero() {
               >
                 {slide.visual === "photo-overlay" && slide.imageKey ? (
                   <>
-                    <div className="ca-home-frame-hero-asym ca-home-photo-overlay relative z-10 mx-auto w-[92%] max-w-[680px] shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3] sm:w-[88%] lg:ml-auto lg:mr-[4%]">
+                    <div className="ca-home-frame-hero-offset ca-home-photo-overlay relative z-10 mx-auto w-[92%] max-w-[680px] shadow-[0_24px_60px_rgba(7,59,58,0.10)] ring-1 ring-[#DDE6E3] sm:w-[88%] lg:ml-auto lg:mr-[4%]">
                       <div className="ca-home-img-hero relative aspect-[3/2] w-full">
                         <Image
                           src={stockImage(slide.imageKey, { w: 1400, q: 85 })}
@@ -301,16 +300,29 @@ export default function Hero() {
                       </div>
                     </div>
                     {slide.overlaySrc ? (
-                      <div className="ca-home-product-ui absolute -bottom-3 left-0 z-30 w-[min(340px,58%)] max-w-[340px] sm:-bottom-4 sm:left-2 lg:-left-2">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={slide.overlaySrc}
-                          alt={slide.overlayAlt ?? ""}
-                          width={1440}
-                          height={900}
-                          className="max-h-[170px] w-full object-cover object-top"
+                      <>
+                        <svg
+                          aria-hidden="true"
+                          className="ca-home-connector-curve absolute bottom-[18%] left-[14%] z-20 hidden sm:block lg:left-[10%]"
+                          viewBox="0 0 72 48"
+                        >
+                          <path d="M4 44 C 18 8, 42 8, 68 24" />
+                        </svg>
+                        <div
+                          aria-hidden="true"
+                          className="ca-home-connector absolute bottom-[22%] left-[38%] z-20 hidden h-9 w-9 sm:block lg:left-[34%]"
                         />
-                      </div>
+                        <div className="ca-home-product-ui absolute -bottom-3 left-0 z-30 w-[min(340px,58%)] max-w-[340px] sm:-bottom-4 sm:left-2 lg:-left-2">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={slide.overlaySrc}
+                            alt={slide.overlayAlt ?? ""}
+                            width={1440}
+                            height={900}
+                            className="max-h-[170px] w-full object-cover object-top"
+                          />
+                        </div>
+                      </>
                     ) : null}
                   </>
                 ) : null}

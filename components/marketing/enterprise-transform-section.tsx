@@ -43,7 +43,7 @@ export default function EnterpriseTransformSection() {
                 aria-hidden="true"
                 className="ca-home-sage-panel ca-home-moving--slow -right-5 top-8 hidden h-[380px] w-[180px] opacity-80 lg:block"
               />
-              <div className="ca-home-frame-hero-asym ca-home-photo-overlay relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]">
+              <div className="ca-home-frame-offset ca-home-photo-overlay relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]">
                 <div className="ca-home-img-major relative aspect-[4/5] w-full">
                   <Image
                     src={stockImage("enterpriseTransformationFeature", { w: 1200, q: 85 })}

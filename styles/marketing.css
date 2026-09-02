@@ -333,6 +333,22 @@
 }
 
 /* Executive Navigation — structural rules live in globals.css; mega panel only here */
+.ca-header-scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: rgba(7, 59, 58, 0.08);
+  box-shadow: 0 8px 32px rgba(7, 59, 58, 0.06);
+}
+
+.ca-mega-surface {
+  padding-block: 0.75rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 249, 0.98) 100%);
+  border-bottom: 1px solid rgba(7, 59, 58, 0.08);
+  box-shadow: 0 24px 48px rgba(7, 59, 58, 0.08);
+  animation: caMegaEnter 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .ca-mega-panel {
   width: min(calc(100vw - 48px), var(--page-max));
   margin-inline: auto;
@@ -350,7 +366,7 @@
 
 .ca-nav-link:hover,
 .ca-nav-link[data-open="true"] {
-  color: #B83A3A;
+  color: #176A63;
 }
 
 .ca-nav-link::after {
@@ -361,7 +377,7 @@
   width: 18px;
   height: 2px;
   margin-left: -9px;
-  background-color: #B83A3A;
+  background-color: #176A63;
   transform: scaleX(0);
   transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }

@@ -272,7 +272,7 @@ body {
 .ca-header-cta {
   flex-shrink: 0;
   white-space: nowrap;
-  border-radius: 999px;
+  border-radius: 8px;
 }
 
 .ca-header-cta--full,
@@ -491,8 +491,9 @@ body {
   transition: color 200ms var(--ease-ca);
 }
 
-.ca-nav-link:hover {
-  color: var(--ca-red);
+.ca-nav-link:hover,
+.ca-nav-link[data-open="true"] {
+  color: var(--ca-green-700);
 }
 
 .ca-nav-link::after {
@@ -502,7 +503,7 @@ body {
   left: 0;
   height: 2px;
   content: "";
-  background: var(--ca-red);
+  background: var(--ca-green-700);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 250ms ease;
