@@ -37,21 +37,21 @@ const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
 };
 
 const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
-  header: "clamp(60px, 5.2vw, 76px)",
-  footer: "64px",
-  compact: "68px",
-  mark: "clamp(40px, 10vw, 56px)",
-  full: "140px",
-  horizontal: "clamp(60px, 5.2vw, 76px)",
+  header: "clamp(78px, 6.5vw, 96px)",
+  footer: "80px",
+  compact: "80px",
+  mark: "clamp(44px, 10vw, 64px)",
+  full: "160px",
+  horizontal: "clamp(78px, 6.5vw, 96px)",
 };
 
 const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
-  header: "clamp(280px, 32vw, 400px)",
-  footer: "320px",
-  compact: "360px",
-  mark: "72px",
-  full: "360px",
-  horizontal: "clamp(280px, 32vw, 420px)",
+  header: "clamp(340px, 40vw, 520px)",
+  footer: "400px",
+  compact: "420px",
+  mark: "80px",
+  full: "400px",
+  horizontal: "clamp(340px, 40vw, 520px)",
 };
 
 function toCss(value?: number | string) {

@@ -48,7 +48,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8 xl:px-10 lg:py-16">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <ConsultAmericaLogo lockup="footer" maxHeight="68px" maxWidth="340px" href="/" />
+            <ConsultAmericaLogo lockup="footer" maxHeight="84px" maxWidth="440px" href="/" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#5B6D6B]">
               Enterprise transformation, Oracle, AI &amp; data, and application engineering —
               from strategy through production.
