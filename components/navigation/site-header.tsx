@@ -108,8 +108,11 @@ export default function SiteHeader() {
           <div className="ca-header-container">
             <div className="ca-header-inner">
               <div className="ca-header-brand min-w-0">
-                <ConsultAmericaLogo lockup="header" />
-              </div>
+                <ConsultAmericaLogo
+                  lockup="header"
+                  maxHeight="clamp(52px, 4.8vw, 64px)"
+                />
+        </div>
 
               <nav
                 className="ca-header-nav max-[1279px]:hidden min-[1280px]:flex"
@@ -155,27 +158,27 @@ export default function SiteHeader() {
                   <span className="h-0.5 w-4.5 bg-[#122D2E]" />
                   <span className="h-0.5 w-4.5 bg-[#122D2E]" />
                 </button>
-              </div>
             </div>
           </div>
+        </div>
 
-          {openMenu && (
+        {openMenu && (
             <div className="pointer-events-none absolute inset-x-0 top-full z-[70] hidden min-[1280px]:block">
-              <div
+          <div
                 className="ca-mega-surface pointer-events-auto"
-                onMouseEnter={() => setOpenMenu(openMenu)}
-                onMouseLeave={() => setOpenMenu(null)}
-              >
+            onMouseEnter={() => setOpenMenu(openMenu)}
+            onMouseLeave={() => setOpenMenu(null)}
+          >
                 <div className="ca-mega-panel">
                   <MegaMenuPanels
                     activeMenu={openMenu}
                     onNavigate={() => setOpenMenu(null)}
                   />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
-          )}
-        </div>
       </header>
 
       <MobileMenu open={drawerOpen} onClose={() => setDrawerOpen(false)} />

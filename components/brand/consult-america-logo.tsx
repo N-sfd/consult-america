@@ -18,9 +18,9 @@ export interface ConsultAmericaLogoProps {
   maxHeight?: number | string;
   /** Max rendered width — scales height proportionally. */
   maxWidth?: number | string;
-  /** @deprecated Tagline is controlled by lockup — this prop is ignored. */
+  /** @deprecated Tagline is baked into image assets — this prop is ignored. */
   showTagline?: boolean;
-  /** @deprecated Wordmark is controlled by lockup — this prop is ignored. */
+  /** @deprecated Wordmark is baked into image assets — this prop is ignored. */
   showWordmark?: boolean;
   onNavigate?: () => void;
 }
@@ -36,8 +36,23 @@ const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
   horizontal: "mark",
 };
 
-/** Wordmark + taglines as bold HTML so title/subtitle stay readable at header scale. */
-const TEXT_LOCKUPS: LogoLockup[] = ["header", "footer", "compact", "horizontal"];
+const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
+  header: "clamp(52px, 4.8vw, 64px)",
+  footer: "56px",
+  compact: "52px",
+  mark: "clamp(44px, 10vw, 64px)",
+  full: "160px",
+  horizontal: "clamp(52px, 4.8vw, 64px)",
+};
+
+const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
+  header: undefined,
+  footer: undefined,
+  compact: undefined,
+  mark: "80px",
+  full: "400px",
+  horizontal: undefined,
+};
 
 function toCss(value?: number | string) {
   if (value === undefined) return undefined;
@@ -51,7 +66,6 @@ function RasterLogo({
   maxWidth,
   style,
   priority,
-  alt = "Consult America",
 }: {
   asset: RasterAsset;
   className?: string;
@@ -59,7 +73,6 @@ function RasterLogo({
   maxWidth?: string;
   style?: CSSProperties;
   priority?: boolean;
-  alt?: string;
 }) {
   const dim = brandDimensions[asset];
 
@@ -67,7 +80,7 @@ function RasterLogo({
     // Native img bypasses Next.js image optimizer cache (fixes stale logo after asset swaps).
     <img
       src={brandAssets[asset]}
-      alt={alt}
+      alt=""
       width={dim.width}
       height={dim.height}
       decoding="async"
@@ -86,35 +99,39 @@ function RasterLogo({
   );
 }
 
-function BoldWordmarkLockup({
-  className,
+function WordmarkLockup({
   markHeight,
-  priority,
+  compact = false,
+  priority = false,
+  className,
 }: {
-  className?: string;
   markHeight: string;
+  compact?: boolean;
   priority?: boolean;
+  className?: string;
 }) {
   return (
-    <span className={cn("brand-lockup brand-lockup--text inline-flex min-w-0 max-w-full items-center gap-3", className)}>
+    <span className={cn("brand-lockup brand-lockup--wordmark", compact && "brand-lockup--compact", className)}>
       <RasterLogo
         asset="mark"
-        alt=""
         priority={priority}
         maxHeight={markHeight}
-        className="brand-logo-mark shrink-0"
       />
-      <span className="brand-wordmark min-w-0">
+      <span className="brand-wordmark" aria-hidden="true">
         <span className="brand-wordmark-title">
           <span className="brand-wordmark-consult">Consult</span>{" "}
           <span className="brand-wordmark-america">America</span>
         </span>
         <span className="brand-wordmark-tagline">Enterprise Transformation</span>
-        <span className="brand-wordmark-practices">
-          Oracle<span aria-hidden="true"> · </span>AI &amp; Data
-          <span aria-hidden="true"> · </span>Application Engineering
-        </span>
+        {!compact ? (
+          <span className="brand-wordmark-practices">
+            Oracle<span aria-hidden="true"> · </span>
+            AI &amp; Data<span aria-hidden="true"> · </span>
+            Application Engineering
+          </span>
+        ) : null}
       </span>
+      <span className="sr-only">Consult America — Enterprise Transformation</span>
     </span>
   );
 }
@@ -139,28 +156,28 @@ export default function ConsultAmericaLogo({
           ? "footer"
           : "header");
 
-  const useTextLockup = TEXT_LOCKUPS.includes(resolvedLockup);
-  const markHeight =
-    toCss(maxHeight) ??
-    (resolvedLockup === "footer"
-      ? "64px"
-      : resolvedLockup === "compact"
-        ? "58px"
-        : "clamp(58px, 5vw, 72px)");
+  const heightCss = toCss(maxHeight) ?? DEFAULT_MAX_HEIGHT[resolvedLockup];
+  const widthCss = toCss(maxWidth) ?? DEFAULT_MAX_WIDTH[resolvedLockup];
+  const useWordmark =
+    resolvedLockup === "header" ||
+    resolvedLockup === "footer" ||
+    resolvedLockup === "compact" ||
+    resolvedLockup === "horizontal";
 
-  const content = useTextLockup ? (
-    <BoldWordmarkLockup
-      className={className}
-      markHeight={markHeight}
+  const content = useWordmark ? (
+    <WordmarkLockup
+      markHeight={heightCss}
+      compact={resolvedLockup === "compact"}
       priority={resolvedLockup === "header"}
+      className={className}
     />
   ) : (
     <span className={cn("brand-lockup inline-flex min-w-0 max-w-full items-center", className)}>
       <RasterLogo
         asset={LOCKUP_ASSET[resolvedLockup]}
-        priority={resolvedLockup === "header"}
-        maxHeight={toCss(maxHeight) ?? "clamp(44px, 10vw, 64px)"}
-        maxWidth={toCss(maxWidth)}
+        priority={false}
+        maxHeight={heightCss}
+        maxWidth={widthCss}
       />
       <span className="sr-only">Consult America — Enterprise Transformation</span>
     </span>

@@ -96,7 +96,7 @@
   --ca-radius-sm: 6px;
   --ca-radius-md: 8px;
   --ca-radius-lg: 10px;
-  --header-offset: 7rem;
+  --header-offset: 6.25rem;
 
   --background: #FFFFFF;
   --foreground: var(--ca-text-primary);
@@ -210,13 +210,13 @@ body {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   column-gap: clamp(16px, 1.4vw, 24px);
-  min-height: 104px;
+  min-height: 92px;
   box-sizing: border-box;
 }
 
 @media (min-width: 1280px) {
   .ca-header-inner {
-    min-height: 112px;
+    min-height: 100px;
   }
 }
 
@@ -225,7 +225,7 @@ body {
   align-items: center;
   flex-shrink: 0;
   min-width: 0;
-  max-width: min(540px, 54vw);
+  max-width: min(560px, 58vw);
   grid-column: 1;
 }
 
@@ -316,14 +316,12 @@ body {
   overflow: visible;
 }
 
-.brand-lockup--text {
+.brand-lockup--wordmark {
+  display: inline-flex;
+  align-items: center;
   gap: clamp(10px, 1.2vw, 14px);
-}
-
-.brand-logo-mark {
-  display: block;
-  width: auto;
-  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .brand-wordmark {
@@ -332,16 +330,16 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 2px;
+  font-family: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
   line-height: 1.05;
 }
 
 .brand-wordmark-title {
   display: block;
-  font-family: var(--font-sans);
-  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-size: clamp(1.2rem, 1.55vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
@@ -355,8 +353,7 @@ body {
 
 .brand-wordmark-tagline {
   display: block;
-  font-family: var(--font-sans);
-  font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+  font-size: clamp(0.62rem, 0.72vw, 0.72rem);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -366,8 +363,7 @@ body {
 
 .brand-wordmark-practices {
   display: block;
-  font-family: var(--font-sans);
-  font-size: clamp(0.58rem, 0.72vw, 0.68rem);
+  font-size: clamp(0.55rem, 0.64vw, 0.64rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -375,22 +371,25 @@ body {
   white-space: nowrap;
 }
 
-.brand-wordmark-practices span[aria-hidden="true"] {
-  color: #b83a3a;
-  font-weight: 800;
+.brand-lockup--compact .brand-wordmark-title {
+  font-size: 1.15rem;
 }
 
-@media (max-width: 639px) {
+.brand-lockup--compact .brand-wordmark-tagline {
+  font-size: 0.62rem;
+}
+
+@media (max-width: 767px) {
   .brand-wordmark-practices {
     display: none;
   }
 
   .brand-wordmark-title {
-    font-size: clamp(1.2rem, 5vw, 1.45rem);
+    font-size: 1.15rem;
   }
 
   .brand-wordmark-tagline {
-    font-size: 0.62rem;
+    font-size: 0.6rem;
   }
 }
 
@@ -663,6 +662,6 @@ select:focus-visible {
 
 @media (max-width: 767px) {
   :root {
-    --header-offset: 6rem;
+    --header-offset: 5.5rem;
   }
 }
