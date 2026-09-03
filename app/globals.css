@@ -96,7 +96,7 @@
   --ca-radius-sm: 6px;
   --ca-radius-md: 8px;
   --ca-radius-lg: 10px;
-  --header-offset: 4.5rem;
+  --header-offset: 6rem;
 
   --background: #FFFFFF;
   --foreground: var(--ca-text-primary);
@@ -210,13 +210,13 @@ body {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   column-gap: clamp(18px, 1.6vw, 28px);
-  min-height: 76px;
+  min-height: 88px;
   box-sizing: border-box;
 }
 
 @media (min-width: 1280px) {
   .ca-header-inner {
-    min-height: 80px;
+    min-height: 96px;
   }
 }
 
@@ -225,7 +225,7 @@ body {
   align-items: center;
   flex-shrink: 0;
   min-width: 0;
-  max-width: 100%;
+  max-width: min(420px, 46vw);
   grid-column: 1;
 }
 
@@ -585,6 +585,6 @@ select:focus-visible {
 
 @media (max-width: 767px) {
   :root {
-    --header-offset: 4rem;
+    --header-offset: 5.25rem;
   }
 }

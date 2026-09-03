@@ -28,8 +28,8 @@ export interface ConsultAmericaLogoProps {
 type RasterAsset = "full" | "compact" | "mark" | "horizontal";
 
 const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
-  header: "compact",
-  footer: "compact",
+  header: "horizontal",
+  footer: "horizontal",
   compact: "compact",
   mark: "mark",
   full: "full",
@@ -37,21 +37,21 @@ const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
 };
 
 const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
-  header: "clamp(38px, 4vw, 44px)",
-  footer: "56px",
-  compact: "64px",
+  header: "clamp(60px, 5.2vw, 76px)",
+  footer: "64px",
+  compact: "68px",
   mark: "clamp(40px, 10vw, 56px)",
-  full: "120px",
-  horizontal: "72px",
+  full: "140px",
+  horizontal: "clamp(60px, 5.2vw, 76px)",
 };
 
 const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
-  header: "clamp(200px, 20vw, 235px)",
-  footer: "280px",
-  compact: "320px",
+  header: "clamp(280px, 32vw, 400px)",
+  footer: "320px",
+  compact: "360px",
   mark: "72px",
-  full: "320px",
-  horizontal: "480px",
+  full: "360px",
+  horizontal: "clamp(280px, 32vw, 420px)",
 };
 
 function toCss(value?: number | string) {
