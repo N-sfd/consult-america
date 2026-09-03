@@ -76,3 +76,67 @@
   background: var(--cr-surface);
   box-shadow: 0 1px 3px rgba(16, 32, 51, 0.04);
 }
+
+/* ── Job search input ── */
+.job-search-input {
+  position: relative;
+  width: 100%;
+}
+
+.job-search-input svg,
+.job-search-input .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #5B6D6B;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.job-search-input input {
+  width: 100%;
+  min-height: 58px;
+  padding: 0 18px 0 52px;
+  font-size: 17px;
+  line-height: 1;
+  border: 1px solid #D6E0DD;
+  border-radius: 10px;
+  background: #FFFFFF;
+  color: #122D2E;
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.job-search-input input::placeholder {
+  color: #7D8B89;
+  opacity: 1;
+}
+
+.job-search-input input:hover {
+  border-color: #B5C4CD;
+}
+
+.job-search-input input:focus {
+  border-color: #287B72;
+  box-shadow: 0 0 0 3px rgba(40, 123, 114, 0.12);
+}
+
+/* ── Job filter panel ── */
+.job-filter-panel {
+  background: #FFFFFF;
+  border: 1px solid #DDE6E3;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(7, 59, 58, 0.05);
+}
+
+@media (min-width: 640px) {
+  .job-search-input input {
+    min-height: 54px;
+    font-size: 16px;
+  }
+}

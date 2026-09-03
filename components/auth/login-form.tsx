@@ -1,59 +1,86 @@
 "use client";
 
-import { useActionState } from "react";
-import { ArrowRight } from "lucide-react";
+import { useActionState, useState } from "react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 import { login, type LoginState } from "@/app/actions/auth";
-
-const fieldClass =
-  "mt-1.5 h-10 w-full border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
 
 const initialState: LoginState = { error: null };
 
 export default function LoginForm() {
   const [state, formAction, isPending] = useActionState(login, initialState);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <form action={formAction} className="mt-10 border border-black/10 bg-white p-5">
-      <p className="text-[0.7rem] uppercase tracking-[0.12em] text-black/40">
-        Sign in
-      </p>
+    <form action={formAction} className="login-form">
+      {state.error && (
+        <div className="login-error" role="alert">
+          <p>{state.error}</p>
+        </div>
+      )}
 
-      <label className="mt-4 block text-sm font-medium text-[var(--ca-app-ink)]">
-        Email
+      <div className="login-field">
+        <label htmlFor="login-email" className="login-label">
+          Email
+        </label>
         <input
+          id="login-email"
           type="email"
           name="email"
           autoComplete="email"
           required
-          className={fieldClass}
+          className="login-input"
+          placeholder="you@company.com"
         />
-      </label>
+      </div>
 
-      <label className="mt-4 block text-sm font-medium text-[var(--ca-app-ink)]">
-        Password
-        <input
-          type="password"
-          name="password"
-          autoComplete="current-password"
-          required
-          className={fieldClass}
-        />
-      </label>
+      <div className="login-field">
+        <label htmlFor="login-password" className="login-label">
+          Password
+        </label>
+        <div className="login-password-wrapper">
+          <input
+            id="login-password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            autoComplete="current-password"
+            required
+            className="login-input login-input--password"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="login-password-toggle"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? (
+              <EyeOff className="h-[18px] w-[18px]" />
+            ) : (
+              <Eye className="h-[18px] w-[18px]" />
+            )}
+          </button>
+        </div>
+      </div>
 
-      {state.error && (
-        <p className="mt-4 text-sm text-red-600" role="alert">
-          {state.error}
-        </p>
-      )}
+      <div className="login-forgot-row">
+        <a href="#" className="login-forgot-link">
+          Forgot password?
+        </a>
+      </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="mt-5 inline-flex items-center gap-2 bg-[var(--ca-app-sidebar-bg)] px-5 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="login-submit"
       >
-        {isPending ? "Signing in…" : "Sign in"}
-        {!isPending && <ArrowRight className="h-4 w-4" />}
+        {isPending ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Signing in…
+          </>
+        ) : (
+          "Sign In"
+        )}
       </button>
     </form>
   );

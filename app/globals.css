@@ -7,6 +7,7 @@
 @import "../styles/homepage.css";
 @import "../styles/practice-compositions.css";
 @import "../styles/careers.css";
+@import "../styles/login.css";
 @import "../styles/experiences.css";
 
 @custom-variant dark (&:is(.dark *));

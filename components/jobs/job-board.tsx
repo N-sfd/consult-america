@@ -114,24 +114,20 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
 
   return (
     <div>
-      <div className="cr-card space-y-6 p-6 md:p-8 bg-[#FFFDF8] border border-[#D7CCBD]">
+      <div className="job-filter-panel space-y-6 p-6 md:p-8">
         <div className="grid gap-4">
           <div>
-            <label htmlFor="job-search" className="cr-label text-[#261F1B]">
+            <label htmlFor="job-search" className="cr-label">
               Search
             </label>
-            <div className="relative">
-              <Search
-                aria-hidden="true"
-                className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#261F1B]"
-              />
+            <div className="job-search-input">
+              <Search aria-hidden="true" className="search-icon" />
               <input
                 id="job-search"
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search role or skill…"
-                className="cr-input pl-12 h-12 text-sm bg-[#FFFDF8] border-[#D7CCBD]"
               />
             </div>
           </div>
@@ -139,7 +135,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="flex h-14 items-center justify-center gap-2 rounded-xl border border-[var(--cr-border)] bg-white px-5 text-sm font-medium text-[var(--cr-text)] transition hover:border-[#B8AA96] md:hidden"
+            className="flex h-14 items-center justify-center gap-2 rounded-xl border border-[var(--cr-border)] bg-white px-5 text-sm font-medium text-[var(--cr-text)] transition hover:border-[#B5C4CD] md:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" />
             Filters
@@ -151,7 +147,7 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
           </button>
         </div>
 
-        <div className="hidden gap-4 md:grid md:grid-cols-2 xl:grid-cols-4">
+        <div className="hidden gap-5 md:grid md:grid-cols-2 xl:grid-cols-4">
           {filterFields.map(({ key, ...field }) => (
             <JobFilterSelect key={key} {...field} />
           ))}

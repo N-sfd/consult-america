@@ -18,6 +18,7 @@ const PROTECTED_PREFIXES = [
   "/payroll",
   "/app",
   "/workforce",
+  "/dashboard",
 ];
 
 export async function proxy(request: NextRequest) {
@@ -34,12 +35,16 @@ export async function proxy(request: NextRequest) {
 
   if (isProtected && !user) {
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("next", pathname);
+    loginUrl.searchParams.set("returnTo", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
   if (pathname === "/login" && user) {
-    return NextResponse.redirect(new URL("/", request.url));
+    const returnTo =
+      request.nextUrl.searchParams.get("returnTo") ||
+      request.nextUrl.searchParams.get("next") ||
+      "/employee";
+    return NextResponse.redirect(new URL(returnTo, request.url));
   }
 
   return response;
