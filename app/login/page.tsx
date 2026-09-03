@@ -25,7 +25,7 @@ export default function LoginPage() {
     <div className="login-page">
       <header className="login-header">
         <div className="login-header-inner">
-          <ConsultAmericaLogo lockup="horizontal" maxHeight="72px" maxWidth="380px" href="/" />
+          <ConsultAmericaLogo lockup="horizontal" href="/" />
           <Link href="/" className="login-back-link flex items-center gap-1">
             Back to Consult America
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -78,7 +78,7 @@ export default function LoginPage() {
           <div className="login-card-wrapper">
             <div className="login-card">
               <div className="login-card-logo">
-                <ConsultAmericaLogo lockup="horizontal" maxHeight="72px" maxWidth="380px" href={undefined} />
+                <ConsultAmericaLogo lockup="horizontal" href={undefined} />
               </div>
 
               <h2 className="login-card-heading">Sign in to Workforce</h2>

@@ -316,6 +316,84 @@ body {
   overflow: visible;
 }
 
+.brand-lockup--text {
+  gap: clamp(10px, 1.2vw, 14px);
+}
+
+.brand-logo-mark {
+  display: block;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.brand-wordmark {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1.05;
+}
+
+.brand-wordmark-title {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.brand-wordmark-consult {
+  color: #0b4a47;
+}
+
+.brand-wordmark-america {
+  color: #b83a3a;
+}
+
+.brand-wordmark-tagline {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #176a63;
+  white-space: nowrap;
+}
+
+.brand-wordmark-practices {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: clamp(0.58rem, 0.72vw, 0.68rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #287b72;
+  white-space: nowrap;
+}
+
+.brand-wordmark-practices span[aria-hidden="true"] {
+  color: #b83a3a;
+  font-weight: 800;
+}
+
+@media (max-width: 639px) {
+  .brand-wordmark-practices {
+    display: none;
+  }
+
+  .brand-wordmark-title {
+    font-size: clamp(1.2rem, 5vw, 1.45rem);
+  }
+
+  .brand-wordmark-tagline {
+    font-size: 0.62rem;
+  }
+}
+
 .ca-mega-panel {
   width: min(calc(100vw - 48px), var(--page-max, 1440px));
   margin-inline: auto;
