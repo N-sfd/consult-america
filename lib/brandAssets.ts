@@ -8,10 +8,10 @@ export const brandAssets = {
 } as const;
 
 export const brandDimensions = {
-  horizontal: { width: 1600, height: 380 },
-  compact: { width: 1000, height: 238 },
-  mark: { width: 400, height: 325 },
-  full: { width: 800, height: 465 },
+  horizontal: { width: 1617, height: 442 },
+  compact: { width: 1011, height: 276 },
+  mark: { width: 699, height: 582 },
+  full: { width: 900, height: 588 },
 } as const;
 
 export type BrandAssetKey = keyof typeof brandAssets;
