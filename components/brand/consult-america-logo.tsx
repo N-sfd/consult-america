@@ -14,44 +14,40 @@ export interface ConsultAmericaLogoProps {
   variant?: ConsultAmericaLogoVariant;
   size?: ConsultAmericaLogoSize;
   lockup?: LogoLockup;
-  /** Max rendered height — scales width proportionally. */
   maxHeight?: number | string;
-  /** Max rendered width — scales height proportionally. */
   maxWidth?: number | string;
-  /** @deprecated Tagline is baked into image assets — this prop is ignored. */
   showTagline?: boolean;
-  /** @deprecated Wordmark is baked into image assets — this prop is ignored. */
   showWordmark?: boolean;
   onNavigate?: () => void;
 }
 
-type RasterAsset = "full" | "compact" | "mark" | "horizontal";
+type RasterAsset = "full" | "compact" | "mark" | "horizontal" | "header";
 
 const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
-  header: "horizontal",
+  header: "header",
   footer: "horizontal",
   compact: "compact",
   mark: "mark",
-  full: "full",
+  full: "horizontal",
   horizontal: "horizontal",
 };
 
 const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
-  header: "clamp(72px, 6vw, 92px)",
-  footer: "78px",
-  compact: "72px",
-  mark: "clamp(44px, 10vw, 64px)",
-  full: "160px",
-  horizontal: "clamp(72px, 6vw, 92px)",
+  header: "78px",
+  footer: "120px",
+  compact: "64px",
+  mark: "64px",
+  full: "240px",
+  horizontal: "120px",
 };
 
 const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
-  header: "clamp(360px, 42vw, 540px)",
-  footer: "420px",
-  compact: "400px",
+  header: "480px",
+  footer: "600px",
+  compact: "340px",
   mark: "80px",
-  full: "400px",
-  horizontal: "clamp(360px, 42vw, 540px)",
+  full: "420px",
+  horizontal: "600px",
 };
 
 function toCss(value?: number | string) {
@@ -77,7 +73,6 @@ function RasterLogo({
   const dim = brandDimensions[asset];
 
   return (
-    // Native img bypasses Next.js image optimizer cache (fixes stale logo after asset swaps).
     <img
       src={brandAssets[asset]}
       alt="Consult America"
@@ -86,13 +81,10 @@ function RasterLogo({
       decoding="async"
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : undefined}
-      className={cn("brand-logo block h-auto w-auto max-w-full object-contain object-left", className)}
+      className={cn("brand-logo", className)}
       style={{
         maxHeight,
         maxWidth,
-        width: "auto",
-        height: "auto",
-        aspectRatio: `${dim.width} / ${dim.height}`,
         ...style,
       }}
     />
@@ -124,7 +116,7 @@ export default function ConsultAmericaLogo({
   const widthCss = toCss(maxWidth) ?? DEFAULT_MAX_WIDTH[resolvedLockup];
 
   const content = (
-    <span className={cn("brand-lockup inline-flex min-w-0 max-w-full items-center", className)}>
+    <span className={cn("brand-lockup", className)}>
       <RasterLogo
         asset={asset}
         priority={resolvedLockup === "header"}
@@ -141,7 +133,7 @@ export default function ConsultAmericaLogo({
     <Link
       href={href}
       aria-label="Consult America homepage"
-      className="inline-flex min-w-0 max-w-full shrink items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C52F32]"
+      className="brand-lockup-link"
       onClick={onNavigate}
     >
       {content}

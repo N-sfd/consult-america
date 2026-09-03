@@ -96,7 +96,7 @@
   --ca-radius-sm: 6px;
   --ca-radius-md: 8px;
   --ca-radius-lg: 10px;
-  --header-offset: 7rem;
+  --header-offset: 6rem;
 
   --background: #FFFFFF;
   --foreground: var(--ca-text-primary);
@@ -210,13 +210,14 @@ body {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   column-gap: clamp(16px, 1.4vw, 24px);
-  min-height: 104px;
+  min-height: 92px;
+  overflow: visible;
   box-sizing: border-box;
 }
 
 @media (min-width: 1280px) {
   .ca-header-inner {
-    min-height: 112px;
+    min-height: 96px;
   }
 }
 
@@ -224,8 +225,7 @@ body {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  min-width: 0;
-  max-width: min(560px, 54vw);
+  overflow: visible;
   grid-column: 1;
 }
 
@@ -264,7 +264,6 @@ body {
 
   .ca-header-brand {
     grid-column: 1;
-    min-width: 0;
   }
 
   .ca-header-actions {
@@ -305,15 +304,40 @@ body {
   padding-inline: 18px;
 }
 
-.brand-logo {
-  display: block;
-  height: auto;
-  object-fit: contain;
+.brand-lockup-link {
+  display: inline-flex;
   flex-shrink: 0;
+  overflow: visible;
+  align-items: center;
+  line-height: 0;
+  border-radius: 6px;
 }
 
-.brand-lockup img.brand-logo {
+.brand-lockup-link:focus {
+  outline: none;
+}
+
+.brand-lockup-link:focus-visible {
+  box-shadow: 0 0 0 2px #c52f32;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  flex-shrink: 0;
   overflow: visible;
+  align-items: center;
+  line-height: 0;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: left center;
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .ca-mega-panel {
@@ -585,6 +609,6 @@ select:focus-visible {
 
 @media (max-width: 767px) {
   :root {
-    --header-offset: 6rem;
+    --header-offset: 5.5rem;
   }
 }

@@ -107,13 +107,9 @@ export default function SiteHeader() {
         <div className={`relative ${headerSurface}`}>
           <div className="ca-header-container">
             <div className="ca-header-inner">
-              <div className="ca-header-brand min-w-0">
-                <ConsultAmericaLogo
-                  lockup="header"
-                  maxHeight="clamp(72px, 6vw, 92px)"
-                  maxWidth="min(540px, 52vw)"
-                />
-        </div>
+              <div className="ca-header-brand">
+                <ConsultAmericaLogo lockup="header" maxHeight={82} maxWidth={500} />
+              </div>
 
               <nav
                 className="ca-header-nav max-[1279px]:hidden min-[1280px]:flex"

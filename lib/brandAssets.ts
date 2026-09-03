@@ -1,16 +1,18 @@
 /** Approved Executive Teal logo — single source of truth for all brand image paths. */
 export const brandAssets = {
-  full: "/brand/ca-logo-full.png",
-  horizontal: "/brand/ca-logo-horizontal.png",
-  compact: "/brand/ca-logo-compact.png",
-  mark: "/brand/ca-logo-mark.png",
+  full: "/brand/ca-logo-horizontal.png?v=lockup-10",
+  horizontal: "/brand/ca-logo-horizontal.png?v=lockup-10",
+  header: "/brand/ca-logo-header.png?v=lockup-10",
+  compact: "/brand/ca-logo-compact.png?v=lockup-10",
+  mark: "/brand/ca-logo-mark.png?v=lockup-10",
 } as const;
 
 export const brandDimensions = {
-  horizontal: { width: 1617, height: 442 },
-  compact: { width: 1011, height: 276 },
-  mark: { width: 699, height: 582 },
-  full: { width: 900, height: 588 },
+  header: { width: 2232, height: 528 },
+  horizontal: { width: 2432, height: 643 },
+  compact: { width: 1832, height: 383 },
+  mark: { width: 420, height: 395 },
+  full: { width: 2432, height: 643 },
 } as const;
 
 export type BrandAssetKey = keyof typeof brandAssets;
