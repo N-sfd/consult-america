@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EmployeeHomePage() {
-  const session = getEmployeeSession();
+  const session = await getEmployeeSession();
   const data = await getEmployeeDashboard(session.employeeId);
 
   return <EmployeeDashboard data={data} />;

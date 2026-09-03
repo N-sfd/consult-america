@@ -1,11 +1,20 @@
+import { redirect } from "next/navigation";
+
 import PortalShell from "@/components/portal/portal-shell";
 import { getNotificationUnreadCount } from "@/lib/self-service/notification-service";
-import { getHrSession } from "@/lib/self-service/session";
+import { requireHrActor, SecurityError } from "@/lib/self-service/security";
 
-export default function HrLayout({
+export default async function HrLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = getHrSession();
+  let session;
+  try {
+    ({ session } = await requireHrActor());
+  } catch (error) {
+    if (error instanceof SecurityError) redirect("/login");
+    throw error;
+  }
+
   const unreadCount = getNotificationUnreadCount(session.employeeId);
 
   return (

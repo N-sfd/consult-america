@@ -51,7 +51,7 @@ function formatDate(value?: string) {
 }
 
 export default async function EmployeeOnboardingPage() {
-  const session = getEmployeeSession();
+  const session = await getEmployeeSession();
   const [profile, onboarding] = await Promise.all([
     getEmployeeProfile(session.employeeId),
     getEmployeeOnboarding(session.employeeId),

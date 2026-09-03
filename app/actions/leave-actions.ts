@@ -49,7 +49,7 @@ export async function submitLeaveAction(input: {
   comments?: string;
 }): Promise<LeaveActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.leave.submit");
 
     const managerId = await resolveManagerId(actor.session.employeeId);
@@ -92,7 +92,7 @@ export async function cancelLeaveAction(input: {
   leaveRequestId: string;
 }): Promise<LeaveActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.leave.submit");
 
     const request = cancelLeaveRequest({
@@ -124,7 +124,7 @@ export async function approveLeaveAction(input: {
   leaveRequestId: string;
 }): Promise<LeaveActionResult> {
   try {
-    const actor = requireManagerActor();
+    const actor = await requireManagerActor();
     requirePermission(actor, "team.leave.approve");
 
     const existing = getLeaveRequestById(input.leaveRequestId);
@@ -161,7 +161,7 @@ export async function rejectLeaveAction(input: {
   comment: string;
 }): Promise<LeaveActionResult> {
   try {
-    const actor = requireManagerActor();
+    const actor = await requireManagerActor();
     requirePermission(actor, "team.leave.approve");
 
     const existing = getLeaveRequestById(input.leaveRequestId);

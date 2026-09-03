@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ManagerTimePage() {
-  const session = getManagerSession();
+  const session = await getManagerSession();
   const pending = listSubmittedTimesheetsForManager(session.employeeId);
 
   const items = await Promise.all(

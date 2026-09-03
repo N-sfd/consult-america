@@ -54,7 +54,7 @@ export async function actOnApprovalAction(input: {
   comment?: string;
 }): Promise<ApprovalActionResult> {
   try {
-    const actor = requireManagerActor();
+    const actor = await requireManagerActor();
     requirePermission(actor, "approval.act");
 
     const approval = getApprovalById(input.approvalId);

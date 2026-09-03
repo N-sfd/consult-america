@@ -20,7 +20,7 @@ export async function updateContactInfoAction(input: {
   mailingAddress?: string;
 }): Promise<ProfileActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.profile.update_limited");
 
     const employee = await hrRepository.getEmployeeById(actor.session.employeeId);
@@ -49,7 +49,7 @@ export async function updateEmergencyContactAction(input: {
   phone: string;
 }): Promise<ProfileActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.profile.update_limited");
 
     const name = input.name.trim();

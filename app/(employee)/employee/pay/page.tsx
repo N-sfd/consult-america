@@ -20,8 +20,8 @@ function currency(value: number) {
   return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
 }
 
-export default function EmployeePayPage() {
-  const actor = requireEmployeeActor();
+export default async function EmployeePayPage() {
+  const actor = await requireEmployeeActor();
   requirePermission(actor, "self.pay.read");
 
   const payslips = listPayslipsForEmployee(actor.session.employeeId);

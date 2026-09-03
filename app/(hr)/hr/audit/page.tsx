@@ -63,7 +63,7 @@ export default async function HrAuditPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const actor = requireHrActor();
+  const actor = await requireHrActor();
   requirePermission(actor, "audit.read");
 
   const params = await searchParams;

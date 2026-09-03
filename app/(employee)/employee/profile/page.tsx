@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EmployeeProfilePage() {
-  const session = getEmployeeSession();
+  const session = await getEmployeeSession();
   const profile = await getEmployeeProfile(session.employeeId);
 
   if (!profile) {

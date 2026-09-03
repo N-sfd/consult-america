@@ -1,10 +1,18 @@
-import PortalShell from "@/components/portal/portal-shell";
-import { getPayrollSession } from "@/lib/self-service/session";
+import { redirect } from "next/navigation";
 
-export default function PayrollLayout({
+import PortalShell from "@/components/portal/portal-shell";
+import { requirePayrollActor, SecurityError } from "@/lib/self-service/security";
+
+export default async function PayrollLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = getPayrollSession();
+  let session;
+  try {
+    ({ session } = await requirePayrollActor());
+  } catch (error) {
+    if (error instanceof SecurityError) redirect("/login");
+    throw error;
+  }
 
   return (
     <PortalShell session={session} mode="payroll">

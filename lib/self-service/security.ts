@@ -40,28 +40,28 @@ function deny(
   throw new SecurityError(detail);
 }
 
-export function requireEmployeeActor(): PortalActor {
-  return { session: getEmployeeSession(), role: "EMPLOYEE" };
+export async function requireEmployeeActor(): Promise<PortalActor> {
+  return { session: await getEmployeeSession(), role: "EMPLOYEE" };
 }
 
-export function requireManagerActor(): PortalActor {
-  const session = getManagerSession();
+export async function requireManagerActor(): Promise<PortalActor> {
+  const session = await getManagerSession();
   if (!session.isManager) {
     throw new SecurityError("Manager role required");
   }
   return { session, role: "MANAGER" };
 }
 
-export function requireHrActor(): PortalActor {
-  const session = getHrSession();
+export async function requireHrActor(): Promise<PortalActor> {
+  const session = await getHrSession();
   if (!session.isHr) {
     throw new SecurityError("HR role required");
   }
   return { session, role: "HR" };
 }
 
-export function requirePayrollActor(): PortalActor {
-  const session = getPayrollSession();
+export async function requirePayrollActor(): Promise<PortalActor> {
+  const session = await getPayrollSession();
   if (!session.isPayroll) {
     throw new SecurityError("Payroll role required");
   }

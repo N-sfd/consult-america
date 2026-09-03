@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   title: "HR Requests | ConsultAmerica",
 };
 
-export default function EmployeeRequestsPage() {
-  const session = getEmployeeSession();
+export default async function EmployeeRequestsPage() {
+  const session = await getEmployeeSession();
   const requests = getHrRequests(session.employeeId);
 
   return (

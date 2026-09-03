@@ -10,7 +10,7 @@ import { getWorkforceSession } from "@/lib/workforce/session";
 import { APPLICATION_PIPELINE, applicationStatusLabels } from "@/types/recruiting";
 
 export default async function WorkforceAppDashboardPage() {
-  const session = getWorkforceSession();
+  const session = await getWorkforceSession();
   const connected = isSupabaseConfigured();
 
   const [openJobs, candidateCount, pipelineCounts, employees] =

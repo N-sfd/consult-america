@@ -21,7 +21,9 @@ export type NotificationActionResult = {
   message: string;
 };
 
-function resolveActor(portal: "employee" | "manager" | "hr"): PortalActor {
+async function resolveActor(
+  portal: "employee" | "manager" | "hr",
+): Promise<PortalActor> {
   if (portal === "manager") return requireManagerActor();
   if (portal === "hr") return requireHrActor();
   return requireEmployeeActor();
@@ -41,7 +43,7 @@ export async function markNotificationReadAction(input: {
   portal: "employee" | "manager" | "hr";
 }): Promise<NotificationActionResult> {
   try {
-    const actor = resolveActor(input.portal);
+    const actor = await resolveActor(input.portal);
     requirePermission(actor, "self.notification.read");
 
     markOneNotificationRead(input.notificationId, actor.session.employeeId);
@@ -72,7 +74,7 @@ export async function markAllNotificationsReadAction(input: {
   portal: "employee" | "manager" | "hr";
 }): Promise<NotificationActionResult> {
   try {
-    const actor = resolveActor(input.portal);
+    const actor = await resolveActor(input.portal);
     requirePermission(actor, "self.notification.read");
 
     const count = markEmployeeNotificationsRead(actor.session.employeeId);

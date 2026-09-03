@@ -19,7 +19,7 @@ export default async function ManagerTeamMemberPage({
   params,
 }: TeamMemberPageProps) {
   const { employeeId } = await params;
-  const session = getManagerSession();
+  const session = await getManagerSession();
 
   try {
     await assertTeamAccess(session.employeeId, employeeId);

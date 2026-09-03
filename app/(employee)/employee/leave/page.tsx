@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   title: "Leave | ConsultAmerica",
 };
 
-export default function EmployeeLeavePage() {
-  const session = getEmployeeSession();
+export default async function EmployeeLeavePage() {
+  const session = await getEmployeeSession();
   const types = getLeaveTypes();
   const balances = getLeaveBalances(session.employeeId);
   const requests = getLeaveRequests(session.employeeId);

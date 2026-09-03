@@ -24,7 +24,7 @@ export default async function HrNotificationsPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const session = getHrSession();
+  const session = await getHrSession();
   const params = await searchParams;
   const filter = parseFilter(params.filter);
   const notifications = getNotificationsForEmployee(

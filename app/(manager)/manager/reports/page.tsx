@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ManagerReportsPage() {
-  const actor = requireManagerActor();
+  const actor = await requireManagerActor();
   requirePermission(actor, "team.reports.read");
   const report = await getManagerTeamReport(actor.session.employeeId);
 

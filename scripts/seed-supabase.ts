@@ -52,6 +52,100 @@ async function upsert(table: string, rows: Record<string, unknown>[]) {
 
 const now = "2026-08-01T00:00:00.000Z";
 
+const DEMO_PASSWORD = process.env.SEED_DEMO_PASSWORD ?? "ConsultAmerica!Demo1";
+
+type SeedAuthPerson = {
+  userId: string;
+  employeeId: string;
+  email: string;
+  displayName: string;
+  roles: string[];
+};
+
+const seedAuthPeople: SeedAuthPerson[] = [
+  {
+    userId: "user-emp-demo-001",
+    employeeId: "emp-demo-001",
+    email: "michael.brown@consultamerica.demo",
+    displayName: "Michael Brown",
+    roles: ["SUPER_ADMIN", "HR_ADMIN", "PAYROLL_ADMIN", "MANAGER"],
+  },
+  {
+    userId: "user-emp-demo-002",
+    employeeId: "emp-demo-002",
+    email: "jennifer.lee@consultamerica.demo",
+    displayName: "Jennifer Lee",
+    roles: ["EMPLOYEE"],
+  },
+];
+
+async function findAuthUserByEmail(email: string) {
+  // Admin API has no direct "get by email" — page through listUsers(). Fine
+  // for a handful of demo accounts.
+  let page = 1;
+  for (;;) {
+    const { data, error } = await supabase.auth.admin.listUsers({
+      page,
+      perPage: 200,
+    });
+    if (error) throw new Error(`listUsers failed: ${error.message}`);
+    const match = data.users.find((u) => u.email === email);
+    if (match) return match;
+    if (data.users.length < 200) return undefined;
+    page += 1;
+  }
+}
+
+async function seedAuthAndIdentity() {
+  console.log("Seeding identity + auth accounts…");
+
+  for (const person of seedAuthPeople) {
+    const { data: created, error: createError } =
+      await supabase.auth.admin.createUser({
+        email: person.email,
+        password: DEMO_PASSWORD,
+        email_confirm: true,
+      });
+
+    let authUserId = created?.user?.id;
+    if (createError || !authUserId) {
+      const existing = await findAuthUserByEmail(person.email);
+      if (!existing) {
+        throw new Error(
+          `Could not create or find auth user for ${person.email}: ${createError?.message}`,
+        );
+      }
+      authUserId = existing.id;
+    }
+
+    await upsert("users", [
+      {
+        id: person.userId,
+        email: person.email,
+        display_name: person.displayName,
+        employee_id: person.employeeId,
+        status: "ACTIVE",
+        auth_user_id: authUserId,
+        created_at: now,
+        updated_at: now,
+      },
+    ]);
+
+    await upsert(
+      "user_roles",
+      person.roles.map((role) => ({
+        id: `${person.userId}-${role.toLowerCase()}`,
+        user_id: person.userId,
+        role,
+      })),
+    );
+  }
+
+  console.log(
+    `  Demo login password for all seeded accounts: ${DEMO_PASSWORD}`,
+  );
+}
+
 async function seedOrganizationAndRecruiting() {
   console.log("Seeding organization reference data…");
   await upsert(
@@ -361,8 +455,9 @@ async function seedRecruitingActivity() {
 
 async function main() {
   console.log(`Seeding Supabase project at ${url}\n`);
-  await seedOrganizationAndRecruiting();
   await seedEmployeesAndPeople();
+  await seedAuthAndIdentity();
+  await seedOrganizationAndRecruiting();
   await seedRecruitingActivity();
   console.log("\nDone.");
 }

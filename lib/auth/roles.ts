@@ -1,0 +1,37 @@
+import type { PlatformRole } from "@/types/identity";
+
+/**
+ * Where a user lands after login, by role priority (a user can hold
+ * multiple roles — e.g. the demo admin holds four). CANDIDATE has no
+ * landing page yet — there's no candidate portal until Phase 2.
+ */
+const LANDING_PRIORITY: { roles: PlatformRole[]; path: string }[] = [
+  { roles: ["SUPER_ADMIN", "RECRUITER", "HIRING_MANAGER"], path: "/app/dashboard" },
+  { roles: ["HR_ADMIN", "HR_SPECIALIST"], path: "/hr" },
+  { roles: ["PAYROLL_ADMIN"], path: "/payroll" },
+  { roles: ["MANAGER"], path: "/manager" },
+  { roles: ["EMPLOYEE"], path: "/employee" },
+];
+
+/** Returns the landing path for a user's roles, or `null` if none apply. */
+export function landingPathForRoles(roles: PlatformRole[]): string | null {
+  for (const { roles: candidateRoles, path } of LANDING_PRIORITY) {
+    if (candidateRoles.some((role) => roles.includes(role))) return path;
+  }
+  return null;
+}
+
+const PORTAL_ROLES: Record<"EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL", PlatformRole[]> = {
+  EMPLOYEE: ["EMPLOYEE"],
+  MANAGER: ["MANAGER"],
+  HR: ["HR_ADMIN", "HR_SPECIALIST"],
+  PAYROLL: ["PAYROLL_ADMIN"],
+};
+
+/** Does this user hold a platform role that grants the given portal? */
+export function hasPortalRole(
+  roles: PlatformRole[],
+  portal: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL",
+): boolean {
+  return PORTAL_ROLES[portal].some((role) => roles.includes(role));
+}

@@ -24,7 +24,7 @@ export default async function EmployeeHrRequestDetailPage({
 }: {
   params: Params;
 }) {
-  const actor = requireEmployeeActor();
+  const actor = await requireEmployeeActor();
   requirePermission(actor, "self.hr_request.read");
 
   const { id } = await params;

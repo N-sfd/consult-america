@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { logout } from "@/app/actions/auth";
 import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
 import EmployeeBottomNav from "@/components/portal/employee-bottom-nav";
+import DemoModeBanner from "@/components/shared/demo-mode-banner";
 import type { PortalSession } from "@/lib/self-service/session";
 import { cn } from "@/lib/utils";
 
@@ -178,8 +180,16 @@ export default function PortalShell({
                 </Link>
               )}
             </div>
-            <p className="mt-2">Demo session · auth later</p>
+            <form action={logout} className="mt-2">
+              <button
+                type="submit"
+                className="block text-left hover:text-[var(--ca-blue)]"
+              >
+                Sign out
+              </button>
+            </form>
           </div>
+          <DemoModeBanner />
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">

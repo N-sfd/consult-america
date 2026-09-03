@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WorkforceAppLayout({
+export default async function WorkforceAppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = getWorkforceSession();
+  const session = await getWorkforceSession();
   const unreadCount = getNotificationUnreadCount(session.employeeId);
   const pendingApprovalsCount = getPendingApprovals(session.employeeId).length;
 

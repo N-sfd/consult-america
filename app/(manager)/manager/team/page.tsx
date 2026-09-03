@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ManagerTeamPage() {
-  const session = getManagerSession();
+  const session = await getManagerSession();
   const team = await getDirectReports(session.employeeId);
 
   return (

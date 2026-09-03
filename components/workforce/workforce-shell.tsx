@@ -17,7 +17,9 @@ import {
   Wallet,
 } from "lucide-react";
 
+import { logout } from "@/app/actions/auth";
 import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import DemoModeBanner from "@/components/shared/demo-mode-banner";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -206,11 +208,17 @@ export default function WorkforceShell({
             <Link href="/login" className="mt-1 block hover:text-[var(--ca-blue)]">
               Switch portal
             </Link>
-            <p className="mt-3 flex items-center gap-1.5">
-              <Building2 className="h-3 w-3" />
-              Demo · auth later
-            </p>
+            <form action={logout} className="mt-3">
+              <button
+                type="submit"
+                className="flex items-center gap-1.5 hover:text-[var(--ca-blue)]"
+              >
+                <Building2 className="h-3 w-3" />
+                Sign out
+              </button>
+            </form>
           </div>
+          <DemoModeBanner />
         </aside>
 
         <main className="min-w-0 flex-1">

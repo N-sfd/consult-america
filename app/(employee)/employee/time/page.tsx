@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   title: "Time | ConsultAmerica",
 };
 
-export default function EmployeeTimePage() {
-  const session = getEmployeeSession();
+export default async function EmployeeTimePage() {
+  const session = await getEmployeeSession();
   const current = getCurrentTimesheet(session.employeeId);
   const entries = current ? getTimeEntries(current.id) : [];
   const history = getTimesheets(session.employeeId);

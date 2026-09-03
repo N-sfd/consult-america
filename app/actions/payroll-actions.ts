@@ -27,7 +27,7 @@ export async function calculatePayrollRunAction(input: {
   payPeriodId: string;
 }): Promise<PayrollActionResult> {
   try {
-    const actor = requirePayrollActor();
+    const actor = await requirePayrollActor();
     requirePermission(actor, "payroll.run.manage");
 
     const run = await calculatePayrollRun(input.payPeriodId);
@@ -56,7 +56,7 @@ export async function submitRunForReviewAction(input: {
   runId: string;
 }): Promise<PayrollActionResult> {
   try {
-    const actor = requirePayrollActor();
+    const actor = await requirePayrollActor();
     requirePermission(actor, "payroll.run.manage");
 
     submitRunForReview(input.runId);
@@ -74,7 +74,7 @@ export async function approvePayrollRunAction(input: {
   runId: string;
 }): Promise<PayrollActionResult> {
   try {
-    const actor = requirePayrollActor();
+    const actor = await requirePayrollActor();
     requirePermission(actor, "payroll.run.manage");
 
     const run = approvePayrollRun({
@@ -105,7 +105,7 @@ export async function lockPayrollRunAction(input: {
   runId: string;
 }): Promise<PayrollActionResult> {
   try {
-    const actor = requirePayrollActor();
+    const actor = await requirePayrollActor();
     requirePermission(actor, "payroll.run.manage");
 
     const run = lockPayrollRun(input.runId);

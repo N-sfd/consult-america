@@ -46,7 +46,7 @@ export async function saveDraftAction(input: {
   days: DayHoursInput[];
 }): Promise<TimeActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.timesheet.submit");
 
     const sheet = getTimesheetById(input.timesheetId);
@@ -75,7 +75,7 @@ export async function submitTimesheetAction(input: {
   timesheetId: string;
 }): Promise<TimeActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.timesheet.submit");
 
     const managerId = await resolveManagerId(actor.session.employeeId);
@@ -113,7 +113,7 @@ export async function approveTimesheetAction(input: {
   timesheetId: string;
 }): Promise<TimeActionResult> {
   try {
-    const actor = requireManagerActor();
+    const actor = await requireManagerActor();
     requirePermission(actor, "team.timesheet.approve");
 
     const sheet = getTimesheetById(input.timesheetId);
@@ -150,7 +150,7 @@ export async function rejectTimesheetAction(input: {
   comment: string;
 }): Promise<TimeActionResult> {
   try {
-    const actor = requireManagerActor();
+    const actor = await requireManagerActor();
     requirePermission(actor, "team.timesheet.approve");
 
     const sheet = getTimesheetById(input.timesheetId);
@@ -188,7 +188,7 @@ export async function returnTimesheetAction(input: {
   comment: string;
 }): Promise<TimeActionResult> {
   try {
-    const actor = requireManagerActor();
+    const actor = await requireManagerActor();
     requirePermission(actor, "team.timesheet.approve");
 
     const sheet = getTimesheetById(input.timesheetId);

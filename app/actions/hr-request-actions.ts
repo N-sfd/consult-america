@@ -49,7 +49,7 @@ export async function createHrRequestAction(input: {
   priority?: "LOW" | "NORMAL" | "HIGH";
 }): Promise<HrRequestActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.hr_request.create");
 
     const request = createHrRequest({
@@ -89,7 +89,7 @@ export async function addEmployeeHrMessageAction(input: {
   message: string;
 }): Promise<HrRequestActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     requirePermission(actor, "self.hr_request.create");
 
     const existing = getHrRequestById(input.hrRequestId);
@@ -127,7 +127,7 @@ export async function addHrReplyAction(input: {
   message: string;
 }): Promise<HrRequestActionResult> {
   try {
-    const actor = requireHrActor();
+    const actor = await requireHrActor();
     requirePermission(actor, "hr_request.manage");
 
     const result = addHrMessage({
@@ -161,7 +161,7 @@ export async function updateHrRequestStatusAction(input: {
   status: HrRequestStatus;
 }): Promise<HrRequestActionResult> {
   try {
-    const actor = requireHrActor();
+    const actor = await requireHrActor();
     requirePermission(actor, "hr_request.manage");
 
     const existing = getHrRequestById(input.hrRequestId);

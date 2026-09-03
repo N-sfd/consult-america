@@ -1,11 +1,20 @@
+import { redirect } from "next/navigation";
+
 import PortalShell from "@/components/portal/portal-shell";
 import { getNotificationUnreadCount } from "@/lib/self-service/notification-service";
-import { getManagerSession } from "@/lib/self-service/session";
+import { requireManagerActor, SecurityError } from "@/lib/self-service/security";
 
-export default function ManagerLayout({
+export default async function ManagerLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = getManagerSession();
+  let session;
+  try {
+    ({ session } = await requireManagerActor());
+  } catch (error) {
+    if (error instanceof SecurityError) redirect("/login");
+    throw error;
+  }
+
   const unreadCount = getNotificationUnreadCount(session.employeeId);
 
   return (

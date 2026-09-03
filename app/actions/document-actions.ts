@@ -20,7 +20,7 @@ export async function viewEmployeeDocumentAction(input: {
   documentId: string;
 }): Promise<DocumentActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     const document = getAuthorizedEmployeeDocument(actor, input.documentId);
     return {
       ok: true,
@@ -39,7 +39,7 @@ export async function acknowledgeDocumentAction(input: {
   documentId: string;
 }): Promise<DocumentActionResult> {
   try {
-    const actor = requireEmployeeActor();
+    const actor = await requireEmployeeActor();
     const document = getAuthorizedEmployeeDocument(actor, input.documentId);
     acknowledgeDocument({
       documentId: document.id,

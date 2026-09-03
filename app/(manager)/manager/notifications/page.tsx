@@ -24,7 +24,7 @@ export default async function ManagerNotificationsPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const session = getManagerSession();
+  const session = await getManagerSession();
   const params = await searchParams;
   const filter = parseFilter(params.filter);
   const notifications = getNotificationsForEmployee(

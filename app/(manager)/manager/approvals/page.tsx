@@ -31,7 +31,7 @@ export default async function ManagerApprovalsPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const session = getManagerSession();
+  const session = await getManagerSession();
   const params = await searchParams;
   const filter = parseFilter(params.type);
 

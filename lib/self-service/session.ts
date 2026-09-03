@@ -1,6 +1,14 @@
+import { redirect } from "next/navigation";
+
+import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
+import { getAuthenticatedPlatformUser } from "@/lib/auth/current-user";
+import { hrRepository } from "@/lib/hr";
+
 /**
- * Demo portal session until authentication (Phase later).
- * Same person can be employee + manager via assignment hierarchy.
+ * Portal session — real (Supabase Auth + users/user_roles) when Supabase is
+ * configured, otherwise the DEMO_* constants below. Same shape either way so
+ * every consumer (security.ts, layouts, page components) is unaffected by
+ * which mode is active.
  */
 
 export type PortalSession = {
@@ -13,7 +21,7 @@ export type PortalSession = {
   isPayroll?: boolean;
 };
 
-/** Default employee portal user: Jennifer Lee (direct report). */
+/** Demo employee portal user: Jennifer Lee (direct report). */
 export const DEMO_EMPLOYEE_SESSION: PortalSession = {
   employeeId: "emp-demo-002",
   personId: "person-demo-002",
@@ -22,7 +30,7 @@ export const DEMO_EMPLOYEE_SESSION: PortalSession = {
   isManager: false,
 };
 
-/** Default manager portal user: Michael Brown (has direct reports). */
+/** Demo manager portal user: Michael Brown (has direct reports). */
 export const DEMO_MANAGER_SESSION: PortalSession = {
   employeeId: "emp-demo-001",
   personId: "person-demo-001",
@@ -51,18 +59,45 @@ export const DEMO_PAYROLL_SESSION: PortalSession = {
   isPayroll: true,
 };
 
-export function getEmployeeSession(): PortalSession {
-  return DEMO_EMPLOYEE_SESSION;
+async function buildRealPortalSession(): Promise<PortalSession> {
+  const platformUser = await getAuthenticatedPlatformUser();
+  if (!platformUser || !platformUser.employeeId) {
+    redirect("/login");
+  }
+
+  const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
+  if (!employee) redirect("/login");
+
+  const person = await hrRepository.getPersonById(employee.personId);
+
+  const roles = platformUser.roles;
+  return {
+    employeeId: employee.id,
+    personId: employee.personId,
+    displayName: person?.preferredName || `${person?.firstName ?? ""} ${person?.lastName ?? ""}`.trim() || platformUser.displayName,
+    workEmail: employee.workEmail || platformUser.email,
+    isManager: roles.includes("MANAGER"),
+    isHr: roles.includes("HR_ADMIN") || roles.includes("HR_SPECIALIST"),
+    isPayroll: roles.includes("PAYROLL_ADMIN"),
+  };
 }
 
-export function getManagerSession(): PortalSession {
-  return DEMO_MANAGER_SESSION;
+export async function getEmployeeSession(): Promise<PortalSession> {
+  if (!isSupabaseBrowserConfigured()) return DEMO_EMPLOYEE_SESSION;
+  return buildRealPortalSession();
 }
 
-export function getHrSession(): PortalSession {
-  return DEMO_HR_SESSION;
+export async function getManagerSession(): Promise<PortalSession> {
+  if (!isSupabaseBrowserConfigured()) return DEMO_MANAGER_SESSION;
+  return buildRealPortalSession();
 }
 
-export function getPayrollSession(): PortalSession {
-  return DEMO_PAYROLL_SESSION;
+export async function getHrSession(): Promise<PortalSession> {
+  if (!isSupabaseBrowserConfigured()) return DEMO_HR_SESSION;
+  return buildRealPortalSession();
+}
+
+export async function getPayrollSession(): Promise<PortalSession> {
+  if (!isSupabaseBrowserConfigured()) return DEMO_PAYROLL_SESSION;
+  return buildRealPortalSession();
 }

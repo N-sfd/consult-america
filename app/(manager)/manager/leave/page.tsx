@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ManagerLeavePage() {
-  const session = getManagerSession();
+  const session = await getManagerSession();
   const pending = listPendingLeaveForManager(session.employeeId);
 
   const items = await Promise.all(

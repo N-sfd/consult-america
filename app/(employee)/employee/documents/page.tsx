@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   title: "My Documents | ConsultAmerica",
 };
 
-export default function EmployeeDocumentsPage() {
-  const actor = requireEmployeeActor();
+export default async function EmployeeDocumentsPage() {
+  const actor = await requireEmployeeActor();
   requirePermission(actor, "self.documents.read");
   const documents = getEmployeeDocuments(actor.session.employeeId);
 

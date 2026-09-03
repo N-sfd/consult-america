@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ManagerHomePage() {
-  const session = getManagerSession();
+  const session = await getManagerSession();
   const data = await getManagerDashboard(session.employeeId);
 
   return <ManagerDashboard data={data} />;

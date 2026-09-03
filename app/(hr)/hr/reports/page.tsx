@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HrReportsPage() {
-  const actor = requireHrActor();
+  const actor = await requireHrActor();
   requirePermission(actor, "reports.read");
   const report = await getHrOperationalReport();
 
