@@ -4,8 +4,10 @@
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 82% 28%, rgba(75, 148, 136, 0.14), transparent 32%),
-    linear-gradient(120deg, #ffffff 0%, #f8faf9 52%, #f0f6f4 100%);
+    radial-gradient(ellipse 52% 78% at 88% 42%, rgba(7, 59, 58, 0.55), transparent 72%),
+    radial-gradient(circle at 78% 30%, rgba(23, 106, 99, 0.28), transparent 42%),
+    radial-gradient(circle at 82% 28%, rgba(75, 148, 136, 0.18), transparent 34%),
+    linear-gradient(115deg, #ffffff 0%, #f8faf9 42%, #e8f1ee 68%, #d5e6e1 100%);
   padding-top: 64px;
   padding-bottom: 52px;
 }
@@ -21,6 +23,11 @@
   .crm-hero {
     padding-top: 104px;
     padding-bottom: 88px;
+    background:
+      radial-gradient(ellipse 48% 85% at 92% 48%, rgba(7, 59, 58, 0.62), transparent 70%),
+      radial-gradient(circle at 76% 36%, rgba(11, 74, 71, 0.32), transparent 44%),
+      radial-gradient(circle at 84% 22%, rgba(75, 148, 136, 0.22), transparent 36%),
+      linear-gradient(115deg, #ffffff 0%, #f8faf9 38%, #eaf3f0 62%, #d7e8e3 100%);
   }
 }
 
@@ -113,14 +120,26 @@
   position: relative;
 }
 
+.crm-hero-emerald-wash {
+  position: absolute;
+  inset: -18% -22% -22% 18%;
+  border-radius: 40% 28% 36% 24%;
+  background:
+    radial-gradient(circle at 62% 48%, rgba(7, 59, 58, 0.5), transparent 68%),
+    radial-gradient(circle at 70% 30%, rgba(23, 106, 99, 0.35), transparent 58%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .crm-hero-sage-disc {
   position: absolute;
-  right: -12%;
-  top: 8%;
-  width: min(420px, 72%);
-  height: min(420px, 72%);
+  right: -8%;
+  top: 2%;
+  width: min(460px, 78%);
+  height: min(460px, 78%);
   border-radius: 50%;
-  background: rgba(155, 196, 184, 0.2);
+  background:
+    radial-gradient(circle, rgba(155, 196, 184, 0.28) 0%, rgba(23, 106, 99, 0.12) 48%, transparent 72%);
   pointer-events: none;
   z-index: 0;
 }
@@ -132,21 +151,103 @@
   width: min(280px, 48%);
   height: min(280px, 48%);
   border-radius: 50%;
-  border: 1px solid rgba(7, 59, 58, 0.07);
+  border: 1px solid rgba(7, 59, 58, 0.1);
   pointer-events: none;
   z-index: 0;
 }
 
 .crm-hero-panel {
   position: absolute;
-  right: 6%;
-  top: 18%;
-  width: 42%;
-  height: 68%;
+  right: 4%;
+  top: 14%;
+  width: 46%;
+  height: 72%;
   border-radius: 18px;
-  background: rgba(155, 196, 184, 0.16);
+  background: rgba(11, 74, 71, 0.14);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Concentric rotatory rings behind product UI */
+.crm-rotary {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  width: min(520px, 96%);
+  height: min(520px, 96%);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.crm-rotary-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(155, 196, 184, 0.35);
+  box-shadow:
+    inset 0 0 40px rgba(75, 148, 136, 0.12),
+    0 0 28px rgba(23, 106, 99, 0.1);
+}
+
+.crm-rotary-ring--2 {
+  inset: 9%;
+  border-color: rgba(155, 196, 184, 0.28);
+  border-style: dashed;
+  border-width: 1px;
+}
+
+.crm-rotary-ring--3 {
+  inset: 18%;
+  border-color: rgba(75, 148, 136, 0.4);
+}
+
+.crm-rotary-ring--4 {
+  inset: 28%;
+  border-color: rgba(155, 196, 184, 0.22);
+  border-style: dotted;
+}
+
+.crm-rotary-glow {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(75, 148, 136, 0.22) 0%,
+    rgba(23, 106, 99, 0.08) 45%,
+    transparent 70%
+  );
+}
+
+.crm-rotary--spin-slow {
+  animation: crmRotarySpin 48s linear infinite;
+}
+
+.crm-rotary-ring--2.crm-rotary--spin-reverse {
+  animation: crmRotarySpinReverse 62s linear infinite;
+}
+
+.crm-rotary-ring--4.crm-rotary--spin-slow {
+  animation: crmRotarySpin 72s linear infinite;
+}
+
+@keyframes crmRotarySpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes crmRotarySpinReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 .crm-product-frame {
@@ -394,11 +495,52 @@
 }
 
 .crm-showcase {
-  background: linear-gradient(135deg, #073b3a 0%, #0b4a47 50%, #176a63 100%);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 40% 70% at 92% 58%, rgba(75, 148, 136, 0.28), transparent 65%),
+    linear-gradient(135deg, #073b3a 0%, #0b4a47 50%, #176a63 100%);
   padding: clamp(56px, 7vw, 88px) 0;
 }
 
+.crm-showcase-rotary {
+  position: absolute;
+  right: -8%;
+  bottom: -28%;
+  width: min(440px, 55vw);
+  height: min(440px, 55vw);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.crm-showcase-rotary-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(155, 196, 184, 0.45);
+  box-shadow: 0 0 40px rgba(75, 148, 136, 0.2);
+}
+
+.crm-showcase-rotary-ring--inner {
+  inset: 14%;
+  border-color: rgba(155, 196, 184, 0.28);
+  border-style: dashed;
+}
+
+.crm-showcase-rotary-glow {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(155, 196, 184, 0.2) 0%,
+    transparent 68%
+  );
+}
+
 .crm-showcase-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 36px;
@@ -480,7 +622,10 @@
 
 @media (max-width: 767px) {
   .crm-hero-sage-disc,
-  .crm-hero-ring {
+  .crm-hero-ring,
+  .crm-hero-emerald-wash,
+  .crm-rotary,
+  .crm-showcase-rotary {
     display: none;
   }
 
@@ -513,7 +658,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .crm-hero-sage-disc,
-  .crm-hero-ring {
+  .crm-hero-ring,
+  .crm-rotary--spin-slow,
+  .crm-rotary--spin-reverse,
+  .crm-showcase-rotary {
     animation: none !important;
   }
 }

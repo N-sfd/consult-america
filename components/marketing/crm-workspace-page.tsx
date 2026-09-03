@@ -81,10 +81,33 @@ export default function CrmWorkspacePage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.78, delay: 0.08, ease: revealEase }}
           >
+            <div aria-hidden="true" className="crm-hero-emerald-wash" />
             <div
               aria-hidden="true"
               className={cn("crm-hero-panel", !shouldReduceMotion && "ca-decor-drift--slow")}
             />
+            <div aria-hidden="true" className="crm-rotary">
+              <div className={cn("crm-rotary-glow")} />
+              <div
+                className={cn(
+                  "crm-rotary-ring",
+                  !shouldReduceMotion && "crm-rotary--spin-slow",
+                )}
+              />
+              <div
+                className={cn(
+                  "crm-rotary-ring crm-rotary-ring--2",
+                  !shouldReduceMotion && "crm-rotary--spin-reverse",
+                )}
+              />
+              <div className="crm-rotary-ring crm-rotary-ring--3" />
+              <div
+                className={cn(
+                  "crm-rotary-ring crm-rotary-ring--4",
+                  !shouldReduceMotion && "crm-rotary--spin-slow",
+                )}
+              />
+            </div>
             <div
               aria-hidden="true"
               className={cn("crm-hero-ring", !shouldReduceMotion && "ca-decor-drift--slow")}
@@ -118,6 +141,17 @@ export default function CrmWorkspacePage() {
       </section>
 
       <section className="crm-showcase">
+        <div
+          aria-hidden="true"
+          className={cn(
+            "crm-showcase-rotary",
+            !shouldReduceMotion && "crm-rotary--spin-slow",
+          )}
+        >
+          <div className="crm-showcase-rotary-glow" />
+          <div className="crm-showcase-rotary-ring" />
+          <div className="crm-showcase-rotary-ring crm-showcase-rotary-ring--inner" />
+        </div>
         <div className="mkt-shell crm-showcase-grid">
           <div>
             <p className="crm-showcase-eyebrow">CRM Workspace UI</p>
