@@ -28,30 +28,30 @@ export interface ConsultAmericaLogoProps {
 type RasterAsset = "full" | "compact" | "mark" | "horizontal";
 
 const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
-  header: "mark",
-  footer: "mark",
-  compact: "mark",
+  header: "horizontal",
+  footer: "horizontal",
+  compact: "compact",
   mark: "mark",
   full: "full",
-  horizontal: "mark",
+  horizontal: "horizontal",
 };
 
 const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
-  header: "clamp(52px, 4.8vw, 64px)",
-  footer: "56px",
-  compact: "52px",
+  header: "clamp(72px, 6vw, 92px)",
+  footer: "78px",
+  compact: "72px",
   mark: "clamp(44px, 10vw, 64px)",
   full: "160px",
-  horizontal: "clamp(52px, 4.8vw, 64px)",
+  horizontal: "clamp(72px, 6vw, 92px)",
 };
 
 const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
-  header: undefined,
-  footer: undefined,
-  compact: undefined,
+  header: "clamp(360px, 42vw, 540px)",
+  footer: "420px",
+  compact: "400px",
   mark: "80px",
   full: "400px",
-  horizontal: undefined,
+  horizontal: "clamp(360px, 42vw, 540px)",
 };
 
 function toCss(value?: number | string) {
@@ -80,7 +80,7 @@ function RasterLogo({
     // Native img bypasses Next.js image optimizer cache (fixes stale logo after asset swaps).
     <img
       src={brandAssets[asset]}
-      alt=""
+      alt="Consult America"
       width={dim.width}
       height={dim.height}
       decoding="async"
@@ -96,43 +96,6 @@ function RasterLogo({
         ...style,
       }}
     />
-  );
-}
-
-function WordmarkLockup({
-  markHeight,
-  compact = false,
-  priority = false,
-  className,
-}: {
-  markHeight: string;
-  compact?: boolean;
-  priority?: boolean;
-  className?: string;
-}) {
-  return (
-    <span className={cn("brand-lockup brand-lockup--wordmark", compact && "brand-lockup--compact", className)}>
-      <RasterLogo
-        asset="mark"
-        priority={priority}
-        maxHeight={markHeight}
-      />
-      <span className="brand-wordmark" aria-hidden="true">
-        <span className="brand-wordmark-title">
-          <span className="brand-wordmark-consult">Consult</span>{" "}
-          <span className="brand-wordmark-america">America</span>
-        </span>
-        <span className="brand-wordmark-tagline">Enterprise Transformation</span>
-        {!compact ? (
-          <span className="brand-wordmark-practices">
-            Oracle<span aria-hidden="true"> · </span>
-            AI &amp; Data<span aria-hidden="true"> · </span>
-            Application Engineering
-          </span>
-        ) : null}
-      </span>
-      <span className="sr-only">Consult America — Enterprise Transformation</span>
-    </span>
   );
 }
 
@@ -156,26 +119,15 @@ export default function ConsultAmericaLogo({
           ? "footer"
           : "header");
 
+  const asset = LOCKUP_ASSET[resolvedLockup];
   const heightCss = toCss(maxHeight) ?? DEFAULT_MAX_HEIGHT[resolvedLockup];
   const widthCss = toCss(maxWidth) ?? DEFAULT_MAX_WIDTH[resolvedLockup];
-  const useWordmark =
-    resolvedLockup === "header" ||
-    resolvedLockup === "footer" ||
-    resolvedLockup === "compact" ||
-    resolvedLockup === "horizontal";
 
-  const content = useWordmark ? (
-    <WordmarkLockup
-      markHeight={heightCss}
-      compact={resolvedLockup === "compact"}
-      priority={resolvedLockup === "header"}
-      className={className}
-    />
-  ) : (
+  const content = (
     <span className={cn("brand-lockup inline-flex min-w-0 max-w-full items-center", className)}>
       <RasterLogo
-        asset={LOCKUP_ASSET[resolvedLockup]}
-        priority={false}
+        asset={asset}
+        priority={resolvedLockup === "header"}
         maxHeight={heightCss}
         maxWidth={widthCss}
       />

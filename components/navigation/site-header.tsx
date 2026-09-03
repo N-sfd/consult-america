@@ -110,7 +110,8 @@ export default function SiteHeader() {
               <div className="ca-header-brand min-w-0">
                 <ConsultAmericaLogo
                   lockup="header"
-                  maxHeight="clamp(52px, 4.8vw, 64px)"
+                  maxHeight="clamp(72px, 6vw, 92px)"
+                  maxWidth="min(540px, 52vw)"
                 />
         </div>
 
