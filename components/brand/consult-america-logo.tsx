@@ -21,7 +21,7 @@ export interface ConsultAmericaLogoProps {
   onNavigate?: () => void;
 }
 
-type RasterAsset = "full" | "compact" | "mark" | "horizontal" | "header";
+type RasterAsset = "compact" | "mark" | "horizontal" | "header";
 
 const LOCKUP_ASSET: Record<LogoLockup, RasterAsset> = {
   header: "header",

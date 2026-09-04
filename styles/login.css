@@ -47,6 +47,24 @@
   padding: clamp(24px, 4vw, 48px) clamp(20px, 3vw, 48px);
 }
 
+.login-main--chooser {
+  align-items: stretch;
+}
+
+.login-chooser-wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--ca-platform-border, #dde6e3);
+  box-shadow: 0 16px 40px rgba(7, 59, 58, 0.06);
+}
+
+.login-chooser-wrap .ca-chooser {
+  min-height: min(720px, calc(100vh - 120px));
+}
+
 .login-grid {
   width: 100%;
   max-width: 1280px;
@@ -241,6 +259,23 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.login-field-row {
+  display: flex;
+  gap: 16px;
+}
+
+.login-field-row .login-field {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .login-field-row {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .login-label {

@@ -199,14 +199,9 @@ async function main() {
     markToTextRatio: 0.95,
   });
 
+  // "full" lockup intentionally reuses this same file (see lib/brandAssets.ts)
+  // rather than generating a second, byte-identical ca-logo-full.png.
   dimensions.horizontal = await markBesideText(markTmp, fullTextTmp, path.join(BRAND_DIR, "ca-logo-horizontal.png"), {
-    targetWidth: 2400,
-    gap: 26,
-    textScale: 1.35,
-    markToTextRatio: 0.95,
-  });
-
-  dimensions.full = await markBesideText(markTmp, fullTextTmp, path.join(BRAND_DIR, "ca-logo-full.png"), {
     targetWidth: 2400,
     gap: 26,
     textScale: 1.35,

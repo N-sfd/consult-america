@@ -42,101 +42,77 @@ export default function DashboardOverview({
     { label: "Pending Approvals", value: String(pendingApprovalsCount) },
   ];
 
-  const maxPipelineCount = Math.max(1, ...pipeline.map((row) => row.count));
-
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
-            Overview
-          </p>
-          <h1 className="mt-2 text-2xl font-medium tracking-[-0.03em] text-[var(--ca-app-ink)] md:text-3xl">
-            Good morning, {userFirstName}
-          </h1>
-        </div>
-        <Link
-          href="/jobs"
-          className="inline-flex items-center gap-1 text-sm font-medium text-[var(--ca-blue)] hover:underline"
-        >
-          Public careers board
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
-
-      {!isSupabaseConnected && <SupabaseConnectBanner />}
-
-      <section className="mt-8">
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-black/40">
-          Workforce
-        </p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="border border-black/8 bg-white px-5 py-5"
-            >
-              <p className="text-3xl font-medium tracking-[-0.04em] text-[var(--ca-app-ink)] md:text-4xl">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-sm text-black/50">{stat.label}</p>
-            </div>
-          ))}
+    <div className="space-y-7">
+      <section className="ca-platform-hero">
+        <div className="relative z-[1] flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="ca-platform-kpi-label">Workforce</p>
+            <h1 className="mt-2 text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
+              Good morning, {userFirstName}
+            </h1>
+            <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
+              Recruiting, people and workforce operations.
+            </p>
+          </div>
+          <Link
+            href="/jobs"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+          >
+            Public careers board
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </section>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-12">
-        <section className="border border-black/8 bg-white p-5 lg:col-span-12 lg:p-6">
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-black/40">
-              Hiring pipeline
-            </p>
-            <Link
-              href="/app/recruiting/candidates"
-              className="text-sm text-[var(--ca-blue)] hover:underline"
-            >
-              View candidates
-            </Link>
+      {!isSupabaseConnected && <SupabaseConnectBanner />}
+
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <div key={stat.label} className="ca-platform-card ca-platform-kpi">
+            <p className="ca-platform-kpi-label">{stat.label}</p>
+            <p className="ca-platform-kpi-value">{stat.value}</p>
           </div>
+        ))}
+      </section>
 
-          {isSupabaseConnected ? (
-            <ul className="mt-6 space-y-4">
-              {pipeline.map((row) => (
-                <li
-                  key={row.status}
-                  className="grid grid-cols-[140px_1fr_40px] items-center gap-3"
-                >
-                  <span className="text-sm text-black/60">{row.label}</span>
-                  <div className="h-2.5 overflow-hidden rounded-sm bg-black/[0.06]">
-                    <div
-                      className="h-full rounded-sm bg-[var(--ca-blue)]"
-                      style={{
-                        width: `${Math.round((row.count / maxPipelineCount) * 100)}%`,
-                      }}
-                    />
-                  </div>
-                  <span className="text-right text-sm font-medium tabular-nums">
-                    {row.count}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-6 text-sm text-black/45">
-              Not connected — see the banner above.
-            </p>
-          )}
-        </section>
-      </div>
+      <section className="ca-platform-card p-5 lg:p-6">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="ca-platform-kpi-label">Hiring pipeline</h2>
+          <Link
+            href="/app/recruiting/candidates"
+            className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+          >
+            View candidates
+          </Link>
+        </div>
 
-      <section className="mt-6 border border-black/8 bg-white">
-        <div className="flex items-center justify-between border-b border-black/8 px-5 py-4 lg:px-6">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-black/40">
-            Open roles
+        {isSupabaseConnected ? (
+          <div className="ca-platform-pipeline mt-5">
+            {pipeline.map((row) => (
+              <div
+                key={row.status}
+                className={`ca-platform-pipeline-stage ${row.count > 0 ? "is-active" : ""}`}
+              >
+                <p className="ca-platform-pipeline-count">{row.count}</p>
+                <p className="ca-platform-pipeline-label">{row.label}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-5 text-sm text-[var(--ca-platform-muted)]">
+            Connect Supabase to load live hiring pipeline counts. Demo mode keeps
+            recruiting routes available without inventing metrics.
           </p>
+        )}
+      </section>
+
+      <section className="ca-platform-card overflow-hidden">
+        <div className="flex items-center justify-between border-b border-[var(--ca-platform-border)] px-5 py-4">
+          <h2 className="ca-platform-kpi-label">Open roles</h2>
           <Link
             href="/app/recruiting/jobs"
-            className="text-sm text-[var(--ca-blue)] hover:underline"
+            className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
           >
             Manage jobs
           </Link>
@@ -146,22 +122,25 @@ export default function DashboardOverview({
             <li key={job.slug}>
               <Link
                 href={`/jobs/${job.slug}`}
-                className="flex items-center justify-between gap-4 border-b border-black/6 px-5 py-4 transition-colors last:border-0 hover:bg-[var(--ca-app-bg)] lg:px-6"
+                className="flex items-center justify-between gap-4 border-b border-[var(--ca-platform-border)] px-5 py-4 transition-colors last:border-0 hover:bg-[var(--ca-platform-sage-light)]"
               >
                 <div>
-                  <p className="text-sm font-medium text-[var(--ca-app-ink)]">
-                    {job.title}
-                  </p>
-                  <p className="mt-1 text-xs text-black/45">
+                  <p className="text-sm font-medium">{job.title}</p>
+                  <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
                     {job.location} · {job.workplaceType}
                   </p>
                 </div>
-                <span className="rounded bg-[var(--ca-blue)]/10 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.08em] text-[var(--ca-blue)]">
+                <span className="rounded bg-[rgba(23,106,99,0.1)] px-2 py-1 text-[0.65rem] font-bold uppercase tracking-[0.08em] text-[var(--ca-platform-mid)]">
                   Open
                 </span>
               </Link>
             </li>
           ))}
+          {openJobs.length === 0 && (
+            <li className="px-5 py-8 text-sm text-[var(--ca-platform-muted)]">
+              No open roles right now.
+            </li>
+          )}
         </ul>
       </section>
     </div>

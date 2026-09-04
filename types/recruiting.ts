@@ -163,18 +163,6 @@ export type CandidateProfile = {
   updatedAt: string;
 };
 
-export type CandidateAddress = {
-  id: string;
-  candidateId: string;
-  addressLine1: string;
-  addressLine2?: string;
-  city: string;
-  state?: string;
-  postalCode?: string;
-  country: string;
-  isPrimary: boolean;
-};
-
 export type Experience = {
   id: string;
   candidateId: string;

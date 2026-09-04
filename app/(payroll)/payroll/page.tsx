@@ -45,51 +45,43 @@ export default async function PayrollOverviewPage() {
   const status = run ? payrollRunStatusLabels[run.status] : "Ready for Processing";
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-7">
       <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Payroll</h1>
-        <p className="mt-2 text-black/55">
-          Illustrative figures — a demo calculator, not a tax engine.
+        <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
+          Payroll
+        </h1>
+        <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
+          Demo calculator figures — not production payroll or tax data.
         </p>
       </div>
 
       {period ? (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
-          <div className="grid gap-6 sm:grid-cols-3">
-            <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-                Next Pay Date
-              </p>
-              <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
-                {formatDate(period.payDate)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-                Current Pay Period
-              </p>
-              <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
-                {formatDate(period.periodStart)} – {formatDate(period.periodEnd)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-                Status
-              </p>
-              <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
-                {status}
-              </p>
-            </div>
+        <section className="ca-platform-summary-band">
+          <div>
+            <p className="ca-platform-kpi-label">Next Pay Date</p>
+            <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
+              {formatDate(period.payDate)}
+            </p>
+          </div>
+          <div>
+            <p className="ca-platform-kpi-label">Current Period</p>
+            <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
+              {formatDate(period.periodStart)} – {formatDate(period.periodEnd)}
+            </p>
+          </div>
+          <div>
+            <p className="ca-platform-kpi-label">Status</p>
+            <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">{status}</p>
           </div>
           <Link
             href={run ? `/payroll/runs/${run.id}` : "/payroll/runs"}
-            className="mt-6 inline-flex text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="inline-flex h-11 items-center justify-center rounded-lg bg-[var(--ca-platform-red)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--ca-red-hover)]"
           >
-            {run ? "Continue this run →" : "Start payroll run →"}
+            {run ? "Continue Run" : "Start Payroll Run"}
           </Link>
         </section>
       ) : (
-        <p className="text-sm text-black/50">No open pay period.</p>
+        <p className="text-sm text-[var(--ca-platform-muted)]">No open pay period.</p>
       )}
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -105,22 +97,20 @@ export default async function PayrollOverviewPage() {
         />
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Recent Pay Periods
-          </h2>
+          <h2 className="ca-platform-kpi-label">Recent Pay Periods</h2>
           <Link
             href="/payroll/pay-periods"
-            className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
           >
             View all
           </Link>
         </div>
-        <p className="mt-4 text-sm text-black/50">
+        <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">
           {payPeriodStatusLabels.CLOSED} periods have a locked, finalized run —
           see{" "}
-          <Link href="/payroll/runs" className="text-[var(--ca-blue)] hover:underline">
+          <Link href="/payroll/runs" className="font-semibold text-[var(--ca-platform-mid)] hover:underline">
             Payroll Runs
           </Link>
           .
@@ -132,11 +122,9 @@ export default async function PayrollOverviewPage() {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-black/10 bg-white p-5">
-      <p className="text-2xl font-semibold tracking-[-0.04em]">{value}</p>
-      <p className="mt-2 text-xs uppercase tracking-[0.1em] text-black/45">
-        {label}
-      </p>
+    <div className="ca-platform-card ca-platform-kpi">
+      <p className="ca-platform-kpi-label">{label}</p>
+      <p className="ca-platform-kpi-value">{value}</p>
     </div>
   );
 }

@@ -22,8 +22,13 @@ const capabilities = [
   "Manager workflows",
 ];
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ confirmEmail?: string }>;
+}) {
   const demoMode = !isSupabaseBrowserConfigured();
+  const { confirmEmail } = await searchParams;
 
   return (
     <div className="login-page">
@@ -37,91 +42,117 @@ export default function LoginPage() {
         </div>
       </header>
 
-      <main className="login-main">
-        <div className="login-grid">
-          {/* Left brand panel */}
-          <div className="login-brand-panel">
-            <div className="login-brand-content">
-              <p className="login-eyebrow">Consult America Workforce</p>
-              <h1 className="login-brand-headline">
-                Work connected.
-                <br />
-                People supported.
-              </h1>
-              <p className="login-brand-supporting">
-                Access your employee workspace, workforce information,
-                time, leave, documents and internal services from one secure place.
-              </p>
-
-              <ul className="login-capability-list">
-                {capabilities.map((item) => (
-                  <li key={item} className="login-capability-item">
-                    <span className="login-capability-dot" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="login-brand-visual">
-                <div className="login-visual-sage-panel" aria-hidden="true" />
-                <div className="login-visual-arch">
-                  <Image
-                    src={stockImage("careersHero", { w: 800, q: 85 })}
-                    alt="Consult America team collaboration"
-                    fill
-                    className="object-cover"
-                    sizes="320px"
-                  />
-                </div>
-                <div className="login-bg-arc" aria-hidden="true" />
-              </div>
-            </div>
+      <main className={`login-main ${demoMode ? "login-main--chooser" : ""}`}>
+        {demoMode ? (
+          <div className="login-chooser-wrap">
+            <DemoPortalLinks />
           </div>
+        ) : (
+          <>
+            <div className="login-grid">
+              <div className="login-brand-panel">
+                <div className="login-brand-content">
+                  <p className="login-eyebrow">Consult America Workforce</p>
+                  <h1 className="login-brand-headline">
+                    Work connected.
+                    <br />
+                    People supported.
+                  </h1>
+                  <p className="login-brand-supporting">
+                    Access your employee workspace, workforce information, time,
+                    leave, documents and internal services from one secure place.
+                  </p>
 
-          {/* Right login card */}
-          <div className="login-card-wrapper">
-            <div className="login-card">
-              <div className="login-card-logo">
-                <ConsultAmericaLogo lockup="horizontal" maxHeight={110} maxWidth={480} href={undefined} />
+                  <ul className="login-capability-list">
+                    {capabilities.map((item) => (
+                      <li key={item} className="login-capability-item">
+                        <span className="login-capability-dot" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="login-brand-visual">
+                    <div className="login-visual-sage-panel" aria-hidden="true" />
+                    <div className="login-visual-arch">
+                      <Image
+                        src={stockImage("careersHero", { w: 800, q: 85 })}
+                        alt="Consult America team collaboration"
+                        fill
+                        className="object-cover"
+                        sizes="320px"
+                      />
+                    </div>
+                    <div className="login-bg-arc" aria-hidden="true" />
+                  </div>
+                </div>
               </div>
 
-              <h2 className="login-card-heading">
-                {demoMode ? "Explore the demo" : "Sign in to Workforce"}
-              </h2>
-              <p className="login-card-supporting">
-                {demoMode
-                  ? "Pick a workspace to explore — no account needed."
-                  : "Use your authorized Consult America account to continue."}
-              </p>
+              <div className="login-card-wrapper">
+                <div className="login-card">
+                  <div className="login-card-logo">
+                    <ConsultAmericaLogo
+                      lockup="horizontal"
+                      maxHeight={110}
+                      maxWidth={480}
+                      href={undefined}
+                    />
+                  </div>
 
-              {demoMode ? (
-                <DemoPortalLinks />
-              ) : (
-                <>
+                  <h2 className="login-card-heading">Sign in to Workforce</h2>
+                  <p className="login-card-supporting">
+                    Use your authorized Consult America account to continue.
+                  </p>
+
+                  {confirmEmail === "1" && (
+                    <div
+                      className="login-error"
+                      role="status"
+                      style={{ background: "#F1F7F6", borderColor: "#CFE3E0" }}
+                    >
+                      <p style={{ color: "#245350" }}>
+                        Account created — check your email to confirm it before
+                        signing in.
+                      </p>
+                    </div>
+                  )}
+
                   <LoginForm />
 
                   <div className="login-card-help">
+                    <span>New candidate?</span>
+                    <Link href="/signup" className="login-help-link">
+                      Create an account →
+                    </Link>
+                  </div>
+
+                  <div className="login-card-help">
                     <span>Need help signing in?</span>
-                    <a href="mailto:support@consultamerica.net" className="login-help-link">
+                    <a
+                      href="mailto:support@consultamerica.net"
+                      className="login-help-link"
+                    >
                       Contact support →
                     </a>
                   </div>
-                </>
-              )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Mobile: show brand context above card */}
-        <div className="login-mobile-brand">
-          <p className="login-eyebrow">Consult America Workforce</p>
-          <h1 className="login-brand-headline" style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>
-            Sign in to Workforce
-          </h1>
-          <p className="login-brand-supporting" style={{ marginTop: 8 }}>
-            Use your authorized Consult America account to continue.
-          </p>
-        </div>
+            <div className="login-mobile-brand">
+              <p className="login-eyebrow">Consult America Workforce</p>
+              <h1
+                className="login-brand-headline"
+                style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
+              >
+                Sign in to Workforce
+              </h1>
+              <p className="login-brand-supporting" style={{ marginTop: 8 }}>
+                Use your authorized Consult America account to continue.
+              </p>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );

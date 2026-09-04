@@ -11,33 +11,35 @@ export default function EmployeeDashboard({ data }: { data: DashboardData }) {
   const onboardingDone = data.onboarding.percentComplete === 100;
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-[-0.03em]">
-          Good morning, {firstName}
-        </h1>
-        <p className="mt-1.5 text-sm text-black/55">
-          {profile?.positionTitle}
-          {profile?.departmentName ? ` · ${profile.departmentName}` : ""}
-        </p>
-      </div>
+    <div className="space-y-7">
+      <section className="ca-platform-hero">
+        <div className="relative z-[1]">
+          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em] text-[var(--ca-platform-ink)]">
+            Good morning, {firstName}
+          </h1>
+          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
+            {profile?.positionTitle}
+            {profile?.departmentName ? ` · ${profile.departmentName}` : ""}
+          </p>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { href: "/employee/onboarding", label: "Complete Onboarding" },
-          { href: "/employee/documents", label: "View Documents" },
-          { href: "/employee/profile", label: "Update Profile" },
-          { href: "/employee/requests", label: "Contact HR" },
-        ].map((action) => (
-          <Link
-            key={action.href}
-            href={action.href}
-            className="rounded-lg border border-black/10 bg-white px-4 py-3.5 text-sm font-medium transition-colors hover:border-[var(--ca-blue)]/40 hover:text-[var(--ca-blue)]"
-          >
-            {action.label}
-          </Link>
-        ))}
-      </div>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {[
+              { href: "/employee/onboarding", label: "Complete Onboarding" },
+              { href: "/employee/documents", label: "View Documents" },
+              { href: "/employee/profile", label: "Update Profile" },
+              { href: "/employee/requests", label: "Contact HR" },
+            ].map((action) => (
+              <Link
+                key={action.href}
+                href={action.href}
+                className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium text-[var(--ca-platform-ink)] transition-colors hover:border-[var(--ca-platform-mid)] hover:text-[var(--ca-platform-deep)]"
+              >
+                {action.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="grid gap-4 md:grid-cols-3">
         <StatusCard
@@ -46,55 +48,44 @@ export default function EmployeeDashboard({ data }: { data: DashboardData }) {
           actionLabel={onboardingDone ? undefined : "Continue"}
         >
           {onboardingDone ? (
-            <p className="text-sm font-medium text-[var(--ca-green,#16865b)]">
-              ✓ Onboarding complete
+            <p className="text-sm font-medium text-[var(--ca-platform-mid)]">
+              Onboarding complete
             </p>
           ) : (
             <>
-              <p className="text-2xl font-semibold tracking-[-0.03em]">
-                {data.onboarding.percentComplete}%
+              <p className="ca-platform-kpi-value">{data.onboarding.percentComplete}%</p>
+              <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
+                {data.onboarding.completedCount} of {data.onboarding.totalCount} tasks
               </p>
-              <p className="mt-1 text-xs text-black/45">
-                {data.onboarding.completedCount} of{" "}
-                {data.onboarding.totalCount} tasks
-              </p>
+              <div className="ca-platform-progress mt-3">
+                <span style={{ width: `${data.onboarding.percentComplete}%` }} />
+              </div>
             </>
           )}
         </StatusCard>
 
-        <StatusCard
-          label="Documents"
-          href="/employee/documents"
-          actionLabel="Review"
-        >
-          <p className="text-2xl font-semibold tracking-[-0.03em]">
-            {data.documentsRequiringAction}
-          </p>
-          <p className="mt-1 text-xs text-black/45">
+        <StatusCard label="Documents" href="/employee/documents" actionLabel="Review">
+          <p className="ca-platform-kpi-value">{data.documentsRequiringAction}</p>
+          <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
             {data.documentsRequiringAction === 1
               ? "document requires action"
               : "documents require action"}
           </p>
         </StatusCard>
 
-        <StatusCard
-          label="My Profile"
-          href="/employee/profile"
-          actionLabel="Review Profile"
-        >
-          <p className="text-2xl font-semibold tracking-[-0.03em]">
-            {data.profileCompleteness}%
-          </p>
-          <p className="mt-1 text-xs text-black/45">Profile completeness</p>
+        <StatusCard label="My Profile" href="/employee/profile" actionLabel="Review Profile">
+          <p className="ca-platform-kpi-value">{data.profileCompleteness}%</p>
+          <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">Profile completeness</p>
+          <div className="ca-platform-progress mt-3">
+            <span style={{ width: `${data.profileCompleteness}%` }} />
+          </div>
         </StatusCard>
       </section>
 
       {data.attentionItems.length > 0 && (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Things requiring your attention
-          </h2>
-          <ul className="mt-4 divide-y divide-black/5">
+        <section className="ca-platform-card p-6">
+          <h2 className="ca-platform-kpi-label">Things requiring your attention</h2>
+          <ul className="mt-4 divide-y divide-[var(--ca-platform-border)]">
             {data.attentionItems.map((item) => (
               <li
                 key={item.id}
@@ -102,11 +93,11 @@ export default function EmployeeDashboard({ data }: { data: DashboardData }) {
               >
                 <div>
                   <p className="text-sm font-medium">{item.title}</p>
-                  <p className="mt-0.5 text-xs text-black/45">{item.detail}</p>
+                  <p className="mt-0.5 text-xs text-[var(--ca-platform-muted)]">{item.detail}</p>
                 </div>
                 <Link
                   href={item.actionHref}
-                  className="shrink-0 text-sm font-medium text-[var(--ca-blue)] hover:underline"
+                  className="shrink-0 text-sm font-semibold text-[var(--ca-platform-red)] hover:underline"
                 >
                   {item.actionLabel} →
                 </Link>
@@ -117,18 +108,16 @@ export default function EmployeeDashboard({ data }: { data: DashboardData }) {
       )}
 
       <section className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Upcoming
-          </h2>
+        <div className="ca-platform-card p-5">
+          <h2 className="ca-platform-kpi-label">Upcoming</h2>
           <ul className="mt-3 space-y-3 text-sm">
-            <li className="flex justify-between gap-4 border-b border-black/5 pb-3">
+            <li className="flex justify-between gap-4 border-b border-[var(--ca-platform-border)] pb-3">
               <span>Timesheet Due</span>
-              <span className="text-black/50">Friday</span>
+              <span className="text-[var(--ca-platform-muted)]">Friday</span>
             </li>
             <li className="flex justify-between gap-4">
               <span>Approved Leave</span>
-              <span className="text-black/50">
+              <span className="text-[var(--ca-platform-muted)]">
                 {data.upcomingLeave
                   ? `${data.upcomingLeave.startDate} – ${data.upcomingLeave.endDate}`
                   : "None scheduled"}
@@ -137,16 +126,12 @@ export default function EmployeeDashboard({ data }: { data: DashboardData }) {
           </ul>
         </div>
 
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Notifications
-          </h2>
-          <p className="mt-2 text-2xl font-semibold tracking-[-0.03em]">
-            {data.unreadNotifications}
-          </p>
+        <div className="ca-platform-card p-5">
+          <h2 className="ca-platform-kpi-label">Notifications</h2>
+          <p className="ca-platform-kpi-value mt-2">{data.unreadNotifications}</p>
           <Link
             href="/employee/notifications"
-            className="mt-2 inline-flex text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="mt-2 inline-flex text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
           >
             View notifications
           </Link>
@@ -168,19 +153,17 @@ function StatusCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-black/10 bg-white p-5">
-      <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-        {label}
-      </p>
+    <div className="ca-platform-card ca-platform-kpi">
+      <p className="ca-platform-kpi-label">{label}</p>
       <div className="mt-3">{children}</div>
-      {actionLabel && (
+      {actionLabel ? (
         <Link
           href={href}
-          className="mt-4 inline-flex text-sm font-medium text-[var(--ca-blue)] hover:underline"
+          className="mt-4 inline-flex text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
         >
           {actionLabel}
         </Link>
-      )}
+      ) : null}
     </div>
   );
 }

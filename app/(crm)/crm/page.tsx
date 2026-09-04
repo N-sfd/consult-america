@@ -29,92 +29,76 @@ export default async function CrmDashboardPage() {
     .slice(0, 5);
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          CRM Workspace
-        </h1>
-        <p className="mt-2 text-black/55">
-          Pipeline health and account activity at a glance.
-        </p>
-      </div>
-
-      <section className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-            Open Pipeline
-          </p>
-          <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
-            {formatCurrency(pipeline.openValue)}
-          </p>
-        </div>
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-            Won This Period
-          </p>
-          <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
-            {formatCurrency(pipeline.wonValue)}
-          </p>
-        </div>
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-            Win Rate
-          </p>
-          <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
-            {pipeline.winRate}%
+    <div className="space-y-7">
+      <section className="ca-platform-hero">
+        <div className="relative z-[1]">
+          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
+            CRM Workspace
+          </h1>
+          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
+            Pipeline health and account activity at a glance.
           </p>
         </div>
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-          Pipeline by Stage
-        </h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      <section className="grid gap-4 sm:grid-cols-3">
+        <div className="ca-platform-card ca-platform-kpi">
+          <p className="ca-platform-kpi-label">Open Pipeline</p>
+          <p className="ca-platform-kpi-value">{formatCurrency(pipeline.openValue)}</p>
+        </div>
+        <div className="ca-platform-card ca-platform-kpi">
+          <p className="ca-platform-kpi-label">Won This Period</p>
+          <p className="ca-platform-kpi-value">{formatCurrency(pipeline.wonValue)}</p>
+        </div>
+        <div className="ca-platform-card ca-platform-kpi">
+          <p className="ca-platform-kpi-label">Win Rate</p>
+          <p className="ca-platform-kpi-value">{pipeline.winRate}%</p>
+        </div>
+      </section>
+
+      <section className="ca-platform-card p-6">
+        <h2 className="ca-platform-kpi-label">Pipeline by Stage</h2>
+        <div className="ca-platform-pipeline mt-5">
           {pipeline.stages.map((stage) => (
             <div
               key={stage.stage}
-              className="rounded-md bg-[#F8FAFC] px-3 py-3"
+              className={`ca-platform-pipeline-stage ${stage.count > 0 ? "is-active" : ""}`}
             >
-              <p className="text-xs text-black/45">
+              <p className="ca-platform-pipeline-count">{stage.count}</p>
+              <p className="ca-platform-pipeline-label">
                 {opportunityStageLabels[stage.stage]}
               </p>
-              <p className="mt-1 text-lg font-semibold">
+              <p className="mt-1 text-[0.7rem] text-[var(--ca-platform-muted)]">
                 {formatCurrency(stage.value)}
-              </p>
-              <p className="text-xs text-black/40">
-                {stage.count} {stage.count === 1 ? "deal" : "deals"}
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Top Accounts by Open Pipeline
-          </h2>
+          <h2 className="ca-platform-kpi-label">Top Accounts by Open Pipeline</h2>
           <Link
             href="/crm/accounts"
-            className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
           >
             View all
           </Link>
         </div>
         {topAccounts.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">No accounts yet.</p>
+          <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">No accounts yet.</p>
         ) : (
-          <ul className="mt-4 divide-y divide-black/5 text-sm">
+          <ul className="mt-4 divide-y divide-[var(--ca-platform-border)] text-sm">
             {topAccounts.map((account) => (
               <li key={account.id}>
                 <Link
                   href={`/crm/accounts/${account.id}`}
-                  className="flex flex-wrap items-center justify-between gap-3 py-3 hover:text-[var(--ca-blue)]"
+                  className="flex flex-wrap items-center justify-between gap-3 py-3 hover:text-[var(--ca-platform-mid)]"
                 >
                   <div>
                     <p className="font-medium">{account.name}</p>
-                    <p className="mt-1 text-black/55">
+                    <p className="mt-1 text-[var(--ca-platform-muted)]">
                       {account.industry} · {account.openOpportunityCount} open{" "}
                       {account.openOpportunityCount === 1 ? "deal" : "deals"}
                     </p>
