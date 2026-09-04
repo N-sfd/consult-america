@@ -1,9 +1,13 @@
 /**
- * Core HR domain model (Phase 3).
+ * Core HR domain model.
  *
- * Person ≠ Employee ≠ Assignment
+ * candidate_profiles -> employee_profiles on hire (real FK, never a
+ * disconnected employee record — see lib/hr/index.ts::convertAcceptedOfferToEmployee).
  *
- * Candidate (Phase 2) → Offer Accepted → Hire → Person + Employee + Assignment
+ * employee_profiles holds identity/contact fields only. Job title,
+ * department, position, location, and manager live on JobAssignment
+ * (time-bounded) instead, so promotions/transfers keep history rather than
+ * overwriting a single current-job snapshot.
  */
 
 import type {
@@ -42,38 +46,31 @@ export type OnboardingTaskStatus =
 
 export type CompensationType = "SALARY" | "HOURLY";
 
-/** The human being — shared across Candidate and Employee. */
-export type Person = {
+/** Employment relationship + identity/contact fields with ConsultAmerica. */
+export type EmployeeProfile = {
   id: string;
+  /** Links to the shared account identity once the employee has a portal login. */
+  userId?: string;
+  /** Links back to the candidate this person was hired from, if any. */
+  candidateId?: string;
+  employeeNumber: string;
   firstName: string;
-  middleName?: string;
   lastName: string;
   preferredName?: string;
+  workEmail?: string;
   personalEmail?: string;
-  personalPhone?: string;
-  dateOfBirth?: string;
+  phone?: string;
+  workPhone?: string;
   mailingAddress?: string;
   emergencyContactName?: string;
   emergencyContactRelationship?: string;
   emergencyContactPhone?: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-/** Employment relationship with ConsultAmerica. */
-export type Employee = {
-  id: string;
-  personId: string;
-  employeeNumber: string;
   hireDate: string;
   originalHireDate: string;
   employmentStatus: EmployeeStatus;
   terminationDate?: string;
   terminationReason?: string;
-  workEmail?: string;
-  workPhone?: string;
-  /** Originating candidate / application / offer when hired via ATS. */
-  sourceCandidateId?: string;
+  /** Originating application / offer when hired via ATS. */
   sourceApplicationId?: string;
   sourceOfferId?: string;
   createdAt: string;
@@ -82,10 +79,10 @@ export type Employee = {
 
 /**
  * Time-bounded job placement.
- * Do not store department/position/manager only on employees —
+ * Do not store department/position/manager only on employee_profiles —
  * history requires assignments.
  */
-export type EmploymentAssignment = {
+export type JobAssignment = {
   id: string;
   employeeId: string;
   legalEntityId: string;
@@ -152,7 +149,7 @@ export type OnboardingTask = {
   updatedAt: string;
 };
 
-/** Minimal compensation foundation for Phase 5 — not payroll calc. */
+/** Minimal compensation foundation — not payroll calc. */
 export type CompensationRecord = {
   id: string;
   employeeId: string;

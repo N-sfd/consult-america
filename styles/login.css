@@ -382,6 +382,58 @@
   line-height: 1.45;
 }
 
+/* ── Demo mode ── */
+.login-demo-note {
+  margin-top: 28px;
+  background: #F1F7F6;
+  border: 1px solid #CFE3E0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.login-demo-note p {
+  font-size: 14px;
+  color: #245350;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.login-demo-grid {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-demo-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid #D6E0DD;
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.login-demo-link:hover {
+  border-color: #287B72;
+  background: #F8FBFA;
+}
+
+.login-demo-link-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #122D2E;
+}
+
+.login-demo-link-desc {
+  font-size: 13px;
+  color: #5B6D6B;
+}
+
 /* ── Help row ── */
 .login-card-help {
   margin-top: 24px;

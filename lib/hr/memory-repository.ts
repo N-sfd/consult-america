@@ -2,14 +2,13 @@ import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 import { nextEmployeeNumber } from "@/lib/hr/employee-number";
 import type {
   CreateAssignmentInput,
-  CreateEmployeeInput,
-  CreatePersonInput,
+  CreateEmployeeProfileInput,
   HrRepository,
+  UpdateEmployeeContactInput,
 } from "@/lib/hr/repository";
 import { createSupabaseHrRepository } from "@/lib/hr/supabase-repository";
 import {
   seedEmployees,
-  seedPeople,
   seedAssignments,
   seedCompensationRecords,
   seedOnboardingRecords,
@@ -18,13 +17,12 @@ import {
 import {
   DEFAULT_ONBOARDING_TASKS,
   type CompensationRecord,
-  type Employee,
+  type EmployeeProfile,
   type EmployeeStatusHistory,
-  type EmploymentAssignment,
+  type JobAssignment,
   type HrEvent,
   type OnboardingRecord,
   type OnboardingTask,
-  type Person,
 } from "@/types/hr";
 
 function nowIso() {
@@ -36,13 +34,12 @@ function createId(prefix: string) {
 }
 
 /**
- * In-memory Core HR repository for Phase 3A.
+ * In-memory Core HR repository.
  * Replace with database-backed implementation without changing callers.
  */
 export function createMemoryHrRepository(): HrRepository {
-  const people: Person[] = [...seedPeople];
-  const employees: Employee[] = [...seedEmployees];
-  const assignments: EmploymentAssignment[] = [...seedAssignments];
+  const employees: EmployeeProfile[] = [...seedEmployees];
+  const assignments: JobAssignment[] = [...seedAssignments];
   const statusHistory: EmployeeStatusHistory[] = [];
   const hrEvents: HrEvent[] = [];
   const onboardingRecords: OnboardingRecord[] = [...seedOnboardingRecords];
@@ -64,59 +61,27 @@ export function createMemoryHrRepository(): HrRepository {
       .sort((a, b) => b.effectiveStartDate.localeCompare(a.effectiveStartDate))[0];
   }
 
-  async function createPerson(input: CreatePersonInput): Promise<Person> {
-    if (input.personalEmail) {
-      const existing = people.find(
-        (person) =>
-          person.personalEmail?.toLowerCase() ===
-          input.personalEmail?.toLowerCase(),
-      );
-      if (existing) return existing;
-    }
-
-    const person: Person = {
-      id: createId("person"),
-      firstName: input.firstName,
-      middleName: input.middleName,
-      lastName: input.lastName,
-      preferredName: input.preferredName,
-      personalEmail: input.personalEmail,
-      personalPhone: input.personalPhone,
-      createdAt: nowIso(),
-      updatedAt: nowIso(),
-    };
-
-    people.push(person);
-    return person;
-  }
-
-  async function updatePersonContact(
-    personId: string,
-    updates: Partial<Person>,
-  ): Promise<Person> {
-    const person = people.find((item) => item.id === personId);
-    if (!person) throw new Error(`Person not found: ${personId}`);
-
-    Object.assign(person, updates, { updatedAt: nowIso() });
-    return person;
-  }
-
-  async function createEmployee(input: CreateEmployeeInput): Promise<Employee> {
+  async function createEmployee(
+    input: CreateEmployeeProfileInput,
+  ): Promise<EmployeeProfile> {
     const employeeNumber = nextEmployeeNumber(
       employees.map((employee) => employee.employeeNumber),
     );
 
     const status = input.employmentStatus ?? "PRE_HIRE";
-    const employee: Employee = {
+    const employee: EmployeeProfile = {
       id: createId("emp"),
-      personId: input.personId,
+      candidateId: input.candidateId,
       employeeNumber,
+      firstName: input.firstName,
+      lastName: input.lastName,
+      personalEmail: input.personalEmail,
+      phone: input.phone,
       hireDate: input.hireDate,
       originalHireDate: input.hireDate,
       employmentStatus: status,
       workEmail: input.workEmail,
       workPhone: input.workPhone,
-      sourceCandidateId: input.sourceCandidateId,
       sourceApplicationId: input.sourceApplicationId,
       sourceOfferId: input.sourceOfferId,
       createdAt: nowIso(),
@@ -146,9 +111,20 @@ export function createMemoryHrRepository(): HrRepository {
     return employee;
   }
 
+  async function updateEmployeeContact(
+    employeeId: string,
+    updates: UpdateEmployeeContactInput,
+  ): Promise<EmployeeProfile> {
+    const employee = employees.find((item) => item.id === employeeId);
+    if (!employee) throw new Error(`Employee not found: ${employeeId}`);
+
+    Object.assign(employee, updates, { updatedAt: nowIso() });
+    return employee;
+  }
+
   async function createAssignment(
     input: CreateAssignmentInput,
-  ): Promise<EmploymentAssignment> {
+  ): Promise<JobAssignment> {
     if (input.managerEmployeeId === input.employeeId) {
       throw new Error("Employee cannot report to themselves");
     }
@@ -169,7 +145,7 @@ export function createMemoryHrRepository(): HrRepository {
       }
     }
 
-    const assignment: EmploymentAssignment = {
+    const assignment: JobAssignment = {
       id: createId("asg"),
       employeeId: input.employeeId,
       legalEntityId: input.legalEntityId,
@@ -237,24 +213,6 @@ export function createMemoryHrRepository(): HrRepository {
   }
 
   return {
-    async listPeople() {
-      return [...people];
-    },
-
-    async getPersonById(id) {
-      return people.find((person) => person.id === id);
-    },
-
-    async findPersonByEmail(email) {
-      const normalized = email.trim().toLowerCase();
-      return people.find(
-        (person) => person.personalEmail?.toLowerCase() === normalized,
-      );
-    },
-
-    createPerson,
-    updatePersonContact,
-
     async listEmployees() {
       return [...employees];
     },
@@ -269,7 +227,15 @@ export function createMemoryHrRepository(): HrRepository {
       );
     },
 
+    async findEmployeeByPersonalEmail(email) {
+      const normalized = email.trim().toLowerCase();
+      return employees.find(
+        (employee) => employee.personalEmail?.toLowerCase() === normalized,
+      );
+    },
+
     createEmployee,
+    updateEmployeeContact,
 
     async updateEmployeeStatus(employeeId, status, effectiveDate, note) {
       const employee = employees.find((item) => item.id === employeeId);
@@ -390,7 +356,6 @@ export function createMemoryHrRepository(): HrRepository {
           );
         }
         return {
-          personId: existing.personId,
           employeeId: existing.id,
           employeeNumber: existing.employeeNumber,
           assignmentId: assignment.id,
@@ -398,18 +363,14 @@ export function createMemoryHrRepository(): HrRepository {
         };
       }
 
-      const person = await createPerson({
+      const employee = await createEmployee({
         firstName: input.firstName,
         lastName: input.lastName,
         personalEmail: input.personalEmail,
-        personalPhone: input.personalPhone,
-      });
-
-      const employee = await createEmployee({
-        personId: person.id,
+        phone: input.personalPhone,
         hireDate: input.startDate,
         employmentStatus: "PRE_HIRE",
-        sourceCandidateId: input.candidateId,
+        candidateId: input.candidateId,
         sourceApplicationId: input.applicationId,
         sourceOfferId: input.offerId,
       });
@@ -432,7 +393,6 @@ export function createMemoryHrRepository(): HrRepository {
       const onboarding = createOnboarding(employee.id, input.startDate);
 
       return {
-        personId: person.id,
         employeeId: employee.id,
         employeeNumber: employee.employeeNumber,
         assignmentId: assignment.id,

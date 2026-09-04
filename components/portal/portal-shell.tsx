@@ -13,11 +13,16 @@ import { cn } from "@/lib/utils";
 const employeeLinks = [
   { href: "/employee", label: "Home", exact: true },
   { href: "/employee/profile", label: "My Profile" },
+  { href: "/employee/directory", label: "Directory" },
   { href: "/employee/documents", label: "My Documents" },
   { href: "/employee/onboarding", label: "Onboarding" },
   { href: "/employee/time", label: "Time" },
   { href: "/employee/leave", label: "Leave" },
+  { href: "/employee/expenses", label: "Expenses" },
   { href: "/employee/pay", label: "Pay" },
+  { href: "/employee/benefits", label: "Benefits" },
+  { href: "/employee/goals", label: "Goals" },
+  { href: "/employee/performance", label: "Performance" },
   { href: "/employee/requests", label: "HR Requests" },
   { href: "/employee/notifications", label: "Notifications" },
 ];

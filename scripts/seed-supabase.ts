@@ -20,7 +20,7 @@ import {
   seedPostings,
   seedRequisitions,
 } from "@/data/recruiting/seed";
-import { seedAssignments, seedEmployees, seedPeople } from "@/data/hr/seed";
+import { seedAssignments, seedEmployees } from "@/data/hr/seed";
 import type {
   ApplicationStatus,
   InterviewStatus,
@@ -68,7 +68,7 @@ const seedAuthPeople: SeedAuthPerson[] = [
     employeeId: "emp-demo-001",
     email: "michael.brown@consultamerica.demo",
     displayName: "Michael Brown",
-    roles: ["SUPER_ADMIN", "HR_ADMIN", "PAYROLL_ADMIN", "MANAGER"],
+    roles: ["SYSTEM_ADMIN", "HR_ADMIN", "PAYROLL_ADMIN", "MANAGER"],
   },
   {
     userId: "user-emp-demo-002",
@@ -118,18 +118,23 @@ async function seedAuthAndIdentity() {
       authUserId = existing.id;
     }
 
-    await upsert("users", [
+    await upsert("profiles", [
       {
         id: person.userId,
         email: person.email,
         display_name: person.displayName,
-        employee_id: person.employeeId,
         status: "ACTIVE",
         auth_user_id: authUserId,
         created_at: now,
         updated_at: now,
       },
     ]);
+
+    // employee_profiles.user_id is the forward link now (was profiles.employee_id).
+    await supabase
+      .from("employee_profiles")
+      .update({ user_id: person.userId })
+      .eq("id", person.employeeId);
 
     await upsert(
       "user_roles",
@@ -242,7 +247,7 @@ async function seedOrganizationAndRecruiting() {
     })),
   );
   await upsert(
-    "job_postings",
+    "jobs",
     seedPostings.map((p) => ({
       id: p.id,
       requisition_id: p.requisitionId,
@@ -268,25 +273,17 @@ async function seedOrganizationAndRecruiting() {
 }
 
 async function seedEmployeesAndPeople() {
-  console.log("Seeding people + employees + assignments…");
+  console.log("Seeding employee profiles + assignments…");
   await upsert(
-    "people",
-    seedPeople.map((p) => ({
-      id: p.id,
-      first_name: p.firstName,
-      last_name: p.lastName,
-      preferred_name: p.preferredName,
-      personal_email: p.personalEmail,
-      created_at: p.createdAt,
-      updated_at: p.updatedAt,
-    })),
-  );
-  await upsert(
-    "employees",
+    "employee_profiles",
     seedEmployees.map((e) => ({
       id: e.id,
-      person_id: e.personId,
       employee_number: e.employeeNumber,
+      first_name: e.firstName,
+      last_name: e.lastName,
+      preferred_name: e.preferredName,
+      personal_email: e.personalEmail,
+      phone: e.phone,
       hire_date: e.hireDate,
       original_hire_date: e.originalHireDate,
       employment_status: e.employmentStatus,
@@ -296,7 +293,7 @@ async function seedEmployeesAndPeople() {
     })),
   );
   await upsert(
-    "employment_assignments",
+    "job_assignments",
     seedAssignments.map((a) => ({
       id: a.id,
       employee_id: a.employeeId,
@@ -397,7 +394,7 @@ const seedOffers: SeedOffer[] = [
 async function seedRecruitingActivity() {
   console.log("Seeding candidates + applications + interviews + offers…");
   await upsert(
-    "candidates",
+    "candidate_profiles",
     seedCandidates.map((c) => ({
       id: c.id,
       first_name: c.firstName,
@@ -417,7 +414,7 @@ async function seedRecruitingActivity() {
       application_number: `APP-2026-${String(i + 1).padStart(4, "0")}`,
       candidate_id: a.candidateId,
       requisition_id: a.requisitionId,
-      posting_id: a.postingId,
+      job_id: a.postingId,
       status: a.status,
       applied_at: a.appliedAt,
       updated_at: a.appliedAt,

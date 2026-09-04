@@ -19,7 +19,8 @@ function parseFilter(value?: string): ApprovalRequestType | "ALL" {
     value === "TIMESHEET" ||
     value === "LEAVE" ||
     value === "PROFILE_CHANGE" ||
-    value === "HR_REQUEST"
+    value === "HR_REQUEST" ||
+    value === "EXPENSE"
   ) {
     return value;
   }
@@ -46,8 +47,8 @@ export default async function ManagerApprovalsPage({
       <div>
         <h1 className="text-3xl font-semibold tracking-[-0.04em]">Approvals</h1>
         <p className="mt-2 text-black/55">
-          Central queue for timesheets, leave, and profile changes. Review
-          details and act here without switching apps.
+          Central queue for timesheets, leave, expenses, and profile changes.
+          Review details and act here without switching apps.
         </p>
         <p className="mt-3 text-sm text-black/45">
           {allPending.length} pending across all types

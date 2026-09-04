@@ -1,5 +1,7 @@
 import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 import {
+  seedApplications,
+  seedCandidates,
   seedDepartments,
   seedLocations,
   seedPostings,
@@ -9,7 +11,7 @@ import { createSupabaseRecruitingRepository } from "@/lib/recruiting/supabase-re
 import { canTransitionOffer } from "@/lib/recruiting/status-machine";
 import type {
   CandidateListItem,
-  CandidateProfile,
+  CandidateProfileDetail,
   CreateJobRequisitionInput,
   JobDetail,
   JobListItem,
@@ -18,19 +20,21 @@ import type {
   RecruitingDashboardReads,
   RecruitingJobReads,
   RecruitingJobWrites,
+  RecruitingCandidateSelfWrites,
   RecruitingOfferWrites,
   RecruitingPipelineWrites,
   RecruitingRepository,
   SubmitApplicationInput,
   SubmitApplicationResult,
+  UpdateCandidateContactInfoInput,
 } from "@/lib/recruiting/repository";
 import {
   APPLICATION_PIPELINE,
   APPLICATION_TERMINAL_STATUSES,
   type Application,
   type ApplicationStatus,
-  type Candidate,
-  type JobPosting,
+  type CandidateProfile,
+  type Job,
   type JobRequisition,
   type Offer,
   type RecruitingActivity,
@@ -51,6 +55,7 @@ function slugify(title: string): string {
 export function createMemoryRecruitingRepository(): RecruitingRepository &
   RecruitingDashboardReads &
   RecruitingCandidateReads &
+  RecruitingCandidateSelfWrites &
   RecruitingJobReads &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
@@ -58,8 +63,8 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
   RecruitingOfferWrites {
   const postings = [...seedPostings];
   const requisitions = [...seedRequisitions];
-  const candidates: Candidate[] = [];
-  const applications: Application[] = [];
+  const candidates: CandidateProfile[] = [...seedCandidates];
+  const applications: Application[] = [...seedApplications];
   const offers: Offer[] = [];
   const activities: RecruitingActivity[] = [];
 
@@ -174,7 +179,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       return candidates.map((candidate) => {
         const application = latestByCandidate.get(candidate.id);
         const posting = application
-          ? postings.find((p) => p.id === application.postingId)
+          ? postings.find((p) => p.id === application.jobId)
           : undefined;
 
         return {
@@ -196,7 +201,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
 
     async getCandidateProfile(
       candidateId: string,
-    ): Promise<CandidateProfile | undefined> {
+    ): Promise<CandidateProfileDetail | undefined> {
       const candidate = candidates.find((c) => c.id === candidateId);
       if (!candidate) return undefined;
 
@@ -211,7 +216,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
             (r) => r.id === application.requisitionId,
           );
           const posting = postings.find(
-            (p) => p.id === application.postingId,
+            (p) => p.id === application.jobId,
           );
           return {
             applicationId: application.id,
@@ -409,7 +414,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
         applicationNumber,
         candidateId: candidate.id,
         requisitionId: input.requisitionId,
-        postingId: input.postingId,
+        jobId: input.postingId,
         status: "APPLIED",
         coverLetter: input.coverLetter,
         additionalInformation: input.additionalInformation,
@@ -518,6 +523,27 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
 
       return offer;
     },
+
+    async updateCandidateContactInfo(
+      candidateId: string,
+      input: UpdateCandidateContactInfoInput,
+    ) {
+      const candidate = candidates.find((c) => c.id === candidateId);
+      if (!candidate) throw new Error("Candidate not found");
+
+      if (input.phone !== undefined) candidate.phone = input.phone;
+      if (input.linkedinUrl !== undefined) candidate.linkedinUrl = input.linkedinUrl;
+      if (input.portfolioUrl !== undefined) candidate.portfolioUrl = input.portfolioUrl;
+      if (input.workAuthorization !== undefined) {
+        candidate.workAuthorization = input.workAuthorization;
+      }
+      if (input.willingToRelocate !== undefined) {
+        candidate.willingToRelocate = input.willingToRelocate;
+      }
+      candidate.updatedAt = new Date().toISOString();
+
+      return candidate;
+    },
   };
 
   function createPostingFor(
@@ -540,7 +566,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       suffix += 1;
     }
 
-    const posting: JobPosting = {
+    const posting: Job = {
       id: `post-${requisition.id}`,
       requisitionId: requisition.id,
       slug,
@@ -569,6 +595,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
 export const recruitingRepository: RecruitingRepository &
   RecruitingDashboardReads &
   RecruitingCandidateReads &
+  RecruitingCandidateSelfWrites &
   RecruitingJobReads &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
@@ -577,13 +604,13 @@ export const recruitingRepository: RecruitingRepository &
   ? createSupabaseRecruitingRepository()
   : createMemoryRecruitingRepository();
 
-export async function listPublishedPostings(): Promise<JobPosting[]> {
+export async function listPublishedPostings(): Promise<Job[]> {
   return recruitingRepository.listPublishedPostings();
 }
 
 export async function getPostingBySlug(
   slug: string,
-): Promise<JobPosting | undefined> {
+): Promise<Job | undefined> {
   return recruitingRepository.getPostingBySlug(slug);
 }
 

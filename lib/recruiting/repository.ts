@@ -2,15 +2,15 @@ import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import type {
   Application,
   ApplicationStatus,
-  Candidate,
-  CandidateDocument,
-  CandidateEducation,
-  CandidateExperience,
+  CandidateProfile,
+  Document,
+  Education,
+  Experience,
   CandidateSkill,
   CareerArea,
   Interview,
   InterviewFeedback,
-  JobPosting,
+  Job,
   JobRequisition,
   Offer,
   OfferStatus,
@@ -19,10 +19,10 @@ import type {
 } from "@/types/recruiting";
 
 export type RecruitingRepository = {
-  listPublishedPostings(): Promise<JobPosting[]>;
-  getPostingBySlug(slug: string): Promise<JobPosting | undefined>;
+  listPublishedPostings(): Promise<Job[]>;
+  getPostingBySlug(slug: string): Promise<Job | undefined>;
   getRequisitionById(id: string): Promise<JobRequisition | undefined>;
-  getCandidateByEmail(email: string): Promise<Candidate | undefined>;
+  getCandidateByEmail(email: string): Promise<CandidateProfile | undefined>;
   listApplicationsByRequisition(
     requisitionId: string,
   ): Promise<Application[]>;
@@ -79,13 +79,18 @@ export type CandidateInterviewSummary = Interview & {
   requisitionTitle: string;
 };
 
-export type CandidateProfile = {
-  candidate: Candidate;
+/**
+ * Full aggregate read for one candidate — candidate record plus everything
+ * that hangs off it. Named `...Detail` to avoid colliding with the
+ * `CandidateProfile` entity type (the `candidate_profiles` row itself).
+ */
+export type CandidateProfileDetail = {
+  candidate: CandidateProfile;
   applications: CandidateApplicationSummary[];
-  experience: CandidateExperience[];
-  education: CandidateEducation[];
+  experience: Experience[];
+  education: Education[];
   skills: CandidateSkill[];
-  documents: CandidateDocument[];
+  documents: Document[];
   interviews: CandidateInterviewSummary[];
   feedback: InterviewFeedback[];
   activities: RecruitingActivity[];
@@ -94,7 +99,23 @@ export type CandidateProfile = {
 /** Candidate list/profile reads backing the ATS (Recruiting > Candidates). */
 export type RecruitingCandidateReads = {
   listCandidateSummaries(): Promise<CandidateListItem[]>;
-  getCandidateProfile(candidateId: string): Promise<CandidateProfile | undefined>;
+  getCandidateProfile(candidateId: string): Promise<CandidateProfileDetail | undefined>;
+};
+
+export type UpdateCandidateContactInfoInput = {
+  phone?: string;
+  linkedinUrl?: string;
+  portfolioUrl?: string;
+  workAuthorization?: string;
+  willingToRelocate?: boolean;
+};
+
+/** Write backing the Candidate Portal's own-profile contact info edit. */
+export type RecruitingCandidateSelfWrites = {
+  updateCandidateContactInfo(
+    candidateId: string,
+    input: UpdateCandidateContactInfoInput,
+  ): Promise<CandidateProfile>;
 };
 
 /** One row in the recruiting/jobs list. */
@@ -217,8 +238,9 @@ export type RecruitingOfferWrites = {
 };
 
 /**
- * Future hire conversion contract (Phase 2I → Phase 3).
- * Implementations must create/reuse Person + Employee + Assignment.
+ * Hire conversion contract. Implementations must create/reuse an
+ * employee_profiles row linked back to candidate_profiles via candidateId —
+ * never a disconnected employee record.
  */
 export type HireConversionInput = {
   applicationId: string;
@@ -231,7 +253,6 @@ export type HireConversionInput = {
 };
 
 export type HireConversionResult = {
-  personId: string;
   employeeId: string;
   employeeNumber: string;
   assignmentId: string;

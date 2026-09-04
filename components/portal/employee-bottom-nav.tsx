@@ -27,6 +27,11 @@ const PRIMARY_LINKS = [
 ];
 
 const MORE_LINKS = [
+  { href: "/employee/directory", label: "Directory" },
+  { href: "/employee/expenses", label: "Expenses" },
+  { href: "/employee/benefits", label: "Benefits" },
+  { href: "/employee/goals", label: "Goals" },
+  { href: "/employee/performance", label: "Performance" },
   { href: "/employee/documents", label: "Documents" },
   { href: "/employee/onboarding", label: "Onboarding" },
   { href: "/employee/profile", label: "Profile" },

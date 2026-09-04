@@ -6,7 +6,7 @@ import {
   seedLocations,
   seedPositions,
 } from "@/data/recruiting/seed";
-import type { Employee, EmploymentAssignment, Person } from "@/types/hr";
+import type { EmployeeProfile, JobAssignment } from "@/types/hr";
 import { employeeStatusLabels } from "@/types/hr";
 import {
   employmentTypeLabels,
@@ -17,6 +17,13 @@ import {
   listLeaveRequests,
   listLeaveTypes,
 } from "@/lib/self-service/leave-store";
+import { listExpenseClaims } from "@/lib/self-service/expense-store";
+import { listAvailablePlans, listElections } from "@/lib/self-service/benefits-store";
+import {
+  listGoals,
+  listReviewCycles,
+  listReviewsForEmployee,
+} from "@/lib/self-service/performance-store";
 import { listHrRequestsForEmployee } from "@/lib/self-service/hr-request-store";
 import {
   getEditableTimesheet,
@@ -32,10 +39,28 @@ import {
   assertTeamAccess,
 } from "@/lib/self-service/security";
 
+/**
+ * Identity/contact fields, shaped like the old separate `Person` record for
+ * display convenience — sourced directly from `EmployeeProfile` now that
+ * person + employee are one row (see types/hr.ts).
+ */
+export type EmployeeProfilePerson = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  preferredName?: string;
+  personalEmail?: string;
+  personalPhone?: string;
+  mailingAddress?: string;
+  emergencyContactName?: string;
+  emergencyContactRelationship?: string;
+  emergencyContactPhone?: string;
+};
+
 export type EmployeeProfileView = {
-  employee: Employee;
-  person: Person;
-  assignment?: EmploymentAssignment;
+  employee: EmployeeProfile;
+  person: EmployeeProfilePerson;
+  assignment?: JobAssignment;
   positionTitle?: string;
   departmentName?: string;
   locationName?: string;
@@ -45,7 +70,22 @@ export type EmployeeProfileView = {
   statusLabel: string;
 };
 
-function resolveOrgLabels(assignment?: EmploymentAssignment) {
+function toPersonView(employee: EmployeeProfile): EmployeeProfilePerson {
+  return {
+    id: employee.id,
+    firstName: employee.firstName,
+    lastName: employee.lastName,
+    preferredName: employee.preferredName,
+    personalEmail: employee.personalEmail,
+    personalPhone: employee.phone,
+    mailingAddress: employee.mailingAddress,
+    emergencyContactName: employee.emergencyContactName,
+    emergencyContactRelationship: employee.emergencyContactRelationship,
+    emergencyContactPhone: employee.emergencyContactPhone,
+  };
+}
+
+function resolveOrgLabels(assignment?: JobAssignment) {
   if (!assignment) return {};
 
   return {
@@ -67,9 +107,6 @@ export async function getEmployeeProfile(
   const employee = await hrRepository.getEmployeeById(employeeId);
   if (!employee) return null;
 
-  const person = await hrRepository.getPersonById(employee.personId);
-  if (!person) return null;
-
   const assignment = await hrRepository.getPrimaryAssignment(employeeId);
   const labels = resolveOrgLabels(assignment);
 
@@ -79,21 +116,34 @@ export async function getEmployeeProfile(
       assignment.managerEmployeeId,
     );
     if (manager) {
-      const managerPerson = await hrRepository.getPersonById(manager.personId);
-      managerName = managerPerson
-        ? `${managerPerson.firstName} ${managerPerson.lastName}`
-        : undefined;
+      managerName = `${manager.firstName} ${manager.lastName}`;
     }
   }
 
   return {
     employee,
-    person,
+    person: toPersonView(employee),
     assignment,
     ...labels,
     managerName,
     statusLabel: employeeStatusLabels[employee.employmentStatus],
   };
+}
+
+export async function getDirectoryEntries() {
+  const employees = await hrRepository.listEmployees();
+  const profiles = await Promise.all(
+    employees.map((employee) => getEmployeeProfile(employee.id)),
+  );
+
+  return profiles
+    .filter((profile): profile is EmployeeProfileView => profile !== null)
+    .filter((profile) => profile.employee.employmentStatus === "ACTIVE")
+    .sort((a, b) =>
+      `${a.person.lastName}${a.person.firstName}`.localeCompare(
+        `${b.person.lastName}${b.person.firstName}`,
+      ),
+    );
 }
 
 export async function getDirectReports(managerEmployeeId: string) {
@@ -160,6 +210,30 @@ export async function getEmployeeOnboarding(employeeId: string) {
         ? 0
         : Math.round((completedCount / tasks.length) * 100),
   };
+}
+
+export function getExpenseClaims(employeeId: string) {
+  return listExpenseClaims(employeeId);
+}
+
+export function getBenefitsPlans() {
+  return listAvailablePlans();
+}
+
+export function getBenefitsElections(employeeId: string) {
+  return listElections(employeeId);
+}
+
+export function getGoals(employeeId: string) {
+  return listGoals(employeeId);
+}
+
+export function getReviewCycles() {
+  return listReviewCycles();
+}
+
+export function getPerformanceReviews(employeeId: string) {
+  return listReviewsForEmployee(employeeId);
 }
 
 export function getHrRequests(employeeId: string) {
@@ -255,7 +329,7 @@ export async function getEmployeeDashboard(employeeId: string) {
   };
 }
 
-const PROFILE_COMPLETENESS_FIELDS: Array<keyof Person> = [
+const PROFILE_COMPLETENESS_FIELDS: Array<keyof EmployeeProfilePerson> = [
   "preferredName",
   "personalEmail",
   "personalPhone",
@@ -272,7 +346,7 @@ function formatShortDate(value: string) {
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
-export function getProfileCompleteness(person: Person) {
+export function getProfileCompleteness(person: EmployeeProfilePerson) {
   const filled = PROFILE_COMPLETENESS_FIELDS.filter(
     (field) => Boolean(person[field]),
   ).length;

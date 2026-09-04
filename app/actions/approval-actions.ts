@@ -4,6 +4,11 @@ import { revalidatePath } from "next/cache";
 
 import { writeAuditLog } from "@/lib/self-service/audit-store";
 import {
+  approveExpenseClaim,
+  getExpenseClaimById,
+  rejectExpenseClaim,
+} from "@/lib/self-service/expense-store";
+import {
   approveLeaveRequest,
   getLeaveRequestById,
   rejectLeaveRequest,
@@ -41,6 +46,7 @@ function revalidateApprovalPaths() {
   revalidatePath("/manager/leave");
   revalidatePath("/employee/time");
   revalidatePath("/employee/leave");
+  revalidatePath("/employee/expenses");
   revalidatePath("/employee/profile");
   revalidatePath("/employee");
   revalidatePath("/employee/notifications");
@@ -193,6 +199,44 @@ export async function actOnApprovalAction(input: {
           resourceType: "PROFILE_CHANGE",
           resourceId: change.id,
           summary: `Rejected profile change ${change.changeType}`,
+        });
+      }
+    } else if (approval.requestType === "EXPENSE") {
+      requirePermission(actor, "team.expense.approve");
+      if (input.action === "RETURNED") {
+        throw new Error("Expense claims cannot be returned; reject instead");
+      }
+      const claim = getExpenseClaimById(approval.requestId);
+      if (!claim) throw new Error("Expense claim not found");
+
+      if (input.action === "APPROVED") {
+        approveExpenseClaim({
+          expenseClaimId: approval.requestId,
+          managerEmployeeId: actor.session.employeeId,
+        });
+        writeAuditLog({
+          eventType: "EXPENSE_APPROVED",
+          actorEmployeeId: actor.session.employeeId,
+          actorRole: "MANAGER",
+          targetEmployeeId: claim.employeeId,
+          resourceType: "EXPENSE_CLAIM",
+          resourceId: claim.id,
+          summary: `Approved expense claim via inbox for $${claim.amount.toFixed(2)}`,
+        });
+      } else {
+        rejectExpenseClaim({
+          expenseClaimId: approval.requestId,
+          managerEmployeeId: actor.session.employeeId,
+          comment,
+        });
+        writeAuditLog({
+          eventType: "EXPENSE_REJECTED",
+          actorEmployeeId: actor.session.employeeId,
+          actorRole: "MANAGER",
+          targetEmployeeId: claim.employeeId,
+          resourceType: "EXPENSE_CLAIM",
+          resourceId: claim.id,
+          summary: `Rejected expense claim via inbox for $${claim.amount.toFixed(2)}`,
         });
       }
     } else {

@@ -5,7 +5,12 @@ import type {
   Location,
   Position,
 } from "@/types/organization";
-import type { JobPosting, JobRequisition } from "@/types/recruiting";
+import type {
+  Application,
+  CandidateProfile,
+  Job,
+  JobRequisition,
+} from "@/types/recruiting";
 
 const now = "2026-08-01T00:00:00.000Z";
 
@@ -405,7 +410,7 @@ function postingFromRequisition(
   publishedAt: string,
   departmentName: string,
   locationName: string,
-): JobPosting {
+): Job {
   return {
     id: `post-${requisition.id}`,
     requisitionId: requisition.id,
@@ -429,7 +434,7 @@ function postingFromRequisition(
   };
 }
 
-export const seedPostings: JobPosting[] = [
+export const seedPostings: Job[] = [
   postingFromRequisition(
     seedRequisitions[0],
     "senior-oracle-financials-consultant",
@@ -472,4 +477,36 @@ export const seedPostings: JobPosting[] = [
     "Digital Engineering",
     "Maryland",
   ),
+];
+
+/** Demo candidate portal user: Priya Shah, mid-pipeline on the Oracle Financials req. */
+export const seedCandidates: CandidateProfile[] = [
+  {
+    id: "cand-demo-001",
+    firstName: "Priya",
+    lastName: "Shah",
+    email: "priya.shah@example.demo",
+    phone: "555-0142",
+    linkedinUrl: "https://www.linkedin.com/in/priya-shah-demo",
+    workAuthorization: "US Citizen",
+    willingToRelocate: false,
+    source: "Careers Site",
+    createdAt: "2026-08-20T15:00:00.000Z",
+    updatedAt: "2026-08-24T09:00:00.000Z",
+  },
+];
+
+export const seedApplications: Application[] = [
+  {
+    id: "app-demo-001",
+    applicationNumber: "APP-2026-0001",
+    candidateId: "cand-demo-001",
+    requisitionId: "req-demo-001",
+    jobId: "post-req-demo-001",
+    status: "RECRUITER_SCREEN",
+    coverLetter:
+      "I'd love to bring my Oracle Fusion Financials background to ConsultAmerica's enterprise implementations.",
+    appliedAt: "2026-08-20T15:00:00.000Z",
+    updatedAt: "2026-08-24T09:00:00.000Z",
+  },
 ];

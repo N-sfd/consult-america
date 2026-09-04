@@ -14,6 +14,15 @@ const employeePermissions: SelfServicePermission[] = [
   "self.hr_request.create",
   "self.notification.read",
   "self.pay.read",
+  "self.directory.read",
+  "self.expense.read",
+  "self.expense.submit",
+  "self.benefits.read",
+  "self.benefits.submit",
+  "self.goals.read",
+  "self.goals.manage",
+  "self.performance.read",
+  "self.performance.submit",
 ];
 
 const managerPermissions: SelfServicePermission[] = [
@@ -23,6 +32,8 @@ const managerPermissions: SelfServicePermission[] = [
   "team.timesheet.approve",
   "team.leave.read",
   "team.leave.approve",
+  "team.expense.approve",
+  "team.performance.manage",
   "approval.read",
   "approval.act",
   "team.reports.read",

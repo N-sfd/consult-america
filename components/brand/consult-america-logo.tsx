@@ -44,7 +44,10 @@ const DEFAULT_MAX_HEIGHT: Record<LogoLockup, string> = {
 const DEFAULT_MAX_WIDTH: Record<LogoLockup, string | undefined> = {
   header: "480px",
   footer: "600px",
-  compact: "340px",
+  // "compact" is only ever used in the app-shell sidebars (240px wide, 32px
+  // of horizontal padding) — must fit inside that or it clips against the
+  // sidebar edge with no visible warning.
+  compact: "180px",
   mark: "80px",
   full: "420px",
   horizontal: "600px",

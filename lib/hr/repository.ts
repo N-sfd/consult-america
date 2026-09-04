@@ -1,47 +1,40 @@
 import type {
   CompensationRecord,
-  Employee,
-  EmploymentAssignment,
+  EmployeeProfile,
+  EmployeeStatusHistory,
   HrEvent,
+  JobAssignment,
   OnboardingRecord,
   OnboardingTask,
-  Person,
-  EmployeeStatusHistory,
 } from "@/types/hr";
 import type {
   HireConversionInput,
   HireConversionResult,
 } from "@/lib/recruiting/repository";
 
-export type CreatePersonInput = {
+export type CreateEmployeeProfileInput = {
   firstName: string;
-  middleName?: string;
   lastName: string;
-  preferredName?: string;
   personalEmail?: string;
-  personalPhone?: string;
+  phone?: string;
+  hireDate: string;
+  employmentStatus?: EmployeeProfile["employmentStatus"];
+  workEmail?: string;
+  workPhone?: string;
+  candidateId?: string;
+  sourceApplicationId?: string;
+  sourceOfferId?: string;
 };
 
 /** Employee-editable contact fields — no approval required. */
-export type UpdatePersonContactInput = {
+export type UpdateEmployeeContactInput = {
   preferredName?: string;
   personalEmail?: string;
-  personalPhone?: string;
+  phone?: string;
   mailingAddress?: string;
   emergencyContactName?: string;
   emergencyContactRelationship?: string;
   emergencyContactPhone?: string;
-};
-
-export type CreateEmployeeInput = {
-  personId: string;
-  hireDate: string;
-  employmentStatus?: Employee["employmentStatus"];
-  workEmail?: string;
-  workPhone?: string;
-  sourceCandidateId?: string;
-  sourceApplicationId?: string;
-  sourceOfferId?: string;
 };
 
 export type CreateAssignmentInput = {
@@ -52,8 +45,8 @@ export type CreateAssignmentInput = {
   positionId: string;
   locationId: string;
   managerEmployeeId?: string;
-  employmentType: EmploymentAssignment["employmentType"];
-  workplaceType: EmploymentAssignment["workplaceType"];
+  employmentType: JobAssignment["employmentType"];
+  workplaceType: JobAssignment["workplaceType"];
   startDate: string;
   changeReason?: string;
   primaryAssignment?: boolean;
@@ -71,33 +64,29 @@ export type UpsertCompensationInput = {
 };
 
 export type HrRepository = {
-  listPeople(): Promise<Person[]>;
-  getPersonById(id: string): Promise<Person | undefined>;
-  findPersonByEmail(email: string): Promise<Person | undefined>;
-  createPerson(input: CreatePersonInput): Promise<Person>;
-  updatePersonContact(
-    personId: string,
-    updates: UpdatePersonContactInput,
-  ): Promise<Person>;
-
-  listEmployees(): Promise<Employee[]>;
-  getEmployeeById(id: string): Promise<Employee | undefined>;
-  getEmployeeByNumber(employeeNumber: string): Promise<Employee | undefined>;
-  createEmployee(input: CreateEmployeeInput): Promise<Employee>;
+  listEmployees(): Promise<EmployeeProfile[]>;
+  getEmployeeById(id: string): Promise<EmployeeProfile | undefined>;
+  getEmployeeByNumber(employeeNumber: string): Promise<EmployeeProfile | undefined>;
+  findEmployeeByPersonalEmail(email: string): Promise<EmployeeProfile | undefined>;
+  createEmployee(input: CreateEmployeeProfileInput): Promise<EmployeeProfile>;
+  updateEmployeeContact(
+    employeeId: string,
+    updates: UpdateEmployeeContactInput,
+  ): Promise<EmployeeProfile>;
   updateEmployeeStatus(
     employeeId: string,
-    status: Employee["employmentStatus"],
+    status: EmployeeProfile["employmentStatus"],
     effectiveDate: string,
     note?: string,
-  ): Promise<Employee>;
+  ): Promise<EmployeeProfile>;
 
-  listAssignments(employeeId: string): Promise<EmploymentAssignment[]>;
+  listAssignments(employeeId: string): Promise<JobAssignment[]>;
   getPrimaryAssignment(
     employeeId: string,
-  ): Promise<EmploymentAssignment | undefined>;
+  ): Promise<JobAssignment | undefined>;
   createAssignment(
     input: CreateAssignmentInput,
-  ): Promise<EmploymentAssignment>;
+  ): Promise<JobAssignment>;
 
   listStatusHistory(employeeId: string): Promise<EmployeeStatusHistory[]>;
   listHrEvents(employeeId: string): Promise<HrEvent[]>;
@@ -120,8 +109,8 @@ export type HrRepository = {
       personalPhone?: string;
       legalEntityId: string;
       businessUnitId: string;
-      employmentType: EmploymentAssignment["employmentType"];
-      workplaceType: EmploymentAssignment["workplaceType"];
+      employmentType: JobAssignment["employmentType"];
+      workplaceType: JobAssignment["workplaceType"];
       candidateId: string;
     },
   ): Promise<HireConversionResult>;

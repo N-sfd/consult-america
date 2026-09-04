@@ -37,8 +37,9 @@ export type ConvertHireParams = {
 };
 
 /**
- * Phase 2 → Phase 3 boundary.
- * Creates/reuses Person, creates Employee + Assignment + Onboarding.
+ * Application -> Offer boundary.
+ * Creates/reuses employee_profiles linked back to the candidate, never a
+ * disconnected employee record.
  */
 export async function convertAcceptedOfferToEmployee(
   params: ConvertHireParams,
@@ -91,17 +92,13 @@ export async function convertAcceptedOfferToEmployee(
 
 export async function getEmployeeDirectory() {
   const employees = await hrRepository.listEmployees();
-  const people = await hrRepository.listPeople();
-  const peopleById = new Map(people.map((person) => [person.id, person]));
 
   return Promise.all(
     employees.map(async (employee) => {
-      const person = peopleById.get(employee.personId);
       const assignment = await hrRepository.getPrimaryAssignment(employee.id);
 
       return {
         employee,
-        person,
         assignment,
       };
     }),

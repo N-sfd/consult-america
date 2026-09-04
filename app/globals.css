@@ -58,6 +58,12 @@
   --ca-burgundy-hover: #992F31;
   --ca-burgundy-accent: #B83A3A;
 
+  /* "ca-blue" is a legacy name from before the rebrand to the red accent —
+     kept so the ~180 existing var(--ca-blue) usages across the app resolve. */
+  --ca-blue: var(--ca-red);
+  --ca-blue-hover: var(--ca-red-hover);
+  --ca-blue-soft: var(--ca-surface-soft);
+
   --ca-border: #C9DDD7;
   --ca-border-light: #E1ECE8;
   --ca-header-border: #C9DDD7;

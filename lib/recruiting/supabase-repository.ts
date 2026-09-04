@@ -2,13 +2,14 @@ import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import type {
   CandidateApplicationSummary,
   CandidateInterviewSummary,
+  CandidateProfileDetail,
   CandidateListItem,
-  CandidateProfile,
   CreateJobRequisitionInput,
   JobDetail,
   JobListItem,
   RecruitingApplicationWrites,
   RecruitingCandidateReads,
+  RecruitingCandidateSelfWrites,
   RecruitingDashboardReads,
   RecruitingJobReads,
   RecruitingJobWrites,
@@ -17,20 +18,21 @@ import type {
   RecruitingRepository,
   SubmitApplicationInput,
   SubmitApplicationResult,
+  UpdateCandidateContactInfoInput,
 } from "@/lib/recruiting/repository";
 import {
   APPLICATION_PIPELINE,
   APPLICATION_TERMINAL_STATUSES,
   type Application,
   type ApplicationStatus,
-  type Candidate,
-  type CandidateDocument,
-  type CandidateEducation,
-  type CandidateExperience,
+  type CandidateProfile,
   type CandidateSkill,
+  type Document,
+  type Education,
+  type Experience,
   type Interview,
   type InterviewFeedback,
-  type JobPosting,
+  type Job,
   type JobRequisition,
   type Offer,
   type RecruitingActivity,
@@ -38,7 +40,7 @@ import {
 
 /** snake_case (Postgres) -> camelCase (app) row mappers, one per table. */
 
-function mapPosting(row: Record<string, unknown>): JobPosting {
+function mapPosting(row: Record<string, unknown>): Job {
   return {
     id: row.id as string,
     requisitionId: row.requisition_id as string,
@@ -46,16 +48,16 @@ function mapPosting(row: Record<string, unknown>): JobPosting {
     title: row.title as string,
     summary: row.summary as string,
     description: row.description as string,
-    careerArea: row.career_area as JobPosting["careerArea"],
+    careerArea: row.career_area as Job["careerArea"],
     departmentName: row.department_name as string,
     locationName: row.location_name as string,
-    workplaceType: row.workplace_type as JobPosting["workplaceType"],
-    employmentType: row.employment_type as JobPosting["employmentType"],
+    workplaceType: row.workplace_type as Job["workplaceType"],
+    employmentType: row.employment_type as Job["employmentType"],
     responsibilities: (row.responsibilities as string[]) ?? [],
     qualifications: (row.qualifications as string[]) ?? [],
     preferredQualifications:
       (row.preferred_qualifications as string[]) ?? [],
-    status: row.status as JobPosting["status"],
+    status: row.status as Job["status"],
     publishedAt: (row.published_at as string) ?? undefined,
     closedAt: (row.closed_at as string) ?? undefined,
     isDemo: Boolean(row.is_demo),
@@ -94,9 +96,10 @@ function mapRequisition(row: Record<string, unknown>): JobRequisition {
   };
 }
 
-function mapCandidate(row: Record<string, unknown>): Candidate {
+function mapCandidate(row: Record<string, unknown>): CandidateProfile {
   return {
     id: row.id as string,
+    profileId: (row.profile_id as string) ?? undefined,
     firstName: row.first_name as string,
     lastName: row.last_name as string,
     preferredName: (row.preferred_name as string) ?? undefined,
@@ -107,8 +110,6 @@ function mapCandidate(row: Record<string, unknown>): Candidate {
     workAuthorization: (row.work_authorization as string) ?? undefined,
     willingToRelocate: (row.willing_to_relocate as boolean) ?? undefined,
     source: (row.source as string) ?? undefined,
-    personId: (row.person_id as string) ?? undefined,
-    employeeId: (row.employee_id as string) ?? undefined,
     createdAt: row.created_at as string,
     updatedAt: row.updated_at as string,
   };
@@ -120,7 +121,7 @@ function mapApplication(row: Record<string, unknown>): Application {
     applicationNumber: row.application_number as string,
     candidateId: row.candidate_id as string,
     requisitionId: row.requisition_id as string,
-    postingId: row.posting_id as string,
+    jobId: row.job_id as string,
     status: row.status as ApplicationStatus,
     coverLetter: (row.cover_letter as string) ?? undefined,
     additionalInformation:
@@ -163,7 +164,7 @@ function mapInterview(row: Record<string, unknown>): Interview {
   };
 }
 
-function mapExperience(row: Record<string, unknown>): CandidateExperience {
+function mapExperience(row: Record<string, unknown>): Experience {
   return {
     id: row.id as string,
     candidateId: row.candidate_id as string,
@@ -176,7 +177,7 @@ function mapExperience(row: Record<string, unknown>): CandidateExperience {
   };
 }
 
-function mapEducation(row: Record<string, unknown>): CandidateEducation {
+function mapEducation(row: Record<string, unknown>): Education {
   return {
     id: row.id as string,
     candidateId: row.candidate_id as string,
@@ -188,23 +189,27 @@ function mapEducation(row: Record<string, unknown>): CandidateEducation {
   };
 }
 
-function mapSkill(row: Record<string, unknown>): CandidateSkill {
+/** `skillName` comes from a joined lookup against `skills` — not a column on `candidate_skills` itself. */
+function mapSkill(row: Record<string, unknown>, skillName: string): CandidateSkill {
   return {
     id: row.id as string,
     candidateId: row.candidate_id as string,
-    skill: row.skill as string,
+    skillId: row.skill_id as string,
+    skill: skillName,
     proficiency: (row.proficiency as string) ?? undefined,
   };
 }
 
-function mapDocument(row: Record<string, unknown>): CandidateDocument {
+function mapDocument(row: Record<string, unknown>): Document {
   return {
     id: row.id as string,
     candidateId: row.candidate_id as string,
-    applicationId: (row.application_id as string) ?? undefined,
-    documentType: row.document_type as CandidateDocument["documentType"],
+    userId: (row.user_id as string) ?? undefined,
+    documentType: row.document_type as Document["documentType"],
     fileName: row.file_name as string,
     storagePath: row.storage_path as string,
+    mimeType: (row.mime_type as string) ?? undefined,
+    fileSize: (row.file_size as number) ?? undefined,
     uploadedAt: row.uploaded_at as string,
   };
 }
@@ -251,6 +256,7 @@ function slugify(title: string): string {
 export function createSupabaseRecruitingRepository(): RecruitingRepository &
   RecruitingDashboardReads &
   RecruitingCandidateReads &
+  RecruitingCandidateSelfWrites &
   RecruitingJobReads &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
@@ -262,7 +268,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       if (!client) return [];
 
       const { data } = await client
-        .from("job_postings")
+        .from("jobs")
         .select("*")
         .eq("status", "PUBLISHED")
         .order("published_at", { ascending: false });
@@ -275,7 +281,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       if (!client) return undefined;
 
       const { data } = await client
-        .from("job_postings")
+        .from("jobs")
         .select("*")
         .eq("slug", slug)
         .eq("status", "PUBLISHED")
@@ -302,7 +308,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       if (!client) return undefined;
 
       const { data } = await client
-        .from("candidates")
+        .from("candidate_profiles")
         .select("*")
         .ilike("email", email.trim())
         .maybeSingle();
@@ -353,7 +359,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       if (!client) return 0;
 
       const { count } = await client
-        .from("candidates")
+        .from("candidate_profiles")
         .select("id", { count: "exact", head: true });
 
       return count ?? 0;
@@ -427,9 +433,9 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         { data: applicationRows },
         { data: postingRows },
       ] = await Promise.all([
-        client.from("candidates").select("*"),
+        client.from("candidate_profiles").select("*"),
         client.from("applications").select("*"),
-        client.from("job_postings").select("id, title, location_name"),
+        client.from("jobs").select("id, title, location_name"),
       ]);
 
       const postingById = new Map(
@@ -456,7 +462,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         const candidate = mapCandidate(row);
         const application = latestApplicationByCandidate.get(candidate.id);
         const posting = application
-          ? postingById.get(application.posting_id as string)
+          ? postingById.get(application.job_id as string)
           : undefined;
 
         return {
@@ -483,7 +489,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       if (!client) return undefined;
 
       const { data: candidateRow } = await client
-        .from("candidates")
+        .from("candidate_profiles")
         .select("*")
         .eq("id", candidateId)
         .maybeSingle();
@@ -500,17 +506,17 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       ] = await Promise.all([
         client.from("applications").select("*").eq("candidate_id", candidateId),
         client
-          .from("candidate_experience")
+          .from("experiences")
           .select("*")
           .eq("candidate_id", candidateId)
           .order("start_date", { ascending: false }),
         client
-          .from("candidate_education")
+          .from("education")
           .select("*")
           .eq("candidate_id", candidateId),
         client.from("candidate_skills").select("*").eq("candidate_id", candidateId),
         client
-          .from("candidate_documents")
+          .from("documents")
           .select("*")
           .eq("candidate_id", candidateId)
           .order("uploaded_at", { ascending: false }),
@@ -521,14 +527,24 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           .order("created_at", { ascending: false }),
       ]);
 
+      const skillIds = [
+        ...new Set((skillRows ?? []).map((row) => row.skill_id as string)),
+      ];
+      const { data: skillNameRows } = skillIds.length
+        ? await client.from("skills").select("id, name").in("id", skillIds)
+        : { data: [] as Record<string, unknown>[] };
+      const skillNameById = new Map(
+        (skillNameRows ?? []).map((row) => [row.id as string, row.name as string]),
+      );
+
       const applicationIds = (applicationRows ?? []).map(
         (row) => row.id as string,
       );
       const requisitionIds = [
         ...new Set((applicationRows ?? []).map((row) => row.requisition_id as string)),
       ];
-      const postingIds = [
-        ...new Set((applicationRows ?? []).map((row) => row.posting_id as string)),
+      const jobIds = [
+        ...new Set((applicationRows ?? []).map((row) => row.job_id as string)),
       ];
 
       const [
@@ -542,11 +558,11 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
               .select("id, title, requisition_number")
               .in("id", requisitionIds)
           : Promise.resolve({ data: [] as Record<string, unknown>[] }),
-        postingIds.length
+        jobIds.length
           ? client
-              .from("job_postings")
+              .from("jobs")
               .select("id, location_name")
-              .in("id", postingIds)
+              .in("id", jobIds)
           : Promise.resolve({ data: [] as Record<string, unknown>[] }),
         applicationIds.length
           ? client.from("interviews").select("*").in("application_id", applicationIds)
@@ -567,7 +583,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         applicationRows ?? []
       ).map((row) => {
         const requisition = requisitionById.get(row.requisition_id as string);
-        const posting = postingById.get(row.posting_id as string);
+        const posting = postingById.get(row.job_id as string);
         return {
           applicationId: row.id as string,
           applicationNumber: row.application_number as string,
@@ -605,12 +621,14 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           )
         : { data: [] as Record<string, unknown>[] };
 
-      const profile: CandidateProfile = {
+      const profile: CandidateProfileDetail = {
         candidate: mapCandidate(candidateRow),
         applications,
         experience: (experienceRows ?? []).map(mapExperience),
         education: (educationRows ?? []).map(mapEducation),
-        skills: (skillRows ?? []).map(mapSkill),
+        skills: (skillRows ?? []).map((row) =>
+          mapSkill(row, skillNameById.get(row.skill_id as string) ?? "—"),
+        ),
         documents: (documentRows ?? []).map(mapDocument),
         interviews,
         feedback: (feedbackRows ?? []).map(mapFeedback),
@@ -703,7 +721,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           .eq("id", requisition.locationId)
           .maybeSingle(),
         client
-          .from("job_postings")
+          .from("jobs")
           .select("slug, status")
           .eq("requisition_id", requisitionId)
           .maybeSingle(),
@@ -811,14 +829,14 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         .eq("id", requisitionId);
 
       const { data: existingPosting } = await client
-        .from("job_postings")
+        .from("jobs")
         .select("slug")
         .eq("requisition_id", requisitionId)
         .maybeSingle();
 
       if (existingPosting) {
         await client
-          .from("job_postings")
+          .from("jobs")
           .update({ status: "PUBLISHED", published_at: now, updated_at: now })
           .eq("requisition_id", requisitionId);
         return { postingSlug: existingPosting.slug as string };
@@ -868,7 +886,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       const normalizedEmail = input.email.trim().toLowerCase();
 
       const { data: existingCandidateRow } = await client
-        .from("candidates")
+        .from("candidate_profiles")
         .select("id")
         .ilike("email", normalizedEmail)
         .maybeSingle();
@@ -876,7 +894,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       let candidateId = existingCandidateRow?.id as string | undefined;
       if (!candidateId) {
         candidateId = `cand-${crypto.randomUUID()}`;
-        await client.from("candidates").insert({
+        await client.from("candidate_profiles").insert({
           id: candidateId,
           first_name: input.firstName,
           last_name: input.lastName,
@@ -918,7 +936,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         application_number: applicationNumber,
         candidate_id: candidateId,
         requisition_id: input.requisitionId,
-        posting_id: input.postingId,
+        job_id: input.postingId,
         status: "APPLIED",
         cover_letter: input.coverLetter,
         additional_information: input.additionalInformation,
@@ -1063,6 +1081,37 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
 
       return mapOffer(data);
     },
+
+    async updateCandidateContactInfo(
+      candidateId: string,
+      input: UpdateCandidateContactInfoInput,
+    ) {
+      const client = getSupabaseServiceClient();
+      if (!client) throw new Error("Supabase is not configured");
+
+      const patch: Record<string, unknown> = {
+        updated_at: new Date().toISOString(),
+      };
+      if (input.phone !== undefined) patch.phone = input.phone;
+      if (input.linkedinUrl !== undefined) patch.linkedin_url = input.linkedinUrl;
+      if (input.portfolioUrl !== undefined) patch.portfolio_url = input.portfolioUrl;
+      if (input.workAuthorization !== undefined) {
+        patch.work_authorization = input.workAuthorization;
+      }
+      if (input.willingToRelocate !== undefined) {
+        patch.willing_to_relocate = input.willingToRelocate;
+      }
+
+      const { data, error } = await client
+        .from("candidate_profiles")
+        .update(patch)
+        .eq("id", candidateId)
+        .select("*")
+        .single();
+      if (error) throw new Error(`Failed to update candidate: ${error.message}`);
+
+      return mapCandidate(data);
+    },
   };
 }
 
@@ -1089,7 +1138,7 @@ async function insertPosting(
   let suffix = 2;
   for (;;) {
     const { data: collision } = await client
-      .from("job_postings")
+      .from("jobs")
       .select("id")
       .eq("slug", slug)
       .maybeSingle();
@@ -1098,7 +1147,7 @@ async function insertPosting(
     suffix += 1;
   }
 
-  await client.from("job_postings").insert({
+  await client.from("jobs").insert({
     id: `post-${posting.requisitionId}`,
     requisition_id: posting.requisitionId,
     slug,

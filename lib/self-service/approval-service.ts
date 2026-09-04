@@ -1,4 +1,5 @@
 import { hrRepository } from "@/lib/hr";
+import { getExpenseClaimById } from "@/lib/self-service/expense-store";
 import {
   getLeaveBalance,
   getLeaveRequestById,
@@ -19,6 +20,7 @@ import type {
   ApprovalHistory,
   ApprovalRequest,
   ApprovalRequestType,
+  ExpenseClaim,
   LeaveBalance,
   LeaveRequest,
   LeaveType,
@@ -46,6 +48,11 @@ export type ProfileChangeApprovalDetail = {
   request: ProfileChangeRequest;
 };
 
+export type ExpenseApprovalDetail = {
+  kind: "EXPENSE";
+  claim: ExpenseClaim;
+};
+
 export type UnsupportedApprovalDetail = {
   kind: "UNSUPPORTED";
   message: string;
@@ -55,6 +62,7 @@ export type ApprovalDetail =
   | TimesheetApprovalDetail
   | LeaveApprovalDetail
   | ProfileChangeApprovalDetail
+  | ExpenseApprovalDetail
   | UnsupportedApprovalDetail;
 
 export type ApprovalInboxItem = {
@@ -73,6 +81,8 @@ function deepLinkFor(type: ApprovalRequestType) {
     case "LEAVE":
       return "/manager/leave";
     case "PROFILE_CHANGE":
+      return "/manager/approvals";
+    case "EXPENSE":
       return "/manager/approvals";
     default:
       return "/manager/approvals";
@@ -116,6 +126,14 @@ function resolveDetail(approval: ApprovalRequest): ApprovalDetail {
     return { kind: "PROFILE_CHANGE", request };
   }
 
+  if (approval.requestType === "EXPENSE") {
+    const claim = getExpenseClaimById(approval.requestId);
+    if (!claim) {
+      return { kind: "UNSUPPORTED", message: "Expense claim not found" };
+    }
+    return { kind: "EXPENSE", claim };
+  }
+
   return {
     kind: "UNSUPPORTED",
     message: `${approvalRequestTypeLabels[approval.requestType]} actions are not available in this inbox yet.`,
@@ -125,9 +143,7 @@ function resolveDetail(approval: ApprovalRequest): ApprovalDetail {
 async function resolveRequesterName(employeeId: string) {
   const employee = await hrRepository.getEmployeeById(employeeId);
   if (!employee) return employeeId;
-  const person = await hrRepository.getPersonById(employee.personId);
-  if (!person) return employeeId;
-  return `${person.firstName} ${person.lastName}`;
+  return `${employee.firstName} ${employee.lastName}`;
 }
 
 async function enrichApproval(
@@ -183,4 +199,5 @@ export const approvalFilterOptions: Array<{
   { value: "TIMESHEET", label: "Timesheet" },
   { value: "LEAVE", label: "Leave" },
   { value: "PROFILE_CHANGE", label: "Profile Change" },
+  { value: "EXPENSE", label: "Expense" },
 ];

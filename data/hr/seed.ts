@@ -1,46 +1,22 @@
 import type {
   CompensationRecord,
-  Employee,
-  EmploymentAssignment,
+  EmployeeProfile,
+  JobAssignment,
   OnboardingRecord,
   OnboardingTask,
-  Person,
 } from "@/types/hr";
 
 const now = "2026-08-01T00:00:00.000Z";
 
 /** Demo Core HR seed — not production employee records. */
-export const seedPeople: Person[] = [
+export const seedEmployees: EmployeeProfile[] = [
   {
-    id: "person-demo-001",
+    id: "emp-demo-001",
+    employeeNumber: "CA-000001",
     firstName: "Michael",
     lastName: "Brown",
     preferredName: "Michael",
     personalEmail: "michael.brown.demo@example.com",
-    createdAt: now,
-    updatedAt: now,
-  },
-  {
-    id: "person-demo-002",
-    firstName: "Jennifer",
-    lastName: "Lee",
-    preferredName: "Jen",
-    personalEmail: "jennifer.lee.demo@example.com",
-    personalPhone: "301-555-0142",
-    mailingAddress: "4210 Sundew Court, Rockville, MD 20850",
-    emergencyContactName: "David Lee",
-    emergencyContactRelationship: "Spouse",
-    emergencyContactPhone: "301-555-0198",
-    createdAt: now,
-    updatedAt: now,
-  },
-];
-
-export const seedEmployees: Employee[] = [
-  {
-    id: "emp-demo-001",
-    personId: "person-demo-001",
-    employeeNumber: "CA-000001",
     hireDate: "2024-03-01",
     originalHireDate: "2024-03-01",
     employmentStatus: "ACTIVE",
@@ -50,8 +26,16 @@ export const seedEmployees: Employee[] = [
   },
   {
     id: "emp-demo-002",
-    personId: "person-demo-002",
     employeeNumber: "CA-000002",
+    firstName: "Jennifer",
+    lastName: "Lee",
+    preferredName: "Jen",
+    personalEmail: "jennifer.lee.demo@example.com",
+    phone: "301-555-0142",
+    mailingAddress: "4210 Sundew Court, Rockville, MD 20850",
+    emergencyContactName: "David Lee",
+    emergencyContactRelationship: "Spouse",
+    emergencyContactPhone: "301-555-0198",
     hireDate: "2025-01-15",
     originalHireDate: "2025-01-15",
     employmentStatus: "ACTIVE",
@@ -61,7 +45,7 @@ export const seedEmployees: Employee[] = [
   },
 ];
 
-export const seedAssignments: EmploymentAssignment[] = [
+export const seedAssignments: JobAssignment[] = [
   {
     id: "asg-demo-001",
     employeeId: "emp-demo-001",

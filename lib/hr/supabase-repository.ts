@@ -2,13 +2,12 @@ import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import type { HrRepository } from "@/lib/hr/repository";
 import type {
   CompensationRecord,
-  Employee,
+  EmployeeProfile,
   EmployeeStatusHistory,
-  EmploymentAssignment,
+  JobAssignment,
   HrEvent,
   OnboardingRecord,
   OnboardingTask,
-  Person,
 } from "@/types/hr";
 import type { HireConversionResult } from "@/lib/recruiting/repository";
 
@@ -20,39 +19,30 @@ function nowIso() {
   return new Date().toISOString();
 }
 
-function mapPerson(row: Record<string, unknown>): Person {
+function mapEmployee(row: Record<string, unknown>): EmployeeProfile {
   return {
     id: row.id as string,
+    userId: (row.user_id as string) ?? undefined,
+    candidateId: (row.candidate_id as string) ?? undefined,
+    employeeNumber: row.employee_number as string,
     firstName: row.first_name as string,
-    middleName: (row.middle_name as string) ?? undefined,
     lastName: row.last_name as string,
     preferredName: (row.preferred_name as string) ?? undefined,
+    workEmail: (row.work_email as string) ?? undefined,
     personalEmail: (row.personal_email as string) ?? undefined,
-    personalPhone: (row.personal_phone as string) ?? undefined,
+    phone: (row.phone as string) ?? undefined,
+    workPhone: (row.work_phone as string) ?? undefined,
     mailingAddress: (row.mailing_address as string) ?? undefined,
     emergencyContactName: (row.emergency_contact_name as string) ?? undefined,
     emergencyContactRelationship:
       (row.emergency_contact_relationship as string) ?? undefined,
     emergencyContactPhone:
       (row.emergency_contact_phone as string) ?? undefined,
-    createdAt: row.created_at as string,
-    updatedAt: row.updated_at as string,
-  };
-}
-
-function mapEmployee(row: Record<string, unknown>): Employee {
-  return {
-    id: row.id as string,
-    personId: row.person_id as string,
-    employeeNumber: row.employee_number as string,
     hireDate: row.hire_date as string,
     originalHireDate: row.original_hire_date as string,
-    employmentStatus: row.employment_status as Employee["employmentStatus"],
+    employmentStatus: row.employment_status as EmployeeProfile["employmentStatus"],
     terminationDate: (row.termination_date as string) ?? undefined,
     terminationReason: (row.termination_reason as string) ?? undefined,
-    workEmail: (row.work_email as string) ?? undefined,
-    workPhone: (row.work_phone as string) ?? undefined,
-    sourceCandidateId: (row.source_candidate_id as string) ?? undefined,
     sourceApplicationId: (row.source_application_id as string) ?? undefined,
     sourceOfferId: (row.source_offer_id as string) ?? undefined,
     createdAt: row.created_at as string,
@@ -115,7 +105,7 @@ function mapOnboardingTask(row: Record<string, unknown>): OnboardingTask {
   };
 }
 
-function mapAssignment(row: Record<string, unknown>): EmploymentAssignment {
+function mapAssignment(row: Record<string, unknown>): JobAssignment {
   return {
     id: row.id as string,
     employeeId: row.employee_id as string,
@@ -125,11 +115,11 @@ function mapAssignment(row: Record<string, unknown>): EmploymentAssignment {
     positionId: row.position_id as string,
     locationId: row.location_id as string,
     managerEmployeeId: (row.manager_employee_id as string) ?? undefined,
-    employmentType: row.employment_type as EmploymentAssignment["employmentType"],
-    workplaceType: row.workplace_type as EmploymentAssignment["workplaceType"],
+    employmentType: row.employment_type as JobAssignment["employmentType"],
+    workplaceType: row.workplace_type as JobAssignment["workplaceType"],
     startDate: row.start_date as string,
     endDate: (row.end_date as string) ?? undefined,
-    assignmentStatus: row.assignment_status as EmploymentAssignment["assignmentStatus"],
+    assignmentStatus: row.assignment_status as JobAssignment["assignmentStatus"],
     primaryAssignment: Boolean(row.primary_assignment),
     changeReason: (row.change_reason as string) ?? undefined,
     createdAt: row.created_at as string,
@@ -155,9 +145,10 @@ function mapCompensation(row: Record<string, unknown>): CompensationRecord {
 }
 
 /**
- * Supabase-backed HR repository for Phase 3A (accepted offer -> employee
+ * Supabase-backed HR repository (accepted offer -> employee_profiles
  * conversion, onboarding). Hire conversion runs as a single Postgres
- * function (db/schema/007_hire_conversion.sql) so it commits atomically.
+ * function (db/schema/007_hire_conversion.sql, updated by
+ * db/schema/012_hr_rename.sql) so it commits atomically.
  */
 export function createSupabaseHrRepository(): HrRepository {
   function requireClient() {
@@ -167,100 +158,10 @@ export function createSupabaseHrRepository(): HrRepository {
   }
 
   return {
-    async listPeople() {
-      const client = getSupabaseServiceClient();
-      if (!client) return [];
-      const { data } = await client.from("people").select("*");
-      return (data ?? []).map(mapPerson);
-    },
-
-    async getPersonById(id) {
-      const client = getSupabaseServiceClient();
-      if (!client) return undefined;
-      const { data } = await client
-        .from("people")
-        .select("*")
-        .eq("id", id)
-        .maybeSingle();
-      return data ? mapPerson(data) : undefined;
-    },
-
-    async findPersonByEmail(email) {
-      const client = getSupabaseServiceClient();
-      if (!client) return undefined;
-      const { data } = await client
-        .from("people")
-        .select("*")
-        .ilike("personal_email", email.trim())
-        .maybeSingle();
-      return data ? mapPerson(data) : undefined;
-    },
-
-    async createPerson(input) {
-      const client = requireClient();
-
-      if (input.personalEmail) {
-        const { data: existing } = await client
-          .from("people")
-          .select("*")
-          .ilike("personal_email", input.personalEmail.trim())
-          .maybeSingle();
-        if (existing) return mapPerson(existing);
-      }
-
-      const row = {
-        id: createId("person"),
-        first_name: input.firstName,
-        middle_name: input.middleName ?? null,
-        last_name: input.lastName,
-        preferred_name: input.preferredName ?? null,
-        personal_email: input.personalEmail ?? null,
-        personal_phone: input.personalPhone ?? null,
-        created_at: nowIso(),
-        updated_at: nowIso(),
-      };
-
-      const { data, error } = await client
-        .from("people")
-        .insert(row)
-        .select("*")
-        .single();
-      if (error) throw new Error(`Failed to create person: ${error.message}`);
-      return mapPerson(data);
-    },
-
-    async updatePersonContact(personId, updates) {
-      const client = requireClient();
-
-      const row: Record<string, unknown> = { updated_at: nowIso() };
-      if (updates.preferredName !== undefined) row.preferred_name = updates.preferredName;
-      if (updates.personalEmail !== undefined) row.personal_email = updates.personalEmail;
-      if (updates.personalPhone !== undefined) row.personal_phone = updates.personalPhone;
-      if (updates.mailingAddress !== undefined) row.mailing_address = updates.mailingAddress;
-      if (updates.emergencyContactName !== undefined) {
-        row.emergency_contact_name = updates.emergencyContactName;
-      }
-      if (updates.emergencyContactRelationship !== undefined) {
-        row.emergency_contact_relationship = updates.emergencyContactRelationship;
-      }
-      if (updates.emergencyContactPhone !== undefined) {
-        row.emergency_contact_phone = updates.emergencyContactPhone;
-      }
-
-      const { data, error } = await client
-        .from("people")
-        .update(row)
-        .eq("id", personId)
-        .select("*")
-        .single();
-      if (error) throw new Error(`Failed to update person: ${error.message}`);
-      return mapPerson(data);
-    },
-
     async listEmployees() {
       const client = getSupabaseServiceClient();
       if (!client) return [];
-      const { data } = await client.from("employees").select("*");
+      const { data } = await client.from("employee_profiles").select("*");
       return (data ?? []).map(mapEmployee);
     },
 
@@ -268,7 +169,7 @@ export function createSupabaseHrRepository(): HrRepository {
       const client = getSupabaseServiceClient();
       if (!client) return undefined;
       const { data } = await client
-        .from("employees")
+        .from("employee_profiles")
         .select("*")
         .eq("id", id)
         .maybeSingle();
@@ -279,9 +180,20 @@ export function createSupabaseHrRepository(): HrRepository {
       const client = getSupabaseServiceClient();
       if (!client) return undefined;
       const { data } = await client
-        .from("employees")
+        .from("employee_profiles")
         .select("*")
         .eq("employee_number", employeeNumber)
+        .maybeSingle();
+      return data ? mapEmployee(data) : undefined;
+    },
+
+    async findEmployeeByPersonalEmail(email) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+      const { data } = await client
+        .from("employee_profiles")
+        .select("*")
+        .ilike("personal_email", email.trim())
         .maybeSingle();
       return data ? mapEmployee(data) : undefined;
     },
@@ -300,14 +212,17 @@ export function createSupabaseHrRepository(): HrRepository {
       const status = input.employmentStatus ?? "PRE_HIRE";
       const row = {
         id: createId("emp"),
-        person_id: input.personId,
+        candidate_id: input.candidateId ?? null,
         employee_number: employeeNumber,
+        first_name: input.firstName,
+        last_name: input.lastName,
+        personal_email: input.personalEmail ?? null,
+        phone: input.phone ?? null,
         hire_date: input.hireDate,
         original_hire_date: input.hireDate,
         employment_status: status,
         work_email: input.workEmail ?? null,
         work_phone: input.workPhone ?? null,
-        source_candidate_id: input.sourceCandidateId ?? null,
         source_application_id: input.sourceApplicationId ?? null,
         source_offer_id: input.sourceOfferId ?? null,
         created_at: nowIso(),
@@ -315,7 +230,7 @@ export function createSupabaseHrRepository(): HrRepository {
       };
 
       const { data, error } = await client
-        .from("employees")
+        .from("employee_profiles")
         .insert(row)
         .select("*")
         .single();
@@ -344,18 +259,46 @@ export function createSupabaseHrRepository(): HrRepository {
       return employee;
     },
 
+    async updateEmployeeContact(employeeId, updates) {
+      const client = requireClient();
+
+      const row: Record<string, unknown> = { updated_at: nowIso() };
+      if (updates.preferredName !== undefined) row.preferred_name = updates.preferredName;
+      if (updates.personalEmail !== undefined) row.personal_email = updates.personalEmail;
+      if (updates.phone !== undefined) row.phone = updates.phone;
+      if (updates.mailingAddress !== undefined) row.mailing_address = updates.mailingAddress;
+      if (updates.emergencyContactName !== undefined) {
+        row.emergency_contact_name = updates.emergencyContactName;
+      }
+      if (updates.emergencyContactRelationship !== undefined) {
+        row.emergency_contact_relationship = updates.emergencyContactRelationship;
+      }
+      if (updates.emergencyContactPhone !== undefined) {
+        row.emergency_contact_phone = updates.emergencyContactPhone;
+      }
+
+      const { data, error } = await client
+        .from("employee_profiles")
+        .update(row)
+        .eq("id", employeeId)
+        .select("*")
+        .single();
+      if (error) throw new Error(`Failed to update employee: ${error.message}`);
+      return mapEmployee(data);
+    },
+
     async updateEmployeeStatus(employeeId, status, effectiveDate, note) {
       const client = requireClient();
 
       const { data: current, error: fetchError } = await client
-        .from("employees")
+        .from("employee_profiles")
         .select("*")
         .eq("id", employeeId)
         .maybeSingle();
       if (fetchError || !current) {
         throw new Error(`Employee not found: ${employeeId}`);
       }
-      const fromStatus = current.employment_status as Employee["employmentStatus"];
+      const fromStatus = current.employment_status as EmployeeProfile["employmentStatus"];
 
       const update: Record<string, unknown> = {
         employment_status: status,
@@ -367,7 +310,7 @@ export function createSupabaseHrRepository(): HrRepository {
       }
 
       const { data, error } = await client
-        .from("employees")
+        .from("employee_profiles")
         .update(update)
         .eq("id", employeeId)
         .select("*")
@@ -402,7 +345,7 @@ export function createSupabaseHrRepository(): HrRepository {
       const client = getSupabaseServiceClient();
       if (!client) return [];
       const { data } = await client
-        .from("employment_assignments")
+        .from("job_assignments")
         .select("*")
         .eq("employee_id", employeeId)
         .order("start_date", { ascending: false });
@@ -413,7 +356,7 @@ export function createSupabaseHrRepository(): HrRepository {
       const client = getSupabaseServiceClient();
       if (!client) return undefined;
       const { data } = await client
-        .from("employment_assignments")
+        .from("job_assignments")
         .select("*")
         .eq("employee_id", employeeId)
         .eq("primary_assignment", true)
@@ -433,7 +376,7 @@ export function createSupabaseHrRepository(): HrRepository {
 
       if (primary) {
         await client
-          .from("employment_assignments")
+          .from("job_assignments")
           .update({ assignment_status: "ENDED", end_date: input.startDate, updated_at: nowIso() })
           .eq("employee_id", input.employeeId)
           .eq("primary_assignment", true)
@@ -460,7 +403,7 @@ export function createSupabaseHrRepository(): HrRepository {
       };
 
       const { data, error } = await client
-        .from("employment_assignments")
+        .from("job_assignments")
         .insert(row)
         .select("*")
         .single();

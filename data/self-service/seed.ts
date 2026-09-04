@@ -1,13 +1,19 @@
 import type {
   ApprovalRequest,
+  BenefitsElection,
+  BenefitsPlan,
   EmployeeDocumentView,
+  ExpenseClaim,
+  Goal,
   HrRequest,
   HrRequestMessage,
   LeaveBalance,
   LeaveRequest,
   LeaveType,
   Notification,
+  PerformanceReview,
   ProfileChangeRequest,
+  ReviewCycle,
   Timesheet,
   TimeEntry,
 } from "@/types/self-service";
@@ -289,6 +295,16 @@ export const seedApprovals: ApprovalRequest[] = [
     submittedAt: "2026-08-10T15:00:00.000Z",
     actedAt: "2026-08-11T12:00:00.000Z",
   },
+  {
+    id: "apr-4",
+    requestType: "EXPENSE",
+    requestId: "exp-002-2",
+    requesterEmployeeId: "emp-demo-002",
+    approverEmployeeId: "emp-demo-001",
+    status: "PENDING",
+    summary: "Meals · $58.20 · Aug 25",
+    submittedAt: "2026-08-26T09:30:00.000Z",
+  },
 ];
 
 export const seedHrRequests: HrRequest[] = [
@@ -463,5 +479,178 @@ export const seedEmployeeDocuments: EmployeeDocumentView[] = [
     uploadedAt: "2025-11-02T12:00:00.000Z",
     effectiveDate: "2025-11-02",
     expiresAt: "2026-09-20",
+  },
+];
+
+export const seedBenefitsPlans: BenefitsPlan[] = [
+  {
+    id: "bp-medical-ppo",
+    category: "MEDICAL",
+    name: "PPO Health Plan",
+    carrier: "Consult America Health Partners",
+    description: "Broad provider network with low deductibles and no referrals required.",
+    monthlyCostByTier: {
+      EMPLOYEE_ONLY: 145,
+      EMPLOYEE_SPOUSE: 310,
+      EMPLOYEE_CHILDREN: 265,
+      FAMILY: 420,
+    },
+    status: "ACTIVE",
+  },
+  {
+    id: "bp-medical-hdhp",
+    category: "MEDICAL",
+    name: "High-Deductible Health Plan + HSA",
+    carrier: "Consult America Health Partners",
+    description: "Lower premiums paired with a company-matched Health Savings Account.",
+    monthlyCostByTier: {
+      EMPLOYEE_ONLY: 75,
+      EMPLOYEE_SPOUSE: 180,
+      EMPLOYEE_CHILDREN: 150,
+      FAMILY: 260,
+    },
+    status: "ACTIVE",
+  },
+  {
+    id: "bp-dental",
+    category: "DENTAL",
+    name: "Dental Care Plan",
+    carrier: "BrightSmile Dental",
+    description: "Preventive care covered at 100%, plus orthodontia for dependents.",
+    monthlyCostByTier: {
+      EMPLOYEE_ONLY: 18,
+      EMPLOYEE_SPOUSE: 34,
+      EMPLOYEE_CHILDREN: 30,
+      FAMILY: 48,
+    },
+    status: "ACTIVE",
+  },
+  {
+    id: "bp-vision",
+    category: "VISION",
+    name: "Vision Care Plan",
+    carrier: "ClearView Vision",
+    description: "Annual eye exams plus an allowance toward glasses or contacts.",
+    monthlyCostByTier: {
+      EMPLOYEE_ONLY: 6,
+      EMPLOYEE_SPOUSE: 11,
+      EMPLOYEE_CHILDREN: 10,
+      FAMILY: 16,
+    },
+    status: "ACTIVE",
+  },
+  {
+    id: "bp-401k",
+    category: "RETIREMENT",
+    name: "401(k) Retirement Plan",
+    carrier: "Consult America Retirement Services",
+    description: "Company match up to 4% of eligible pay, immediate vesting.",
+    monthlyCostByTier: {
+      EMPLOYEE_ONLY: 0,
+      EMPLOYEE_SPOUSE: 0,
+      EMPLOYEE_CHILDREN: 0,
+      FAMILY: 0,
+    },
+    status: "ACTIVE",
+  },
+];
+
+export const seedBenefitsElections: BenefitsElection[] = [
+  {
+    id: "be-002-medical",
+    employeeId: "emp-demo-002",
+    planId: "bp-medical-ppo",
+    coverageTier: "EMPLOYEE_ONLY",
+    dependentCount: 0,
+    effectiveDate: "2026-01-01",
+    status: "ACTIVE",
+    createdAt: "2025-12-05T14:00:00.000Z",
+    updatedAt: "2025-12-05T14:00:00.000Z",
+  },
+  {
+    id: "be-002-dental",
+    employeeId: "emp-demo-002",
+    planId: "bp-dental",
+    coverageTier: "EMPLOYEE_ONLY",
+    dependentCount: 0,
+    effectiveDate: "2026-01-01",
+    status: "ACTIVE",
+    createdAt: "2025-12-05T14:00:00.000Z",
+    updatedAt: "2025-12-05T14:00:00.000Z",
+  },
+];
+
+export const seedGoals: Goal[] = [
+  {
+    id: "goal-002-1",
+    employeeId: "emp-demo-002",
+    title: "Complete Oracle Cloud Financials certification",
+    description: "Finish the certification path to support upcoming client implementations.",
+    targetDate: "2026-11-30",
+    status: "IN_PROGRESS",
+    progressPercent: 40,
+    createdAt: "2026-07-01T14:00:00.000Z",
+    updatedAt: "2026-08-20T10:00:00.000Z",
+  },
+  {
+    id: "goal-002-2",
+    employeeId: "emp-demo-002",
+    title: "Mentor two new consultants onboarding this quarter",
+    status: "NOT_STARTED",
+    progressPercent: 0,
+    createdAt: "2026-08-01T14:00:00.000Z",
+    updatedAt: "2026-08-01T14:00:00.000Z",
+  },
+];
+
+export const seedReviewCycles: ReviewCycle[] = [
+  {
+    id: "cycle-2026-h2",
+    name: "2026 Second Half Review",
+    startDate: "2026-07-01",
+    endDate: "2026-12-31",
+    status: "OPEN",
+  },
+];
+
+export const seedPerformanceReviews: PerformanceReview[] = [
+  {
+    id: "perf-002-h2",
+    cycleId: "cycle-2026-h2",
+    employeeId: "emp-demo-002",
+    managerEmployeeId: "emp-demo-001",
+    status: "DRAFT",
+    createdAt: "2026-07-01T14:00:00.000Z",
+    updatedAt: "2026-07-01T14:00:00.000Z",
+  },
+];
+
+export const seedExpenseClaims: ExpenseClaim[] = [
+  {
+    id: "exp-002-1",
+    employeeId: "emp-demo-002",
+    category: "TRAVEL",
+    amount: 412.5,
+    currency: "USD",
+    expenseDate: "2026-08-18",
+    description: "Round-trip flight for client onsite in Chicago",
+    receiptRef: "receipt-exp-002-1.pdf",
+    status: "APPROVED",
+    submittedAt: "2026-08-19T14:00:00.000Z",
+    createdAt: "2026-08-19T14:00:00.000Z",
+    updatedAt: "2026-08-20T10:00:00.000Z",
+  },
+  {
+    id: "exp-002-2",
+    employeeId: "emp-demo-002",
+    category: "MEALS",
+    amount: 58.2,
+    currency: "USD",
+    expenseDate: "2026-08-25",
+    description: "Team dinner with client stakeholders",
+    status: "PENDING",
+    submittedAt: "2026-08-26T09:30:00.000Z",
+    createdAt: "2026-08-26T09:30:00.000Z",
+    updatedAt: "2026-08-26T09:30:00.000Z",
   },
 ];

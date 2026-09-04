@@ -8,7 +8,7 @@ import {
   type ApprovalInboxAction,
 } from "@/app/actions/approval-actions";
 import type { ApprovalInboxItem } from "@/lib/self-service/approval-service";
-import { approvalStatusLabels } from "@/types/self-service";
+import { approvalStatusLabels, expenseCategoryLabels } from "@/types/self-service";
 
 interface ApprovalInboxProps {
   items: ApprovalInboxItem[];
@@ -90,6 +90,7 @@ function countByType(items: ApprovalInboxItem[]) {
     PROFILE_CHANGE: items.filter(
       (i) => i.approval.requestType === "PROFILE_CHANGE",
     ).length,
+    EXPENSE: items.filter((i) => i.approval.requestType === "EXPENSE").length,
   };
 }
 
@@ -105,6 +106,7 @@ function FilterBar({
     { value: "TIMESHEET", label: "Timesheet" },
     { value: "LEAVE", label: "Leave" },
     { value: "PROFILE_CHANGE", label: "Profile" },
+    { value: "EXPENSE", label: "Expense" },
   ];
 
   return (
@@ -368,6 +370,27 @@ function buildDetailLines(item: ApprovalInboxItem) {
       {
         label: "Requested Value",
         value: item.detail.request.requestedValue,
+      },
+    );
+  }
+
+  if (item.detail.kind === "EXPENSE") {
+    lines.push(
+      {
+        label: "Category",
+        value: expenseCategoryLabels[item.detail.claim.category],
+      },
+      {
+        label: "Amount",
+        value: `$${item.detail.claim.amount.toFixed(2)} ${item.detail.claim.currency}`,
+      },
+      {
+        label: "Expense Date",
+        value: item.detail.claim.expenseDate,
+      },
+      {
+        label: "Description",
+        value: item.detail.claim.description,
       },
     );
   }

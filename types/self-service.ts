@@ -34,7 +34,8 @@ export type ApprovalRequestType =
   | "TIMESHEET"
   | "LEAVE"
   | "PROFILE_CHANGE"
-  | "HR_REQUEST";
+  | "HR_REQUEST"
+  | "EXPENSE";
 
 export type ProfileChangeStatus =
   | "PENDING"
@@ -94,6 +95,115 @@ export type LeaveRequest = {
   endDate: string;
   hours: number;
   status: LeaveRequestStatus;
+  comments?: string;
+  submittedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GoalStatus = "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
+
+export type Goal = {
+  id: string;
+  employeeId: string;
+  title: string;
+  description?: string;
+  targetDate?: string;
+  status: GoalStatus;
+  progressPercent: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ReviewCycleStatus = "UPCOMING" | "OPEN" | "CLOSED";
+
+export type ReviewCycle = {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: ReviewCycleStatus;
+};
+
+export type PerformanceReviewStatus = "DRAFT" | "SUBMITTED" | "ACKNOWLEDGED";
+
+export type PerformanceReview = {
+  id: string;
+  cycleId: string;
+  employeeId: string;
+  managerEmployeeId: string;
+  selfAssessment?: string;
+  managerAssessment?: string;
+  rating?: number;
+  status: PerformanceReviewStatus;
+  selfSubmittedAt?: string;
+  managerSubmittedAt?: string;
+  acknowledgedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ExpenseCategory =
+  | "TRAVEL"
+  | "MEALS"
+  | "LODGING"
+  | "SUPPLIES"
+  | "SOFTWARE"
+  | "OTHER";
+
+export type ExpenseClaimStatus =
+  | "PENDING"
+  | "APPROVED"
+  | "REJECTED"
+  | "CANCELLED"
+  | "PAID";
+
+export type BenefitsPlanCategory =
+  | "MEDICAL"
+  | "DENTAL"
+  | "VISION"
+  | "RETIREMENT";
+
+export type BenefitsCoverageTier =
+  | "EMPLOYEE_ONLY"
+  | "EMPLOYEE_SPOUSE"
+  | "EMPLOYEE_CHILDREN"
+  | "FAMILY";
+
+export type BenefitsPlan = {
+  id: string;
+  category: BenefitsPlanCategory;
+  name: string;
+  carrier: string;
+  description: string;
+  monthlyCostByTier: Record<BenefitsCoverageTier, number>;
+  status: "ACTIVE" | "INACTIVE";
+};
+
+export type BenefitsElectionStatus = "ACTIVE" | "CANCELLED";
+
+export type BenefitsElection = {
+  id: string;
+  employeeId: string;
+  planId: string;
+  coverageTier: BenefitsCoverageTier;
+  dependentCount: number;
+  effectiveDate: string;
+  status: BenefitsElectionStatus;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ExpenseClaim = {
+  id: string;
+  employeeId: string;
+  category: ExpenseCategory;
+  amount: number;
+  currency: string;
+  expenseDate: string;
+  description: string;
+  receiptRef?: string;
+  status: ExpenseClaimStatus;
   comments?: string;
   submittedAt?: string;
   createdAt: string;
@@ -281,6 +391,56 @@ export const approvalRequestTypeLabels: Record<ApprovalRequestType, string> = {
   LEAVE: "Leave",
   PROFILE_CHANGE: "Profile Change",
   HR_REQUEST: "HR Request",
+  EXPENSE: "Expense",
+};
+
+export const expenseCategoryLabels: Record<ExpenseCategory, string> = {
+  TRAVEL: "Travel",
+  MEALS: "Meals",
+  LODGING: "Lodging",
+  SUPPLIES: "Supplies",
+  SOFTWARE: "Software",
+  OTHER: "Other",
+};
+
+export const expenseClaimStatusLabels: Record<ExpenseClaimStatus, string> = {
+  PENDING: "Pending",
+  APPROVED: "Approved",
+  REJECTED: "Rejected",
+  CANCELLED: "Cancelled",
+  PAID: "Paid",
+};
+
+export const benefitsPlanCategoryLabels: Record<BenefitsPlanCategory, string> = {
+  MEDICAL: "Medical",
+  DENTAL: "Dental",
+  VISION: "Vision",
+  RETIREMENT: "Retirement",
+};
+
+export const benefitsCoverageTierLabels: Record<BenefitsCoverageTier, string> = {
+  EMPLOYEE_ONLY: "Employee Only",
+  EMPLOYEE_SPOUSE: "Employee + Spouse",
+  EMPLOYEE_CHILDREN: "Employee + Children",
+  FAMILY: "Family",
+};
+
+export const goalStatusLabels: Record<GoalStatus, string> = {
+  NOT_STARTED: "Not Started",
+  IN_PROGRESS: "In Progress",
+  COMPLETED: "Completed",
+};
+
+export const reviewCycleStatusLabels: Record<ReviewCycleStatus, string> = {
+  UPCOMING: "Upcoming",
+  OPEN: "Open",
+  CLOSED: "Closed",
+};
+
+export const performanceReviewStatusLabels: Record<PerformanceReviewStatus, string> = {
+  DRAFT: "Draft",
+  SUBMITTED: "Submitted",
+  ACKNOWLEDGED: "Acknowledged",
 };
 
 export const approvalStatusLabels: Record<ApprovalStatus, string> = {

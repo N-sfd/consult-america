@@ -1,13 +1,14 @@
 /**
  * Public careers Job view-model.
- * Backed by JobPosting (Phase 2A recruiting model).
+ * Backed by `Job` (types/recruiting.ts), aliased to `JobPosting` here since
+ * this file's own `Job` view-model export would otherwise collide with it.
  */
 
 import {
   employmentTypeLabels,
   workplaceTypeLabels,
 } from "@/types/organization";
-import type { CareerArea, JobPosting } from "@/types/recruiting";
+import type { CareerArea, Job as JobPosting } from "@/types/recruiting";
 import { careerAreaLabels as recruitingCareerLabels } from "@/data/jobs";
 import {
   getPostingBySlug,

@@ -14,7 +14,6 @@ export type WorkforceRole = "ADMIN" | "RECRUITER" | "HR" | "HIRING_MANAGER";
 
 export type WorkforceSession = {
   employeeId: string;
-  personId: string;
   displayName: string;
   workEmail: string;
   initials: string;
@@ -23,7 +22,6 @@ export type WorkforceSession = {
 
 export const DEMO_WORKFORCE_SESSION: WorkforceSession = {
   employeeId: "emp-demo-001",
-  personId: "person-demo-001",
   displayName: "Michael Brown",
   workEmail: "michael.brown@consultamerica.demo",
   initials: "MB",
@@ -48,14 +46,13 @@ export async function getWorkforceSession(): Promise<WorkforceSession> {
   const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
   if (!employee) redirect("/login");
 
-  const person = await hrRepository.getPersonById(employee.personId);
   const displayName =
-    person?.preferredName ||
-    `${person?.firstName ?? ""} ${person?.lastName ?? ""}`.trim() ||
+    employee.preferredName ||
+    `${employee.firstName} ${employee.lastName}`.trim() ||
     platformUser.displayName;
 
   const roles: WorkforceRole[] = [];
-  if (platformUser.roles.includes("SUPER_ADMIN")) roles.push("ADMIN");
+  if (platformUser.roles.includes("SYSTEM_ADMIN")) roles.push("ADMIN");
   if (platformUser.roles.includes("RECRUITER")) roles.push("RECRUITER");
   if (
     platformUser.roles.includes("HR_ADMIN") ||
@@ -69,7 +66,6 @@ export async function getWorkforceSession(): Promise<WorkforceSession> {
 
   return {
     employeeId: employee.id,
-    personId: employee.personId,
     displayName,
     workEmail: employee.workEmail || platformUser.email,
     initials: initialsFor(displayName),

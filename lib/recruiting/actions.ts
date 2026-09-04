@@ -2,10 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 
+import { provisionCandidatePortalAccount } from "@/lib/candidate/provisioning";
 import { recruitingRepository } from "@/lib/recruiting";
 import { canTransitionOffer } from "@/lib/recruiting/status-machine";
 import type {
-  CandidateProfile,
+  CandidateProfileDetail,
   CreateJobRequisitionInput,
   SubmitApplicationResult,
 } from "@/lib/recruiting/repository";
@@ -54,7 +55,7 @@ export async function submitJobApplication(
     .filter(Boolean)
     .join("\n\n");
 
-  return recruitingRepository.submitApplication({
+  const result = await recruitingRepository.submitApplication({
     requisitionId: input.requisitionId,
     postingId: input.postingId,
     firstName: input.firstName,
@@ -69,6 +70,14 @@ export async function submitJobApplication(
     additionalInformation: additionalInformation || undefined,
     source: "Careers Site",
   });
+
+  await provisionCandidatePortalAccount({
+    candidateId: result.candidateId,
+    email: input.email,
+    displayName: `${input.firstName} ${input.lastName}`,
+  });
+
+  return result;
 }
 
 export type CandidateDrawerData = {
@@ -162,7 +171,7 @@ export async function acceptOffer(
 }
 
 function computeExperienceYears(
-  experience: CandidateProfile["experience"],
+  experience: CandidateProfileDetail["experience"],
 ): number | null {
   if (experience.length === 0) return null;
 

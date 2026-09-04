@@ -54,14 +54,9 @@ export default async function HrRequestsPage({
   for (const request of requests) {
     if (names.has(request.employeeId)) continue;
     const employee = await hrRepository.getEmployeeById(request.employeeId);
-    if (!employee) {
-      names.set(request.employeeId, request.employeeId);
-      continue;
-    }
-    const person = await hrRepository.getPersonById(employee.personId);
     names.set(
       request.employeeId,
-      person ? `${person.firstName} ${person.lastName}` : request.employeeId,
+      employee ? `${employee.firstName} ${employee.lastName}` : request.employeeId,
     );
   }
 

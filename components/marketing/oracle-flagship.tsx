@@ -162,8 +162,8 @@ export default function OracleFlagship() {
             >
               Explore Oracle
               <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
+              </Link>
+            </div>
         </div>
       </div>
     </section>

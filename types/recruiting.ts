@@ -1,10 +1,10 @@
 /**
- * Recruiting / ATS domain model (Phase 2).
+ * Recruiting / ATS domain model.
  *
  * Architectural rule:
- * Candidate → Offer Accepted → Hire → Employee (Phase 3)
- *
- * Do not create a disconnected employee master from recruiting data.
+ * Supabase Auth User → profiles → candidate_profiles → applications → jobs
+ * On hire: candidate_profiles → employee_profiles (types/hr.ts), never a
+ * disconnected employee record — see lib/hr/index.ts::convertAcceptedOfferToEmployee.
  */
 
 import type {
@@ -22,7 +22,7 @@ export type RequisitionStatus =
   | "FILLED"
   | "CANCELLED";
 
-export type PostingStatus = "DRAFT" | "PUBLISHED" | "UNPUBLISHED" | "CLOSED";
+export type JobStatus = "DRAFT" | "PUBLISHED" | "UNPUBLISHED" | "CLOSED";
 
 export type ApprovalStatus = "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
 
@@ -75,7 +75,11 @@ export type CareerArea =
   | "consulting"
   | "early-careers";
 
-/** Job requisition — internal hiring request before public posting. */
+/**
+ * Internal hiring request — draft/approval workflow, salary range, opening
+ * count. Kept distinct from `Job` (the public-facing posting derived from
+ * an approved requisition) rather than merged into it.
+ */
 export type JobRequisition = {
   id: string;
   requisitionNumber: string;
@@ -117,7 +121,7 @@ export type JobRequisitionApproval = {
  * Public job posting derived from an approved requisition.
  * Feeds /jobs and /jobs/[slug].
  */
-export type JobPosting = {
+export type Job = {
   id: string;
   requisitionId: string;
   slug: string;
@@ -132,7 +136,7 @@ export type JobPosting = {
   responsibilities: string[];
   qualifications: string[];
   preferredQualifications: string[];
-  status: PostingStatus;
+  status: JobStatus;
   publishedAt?: string;
   closedAt?: string;
   isDemo: boolean;
@@ -141,8 +145,10 @@ export type JobPosting = {
 };
 
 /** One person in the recruiting system — may apply to many jobs. */
-export type Candidate = {
+export type CandidateProfile = {
   id: string;
+  /** Links to the shared account identity once the candidate has a portal login. */
+  profileId?: string;
   firstName: string;
   lastName: string;
   preferredName?: string;
@@ -153,9 +159,6 @@ export type Candidate = {
   workAuthorization?: string;
   willingToRelocate?: boolean;
   source?: string;
-  /** Set when converted to employee (Phase 3). */
-  personId?: string;
-  employeeId?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -172,7 +175,7 @@ export type CandidateAddress = {
   isPrimary: boolean;
 };
 
-export type CandidateExperience = {
+export type Experience = {
   id: string;
   candidateId: string;
   company: string;
@@ -183,7 +186,7 @@ export type CandidateExperience = {
   description?: string;
 };
 
-export type CandidateEducation = {
+export type Education = {
   id: string;
   candidateId: string;
   institution: string;
@@ -193,30 +196,58 @@ export type CandidateEducation = {
   endDate?: string;
 };
 
+/** Master skill list — normalized target of `CandidateSkill`/`JobSkill`. */
+export type Skill = {
+  id: string;
+  name: string;
+  category?: string;
+};
+
+/** Candidate <-> skill mapping. `skill` is the resolved name (joined from `Skill`), for display. */
 export type CandidateSkill = {
   id: string;
   candidateId: string;
+  skillId: string;
   skill: string;
   proficiency?: string;
 };
 
-export type CandidateDocument = {
+/** Job <-> skill mapping (required/preferred skills for a posting). */
+export type JobSkill = {
+  id: string;
+  jobId: string;
+  skillId: string;
+  skill: string;
+  required: boolean;
+};
+
+export type Document = {
   id: string;
   candidateId: string;
-  applicationId?: string;
+  userId?: string;
   documentType: DocumentType;
   fileName: string;
   storagePath: string;
+  mimeType?: string;
+  fileSize?: number;
   uploadedAt: string;
 };
 
-/** Relationship between a candidate and a requisition. */
+/** Documents attached to a specific application (a resume can attach to several). */
+export type ApplicationDocument = {
+  id: string;
+  applicationId: string;
+  documentId: string;
+  createdAt: string;
+};
+
+/** Relationship between a candidate and a job. */
 export type Application = {
   id: string;
   applicationNumber: string;
   candidateId: string;
   requisitionId: string;
-  postingId: string;
+  jobId: string;
   status: ApplicationStatus;
   coverLetter?: string;
   additionalInformation?: string;
@@ -311,6 +342,34 @@ export type RecruitingActivity = {
   activityType: string;
   summary: string;
   createdByUserId?: string;
+  createdAt: string;
+};
+
+/** Persisted JD Analyzer result — a standalone JD parse, not tied to one resume. */
+export type JdAnalysis = {
+  id: string;
+  jobId?: string;
+  candidateId?: string;
+  resumeDocumentId?: string;
+  analysisJson: Record<string, unknown>;
+  matchScore?: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+  recommendations: string[];
+  createdAt: string;
+};
+
+/** Persisted resume<->job match result (same shape as JdAnalysis, one resume against one job). */
+export type ResumeAnalysis = {
+  id: string;
+  jobId?: string;
+  candidateId?: string;
+  resumeDocumentId: string;
+  analysisJson: Record<string, unknown>;
+  matchScore?: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+  recommendations: string[];
   createdAt: string;
 };
 

@@ -52,6 +52,30 @@ const seedApprovalHistory: ApprovalHistory[] = [
     actorEmployeeId: "emp-demo-002",
     actedAt: "2026-08-22T14:00:00.000Z",
   },
+  {
+    id: "ah-seed-expense-1",
+    requestType: "EXPENSE",
+    requestId: "exp-002-1",
+    action: "SUBMITTED",
+    actorEmployeeId: "emp-demo-002",
+    actedAt: "2026-08-19T14:00:00.000Z",
+  },
+  {
+    id: "ah-seed-expense-approved",
+    requestType: "EXPENSE",
+    requestId: "exp-002-1",
+    action: "APPROVED",
+    actorEmployeeId: "emp-demo-001",
+    actedAt: "2026-08-20T10:00:00.000Z",
+  },
+  {
+    id: "ah-seed-expense-2",
+    requestType: "EXPENSE",
+    requestId: "exp-002-2",
+    action: "SUBMITTED",
+    actorEmployeeId: "emp-demo-002",
+    actedAt: "2026-08-26T09:30:00.000Z",
+  },
 ];
 
 const approvals: ApprovalRequest[] = structuredClone(seedApprovals);

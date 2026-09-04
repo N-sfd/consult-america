@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 import { formatDate, formatDateTime } from "@/lib/recruiting/format";
-import type { CandidateProfile as CandidateProfileData } from "@/lib/recruiting/repository";
+import type { CandidateProfileDetail as CandidateProfileData } from "@/lib/recruiting/repository";
 import { cn } from "@/lib/utils";
 import { applicationStatusLabels } from "@/types/recruiting";
 

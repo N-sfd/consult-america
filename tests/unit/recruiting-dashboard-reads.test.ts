@@ -13,11 +13,14 @@ import {
  * the old always-empty stub, the memory backend is now a fully functional
  * in-memory ATS (seeded requisitions/postings, real writes for
  * applications/jobs) so the requisition -> publish -> apply -> pipeline
- * loop can be exercised locally without a Supabase project.
+ * loop can be exercised locally without a Supabase project. It also seeds
+ * one demo candidate + application (`cand-demo-001` / `app-demo-001`,
+ * status RECRUITER_SCREEN) so the Candidate Portal has a demo account to
+ * sign in as without requiring a fresh application submission first.
  */
 describe("recruiting reads (memory-backed, no Supabase configured)", () => {
-  it("returns zero candidates before any application is submitted", async () => {
-    await expect(recruitingRepository.countCandidates()).resolves.toBe(0);
+  it("counts the seeded demo candidate", async () => {
+    await expect(recruitingRepository.countCandidates()).resolves.toBe(1);
   });
 
   it("counts the seeded published requisitions as open", async () => {
@@ -30,14 +33,14 @@ describe("recruiting reads (memory-backed, no Supabase configured)", () => {
     ).resolves.toBe(publishedSeedCount);
   });
 
-  it("returns a fully zeroed pipeline breakdown before any application exists", async () => {
+  it("reflects the seeded demo application in the pipeline breakdown", async () => {
     const counts = await recruitingRepository.getApplicationPipelineCounts();
 
     for (const status of [
       ...APPLICATION_PIPELINE,
       ...APPLICATION_TERMINAL_STATUSES,
     ]) {
-      expect(counts[status]).toBe(0);
+      expect(counts[status]).toBe(status === "RECRUITER_SCREEN" ? 1 : 0);
     }
   });
 

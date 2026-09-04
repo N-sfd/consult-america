@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import ManagerAssessmentForm from "@/components/performance/manager-assessment-form";
 import {
   assertTeamAccess,
   getEmployeeProfile,
+  getGoals,
+  getPerformanceReviews,
 } from "@/lib/self-service";
 import { getManagerSession } from "@/lib/self-service/session";
+import { goalStatusLabels } from "@/types/self-service";
 
 interface TeamMemberPageProps {
   params: Promise<{ employeeId: string }>;
@@ -29,6 +33,9 @@ export default async function ManagerTeamMemberPage({
 
   const profile = await getEmployeeProfile(employeeId);
   if (!profile) notFound();
+
+  const goals = getGoals(employeeId);
+  const reviews = getPerformanceReviews(employeeId);
 
   return (
     <div className="space-y-8">
@@ -58,6 +65,30 @@ export default async function ManagerTeamMemberPage({
           ))}
         </dl>
       </section>
+
+      <section className="rounded-lg border border-black/10 bg-white p-6">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          Goals
+        </h2>
+        {goals.length === 0 ? (
+          <p className="mt-4 text-sm text-black/50">No goals on file yet.</p>
+        ) : (
+          <ul className="mt-4 divide-y divide-black/5 text-sm">
+            {goals.map((goal) => (
+              <li key={goal.id} className="py-3">
+                <p className="font-medium">{goal.title}</p>
+                <p className="mt-1 text-black/55">
+                  {goalStatusLabels[goal.status]} · {goal.progressPercent}%
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {reviews.map((review) => (
+        <ManagerAssessmentForm key={review.id} review={review} />
+      ))}
     </div>
   );
 }

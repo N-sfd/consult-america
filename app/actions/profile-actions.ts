@@ -26,9 +26,9 @@ export async function updateContactInfoAction(input: {
     const employee = await hrRepository.getEmployeeById(actor.session.employeeId);
     if (!employee) throw new Error("Employee not found");
 
-    await hrRepository.updatePersonContact(employee.personId, {
+    await hrRepository.updateEmployeeContact(employee.id, {
       personalEmail: input.personalEmail?.trim(),
-      personalPhone: input.personalPhone?.trim(),
+      phone: input.personalPhone?.trim(),
       mailingAddress: input.mailingAddress?.trim(),
     });
 
@@ -60,7 +60,7 @@ export async function updateEmergencyContactAction(input: {
     const employee = await hrRepository.getEmployeeById(actor.session.employeeId);
     if (!employee) throw new Error("Employee not found");
 
-    await hrRepository.updatePersonContact(employee.personId, {
+    await hrRepository.updateEmployeeContact(employee.id, {
       emergencyContactName: name,
       emergencyContactRelationship: input.relationship?.trim(),
       emergencyContactPhone: phone,

@@ -13,7 +13,6 @@ import { hrRepository } from "@/lib/hr";
 
 export type PortalSession = {
   employeeId: string;
-  personId: string;
   displayName: string;
   workEmail: string;
   isManager: boolean;
@@ -24,7 +23,6 @@ export type PortalSession = {
 /** Demo employee portal user: Jennifer Lee (direct report). */
 export const DEMO_EMPLOYEE_SESSION: PortalSession = {
   employeeId: "emp-demo-002",
-  personId: "person-demo-002",
   displayName: "Jennifer Lee",
   workEmail: "jennifer.lee@consultamerica.demo",
   isManager: false,
@@ -33,7 +31,6 @@ export const DEMO_EMPLOYEE_SESSION: PortalSession = {
 /** Demo manager portal user: Michael Brown (has direct reports). */
 export const DEMO_MANAGER_SESSION: PortalSession = {
   employeeId: "emp-demo-001",
-  personId: "person-demo-001",
   displayName: "Michael Brown",
   workEmail: "michael.brown@consultamerica.demo",
   isManager: true,
@@ -42,7 +39,6 @@ export const DEMO_MANAGER_SESSION: PortalSession = {
 /** Demo HR actor — same person until dedicated HR identity exists. */
 export const DEMO_HR_SESSION: PortalSession = {
   employeeId: "emp-demo-001",
-  personId: "person-demo-001",
   displayName: "Michael Brown",
   workEmail: "hr@consultamerica.demo",
   isManager: true,
@@ -52,7 +48,6 @@ export const DEMO_HR_SESSION: PortalSession = {
 /** Demo payroll admin — same person as HR until dedicated payroll identity exists. */
 export const DEMO_PAYROLL_SESSION: PortalSession = {
   employeeId: "emp-demo-001",
-  personId: "person-demo-001",
   displayName: "Michael Brown",
   workEmail: "payroll@consultamerica.demo",
   isManager: true,
@@ -68,13 +63,10 @@ async function buildRealPortalSession(): Promise<PortalSession> {
   const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
   if (!employee) redirect("/login");
 
-  const person = await hrRepository.getPersonById(employee.personId);
-
   const roles = platformUser.roles;
   return {
     employeeId: employee.id,
-    personId: employee.personId,
-    displayName: person?.preferredName || `${person?.firstName ?? ""} ${person?.lastName ?? ""}`.trim() || platformUser.displayName,
+    displayName: employee.preferredName || `${employee.firstName} ${employee.lastName}`.trim() || platformUser.displayName,
     workEmail: employee.workEmail || platformUser.email,
     isManager: roles.includes("MANAGER"),
     isHr: roles.includes("HR_ADMIN") || roles.includes("HR_SPECIALIST"),

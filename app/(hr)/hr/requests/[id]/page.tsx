@@ -33,11 +33,8 @@ export default async function HrRequestDetailPage({
 
   const messages = listHrRequestMessages(request.id);
   const employee = await hrRepository.getEmployeeById(request.employeeId);
-  const person = employee
-    ? await hrRepository.getPersonById(employee.personId)
-    : null;
-  const employeeName = person
-    ? `${person.firstName} ${person.lastName}`
+  const employeeName = employee
+    ? `${employee.firstName} ${employee.lastName}`
     : request.employeeId;
 
   return (

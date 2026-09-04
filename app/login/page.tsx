@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import DemoPortalLinks from "@/components/auth/demo-portal-links";
 import LoginForm from "@/components/auth/login-form";
 import { stockImage } from "@/lib/marketing/stock-images";
 
@@ -21,6 +23,8 @@ const capabilities = [
 ];
 
 export default function LoginPage() {
+  const demoMode = !isSupabaseBrowserConfigured();
+
   return (
     <div className="login-page">
       <header className="login-header">
@@ -81,19 +85,29 @@ export default function LoginPage() {
                 <ConsultAmericaLogo lockup="horizontal" maxHeight={110} maxWidth={480} href={undefined} />
               </div>
 
-              <h2 className="login-card-heading">Sign in to Workforce</h2>
+              <h2 className="login-card-heading">
+                {demoMode ? "Explore the demo" : "Sign in to Workforce"}
+              </h2>
               <p className="login-card-supporting">
-                Use your authorized Consult America account to continue.
+                {demoMode
+                  ? "Pick a workspace to explore — no account needed."
+                  : "Use your authorized Consult America account to continue."}
               </p>
 
-              <LoginForm />
+              {demoMode ? (
+                <DemoPortalLinks />
+              ) : (
+                <>
+                  <LoginForm />
 
-              <div className="login-card-help">
-                <span>Need help signing in?</span>
-                <a href="mailto:support@consultamerica.net" className="login-help-link">
-                  Contact support →
-                </a>
-              </div>
+                  <div className="login-card-help">
+                    <span>Need help signing in?</span>
+                    <a href="mailto:support@consultamerica.net" className="login-help-link">
+                      Contact support →
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
