@@ -55,13 +55,17 @@ export default function SelectedWorkSection() {
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-              Featured Work
+              Transformation Scenarios
             </p>
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
-              Real transformation.
+              How transformation
               <br />
-              Practical outcomes.
+              takes shape.
             </h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#5B6D6B]">
+              Representative engagement patterns drawn from enterprise programs —
+              not named client case claims.
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <p className="text-sm font-semibold tabular-nums text-[#5B6D6B]">
@@ -118,7 +122,7 @@ export default function SelectedWorkSection() {
                 transition={{ duration: shouldReduceMotion ? 0.2 : 0.55, ease: revealEase }}
               >
                 <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-                  {story.category}
+                  Representative Engagement · {story.category}
                 </p>
                 <h3 className="mt-3 font-serif text-xl font-semibold leading-snug text-[#073B3A] sm:text-2xl">
                   {story.headline}
@@ -182,14 +186,14 @@ export default function SelectedWorkSection() {
           </div>
         </div>
 
-        <div className="mt-6 flex gap-2" role="tablist" aria-label="Featured stories">
+        <div className="mt-6 flex gap-2" role="tablist" aria-label="Transformation scenarios">
           {stories.map((item, i) => (
             <button
               key={item.slug}
               type="button"
               role="tab"
               aria-selected={i === index}
-              aria-label={item.title}
+              aria-label={`Show scenario: ${item.title}`}
               onClick={() => goTo(i)}
               className={cn(
                 "h-1 flex-1 max-w-[72px] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#176A63]",
@@ -203,7 +207,7 @@ export default function SelectedWorkSection() {
           href="/work"
           className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
         >
-          Explore all case studies
+          Explore all scenarios
           <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>

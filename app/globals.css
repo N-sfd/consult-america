@@ -280,36 +280,26 @@ body {
 }
 
 .ca-header-cta {
+  display: none;
   flex-shrink: 0;
   white-space: nowrap;
   border-radius: 8px;
+  min-height: 44px;
+  padding-inline: 18px;
 }
 
-.ca-header-cta--full,
-.ca-header-cta--tablet {
-  display: none !important;
+/* Show a single CTA from tablet up; below 768 use the mobile menu contact action */
+@media (min-width: 768px) {
+  .ca-header-cta {
+    display: inline-flex;
+  }
 }
 
 @media (min-width: 1280px) {
-  .ca-header-cta--full {
-    display: inline-flex !important;
+  .ca-header-cta {
+    min-height: 48px;
+    padding-inline: 22px;
   }
-}
-
-@media (min-width: 768px) and (max-width: 1279px) {
-  .ca-header-cta--tablet {
-    display: inline-flex !important;
-  }
-}
-
-.ca-header-cta--full {
-  min-height: 48px;
-  padding-inline: 22px;
-}
-
-.ca-header-cta--tablet {
-  min-height: 44px;
-  padding-inline: 18px;
 }
 
 .brand-lockup-link {

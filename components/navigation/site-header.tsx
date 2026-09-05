@@ -130,16 +130,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setContactOpen(true)}
-                  className="ca-button-primary ca-header-cta ca-header-cta--full items-center gap-2 text-sm font-semibold cursor-pointer"
-                >
-                  <span>Talk to an Expert</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setContactOpen(true)}
-                  className="ca-button-primary ca-header-cta ca-header-cta--tablet items-center gap-1.5 text-xs font-semibold cursor-pointer whitespace-nowrap"
+                  className="ca-button-primary ca-header-cta items-center gap-1.5 text-sm font-semibold cursor-pointer whitespace-nowrap min-[1280px]:gap-2"
                 >
                   <span>Talk to an Expert</span>
                   <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
@@ -155,7 +146,7 @@ export default function SiteHeader() {
                   <span className="h-0.5 w-4.5 bg-[#122D2E]" />
                   <span className="h-0.5 w-4.5 bg-[#122D2E]" />
                 </button>
-            </div>
+              </div>
           </div>
         </div>
 
