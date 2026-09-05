@@ -3,7 +3,7 @@
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import BrandLogo from "@/components/brand/brand-logo";
 import MegaMenuPanels, { type MegaMenuKey } from "@/components/navigation/mega-menu-panels";
 import MobileMenu from "@/components/navigation/mobile-menu";
 import { useContactPanel } from "@/components/providers/contact-provider";
@@ -108,7 +108,7 @@ export default function SiteHeader() {
           <div className="ca-header-container">
             <div className="ca-header-inner">
               <div className="ca-header-brand">
-                <ConsultAmericaLogo lockup="header" maxHeight={60} maxWidth={260} />
+                <BrandLogo variant="full" context="marketing" priority />
               </div>
 
               <nav

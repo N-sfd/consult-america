@@ -1,7 +1,7 @@
 /* Consult America — unified platform (workforce / portals / CRM) */
 
 :root {
-  --ca-platform-sidebar: 330px;
+  --ca-platform-sidebar: 360px;
   --ca-platform-topbar: 70px;
   --ca-platform-bg: #f7faf9;
   --ca-platform-card: #ffffff;
@@ -20,7 +20,7 @@
 
   /* Keep legacy app tokens aligned with the platform system */
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 330px;
+  --ca-app-sidebar: 360px;
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 70px;
   --ca-app-bg: #f7faf9;
@@ -31,10 +31,10 @@
   --ca-app-selected: rgba(7, 59, 58, 0.06);
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1439px) and (min-width: 1180px) {
   :root {
-    --ca-platform-sidebar: 290px;
-    --ca-app-sidebar: 290px;
+    --ca-platform-sidebar: 340px;
+    --ca-app-sidebar: 340px;
   }
 }
 
@@ -88,7 +88,7 @@
 
 .ca-portal-brand--block,
 .ca-portal-brand--light {
-  min-height: 96px;
+  min-height: 104px;
   padding: 16px 18px;
   background: #ffffff;
 }

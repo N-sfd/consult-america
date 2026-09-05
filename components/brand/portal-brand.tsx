@@ -2,28 +2,24 @@
 
 import Link from "next/link";
 
-import { brandAssets, brandDimensions, portalBrandDisplay } from "@/lib/brandAssets";
+import { brandAssets, brandDimensions, brandDisplay } from "@/lib/brandAssets";
 import { cn } from "@/lib/utils";
 
 export type PortalBrandSurface = "light" | "dark";
 
 type PortalBrandProps = {
-  /** light = Employee/Candidate white sidebar; dark = Manager/HR/Payroll/Workforce/CRM */
+  /** light = Employee/Candidate; dark = Manager/HR/Payroll/Workforce/CRM */
   surface: PortalBrandSurface;
   href?: string;
-  /** mobile topbar uses approved compact asset — never a shrunk full lockup */
+  /** mobile topbar — approved compact asset only */
   mode?: "sidebar" | "mobile";
   className?: string;
   onNavigate?: () => void;
 };
 
 /**
- * Single portal brand treatment.
- * - light sidebar → full-color logo on white
- * - dark sidebar → WHITE brand block + full-color logo (never on green)
- * - mobile header → compact approved asset
- *
- * Portals must not set their own logo widths.
+ * Shared portal brand for Employee, Candidate, Manager, HR, Payroll, Workforce, CRM.
+ * Dark sidebars always get a white brand block — never full-color on green.
  */
 export default function PortalBrand({
   surface,
@@ -33,8 +29,8 @@ export default function PortalBrand({
   onNavigate,
 }: PortalBrandProps) {
   const isMobile = mode === "mobile";
-  const asset = isMobile ? "compact" : "horizontal";
-  const display = isMobile ? portalBrandDisplay.mobile : portalBrandDisplay.sidebar;
+  const preset = isMobile ? brandDisplay.mobile : brandDisplay.portal;
+  const asset = preset.asset;
   const dim = brandDimensions[asset];
 
   const image = (
@@ -48,8 +44,8 @@ export default function PortalBrand({
       fetchPriority="high"
       className="ca-portal-brand-logo"
       style={{
-        maxWidth: `min(100%, ${display.maxWidth}px)`,
-        maxHeight: display.maxHeight,
+        maxWidth: `min(100%, ${preset.maxWidth}px)`,
+        maxHeight: preset.maxHeight,
       }}
     />
   );

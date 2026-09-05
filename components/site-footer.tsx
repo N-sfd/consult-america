@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import BrandLogo from "@/components/brand/brand-logo";
 
 const footerColumns = [
   {
@@ -48,7 +48,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8 xl:px-10 lg:py-16">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <ConsultAmericaLogo lockup="footer" maxHeight={108} maxWidth={320} href="/" />
+            <BrandLogo variant="full" context="footer" href="/" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#5B6D6B]">
               Enterprise transformation, Oracle, AI &amp; data, and application engineering —
               from strategy through production.

@@ -1,10 +1,15 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
-import { brandAssets, brandDimensions, type BrandAssetKey } from "@/lib/brandAssets";
+import {
+  brandAssets,
+  brandDimensions,
+  brandDisplay,
+  type BrandAssetKey,
+} from "@/lib/brandAssets";
 import { cn } from "@/lib/utils";
 
-export type BrandLogoVariant = "full" | "compact" | "mark" | "header";
+export type BrandLogoVariant = "full" | "compact" | "mark";
 export type BrandLogoContext =
   | "marketing"
   | "footer"
@@ -19,26 +24,30 @@ export type BrandLogoProps = {
   className?: string;
   priority?: boolean;
   onNavigate?: () => void;
-  /** @deprecated Prefer variant + context */
+  /** @deprecated Prefer variant + context — sizes come from brandDisplay */
   lockup?: "header" | "footer" | "compact" | "mark" | "full" | "horizontal";
+  /** @deprecated Ignored — sizes are centralized */
   maxHeight?: number | string;
+  /** @deprecated Ignored — sizes are centralized */
   maxWidth?: number | string;
   showTagline?: boolean;
   showWordmark?: boolean;
   size?: string;
-  variantTone?: "light" | "dark";
 };
 
-const CONTEXT_SIZE: Record<
-  BrandLogoContext,
-  { maxWidth: number; maxHeight: number; asset: BrandAssetKey }
-> = {
-  marketing: { maxWidth: 260, maxHeight: 60, asset: "header" },
-  footer: { maxWidth: 320, maxHeight: 108, asset: "horizontal" },
-  login: { maxWidth: 236, maxHeight: 48, asset: "compact" },
-  apply: { maxWidth: 220, maxHeight: 46, asset: "compact" },
-  mobile: { maxWidth: 180, maxHeight: 42, asset: "compact" },
-};
+function resolvePreset(context: BrandLogoContext, variant?: BrandLogoVariant) {
+  if (variant === "mark") return brandDisplay.mark;
+  if (variant === "compact") {
+    if (context === "login") return brandDisplay.login;
+    if (context === "apply") return brandDisplay.apply;
+    return brandDisplay.mobile;
+  }
+  if (context === "footer") return brandDisplay.footer;
+  if (context === "login") return brandDisplay.login;
+  if (context === "apply") return brandDisplay.apply;
+  if (context === "mobile") return brandDisplay.mobile;
+  return brandDisplay.marketing;
+}
 
 function resolveAsset(
   variant: BrandLogoVariant | undefined,
@@ -47,15 +56,21 @@ function resolveAsset(
 ): BrandAssetKey {
   if (variant === "mark" || lockup === "mark") return "mark";
   if (variant === "compact" || lockup === "compact") return "compact";
-  if (variant === "header" || lockup === "header") return "header";
-  if (variant === "full" || lockup === "full" || lockup === "horizontal" || lockup === "footer") {
+  if (lockup === "header") return "horizontal"; // full readable lockup, not truncated crop
+  if (
+    variant === "full" ||
+    lockup === "full" ||
+    lockup === "horizontal" ||
+    lockup === "footer"
+  ) {
     return "horizontal";
   }
-  return CONTEXT_SIZE[context].asset;
+  return resolvePreset(context, variant).asset;
 }
 
 /**
- * Public / auth brand mark. Portal sidebars must use PortalBrand instead.
+ * Public / auth brand mark.
+ * Portal sidebars must use PortalBrand (same artwork + white-block rules).
  */
 export default function BrandLogo({
   variant,
@@ -65,27 +80,22 @@ export default function BrandLogo({
   priority = false,
   onNavigate,
   lockup,
-  maxHeight,
-  maxWidth,
 }: BrandLogoProps) {
+  const preset = resolvePreset(context, variant);
   const asset = resolveAsset(variant, lockup, context);
-  const preset = CONTEXT_SIZE[context];
   const dim = brandDimensions[asset];
-  const width =
-    typeof maxWidth === "number"
-      ? maxWidth
-      : typeof maxWidth === "string"
-        ? maxWidth
-        : `${variant === "mark" ? 40 : preset.maxWidth}px`;
-  const height =
-    typeof maxHeight === "number"
-      ? maxHeight
-      : typeof maxHeight === "string"
-        ? maxHeight
-        : `${variant === "mark" ? 38 : preset.maxHeight}px`;
+  const isMarketingFull = context === "marketing" && asset === "horizontal";
 
   const content = (
-    <span className={cn("brand-lockup", `brand-lockup--${context}`, className)}>
+    <span
+      className={cn("brand-lockup", `brand-lockup--${context}`, className)}
+      style={
+        {
+          "--brand-max-w": `${preset.maxWidth}px`,
+          "--brand-max-h": `${preset.maxHeight}px`,
+        } as CSSProperties
+      }
+    >
       <img
         src={brandAssets[asset]}
         alt="Consult America"
@@ -94,15 +104,33 @@ export default function BrandLogo({
         decoding="async"
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : undefined}
-        className="brand-logo"
-        style={
-          {
-            maxWidth: width,
-            maxHeight: height,
-          } as CSSProperties
-        }
+        className={cn("brand-logo", isMarketingFull && "brand-logo--full-primary")}
+        style={{
+          maxWidth: preset.maxWidth,
+          maxHeight: preset.maxHeight,
+        }}
       />
-      <span className="sr-only">Consult America — Enterprise Transformation</span>
+
+      {isMarketingFull ? (
+        <img
+          src={brandAssets.compact}
+          alt=""
+          aria-hidden
+          width={brandDimensions.compact.width}
+          height={brandDimensions.compact.height}
+          decoding="async"
+          className="brand-logo brand-logo--compact-fallback"
+          style={{
+            maxWidth: brandDisplay.mobile.maxWidth,
+            maxHeight: brandDisplay.mobile.maxHeight,
+          }}
+        />
+      ) : null}
+
+      <span className="sr-only">
+        Consult America — Enterprise Transformation — Oracle · AI &amp; Data ·
+        Application Engineering
+      </span>
     </span>
   );
 
