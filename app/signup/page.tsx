@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
-import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import BrandLogo from "@/components/brand/brand-logo";
 import SignupForm from "@/components/auth/signup-form";
 import { stockImage } from "@/lib/marketing/stock-images";
 
@@ -28,7 +28,7 @@ export default function SignupPage() {
     <div className="login-page">
       <header className="login-header">
         <div className="login-header-inner">
-          <ConsultAmericaLogo lockup="header" maxHeight={64} maxWidth={380} href="/" />
+          <BrandLogo variant="compact" context="login" href="/" priority />
           <Link href="/" className="login-back-link flex items-center gap-1">
             Back to Consult America
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -38,7 +38,6 @@ export default function SignupPage() {
 
       <main className="login-main">
         <div className="login-grid">
-          {/* Left brand panel */}
           <div className="login-brand-panel">
             <div className="login-brand-content">
               <p className="login-eyebrow">Consult America Careers</p>
@@ -77,11 +76,10 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* Right signup card */}
           <div className="login-card-wrapper">
             <div className="login-card">
-              <div className="login-card-logo">
-                <ConsultAmericaLogo lockup="horizontal" maxHeight={110} maxWidth={480} href={undefined} />
+              <div className="login-card-mark" aria-hidden="true">
+                <BrandLogo variant="mark" context="login" href={null} />
               </div>
 
               <h2 className="login-card-heading">
@@ -115,10 +113,12 @@ export default function SignupPage() {
           </div>
         </div>
 
-        {/* Mobile: show brand context above card */}
         <div className="login-mobile-brand">
           <p className="login-eyebrow">Consult America Careers</p>
-          <h1 className="login-brand-headline" style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>
+          <h1
+            className="login-brand-headline"
+            style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
+          >
             Create your candidate account
           </h1>
           <p className="login-brand-supporting" style={{ marginTop: 8 }}>

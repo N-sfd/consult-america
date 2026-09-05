@@ -108,7 +108,7 @@ export default function SiteHeader() {
           <div className="ca-header-container">
             <div className="ca-header-inner">
               <div className="ca-header-brand">
-                <ConsultAmericaLogo lockup="header" maxHeight={82} maxWidth={500} />
+                <ConsultAmericaLogo lockup="header" maxHeight={60} maxWidth={260} />
               </div>
 
               <nav

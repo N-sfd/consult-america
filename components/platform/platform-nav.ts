@@ -32,43 +32,43 @@ export const WORKSPACE_META: Record<
   { name: string; eyebrow: string; homeHref: string; variant: PlatformShellVariant }
 > = {
   employee: {
-    name: "Employee",
-    eyebrow: "Employee Self-Service",
+    name: "Employee Portal",
+    eyebrow: "Employee Portal",
     homeHref: "/employee",
     variant: "self-service",
   },
   manager: {
-    name: "Manager",
-    eyebrow: "Manager Workspace",
+    name: "Manager Portal",
+    eyebrow: "Manager Portal",
     homeHref: "/manager",
     variant: "admin",
   },
   hr: {
-    name: "HR",
+    name: "HR Service Desk",
     eyebrow: "HR Service Desk",
     homeHref: "/hr/requests",
     variant: "admin",
   },
   payroll: {
-    name: "Payroll",
+    name: "Payroll Administration",
     eyebrow: "Payroll Administration",
     homeHref: "/payroll",
     variant: "admin",
   },
   workforce: {
     name: "Workforce",
-    eyebrow: "Recruiting, people & operations",
+    eyebrow: "Workforce",
     homeHref: "/app/dashboard",
     variant: "admin",
   },
   candidate: {
-    name: "Candidate",
+    name: "Candidate Portal",
     eyebrow: "Candidate Portal",
     homeHref: "/candidate",
-    variant: "candidate",
+    variant: "self-service",
   },
   crm: {
-    name: "CRM",
+    name: "CRM Workspace",
     eyebrow: "CRM Workspace",
     homeHref: "/crm",
     variant: "crm",

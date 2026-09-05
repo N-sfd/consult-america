@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
-import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import BrandLogo from "@/components/brand/brand-logo";
 import DemoPortalLinks from "@/components/auth/demo-portal-links";
 import LoginForm from "@/components/auth/login-form";
 import { stockImage } from "@/lib/marketing/stock-images";
@@ -34,7 +34,7 @@ export default async function LoginPage({
     <div className="login-page">
       <header className="login-header">
         <div className="login-header-inner">
-          <ConsultAmericaLogo lockup="header" maxHeight={64} maxWidth={380} href="/" />
+          <BrandLogo variant="compact" context="login" href="/" priority />
           <Link href="/" className="login-back-link flex items-center gap-1">
             Back to Consult America
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -90,15 +90,11 @@ export default async function LoginPage({
 
               <div className="login-card-wrapper">
                 <div className="login-card">
-                  <div className="login-card-logo">
-                    <ConsultAmericaLogo
-                      lockup="horizontal"
-                      maxHeight={110}
-                      maxWidth={480}
-                      href={undefined}
-                    />
+                  <div className="login-card-mark" aria-hidden="true">
+                    <BrandLogo variant="mark" context="login" href={null} />
                   </div>
 
+                  <p className="login-eyebrow">Consult America Workforce</p>
                   <h2 className="login-card-heading">Sign in to Workforce</h2>
                   <p className="login-card-supporting">
                     Use your authorized Consult America account to continue.

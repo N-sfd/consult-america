@@ -232,6 +232,11 @@
   margin-bottom: 28px;
 }
 
+.login-card-mark {
+  margin-bottom: 18px;
+  max-width: 48px;
+}
+
 .login-card-heading {
   font-family: var(--font-serif, Georgia, serif);
   font-size: clamp(1.25rem, 1.8vw, 1.5rem);
@@ -537,8 +542,9 @@
     box-shadow: 0 12px 32px rgba(7, 59, 58, 0.06);
   }
 
-  .login-card-logo {
-    margin-bottom: 20px;
+  .login-card-logo,
+  .login-card-mark {
+    display: none;
   }
 
   .login-card-heading,

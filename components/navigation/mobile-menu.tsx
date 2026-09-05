@@ -145,7 +145,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             aria-label="Navigation menu"
           >
             <div className="flex h-16 items-center justify-between border-b border-[#DCE4E1] px-5">
-              <ConsultAmericaLogo lockup="header" maxHeight={64} maxWidth={380} href="/" onNavigate={handleClose} />
+              <ConsultAmericaLogo lockup="compact" maxHeight={42} maxWidth={180} href="/" onNavigate={handleClose} />
               <button
                 type="button"
                 onClick={handleClose}

@@ -1,7 +1,7 @@
 /* Consult America — unified platform (workforce / portals / CRM) */
 
 :root {
-  --ca-platform-sidebar: 268px;
+  --ca-platform-sidebar: 330px;
   --ca-platform-topbar: 70px;
   --ca-platform-bg: #f7faf9;
   --ca-platform-card: #ffffff;
@@ -20,7 +20,7 @@
 
   /* Keep legacy app tokens aligned with the platform system */
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 268px;
+  --ca-app-sidebar: 330px;
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 70px;
   --ca-app-bg: #f7faf9;
@@ -29,6 +29,13 @@
   --ca-app-muted: #5b6d6b;
   --ca-app-border: #dde6e3;
   --ca-app-selected: rgba(7, 59, 58, 0.06);
+}
+
+@media (max-width: 1439px) {
+  :root {
+    --ca-platform-sidebar: 290px;
+    --ca-app-sidebar: 290px;
+  }
 }
 
 .ca-platform {
@@ -48,6 +55,7 @@
   flex-shrink: 0;
   flex-direction: column;
   border-right: 1px solid var(--ca-platform-border);
+  overflow-x: hidden;
 }
 
 .ca-platform-sidebar--admin,
@@ -71,29 +79,68 @@
   color: var(--ca-platform-ink);
 }
 
-.ca-platform-sidebar--candidate .ca-platform-sidebar-identity {
-  background: linear-gradient(180deg, #073b3a 0%, #0b4a47 100%);
-  color: #fff;
-  margin: 0;
-  padding: 1.1rem 1.15rem 1.25rem;
+/* ── Portal brand (PortalBrand) ── */
+.ca-portal-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ca-portal-brand--block,
+.ca-portal-brand--light {
+  min-height: 96px;
+  padding: 16px 18px;
+  background: #ffffff;
+}
+
+.ca-portal-brand--block {
+  border-bottom: 1px solid var(--ca-platform-border);
+}
+
+.ca-portal-brand--light {
+  border-bottom: 1px solid var(--ca-platform-border);
+}
+
+.ca-portal-brand--mobile {
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.ca-portal-brand-link {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  max-width: 100%;
+}
+
+.ca-portal-brand-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 0px);
+  object-fit: contain;
+  object-position: left center;
+  filter: none !important;
+  opacity: 1 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .ca-platform-sidebar-identity {
-  padding: 1.15rem 1.15rem 1rem;
+  padding: 1rem 1.15rem 0.85rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .ca-platform-sidebar--self-service .ca-platform-sidebar-identity,
 .ca-platform-sidebar--candidate .ca-platform-sidebar-identity {
   border-bottom-color: var(--ca-platform-border);
-}
-
-.ca-platform-sidebar--candidate .ca-platform-sidebar-identity {
-  border-bottom: none;
+  padding-top: 0.35rem;
 }
 
 .ca-platform-workspace-name {
-  margin-top: 0.85rem;
+  margin-top: 0;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -101,7 +148,8 @@
   opacity: 0.72;
 }
 
-.ca-platform-sidebar--self-service .ca-platform-workspace-name {
+.ca-platform-sidebar--self-service .ca-platform-workspace-name,
+.ca-platform-sidebar--candidate .ca-platform-workspace-name {
   color: var(--ca-platform-muted);
   opacity: 1;
 }
@@ -250,11 +298,17 @@
   display: flex;
   height: var(--ca-platform-topbar);
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   border-bottom: 1px solid var(--ca-platform-border);
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
-  padding: 0 1.25rem;
+  padding: 0 1rem;
+  overflow-x: hidden;
+}
+
+.ca-platform-header-brand {
+  min-width: 0;
+  flex: 1;
 }
 
 @media (min-width: 1024px) {
@@ -526,9 +580,10 @@
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 60;
-  width: min(292px, 88vw);
+  width: min(var(--ca-platform-sidebar), 92vw);
   transform: translateX(-105%);
   transition: transform 280ms ease;
+  overflow-x: hidden;
 }
 
 .ca-platform-drawer.is-open {

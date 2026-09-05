@@ -46,11 +46,8 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
   return (
     <div className="bg-[var(--cr-bg)]">
       <div className="border-b border-[var(--cr-border)] bg-white">
-        <div className="cr-shell py-4">
-          <Link
-            href={`/jobs/${job.slug}`}
-            className="ca-link text-sm"
-          >
+        <div className="cr-shell py-3">
+          <Link href={`/jobs/${job.slug}`} className="ca-link text-sm">
             ← Back to role
           </Link>
         </div>

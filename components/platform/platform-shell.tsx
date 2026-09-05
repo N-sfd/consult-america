@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Bell, HelpCircle, Menu, Search, X } from "lucide-react";
 
 import { logout } from "@/app/actions/auth";
-import ConsultAmericaLogo from "@/components/brand/consult-america-logo";
+import PortalBrand from "@/components/brand/portal-brand";
 import DemoEnvironmentBanner from "@/components/platform/demo-environment-banner";
 import DemoWorkspaceMenu from "@/components/platform/demo-workspace-menu";
 import {
@@ -142,13 +142,9 @@ function PlatformSidebar({
 
   return (
     <aside className={cn("ca-platform-sidebar", `ca-platform-sidebar--${variant}`, className)}>
+      <PortalBrand surface={dark ? "dark" : "light"} href={logoHref} />
+
       <div className="ca-platform-sidebar-identity">
-        <ConsultAmericaLogo
-          href={logoHref}
-          lockup="compact"
-          maxHeight={dark || variant === "candidate" ? 48 : 52}
-          maxWidth={dark || variant === "candidate" ? 210 : 220}
-        />
         <p className="ca-platform-workspace-name">{meta.name}</p>
         <p className="ca-platform-user-name">{session.displayName}</p>
         {session.roleLabel ? <p className="ca-platform-user-role">{session.roleLabel}</p> : null}
@@ -283,7 +279,15 @@ export default function PlatformShell({
               <Menu className="h-4 w-4" />
             </button>
 
-            <div className="ca-platform-header-context">
+            <div className="ca-platform-header-brand min-[1180px]:hidden">
+              <PortalBrand
+                surface="light"
+                mode="mobile"
+                href={homeHref}
+              />
+            </div>
+
+            <div className="ca-platform-header-context hidden sm:block">
               <p className="ca-platform-header-eyebrow">{meta.eyebrow}</p>
               <p className="ca-platform-header-title">
                 {session.email || session.displayName}
