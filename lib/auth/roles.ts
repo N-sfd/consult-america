@@ -6,7 +6,7 @@ import type { PlatformRole } from "@/types/identity";
  */
 const LANDING_PRIORITY: { roles: PlatformRole[]; path: string }[] = [
   { roles: ["SYSTEM_ADMIN", "RECRUITER", "HIRING_MANAGER"], path: "/app/dashboard" },
-  { roles: ["HR_ADMIN", "HR_SPECIALIST"], path: "/hr" },
+  { roles: ["HR_ADMIN", "HR_SPECIALIST"], path: "/hr/requests" },
   { roles: ["PAYROLL_ADMIN"], path: "/payroll" },
   { roles: ["MANAGER"], path: "/manager" },
   { roles: ["EMPLOYEE"], path: "/employee" },

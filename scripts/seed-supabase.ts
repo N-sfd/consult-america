@@ -10,6 +10,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
+import WebSocket from "ws";
 
 import {
   seedBusinessUnits,
@@ -39,8 +40,11 @@ if (!url || !serviceRoleKey) {
   process.exit(1);
 }
 
+// Seed is a Node script (currently Node 20). supabase-js realtime needs a
+// WebSocket constructor; Node 22+ has one globally, Node 20 does not.
 const supabase = createClient(url, serviceRoleKey, {
-  auth: { persistSession: false },
+  auth: { persistSession: false, autoRefreshToken: false },
+  realtime: { transport: WebSocket as unknown as typeof globalThis.WebSocket },
 });
 
 async function upsert(table: string, rows: Record<string, unknown>[]) {
@@ -452,10 +456,11 @@ async function seedRecruitingActivity() {
 
 async function main() {
   console.log(`Seeding Supabase project at ${url}\n`);
-  await seedEmployeesAndPeople();
-  await seedAuthAndIdentity();
+  // Order matters for FKs: org/jobs → employees → candidates/apps → auth links.
   await seedOrganizationAndRecruiting();
+  await seedEmployeesAndPeople();
   await seedRecruitingActivity();
+  await seedAuthAndIdentity();
   console.log("\nDone.");
 }
 

@@ -4,9 +4,37 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
 import { getSupabaseServerAuthClient } from "@/app/lib/supabase/auth-server";
+import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import { createCandidateAccount } from "@/lib/candidate/provisioning";
+import { landingPathForRoles } from "@/lib/auth/roles";
+import type { PlatformRole } from "@/types/identity";
 
 export type LoginState = { error: string | null };
+
+async function resolvePostLoginPath(authUserId: string, returnTo?: string | null) {
+  if (returnTo && returnTo.startsWith("/") && !returnTo.startsWith("//")) {
+    return returnTo;
+  }
+
+  const service = getSupabaseServiceClient();
+  if (!service) return "/employee";
+
+  const { data: profile } = await service
+    .from("profiles")
+    .select("id")
+    .eq("auth_user_id", authUserId)
+    .maybeSingle();
+
+  if (!profile) return "/employee";
+
+  const { data: roleRows } = await service
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", profile.id);
+
+  const roles = (roleRows ?? []).map((row) => row.role as PlatformRole);
+  return landingPathForRoles(roles) ?? "/employee";
+}
 
 export async function login(
   _prev: LoginState,
@@ -30,7 +58,7 @@ export async function login(
     return { error: "Authentication is not configured. Please contact support." };
   }
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -47,16 +75,21 @@ export async function login(
 
   const headerStore = await headers();
   const referer = headerStore.get("referer") ?? "";
-  let returnTo = "/employee";
+  let returnTo: string | null = null;
 
   try {
     const url = new URL(referer);
-    returnTo = url.searchParams.get("returnTo") || "/employee";
+    returnTo = url.searchParams.get("returnTo");
   } catch {
-    // invalid referer — use default
+    // invalid referer — fall through to role landing
   }
 
-  redirect(returnTo);
+  const authUserId = data.user?.id;
+  const destination = authUserId
+    ? await resolvePostLoginPath(authUserId, returnTo)
+    : "/employee";
+
+  redirect(destination);
 }
 
 export type SignupState = { error: string | null };

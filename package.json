@@ -15,6 +15,8 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "seed:supabase": "tsx --env-file=.env.local scripts/seed-supabase.ts",
+    "db:probe": "tsx --env-file=.env.local scripts/probe-supabase.ts",
+    "db:migrate": "tsx --env-file=.env.local scripts/apply-schema.ts",
     "brand:assets": "node scripts/generate-brand-assets.mjs"
   },
   "dependencies": {
@@ -36,17 +38,21 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ws": "^8.18.1",
     "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
+    "pg": "^8.23.0",
     "playwright": "^1.62.1",
     "sharp": "^0.35.4",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5",
     "vitest": "^4.1.11",
-    "wrangler": "^4.86.0"
+    "wrangler": "^4.86.0",
+    "ws": "^8.21.3"
   }
 }

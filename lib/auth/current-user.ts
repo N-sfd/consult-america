@@ -16,11 +16,12 @@ export type AuthenticatedPlatformUser = {
 };
 
 /**
- * Resolves the current request's Supabase Auth session (if any) to a
- * platform `users`/`user_roles` record. `cache()`-wrapped so every caller
- * within one render shares a single lookup. Returns `null` — never throws —
- * whenever there's no session, no matching `users` row, or Supabase auth
- * isn't configured (demo mode, see lib/self-service/session.ts).
+ * Resolves the current Supabase Auth session to a platform `profiles` row
+ * plus roles and linked employee/candidate IDs.
+ *
+ * Schema note (post 010–012): identity lives in `profiles`; employee link is
+ * `employee_profiles.user_id`, candidate link is `candidate_profiles.profile_id`.
+ * Returns `null` when demo mode / no session / no matching profile.
  */
 export const getAuthenticatedPlatformUser = cache(
   async (): Promise<AuthenticatedPlatformUser | null> => {
@@ -37,26 +38,36 @@ export const getAuthenticatedPlatformUser = cache(
     const serviceClient = getSupabaseServiceClient();
     if (!serviceClient) return null;
 
-    const { data: userRow } = await serviceClient
-      .from("users")
-      .select("id, email, display_name, employee_id, candidate_id")
+    const { data: profile } = await serviceClient
+      .from("profiles")
+      .select("id, email, display_name")
       .eq("auth_user_id", authUser.id)
       .maybeSingle();
 
-    if (!userRow) return null;
+    if (!profile) return null;
 
-    const { data: roleRows } = await serviceClient
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userRow.id);
+    const [{ data: roleRows }, { data: employeeRow }, { data: candidateRow }] =
+      await Promise.all([
+        serviceClient.from("user_roles").select("role").eq("user_id", profile.id),
+        serviceClient
+          .from("employee_profiles")
+          .select("id")
+          .eq("user_id", profile.id)
+          .maybeSingle(),
+        serviceClient
+          .from("candidate_profiles")
+          .select("id")
+          .eq("profile_id", profile.id)
+          .maybeSingle(),
+      ]);
 
     return {
-      userId: userRow.id,
+      userId: profile.id,
       authUserId: authUser.id,
-      email: userRow.email,
-      displayName: userRow.display_name,
-      employeeId: userRow.employee_id ?? undefined,
-      candidateId: userRow.candidate_id ?? undefined,
+      email: profile.email,
+      displayName: profile.display_name,
+      employeeId: employeeRow?.id ?? undefined,
+      candidateId: candidateRow?.id ?? undefined,
       roles: (roleRows ?? []).map((r) => r.role as PlatformRole),
     };
   },

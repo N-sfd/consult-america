@@ -16,10 +16,12 @@ export default function SupabaseConnectBanner() {
         </li>
         <li>
           Apply <code>db/schema/001_organization.sql</code> through{" "}
-          <code>006_audit.sql</code> in the Supabase SQL Editor, in order.
+          <code>006_audit.sql</code> in the Supabase SQL Editor (in order), then
+          continue through <code>015_cleanup.sql</code> for identity rename, RLS,
+          and storage.
         </li>
         <li>
-          Run <code>npm run seed:supabase</code>.
+          Run <code>npm run seed:supabase</code> for development/demo data only.
         </li>
       </ol>
     </div>
