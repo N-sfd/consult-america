@@ -139,7 +139,49 @@ export async function signup(
 
   if (error) {
     if (error.message.toLowerCase().includes("already registered")) {
-      return { error: "An account with this email already exists. Try signing in instead." };
+      // Auth user may exist from a prior signup whose profile provisioning failed.
+      // Sign in and finish provisioning if the profile row is still missing.
+      const { data: signedIn, error: signInError } =
+        await supabase.auth.signInWithPassword({ email, password });
+      if (signInError || !signedIn.user) {
+        return {
+          error:
+            "An account with this email already exists. Try signing in instead.",
+        };
+      }
+
+      const service = getSupabaseServiceClient();
+      if (!service) {
+        return { error: "Authentication is not configured. Please contact support." };
+      }
+
+      const { data: existingProfile } = await service
+        .from("profiles")
+        .select("id")
+        .eq("auth_user_id", signedIn.user.id)
+        .maybeSingle();
+
+      if (!existingProfile) {
+        try {
+          await createCandidateAccount({
+            authUserId: signedIn.user.id,
+            email,
+            firstName,
+            lastName,
+          });
+        } catch (provisionError) {
+          console.error(
+            "Candidate account repair provisioning failed:",
+            provisionError,
+          );
+          return {
+            error:
+              "Your account was created but couldn't be fully set up. Please contact support.",
+          };
+        }
+      }
+
+      redirect("/candidate");
     }
     return { error: "Unable to create your account. Please try again." };
   }
@@ -158,7 +200,8 @@ export async function signup(
   } catch (provisionError) {
     console.error("Candidate account provisioning failed:", provisionError);
     return {
-      error: "Your account was created but couldn't be fully set up. Please contact support.",
+      error:
+        "Your account was created but couldn't be fully set up. Please contact support.",
     };
   }
 

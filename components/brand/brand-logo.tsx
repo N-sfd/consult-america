@@ -105,10 +105,14 @@ export default function BrandLogo({
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : undefined}
         className={cn("brand-logo", isMarketingFull && "brand-logo--full-primary")}
-        style={{
-          maxWidth: preset.maxWidth,
-          maxHeight: preset.maxHeight,
-        }}
+        style={
+          isMarketingFull
+            ? undefined
+            : {
+                maxWidth: preset.maxWidth,
+                maxHeight: preset.maxHeight,
+              }
+        }
       />
 
       {isMarketingFull ? (
@@ -120,16 +124,11 @@ export default function BrandLogo({
           height={brandDimensions.compact.height}
           decoding="async"
           className="brand-logo brand-logo--compact-fallback"
-          style={{
-            maxWidth: brandDisplay.mobile.maxWidth,
-            maxHeight: brandDisplay.mobile.maxHeight,
-          }}
         />
       ) : null}
 
       <span className="sr-only">
-        Consult America — Enterprise Transformation — Oracle · AI &amp; Data ·
-        Application Engineering
+        Consult America — Innovative Technology Consulting Services
       </span>
     </span>
   );

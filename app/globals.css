@@ -208,7 +208,7 @@ body {
   width: 100%;
   max-width: var(--page-wide, 1760px);
   margin-inline: auto;
-  padding-inline: clamp(18px, 2.4vw, 48px);
+  padding-inline: clamp(16px, 2.4vw, 48px);
   box-sizing: border-box;
 }
 
@@ -216,7 +216,7 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: clamp(16px, 1.4vw, 24px);
+  column-gap: clamp(12px, 1.4vw, 24px);
   min-height: 84px;
   overflow: visible;
   box-sizing: border-box;
@@ -231,11 +231,29 @@ body {
 .ca-header-brand {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  min-width: 0;
   overflow: visible;
   grid-column: 1;
-  /* Keep full lockup readable; do not squeeze artwork for the CTA */
-  max-width: min(340px, 72vw);
+  max-width: 100%;
+}
+
+.ca-header-brand .brand-lockup-link,
+.ca-header-brand .brand-lockup {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+  line-height: 0;
+}
+
+.ca-header-brand .brand-logo {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .ca-header-nav {
@@ -254,6 +272,7 @@ body {
   justify-content: flex-end;
   flex-shrink: 0;
   gap: 12px;
+  z-index: 1;
 }
 
 @media (min-width: 1280px) {
@@ -262,7 +281,14 @@ body {
   }
 
   .ca-header-brand {
-    max-width: min(340px, 46vw);
+    width: min(360px, 42vw);
+    max-width: min(360px, 42vw);
+  }
+
+  .ca-header-brand .brand-logo {
+    max-height: 64px;
+    width: auto;
+    max-width: 100%;
   }
 }
 
@@ -272,15 +298,29 @@ body {
   }
 
   .ca-header-inner {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    column-gap: 12px;
+    min-height: 72px;
   }
 
   .ca-header-brand {
     grid-column: 1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Scale the entire lockup into the leftover width — never clip title/subtitle/mark */
+  .ca-header-brand .brand-logo {
+    width: 100%;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
   }
 
   .ca-header-actions {
     grid-column: 2;
+    width: 44px;
+    justify-content: center;
   }
 }
 
@@ -308,7 +348,8 @@ body {
 
 .brand-lockup-link {
   display: inline-flex;
-  flex-shrink: 0;
+  max-width: 100%;
+  min-width: 0;
   overflow: visible;
   align-items: center;
   line-height: 0;
@@ -325,11 +366,11 @@ body {
 
 .brand-lockup {
   display: inline-flex;
-  flex-shrink: 0;
+  max-width: min(100%, var(--brand-max-w, 320px));
+  min-width: 0;
   overflow: visible;
   align-items: center;
   line-height: 0;
-  max-width: var(--brand-max-w, 320px);
 }
 
 .brand-logo {
@@ -340,27 +381,36 @@ body {
   max-height: var(--brand-max-h, 72px);
   object-fit: contain;
   object-position: left center;
-  flex-shrink: 0;
   vertical-align: middle;
   filter: none !important;
   opacity: 1 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   transform: none !important;
+  image-rendering: auto;
 }
 
 .brand-logo--compact-fallback {
   display: none;
 }
 
-/* Switch lockups instead of shrinking full artwork unreadably */
-@media (max-width: 767px) {
+/* Below desktop: one scaled lockup that fits beside the menu (no crop) */
+@media (max-width: 1279px) {
+  .brand-lockup--marketing {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .brand-lockup--marketing .brand-logo--full-primary {
     display: none;
   }
 
   .brand-lockup--marketing .brand-logo--compact-fallback {
     display: block;
+    width: 100%;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
   }
 }
 

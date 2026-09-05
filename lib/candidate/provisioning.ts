@@ -90,20 +90,7 @@ export async function createCandidateAccount(input: {
   const candidateId = `cand-${crypto.randomUUID()}`;
   const profileId = `profile-${crypto.randomUUID()}`;
 
-  const { error: candidateError } = await client.from("candidate_profiles").insert({
-    id: candidateId,
-    profile_id: profileId,
-    first_name: input.firstName,
-    last_name: input.lastName,
-    email: input.email,
-    source: "Self-Signup",
-    created_at: now,
-    updated_at: now,
-  });
-  if (candidateError) {
-    throw new Error(`Failed to create candidate profile: ${candidateError.message}`);
-  }
-
+  // profiles must exist before candidate_profiles.profile_id FK.
   const { error: profileError } = await client.from("profiles").insert({
     id: profileId,
     email: input.email,
@@ -117,12 +104,30 @@ export async function createCandidateAccount(input: {
     throw new Error(`Failed to create profile: ${profileError.message}`);
   }
 
+  const { error: candidateError } = await client.from("candidate_profiles").insert({
+    id: candidateId,
+    profile_id: profileId,
+    first_name: input.firstName,
+    last_name: input.lastName,
+    email: input.email,
+    source: "Self-Signup",
+    created_at: now,
+    updated_at: now,
+  });
+  if (candidateError) {
+    // Roll back the profile so a retry can succeed cleanly.
+    await client.from("profiles").delete().eq("id", profileId);
+    throw new Error(`Failed to create candidate profile: ${candidateError.message}`);
+  }
+
   const { error: roleError } = await client.from("user_roles").insert({
     id: `${profileId}-candidate`,
     user_id: profileId,
     role: "CANDIDATE",
   });
   if (roleError) {
+    await client.from("candidate_profiles").delete().eq("id", candidateId);
+    await client.from("profiles").delete().eq("id", profileId);
     throw new Error(`Failed to grant candidate role: ${roleError.message}`);
   }
 
