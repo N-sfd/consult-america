@@ -211,6 +211,9 @@ function mapDocument(row: Record<string, unknown>): Document {
     mimeType: (row.mime_type as string) ?? undefined,
     fileSize: (row.file_size as number) ?? undefined,
     uploadedAt: row.uploaded_at as string,
+    updatedAt: (row.updated_at as string) ?? undefined,
+    isPrimaryResume: Boolean(row.is_primary_resume),
+    status: (row.status as Document["status"]) ?? "ACTIVE",
   };
 }
 
@@ -519,6 +522,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           .from("documents")
           .select("*")
           .eq("candidate_id", candidateId)
+          .neq("status", "DELETED")
           .order("uploaded_at", { ascending: false }),
         client
           .from("recruiting_activities")

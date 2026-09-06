@@ -66,6 +66,8 @@ export type DocumentType =
   | "RESUME"
   | "COVER_LETTER"
   | "PORTFOLIO"
+  | "TRANSCRIPT"
+  | "CERTIFICATION"
   | "OTHER";
 
 export type CareerArea =
@@ -219,6 +221,9 @@ export type Document = {
   mimeType?: string;
   fileSize?: number;
   uploadedAt: string;
+  updatedAt?: string;
+  isPrimaryResume?: boolean;
+  status?: "ACTIVE" | "ARCHIVED" | "DELETED";
 };
 
 /** Documents attached to a specific application (a resume can attach to several). */

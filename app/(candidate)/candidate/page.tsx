@@ -71,7 +71,7 @@ export default async function CandidatePortalHomePage() {
               Complete Profile
             </Link>
             <Link
-              href="/candidate/documents"
+              href="/candidate/documents?upload=resume"
               className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
             >
               Upload Resume

@@ -17,6 +17,18 @@ interface JobApplicationFormProps {
   location: string;
   workplaceType: string;
   employmentType: string;
+  existingResume?: {
+    id: string;
+    fileName: string;
+    uploadedAt: string;
+    fileSize?: number;
+  } | null;
+  supabaseConnected?: boolean;
+  prefill?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+  };
 }
 
 const STEP_LABELS = ["Personal", "Experience", "Documents", "Review"] as const;
@@ -60,9 +72,20 @@ export default function JobApplicationForm({
   location,
   workplaceType,
   employmentType,
+  existingResume = null,
+  supabaseConnected = false,
+  prefill,
 }: JobApplicationFormProps) {
   const [step, setStep] = useState(0);
-  const [values, setValues] = useState<Values>(EMPTY_VALUES);
+  const [values, setValues] = useState<Values>({
+    ...EMPTY_VALUES,
+    firstName: prefill?.firstName ?? "",
+    lastName: prefill?.lastName ?? "",
+    email: prefill?.email ?? "",
+  });
+  const [resumeMode, setResumeMode] = useState<"existing" | "upload">(
+    existingResume ? "existing" : "upload",
+  );
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [agree, setAgree] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -73,36 +96,57 @@ export default function JobApplicationForm({
     setValues((current) => ({ ...current, [key]: value }));
   }
 
+  const hasResume =
+    (resumeMode === "existing" && Boolean(existingResume)) ||
+    (resumeMode === "upload" && resumeFile !== null);
+
   const canContinue =
     step === 0
       ? values.firstName.trim() !== "" &&
         values.lastName.trim() !== "" &&
         values.email.trim() !== ""
       : step === 2
-        ? resumeFile !== null
+        ? hasResume
         : true;
 
   async function handleSubmit() {
     setSubmitting(true);
     setError(null);
     try {
-      const res = await submitJobApplication({
-        requisitionId,
-        postingId,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        phone: values.phone || undefined,
-        location: values.location || undefined,
-        linkedinUrl: values.linkedin || undefined,
-        portfolioUrl: values.portfolio || undefined,
-        currentTitle: values.currentTitle || undefined,
-        yearsOfExperience: values.yearsOfExperience || undefined,
-        workAuthorization: values.workAuthorization || undefined,
-        willingToRelocate: values.relocate || undefined,
-        resumeFileName: resumeFile?.name,
-        coverLetter: values.coverLetter || undefined,
-      });
+      const resumeFormData =
+        resumeMode === "upload" && supabaseConnected && resumeFile
+          ? (() => {
+              const fd = new FormData();
+              fd.set("resume", resumeFile);
+              return fd;
+            })()
+          : null;
+
+      const res = await submitJobApplication(
+        {
+          requisitionId,
+          postingId,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          phone: values.phone || undefined,
+          location: values.location || undefined,
+          linkedinUrl: values.linkedin || undefined,
+          portfolioUrl: values.portfolio || undefined,
+          currentTitle: values.currentTitle || undefined,
+          yearsOfExperience: values.yearsOfExperience || undefined,
+          workAuthorization: values.workAuthorization || undefined,
+          willingToRelocate: values.relocate || undefined,
+          resumeFileName:
+            resumeMode === "existing"
+              ? existingResume?.fileName
+              : resumeFile?.name,
+          resumeDocumentId:
+            resumeMode === "existing" ? existingResume?.id : undefined,
+          coverLetter: values.coverLetter || undefined,
+        },
+        resumeFormData,
+      );
       setResult(res);
     } catch {
       setError(
@@ -146,12 +190,20 @@ export default function JobApplicationForm({
                 set={set}
                 resumeFile={resumeFile}
                 setResumeFile={setResumeFile}
+                existingResume={existingResume}
+                resumeMode={resumeMode}
+                setResumeMode={setResumeMode}
+                supabaseConnected={supabaseConnected}
               />
             )}
             {step === 3 && (
               <ReviewStep
                 values={values}
-                resumeFile={resumeFile}
+                resumeLabel={
+                  resumeMode === "existing"
+                    ? existingResume?.fileName ?? "—"
+                    : resumeFile?.name ?? "—"
+                }
                 agree={agree}
                 setAgree={setAgree}
               />
@@ -450,18 +502,90 @@ function DocumentsStep({
   set,
   resumeFile,
   setResumeFile,
+  existingResume,
+  resumeMode,
+  setResumeMode,
+  supabaseConnected,
 }: {
   values: Values;
   set: <K extends keyof Values>(key: K, value: Values[K]) => void;
   resumeFile: File | null;
   setResumeFile: (file: File | null) => void;
+  existingResume: {
+    id: string;
+    fileName: string;
+    uploadedAt: string;
+    fileSize?: number;
+  } | null;
+  resumeMode: "existing" | "upload";
+  setResumeMode: (mode: "existing" | "upload") => void;
+  supabaseConnected: boolean;
 }) {
   return (
     <div className="space-y-6">
       <h2 className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--cr-text-secondary)]">
         04 · Resume &amp; Documents
       </h2>
-      <ResumeUpload file={resumeFile} onChange={setResumeFile} />
+
+      {existingResume ? (
+        <div className="space-y-3">
+          <p className="text-sm text-[var(--cr-text-secondary)]">
+            You already have a resume on file in the Candidate Portal. Use it
+            for this application, or upload a different file.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setResumeMode("existing");
+                setResumeFile(null);
+              }}
+              className={`rounded-lg border px-3 py-2 text-sm font-semibold ${
+                resumeMode === "existing"
+                  ? "border-[var(--cr-blue)] bg-[var(--cr-bg-soft)] text-[var(--cr-navy)]"
+                  : "border-[var(--cr-border)] text-[var(--cr-text)]"
+              }`}
+            >
+              Use existing resume
+            </button>
+            <button
+              type="button"
+              onClick={() => setResumeMode("upload")}
+              className={`rounded-lg border px-3 py-2 text-sm font-semibold ${
+                resumeMode === "upload"
+                  ? "border-[var(--cr-blue)] bg-[var(--cr-bg-soft)] text-[var(--cr-navy)]"
+                  : "border-[var(--cr-border)] text-[var(--cr-text)]"
+              }`}
+            >
+              Upload a different resume
+            </button>
+          </div>
+          {resumeMode === "existing" ? (
+            <div className="rounded-lg border border-[var(--cr-border)] bg-white px-4 py-3">
+              <p className="text-sm font-medium text-[var(--cr-text)]">
+                {existingResume.fileName}
+              </p>
+              <p className="mt-1 text-xs text-[var(--cr-text-secondary)]">
+                On file · {new Date(existingResume.uploadedAt).toLocaleDateString()}
+              </p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
+      {resumeMode === "upload" ? (
+        <>
+          {!supabaseConnected ? (
+            <p className="rounded-lg border border-[var(--cr-border)] bg-[var(--cr-bg-soft)] px-4 py-3 text-sm text-[var(--cr-text-secondary)]">
+              Document uploads require the connected candidate environment.
+              You can still select a file name for this demo application, but
+              the file will not be stored.
+            </p>
+          ) : null}
+          <ResumeUpload file={resumeFile} onChange={setResumeFile} />
+        </>
+      ) : null}
+
       <Field id="coverLetter" label="Cover Letter / Notes">
         <textarea
           id="coverLetter"
@@ -477,12 +601,12 @@ function DocumentsStep({
 
 function ReviewStep({
   values,
-  resumeFile,
+  resumeLabel,
   agree,
   setAgree,
 }: {
   values: Values;
-  resumeFile: File | null;
+  resumeLabel: string;
   agree: boolean;
   setAgree: (value: boolean) => void;
 }) {
@@ -502,7 +626,7 @@ function ReviewStep({
         ? { yes: "Yes", no: "No", maybe: "Open to discussion" }[values.relocate]
         : "—",
     ],
-    ["Resume", resumeFile?.name ?? "—"],
+    ["Resume", resumeLabel],
   ];
 
   return (

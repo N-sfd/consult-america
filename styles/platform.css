@@ -115,17 +115,7 @@
 }
 
 .ca-portal-brand-logo {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: calc(100% - 0px);
-  object-fit: contain;
-  object-position: left center;
-  filter: none !important;
-  opacity: 1 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
+  max-width: 100%;
 }
 
 .ca-platform-sidebar-identity {

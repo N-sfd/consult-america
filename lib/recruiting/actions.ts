@@ -35,6 +35,8 @@ export type SubmitJobApplicationInput = {
   workAuthorization?: string;
   willingToRelocate?: "yes" | "no" | "maybe";
   resumeFileName?: string;
+  /** Existing candidate document to attach (portal resume reuse). */
+  resumeDocumentId?: string;
   coverLetter?: string;
   additionalInformation?: string;
 };
@@ -42,6 +44,7 @@ export type SubmitJobApplicationInput = {
 /** Public "Apply" flow: creates (or matches) the candidate and files a real application. */
 export async function submitJobApplication(
   input: SubmitJobApplicationInput,
+  resumeFormData?: FormData | null,
 ): Promise<SubmitApplicationResult> {
   const additionalInformation = [
     input.location ? `Location: ${input.location}` : null,
@@ -49,7 +52,9 @@ export async function submitJobApplication(
     input.yearsOfExperience
       ? `Years of Experience: ${input.yearsOfExperience}`
       : null,
-    input.resumeFileName ? `Resume: ${input.resumeFileName}` : null,
+    input.resumeFileName && !input.resumeDocumentId && !resumeFormData?.get("resume")
+      ? `Resume: ${input.resumeFileName}`
+      : null,
     input.additionalInformation,
   ]
     .filter(Boolean)
@@ -76,6 +81,37 @@ export async function submitJobApplication(
     email: input.email,
     displayName: `${input.firstName} ${input.lastName}`,
   });
+
+  const {
+    linkExistingDocumentToApplication,
+    persistResumeForApplication,
+  } = await import("@/app/actions/candidate-document-actions");
+
+  try {
+    if (input.resumeDocumentId) {
+      await linkExistingDocumentToApplication({
+        candidateId: result.candidateId,
+        applicationId: result.applicationId,
+        documentId: input.resumeDocumentId,
+      });
+    } else {
+      const resumeFile = resumeFormData?.get("resume");
+      if (resumeFile instanceof File && resumeFile.size > 0) {
+        const bytes = await resumeFile.arrayBuffer();
+        await persistResumeForApplication({
+          candidateId: result.candidateId,
+          applicationId: result.applicationId,
+          fileName: resumeFile.name,
+          mimeType: resumeFile.type || "application/octet-stream",
+          fileSize: resumeFile.size,
+          bytes,
+          setAsPrimary: true,
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Application resume persistence failed:", error);
+  }
 
   return result;
 }

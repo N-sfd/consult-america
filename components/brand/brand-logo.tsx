@@ -56,7 +56,7 @@ function resolveAsset(
 ): BrandAssetKey {
   if (variant === "mark" || lockup === "mark") return "mark";
   if (variant === "compact" || lockup === "compact") return "compact";
-  if (lockup === "header") return "horizontal"; // full readable lockup, not truncated crop
+  if (lockup === "header") return "horizontal";
   if (
     variant === "full" ||
     lockup === "full" ||
@@ -68,9 +68,111 @@ function resolveAsset(
   return resolvePreset(context, variant).asset;
 }
 
+function showTaglineFor(context: BrandLogoContext, variant?: BrandLogoVariant) {
+  if (variant === "mark" || variant === "compact") return false;
+  if (context === "login" || context === "apply" || context === "mobile") {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Crisp lockup: hi-res mark artwork + live vector text (never scaled bitmap type).
+ */
+function CrispLockup({
+  context,
+  variant,
+  priority,
+  className,
+}: {
+  context: BrandLogoContext;
+  variant?: BrandLogoVariant;
+  priority?: boolean;
+  className?: string;
+}) {
+  const preset = resolvePreset(context, variant);
+  const withTagline = showTaglineFor(context, variant);
+  const markOnly = variant === "mark";
+  const markSize =
+    variant === "mark"
+      ? brandDisplay.mark.maxHeight
+      : context === "footer"
+        ? 56
+        : context === "login" || context === "apply" || context === "mobile"
+          ? 40
+          : 52;
+
+  if (markOnly) {
+    return (
+      <span
+        className={cn("ca-brand-lockup ca-brand-lockup--mark", className)}
+        style={
+          {
+            "--brand-max-w": `${preset.maxWidth}px`,
+            "--brand-max-h": `${preset.maxHeight}px`,
+          } as CSSProperties
+        }
+      >
+        <img
+          src={brandAssets.mark}
+          alt="Consult America"
+          width={brandDimensions.mark.width}
+          height={brandDimensions.mark.height}
+          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
+          className="ca-brand-mark"
+          style={{ width: markSize, height: markSize }}
+        />
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className={cn(
+        "ca-brand-lockup",
+        `ca-brand-lockup--${context}`,
+        withTagline ? "ca-brand-lockup--tagged" : "ca-brand-lockup--title-only",
+        className,
+      )}
+      style={
+        {
+          "--brand-max-w": `${preset.maxWidth}px`,
+          "--brand-max-h": `${preset.maxHeight}px`,
+          "--brand-mark-size": `${markSize}px`,
+        } as CSSProperties
+      }
+    >
+      <img
+        src={brandAssets.mark}
+        alt=""
+        aria-hidden
+        width={brandDimensions.mark.width}
+        height={brandDimensions.mark.height}
+        decoding="async"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
+        className="ca-brand-mark"
+      />
+      <span className="ca-brand-wordmark">
+        <span className="ca-brand-title">Consult America</span>
+        {withTagline ? (
+          <span className="ca-brand-tagline">
+            Innovative Technology Consulting Services
+          </span>
+        ) : null}
+      </span>
+      <span className="sr-only">
+        Consult America — Innovative Technology Consulting Services
+      </span>
+    </span>
+  );
+}
+
 /**
  * Public / auth brand mark.
- * Portal sidebars must use PortalBrand (same artwork + white-block rules).
+ * Portal sidebars must use PortalBrand (same crisp lockup + white-block rules).
  */
 export default function BrandLogo({
   variant,
@@ -81,56 +183,16 @@ export default function BrandLogo({
   onNavigate,
   lockup,
 }: BrandLogoProps) {
-  const preset = resolvePreset(context, variant);
-  const asset = resolveAsset(variant, lockup, context);
-  const dim = brandDimensions[asset];
-  const isMarketingFull = context === "marketing" && asset === "horizontal";
+  // Keep resolveAsset for callers that still reference PNG paths elsewhere.
+  void resolveAsset(variant, lockup, context);
 
   const content = (
-    <span
-      className={cn("brand-lockup", `brand-lockup--${context}`, className)}
-      style={
-        {
-          "--brand-max-w": `${preset.maxWidth}px`,
-          "--brand-max-h": `${preset.maxHeight}px`,
-        } as CSSProperties
-      }
-    >
-      <img
-        src={brandAssets[asset]}
-        alt="Consult America"
-        width={dim.width}
-        height={dim.height}
-        decoding="async"
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : undefined}
-        className={cn("brand-logo", isMarketingFull && "brand-logo--full-primary")}
-        style={
-          isMarketingFull
-            ? undefined
-            : {
-                maxWidth: preset.maxWidth,
-                maxHeight: preset.maxHeight,
-              }
-        }
-      />
-
-      {isMarketingFull ? (
-        <img
-          src={brandAssets.compact}
-          alt=""
-          aria-hidden
-          width={brandDimensions.compact.width}
-          height={brandDimensions.compact.height}
-          decoding="async"
-          className="brand-logo brand-logo--compact-fallback"
-        />
-      ) : null}
-
-      <span className="sr-only">
-        Consult America — Innovative Technology Consulting Services
-      </span>
-    </span>
+    <CrispLockup
+      context={context}
+      variant={variant}
+      priority={priority}
+      className={className}
+    />
   );
 
   if (href === null || href === undefined) return content;
@@ -139,7 +201,7 @@ export default function BrandLogo({
     <Link
       href={href}
       aria-label="Consult America homepage"
-      className="brand-lockup-link"
+      className="brand-lockup-link ca-brand-lockup-link"
       onClick={onNavigate}
     >
       {content}

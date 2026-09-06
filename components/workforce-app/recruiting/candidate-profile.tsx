@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
+import RecruiterCandidateDocuments from "@/components/workforce-app/recruiting/recruiter-candidate-documents";
 import { formatDate, formatDateTime } from "@/lib/recruiting/format";
 import type { CandidateProfileDetail as CandidateProfileData } from "@/lib/recruiting/repository";
 import { cn } from "@/lib/utils";
@@ -162,23 +163,8 @@ export default function CandidateProfile({
         )}
 
         {tab === "Resume" && (
-          <EmptyableList
-            items={documents.filter((d) => d.documentType === "RESUME")}
-            emptyLabel="No resume on file."
-            render={(doc) => (
-              <a
-                key={doc.id}
-                href={doc.storagePath}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between border-b border-black/6 py-3 text-sm last:border-0 hover:text-[var(--ca-blue)]"
-              >
-                <span>{doc.fileName}</span>
-                <span className="text-black/45">
-                  {formatDate(doc.uploadedAt)}
-                </span>
-              </a>
-            )}
+          <RecruiterCandidateDocuments
+            documents={documents.filter((d) => d.documentType === "RESUME")}
           />
         )}
 
@@ -305,25 +291,7 @@ export default function CandidateProfile({
         )}
 
         {tab === "Documents" && (
-          <EmptyableList
-            items={documents}
-            emptyLabel="No documents on file."
-            render={(doc) => (
-              <a
-                key={doc.id}
-                href={doc.storagePath}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between border-b border-black/6 py-3 text-sm last:border-0 hover:text-[var(--ca-blue)]"
-              >
-                <span>
-                  {doc.fileName}{" "}
-                  <span className="text-black/40">({doc.documentType})</span>
-                </span>
-                <span className="text-black/45">{formatDate(doc.uploadedAt)}</span>
-              </a>
-            )}
-          />
+          <RecruiterCandidateDocuments documents={documents} />
         )}
 
         {tab === "Activity" && (

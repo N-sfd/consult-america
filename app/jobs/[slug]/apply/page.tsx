@@ -5,14 +5,19 @@ import { notFound } from "next/navigation";
 
 import JobApplicationForm from "@/components/jobs/job-application-form";
 import { careerAreaLabels } from "@/data/jobs";
+import { getOptionalCandidateSession } from "@/lib/candidate/session";
 import { getAllJobSlugs, getJobBySlug } from "@/lib/jobs";
 import { stockImage } from "@/lib/marketing/stock-images";
+import { recruitingRepository } from "@/lib/recruiting";
+import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 
 interface JobApplyPageProps {
   params: Promise<{ slug: string }>;
 }
 
 const APPLY_HERO_IMAGE = stockImage("jobApplyHero", { w: 1400, q: 80 });
+
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const slugs = await getAllJobSlugs();
@@ -41,6 +46,32 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
 
   if (!job) {
     notFound();
+  }
+
+  const session = await getOptionalCandidateSession();
+  let existingResume: {
+    id: string;
+    fileName: string;
+    uploadedAt: string;
+    fileSize?: number;
+  } | null = null;
+
+  if (session) {
+    const profile = await recruitingRepository.getCandidateProfile(
+      session.candidateId,
+    );
+    const resume =
+      profile?.documents.find(
+        (d) => d.documentType === "RESUME" && d.isPrimaryResume,
+      ) ?? profile?.documents.find((d) => d.documentType === "RESUME");
+    if (resume) {
+      existingResume = {
+        id: resume.id,
+        fileName: resume.fileName,
+        uploadedAt: resume.uploadedAt,
+        fileSize: resume.fileSize,
+      };
+    }
   }
 
   return (
@@ -108,6 +139,17 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
             location={job.location}
             workplaceType={job.workplaceType}
             employmentType={job.employmentType}
+            existingResume={existingResume}
+            supabaseConnected={isSupabaseConfigured()}
+            prefill={
+              session
+                ? {
+                    firstName: session.displayName.split(" ")[0] ?? "",
+                    lastName: session.displayName.split(" ").slice(1).join(" "),
+                    email: session.email,
+                  }
+                : undefined
+            }
           />
         </div>
       </div>

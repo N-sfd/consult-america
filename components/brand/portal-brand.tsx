@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { brandAssets, brandDimensions, brandDisplay } from "@/lib/brandAssets";
+import BrandLogo from "@/components/brand/brand-logo";
 import { cn } from "@/lib/utils";
 
 export type PortalBrandSurface = "light" | "dark";
@@ -11,7 +11,7 @@ type PortalBrandProps = {
   /** light = Employee/Candidate; dark = Manager/HR/Payroll/Workforce/CRM */
   surface: PortalBrandSurface;
   href?: string;
-  /** mobile topbar — approved compact asset only */
+  /** mobile topbar — title-only compact lockup */
   mode?: "sidebar" | "mobile";
   className?: string;
   onNavigate?: () => void;
@@ -29,42 +29,35 @@ export default function PortalBrand({
   onNavigate,
 }: PortalBrandProps) {
   const isMobile = mode === "mobile";
-  const preset = isMobile ? brandDisplay.mobile : brandDisplay.portal;
-  const asset = preset.asset;
-  const dim = brandDimensions[asset];
-
-  const image = (
-    <img
-      src={brandAssets[asset]}
-      alt="Consult America"
-      width={dim.width}
-      height={dim.height}
-      decoding="async"
-      loading="eager"
-      fetchPriority="high"
+  const lockup = (
+    <BrandLogo
+      href={null}
+      context={isMobile ? "mobile" : "marketing"}
+      variant={isMobile ? "compact" : "full"}
+      priority
       className="ca-portal-brand-logo"
-      style={{
-        maxWidth: `min(100%, ${preset.maxWidth}px)`,
-        maxHeight: preset.maxHeight,
-      }}
     />
   );
 
-  const lockup = href ? (
+  const linked = href ? (
     <Link
       href={href}
       aria-label="Consult America homepage"
       className="ca-portal-brand-link"
       onClick={onNavigate}
     >
-      {image}
+      {lockup}
     </Link>
   ) : (
-    image
+    lockup
   );
 
   if (isMobile) {
-    return <div className={cn("ca-portal-brand ca-portal-brand--mobile", className)}>{lockup}</div>;
+    return (
+      <div className={cn("ca-portal-brand ca-portal-brand--mobile", className)}>
+        {linked}
+      </div>
+    );
   }
 
   return (
@@ -75,7 +68,7 @@ export default function PortalBrand({
         className,
       )}
     >
-      {lockup}
+      {linked}
     </div>
   );
 }

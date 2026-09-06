@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
-import { formatDate } from "@/lib/recruiting/format";
-import { recruitingRepository } from "@/lib/recruiting";
+import CandidateDocumentsPanel from "@/components/candidate/candidate-documents-panel";
 import { requireCandidateActor } from "@/lib/candidate/security";
+import { recruitingRepository } from "@/lib/recruiting";
+import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Documents | ConsultAmerica",
@@ -10,49 +11,43 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default async function CandidateDocumentsPage() {
+type PageProps = {
+  searchParams: Promise<{ upload?: string }>;
+};
+
+export default async function CandidateDocumentsPage({ searchParams }: PageProps) {
   const { session } = await requireCandidateActor();
+  const params = await searchParams;
   const profile = await recruitingRepository.getCandidateProfile(
     session.candidateId,
   );
-  const documents = profile?.documents ?? [];
+  const documents = (profile?.documents ?? []).filter(
+    (doc) => doc.status !== "DELETED",
+  );
+  const autoOpenUpload =
+    params.upload === "resume"
+      ? "resume"
+      : params.upload === "other"
+        ? "other"
+        : null;
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
+        <h1 className="text-3xl font-semibold tracking-[-0.04em] text-[#073B3A]">
           Documents
         </h1>
-        <p className="mt-2 text-black/55">
-          Resumes and files you&apos;ve shared with our recruiting team.
-          Uploading new documents is coming soon.
+        <p className="mt-2 max-w-2xl text-[#5B6D6B]">
+          Upload your resume and supporting documents to share with the Consult
+          America recruiting team.
         </p>
       </div>
 
-      {documents.length === 0 ? (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-          No documents on file yet.
-        </div>
-      ) : (
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
-          <ul className="divide-y divide-black/5">
-            {documents.map((document) => (
-              <li
-                key={document.id}
-                className="flex flex-wrap items-center justify-between gap-3 px-5 py-4"
-              >
-                <div>
-                  <p className="font-medium">{document.fileName}</p>
-                  <p className="mt-1 text-sm text-black/55">
-                    {document.documentType} · Uploaded{" "}
-                    {formatDate(document.uploadedAt)}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <CandidateDocumentsPanel
+        initialDocuments={documents}
+        supabaseConnected={isSupabaseConfigured()}
+        autoOpenUpload={autoOpenUpload}
+      />
     </div>
   );
 }

@@ -13,6 +13,8 @@ import { recruitingRepository } from "@/lib/recruiting";
 
 export type CandidateSession = {
   candidateId: string;
+  /** Platform profiles.id — needed for storage path ownership when Supabase is live */
+  profileId?: string;
   displayName: string;
   email: string;
 };
@@ -39,6 +41,29 @@ export async function getCandidateSession(): Promise<CandidateSession> {
 
   return {
     candidateId: profile.candidate.id,
+    profileId: platformUser.userId,
+    displayName:
+      profile.candidate.preferredName ||
+      `${profile.candidate.firstName} ${profile.candidate.lastName}`,
+    email: profile.candidate.email,
+  };
+}
+
+/** Non-redirecting session for public pages (e.g. job apply document reuse). */
+export async function getOptionalCandidateSession(): Promise<CandidateSession | null> {
+  if (!isSupabaseBrowserConfigured()) return null;
+
+  const platformUser = await getAuthenticatedPlatformUser();
+  if (!platformUser?.candidateId) return null;
+
+  const profile = await recruitingRepository.getCandidateProfile(
+    platformUser.candidateId,
+  );
+  if (!profile) return null;
+
+  return {
+    candidateId: profile.candidate.id,
+    profileId: platformUser.userId,
     displayName:
       profile.candidate.preferredName ||
       `${profile.candidate.firstName} ${profile.candidate.lastName}`,

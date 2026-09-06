@@ -346,7 +346,8 @@ body {
   }
 }
 
-.brand-lockup-link {
+.brand-lockup-link,
+.ca-brand-lockup-link {
   display: inline-flex;
   max-width: 100%;
   min-width: 0;
@@ -354,16 +355,119 @@ body {
   align-items: center;
   line-height: 0;
   border-radius: 6px;
+  text-decoration: none;
 }
 
-.brand-lockup-link:focus {
+.brand-lockup-link:focus,
+.ca-brand-lockup-link:focus {
   outline: none;
 }
 
-.brand-lockup-link:focus-visible {
+.brand-lockup-link:focus-visible,
+.ca-brand-lockup-link:focus-visible {
   box-shadow: 0 0 0 2px #c52f32;
 }
 
+/* Crisp brand lockup — hi-res mark + live type (no scaled bitmap wordmark) */
+.ca-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  max-width: min(100%, var(--brand-max-w, 360px));
+  min-width: 0;
+  line-height: 1;
+}
+
+.ca-brand-mark {
+  display: block;
+  width: var(--brand-mark-size, 52px);
+  height: var(--brand-mark-size, 52px);
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.ca-brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.ca-brand-title {
+  display: block;
+  color: #0a1f5c;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.ca-brand-tagline {
+  display: block;
+  color: #0a1f5c;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(0.58rem, 1.35vw, 0.72rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.ca-brand-lockup--title-only .ca-brand-title {
+  font-size: clamp(0.98rem, 2.2vw, 1.2rem);
+}
+
+.ca-brand-lockup--footer .ca-brand-title {
+  font-size: 1.4rem;
+}
+
+.ca-brand-lockup--footer .ca-brand-tagline {
+  font-size: 0.78rem;
+}
+
+.ca-brand-lockup--mark {
+  gap: 0;
+}
+
+@media (max-width: 1279px) {
+  .ca-header-brand .ca-brand-lockup {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ca-header-brand .ca-brand-wordmark {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .ca-header-brand .ca-brand-title {
+    font-size: clamp(0.95rem, 3.6vw, 1.15rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ca-header-brand .ca-brand-tagline {
+    font-size: clamp(0.52rem, 2vw, 0.65rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ca-header-brand .ca-brand-mark {
+    width: clamp(36px, 10vw, 48px);
+    height: clamp(36px, 10vw, 48px);
+  }
+}
+
+@media (max-width: 420px) {
+  .ca-header-brand .ca-brand-tagline {
+    display: none;
+  }
+}
+
+/* Legacy raster classes kept for any remaining PNG references */
 .brand-lockup {
   display: inline-flex;
   max-width: min(100%, var(--brand-max-w, 320px));
@@ -381,37 +485,10 @@ body {
   max-height: var(--brand-max-h, 72px);
   object-fit: contain;
   object-position: left center;
-  vertical-align: middle;
-  filter: none !important;
-  opacity: 1 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-  image-rendering: auto;
 }
 
 .brand-logo--compact-fallback {
   display: none;
-}
-
-/* Below desktop: one scaled lockup that fits beside the menu (no crop) */
-@media (max-width: 1279px) {
-  .brand-lockup--marketing {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .brand-lockup--marketing .brand-logo--full-primary {
-    display: none;
-  }
-
-  .brand-lockup--marketing .brand-logo--compact-fallback {
-    display: block;
-    width: 100%;
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-  }
 }
 
 .ca-mega-panel {
