@@ -3,6 +3,7 @@ import type {
   Application,
   ApplicationDocument,
   ApplicationStatus,
+  ApplicationStatusHistory,
   CandidateProfile,
   Document,
   Education,
@@ -104,6 +105,8 @@ export type CandidateProfileDetail = {
     requisitionTitle?: string;
     appliedAt?: string;
   }>;
+  statusHistory?: ApplicationStatusHistory[];
+  offers?: Offer[];
   interviews: CandidateInterviewSummary[];
   feedback: InterviewFeedback[];
   activities: RecruitingActivity[];

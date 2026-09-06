@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 
 import PipelineBoard from "@/components/workforce-app/recruiting/pipeline-board";
 import { recruitingRepository } from "@/lib/recruiting";
+import {
+  APPLICATION_PIPELINE,
+  type ApplicationStatus,
+} from "@/types/recruiting";
 
 export const metadata: Metadata = {
   title: "Pipeline",
@@ -10,10 +14,13 @@ export const metadata: Metadata = {
 
 export default async function RecruitingJobPipelinePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ jobId: string }>;
+  searchParams: Promise<{ stage?: string }>;
 }) {
   const { jobId } = await params;
+  const { stage } = await searchParams;
   const detail = await recruitingRepository.getJobDetail(jobId);
   if (!detail) notFound();
 
@@ -44,6 +51,11 @@ export default async function RecruitingJobPipelinePage({
     offer: offerByApplicationId.get(application.id),
   }));
 
+  const initialFocusStage =
+    stage && APPLICATION_PIPELINE.includes(stage as ApplicationStatus)
+      ? (stage as ApplicationStatus)
+      : null;
+
   return (
     <PipelineBoard
       requisitionId={jobId}
@@ -51,6 +63,7 @@ export default async function RecruitingJobPipelinePage({
       cards={cards}
       defaultEmploymentType={detail.requisition.employmentType}
       defaultWorkplaceType={detail.requisition.workplaceType}
+      initialFocusStage={initialFocusStage}
     />
   );
 }

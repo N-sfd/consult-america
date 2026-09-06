@@ -4,7 +4,7 @@ import Link from "next/link";
 import { formatDate } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
-import { applicationStatusLabels } from "@/types/recruiting";
+import { candidateApplicationStatusLabels } from "@/types/recruiting";
 
 export const metadata: Metadata = {
   title: "My Applications | ConsultAmerica",
@@ -63,7 +63,7 @@ export default async function CandidateApplicationsPage() {
                       </p>
                     </div>
                     <span className="text-xs uppercase tracking-[0.1em] text-black/45">
-                      {applicationStatusLabels[application.status]}
+                      {candidateApplicationStatusLabels[application.status]}
                     </span>
                   </div>
                 </Link>

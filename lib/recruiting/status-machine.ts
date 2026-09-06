@@ -17,16 +17,41 @@ const REQUISITION_TRANSITIONS: Record<RequisitionStatus, RequisitionStatus[]> = 
 };
 
 const APPLICATION_TRANSITIONS: Record<ApplicationStatus, ApplicationStatus[]> = {
-  APPLIED: ["REVIEW", "REJECTED", "WITHDRAWN", "CLOSED"],
-  REVIEW: ["RECRUITER_SCREEN", "REJECTED", "WITHDRAWN", "CLOSED"],
-  RECRUITER_SCREEN: [
+  // APPLIED ≈ submitted. Allow recruiter to advance without forced REVIEW hop.
+  APPLIED: [
+    "REVIEW",
+    "RECRUITER_SCREEN",
+    "REJECTED",
+    "WITHDRAWN",
+    "CLOSED",
+  ],
+  REVIEW: [
+    "RECRUITER_SCREEN",
     "HIRING_MANAGER_REVIEW",
     "REJECTED",
     "WITHDRAWN",
     "CLOSED",
   ],
-  HIRING_MANAGER_REVIEW: ["INTERVIEW", "REJECTED", "WITHDRAWN", "CLOSED"],
-  INTERVIEW: ["FINAL_INTERVIEW", "OFFER", "REJECTED", "WITHDRAWN", "CLOSED"],
+  RECRUITER_SCREEN: [
+    "HIRING_MANAGER_REVIEW",
+    "INTERVIEW",
+    "REJECTED",
+    "WITHDRAWN",
+    "CLOSED",
+  ],
+  HIRING_MANAGER_REVIEW: [
+    "INTERVIEW",
+    "REJECTED",
+    "WITHDRAWN",
+    "CLOSED",
+  ],
+  INTERVIEW: [
+    "FINAL_INTERVIEW",
+    "OFFER",
+    "REJECTED",
+    "WITHDRAWN",
+    "CLOSED",
+  ],
   FINAL_INTERVIEW: ["OFFER", "REJECTED", "WITHDRAWN", "CLOSED"],
   OFFER: ["HIRED", "REJECTED", "WITHDRAWN", "CLOSED"],
   HIRED: [],
@@ -36,7 +61,8 @@ const APPLICATION_TRANSITIONS: Record<ApplicationStatus, ApplicationStatus[]> = 
 };
 
 const OFFER_TRANSITIONS: Record<OfferStatus, OfferStatus[]> = {
-  DRAFT: ["PENDING_APPROVAL", "WITHDRAWN"],
+  // DRAFT → EXTENDED covers approve-and-send without a separate queue hop.
+  DRAFT: ["PENDING_APPROVAL", "EXTENDED", "WITHDRAWN"],
   PENDING_APPROVAL: ["EXTENDED", "DRAFT", "WITHDRAWN"],
   EXTENDED: ["ACCEPTED", "DECLINED", "EXPIRED", "WITHDRAWN"],
   ACCEPTED: [],
@@ -68,17 +94,16 @@ export function isTerminalApplicationStatus(status: ApplicationStatus): boolean 
 }
 
 /**
- * Hire conversion is only allowed when:
- * - Application is in OFFER (or already HIRED for idempotency checks)
- * - Related offer status is ACCEPTED
+ * Hire conversion is allowed when offer is ACCEPTED and application is OFFER.
+ * HIRED + ACCEPTED is also allowed so hireCandidate stays idempotent.
  */
 export function canConvertToEmployee(input: {
   applicationStatus: ApplicationStatus;
   offerStatus?: OfferStatus;
 }): boolean {
-  if (input.applicationStatus === "HIRED") return false;
+  if (input.offerStatus !== "ACCEPTED") return false;
   return (
-    input.applicationStatus === "OFFER" && input.offerStatus === "ACCEPTED"
+    input.applicationStatus === "OFFER" || input.applicationStatus === "HIRED"
   );
 }
 
@@ -89,6 +114,12 @@ export function assertApplicationTransition(
   if (!canTransitionApplication(from, to)) {
     throw new Error(`Invalid application transition: ${from} → ${to}`);
   }
+}
+
+export function allowedApplicationTransitions(
+  from: ApplicationStatus,
+): ApplicationStatus[] {
+  return [...APPLICATION_TRANSITIONS[from]];
 }
 
 export function assertRequisitionTransition(

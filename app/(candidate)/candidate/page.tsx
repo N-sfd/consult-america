@@ -5,7 +5,7 @@ import { formatDate } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import {
-  applicationStatusLabels,
+  candidateApplicationStatusLabels,
   type ApplicationStatus,
 } from "@/types/recruiting";
 
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 const CANDIDATE_JOURNEY: { key: ApplicationStatus | "DECISION"; label: string }[] = [
-  { key: "APPLIED", label: "Applied" },
-  { key: "RECRUITER_SCREEN", label: "Recruiter Screen" },
+  { key: "APPLIED", label: "Application Received" },
+  { key: "RECRUITER_SCREEN", label: "Under Review" },
   { key: "INTERVIEW", label: "Interview" },
   { key: "OFFER", label: "Offer" },
   { key: "DECISION", label: "Decision" },
@@ -126,7 +126,7 @@ export default async function CandidatePortalHomePage() {
                 </p>
               </div>
               <span className="rounded-full bg-[rgba(23,106,99,0.12)] px-2.5 py-1 text-xs font-semibold text-[var(--ca-platform-deep)]">
-                {applicationStatusLabels[latest.status]}
+                {candidateApplicationStatusLabels[latest.status]}
               </span>
             </div>
 

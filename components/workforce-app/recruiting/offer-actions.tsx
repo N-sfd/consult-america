@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { acceptOffer, extendOffer } from "@/lib/recruiting/actions";
+import { acceptOffer, extendOffer, sendOffer } from "@/lib/recruiting/actions";
 import { convertHire } from "@/lib/hr/actions";
 import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import type { ApplicationStatus, Offer } from "@/types/recruiting";
@@ -19,6 +19,12 @@ const fieldClass =
   "mt-1.5 h-9 w-full border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
 const actionButtonClass =
   "mt-2 h-7 w-full border border-[var(--ca-blue)] bg-white px-1.5 text-xs font-medium text-[var(--ca-blue)] outline-none transition-colors hover:bg-[var(--ca-blue)] hover:text-white disabled:opacity-50";
+
+const OFFER_CREATE_STATUSES: ApplicationStatus[] = [
+  "INTERVIEW",
+  "FINAL_INTERVIEW",
+  "OFFER",
+];
 
 export default function OfferActions({
   applicationId,
@@ -35,22 +41,28 @@ export default function OfferActions({
   defaultEmploymentType: EmploymentType;
   defaultWorkplaceType: WorkplaceType;
 }) {
-  // The pipeline board seeds its card list from props only once (it also
-  // does optimistic local patches on stage moves), so this holds its own
-  // copy and updates it from each action's result rather than relying on
-  // a prop refresh after revalidatePath.
   const [offer, setOffer] = useState(initialOffer);
 
-  if (status !== "OFFER") return null;
+  if (!offer && !OFFER_CREATE_STATUSES.includes(status)) return null;
 
   if (!offer) {
     return (
-      <ExtendOfferDialog
+      <CreateOfferDialog
         applicationId={applicationId}
         requisitionId={requisitionId}
         defaultEmploymentType={defaultEmploymentType}
         defaultWorkplaceType={defaultWorkplaceType}
-        onExtended={setOffer}
+        onCreated={setOffer}
+      />
+    );
+  }
+
+  if (offer.status === "DRAFT" || offer.status === "PENDING_APPROVAL") {
+    return (
+      <SendOfferButton
+        applicationId={applicationId}
+        requisitionId={requisitionId}
+        onSent={setOffer}
       />
     );
   }
@@ -66,24 +78,29 @@ export default function OfferActions({
   }
 
   if (offer.status === "ACCEPTED") {
-    return <ConvertToEmployeeButton applicationId={applicationId} requisitionId={requisitionId} />;
+    return (
+      <ConvertToEmployeeButton
+        applicationId={applicationId}
+        requisitionId={requisitionId}
+      />
+    );
   }
 
   return null;
 }
 
-function ExtendOfferDialog({
+function CreateOfferDialog({
   applicationId,
   requisitionId,
   defaultEmploymentType,
   defaultWorkplaceType,
-  onExtended,
+  onCreated,
 }: {
   applicationId: string;
   requisitionId: string;
   defaultEmploymentType: EmploymentType;
   defaultWorkplaceType: WorkplaceType;
-  onExtended: (offer: Offer) => void;
+  onCreated: (offer: Offer) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -106,7 +123,7 @@ function ExtendOfferDialog({
         workplaceType: defaultWorkplaceType,
       });
       if (result.ok) {
-        onExtended(result.offer);
+        onCreated(result.offer);
         setOpen(false);
       } else {
         setError(result.error);
@@ -117,11 +134,11 @@ function ExtendOfferDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<button type="button" className={actionButtonClass} />}>
-        Extend Offer
+        Create Offer
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Extend Offer</DialogTitle>
+          <DialogTitle>Create Offer</DialogTitle>
         </DialogHeader>
         <form action={handleSubmit} className="space-y-3">
           <label className="block">
@@ -143,12 +160,49 @@ function ExtendOfferDialog({
               disabled={isPending}
               className="h-9 border border-[var(--ca-blue)] bg-[var(--ca-blue)] px-4 text-sm font-medium text-white disabled:opacity-50"
             >
-              {isPending ? "Extending…" : "Extend Offer"}
+              {isPending ? "Creating…" : "Create Draft Offer"}
             </button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function SendOfferButton({
+  applicationId,
+  requisitionId,
+  onSent,
+}: {
+  applicationId: string;
+  requisitionId: string;
+  onSent: (offer: Offer) => void;
+}) {
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+
+  return (
+    <div>
+      <button
+        type="button"
+        disabled={isPending}
+        className={actionButtonClass}
+        onClick={() => {
+          setError(null);
+          startTransition(async () => {
+            const result = await sendOffer(applicationId, requisitionId);
+            if (result.ok) {
+              onSent(result.offer);
+            } else {
+              setError(result.error);
+            }
+          });
+        }}
+      >
+        {isPending ? "Sending…" : "Approve & Send Offer"}
+      </button>
+      {error && <p className="mt-1 text-[0.65rem] text-[var(--ca-error)]">{error}</p>}
+    </div>
   );
 }
 
@@ -182,7 +236,7 @@ function AcceptOfferButton({
           });
         }}
       >
-        {isPending ? "Accepting…" : "Accept Offer"}
+        {isPending ? "Accepting…" : "Mark Accepted"}
       </button>
       {error && <p className="mt-1 text-[0.65rem] text-[var(--ca-error)]">{error}</p>}
     </div>
@@ -226,7 +280,7 @@ function ConvertToEmployeeButton({
           });
         }}
       >
-        {isPending ? "Converting…" : "Convert to Employee"}
+        {isPending ? "Hiring…" : "Hire Candidate"}
       </button>
       {error && <p className="mt-1 text-[0.65rem] text-[var(--ca-error)]">{error}</p>}
     </div>

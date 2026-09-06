@@ -51,7 +51,7 @@ export async function convertAcceptedOfferToEmployee(
     })
   ) {
     throw new Error(
-      "Hire conversion requires application status OFFER and offer status ACCEPTED",
+      "Hire conversion requires an ACCEPTED offer and application status OFFER (or HIRED for idempotent re-entry)",
     );
   }
 

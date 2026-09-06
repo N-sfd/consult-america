@@ -632,6 +632,22 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
             .in("application_id", applicationIds)
         : { data: [] as Record<string, unknown>[] };
 
+      const [{ data: historyRows }, { data: offerRows }] = await Promise.all([
+        applicationIds.length
+          ? client
+              .from("application_status_history")
+              .select("*")
+              .in("application_id", applicationIds)
+              .order("created_at", { ascending: false })
+          : Promise.resolve({ data: [] as Record<string, unknown>[] }),
+        applicationIds.length
+          ? client
+              .from("offers")
+              .select("*")
+              .in("application_id", applicationIds)
+          : Promise.resolve({ data: [] as Record<string, unknown>[] }),
+      ]);
+
       const applicationTitleById = new Map(
         applications.map((app) => [app.applicationId, app.requisitionTitle]),
       );
@@ -679,6 +695,16 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
             row.application_id as string,
           ),
         })),
+        statusHistory: (historyRows ?? []).map((row) => ({
+          id: row.id as string,
+          applicationId: row.application_id as string,
+          fromStatus: (row.from_status as ApplicationStatus) ?? undefined,
+          toStatus: row.to_status as ApplicationStatus,
+          changedByUserId: (row.changed_by_user_id as string) ?? undefined,
+          note: (row.note as string) ?? undefined,
+          createdAt: row.created_at as string,
+        })),
+        offers: (offerRows ?? []).map(mapOffer),
         interviews,
         feedback: (feedbackRows ?? []).map(mapFeedback),
         activities: (activityRows ?? []).map(mapActivity),
@@ -1003,6 +1029,15 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         created_at: now,
       });
 
+      await client.from("application_status_history").insert({
+        id: `hist-${crypto.randomUUID()}`,
+        application_id: applicationId,
+        from_status: null,
+        to_status: "APPLIED",
+        note: "Application submitted",
+        created_at: now,
+      });
+
       return { candidateId, applicationId, applicationNumber };
     },
 
@@ -1010,29 +1045,14 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       const client = getSupabaseServiceClient();
       if (!client) return;
 
-      const { data: applicationRow } = await client
-        .from("applications")
-        .select("candidate_id, requisition_id, status")
-        .eq("id", applicationId)
-        .maybeSingle();
-      if (!applicationRow) return;
+      const { transitionApplicationStatus } = await import(
+        "@/lib/recruiting/application-transitions"
+      );
 
-      const now = new Date().toISOString();
-      const previousStatus = applicationRow.status as string;
-
-      await client
-        .from("applications")
-        .update({ status, updated_at: now })
-        .eq("id", applicationId);
-
-      await client.from("recruiting_activities").insert({
-        id: `act-${crypto.randomUUID()}`,
-        candidate_id: applicationRow.candidate_id,
-        application_id: applicationId,
-        requisition_id: applicationRow.requisition_id,
-        activity_type: "STAGE_CHANGED",
-        summary: `Stage changed: ${previousStatus} → ${status}`,
-        created_at: now,
+      await transitionApplicationStatus({
+        applicationId,
+        toStatus: status,
+        allowIdempotentSameStatus: true,
       });
     },
 
@@ -1055,7 +1075,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           id: offerId,
           application_id: input.applicationId,
           offer_number: offerNumber,
-          status: "EXTENDED",
+          status: "DRAFT",
           base_salary: input.baseSalary ?? null,
           hourly_rate: input.hourlyRate ?? null,
           currency: input.currency ?? "USD",
@@ -1082,10 +1102,25 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         candidate_id: applicationRow?.candidate_id ?? null,
         application_id: input.applicationId,
         requisition_id: applicationRow?.requisition_id ?? null,
-        activity_type: "OFFER_EXTENDED",
-        summary: `Offer extended: ${offerNumber}`,
+        activity_type: "OFFER_CREATED",
+        summary: `Offer created: ${offerNumber}`,
         created_at: now,
       });
+
+      // Ensure application is in OFFER when an offer is created.
+      try {
+        const { transitionApplicationStatus } = await import(
+          "@/lib/recruiting/application-transitions"
+        );
+        await transitionApplicationStatus({
+          applicationId: input.applicationId,
+          toStatus: "OFFER",
+          reason: "Offer created",
+          allowIdempotentSameStatus: true,
+        });
+      } catch {
+        // If current status cannot move to OFFER, leave as-is; recruiter can advance.
+      }
 
       return mapOffer(data);
     },
@@ -1101,7 +1136,16 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         .maybeSingle();
       if (!offerRow) return undefined;
 
-      const previousStatus = offerRow.status as string;
+      const previousStatus = offerRow.status as Offer["status"];
+      const { canTransitionOffer } = await import(
+        "@/lib/recruiting/status-machine"
+      );
+      if (!canTransitionOffer(previousStatus, status)) {
+        throw new Error(
+          `Invalid offer transition: ${previousStatus} → ${status}`,
+        );
+      }
+
       const now = new Date().toISOString();
 
       const { data, error } = await client

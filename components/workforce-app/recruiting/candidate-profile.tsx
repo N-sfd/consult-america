@@ -7,6 +7,8 @@ import { ChevronLeft } from "lucide-react";
 import RecruiterCandidateDocuments, {
   ApplicationSubmittedDocuments,
 } from "@/components/workforce-app/recruiting/recruiter-candidate-documents";
+import InterviewStatusActions from "@/components/workforce-app/recruiting/interview-status-actions";
+import SubmitInterviewFeedbackButton from "@/components/workforce-app/recruiting/submit-interview-feedback-button";
 import { formatDate, formatDateTime } from "@/lib/recruiting/format";
 import type { CandidateProfileDetail as CandidateProfileData } from "@/lib/recruiting/repository";
 import { cn } from "@/lib/utils";
@@ -31,7 +33,7 @@ export default function CandidateProfile({
   profile: CandidateProfileData;
 }) {
   const [tab, setTab] = useState<Tab>("Overview");
-  const { candidate, applications, experience, education, skills, documents, applicationDocumentLinks, interviews, feedback, activities } =
+  const { candidate, applications, experience, education, skills, documents, applicationDocumentLinks, statusHistory, offers, interviews, feedback, activities } =
     profile;
 
   const latestApplication = [...applications].sort(
@@ -229,7 +231,18 @@ export default function CandidateProfile({
           <EmptyableList
             items={applications}
             emptyLabel="No applications on file."
-            render={(app) => (
+            render={(app) => {
+              const appHistory = (statusHistory ?? [])
+                .filter((h) => h.applicationId === app.applicationId)
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime(),
+                );
+              const appOffer = (offers ?? []).find(
+                (o) => o.applicationId === app.applicationId,
+              );
+              return (
               <div
                 key={app.applicationId}
                 className="space-y-3 border-b border-black/6 py-4 last:border-0"
@@ -249,8 +262,36 @@ export default function CandidateProfile({
                   documents={documents}
                   applicationDocumentLinks={applicationDocumentLinks}
                 />
+                {appOffer ? (
+                  <p className="text-sm text-black/60">
+                    Offer: {appOffer.offerNumber} · {appOffer.status}
+                  </p>
+                ) : null}
+                {appHistory.length > 0 ? (
+                  <div>
+                    <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                      Status History
+                    </p>
+                    <ul className="mt-2 space-y-1.5 text-sm text-black/65">
+                      {appHistory.map((entry) => (
+                        <li key={entry.id} className="flex justify-between gap-3">
+                          <span>
+                            {entry.fromStatus
+                              ? `${applicationStatusLabels[entry.fromStatus]} → ${applicationStatusLabels[entry.toStatus]}`
+                              : applicationStatusLabels[entry.toStatus]}
+                            {entry.note ? ` — ${entry.note}` : ""}
+                          </span>
+                          <span className="shrink-0 text-black/40">
+                            {formatDate(entry.createdAt)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
-            )}
+              );
+            }}
           />
         )}
 
@@ -261,16 +302,32 @@ export default function CandidateProfile({
             render={(interview) => (
               <div
                 key={interview.id}
-                className="grid grid-cols-2 gap-2 border-b border-black/6 py-3 text-sm last:border-0 sm:grid-cols-4"
+                className="space-y-2 border-b border-black/6 py-3 text-sm last:border-0"
               >
-                <span className="font-medium text-[var(--ca-app-ink)]">
-                  {interview.requisitionTitle}
-                </span>
-                <span className="text-black/45">{interview.interviewType}</span>
-                <span className="text-black/45">
-                  {formatDateTime(interview.scheduledAt)}
-                </span>
-                <span className="text-[var(--ca-blue)]">{interview.status}</span>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <span className="font-medium text-[var(--ca-app-ink)]">
+                    {interview.requisitionTitle}
+                  </span>
+                  <span className="text-black/45">{interview.interviewType}</span>
+                  <span className="text-black/45">
+                    {formatDateTime(interview.scheduledAt)}
+                  </span>
+                  <InterviewStatusActions
+                    interviewId={interview.id}
+                    applicationId={interview.applicationId}
+                    requisitionId={
+                      applications.find(
+                        (a) => a.applicationId === interview.applicationId,
+                      )?.requisitionId ?? ""
+                    }
+                    status={interview.status}
+                  />
+                </div>
+                <SubmitInterviewFeedbackButton
+                  interviewId={interview.id}
+                  applicationId={interview.applicationId}
+                  candidateId={candidate.id}
+                />
               </div>
             )}
           />
@@ -310,22 +367,55 @@ export default function CandidateProfile({
         )}
 
         {tab === "Activity" && (
-          <EmptyableList
-            items={activities}
-            emptyLabel="No activity recorded yet."
-            render={(activity) => (
-              <div key={activity.id} className="border-b border-black/6 py-3 text-sm last:border-0">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-[var(--ca-app-ink)]">
-                    {activity.summary}
-                  </span>
-                  <span className="text-black/45">
-                    {formatDateTime(activity.createdAt)}
-                  </span>
-                </div>
-              </div>
+          <div className="space-y-3">
+            <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+              Timeline
+            </p>
+            {(statusHistory ?? []).length === 0 && activities.length === 0 ? (
+              <p className="py-8 text-center text-sm text-black/40">
+                No activity recorded yet.
+              </p>
+            ) : (
+              <ul className="space-y-2">
+                {[
+                  ...(statusHistory ?? []).map((entry) => ({
+                    id: `hist-${entry.id}`,
+                    at: entry.createdAt,
+                    summary: entry.fromStatus
+                      ? `${applicationStatusLabels[entry.fromStatus]} → ${applicationStatusLabels[entry.toStatus]}`
+                      : applicationStatusLabels[entry.toStatus],
+                    note: entry.note,
+                  })),
+                  ...activities.map((activity) => ({
+                    id: activity.id,
+                    at: activity.createdAt,
+                    summary: activity.summary,
+                    note: undefined as string | undefined,
+                  })),
+                ]
+                  .sort(
+                    (a, b) =>
+                      new Date(b.at).getTime() - new Date(a.at).getTime(),
+                  )
+                  .map((item) => (
+                    <li
+                      key={item.id}
+                      className="flex justify-between gap-3 border-b border-black/6 py-3 text-sm last:border-0"
+                    >
+                      <span className="text-[var(--ca-app-ink)]">
+                        {item.summary}
+                        {item.note ? (
+                          <span className="text-black/50"> — {item.note}</span>
+                        ) : null}
+                      </span>
+                      <span className="shrink-0 text-black/45">
+                        {formatDateTime(item.at)}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
             )}
-          />
+          </div>
         )}
       </div>
     </div>

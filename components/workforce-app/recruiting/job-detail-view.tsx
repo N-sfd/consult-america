@@ -201,14 +201,18 @@ export default function JobDetailView({
               {Object.entries(detail.pipelineCounts)
                 .filter(([, count]) => count > 0)
                 .map(([status, count]) => (
-                  <div key={status} className="border border-black/8 px-3 py-2.5">
+                  <Link
+                    key={status}
+                    href={`/app/recruiting/jobs/${requisition.id}/pipeline?stage=${status}`}
+                    className="border border-black/8 px-3 py-2.5 transition-colors hover:border-[var(--ca-blue)]"
+                  >
                     <p className="text-xl font-medium text-[var(--ca-app-ink)]">
                       {count}
                     </p>
                     <p className="mt-0.5 text-xs text-black/50">
                       {applicationStatusLabels[status as keyof typeof applicationStatusLabels]}
                     </p>
-                  </div>
+                  </Link>
                 ))}
             </div>
             <Link
@@ -222,7 +226,7 @@ export default function JobDetailView({
 
         {tab === "Interviews" && (
           <p className="text-sm text-black/45">
-            Interview scheduling for this job isn&apos;t built yet.
+            Schedule and manage interviews from the pipeline board or candidate profile.
           </p>
         )}
 

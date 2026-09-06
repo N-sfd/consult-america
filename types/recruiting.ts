@@ -402,6 +402,32 @@ export const applicationStatusLabels: Record<ApplicationStatus, string> = {
   CLOSED: "Closed",
 };
 
+/** Candidate-facing labels (hide internal recruiting jargon). */
+export const candidateApplicationStatusLabels: Record<ApplicationStatus, string> =
+  {
+    APPLIED: "Application Received",
+    REVIEW: "Under Review",
+    RECRUITER_SCREEN: "Under Review",
+    HIRING_MANAGER_REVIEW: "Under Review",
+    INTERVIEW: "Interview",
+    FINAL_INTERVIEW: "Interview",
+    OFFER: "Offer",
+    HIRED: "Hired",
+    REJECTED: "Decision",
+    WITHDRAWN: "Withdrawn",
+    CLOSED: "Closed",
+  };
+
+export const offerStatusLabels: Record<OfferStatus, string> = {
+  DRAFT: "Draft",
+  PENDING_APPROVAL: "Pending Approval",
+  EXTENDED: "Offer Extended",
+  ACCEPTED: "Accepted",
+  DECLINED: "Declined",
+  WITHDRAWN: "Withdrawn",
+  EXPIRED: "Expired",
+};
+
 export const requisitionStatusLabels: Record<RequisitionStatus, string> = {
   DRAFT: "Draft",
   PENDING_APPROVAL: "Pending Approval",

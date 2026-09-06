@@ -8,7 +8,10 @@ import {
   seedRequisitions,
 } from "@/data/recruiting/seed";
 import { createSupabaseRecruitingRepository } from "@/lib/recruiting/supabase-repository";
-import { canTransitionOffer } from "@/lib/recruiting/status-machine";
+import {
+  assertApplicationTransition,
+  canTransitionOffer,
+} from "@/lib/recruiting/status-machine";
 import type {
   CandidateListItem,
   CandidateProfileDetail,
@@ -33,6 +36,7 @@ import {
   APPLICATION_TERMINAL_STATUSES,
   type Application,
   type ApplicationStatus,
+  type ApplicationStatusHistory,
   type CandidateProfile,
   type Job,
   type JobRequisition,
@@ -67,6 +71,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
   const applications: Application[] = [...seedApplications];
   const offers: Offer[] = [];
   const activities: RecruitingActivity[] = [];
+  const statusHistory: ApplicationStatusHistory[] = [];
 
   function departmentName(departmentId: string): string {
     return (
@@ -234,6 +239,14 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
         education: [],
         skills: [],
         documents: [],
+        statusHistory: statusHistory
+          .filter((h) =>
+            candidateApplications.some((a) => a.id === h.applicationId),
+          )
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          ),
         interviews: [],
         feedback: [],
         activities: activities
@@ -433,6 +446,14 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
         createdAt: now,
       });
 
+      statusHistory.push({
+        id: `hist-${crypto.randomUUID()}`,
+        applicationId,
+        toStatus: "APPLIED",
+        note: "Application submitted",
+        createdAt: now,
+      });
+
       return {
         candidateId: candidate.id,
         applicationId,
@@ -444,10 +465,23 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       const application = applications.find((a) => a.id === applicationId);
       if (!application) return;
 
-      const now = new Date().toISOString();
       const previousStatus = application.status;
+      if (previousStatus === status) return;
+
+      assertApplicationTransition(previousStatus, status);
+
+      const now = new Date().toISOString();
       application.status = status;
       application.updatedAt = now;
+
+      statusHistory.push({
+        id: `hist-${crypto.randomUUID()}`,
+        applicationId: application.id,
+        fromStatus: previousStatus,
+        toStatus: status,
+        note: undefined,
+        createdAt: now,
+      });
 
       activities.push({
         id: `act-${crypto.randomUUID()}`,
@@ -470,7 +504,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
         offerNumber: `OFFER-${new Date().getFullYear()}-${String(
           offers.length + 1,
         ).padStart(4, "0")}`,
-        status: "EXTENDED",
+        status: "DRAFT",
         baseSalary: input.baseSalary,
         hourlyRate: input.hourlyRate,
         currency: input.currency ?? "USD",
@@ -489,10 +523,29 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
         candidateId: application?.candidateId,
         applicationId: input.applicationId,
         requisitionId: application?.requisitionId,
-        activityType: "OFFER_EXTENDED",
-        summary: `Offer extended: ${offer.offerNumber}`,
+        activityType: "OFFER_CREATED",
+        summary: `Offer created: ${offer.offerNumber}`,
         createdAt: now,
       });
+
+      if (application && application.status !== "OFFER") {
+        try {
+          assertApplicationTransition(application.status, "OFFER");
+          const previous = application.status;
+          application.status = "OFFER";
+          application.updatedAt = now;
+          statusHistory.push({
+            id: `hist-${crypto.randomUUID()}`,
+            applicationId: application.id,
+            fromStatus: previous,
+            toStatus: "OFFER",
+            note: "Offer created",
+            createdAt: now,
+          });
+        } catch {
+          // Leave application status if transition is invalid.
+        }
+      }
 
       return offer;
     },

@@ -3,26 +3,26 @@
 import { revalidatePath } from "next/cache";
 
 import { seedBusinessUnits, seedDepartments } from "@/data/recruiting/seed";
-import { convertAcceptedOfferToEmployee } from "@/lib/hr/index";
+import { convertAcceptedOfferToEmployee, hrRepository } from "@/lib/hr/index";
 import { recruitingRepository } from "@/lib/recruiting";
 import { canConvertToEmployee } from "@/lib/recruiting/status-machine";
 
 export type ConvertHireActionResult =
-  | { ok: true; employeeNumber: string }
+  | { ok: true; employeeId: string; employeeNumber: string }
   | { ok: false; error: string };
 
 /**
- * ATS pipeline "Convert to Employee" action. Resolves the legal entity /
- * business unit from the requisition's department (single-legal-entity
- * reference data, same seed used elsewhere in the ATS UI) so the recruiter
- * doesn't have to re-enter org placement that's already implied by the job.
+ * Server-side hire transaction (idempotent).
+ * Calling twice for the same accepted offer returns the same employee.
  */
-export async function convertHire(
+export async function hireCandidate(
   applicationId: string,
-  requisitionId: string,
+  requisitionId?: string,
 ): Promise<ConvertHireActionResult> {
   const application = await recruitingRepository.getApplicationById(applicationId);
   if (!application) return { ok: false, error: "Application not found" };
+
+  const resolvedRequisitionId = requisitionId ?? application.requisitionId;
 
   const offer = await recruitingRepository.getOfferByApplicationId(applicationId);
   if (!offer) return { ok: false, error: "No offer found for this application" };
@@ -35,13 +35,29 @@ export async function convertHire(
   ) {
     return {
       ok: false,
-      error: "Application must be in OFFER stage with an accepted offer",
+      error: "Application must be in OFFER (or HIRED) with an accepted offer",
+    };
+  }
+
+  // Idempotent short-circuit: employee already linked to this offer.
+  const existingEmployees = await hrRepository.listEmployees();
+  const existing = existingEmployees.find((e) => e.sourceOfferId === offer.id);
+  if (existing) {
+    if (application.status !== "HIRED") {
+      await recruitingRepository.updateApplicationStage(applicationId, "HIRED");
+    }
+    revalidatePath(`/app/recruiting/jobs/${resolvedRequisitionId}/pipeline`);
+    revalidatePath("/workforce/people");
+    return {
+      ok: true,
+      employeeId: existing.id,
+      employeeNumber: existing.employeeNumber,
     };
   }
 
   const [profile, requisition] = await Promise.all([
     recruitingRepository.getCandidateProfile(application.candidateId),
-    recruitingRepository.getRequisitionById(requisitionId),
+    recruitingRepository.getRequisitionById(resolvedRequisitionId),
   ]);
   if (!profile) return { ok: false, error: "Candidate not found" };
   if (!requisition) return { ok: false, error: "Requisition not found" };
@@ -75,20 +91,34 @@ export async function convertHire(
       currency: offer.currency,
     });
 
-    // Set explicitly for both backends — the Supabase RPC sets HIRED
-    // internally, but the in-memory repository never does, so this can't
-    // be left as a side effect of one mode only.
+    // RPC already sets HIRED + history; memory path may not — keep both consistent.
     await recruitingRepository.updateApplicationStage(applicationId, "HIRED");
 
-    revalidatePath(`/app/recruiting/jobs/${requisitionId}/pipeline`);
-    revalidatePath(`/app/recruiting/jobs/${requisitionId}`);
+    revalidatePath(`/app/recruiting/jobs/${resolvedRequisitionId}/pipeline`);
+    revalidatePath(`/app/recruiting/jobs/${resolvedRequisitionId}`);
     revalidatePath("/app/recruiting/candidates");
+    revalidatePath("/workforce/people");
+    revalidatePath(`/app/recruiting/candidates/${application.candidateId}`);
 
-    return { ok: true, employeeNumber: result.employeeNumber };
+    return {
+      ok: true,
+      employeeId: result.employeeId,
+      employeeNumber: result.employeeNumber,
+    };
   } catch (error) {
     return {
       ok: false,
       error: error instanceof Error ? error.message : "Conversion failed",
     };
   }
+}
+
+/**
+ * ATS pipeline "Convert to Employee" action — delegates to hireCandidate.
+ */
+export async function convertHire(
+  applicationId: string,
+  requisitionId: string,
+): Promise<ConvertHireActionResult> {
+  return hireCandidate(applicationId, requisitionId);
 }

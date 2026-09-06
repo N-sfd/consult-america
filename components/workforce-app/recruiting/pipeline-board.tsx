@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 import { CandidateAvatar } from "@/components/workforce-app/recruiting/stage-badge";
 import OfferActions from "@/components/workforce-app/recruiting/offer-actions";
+import ScheduleInterviewButton from "@/components/workforce-app/recruiting/schedule-interview-button";
 import { moveApplicationStage } from "@/lib/recruiting/actions";
 import { formatDate } from "@/lib/recruiting/format";
+import { allowedApplicationTransitions } from "@/lib/recruiting/status-machine";
 import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import {
   APPLICATION_PIPELINE,
@@ -31,24 +33,54 @@ export default function PipelineBoard({
   cards,
   defaultEmploymentType,
   defaultWorkplaceType,
+  initialFocusStage = null,
 }: {
   requisitionId: string;
   jobTitle: string;
   cards: PipelineCard[];
   defaultEmploymentType: EmploymentType;
   defaultWorkplaceType: WorkplaceType;
+  initialFocusStage?: ApplicationStatus | null;
 }) {
   const [items, setItems] = useState(cards);
+  const [focusStage, setFocusStage] = useState<ApplicationStatus | null>(
+    initialFocusStage,
+  );
   const [isPending, startTransition] = useTransition();
 
+  const visibleStages = useMemo(
+    () =>
+      focusStage
+        ? APPLICATION_PIPELINE.filter((status) => status === focusStage)
+        : APPLICATION_PIPELINE,
+    [focusStage],
+  );
+
   function handleMove(applicationId: string, status: ApplicationStatus) {
+    const previous = items.find((i) => i.applicationId === applicationId);
     setItems((prev) =>
       prev.map((item) =>
         item.applicationId === applicationId ? { ...item, status } : item,
       ),
     );
     startTransition(async () => {
-      await moveApplicationStage(applicationId, status, requisitionId);
+      const result = await moveApplicationStage(
+        applicationId,
+        status,
+        requisitionId,
+      );
+      if (!result.ok) {
+        if (previous) {
+          setItems((prev) =>
+            prev.map((item) =>
+              item.applicationId === applicationId
+                ? { ...item, status: previous.status }
+                : item,
+            ),
+          );
+        }
+        window.alert(result.error);
+      }
     });
   }
 
@@ -62,24 +94,51 @@ export default function PipelineBoard({
         {jobTitle}
       </Link>
 
-      <h1 className="mt-2 text-[1.5rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
-        Pipeline
-      </h1>
+      <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
+        <h1 className="text-[1.5rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
+          Pipeline
+        </h1>
+        {focusStage ? (
+          <button
+            type="button"
+            onClick={() => setFocusStage(null)}
+            className="text-sm text-[var(--ca-blue)] hover:underline"
+          >
+            Show all stages
+          </button>
+        ) : (
+          <p className="text-sm text-black/45">
+            Click a stage header to filter
+          </p>
+        )}
+      </div>
 
       <div className="mt-5 overflow-x-auto">
         <div className="flex min-w-max gap-3 pb-2">
-          {APPLICATION_PIPELINE.map((status) => {
+          {visibleStages.map((status) => {
             const stageItems = items.filter((item) => item.status === status);
+            const count = items.filter((item) => item.status === status).length;
             return (
-              <div key={status} className="w-[220px] shrink-0">
-                <div className="flex items-center justify-between border-b border-black/10 pb-2">
+              <div
+                key={status}
+                className={focusStage ? "w-[320px] shrink-0" : "w-[220px] shrink-0"}
+              >
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFocusStage((current) =>
+                      current === status ? null : status,
+                    )
+                  }
+                  className="flex w-full items-center justify-between border-b border-black/10 pb-2 text-left transition-colors hover:border-[var(--ca-blue)]"
+                >
                   <p className="text-xs font-medium uppercase tracking-[0.08em] text-black/50">
                     {applicationStatusLabels[status]}
                   </p>
                   <span className="text-sm font-medium text-black/40">
-                    {stageItems.length}
+                    {count}
                   </span>
-                </div>
+                </button>
 
                 <div className="mt-2 space-y-2">
                   {stageItems.map((item) => (
@@ -110,13 +169,26 @@ export default function PipelineBoard({
                         }
                         className="mt-2 h-7 w-full border border-black/10 bg-white px-1.5 text-xs text-black/70 outline-none focus:border-[var(--ca-blue)] disabled:opacity-50"
                       >
-                        {APPLICATION_PIPELINE.map((option) => (
-                          <option key={option} value={option}>
-                            Move to {applicationStatusLabels[option]}
-                          </option>
-                        ))}
-                        <option value="REJECTED">Move to Rejected</option>
+                        <option value={item.status}>
+                          {applicationStatusLabels[item.status]}
+                        </option>
+                        {allowedApplicationTransitions(item.status).map(
+                          (option) => (
+                            <option key={option} value={option}>
+                              Move to {applicationStatusLabels[option]}
+                            </option>
+                          ),
+                        )}
                       </select>
+                      {(item.status === "INTERVIEW" ||
+                        item.status === "HIRING_MANAGER_REVIEW" ||
+                        item.status === "FINAL_INTERVIEW" ||
+                        item.status === "RECRUITER_SCREEN") && (
+                        <ScheduleInterviewButton
+                          applicationId={item.applicationId}
+                          requisitionId={requisitionId}
+                        />
+                      )}
                       <OfferActions
                         applicationId={item.applicationId}
                         requisitionId={requisitionId}
