@@ -20,14 +20,21 @@ export type DocumentPurpose =
   | "RESUME"
   | "COVER_LETTER"
   | "SUPPORTING"
-  | "OTHER";
+  | "OTHER"
+  | "PORTFOLIO";
+
+/** Spec alias for purpose / document_role. */
+export type DocumentRole = DocumentPurpose;
 
 export type CandidateDocumentRow = Document & {
   uploadedByUserId?: string;
+  archivedAt?: string;
 };
 
 export type ApplicationDocumentLink = ApplicationDocument & {
   purpose?: DocumentPurpose;
+  documentRole?: DocumentRole;
+  attachedAt?: string;
   document?: CandidateDocumentRow;
   requisitionTitle?: string;
 };
@@ -47,6 +54,7 @@ function mapRow(row: Record<string, unknown>): CandidateDocumentRow {
     updatedAt: (row.updated_at as string) ?? undefined,
     isPrimaryResume: Boolean(row.is_primary_resume),
     status: (row.status as Document["status"]) ?? "ACTIVE",
+    archivedAt: (row.archived_at as string) ?? undefined,
   };
 }
 
@@ -143,10 +151,23 @@ export async function getApplicationDocumentLinks(
     id: link.id as string,
     applicationId: link.application_id as string,
     documentId: link.document_id as string,
-    purpose: (link.purpose as DocumentPurpose | undefined) ?? undefined,
-    createdAt: link.created_at as string,
+    purpose: (link.document_role as DocumentPurpose | undefined) ??
+      (link.purpose as DocumentPurpose | undefined) ??
+      undefined,
+    documentRole: (link.document_role as DocumentRole | undefined) ??
+      (link.purpose as DocumentRole | undefined) ??
+      undefined,
+    createdAt: (link.attached_at as string) ?? (link.created_at as string),
+    attachedAt: (link.attached_at as string) ?? (link.created_at as string),
     document: docById.get(link.document_id as string),
   }));
+}
+
+/** Phase-5 API: documents linked to one application (immutable after submit). */
+export async function getApplicationDocuments(
+  applicationId: string,
+): Promise<ApplicationDocumentLink[]> {
+  return getApplicationDocumentLinks([applicationId]);
 }
 
 export async function linkDocumentToApplication(input: {
@@ -154,6 +175,7 @@ export async function linkDocumentToApplication(input: {
   applicationId: string;
   documentId: string;
   purpose?: DocumentPurpose;
+  documentRole?: DocumentRole;
 }): Promise<{ ok: true; documentId: string } | { ok: false; message: string }> {
   const client = getSupabaseServiceClient();
   if (!client) {
@@ -176,7 +198,8 @@ export async function linkDocumentToApplication(input: {
     return { ok: false, message: "Forbidden." };
   }
 
-  const purpose =
+  const documentRole =
+    input.documentRole ??
     input.purpose ??
     ((existing.document_type as string) === "RESUME"
       ? "RESUME"
@@ -184,15 +207,18 @@ export async function linkDocumentToApplication(input: {
         ? "COVER_LETTER"
         : "SUPPORTING");
 
+  const now = new Date().toISOString();
   const { error } = await client.from("application_documents").upsert(
     {
       id: `appdoc-${crypto.randomUUID()}`,
       application_id: input.applicationId,
       document_id: input.documentId,
-      purpose,
-      created_at: new Date().toISOString(),
+      purpose: documentRole,
+      document_role: documentRole,
+      attached_at: now,
+      created_at: now,
     },
-    { onConflict: "application_id,document_id" },
+    { onConflict: "application_id,document_id,document_role" },
   );
 
   if (error) return { ok: false, message: error.message };
@@ -349,6 +375,7 @@ export async function replacePrimaryResume(input: {
       .update({
         is_primary_resume: false,
         status: "ARCHIVED",
+        archived_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       })
       .eq("id", previousId);
@@ -357,10 +384,52 @@ export async function replacePrimaryResume(input: {
   return created;
 }
 
-export async function deleteCandidateDocument(input: {
+/** Archive without removing storage object or application_documents links. */
+export async function archiveCandidateDocument(input: {
   candidateId: string;
   documentId: string;
 }): Promise<{ ok: true } | { ok: false; message: string }> {
+  const client = getSupabaseServiceClient();
+  if (!client) {
+    return {
+      ok: false,
+      message: "Document uploads require the connected candidate environment.",
+    };
+  }
+
+  const { data: existing } = await client
+    .from("documents")
+    .select("candidate_id")
+    .eq("id", input.documentId)
+    .maybeSingle();
+
+  if (!existing) return { ok: false, message: "Document not found." };
+  if ((existing.candidate_id as string) !== input.candidateId) {
+    return { ok: false, message: "Forbidden." };
+  }
+
+  const now = new Date().toISOString();
+  const { error } = await client
+    .from("documents")
+    .update({
+      status: "ARCHIVED",
+      is_primary_resume: false,
+      archived_at: now,
+      updated_at: now,
+    })
+    .eq("id", input.documentId);
+
+  if (error) return { ok: false, message: error.message };
+  return { ok: true };
+}
+
+export async function deleteCandidateDocument(input: {
+  candidateId: string;
+  documentId: string;
+}): Promise<
+  | { ok: true; preservedForApplications: boolean }
+  | { ok: false; message: string }
+> {
   const client = getSupabaseServiceClient();
   if (!client) {
     return {
@@ -386,27 +455,21 @@ export async function deleteCandidateDocument(input: {
     .eq("document_id", input.documentId)
     .limit(1);
 
-  const now = new Date().toISOString();
   const linked = (links?.length ?? 0) > 0;
 
   if (linked) {
-    // Preserve application lineage — hide from portal, keep file + links.
-    await client
-      .from("documents")
-      .update({
-        status: "ARCHIVED",
-        is_primary_resume: false,
-        updated_at: now,
-      })
-      .eq("id", input.documentId);
-    return { ok: true };
+    const archived = await archiveCandidateDocument(input);
+    if (!archived.ok) return archived;
+    return { ok: true, preservedForApplications: true };
   }
 
+  const now = new Date().toISOString();
   await client
     .from("documents")
     .update({
       status: "DELETED",
       is_primary_resume: false,
+      archived_at: now,
       updated_at: now,
     })
     .eq("id", input.documentId);
@@ -414,7 +477,7 @@ export async function deleteCandidateDocument(input: {
   if (existing.storage_path) {
     await removeCandidateDocumentObject(existing.storage_path as string);
   }
-  return { ok: true };
+  return { ok: true, preservedForApplications: false };
 }
 
 export async function getSignedDocumentUrl(

@@ -25,9 +25,9 @@ export default function UseExistingResume({
   return (
     <div className="space-y-3">
       <p className="text-sm text-[var(--cr-text-secondary)]">
-        Use your saved resume, or upload a different resume for this application.
-        Uploading a different file creates one shared document record — it does
-        not duplicate into a separate application store.
+        Use your current resume for this application, or upload a different
+        version. Once submitted, this application keeps the exact document you
+        chose — replacing your primary resume later will not change it.
       </p>
       <div className="flex flex-wrap gap-2">
         <button
@@ -50,7 +50,7 @@ export default function UseExistingResume({
               : "border-[var(--cr-border)] text-[var(--cr-text)]"
           }`}
         >
-          Upload a different resume for this application
+          Upload a different resume
         </button>
       </div>
       {selected ? (
@@ -60,7 +60,7 @@ export default function UseExistingResume({
               {resume.fileName}
             </p>
             <p className="mt-1 text-xs text-[var(--cr-text-secondary)]">
-              Saved resume · {new Date(resume.uploadedAt).toLocaleDateString()}
+              Current resume · {new Date(resume.uploadedAt).toLocaleDateString()}
             </p>
           </div>
           {onView ? (

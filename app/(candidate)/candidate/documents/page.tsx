@@ -21,9 +21,18 @@ export default async function CandidateDocumentsPage({ searchParams }: PageProps
   const profile = await recruitingRepository.getCandidateProfile(
     session.candidateId,
   );
+
+  // Include ACTIVE + ARCHIVED so previous resume versions remain visible.
   const documents = (profile?.documents ?? []).filter(
-    (doc) => doc.status === "ACTIVE" || !doc.status,
+    (doc) => doc.status !== "DELETED",
   );
+
+  const applicationUsageByDocumentId: Record<string, number> = {};
+  for (const link of profile?.applicationDocumentLinks ?? []) {
+    applicationUsageByDocumentId[link.documentId] =
+      (applicationUsageByDocumentId[link.documentId] ?? 0) + 1;
+  }
+
   const autoOpenUpload =
     params.upload === "resume"
       ? "resume"
@@ -45,6 +54,7 @@ export default async function CandidateDocumentsPage({ searchParams }: PageProps
 
       <CandidateDocumentsPanel
         initialDocuments={documents}
+        applicationUsageByDocumentId={applicationUsageByDocumentId}
         supabaseConnected={isSupabaseConfigured()}
         autoOpenUpload={autoOpenUpload}
       />

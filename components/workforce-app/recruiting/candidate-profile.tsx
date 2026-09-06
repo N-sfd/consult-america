@@ -4,7 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
-import RecruiterCandidateDocuments from "@/components/workforce-app/recruiting/recruiter-candidate-documents";
+import RecruiterCandidateDocuments, {
+  ApplicationSubmittedDocuments,
+} from "@/components/workforce-app/recruiting/recruiter-candidate-documents";
 import { formatDate, formatDateTime } from "@/lib/recruiting/format";
 import type { CandidateProfileDetail as CandidateProfileData } from "@/lib/recruiting/repository";
 import { cn } from "@/lib/utils";
@@ -230,16 +232,23 @@ export default function CandidateProfile({
             render={(app) => (
               <div
                 key={app.applicationId}
-                className="grid grid-cols-2 gap-2 border-b border-black/6 py-3 text-sm last:border-0 sm:grid-cols-4"
+                className="space-y-3 border-b border-black/6 py-4 last:border-0"
               >
-                <span className="font-medium text-[var(--ca-app-ink)]">
-                  {app.requisitionTitle}
-                </span>
-                <span className="text-black/45">{app.applicationNumber}</span>
-                <span className="text-[var(--ca-blue)]">
-                  {applicationStatusLabels[app.status]}
-                </span>
-                <span className="text-black/45">{formatDate(app.appliedAt)}</span>
+                <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
+                  <span className="font-medium text-[var(--ca-app-ink)]">
+                    {app.requisitionTitle}
+                  </span>
+                  <span className="text-black/45">{app.applicationNumber}</span>
+                  <span className="text-[var(--ca-blue)]">
+                    {applicationStatusLabels[app.status]}
+                  </span>
+                  <span className="text-black/45">{formatDate(app.appliedAt)}</span>
+                </div>
+                <ApplicationSubmittedDocuments
+                  applicationId={app.applicationId}
+                  documents={documents}
+                  applicationDocumentLinks={applicationDocumentLinks}
+                />
               </div>
             )}
           />

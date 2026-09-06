@@ -226,13 +226,16 @@ export type Document = {
   status?: "ACTIVE" | "ARCHIVED" | "DELETED";
 };
 
-/** Documents attached to a specific application (a resume can attach to several). */
+/** Documents attached to a specific application (immutable after submit). */
 export type ApplicationDocument = {
   id: string;
   applicationId: string;
   documentId: string;
-  purpose?: "RESUME" | "COVER_LETTER" | "SUPPORTING" | "OTHER";
+  /** Attachment role at submission (`document_role` in DB; `purpose` kept as alias). */
+  purpose?: "RESUME" | "COVER_LETTER" | "SUPPORTING" | "OTHER" | "PORTFOLIO";
+  documentRole?: "RESUME" | "COVER_LETTER" | "SUPPORTING" | "OTHER" | "PORTFOLIO";
   createdAt: string;
+  attachedAt?: string;
 };
 
 /** Relationship between a candidate and a job. */

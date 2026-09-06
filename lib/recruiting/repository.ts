@@ -98,8 +98,11 @@ export type CandidateProfileDetail = {
     applicationId: string;
     documentId: string;
     purpose?: ApplicationDocument["purpose"];
+    documentRole?: ApplicationDocument["documentRole"];
     createdAt: string;
+    attachedAt?: string;
     requisitionTitle?: string;
+    appliedAt?: string;
   }>;
   interviews: CandidateInterviewSummary[];
   feedback: InterviewFeedback[];

@@ -159,7 +159,12 @@ export async function deleteCandidateDocumentAction(
     });
     if (!result.ok) return { ok: false, message: result.message };
     revalidateDocumentViews(actor.session.candidateId);
-    return { ok: true, message: "Document deleted." };
+    return {
+      ok: true,
+      message: result.preservedForApplications
+        ? "This resume is archived and kept because a submitted application still references it."
+        : "Document deleted.",
+    };
   } catch (error) {
     return {
       ok: false,

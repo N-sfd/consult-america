@@ -13,25 +13,35 @@ import DocumentRow, {
   DocumentCard,
   ResumeCard,
 } from "@/components/documents/document-row";
+import {
+  formatDocumentBytes,
+  formatDocumentUploaded,
+} from "@/components/documents/format";
 import type { Document, DocumentType } from "@/types/recruiting";
 import { DOCUMENT_TYPE_LABELS } from "@/lib/storage/candidate-documents";
 
 type Props = {
   initialDocuments: Document[];
+  /** How many submitted applications reference each document id */
+  applicationUsageByDocumentId?: Record<string, number>;
   supabaseConnected: boolean;
   autoOpenUpload?: "resume" | "other" | null;
 };
 
 export default function CandidateDocumentsPanel({
   initialDocuments,
+  applicationUsageByDocumentId = {},
   supabaseConnected,
   autoOpenUpload = null,
 }: Props) {
-  const activeDocs = useMemo(
-    () => initialDocuments.filter((d) => d.status !== "ARCHIVED" && d.status !== "DELETED"),
+  const visibleDocs = useMemo(
+    () =>
+      initialDocuments.filter(
+        (d) => d.status === "ACTIVE" || d.status === "ARCHIVED" || !d.status,
+      ),
     [initialDocuments],
   );
-  const [documents, setDocuments] = useState(activeDocs);
+  const [documents, setDocuments] = useState(visibleDocs);
   const [panel, setPanel] = useState<"closed" | "resume" | "other">(
     autoOpenUpload === "resume"
       ? "resume"
@@ -46,8 +56,8 @@ export default function CandidateDocumentsPanel({
   const [pending, startTransition] = useTransition();
 
   useEffect(() => {
-    setDocuments(activeDocs);
-  }, [activeDocs]);
+    setDocuments(visibleDocs);
+  }, [visibleDocs]);
 
   useEffect(() => {
     if (autoOpenUpload === "resume") {
@@ -58,14 +68,40 @@ export default function CandidateDocumentsPanel({
 
   const primaryResume = useMemo(
     () =>
-      documents.find((d) => d.documentType === "RESUME" && d.isPrimaryResume) ??
-      documents.find((d) => d.documentType === "RESUME"),
+      documents.find(
+        (d) =>
+          d.documentType === "RESUME" &&
+          d.isPrimaryResume &&
+          d.status !== "ARCHIVED" &&
+          d.status !== "DELETED",
+      ) ??
+      documents.find(
+        (d) =>
+          d.documentType === "RESUME" &&
+          (d.status === "ACTIVE" || !d.status),
+      ),
     [documents],
   );
 
-  const supporting = useMemo(
-    () => documents.filter((d) => d.id !== primaryResume?.id),
+  const previousResumes = useMemo(
+    () =>
+      documents.filter(
+        (d) =>
+          d.documentType === "RESUME" &&
+          d.id !== primaryResume?.id &&
+          d.status !== "DELETED",
+      ),
     [documents, primaryResume],
+  );
+
+  const supporting = useMemo(
+    () =>
+      documents.filter(
+        (d) =>
+          d.documentType !== "RESUME" &&
+          (d.status === "ACTIVE" || !d.status),
+      ),
+    [documents],
   );
 
   function openSigned(documentId: string, download = false) {
@@ -122,15 +158,20 @@ export default function CandidateDocumentsPanel({
   }
 
   function removeDocument(documentId: string) {
-    if (!window.confirm("Remove this document from your portal?")) return;
+    const usage = applicationUsageByDocumentId[documentId] ?? 0;
+    const confirmMsg =
+      usage > 0
+        ? "This resume was used on a submitted application. It will be archived and kept for history — not permanently deleted. Continue?"
+        : "Remove this document?";
+    if (!window.confirm(confirmMsg)) return;
     startTransition(async () => {
       const result = await deleteCandidateDocumentAction(documentId);
       if (!result.ok) {
         setError(result.message);
         return;
       }
-      setDocuments((prev) => prev.filter((d) => d.id !== documentId));
       setMessage(result.message);
+      window.location.assign("/candidate/documents");
     });
   }
 
@@ -160,6 +201,11 @@ export default function CandidateDocumentsPanel({
 
       <div>
         <h2 className="text-lg font-semibold text-[#073B3A]">My Documents</h2>
+        <p className="mt-1 text-sm text-[#5B6D6B]">
+          Your current resume is separate from resumes already submitted with
+          applications. Replacing your primary resume does not change past
+          applications.
+        </p>
       </div>
 
       <ResumeCard
@@ -192,6 +238,66 @@ export default function CandidateDocumentsPanel({
           </button>
         }
       />
+      {primaryResume ? (
+        <p className="-mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#176A63]">
+          Current
+        </p>
+      ) : null}
+
+      {previousResumes.length > 0 ? (
+        <section className="rounded-xl border border-[#DDE6E3] bg-white p-5">
+          <h2 className="text-base font-semibold text-[#073B3A]">
+            Previous Resumes
+          </h2>
+          <p className="mt-1 text-sm text-[#5B6D6B]">
+            Earlier versions kept for application history.
+          </p>
+          <ul className="mt-4 divide-y divide-[#E8EFEC]">
+            {previousResumes.map((doc) => {
+              const usage = applicationUsageByDocumentId[doc.id] ?? 0;
+              return (
+                <li
+                  key={doc.id}
+                  className="flex flex-wrap items-center justify-between gap-3 py-3"
+                >
+                  <div className="min-w-0">
+                    <p className="font-medium text-[#073B3A]">{doc.fileName}</p>
+                    <p className="mt-1 text-sm text-[#5B6D6B]">
+                      Uploaded {formatDocumentUploaded(doc.uploadedAt)}
+                      {doc.fileSize
+                        ? ` · ${formatDocumentBytes(doc.fileSize)}`
+                        : ""}
+                      {usage > 0
+                        ? ` · Used for ${usage} application${usage === 1 ? "" : "s"}`
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3 text-sm font-semibold">
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => openSigned(doc.id)}
+                      className="text-[#176A63]"
+                    >
+                      View
+                    </button>
+                    {usage === 0 ? (
+                      <button
+                        type="button"
+                        disabled={pending}
+                        onClick={() => removeDocument(doc.id)}
+                        className="text-[#B83A3A]"
+                      >
+                        Delete
+                      </button>
+                    ) : null}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
 
       {panel !== "closed" ? (
         <div className="space-y-3">
@@ -256,70 +362,47 @@ export default function CandidateDocumentsPanel({
         </div>
       )}
 
-      <section>
-        {documents.length === 0 ? null : (
-          <>
-            <div className="mt-1 hidden overflow-hidden rounded-xl border border-[#DDE6E3] bg-white md:block">
-              <table className="w-full text-left text-sm">
-                <thead className="border-b border-[#E1ECE8] bg-[#F7FAF9] text-[0.7rem] uppercase tracking-[0.1em] text-[#8A9A97]">
-                  <tr>
-                    <th className="px-4 py-3 font-semibold">Document</th>
-                    <th className="px-4 py-3 font-semibold">Type</th>
-                    <th className="px-4 py-3 font-semibold">Uploaded</th>
-                    <th className="px-4 py-3 font-semibold">Size</th>
-                    <th className="px-4 py-3 font-semibold">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#E8EFEC]">
-                  {documents.map((doc) => (
-                    <DocumentRow
-                      key={doc.id}
-                      document={doc}
-                      pending={pending}
-                      onView={() => openSigned(doc.id)}
-                      onDownload={() => openSigned(doc.id, true)}
-                      onReplace={
-                        doc.documentType === "RESUME"
-                          ? () => {
-                              setReplaceId(doc.id);
-                              setPanel("resume");
-                            }
-                          : undefined
-                      }
-                      onDelete={() => removeDocument(doc.id)}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="mt-3 space-y-3 md:hidden">
-              {documents.map((doc) => (
-                <DocumentCard
-                  key={doc.id}
-                  document={doc}
-                  pending={pending}
-                  onView={() => openSigned(doc.id)}
-                  onDownload={() => openSigned(doc.id, true)}
-                  onReplace={
-                    doc.documentType === "RESUME"
-                      ? () => {
-                          setReplaceId(doc.id);
-                          setPanel("resume");
-                        }
-                      : undefined
-                  }
-                  onDelete={() => removeDocument(doc.id)}
-                />
-              ))}
-            </div>
-          </>
-        )}
-        {supporting.length === 0 && primaryResume ? (
-          <p className="mt-3 text-sm text-[#8A9A97]">
-            Supporting documents will appear here after you upload them.
-          </p>
-        ) : null}
-      </section>
+      {supporting.length > 0 ? (
+        <section>
+          <div className="mt-1 hidden overflow-hidden rounded-xl border border-[#DDE6E3] bg-white md:block">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-[#E1ECE8] bg-[#F7FAF9] text-[0.7rem] uppercase tracking-[0.1em] text-[#8A9A97]">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Document</th>
+                  <th className="px-4 py-3 font-semibold">Type</th>
+                  <th className="px-4 py-3 font-semibold">Uploaded</th>
+                  <th className="px-4 py-3 font-semibold">Size</th>
+                  <th className="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E8EFEC]">
+                {supporting.map((doc) => (
+                  <DocumentRow
+                    key={doc.id}
+                    document={doc}
+                    pending={pending}
+                    onView={() => openSigned(doc.id)}
+                    onDownload={() => openSigned(doc.id, true)}
+                    onDelete={() => removeDocument(doc.id)}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-3 space-y-3 md:hidden">
+            {supporting.map((doc) => (
+              <DocumentCard
+                key={doc.id}
+                document={doc}
+                pending={pending}
+                onView={() => openSigned(doc.id)}
+                onDownload={() => openSigned(doc.id, true)}
+                onDelete={() => removeDocument(doc.id)}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -635,6 +635,9 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       const applicationTitleById = new Map(
         applications.map((app) => [app.applicationId, app.requisitionTitle]),
       );
+      const applicationAppliedAtById = new Map(
+        applications.map((app) => [app.applicationId, app.appliedAt]),
+      );
 
       const profile: CandidateProfileDetail = {
         candidate: mapCandidate(candidateRow),
@@ -649,14 +652,30 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           id: row.id as string,
           applicationId: row.application_id as string,
           documentId: row.document_id as string,
-          purpose: row.purpose as
+          purpose: ((row.document_role as string) ??
+            (row.purpose as string)) as
             | "RESUME"
             | "COVER_LETTER"
             | "SUPPORTING"
             | "OTHER"
+            | "PORTFOLIO"
             | undefined,
-          createdAt: row.created_at as string,
+          documentRole: ((row.document_role as string) ??
+            (row.purpose as string)) as
+            | "RESUME"
+            | "COVER_LETTER"
+            | "SUPPORTING"
+            | "OTHER"
+            | "PORTFOLIO"
+            | undefined,
+          createdAt:
+            (row.attached_at as string) ?? (row.created_at as string),
+          attachedAt:
+            (row.attached_at as string) ?? (row.created_at as string),
           requisitionTitle: applicationTitleById.get(
+            row.application_id as string,
+          ),
+          appliedAt: applicationAppliedAtById.get(
             row.application_id as string,
           ),
         })),
