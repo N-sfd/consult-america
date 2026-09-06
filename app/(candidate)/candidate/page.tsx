@@ -97,7 +97,11 @@ export default async function CandidatePortalHomePage() {
         </div>
         <div className="ca-platform-card ca-platform-kpi">
           <p className="ca-platform-kpi-label">Documents on File</p>
-          <p className="ca-platform-kpi-value">{profile?.documents.length ?? 0}</p>
+          <p className="ca-platform-kpi-value">
+            {(profile?.documents ?? []).filter(
+              (d) => d.status === "ACTIVE" || !d.status,
+            ).length}
+          </p>
         </div>
       </section>
 

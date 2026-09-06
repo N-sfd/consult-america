@@ -231,6 +231,7 @@ export type ApplicationDocument = {
   id: string;
   applicationId: string;
   documentId: string;
+  purpose?: "RESUME" | "COVER_LETTER" | "SUPPORTING" | "OTHER";
   createdAt: string;
 };
 

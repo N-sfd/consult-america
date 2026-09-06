@@ -62,8 +62,15 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
     );
     const resume =
       profile?.documents.find(
-        (d) => d.documentType === "RESUME" && d.isPrimaryResume,
-      ) ?? profile?.documents.find((d) => d.documentType === "RESUME");
+        (d) =>
+          d.documentType === "RESUME" &&
+          d.isPrimaryResume &&
+          (d.status === "ACTIVE" || !d.status),
+      ) ??
+      profile?.documents.find(
+        (d) =>
+          d.documentType === "RESUME" && (d.status === "ACTIVE" || !d.status),
+      );
     if (resume) {
       existingResume = {
         id: resume.id,

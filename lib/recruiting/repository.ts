@@ -1,6 +1,7 @@
 import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import type {
   Application,
+  ApplicationDocument,
   ApplicationStatus,
   CandidateProfile,
   Document,
@@ -91,6 +92,15 @@ export type CandidateProfileDetail = {
   education: Education[];
   skills: CandidateSkill[];
   documents: Document[];
+  /** application_documents join rows for this candidate's applications */
+  applicationDocumentLinks?: Array<{
+    id: string;
+    applicationId: string;
+    documentId: string;
+    purpose?: ApplicationDocument["purpose"];
+    createdAt: string;
+    requisitionTitle?: string;
+  }>;
   interviews: CandidateInterviewSummary[];
   feedback: InterviewFeedback[];
   activities: RecruitingActivity[];

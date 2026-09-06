@@ -97,6 +97,7 @@ export async function submitJobApplication(
     } else {
       const resumeFile = resumeFormData?.get("resume");
       if (resumeFile instanceof File && resumeFile.size > 0) {
+        const setAsPrimary = resumeFormData?.get("setAsPrimary") !== "0";
         const bytes = await resumeFile.arrayBuffer();
         await persistResumeForApplication({
           candidateId: result.candidateId,
@@ -105,7 +106,7 @@ export async function submitJobApplication(
           mimeType: resumeFile.type || "application/octet-stream",
           fileSize: resumeFile.size,
           bytes,
-          setAsPrimary: true,
+          setAsPrimary,
         });
       }
     }

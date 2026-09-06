@@ -522,7 +522,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           .from("documents")
           .select("*")
           .eq("candidate_id", candidateId)
-          .neq("status", "DELETED")
+          .in("status", ["ACTIVE", "ARCHIVED"])
           .order("uploaded_at", { ascending: false }),
         client
           .from("recruiting_activities")
@@ -625,6 +625,17 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           )
         : { data: [] as Record<string, unknown>[] };
 
+      const { data: appDocRows } = applicationIds.length
+        ? await client
+            .from("application_documents")
+            .select("*")
+            .in("application_id", applicationIds)
+        : { data: [] as Record<string, unknown>[] };
+
+      const applicationTitleById = new Map(
+        applications.map((app) => [app.applicationId, app.requisitionTitle]),
+      );
+
       const profile: CandidateProfileDetail = {
         candidate: mapCandidate(candidateRow),
         applications,
@@ -634,6 +645,21 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           mapSkill(row, skillNameById.get(row.skill_id as string) ?? "—"),
         ),
         documents: (documentRows ?? []).map(mapDocument),
+        applicationDocumentLinks: (appDocRows ?? []).map((row) => ({
+          id: row.id as string,
+          applicationId: row.application_id as string,
+          documentId: row.document_id as string,
+          purpose: row.purpose as
+            | "RESUME"
+            | "COVER_LETTER"
+            | "SUPPORTING"
+            | "OTHER"
+            | undefined,
+          createdAt: row.created_at as string,
+          requisitionTitle: applicationTitleById.get(
+            row.application_id as string,
+          ),
+        })),
         interviews,
         feedback: (feedbackRows ?? []).map(mapFeedback),
         activities: (activityRows ?? []).map(mapActivity),

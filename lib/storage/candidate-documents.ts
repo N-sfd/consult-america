@@ -85,17 +85,21 @@ export function validateCandidateDocumentFile(input: {
 }
 
 /**
- * Storage path convention for private bucket policies:
- * `{profile_id}/{document_id}-{sanitized_filename}`
- * (folder[1] must equal current_profile_id() for RLS).
+ * Storage path convention for private bucket:
+ * `{candidate_id}/{document_id}/{sanitized_filename}`
+ *
+ * profileId is accepted for callers that already resolved ownership; path
+ * uses candidate_id as the source-of-truth folder (service-role uploads).
  */
 export function buildCandidateDocumentStoragePath(input: {
-  profileId: string;
+  candidateId: string;
   documentId: string;
   fileName: string;
+  /** @deprecated Prefer candidateId; kept for call-site compatibility. */
+  profileId?: string;
 }): string {
   const safe = sanitizeDocumentFileName(input.fileName) || "document";
-  return `${input.profileId}/${input.documentId}-${safe}`;
+  return `${input.candidateId}/${input.documentId}/${safe}`;
 }
 
 export async function uploadCandidateDocumentObject(input: {

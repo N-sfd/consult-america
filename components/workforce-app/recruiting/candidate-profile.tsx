@@ -29,7 +29,7 @@ export default function CandidateProfile({
   profile: CandidateProfileData;
 }) {
   const [tab, setTab] = useState<Tab>("Overview");
-  const { candidate, applications, experience, education, skills, documents, interviews, feedback, activities } =
+  const { candidate, applications, experience, education, skills, documents, applicationDocumentLinks, interviews, feedback, activities } =
     profile;
 
   const latestApplication = [...applications].sort(
@@ -165,6 +165,9 @@ export default function CandidateProfile({
         {tab === "Resume" && (
           <RecruiterCandidateDocuments
             documents={documents.filter((d) => d.documentType === "RESUME")}
+            applicationDocumentLinks={(applicationDocumentLinks ?? []).filter(
+              (l) => l.purpose === "RESUME" || !l.purpose,
+            )}
           />
         )}
 
@@ -291,7 +294,10 @@ export default function CandidateProfile({
         )}
 
         {tab === "Documents" && (
-          <RecruiterCandidateDocuments documents={documents} />
+          <RecruiterCandidateDocuments
+            documents={documents}
+            applicationDocumentLinks={applicationDocumentLinks}
+          />
         )}
 
         {tab === "Activity" && (

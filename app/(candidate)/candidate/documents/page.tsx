@@ -22,7 +22,7 @@ export default async function CandidateDocumentsPage({ searchParams }: PageProps
     session.candidateId,
   );
   const documents = (profile?.documents ?? []).filter(
-    (doc) => doc.status !== "DELETED",
+    (doc) => doc.status === "ACTIVE" || !doc.status,
   );
   const autoOpenUpload =
     params.upload === "resume"

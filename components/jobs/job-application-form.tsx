@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
 
 import ResumeUpload from "@/components/jobs/resume-upload";
+import UseExistingResume from "@/components/documents/use-existing-resume";
 import { submitJobApplication } from "@/lib/recruiting/actions";
 import type { SubmitApplicationResult } from "@/lib/recruiting/repository";
 
@@ -118,6 +119,12 @@ export default function JobApplicationForm({
           ? (() => {
               const fd = new FormData();
               fd.set("resume", resumeFile);
+              // Application-specific upload should not silently steal primary
+              // when a saved resume already exists.
+              fd.set(
+                "setAsPrimary",
+                existingResume ? "0" : "1",
+              );
               return fd;
             })()
           : null;
@@ -528,49 +535,15 @@ function DocumentsStep({
       </h2>
 
       {existingResume ? (
-        <div className="space-y-3">
-          <p className="text-sm text-[var(--cr-text-secondary)]">
-            You already have a resume on file in the Candidate Portal. Use it
-            for this application, or upload a different file.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setResumeMode("existing");
-                setResumeFile(null);
-              }}
-              className={`rounded-lg border px-3 py-2 text-sm font-semibold ${
-                resumeMode === "existing"
-                  ? "border-[var(--cr-blue)] bg-[var(--cr-bg-soft)] text-[var(--cr-navy)]"
-                  : "border-[var(--cr-border)] text-[var(--cr-text)]"
-              }`}
-            >
-              Use existing resume
-            </button>
-            <button
-              type="button"
-              onClick={() => setResumeMode("upload")}
-              className={`rounded-lg border px-3 py-2 text-sm font-semibold ${
-                resumeMode === "upload"
-                  ? "border-[var(--cr-blue)] bg-[var(--cr-bg-soft)] text-[var(--cr-navy)]"
-                  : "border-[var(--cr-border)] text-[var(--cr-text)]"
-              }`}
-            >
-              Upload a different resume
-            </button>
-          </div>
-          {resumeMode === "existing" ? (
-            <div className="rounded-lg border border-[var(--cr-border)] bg-white px-4 py-3">
-              <p className="text-sm font-medium text-[var(--cr-text)]">
-                {existingResume.fileName}
-              </p>
-              <p className="mt-1 text-xs text-[var(--cr-text-secondary)]">
-                On file · {new Date(existingResume.uploadedAt).toLocaleDateString()}
-              </p>
-            </div>
-          ) : null}
-        </div>
+        <UseExistingResume
+          resume={existingResume}
+          selected={resumeMode === "existing"}
+          onSelect={() => {
+            setResumeMode("existing");
+            setResumeFile(null);
+          }}
+          onChooseUpload={() => setResumeMode("upload")}
+        />
       ) : null}
 
       {resumeMode === "upload" ? (
