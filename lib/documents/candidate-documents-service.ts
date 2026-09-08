@@ -14,6 +14,7 @@ import {
   uploadCandidateDocumentObject,
   validateCandidateDocumentFile,
 } from "@/lib/storage/candidate-documents";
+import { decideApplicationDocumentLink } from "@/lib/documents/application-document-lineage";
 import type { ApplicationDocument, Document, DocumentType } from "@/types/recruiting";
 
 export type DocumentPurpose =
@@ -207,19 +208,33 @@ export async function linkDocumentToApplication(input: {
         ? "COVER_LETTER"
         : "SUPPORTING");
 
+  const { data: existingLinks } = await client
+    .from("application_documents")
+    .select("document_id")
+    .eq("application_id", input.applicationId)
+    .eq("document_role", documentRole);
+
+  const decision = decideApplicationDocumentLink({
+    existingDocumentId: (existingLinks?.[0]?.document_id as string) ?? null,
+    requestedDocumentId: input.documentId,
+  });
+  if (decision.action === "keep") {
+    return { ok: true, documentId: decision.documentId };
+  }
+  if (decision.action === "reject") {
+    return { ok: false, message: decision.reason };
+  }
+
   const now = new Date().toISOString();
-  const { error } = await client.from("application_documents").upsert(
-    {
-      id: `appdoc-${crypto.randomUUID()}`,
+  const { error } = await client.from("application_documents").insert({
+    id: `appdoc-${crypto.randomUUID()}`,
       application_id: input.applicationId,
       document_id: input.documentId,
       purpose: documentRole,
       document_role: documentRole,
       attached_at: now,
       created_at: now,
-    },
-    { onConflict: "application_id,document_id,document_role" },
-  );
+  });
 
   if (error) return { ok: false, message: error.message };
   return { ok: true, documentId: input.documentId };

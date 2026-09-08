@@ -4,6 +4,13 @@
  */
 import pg from "pg";
 
+let failed = 0;
+
+function check(ok: boolean, pass: string, fail: string) {
+  if (!ok) failed += 1;
+  console.log(ok ? pass : fail);
+}
+
 async function main() {
   const databaseUrl = process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
   if (!databaseUrl) throw new Error("Missing DATABASE_URL");
@@ -43,27 +50,27 @@ async function main() {
   }
 
   const stranger = await asUser(null, "SELECT count(*)::int AS n FROM offers");
-  console.log(
-    Number(stranger.rows[0].n) === 0
-      ? "PASS  authenticated stranger cannot read offers"
-      : `FAIL  stranger saw ${stranger.rows[0].n} offers`,
+  check(
+    Number(stranger.rows[0].n) === 0,
+    "PASS  authenticated stranger cannot read offers",
+    `FAIL  stranger saw ${stranger.rows[0].n} offers`,
   );
 
   const audit = await asUser(null, "SELECT count(*)::int AS n FROM audit_logs");
-  console.log(
-    Number(audit.rows[0].n) === 0
-      ? "PASS  authenticated stranger cannot read audit_logs"
-      : `FAIL  stranger saw ${audit.rows[0].n} audit rows`,
+  check(
+    Number(audit.rows[0].n) === 0,
+    "PASS  authenticated stranger cannot read audit_logs",
+    `FAIL  stranger saw ${audit.rows[0].n} audit rows`,
   );
 
   const payroll = await asUser(
     null,
     "SELECT count(*)::int AS n FROM compensation_records",
   );
-  console.log(
-    Number(payroll.rows[0].n) === 0
-      ? "PASS  authenticated stranger cannot read compensation"
-      : `FAIL  stranger saw ${payroll.rows[0].n} compensation rows`,
+  check(
+    Number(payroll.rows[0].n) === 0,
+    "PASS  authenticated stranger cannot read compensation",
+    `FAIL  stranger saw ${payroll.rows[0].n} compensation rows`,
   );
 
   if (candidates.rows.length >= 1) {
@@ -72,22 +79,25 @@ async function main() {
       self.auth_user_id,
       "SELECT count(*)::int AS n FROM candidate_profiles",
     );
-    console.log(
-      Number(own.rows[0].n) === 1
-        ? "PASS  candidate can read own profile only"
-        : `FAIL  candidate profile rows=${own.rows[0].n}`,
+    check(
+      Number(own.rows[0].n) === 1,
+      "PASS  candidate can read own profile only",
+      `FAIL  candidate profile rows=${own.rows[0].n}`,
     );
 
     if (candidates.rows.length >= 2) {
       const other = candidates.rows[1];
-      const cross = await asUser(
+      const visible = await asUser(
         self.auth_user_id,
-        `SELECT count(*)::int AS n FROM candidate_profiles WHERE id = '${other.candidate_id}'`,
+        "SELECT id FROM candidate_profiles",
       );
-      console.log(
-        Number(cross.rows[0].n) === 0
-          ? "PASS  candidate cannot read another candidate profile"
-          : "FAIL  candidate read another candidate profile",
+      const sawOther = visible.rows.some(
+        (row: { id: string }) => row.id === other.candidate_id,
+      );
+      check(
+        !sawOther,
+        "PASS  candidate cannot read another candidate profile",
+        "FAIL  candidate read another candidate profile",
       );
     } else {
       console.log("SKIP  only one linked candidate; cross-candidate check skipped");
@@ -97,6 +107,10 @@ async function main() {
   }
 
   await client.end();
+  if (failed > 0) {
+    console.error(`\n${failed} authenticated RLS check(s) failed`);
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {

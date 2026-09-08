@@ -16,6 +16,7 @@ if (!url || !anonKey || !databaseUrl) {
 }
 
 const denied = new Set(["42501", "PGRST301", "PGRST116"]);
+let failed = 0;
 
 async function expectDenied(
   label: string,
@@ -24,6 +25,7 @@ async function expectDenied(
   const { error, count } = await run();
   const blocked =
     Boolean(error) || count === 0 || count === null;
+  if (!blocked) failed += 1;
   const status = blocked ? "PASS" : "FAIL";
   console.log(
     `${status}  ${label}  ${
@@ -39,6 +41,7 @@ async function expectAllowed(
 ) {
   const { error, count } = await run();
   const ok = !error;
+  if (!ok) failed += 1;
   console.log(
     `${ok ? "PASS" : "FAIL"}  ${label}  ${
       error ? `error=${error.code ?? error.message}` : `rows=${count}`
@@ -63,9 +66,10 @@ async function main() {
        AND NOT c.relrowsecurity
      ORDER BY 1
   `);
+  if (open.rows.length > 0) failed += 1;
   console.log(
     open.rows.length === 0
-      ? "PASS  no public tables with RLS disabled"
+      ? "PASS  no public tables with RLS disabled (rls_disabled_in_public cleared)"
       : `FAIL  RLS still disabled: ${open.rows.map((r) => r.relname).join(", ")}`,
   );
 
@@ -78,6 +82,7 @@ async function main() {
   const invoker = (view.rows[0]?.reloptions ?? []).some((opt: string) =>
     opt.includes("security_invoker=true"),
   );
+  if (!invoker) failed += 1;
   console.log(
     invoker
       ? "PASS  candidate_documents view is security_invoker"
@@ -88,6 +93,7 @@ async function main() {
     `SELECT id, public FROM storage.buckets ORDER BY id`,
   );
   const publicBuckets = buckets.rows.filter((row) => row.public);
+  if (publicBuckets.length > 0) failed += 1;
   console.log(
     publicBuckets.length === 0
       ? "PASS  all storage buckets private"
@@ -105,6 +111,7 @@ async function main() {
   const unexpected = anonGrants.rows.filter(
     (row) => !(row.table_name === "jobs" && row.privilege_type === "SELECT"),
   );
+  if (unexpected.length > 0) failed += 1;
   console.log(
     unexpected.length === 0
       ? "PASS  anon grants limited to jobs SELECT"
@@ -156,6 +163,7 @@ async function main() {
     job_id: "job-none",
     status: "APPLIED",
   });
+  if (!insert.error) failed += 1;
   console.log(
     insert.error
       ? "PASS  anon INSERT applications denied"
@@ -163,6 +171,10 @@ async function main() {
   );
 
   void denied;
+  if (failed > 0) {
+    console.error(`\n${failed} RLS regression check(s) failed`);
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {
