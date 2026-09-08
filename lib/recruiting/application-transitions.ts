@@ -70,51 +70,28 @@ export async function transitionApplicationStatus(
 
   assertApplicationTransition(fromStatus, toStatus);
 
-  const now = new Date().toISOString();
-  const historyId = `hist-${crypto.randomUUID()}`;
   const note = historyNote(input.reason, input.notes);
-
-  const { error: updateError } = await client
-    .from("applications")
-    .update({ status: toStatus, updated_at: now })
-    .eq("id", input.applicationId);
-
-  if (updateError) throw new Error(updateError.message);
-
-  const { error: historyError } = await client
-    .from("application_status_history")
-    .insert({
-      id: historyId,
-      application_id: input.applicationId,
-      from_status: fromStatus,
-      to_status: toStatus,
-      changed_by_user_id: input.actorUserId ?? null,
-      note: note ?? null,
-      created_at: now,
-    });
-
-  if (historyError) {
-    // Best-effort rollback of status so we don't leave HIRED without history.
-    await client
-      .from("applications")
-      .update({ status: fromStatus, updated_at: now })
-      .eq("id", input.applicationId);
-    throw new Error(historyError.message);
-  }
-
-  await client.from("recruiting_activities").insert({
-    id: `act-${crypto.randomUUID()}`,
-    candidate_id: applicationRow.candidate_id,
-    application_id: input.applicationId,
-    requisition_id: applicationRow.requisition_id,
-    activity_type: "STAGE_CHANGED",
-    summary: note
-      ? `Stage changed: ${fromStatus} → ${toStatus} (${note})`
-      : `Stage changed: ${fromStatus} → ${toStatus}`,
-    created_at: now,
+  const { data, error } = await client.rpc("application_status_transition", {
+    p_application_id: input.applicationId,
+    p_to_status: toStatus,
+    p_actor_user_id: input.actorUserId ?? null,
+    p_note: note ?? null,
+    p_privileged: false,
   });
 
-  return { fromStatus, toStatus, historyId };
+  if (error) throw new Error(error.message);
+
+  const result = data as {
+    fromStatus: ApplicationStatus;
+    toStatus: ApplicationStatus;
+    historyId: string;
+  };
+
+  return {
+    fromStatus: result.fromStatus ?? fromStatus,
+    toStatus: result.toStatus ?? toStatus,
+    historyId: result.historyId,
+  };
 }
 
 /** Initial SUBMITTED/APPLIED history row when an application is created. */

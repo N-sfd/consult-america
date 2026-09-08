@@ -19,6 +19,7 @@
     "db:migrate": "tsx --env-file=.env.local scripts/apply-schema.ts",
     "test:rls": "tsx --env-file=.env.local scripts/security-rls-test.ts && tsx --env-file=.env.local scripts/security-rls-auth-probe.ts",
     "test:lineage": "tsx --env-file=.env.local scripts/document-lineage-regression.ts",
+    "test:hire-lineage": "tsx --env-file=.env.local scripts/hire-lineage-regression.ts",
     "brand:assets": "node scripts/generate-brand-assets.mjs"
   },
   "dependencies": {

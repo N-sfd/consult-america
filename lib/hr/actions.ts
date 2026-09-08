@@ -22,7 +22,11 @@ export async function hireCandidate(
   const application = await recruitingRepository.getApplicationById(applicationId);
   if (!application) return { ok: false, error: "Application not found" };
 
-  const resolvedRequisitionId = requisitionId ?? application.requisitionId;
+  if (requisitionId && requisitionId !== application.requisitionId) {
+    return { ok: false, error: "Requisition does not match the application" };
+  }
+
+  const resolvedRequisitionId = application.requisitionId;
 
   const offer = await recruitingRepository.getOfferByApplicationId(applicationId);
   if (!offer) return { ok: false, error: "No offer found for this application" };
