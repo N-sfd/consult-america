@@ -12,6 +12,7 @@ import {
   updateCandidateEducationAction,
   updateCandidateExperienceAction,
 } from "@/app/actions/candidate-actions";
+import ConfirmDialog from "@/components/candidate/confirm-dialog";
 import type { CandidateSkill, Education, Experience } from "@/types/recruiting";
 
 export function CandidateExperienceForm() {
@@ -25,12 +26,21 @@ export function CandidateExperienceForm() {
     const form = new FormData(formEl);
     setMessage(null);
     setError(null);
+
+    const company = String(form.get("company") ?? "").trim();
+    const title = String(form.get("title") ?? "").trim();
+    const startDate = String(form.get("startDate") ?? "").trim();
+    if (!company || !title || !startDate) {
+      setError("Company, title, and start date are required.");
+      return;
+    }
+
     startTransition(async () => {
       const result = await saveCandidateExperienceAction({
-        company: String(form.get("company") ?? ""),
-        title: String(form.get("title") ?? ""),
+        company,
+        title,
         location: String(form.get("location") ?? "") || undefined,
-        startDate: String(form.get("startDate") ?? ""),
+        startDate,
         endDate: String(form.get("endDate") ?? "") || undefined,
         isCurrent: form.get("isCurrent") === "on",
         description: String(form.get("description") ?? "") || undefined,
@@ -43,11 +53,11 @@ export function CandidateExperienceForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-4 grid gap-3 sm:grid-cols-2">
-      <input name="company" required placeholder="Company" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
-      <input name="title" required placeholder="Title" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
+    <form onSubmit={onSubmit} noValidate className="mt-4 grid gap-3 sm:grid-cols-2">
+      <input name="company" placeholder="Company" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
+      <input name="title" placeholder="Title" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="location" placeholder="Location (optional)" className="rounded-md border border-black/15 px-3 py-2 text-sm sm:col-span-2" />
-      <input name="startDate" required type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
+      <input name="startDate" type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="endDate" type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <label className="flex items-center gap-2 text-sm sm:col-span-2">
         <input type="checkbox" name="isCurrent" /> Current role
@@ -66,6 +76,7 @@ export function CandidateExperienceListItem({ item }: { item: Experience }) {
   const [editing, setEditing] = useState(false);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -88,10 +99,10 @@ export function CandidateExperienceListItem({ item }: { item: Experience }) {
   }
 
   function onDelete() {
-    if (!window.confirm("Remove this experience entry?")) return;
     setError(null);
     startTransition(async () => {
       const result = await deleteCandidateExperienceAction(item.id);
+      setConfirmingDelete(false);
       if (!result.ok) setError(result.message);
     });
   }
@@ -142,10 +153,19 @@ export function CandidateExperienceListItem({ item }: { item: Experience }) {
         <button type="button" onClick={() => setEditing(true)} className="text-black/60 hover:underline">
           Edit
         </button>
-        <button type="button" disabled={pending} onClick={onDelete} className="text-red-700 hover:underline">
+        <button type="button" disabled={pending} onClick={() => setConfirmingDelete(true)} className="text-red-700 hover:underline">
           Delete
         </button>
       </div>
+      <ConfirmDialog
+        open={confirmingDelete}
+        onOpenChange={setConfirmingDelete}
+        title="Remove this experience entry?"
+        description={`${item.title} at ${item.company} will be removed from your profile.`}
+        confirmLabel="Remove"
+        pending={pending}
+        onConfirm={onDelete}
+      />
     </li>
   );
 }
@@ -161,9 +181,16 @@ export function CandidateEducationForm() {
     const form = new FormData(formEl);
     setMessage(null);
     setError(null);
+
+    const institution = String(form.get("institution") ?? "").trim();
+    if (!institution) {
+      setError("School is required.");
+      return;
+    }
+
     startTransition(async () => {
       const result = await saveCandidateEducationAction({
-        institution: String(form.get("institution") ?? ""),
+        institution,
         degree: String(form.get("degree") ?? "") || undefined,
         fieldOfStudy: String(form.get("fieldOfStudy") ?? "") || undefined,
         startDate: String(form.get("startDate") ?? "") || undefined,
@@ -177,8 +204,8 @@ export function CandidateEducationForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-4 grid gap-3 sm:grid-cols-2">
-      <input name="institution" required placeholder="School" className="rounded-md border border-black/15 px-3 py-2 text-sm sm:col-span-2" />
+    <form onSubmit={onSubmit} noValidate className="mt-4 grid gap-3 sm:grid-cols-2">
+      <input name="institution" placeholder="School" className="rounded-md border border-black/15 px-3 py-2 text-sm sm:col-span-2" />
       <input name="degree" placeholder="Degree" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="fieldOfStudy" placeholder="Field of study" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="startDate" type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
@@ -196,6 +223,7 @@ export function CandidateEducationListItem({ item }: { item: Education }) {
   const [editing, setEditing] = useState(false);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -216,10 +244,10 @@ export function CandidateEducationListItem({ item }: { item: Education }) {
   }
 
   function onDelete() {
-    if (!window.confirm("Remove this education entry?")) return;
     setError(null);
     startTransition(async () => {
       const result = await deleteCandidateEducationAction(item.id);
+      setConfirmingDelete(false);
       if (!result.ok) setError(result.message);
     });
   }
@@ -260,10 +288,19 @@ export function CandidateEducationListItem({ item }: { item: Education }) {
         <button type="button" onClick={() => setEditing(true)} className="text-black/60 hover:underline">
           Edit
         </button>
-        <button type="button" disabled={pending} onClick={onDelete} className="text-red-700 hover:underline">
+        <button type="button" disabled={pending} onClick={() => setConfirmingDelete(true)} className="text-red-700 hover:underline">
           Delete
         </button>
       </div>
+      <ConfirmDialog
+        open={confirmingDelete}
+        onOpenChange={setConfirmingDelete}
+        title="Remove this education entry?"
+        description={`${item.institution} will be removed from your profile.`}
+        confirmLabel="Remove"
+        pending={pending}
+        onConfirm={onDelete}
+      />
     </li>
   );
 }

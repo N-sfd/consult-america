@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import JobMatchForm from "@/components/candidate/job-match-form";
+import JobMatchHistoryList from "@/components/candidate/job-match-history-list";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import { getOpenJobs } from "@/lib/jobs";
 import { recruitingRepository } from "@/lib/recruiting";
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
-import { formatDateTime } from "@/lib/recruiting/format";
+import type { JobMatchResult } from "@/lib/candidate/job-match";
 
 export const metadata: Metadata = {
   title: "Job Match",
@@ -25,6 +27,7 @@ export default async function CandidateJobMatchPage() {
     .map((doc) => ({
       id: doc.id,
       label: `${doc.fileName}${doc.isPrimaryResume ? " · Current" : doc.status === "ARCHIVED" ? " · Archived" : ""}`,
+      archived: doc.status === "ARCHIVED" && !doc.isPrimaryResume,
     }));
 
   const client = getSupabaseServiceClient();
@@ -49,8 +52,16 @@ export default async function CandidateJobMatchPage() {
 
       {resumes.length === 0 ? (
         <div className="rounded-lg border border-dashed border-black/15 bg-white p-6 text-sm text-black/55">
-          No resume uploaded. Upload your resume to make Job Match and
-          applications faster.
+          <p>
+            No resume uploaded. Upload your resume to make Job Match and
+            applications faster.
+          </p>
+          <Link
+            href="/candidate/documents?upload=resume"
+            className="mt-3 inline-block text-sm font-semibold text-[var(--ca-blue)] hover:underline"
+          >
+            Upload Resume →
+          </Link>
         </div>
       ) : (
         <JobMatchForm
@@ -69,25 +80,14 @@ export default async function CandidateJobMatchPage() {
         {(priorRows ?? []).length === 0 ? (
           <p className="mt-4 text-sm text-black/50">No job-match analyses yet.</p>
         ) : (
-          <ul className="mt-4 space-y-3 text-sm">
-            {(priorRows ?? []).map((row) => {
-              const result = row.result_json as { overallMatch?: number } | null;
-              return (
-                <li
-                  key={row.id as string}
-                  className="flex flex-wrap items-center justify-between gap-2 border-b border-black/5 pb-3 last:border-0"
-                >
-                  <span>
-                    Match {result?.overallMatch ?? "—"}%
-                    {row.job_requisition_id ? " · Consult America role" : " · Pasted JD"}
-                  </span>
-                  <span className="text-black/40">
-                    {formatDateTime(row.created_at as string)}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+          <JobMatchHistoryList
+            rows={(priorRows ?? []).map((row) => ({
+              id: row.id as string,
+              createdAt: row.created_at as string,
+              isJobRequisition: Boolean(row.job_requisition_id),
+              result: row.result_json as JobMatchResult,
+            }))}
+          />
         )}
       </section>
     </div>

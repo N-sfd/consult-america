@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import ApplicationStatusPill from "@/components/candidate/application-status-pill";
 import { formatDate } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
-import { candidateApplicationStatusLabels } from "@/types/recruiting";
 
 export const metadata: Metadata = {
   title: "My Applications",
@@ -66,9 +66,7 @@ export default async function CandidateApplicationsPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <span className="text-xs uppercase tracking-[0.1em] text-black/45">
-                        {candidateApplicationStatusLabels[application.status]}
-                      </span>
+                      <ApplicationStatusPill status={application.status} />
                       <p className="mt-2 text-xs font-semibold text-[var(--ca-blue)]">
                         View Application
                       </p>

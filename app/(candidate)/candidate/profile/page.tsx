@@ -61,6 +61,24 @@ export default async function CandidateProfilePage() {
             Profile Completion
           </p>
           <p className="mt-1 text-2xl font-semibold">{completion.percent}%</p>
+          <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+            {[
+              { label: "Personal details", done: completion.identity },
+              { label: "Contact info", done: completion.contact },
+              { label: "Resume", done: completion.resume },
+              { label: "Professional summary", done: completion.summary },
+              { label: "Experience", done: completion.experience },
+              { label: "Education", done: completion.education },
+              { label: "Skills", done: completion.skills },
+            ].map((item) => (
+              <li
+                key={item.label}
+                className={item.done ? "text-black/70" : "text-black/40"}
+              >
+                {item.done ? "✓" : "○"} {item.label}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

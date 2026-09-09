@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import ApplicationStatusPill from "@/components/candidate/application-status-pill";
 import CandidateOfferActions from "@/components/candidate/candidate-offer-actions";
 import SubmittedDocumentLink from "@/components/candidate/submitted-document-link";
 import { formatDate, formatDateTime, formatDateTimeWithZone } from "@/lib/recruiting/format";
@@ -88,6 +89,13 @@ export default async function CandidateApplicationDetailPage({
     ...history.map((h) => h.toStatus),
   ]);
 
+  /** Earliest history date a status in `statuses` was reached, for the
+   * per-stage date shown under each reached timeline step. */
+  function earliestDateFor(statuses: ApplicationStatus[]): string | undefined {
+    const match = history.find((h) => statuses.includes(h.toStatus));
+    return match?.createdAt;
+  }
+
   const offer = (profile?.offers ?? []).find((o) => o.applicationId === id);
   const interviews = (profile?.interviews ?? []).filter(
     (i) => i.applicationId === id,
@@ -128,8 +136,8 @@ export default async function CandidateApplicationDetailPage({
           <p className="text-xs uppercase tracking-[0.12em] text-black/40">
             Status
           </p>
-          <p className="mt-3 text-lg font-semibold">
-            {candidateApplicationStatusLabels[application.status]}
+          <p className="mt-3">
+            <ApplicationStatusPill status={application.status} />
           </p>
         </div>
         <div className="rounded-lg border border-black/10 bg-white p-5">
@@ -159,6 +167,9 @@ export default async function CandidateApplicationDetailPage({
             const reached =
               step.alwaysReached ||
               step.statuses.some((s) => reachedStatuses.has(s));
+            const stageDate = step.alwaysReached
+              ? application.appliedAt
+              : earliestDateFor(step.statuses);
             return (
               <li
                 key={step.label}
@@ -168,7 +179,12 @@ export default async function CandidateApplicationDetailPage({
                     : "border-black/10 text-black/40"
                 }`}
               >
-                {step.label}
+                <p>{step.label}</p>
+                {reached && stageDate ? (
+                  <p className="mt-1 text-xs font-normal text-black/45">
+                    {formatDate(stageDate)}
+                  </p>
+                ) : null}
               </li>
             );
           })}

@@ -42,7 +42,7 @@ export default function DocumentUploader({
     <div
       className={
         isPortal
-          ? "rounded-xl border border-[#DDE6E3] bg-[#F7FAF9] p-5"
+          ? "rounded-xl border border-black/10 bg-black/[0.02] p-5"
           : "space-y-3"
       }
     >
@@ -50,7 +50,7 @@ export default function DocumentUploader({
         <h2
           className={
             isPortal
-              ? "text-base font-semibold text-[#073B3A]"
+              ? "text-base font-semibold text-black"
               : "text-sm font-semibold text-[var(--cr-navy)]"
           }
         >
@@ -60,7 +60,7 @@ export default function DocumentUploader({
           <button
             type="button"
             onClick={onCancel}
-            className="text-sm font-medium text-[#5B6D6B]"
+            className="text-sm font-medium text-black/55"
           >
             Cancel
           </button>
@@ -77,21 +77,21 @@ export default function DocumentUploader({
         }}
         className={`mt-3 flex w-full flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-10 text-center ${
           isPortal
-            ? "border-[#C9DDD7] bg-white"
+            ? "border-black/15 bg-white"
             : "border-[var(--cr-border)] bg-white"
         }`}
       >
         <UploadCloud
-          className={`h-8 w-8 ${isPortal ? "text-[#176A63]" : "text-[var(--cr-blue)]"}`}
+          className={`h-8 w-8 ${isPortal ? "text-[var(--ca-blue)]" : "text-[var(--cr-blue)]"}`}
         />
-        <p className="mt-3 text-sm font-semibold text-[#073B3A]">
+        <p className="mt-3 text-sm font-semibold text-black">
           Drag and drop a file here
         </p>
-        <p className="mt-1 text-sm text-[#5B6D6B]">or</p>
-        <span className="mt-3 inline-flex h-10 items-center rounded-lg border border-[#DDE6E3] px-4 text-sm font-semibold text-[#073B3A]">
+        <p className="mt-1 text-sm text-black/55">or</p>
+        <span className="mt-3 inline-flex h-10 items-center rounded-lg border border-black/10 px-4 text-sm font-semibold text-black">
           Choose File
         </span>
-        <p className="mt-3 text-xs text-[#8A9A97]">{acceptHint}</p>
+        <p className="mt-3 text-xs text-black/40">{acceptHint}</p>
       </button>
 
       <input
@@ -103,12 +103,12 @@ export default function DocumentUploader({
       />
 
       {file ? (
-        <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-[#DDE6E3] bg-white px-4 py-3">
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-black/10 bg-white px-4 py-3">
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-[#073B3A]">
+            <p className="truncate text-sm font-medium text-black">
               {file.name}
             </p>
-            <p className="text-xs text-[#5B6D6B]">
+            <p className="text-xs text-black/55">
               {formatDocumentBytes(file.size)}
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function DocumentUploader({
             type="button"
             disabled={pending}
             onClick={() => onUpload(file)}
-            className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#B83A3A] px-4 text-sm font-semibold text-white disabled:opacity-60"
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-[var(--ca-platform-deep)] px-4 text-sm font-semibold text-white disabled:opacity-60"
           >
             {pending ? (
               <>
@@ -131,7 +131,7 @@ export default function DocumentUploader({
       ) : null}
 
       {error ? (
-        <p className="mt-2 text-sm text-[#B83A3A]" role="alert">
+        <p className="mt-2 text-sm text-red-700" role="alert">
           {error}
         </p>
       ) : null}

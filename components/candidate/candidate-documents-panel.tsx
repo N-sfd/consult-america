@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { UploadCloud } from "lucide-react";
 
 import {
@@ -8,6 +9,7 @@ import {
   getCandidateDocumentSignedUrlAction,
   uploadCandidateDocumentAction,
 } from "@/app/actions/candidate-document-actions";
+import ConfirmDialog from "@/components/candidate/confirm-dialog";
 import DocumentUploader from "@/components/documents/document-uploader";
 import DocumentRow, {
   DocumentCard,
@@ -34,6 +36,7 @@ export default function CandidateDocumentsPanel({
   supabaseConnected,
   autoOpenUpload = null,
 }: Props) {
+  const router = useRouter();
   const visibleDocs = useMemo(
     () =>
       initialDocuments.filter(
@@ -41,7 +44,7 @@ export default function CandidateDocumentsPanel({
       ),
     [initialDocuments],
   );
-  const [documents, setDocuments] = useState(visibleDocs);
+  const documents = visibleDocs;
   const [panel, setPanel] = useState<"closed" | "resume" | "other">(
     autoOpenUpload === "resume"
       ? "resume"
@@ -54,17 +57,20 @@ export default function CandidateDocumentsPanel({
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
-  useEffect(() => {
-    setDocuments(visibleDocs);
-  }, [visibleDocs]);
-
-  useEffect(() => {
+  // Re-open the upload panel if `autoOpenUpload` changes after mount (e.g.
+  // navigating from ?upload=resume to itself again isn't a remount in the
+  // App Router). Adjusting state during render, not in an effect, per
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [prevAutoOpenUpload, setPrevAutoOpenUpload] = useState(autoOpenUpload);
+  if (autoOpenUpload !== prevAutoOpenUpload) {
+    setPrevAutoOpenUpload(autoOpenUpload);
     if (autoOpenUpload === "resume") {
       setPanel("resume");
       setReplaceId(null);
     }
-  }, [autoOpenUpload]);
+  }
 
   const primaryResume = useMemo(
     () =>
@@ -103,6 +109,10 @@ export default function CandidateDocumentsPanel({
       ),
     [documents],
   );
+
+  const confirmDeleteUsage = confirmDeleteId
+    ? (applicationUsageByDocumentId[confirmDeleteId] ?? 0)
+    : 0;
 
   function openSigned(documentId: string, download = false) {
     startTransition(async () => {
@@ -153,31 +163,28 @@ export default function CandidateDocumentsPanel({
       setMessage(result.message);
       setPanel("closed");
       setReplaceId(null);
-      window.location.assign("/candidate/documents");
+      router.refresh();
     });
   }
 
   function removeDocument(documentId: string) {
-    const usage = applicationUsageByDocumentId[documentId] ?? 0;
-    const confirmMsg =
-      usage > 0
-        ? "This resume was used on a submitted application. It will be archived and kept for history — not permanently deleted. Continue?"
-        : "Remove this document?";
-    if (!window.confirm(confirmMsg)) return;
+    setError(null);
     startTransition(async () => {
       const result = await deleteCandidateDocumentAction(documentId);
       if (!result.ok) {
         setError(result.message);
+        setConfirmDeleteId(null);
         return;
       }
       setMessage(result.message);
-      window.location.assign("/candidate/documents");
+      setConfirmDeleteId(null);
+      router.refresh();
     });
   }
 
   if (!supabaseConnected) {
     return (
-      <div className="rounded-xl border border-[#DDE6E3] bg-[#F7FAF9] px-5 py-6 text-sm text-[#5B6D6B]">
+      <div className="rounded-xl border border-black/10 bg-black/[0.02] px-5 py-6 text-sm text-black/55">
         Document uploads require the connected candidate environment.
       </div>
     );
@@ -186,22 +193,17 @@ export default function CandidateDocumentsPanel({
   return (
     <div className="space-y-6">
       {message ? (
-        <p className="rounded-lg border border-[#CFE3E0] bg-[#F1F7F6] px-4 py-3 text-sm text-[#245350]">
-          {message}
-        </p>
+        <p className="text-sm text-emerald-700">{message}</p>
       ) : null}
       {error ? (
-        <p
-          className="rounded-lg border border-[#F0D4D4] bg-[#FDF6F6] px-4 py-3 text-sm text-[#992F31]"
-          role="alert"
-        >
+        <p className="text-sm text-red-700" role="alert">
           {error}
         </p>
       ) : null}
 
       <div>
-        <h2 className="text-lg font-semibold text-[#073B3A]">My Documents</h2>
-        <p className="mt-1 text-sm text-[#5B6D6B]">
+        <h2 className="text-lg font-semibold text-black">My Documents</h2>
+        <p className="mt-1 text-sm text-black/55">
           Your current resume is separate from resumes already submitted with
           applications. Replacing your primary resume does not change past
           applications.
@@ -231,7 +233,7 @@ export default function CandidateDocumentsPanel({
               setReplaceId(null);
               setPanel("resume");
             }}
-            className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#B83A3A] px-4 text-sm font-semibold text-white"
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-[var(--ca-platform-deep)] px-4 text-sm font-semibold text-white"
           >
             <UploadCloud className="h-4 w-4" />
             Upload Resume
@@ -239,20 +241,20 @@ export default function CandidateDocumentsPanel({
         }
       />
       {primaryResume ? (
-        <p className="-mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#176A63]">
+        <p className="-mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--ca-platform-deep)]">
           Current
         </p>
       ) : null}
 
       {previousResumes.length > 0 ? (
-        <section className="rounded-xl border border-[#DDE6E3] bg-white p-5">
-          <h2 className="text-base font-semibold text-[#073B3A]">
+        <section className="rounded-xl border border-black/10 bg-white p-5">
+          <h2 className="text-base font-semibold text-black">
             Previous Resumes
           </h2>
-          <p className="mt-1 text-sm text-[#5B6D6B]">
+          <p className="mt-1 text-sm text-black/55">
             Earlier versions kept for application history.
           </p>
-          <ul className="mt-4 divide-y divide-[#E8EFEC]">
+          <ul className="mt-4 divide-y divide-black/5">
             {previousResumes.map((doc) => {
               const usage = applicationUsageByDocumentId[doc.id] ?? 0;
               return (
@@ -261,8 +263,8 @@ export default function CandidateDocumentsPanel({
                   className="flex flex-wrap items-center justify-between gap-3 py-3"
                 >
                   <div className="min-w-0">
-                    <p className="font-medium text-[#073B3A]">{doc.fileName}</p>
-                    <p className="mt-1 text-sm text-[#5B6D6B]">
+                    <p className="font-medium text-black">{doc.fileName}</p>
+                    <p className="mt-1 text-sm text-black/55">
                       Uploaded {formatDocumentUploaded(doc.uploadedAt)}
                       {doc.fileSize
                         ? ` · ${formatDocumentBytes(doc.fileSize)}`
@@ -277,7 +279,7 @@ export default function CandidateDocumentsPanel({
                       type="button"
                       disabled={pending}
                       onClick={() => openSigned(doc.id)}
-                      className="text-[#176A63]"
+                      className="text-[var(--ca-blue)]"
                     >
                       View
                     </button>
@@ -285,8 +287,8 @@ export default function CandidateDocumentsPanel({
                       <button
                         type="button"
                         disabled={pending}
-                        onClick={() => removeDocument(doc.id)}
-                        className="text-[#B83A3A]"
+                        onClick={() => setConfirmDeleteId(doc.id)}
+                        className="text-red-700"
                       >
                         Delete
                       </button>
@@ -302,14 +304,14 @@ export default function CandidateDocumentsPanel({
       {panel !== "closed" ? (
         <div className="space-y-3">
           {panel === "other" ? (
-            <label className="block text-sm font-medium text-[#073B3A]">
+            <label className="block text-sm font-medium text-black">
               Document type
               <select
                 value={documentType}
                 onChange={(e) =>
                   setDocumentType(e.target.value as DocumentType)
                 }
-                className="mt-1.5 w-full rounded-lg border border-[#DDE6E3] bg-white px-3 py-2.5 text-sm"
+                className="mt-1.5 w-full rounded-lg border border-black/10 bg-white px-3 py-2.5 text-sm"
               >
                 {(
                   [
@@ -345,7 +347,7 @@ export default function CandidateDocumentsPanel({
         </div>
       ) : (
         <div>
-          <h2 className="text-base font-semibold text-[#073B3A]">
+          <h2 className="text-base font-semibold text-black">
             Supporting Documents
           </h2>
           <button
@@ -355,7 +357,7 @@ export default function CandidateDocumentsPanel({
               setDocumentType("COVER_LETTER");
               setReplaceId(null);
             }}
-            className="mt-3 inline-flex h-11 items-center gap-2 rounded-lg border border-[#DDE6E3] bg-white px-4 text-sm font-semibold text-[#073B3A]"
+            className="mt-3 inline-flex h-11 items-center gap-2 rounded-lg border border-black/10 bg-white px-4 text-sm font-semibold text-black"
           >
             Upload Document
           </button>
@@ -364,9 +366,9 @@ export default function CandidateDocumentsPanel({
 
       {supporting.length > 0 ? (
         <section>
-          <div className="mt-1 hidden overflow-hidden rounded-xl border border-[#DDE6E3] bg-white md:block">
+          <div className="mt-1 hidden overflow-hidden rounded-xl border border-black/10 bg-white md:block">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-[#E1ECE8] bg-[#F7FAF9] text-[0.7rem] uppercase tracking-[0.1em] text-[#8A9A97]">
+              <thead className="border-b border-black/10 bg-black/[0.02] text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
                 <tr>
                   <th className="px-4 py-3 font-semibold">Document</th>
                   <th className="px-4 py-3 font-semibold">Type</th>
@@ -375,7 +377,7 @@ export default function CandidateDocumentsPanel({
                   <th className="px-4 py-3 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E8EFEC]">
+              <tbody className="divide-y divide-black/5">
                 {supporting.map((doc) => (
                   <DocumentRow
                     key={doc.id}
@@ -383,7 +385,7 @@ export default function CandidateDocumentsPanel({
                     pending={pending}
                     onView={() => openSigned(doc.id)}
                     onDownload={() => openSigned(doc.id, true)}
-                    onDelete={() => removeDocument(doc.id)}
+                    onDelete={() => setConfirmDeleteId(doc.id)}
                   />
                 ))}
               </tbody>
@@ -397,12 +399,28 @@ export default function CandidateDocumentsPanel({
                 pending={pending}
                 onView={() => openSigned(doc.id)}
                 onDownload={() => openSigned(doc.id, true)}
-                onDelete={() => removeDocument(doc.id)}
+                onDelete={() => setConfirmDeleteId(doc.id)}
               />
             ))}
           </div>
         </section>
       ) : null}
+
+      <ConfirmDialog
+        open={confirmDeleteId !== null}
+        onOpenChange={(open) => {
+          if (!open) setConfirmDeleteId(null);
+        }}
+        title="Remove this document?"
+        description={
+          confirmDeleteUsage > 0
+            ? "This resume was used on a submitted application. It will be archived and kept for history — not permanently deleted."
+            : "This document will be removed from your account."
+        }
+        confirmLabel="Remove"
+        pending={pending}
+        onConfirm={() => confirmDeleteId && removeDocument(confirmDeleteId)}
+      />
     </div>
   );
 }

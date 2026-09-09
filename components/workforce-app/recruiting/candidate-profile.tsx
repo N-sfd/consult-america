@@ -12,6 +12,7 @@ import SubmitInterviewFeedbackButton from "@/components/workforce-app/recruiting
 import { formatDate, formatDateTime } from "@/lib/recruiting/format";
 import type { CandidateProfileDetail as CandidateProfileData } from "@/lib/recruiting/repository";
 import { cn } from "@/lib/utils";
+import { employmentTypeLabels } from "@/types/organization";
 import { applicationStatusLabels } from "@/types/recruiting";
 
 const TABS = [
@@ -304,13 +305,16 @@ export default function CandidateProfile({
                 key={app.applicationId}
                 className="space-y-3 border-b border-black/6 py-4 last:border-0"
               >
-                <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
+                <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-5">
                   <span className="font-medium text-[var(--ca-app-ink)]">
                     {app.requisitionTitle}
                   </span>
                   <span className="text-black/45">{app.applicationNumber}</span>
                   <span className="text-[var(--ca-blue)]">
                     {applicationStatusLabels[app.status]}
+                  </span>
+                  <span className="text-black/45">
+                    {app.employmentType ? employmentTypeLabels[app.employmentType] : "—"}
                   </span>
                   <span className="text-black/45">{formatDate(app.appliedAt)}</span>
                 </div>

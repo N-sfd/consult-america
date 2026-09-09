@@ -3,9 +3,10 @@
 import { useMemo, useState, useTransition } from "react";
 
 import { runJobMatchAction } from "@/app/actions/candidate-actions";
+import JobMatchResultCard from "@/components/candidate/job-match-result-card";
 import type { JobMatchResult } from "@/lib/candidate/job-match";
 
-type ResumeOption = { id: string; label: string };
+type ResumeOption = { id: string; label: string; archived?: boolean };
 type JobOption = { requisitionId: string; title: string };
 
 export default function JobMatchForm({
@@ -15,7 +16,9 @@ export default function JobMatchForm({
   resumes: ResumeOption[];
   jobs: JobOption[];
 }) {
-  const [documentId, setDocumentId] = useState(resumes[0]?.id ?? "");
+  const [documentId, setDocumentId] = useState(
+    resumes.find((r) => !r.archived)?.id ?? resumes[0]?.id ?? "",
+  );
   const [jobRequisitionId, setJobRequisitionId] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [result, setResult] = useState<JobMatchResult | null>(null);
@@ -68,7 +71,7 @@ export default function JobMatchForm({
               <option value="">No resume uploaded</option>
             ) : (
               resumes.map((resume) => (
-                <option key={resume.id} value={resume.id}>
+                <option key={resume.id} value={resume.id} disabled={resume.archived}>
                   {resume.label}
                 </option>
               ))
@@ -120,45 +123,7 @@ export default function JobMatchForm({
         {message ? <p className="text-sm text-emerald-700">{message}</p> : null}
       </form>
 
-      {result ? (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">Match</p>
-          <p className="mt-2 text-4xl font-semibold">{result.overallMatch}%</p>
-          <p className="mt-2 text-sm text-black/60">{result.experienceAlignment}</p>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div>
-              <h3 className="text-sm font-semibold">Strong alignment</h3>
-              <ul className="mt-2 space-y-1 text-sm text-black/70">
-                {result.skillsFound.length === 0 ? (
-                  <li>No clear overlapping keywords found.</li>
-                ) : (
-                  result.skillsFound.map((skill) => <li key={skill}>{skill}</li>)
-                )}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold">Potential gaps</h3>
-              <ul className="mt-2 space-y-1 text-sm text-black/70">
-                {result.skillsMissing.length === 0 ? (
-                  <li>No obvious gaps from this comparison.</li>
-                ) : (
-                  result.skillsMissing.map((skill) => <li key={skill}>{skill}</li>)
-                )}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-sm font-semibold">Suggestions</h3>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-black/70">
-              {result.suggestions.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
+      {result ? <JobMatchResultCard result={result} /> : null}
     </div>
   );
 }

@@ -77,6 +77,13 @@ export default function RecruiterCandidateDocuments({
     );
   }, [applicationDocumentLinks]);
 
+  const previousResumes = documents.filter(
+    (d) =>
+      d.documentType === "RESUME" &&
+      d.id !== currentResume?.id &&
+      d.status !== "DELETED",
+  );
+
   const otherActive = documents.filter(
     (d) =>
       d.status === "ACTIVE" &&
@@ -131,6 +138,44 @@ export default function RecruiterCandidateDocuments({
           <p className="mt-2 text-sm text-black/45">No current primary resume.</p>
         )}
       </section>
+
+      {previousResumes.length > 0 ? (
+        <section>
+          <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+            Previous Resumes
+          </p>
+          <p className="mt-1 text-xs text-black/45">
+            Earlier versions kept for application history, including ones
+            never attached to a submitted application.
+          </p>
+          <ul className="mt-2 divide-y divide-black/6">
+            {previousResumes.map((doc) => (
+              <li
+                key={doc.id}
+                className="flex flex-wrap items-center justify-between gap-3 py-3 text-sm"
+              >
+                <div>
+                  <p className="font-medium text-[var(--ca-app-ink)]">
+                    {doc.fileName}
+                  </p>
+                  <p className="mt-0.5 text-xs text-black/45">
+                    Uploaded {formatDocumentUploaded(doc.uploadedAt)}
+                    {doc.status === "ARCHIVED" ? " · Archived" : ""}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={pending}
+                  onClick={() => openDocument(doc.id)}
+                  className="font-semibold text-[var(--ca-blue)]"
+                >
+                  View
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section>
         <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
