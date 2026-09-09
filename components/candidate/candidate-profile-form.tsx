@@ -65,7 +65,7 @@ export default function CandidateProfileForm({
       <section className="space-y-4 rounded-lg border border-black/10 bg-white p-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Profile
+            Personal &amp; Contact
           </h2>
           <button
             type="button"
@@ -77,10 +77,16 @@ export default function CandidateProfileForm({
         </div>
         <dl className="grid gap-4 sm:grid-cols-2 text-sm">
           <div>
-            <dt className="text-black/45">Name</dt>
-            <dd className="mt-1 font-medium">
-              {candidate.firstName} {candidate.lastName}
-            </dd>
+            <dt className="text-black/45">First Name</dt>
+            <dd className="mt-1 font-medium">{candidate.firstName}</dd>
+          </div>
+          <div>
+            <dt className="text-black/45">Last Name</dt>
+            <dd className="mt-1 font-medium">{candidate.lastName}</dd>
+          </div>
+          <div>
+            <dt className="text-black/45">Preferred Name</dt>
+            <dd className="mt-1 font-medium">{candidate.preferredName || "—"}</dd>
           </div>
           <div>
             <dt className="text-black/45">Email</dt>
@@ -91,9 +97,17 @@ export default function CandidateProfileForm({
             <dd className="mt-1 font-medium">{candidate.phone || "—"}</dd>
           </div>
           <div>
-            <dt className="text-black/45">Location</dt>
+            <dt className="text-black/45">City</dt>
+            <dd className="mt-1 font-medium">{candidate.city || "—"}</dd>
+          </div>
+          <div>
+            <dt className="text-black/45">State</dt>
+            <dd className="mt-1 font-medium">{candidate.state || "—"}</dd>
+          </div>
+          <div>
+            <dt className="text-black/45">Work Authorization</dt>
             <dd className="mt-1 font-medium">
-              {[candidate.city, candidate.state].filter(Boolean).join(", ") || "—"}
+              {candidate.workAuthorization || "—"}
             </dd>
           </div>
           <div className="sm:col-span-2">
@@ -101,6 +115,11 @@ export default function CandidateProfileForm({
             <dd className="mt-1 whitespace-pre-wrap text-black/75">
               {candidate.professionalSummary || "—"}
             </dd>
+          </div>
+          <div className="sm:col-span-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+              Links
+            </p>
           </div>
           <div>
             <dt className="text-black/45">LinkedIn</dt>
@@ -118,12 +137,6 @@ export default function CandidateProfileForm({
             <dt className="text-black/45">GitHub</dt>
             <dd className="mt-1 break-all font-medium">
               {candidate.githubUrl || "—"}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-black/45">Work Authorization</dt>
-            <dd className="mt-1 font-medium">
-              {candidate.workAuthorization || "—"}
             </dd>
           </div>
         </dl>

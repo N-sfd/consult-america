@@ -12,7 +12,9 @@ import {
 } from "@/types/recruiting";
 
 export const metadata: Metadata = {
-  title: "Candidate Portal",
+  title: {
+    absolute: "Candidate Portal | Consult America",
+  },
 };
 
 export const dynamic = "force-dynamic";

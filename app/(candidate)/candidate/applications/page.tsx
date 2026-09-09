@@ -61,10 +61,18 @@ export default async function CandidateApplicationsPage() {
                         {application.postingLocation} · Applied{" "}
                         {formatDate(application.appliedAt)}
                       </p>
+                      <p className="mt-1 text-xs text-black/40">
+                        Last activity {formatDate(application.updatedAt)}
+                      </p>
                     </div>
-                    <span className="text-xs uppercase tracking-[0.1em] text-black/45">
-                      {candidateApplicationStatusLabels[application.status]}
-                    </span>
+                    <div className="text-right">
+                      <span className="text-xs uppercase tracking-[0.1em] text-black/45">
+                        {candidateApplicationStatusLabels[application.status]}
+                      </span>
+                      <p className="mt-2 text-xs font-semibold text-[var(--ca-blue)]">
+                        View Application
+                      </p>
+                    </div>
                   </div>
                 </Link>
               </li>

@@ -6,31 +6,12 @@ import JobBoard from "@/components/jobs/job-board";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
 import { recruitingRepository } from "@/lib/recruiting";
-import {
-  candidateApplicationStatusLabels,
-  type ApplicationStatus,
-} from "@/types/recruiting";
 
 export const metadata: Metadata = {
   title: "Jobs",
 };
 
 export const dynamic = "force-dynamic";
-
-function applicationCtaLabel(status: ApplicationStatus): string {
-  if (status === "OFFER") return "Offer";
-  if (status === "INTERVIEW" || status === "FINAL_INTERVIEW") return "Interview";
-  if (status === "HIRED") return "Hired";
-  if (status === "APPLIED") return "Applied";
-  if (
-    status === "REVIEW" ||
-    status === "RECRUITER_SCREEN" ||
-    status === "HIRING_MANAGER_REVIEW"
-  ) {
-    return "Under Review";
-  }
-  return candidateApplicationStatusLabels[status];
-}
 
 export default async function CandidateJobsPage() {
   const { session } = await requireCandidateActor();
@@ -44,9 +25,15 @@ export default async function CandidateJobsPage() {
     string,
     { label: string; href: string }
   > = {};
+  for (const job of jobs) {
+    applicationCtasByRequisitionId[job.requisitionId] = {
+      label: "Apply",
+      href: `/jobs/${job.slug}/apply`,
+    };
+  }
   for (const application of profile?.applications ?? []) {
     applicationCtasByRequisitionId[application.requisitionId] = {
-      label: applicationCtaLabel(application.status),
+      label: "View Application",
       href: `/candidate/applications/${application.applicationId}`,
     };
   }
@@ -67,7 +54,7 @@ export default async function CandidateJobsPage() {
         </p>
       ) : (
         <p className="text-sm text-black/50">
-          Roles you already applied to show your current status.{" "}
+          Roles you already applied to show View Application instead of Apply.{" "}
           <Link
             href="/candidate/applications"
             className="font-semibold text-[var(--ca-platform-mid)] hover:underline"

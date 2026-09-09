@@ -28,9 +28,14 @@ export async function generateMetadata({
   const candidate = isCandidateReturnTo(returnTo);
 
   return {
-    title: candidate ? "Candidate Sign In" : "Workforce Sign In",
+    // Absolute avoids nested "Sign In | … | Consult America" brand duplication.
+    title: {
+      absolute: candidate
+        ? "Candidate Sign In | Consult America"
+        : "Workforce Sign In | Consult America",
+    },
     description: candidate
-      ? "Sign in to the Consult America Candidate Portal to manage applications, interviews, offers, and documents."
+      ? "Sign in to the Consult America Candidate Portal to manage applications, interviews, offers, profile, and documents."
       : "Sign in to Consult America Workforce — employee workspace, time, leave, documents, and internal services.",
   };
 }
@@ -44,9 +49,9 @@ const workforceCapabilities = [
 
 const candidateCapabilities = [
   "Applications",
-  "Interviews",
-  "Offers",
-  "Documents",
+  "Interviews & offers",
+  "Profile & documents",
+  "Job Match",
 ];
 
 export default async function LoginPage({
@@ -59,9 +64,9 @@ export default async function LoginPage({
   const returnTo = sanitizeReturnTo(params.returnTo ?? null);
   const candidate = isCandidateReturnTo(returnTo);
   const confirmEmail = params.confirmEmail;
-  const signupHref = candidate
-    ? `/signup${returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : ""}`
-    : "/signup";
+  const signupHref = `/signup${
+    returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : ""
+  }`;
 
   return (
     <div className="login-page">
@@ -90,8 +95,8 @@ export default async function LoginPage({
                       <p className="login-eyebrow">Consult America Careers</p>
                       <h1 className="login-brand-headline">Candidate Portal</h1>
                       <p className="login-brand-supporting">
-                        Manage your applications, interviews, offers and
-                        documents in one place.
+                        Manage your applications, interviews, offers, profile
+                        and documents in one secure place.
                       </p>
                       <ul className="login-capability-list">
                         {candidateCapabilities.map((item) => (
@@ -155,15 +160,9 @@ export default async function LoginPage({
                   </div>
 
                   {candidate ? (
-                    <>
-                      <p className="login-eyebrow">Consult America Careers</p>
-                      <h2 className="login-card-heading">
-                        Sign in to Candidate Portal
-                      </h2>
-                      <p className="login-card-supporting">
-                        Use your Consult America careers account to continue.
-                      </p>
-                    </>
+                    <h2 className="login-card-heading">
+                      Sign in to Candidate Portal
+                    </h2>
                   ) : (
                     <>
                       <p className="login-eyebrow">Consult America Workforce</p>
@@ -200,10 +199,13 @@ export default async function LoginPage({
                     </div>
                   ) : (
                     <div className="login-card-help">
-                      <span>New candidate?</span>
-                      <Link href="/signup" className="login-help-link">
-                        Create an account →
-                      </Link>
+                      <span>Need Workforce access?</span>
+                      <a
+                        href="mailto:support@consultamerica.net"
+                        className="login-help-link"
+                      >
+                        Contact support →
+                      </a>
                     </div>
                   )}
 
@@ -231,8 +233,8 @@ export default async function LoginPage({
                     Candidate Portal
                   </h1>
                   <p className="login-brand-supporting" style={{ marginTop: 8 }}>
-                    Manage your applications, interviews, offers and documents
-                    in one place.
+                    Manage your applications, interviews, offers, profile and
+                    documents in one secure place.
                   </p>
                 </>
               ) : (

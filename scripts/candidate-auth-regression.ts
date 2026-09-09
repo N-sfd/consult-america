@@ -41,7 +41,13 @@ function testReturnTo() {
   assert(!isCandidateReturnTo("/employee"), "employee path is not candidate context");
   assert(isWorkforceReturnTo("/employee"), "workforce context detected for /employee");
   assert(isWorkforceReturnTo("/hr/requests"), "workforce context detected for /hr");
+  assert(isWorkforceReturnTo("/crm"), "workforce context detected for /crm");
+  assert(isWorkforceReturnTo("/payroll"), "workforce context detected for /payroll");
   assert(!isWorkforceReturnTo("/candidate"), "candidate path is not workforce context");
+  assert(
+    sanitizeReturnTo("/workforce/people") === "/workforce/people",
+    "workforce people returnTo allowed",
+  );
 }
 
 function testCandidateStatusLabels() {
