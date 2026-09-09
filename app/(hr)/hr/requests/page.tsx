@@ -3,6 +3,11 @@ import Link from "next/link";
 
 import { hrRepository } from "@/lib/hr";
 import { listHrRequestsForQueue } from "@/lib/self-service/hr-request-store";
+import {
+  filterHrRequestQueue,
+  listPersistedHrRequests,
+  workforceDataAvailable,
+} from "@/lib/workforce/operations";
 import { getHrSession } from "@/lib/self-service/session";
 import {
   hrRequestCategoryLabels,
@@ -38,13 +43,20 @@ export default async function HrRequestsPage({
   const session = await getHrSession();
   const params = await searchParams;
   const filter = parseFilter(params.filter);
-  const requests = listHrRequestsForQueue(filter, session.employeeId);
+  const persisted = workforceDataAvailable()
+    ? await listPersistedHrRequests()
+    : null;
+  const queue = (value: "OPEN" | "ASSIGNED" | "WAITING" | "RESOLVED" | "ALL") =>
+    persisted
+      ? filterHrRequestQueue(persisted, value, session.employeeId)
+      : listHrRequestsForQueue(value, session.employeeId);
+  const requests = queue(filter);
 
   const summary = {
-    OPEN: listHrRequestsForQueue("OPEN", session.employeeId).length,
-    ASSIGNED: listHrRequestsForQueue("ASSIGNED", session.employeeId).length,
-    WAITING: listHrRequestsForQueue("WAITING", session.employeeId).length,
-    RESOLVED: listHrRequestsForQueue("RESOLVED", session.employeeId).length,
+    OPEN: queue("OPEN").length,
+    ASSIGNED: queue("ASSIGNED").length,
+    WAITING: queue("WAITING").length,
+    RESOLVED: queue("RESOLVED").length,
   };
 
   const filters = [
@@ -77,13 +89,21 @@ export default async function HrRequestsPage({
 
   return (
     <div className="space-y-7">
-      <div>
-        <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-          HR Requests
-        </h1>
-        <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-          Service-desk queue for open, assigned, waiting, and resolved employee requests.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
+            HR Requests
+          </h1>
+          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
+            Service-desk queue for open, assigned, waiting, and resolved employee requests.
+          </p>
+        </div>
+        <a
+          href="/api/exports/hr-requests"
+          className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-ink)]"
+        >
+          Export CSV
+        </a>
       </div>
 
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

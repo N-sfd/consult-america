@@ -2,15 +2,22 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { getOpenJobs } from "@/lib/jobs";
+import { hrRepository } from "@/lib/hr";
+import { recruitingRepository } from "@/lib/recruiting";
+import {
+  getRecentWorkforceActivity,
+  workforceDataAvailable,
+} from "@/lib/workforce/operations";
+import { APPLICATION_PIPELINE } from "@/types/recruiting";
 
-const pipeline = [
+const demoPipeline = [
   { stage: "Applied", count: 84, width: "100%" },
   { stage: "Screening", count: 32, width: "38%" },
   { stage: "Interview", count: 18, width: "22%" },
   { stage: "Offer", count: 4, width: "8%" },
 ];
 
-const activity = [
+const demoActivity = [
   {
     title: "Interview scheduled",
     detail: "AI Engineer · Maya Chen · Tomorrow 10:00",
@@ -33,19 +40,75 @@ const activity = [
   },
 ];
 
+function relativeTime(iso: string) {
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const minutes = Math.max(1, Math.round(diffMs / 60000));
+  if (minutes < 60) return `${minutes}m`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours}h`;
+  return `${Math.round(hours / 24)}d`;
+}
+
+function pipelineStages(counts: Record<string, number>) {
+  const applied = (counts.APPLIED ?? 0) + (counts.REVIEW ?? 0);
+  const screening = (counts.RECRUITER_SCREEN ?? 0) + (counts.HIRING_MANAGER_REVIEW ?? 0);
+  const interview = (counts.INTERVIEW ?? 0) + (counts.FINAL_INTERVIEW ?? 0);
+  const offer = counts.OFFER ?? 0;
+  const max = Math.max(applied, screening, interview, offer, 1);
+
+  return [
+    { stage: "Applied", count: applied, width: `${Math.round((applied / max) * 100)}%` },
+    { stage: "Screening", count: screening, width: `${Math.round((screening / max) * 100)}%` },
+    { stage: "Interview", count: interview, width: `${Math.round((interview / max) * 100)}%` },
+    { stage: "Offer", count: offer, width: `${Math.round((offer / max) * 100)}%` },
+  ];
+}
+
 export default async function WorkforceOverview({
   userFirstName = "Nazia",
 }: {
   userFirstName?: string;
 }) {
+  const persisted = workforceDataAvailable();
   const jobs = await getOpenJobs();
   const openJobs = jobs.length;
 
-  const stats = [
-    { label: "People", value: "124" },
-    { label: "Jobs", value: String(openJobs) },
-    { label: "Candidates", value: "47" },
-  ];
+  const [employees, candidateCount, pipelineCounts, activity] = persisted
+    ? await Promise.all([
+        hrRepository.listEmployees(),
+        recruitingRepository.countCandidates(),
+        recruitingRepository.getApplicationPipelineCounts(),
+        getRecentWorkforceActivity(6),
+      ])
+    : [null, null, null, null];
+
+  const stats = persisted
+    ? [
+        { label: "People", value: String(employees?.length ?? 0) },
+        { label: "Jobs", value: String(openJobs) },
+        { label: "Candidates", value: String(candidateCount ?? 0) },
+      ]
+    : [
+        { label: "People", value: "124" },
+        { label: "Jobs", value: String(openJobs) },
+        { label: "Candidates", value: "47" },
+      ];
+
+  const pipeline = persisted
+    ? pipelineStages(
+        Object.fromEntries(
+          APPLICATION_PIPELINE.map((status) => [status, pipelineCounts?.[status] ?? 0]),
+        ),
+      )
+    : demoPipeline;
+
+  const activityItems = persisted
+    ? (activity ?? []).map((item) => ({
+        title: item.title,
+        detail: item.detail,
+        time: relativeTime(item.occurredAt),
+      }))
+    : demoActivity;
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
@@ -122,26 +185,30 @@ export default async function WorkforceOverview({
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-black/40">
             Recent activity
           </p>
-          <ul className="mt-5 space-y-4">
-            {activity.map((item) => (
-              <li
-                key={item.title + item.time}
-                className="border-b border-black/6 pb-4 last:border-0 last:pb-0"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-medium text-[var(--ca-app-ink)]">
-                      {item.title}
-                    </p>
-                    <p className="mt-1 text-sm text-black/50">{item.detail}</p>
+          {activityItems.length === 0 ? (
+            <p className="mt-5 text-sm text-black/50">No recent activity yet.</p>
+          ) : (
+            <ul className="mt-5 space-y-4">
+              {activityItems.map((item) => (
+                <li
+                  key={item.title + item.time + item.detail}
+                  className="border-b border-black/6 pb-4 last:border-0 last:pb-0"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-medium text-[var(--ca-app-ink)]">
+                        {item.title}
+                      </p>
+                      <p className="mt-1 text-sm text-black/50">{item.detail}</p>
+                    </div>
+                    <span className="shrink-0 text-xs text-black/35">
+                      {item.time}
+                    </span>
                   </div>
-                  <span className="shrink-0 text-xs text-black/35">
-                    {item.time}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
 

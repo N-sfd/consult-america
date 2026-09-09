@@ -8,6 +8,11 @@ import {
 } from "@/lib/self-service/payroll-store";
 import { listApprovals } from "@/lib/self-service/workflow-store";
 import {
+  listPersistedPayPeriods,
+  listPersistedPayrollRuns,
+  workforceDataAvailable,
+} from "@/lib/workforce/operations";
+import {
   payPeriodStatusLabels,
   payrollRunStatusLabels,
 } from "@/types/payroll";
@@ -34,25 +39,50 @@ function formatCurrency(value: number) {
 }
 
 export default async function PayrollOverviewPage() {
-  const period = getCurrentPayPeriod();
-  const run = period ? getRunForPeriod(period.id) : undefined;
   const employees = await hrRepository.listEmployees();
   const activeCount = employees.filter((e) => e.employmentStatus === "ACTIVE").length;
-  const pendingTimeApprovals = listApprovals().filter(
-    (a) => a.requestType === "TIMESHEET" && a.status === "PENDING",
-  ).length;
+  const persisted = workforceDataAvailable();
+  const periods = persisted ? await listPersistedPayPeriods() : [];
+  const runs = persisted ? await listPersistedPayrollRuns() : [];
+  const period = persisted
+    ? periods.find((item) => item.status === "OPEN")
+    : getCurrentPayPeriod();
+  const run = persisted
+    ? runs.find((item) => period && item.payPeriodId === period.id)
+    : period
+      ? getRunForPeriod(period.id)
+      : undefined;
+  const pendingTimeApprovals = persisted
+    ? 0
+    : listApprovals().filter(
+        (a) => a.requestType === "TIMESHEET" && a.status === "PENDING",
+      ).length;
 
-  const status = run ? payrollRunStatusLabels[run.status] : "Ready for Processing";
+  const status = run
+    ? payrollRunStatusLabels[run.status]
+    : persisted
+      ? "No payroll run"
+      : "Ready for Processing";
 
   return (
     <div className="space-y-7">
-      <div>
-        <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-          Payroll
-        </h1>
-        <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-          Demo calculator figures — not production payroll or tax data.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
+            Payroll
+          </h1>
+          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
+            {persisted
+              ? "Pay periods and payroll runs from recorded workforce data."
+              : "Demo calculator figures — not production payroll or tax data."}
+          </p>
+        </div>
+        <a
+          href="/api/exports/payroll-run-summary"
+          className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-ink)]"
+        >
+          Export CSV
+        </a>
       </div>
 
       {period ? (
@@ -88,7 +118,7 @@ export default async function PayrollOverviewPage() {
         <StatCard label="Employees" value={String(activeCount)} />
         <StatCard
           label="Gross Payroll"
-          value={run ? formatCurrency(run.totalGrossPay) : "—"}
+          value={persisted ? "—" : run ? formatCurrency(run.totalGrossPay) : "—"}
         />
         <StatCard label="Exceptions" value={String(run?.exceptionCount ?? 0)} />
         <StatCard
@@ -108,12 +138,15 @@ export default async function PayrollOverviewPage() {
           </Link>
         </div>
         <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">
-          {payPeriodStatusLabels.CLOSED} periods have a locked, finalized run —
-          see{" "}
-          <Link href="/payroll/runs" className="font-semibold text-[var(--ca-platform-mid)] hover:underline">
-            Payroll Runs
-          </Link>
-          .
+          {periods.length === 0 && persisted
+            ? "No pay periods have been opened yet."
+            : `${payPeriodStatusLabels.CLOSED} periods have a locked, finalized run — see `}
+          {periods.length === 0 && persisted ? null : (
+            <Link href="/payroll/runs" className="font-semibold text-[var(--ca-platform-mid)] hover:underline">
+              Payroll Runs
+            </Link>
+          )}
+          {periods.length === 0 && persisted ? null : "."}
         </p>
       </section>
     </div>

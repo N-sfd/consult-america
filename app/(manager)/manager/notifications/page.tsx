@@ -27,11 +27,11 @@ export default async function ManagerNotificationsPage({
   const session = await getManagerSession();
   const params = await searchParams;
   const filter = parseFilter(params.filter);
-  const notifications = getNotificationsForEmployee(
+  const notifications = await getNotificationsForEmployee(
     session.employeeId,
     filter,
   );
-  const unreadCount = getNotificationUnreadCount(session.employeeId);
+  const unreadCount = await getNotificationUnreadCount(session.employeeId);
 
   return (
     <div className="space-y-8">

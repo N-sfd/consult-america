@@ -201,6 +201,24 @@ async function cleanup(client: pg.Client, ids: {
       `DELETE FROM employee_status_history WHERE employee_id = $1`,
       [row.id],
     );
+    // The employee_profiles insert trigger (024) fans an EMPLOYEE_HIRED
+    // notification out to HR staff in real time — this concurrency test
+    // commits for real (it's testing an actual DB-level race), so those
+    // rows need explicit cleanup rather than a rollback.
+    await client.query(
+      `DELETE FROM notification_deliveries WHERE notification_id IN (
+         SELECT id FROM notifications WHERE entity_type = 'employee' AND entity_id = $1
+       )`,
+      [row.id],
+    );
+    await client.query(
+      `DELETE FROM notifications WHERE entity_type = 'employee' AND entity_id = $1`,
+      [row.id],
+    );
+    await client.query(
+      `DELETE FROM workforce_events WHERE entity_type = 'employee' AND entity_id = $1`,
+      [row.id],
+    );
     await client.query(`DELETE FROM employee_profiles WHERE id = $1`, [row.id]);
   }
 

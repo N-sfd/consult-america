@@ -38,6 +38,10 @@ import {
   assertSelfAccess,
   assertTeamAccess,
 } from "@/lib/self-service/security";
+import {
+  countPendingApprovalsFor,
+  workforceDataAvailable,
+} from "@/lib/workforce/operations";
 
 /**
  * Identity/contact fields, shaped like the old separate `Person` record for
@@ -198,17 +202,18 @@ export function getEmployeeDocuments(employeeId: string) {
 export async function getEmployeeOnboarding(employeeId: string) {
   const record = await hrRepository.getOnboarding(employeeId);
   const tasks = await hrRepository.listOnboardingTasks(employeeId);
-  const completedCount = tasks.filter((t) => t.status === "COMPLETED").length;
+  const activeTasks = tasks.filter((task) => task.status !== "NOT_APPLICABLE");
+  const completedCount = activeTasks.filter((task) => task.status === "COMPLETED").length;
 
   return {
     record,
     tasks,
     completedCount,
-    totalCount: tasks.length,
+    totalCount: activeTasks.length,
     percentComplete:
-      tasks.length === 0
+      activeTasks.length === 0
         ? 0
-        : Math.round((completedCount / tasks.length) * 100),
+        : Math.round((completedCount / activeTasks.length) * 100),
   };
 }
 
@@ -292,7 +297,10 @@ export async function getEmployeeDashboard(employeeId: string) {
     actionHref: string;
   }> = [
     ...onboarding.tasks
-      .filter((task) => task.status !== "COMPLETED")
+      .filter(
+        (task) =>
+          task.status !== "COMPLETED" && task.status !== "NOT_APPLICABLE",
+      )
       .map((task) => ({
         id: task.id,
         title: task.title,
@@ -355,14 +363,20 @@ export function getProfileCompleteness(person: EmployeeProfilePerson) {
 
 export async function getManagerDashboard(managerEmployeeId: string) {
   const team = await getDirectReports(managerEmployeeId);
+  const persisted = workforceDataAvailable()
+    ? await countPendingApprovalsFor(managerEmployeeId)
+    : null;
   const approvals = getPendingApprovals(managerEmployeeId);
 
   return {
     teamCount: team.length,
-    pendingApprovals: approvals.length,
-    pendingTimesheets: approvals.filter((a) => a.requestType === "TIMESHEET")
-      .length,
-    pendingLeave: approvals.filter((a) => a.requestType === "LEAVE").length,
+    pendingApprovals: persisted?.pendingApprovals ?? approvals.length,
+    pendingTimesheets:
+      persisted?.pendingTimesheets ??
+      approvals.filter((a) => a.requestType === "TIMESHEET").length,
+    pendingLeave:
+      persisted?.pendingLeave ??
+      approvals.filter((a) => a.requestType === "LEAVE").length,
     team,
     approvals,
   };

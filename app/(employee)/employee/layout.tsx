@@ -15,7 +15,7 @@ export default async function EmployeeLayout({
     throw error;
   }
 
-  const unreadCount = getNotificationUnreadCount(session.employeeId);
+  const unreadCount = await getNotificationUnreadCount(session.employeeId);
 
   return (
     <PortalShell session={session} mode="employee" unreadCount={unreadCount}>

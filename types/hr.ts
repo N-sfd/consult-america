@@ -67,6 +67,12 @@ export type EmployeeProfile = {
   emergencyContactPhone?: string;
   hireDate: string;
   originalHireDate: string;
+  /** Employment start date from the accepted offer. Distinct from hireDate. */
+  startDate?: string;
+  /** pending until an existing profile is linked. Never a fabricated auth user. */
+  identityProvisioningStatus?: "pending" | "linked";
+  /** ready only after profile link and EMPLOYEE role. Separate from identity. */
+  portalAccessStatus?: "pending" | "ready";
   employmentStatus: EmployeeStatus;
   terminationDate?: string;
   terminationReason?: string;

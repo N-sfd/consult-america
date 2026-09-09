@@ -40,6 +40,13 @@ function mapEmployee(row: Record<string, unknown>): EmployeeProfile {
       (row.emergency_contact_phone as string) ?? undefined,
     hireDate: row.hire_date as string,
     originalHireDate: row.original_hire_date as string,
+    startDate: (row.start_date as string) ?? undefined,
+    identityProvisioningStatus:
+      (row.identity_provisioning_status as EmployeeProfile["identityProvisioningStatus"]) ??
+      undefined,
+    portalAccessStatus:
+      (row.portal_access_status as EmployeeProfile["portalAccessStatus"]) ??
+      undefined,
     employmentStatus: row.employment_status as EmployeeProfile["employmentStatus"],
     terminationDate: (row.termination_date as string) ?? undefined,
     terminationReason: (row.termination_reason as string) ?? undefined,

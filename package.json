@@ -20,6 +20,12 @@
     "test:rls": "tsx --env-file=.env.local scripts/security-rls-test.ts && tsx --env-file=.env.local scripts/security-rls-auth-probe.ts",
     "test:lineage": "tsx --env-file=.env.local scripts/document-lineage-regression.ts",
     "test:hire-lineage": "tsx --env-file=.env.local scripts/hire-lineage-regression.ts",
+    "test:onboarding-lineage": "tsx --env-file=.env.local scripts/onboarding-lineage-regression.ts",
+    "test:workforce-ops": "tsx --env-file=.env.local scripts/workforce-ops-regression.ts",
+    "test:payroll-rls": "tsx --env-file=.env.local scripts/payroll-rls-regression.ts",
+    "test:notifications": "tsx --env-file=.env.local scripts/notifications-regression.ts",
+    "test:reports": "tsx --env-file=.env.local scripts/reports-regression.ts",
+    "notifications:process-deliveries": "tsx --env-file=.env.local scripts/process-notification-deliveries.ts",
     "brand:assets": "node scripts/generate-brand-assets.mjs"
   },
   "dependencies": {

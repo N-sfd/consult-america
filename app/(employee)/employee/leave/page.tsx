@@ -8,6 +8,10 @@ import {
   getLeaveTypes,
 } from "@/lib/self-service";
 import { getEmployeeSession } from "@/lib/self-service/session";
+import {
+  listPersistedLeaveRequests,
+  workforceDataAvailable,
+} from "@/lib/workforce/operations";
 import { leaveRequestStatusLabels } from "@/types/self-service";
 
 export const metadata: Metadata = {
@@ -16,9 +20,12 @@ export const metadata: Metadata = {
 
 export default async function EmployeeLeavePage() {
   const session = await getEmployeeSession();
+  const persisted = workforceDataAvailable();
   const types = getLeaveTypes();
-  const balances = getLeaveBalances(session.employeeId);
-  const requests = getLeaveRequests(session.employeeId);
+  const balances = persisted ? [] : getLeaveBalances(session.employeeId);
+  const requests = persisted
+    ? await listPersistedLeaveRequests(session.employeeId)
+    : getLeaveRequests(session.employeeId);
 
   const today = new Date().toISOString().slice(0, 10);
   const upcoming = requests
@@ -38,7 +45,15 @@ export default async function EmployeeLeavePage() {
             approved leave.
           </p>
         </div>
-        <LeaveRequestForm types={types} balances={balances} />
+        <div className="flex items-start gap-2">
+          <a
+            href="/api/exports/leave-requests"
+            className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
+          >
+            Export CSV
+          </a>
+          <LeaveRequestForm types={types} balances={balances} />
+        </div>
       </div>
 
       <section className="grid gap-4 md:grid-cols-3">

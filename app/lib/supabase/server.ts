@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import NodeWebSocket from "ws";
 
 /**
  * Server-only Supabase access using the service-role key.
@@ -24,10 +25,19 @@ export function getSupabaseServiceClient(): SupabaseClient | null {
     return cachedClient;
   }
 
+  // supabase-js always constructs a realtime client, which throws under a
+  // Node runtime with no native WebSocket (Node <22 — matches scripts run
+  // via tsx, e.g. scripts/process-notification-deliveries.ts). Next.js's own
+  // server runtime has native WebSocket, so this only ever engages there.
+  const realtime =
+    typeof globalThis.WebSocket === "undefined"
+      ? { realtime: { transport: NodeWebSocket as unknown as typeof globalThis.WebSocket } }
+      : {};
+
   cachedClient = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL as string,
     process.env.SUPABASE_SERVICE_ROLE_KEY as string,
-    { auth: { persistSession: false } },
+    { auth: { persistSession: false }, ...realtime },
   );
 
   return cachedClient;

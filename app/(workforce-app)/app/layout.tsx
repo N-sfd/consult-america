@@ -18,7 +18,7 @@ export default async function WorkforceAppLayout({
   children: React.ReactNode;
 }) {
   const session = await getWorkforceSession();
-  const unreadCount = getNotificationUnreadCount(session.employeeId);
+  const unreadCount = await getNotificationUnreadCount(session.employeeId);
   const pendingApprovalsCount = getPendingApprovals(session.employeeId).length;
 
   return (

@@ -4,32 +4,52 @@ import {
   markAllNotificationsRead,
   markNotificationRead,
 } from "@/lib/self-service/workflow-store";
+import {
+  countPersistedUnreadNotifications,
+  listPersistedNotifications,
+  markAllPersistedNotificationsRead,
+  markPersistedNotificationRead,
+  workforceDataAvailable,
+  type NotificationFilter,
+} from "@/lib/workforce/operations";
 import type { Notification } from "@/types/self-service";
 
-export type NotificationFilter = "ALL" | "UNREAD" | "READ";
+export type { NotificationFilter };
 
-export function getNotificationsForEmployee(
+export async function getNotificationsForEmployee(
   employeeId: string,
   filter: NotificationFilter = "ALL",
-): Notification[] {
+): Promise<Notification[]> {
+  if (workforceDataAvailable()) {
+    return listPersistedNotifications(employeeId, filter);
+  }
   const items = listNotificationsForEmployee(employeeId);
   if (filter === "UNREAD") return items.filter((item) => !item.readAt);
   if (filter === "READ") return items.filter((item) => Boolean(item.readAt));
   return items;
 }
 
-export function getNotificationUnreadCount(employeeId: string) {
+export async function getNotificationUnreadCount(employeeId: string) {
+  if (workforceDataAvailable()) {
+    return countPersistedUnreadNotifications(employeeId);
+  }
   return getUnreadNotificationCount(employeeId);
 }
 
-export function markOneNotificationRead(
+export async function markOneNotificationRead(
   notificationId: string,
   employeeId: string,
 ) {
+  if (workforceDataAvailable()) {
+    return markPersistedNotificationRead(employeeId, notificationId);
+  }
   return markNotificationRead({ notificationId, employeeId });
 }
 
-export function markEmployeeNotificationsRead(employeeId: string) {
+export async function markEmployeeNotificationsRead(employeeId: string) {
+  if (workforceDataAvailable()) {
+    return markAllPersistedNotificationsRead(employeeId);
+  }
   return markAllNotificationsRead(employeeId);
 }
 

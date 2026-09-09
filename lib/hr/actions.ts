@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { seedBusinessUnits, seedDepartments } from "@/data/recruiting/seed";
-import { convertAcceptedOfferToEmployee, hrRepository } from "@/lib/hr/index";
+import { convertAcceptedOfferToEmployee } from "@/lib/hr";
 import { recruitingRepository } from "@/lib/recruiting";
 import { canConvertToEmployee } from "@/lib/recruiting/status-machine";
 
@@ -43,22 +43,8 @@ export async function hireCandidate(
     };
   }
 
-  // Idempotent short-circuit: employee already linked to this offer.
-  const existingEmployees = await hrRepository.listEmployees();
-  const existing = existingEmployees.find((e) => e.sourceOfferId === offer.id);
-  if (existing) {
-    if (application.status !== "HIRED") {
-      await recruitingRepository.updateApplicationStage(applicationId, "HIRED");
-    }
-    revalidatePath(`/app/recruiting/jobs/${resolvedRequisitionId}/pipeline`);
-    revalidatePath("/workforce/people");
-    return {
-      ok: true,
-      employeeId: existing.id,
-      employeeNumber: existing.employeeNumber,
-    };
-  }
-
+  // Always call the hire transaction. The database reuses the employee and
+  // onboarding record, and never trusts a manager id from the browser.
   const [profile, requisition] = await Promise.all([
     recruitingRepository.getCandidateProfile(application.candidateId),
     recruitingRepository.getRequisitionById(resolvedRequisitionId),

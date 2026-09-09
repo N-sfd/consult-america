@@ -46,7 +46,7 @@ export async function markNotificationReadAction(input: {
     const actor = await resolveActor(input.portal);
     requirePermission(actor, "self.notification.read");
 
-    markOneNotificationRead(input.notificationId, actor.session.employeeId);
+    await markOneNotificationRead(input.notificationId, actor.session.employeeId);
 
     writeAuditLog({
       eventType: "NOTIFICATION_READ",
@@ -77,7 +77,7 @@ export async function markAllNotificationsReadAction(input: {
     const actor = await resolveActor(input.portal);
     requirePermission(actor, "self.notification.read");
 
-    const count = markEmployeeNotificationsRead(actor.session.employeeId);
+    const count = await markEmployeeNotificationsRead(actor.session.employeeId);
 
     writeAuditLog({
       eventType: "NOTIFICATION_MARK_ALL_READ",
