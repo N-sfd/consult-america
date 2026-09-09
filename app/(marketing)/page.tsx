@@ -15,7 +15,7 @@ import PreFooterCta from "@/components/marketing/pre-footer-cta";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
 
 export const metadata: Metadata = {
-  title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+  title: "Enterprise Transformation, Oracle, AI & Application Engineering",
   description:
     "Consult America helps organizations modernize enterprise platforms, connect data and workflows, operationalize AI, and engineer digital products from strategy through production.",
   alternates: {
