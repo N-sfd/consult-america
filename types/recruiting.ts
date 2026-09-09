@@ -174,6 +174,7 @@ export type Experience = {
   candidateId: string;
   company: string;
   title: string;
+  location?: string;
   startDate: string;
   endDate?: string;
   isCurrent: boolean;

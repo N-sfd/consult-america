@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal } from "lucide-react";
 
 import JobFilterSelect from "@/components/jobs/job-filter-select";
@@ -39,14 +39,55 @@ export default function JobBoard({
   applicationCtasByRequisitionId,
 }: JobBoardProps) {
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") ?? ALL;
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const [query, setQuery] = useState("");
-  const [location, setLocation] = useState(ALL);
-  const [careerArea, setCareerArea] = useState(initialCategory);
-  const [workplaceType, setWorkplaceType] = useState(ALL);
-  const [employmentType, setEmploymentType] = useState(ALL);
+  const [query, setQueryState] = useState(searchParams.get("q") ?? "");
+  const [location, setLocationState] = useState(
+    searchParams.get("location") ?? ALL,
+  );
+  const [careerArea, setCareerAreaState] = useState(
+    searchParams.get("category") ?? ALL,
+  );
+  const [workplaceType, setWorkplaceTypeState] = useState(
+    searchParams.get("workplaceType") ?? ALL,
+  );
+  const [employmentType, setEmploymentTypeState] = useState(
+    searchParams.get("employmentType") ?? ALL,
+  );
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const syncParam = useCallback(
+    (key: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value === ALL || value === "") params.delete(key);
+      else params.set(key, value);
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [pathname, router, searchParams],
+  );
+
+  function setQuery(value: string) {
+    setQueryState(value);
+    syncParam("q", value);
+  }
+  function setLocation(value: string) {
+    setLocationState(value);
+    syncParam("location", value);
+  }
+  function setCareerArea(value: string) {
+    setCareerAreaState(value);
+    syncParam("category", value);
+  }
+  function setWorkplaceType(value: string) {
+    setWorkplaceTypeState(value);
+    syncParam("workplaceType", value);
+  }
+  function setEmploymentType(value: string) {
+    setEmploymentTypeState(value);
+    syncParam("employmentType", value);
+  }
 
   const filteredJobs = useMemo(
     () =>
@@ -67,11 +108,12 @@ export default function JobBoard({
   const hasActiveFilters = query !== "" || activeFilterCount > 0;
 
   function clearFilters() {
-    setQuery("");
-    setLocation(ALL);
-    setCareerArea(ALL);
-    setWorkplaceType(ALL);
-    setEmploymentType(ALL);
+    setQueryState("");
+    setLocationState(ALL);
+    setCareerAreaState(ALL);
+    setWorkplaceTypeState(ALL);
+    setEmploymentTypeState(ALL);
+    router.replace(pathname, { scroll: false });
   }
 
   const filterFields = [

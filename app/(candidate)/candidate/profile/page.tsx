@@ -3,7 +3,10 @@ import type { Metadata } from "next";
 import CandidateProfileForm from "@/components/candidate/candidate-profile-form";
 import {
   CandidateEducationForm,
+  CandidateEducationListItem,
   CandidateExperienceForm,
+  CandidateExperienceListItem,
+  CandidateSkillPill,
   CandidateSkillsForm,
 } from "@/components/candidate/candidate-profile-sections";
 import { calculateProfileCompletion } from "@/lib/candidate/profile-completion";
@@ -72,17 +75,7 @@ export default async function CandidateProfilePage() {
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {experience.map((item) => (
-              <li key={item.id}>
-                <p className="font-medium">
-                  {item.title} · {item.company}
-                </p>
-                <p className="text-black/55">
-                  {item.startDate} – {item.isCurrent ? "Present" : item.endDate}
-                </p>
-                {item.description ? (
-                  <p className="mt-1 text-black/65">{item.description}</p>
-                ) : null}
-              </li>
+              <CandidateExperienceListItem key={item.id} item={item} />
             ))}
           </ul>
         )}
@@ -98,12 +91,7 @@ export default async function CandidateProfilePage() {
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {education.map((item) => (
-              <li key={item.id}>
-                <p className="font-medium">{item.institution}</p>
-                <p className="text-black/55">
-                  {[item.degree, item.fieldOfStudy].filter(Boolean).join(", ")}
-                </p>
-              </li>
+              <CandidateEducationListItem key={item.id} item={item} />
             ))}
           </ul>
         )}
@@ -119,12 +107,7 @@ export default async function CandidateProfilePage() {
         ) : (
           <div className="mt-4 flex flex-wrap gap-2">
             {skills.map((item) => (
-              <span
-                key={item.id}
-                className="rounded-full bg-black/[0.04] px-3 py-1 text-xs font-medium text-black/70"
-              >
-                {item.skill}
-              </span>
+              <CandidateSkillPill key={item.id} item={item} />
             ))}
           </div>
         )}

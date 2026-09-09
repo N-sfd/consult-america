@@ -174,6 +174,7 @@ function mapExperience(row: Record<string, unknown>): Experience {
     candidateId: row.candidate_id as string,
     company: row.company as string,
     title: row.title as string,
+    location: (row.location as string) ?? undefined,
     startDate: row.start_date as string,
     endDate: (row.end_date as string) ?? undefined,
     isCurrent: Boolean(row.is_current),

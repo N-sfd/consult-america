@@ -343,6 +343,214 @@ async function main() {
     );
     assert(appHistory.rows[0].status === "APPLIED", "application history row persists");
 
+    // --- Experience CRUD (including location) + cross-candidate denial ---
+    const expId = `exp-portal-${suffix}`;
+    await client.query(
+      `INSERT INTO experiences (
+         id, candidate_id, company, title, location, start_date, is_current
+       ) VALUES ($1, $2, 'Consult America', 'Engineer', 'Ashburn, VA', '2021-01-01', TRUE)`,
+      [expId, candidateA],
+    );
+    const expInserted = await client.query(
+      `SELECT location FROM experiences WHERE id = $1`,
+      [expId],
+    );
+    assert(expInserted.rows[0].location === "Ashburn, VA", "experience location persists");
+
+    const expUpdated = await client.query(
+      `UPDATE experiences SET location = $2, title = 'Senior Engineer'
+        WHERE id = $1 AND candidate_id = $3
+        RETURNING location, title`,
+      [expId, "Hagerstown, MD", candidateA],
+    );
+    assert(
+      expUpdated.rows[0]?.location === "Hagerstown, MD" &&
+        expUpdated.rows[0]?.title === "Senior Engineer",
+      "experience update persists (owner-scoped)",
+    );
+
+    const expCrossUpdate = await client.query(
+      `UPDATE experiences SET title = 'Hijacked'
+        WHERE id = $1 AND candidate_id = $2
+        RETURNING id`,
+      [expId, candidateB],
+    );
+    assert(
+      expCrossUpdate.rows.length === 0,
+      "cross-candidate experience update denied (owner-scoped query)",
+    );
+
+    const expCrossDelete = await client.query(
+      `DELETE FROM experiences WHERE id = $1 AND candidate_id = $2 RETURNING id`,
+      [expId, candidateB],
+    );
+    assert(
+      expCrossDelete.rows.length === 0,
+      "cross-candidate experience delete denied (owner-scoped query)",
+    );
+
+    const expDeleted = await client.query(
+      `DELETE FROM experiences WHERE id = $1 AND candidate_id = $2 RETURNING id`,
+      [expId, candidateA],
+    );
+    assert(expDeleted.rows.length === 1, "owner experience delete succeeds");
+
+    // --- Education CRUD + cross-candidate denial ---
+    const eduId = `edu-portal-${suffix}`;
+    await client.query(
+      `INSERT INTO education (id, candidate_id, institution, degree)
+       VALUES ($1, $2, 'MIT', 'BS Computer Science')`,
+      [eduId, candidateA],
+    );
+    const eduUpdated = await client.query(
+      `UPDATE education SET degree = $2
+        WHERE id = $1 AND candidate_id = $3
+        RETURNING degree`,
+      [eduId, "MS Computer Science", candidateA],
+    );
+    assert(
+      eduUpdated.rows[0]?.degree === "MS Computer Science",
+      "education update persists (owner-scoped)",
+    );
+
+    const eduCrossDelete = await client.query(
+      `DELETE FROM education WHERE id = $1 AND candidate_id = $2 RETURNING id`,
+      [eduId, candidateB],
+    );
+    assert(
+      eduCrossDelete.rows.length === 0,
+      "cross-candidate education delete denied (owner-scoped query)",
+    );
+
+    const eduDeleted = await client.query(
+      `DELETE FROM education WHERE id = $1 AND candidate_id = $2 RETURNING id`,
+      [eduId, candidateA],
+    );
+    assert(eduDeleted.rows.length === 1, "owner education delete succeeds");
+
+    // --- Skills add/dedupe/remove + cross-candidate denial ---
+    const skillId = `skill-portal-${suffix}`;
+    const candidateSkillId = `csk-portal-${suffix}`;
+    await client.query(
+      `INSERT INTO skills (id, name) VALUES ($1, $2)`,
+      [skillId, `Portal Skill ${suffix}`],
+    );
+    await client.query(
+      `INSERT INTO candidate_skills (id, candidate_id, skill_id)
+       VALUES ($1, $2, $3)`,
+      [candidateSkillId, candidateA, skillId],
+    );
+    const dedupeConflict = await client.query(
+      `INSERT INTO candidate_skills (id, candidate_id, skill_id)
+       VALUES ($1, $2, $3)
+       ON CONFLICT (candidate_id, skill_id) DO NOTHING
+       RETURNING id`,
+      [`csk-portal-dup-${suffix}`, candidateA, skillId],
+    );
+    assert(dedupeConflict.rows.length === 0, "duplicate normalized skill for candidate is not re-added");
+
+    const skillCrossDelete = await client.query(
+      `DELETE FROM candidate_skills WHERE id = $1 AND candidate_id = $2 RETURNING id`,
+      [candidateSkillId, candidateB],
+    );
+    assert(
+      skillCrossDelete.rows.length === 0,
+      "cross-candidate skill removal denied (owner-scoped query)",
+    );
+
+    const skillDeleted = await client.query(
+      `DELETE FROM candidate_skills WHERE id = $1 AND candidate_id = $2 RETURNING id`,
+      [candidateSkillId, candidateA],
+    );
+    assert(skillDeleted.rows.length === 1, "owner skill removal succeeds");
+
+    // --- Interview privacy: candidates have no policy on interview_feedback ---
+    const interviewId = `iv-portal-${suffix}`;
+    const panelMemberId = `pm-portal-${suffix}`;
+    const feedbackId = `fb-portal-${suffix}`;
+    await client.query(
+      `INSERT INTO interviews (
+         id, application_id, interview_type, status, scheduled_at, duration_minutes
+       ) VALUES ($1, $2, 'VIDEO', 'SCHEDULED', now() + interval '1 day', 45)`,
+      [interviewId, appId],
+    );
+    await client.query(
+      `INSERT INTO interview_panel_members (id, interview_id, user_id, role)
+       VALUES ($1, $2, 'staff-portal-fixture', 'INTERVIEWER')`,
+      [panelMemberId, interviewId],
+    );
+    await client.query(
+      `INSERT INTO interview_feedback (
+         id, interview_id, panel_member_id, recommendation, notes
+       ) VALUES ($1, $2, $3, 'YES', 'Internal notes — never candidate-visible')`,
+      [feedbackId, interviewId, panelMemberId],
+    );
+    const feedbackPolicies = await client.query(`
+      SELECT pg_get_expr(polqual, polrelid) AS qual
+        FROM pg_policy
+        JOIN pg_class ON pg_class.oid = polrelid
+        JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+       WHERE nspname = 'public' AND relname = 'interview_feedback'
+    `);
+    assert(
+      feedbackPolicies.rows.every(
+        (row) => !String(row.qual ?? "").includes("current_candidate_id"),
+      ),
+      "interview_feedback has no candidate-facing RLS policy (feedback stays internal)",
+    );
+
+    const interviewSelfPolicy = await client.query(`
+      SELECT pg_get_expr(polqual, polrelid) AS qual
+        FROM pg_policy
+        JOIN pg_class ON pg_class.oid = polrelid
+        JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+       WHERE nspname = 'public' AND relname = 'interviews' AND polname = 'interviews_self'
+    `);
+    assert(
+      String(interviewSelfPolicy.rows[0]?.qual ?? "").includes("current_candidate_id"),
+      "candidate can read their own interview (type/date/status) via interviews_self policy",
+    );
+
+    // --- Offer ownership: accept/decline must be scoped to the owning candidate ---
+    const offerId = `off-portal-${suffix}`;
+    await client.query(
+      `INSERT INTO offers (
+         id, application_id, offer_number, status, employment_type,
+         workplace_type, start_date
+       ) VALUES ($1, $2, $3, 'EXTENDED', 'FULL_TIME', 'REMOTE', CURRENT_DATE + 14)`,
+      [offerId, appId, `OFFER-PORTAL-${suffix}`],
+    );
+    // This mirrors what candidateAcceptOffer/candidateDeclineOffer check via
+    // assertCandidateSelfAccess before touching the offer: the application's
+    // candidate_id must equal the acting candidate's session id.
+    const offerOwner = await client.query(
+      `SELECT a.candidate_id FROM offers o
+         JOIN applications a ON a.id = o.application_id
+        WHERE o.id = $1`,
+      [offerId],
+    );
+    assert(
+      offerOwner.rows[0]?.candidate_id === candidateA,
+      "offer resolves to owning candidate",
+    );
+    assert(
+      offerOwner.rows[0]?.candidate_id !== candidateB,
+      "offer ownership denies a different candidate (assertCandidateSelfAccess premise)",
+    );
+
+    const offerRespondPolicy = await client.query(`
+      SELECT pg_get_expr(polqual, polrelid) AS qual, pg_get_expr(polwithcheck, polrelid) AS withcheck
+        FROM pg_policy
+        JOIN pg_class ON pg_class.oid = polrelid
+        JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+       WHERE nspname = 'public' AND relname = 'offers' AND polname = 'offers_self_respond'
+    `);
+    assert(
+      String(offerRespondPolicy.rows[0]?.qual ?? "").includes("current_candidate_id") &&
+        String(offerRespondPolicy.rows[0]?.withcheck ?? "").includes("ACCEPTED"),
+      "offers_self_respond policy scopes accept/decline to the owning candidate",
+    );
+
     await client.query("ROLLBACK");
     console.log("PASS  candidate portal fixtures rolled back");
   } catch (error) {

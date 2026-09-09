@@ -50,6 +50,7 @@ export async function updateCandidateContactInfoAction(input: {
 export async function saveCandidateExperienceAction(input: {
   company: string;
   title: string;
+  location?: string;
   startDate: string;
   endDate?: string;
   isCurrent?: boolean;
@@ -71,6 +72,7 @@ export async function saveCandidateExperienceAction(input: {
       candidate_id: session.candidateId,
       company,
       title,
+      location: input.location?.trim() || null,
       start_date: input.startDate,
       end_date: input.isCurrent ? null : input.endDate || null,
       is_current: Boolean(input.isCurrent),
@@ -86,6 +88,89 @@ export async function saveCandidateExperienceAction(input: {
     return {
       ok: false,
       message: toCandidateActionErrorMessage(error, "Unable to save experience."),
+    };
+  }
+}
+
+export async function updateCandidateExperienceAction(input: {
+  id: string;
+  company: string;
+  title: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  isCurrent?: boolean;
+  description?: string;
+}): Promise<CandidateActionResult> {
+  try {
+    const { session } = await requireCandidateActor();
+    const client = getSupabaseServiceClient();
+    if (!client) throw new Error("Supabase is not configured");
+
+    const company = input.company.trim();
+    const title = input.title.trim();
+    if (!company || !title || !input.startDate) {
+      throw new Error("Company, title, and start date are required");
+    }
+
+    const { data, error } = await client
+      .from("experiences")
+      .update({
+        company,
+        title,
+        location: input.location?.trim() || null,
+        start_date: input.startDate,
+        end_date: input.isCurrent ? null : input.endDate || null,
+        is_current: Boolean(input.isCurrent),
+        description: input.description?.trim() || null,
+      })
+      .eq("id", input.id)
+      .eq("candidate_id", session.candidateId)
+      .select("id");
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) {
+      throw new Error("Experience not found");
+    }
+
+    revalidatePath("/candidate/profile");
+    revalidatePath("/candidate");
+    revalidatePath(`/app/recruiting/candidates/${session.candidateId}`);
+    return { ok: true, message: "Experience updated." };
+  } catch (error) {
+    return {
+      ok: false,
+      message: toCandidateActionErrorMessage(error, "Unable to update experience."),
+    };
+  }
+}
+
+export async function deleteCandidateExperienceAction(
+  id: string,
+): Promise<CandidateActionResult> {
+  try {
+    const { session } = await requireCandidateActor();
+    const client = getSupabaseServiceClient();
+    if (!client) throw new Error("Supabase is not configured");
+
+    const { data, error } = await client
+      .from("experiences")
+      .delete()
+      .eq("id", id)
+      .eq("candidate_id", session.candidateId)
+      .select("id");
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) {
+      throw new Error("Experience not found");
+    }
+
+    revalidatePath("/candidate/profile");
+    revalidatePath("/candidate");
+    revalidatePath(`/app/recruiting/candidates/${session.candidateId}`);
+    return { ok: true, message: "Experience removed." };
+  } catch (error) {
+    return {
+      ok: false,
+      message: toCandidateActionErrorMessage(error, "Unable to remove experience."),
     };
   }
 }
@@ -124,6 +209,82 @@ export async function saveCandidateEducationAction(input: {
     return {
       ok: false,
       message: toCandidateActionErrorMessage(error, "Unable to save education."),
+    };
+  }
+}
+
+export async function updateCandidateEducationAction(input: {
+  id: string;
+  institution: string;
+  degree?: string;
+  fieldOfStudy?: string;
+  startDate?: string;
+  endDate?: string;
+}): Promise<CandidateActionResult> {
+  try {
+    const { session } = await requireCandidateActor();
+    const client = getSupabaseServiceClient();
+    if (!client) throw new Error("Supabase is not configured");
+
+    const institution = input.institution.trim();
+    if (!institution) throw new Error("School is required");
+
+    const { data, error } = await client
+      .from("education")
+      .update({
+        institution,
+        degree: input.degree?.trim() || null,
+        field_of_study: input.fieldOfStudy?.trim() || null,
+        start_date: input.startDate || null,
+        end_date: input.endDate || null,
+      })
+      .eq("id", input.id)
+      .eq("candidate_id", session.candidateId)
+      .select("id");
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) {
+      throw new Error("Education not found");
+    }
+
+    revalidatePath("/candidate/profile");
+    revalidatePath("/candidate");
+    revalidatePath(`/app/recruiting/candidates/${session.candidateId}`);
+    return { ok: true, message: "Education updated." };
+  } catch (error) {
+    return {
+      ok: false,
+      message: toCandidateActionErrorMessage(error, "Unable to update education."),
+    };
+  }
+}
+
+export async function deleteCandidateEducationAction(
+  id: string,
+): Promise<CandidateActionResult> {
+  try {
+    const { session } = await requireCandidateActor();
+    const client = getSupabaseServiceClient();
+    if (!client) throw new Error("Supabase is not configured");
+
+    const { data, error } = await client
+      .from("education")
+      .delete()
+      .eq("id", id)
+      .eq("candidate_id", session.candidateId)
+      .select("id");
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) {
+      throw new Error("Education not found");
+    }
+
+    revalidatePath("/candidate/profile");
+    revalidatePath("/candidate");
+    revalidatePath(`/app/recruiting/candidates/${session.candidateId}`);
+    return { ok: true, message: "Education removed." };
+  } catch (error) {
+    return {
+      ok: false,
+      message: toCandidateActionErrorMessage(error, "Unable to remove education."),
     };
   }
 }
@@ -189,6 +350,37 @@ export async function saveCandidateSkillsAction(input: {
     return {
       ok: false,
       message: toCandidateActionErrorMessage(error, "Unable to save skills."),
+    };
+  }
+}
+
+export async function deleteCandidateSkillAction(
+  candidateSkillId: string,
+): Promise<CandidateActionResult> {
+  try {
+    const { session } = await requireCandidateActor();
+    const client = getSupabaseServiceClient();
+    if (!client) throw new Error("Supabase is not configured");
+
+    const { data, error } = await client
+      .from("candidate_skills")
+      .delete()
+      .eq("id", candidateSkillId)
+      .eq("candidate_id", session.candidateId)
+      .select("id");
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) {
+      throw new Error("Skill not found");
+    }
+
+    revalidatePath("/candidate/profile");
+    revalidatePath("/candidate");
+    revalidatePath(`/app/recruiting/candidates/${session.candidateId}`);
+    return { ok: true, message: "Skill removed." };
+  } catch (error) {
+    return {
+      ok: false,
+      message: toCandidateActionErrorMessage(error, "Unable to remove skill."),
     };
   }
 }

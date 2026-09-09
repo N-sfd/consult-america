@@ -224,6 +224,9 @@ export default function CandidateProfile({
                     <p className="font-medium text-[var(--ca-app-ink)]">
                       {job.title} · {job.company}
                     </p>
+                    {job.location && (
+                      <p className="mt-0.5 text-xs text-black/45">{job.location}</p>
+                    )}
                     <p className="mt-0.5 text-xs text-black/45">
                       {formatDate(job.startDate)} —{" "}
                       {job.isCurrent ? "Present" : formatDate(job.endDate)}
