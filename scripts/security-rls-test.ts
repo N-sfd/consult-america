@@ -6,14 +6,20 @@ import { createClient } from "@supabase/supabase-js";
 import pg from "pg";
 import WebSocket from "ws";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const databaseUrl = process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
-
-if (!url || !anonKey || !databaseUrl) {
-  console.error("Missing Supabase URL, anon key, or DATABASE_URL");
-  process.exit(1);
+function required(value: string | undefined, name: string): string {
+  if (!value) {
+    console.error(`Missing ${name}`);
+    process.exit(1);
+  }
+  return value;
 }
+
+const url = required(process.env.NEXT_PUBLIC_SUPABASE_URL, "NEXT_PUBLIC_SUPABASE_URL");
+const anonKey = required(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, "NEXT_PUBLIC_SUPABASE_ANON_KEY");
+const databaseUrl = required(
+  process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL,
+  "DATABASE_URL",
+);
 
 const denied = new Set(["42501", "PGRST301", "PGRST116"]);
 let failed = 0;
@@ -127,8 +133,12 @@ async function main() {
     realtime: { transport: WebSocket as unknown as typeof globalThis.WebSocket },
   });
 
-  const probe = (table: string) =>
-    anon.from(table).select("*", { count: "exact", head: true });
+  const probe = async (table: string) => {
+    const { error, count } = await anon
+      .from(table)
+      .select("*", { count: "exact", head: true });
+    return { error, count };
+  };
 
   console.log("\n-- unauthenticated data API --");
   await expectAllowed("jobs published readable", async () => {
