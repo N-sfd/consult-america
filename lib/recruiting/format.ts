@@ -46,3 +46,16 @@ export function formatDateTime(iso: string | undefined): string {
     minute: "2-digit",
   });
 }
+
+/** Same as formatDateTime but includes a timezone abbreviation — for interview scheduling, where ambiguity matters. */
+export function formatDateTimeWithZone(iso: string | undefined): string {
+  if (!iso) return "—";
+  return new Date(iso).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+}

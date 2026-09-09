@@ -423,6 +423,14 @@ export const candidateApplicationStatusLabels: Record<ApplicationStatus, string>
     CLOSED: "Closed",
   };
 
+/** Candidate-facing labels — never expose the internal "no-show" framing. */
+export const candidateInterviewStatusLabels: Record<InterviewStatus, string> = {
+  SCHEDULED: "Upcoming",
+  COMPLETED: "Completed",
+  CANCELLED: "Cancelled",
+  NO_SHOW: "Cancelled",
+};
+
 export const offerStatusLabels: Record<OfferStatus, string> = {
   DRAFT: "Draft",
   PENDING_APPROVAL: "Pending Approval",

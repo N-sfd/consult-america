@@ -1,4 +1,5 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
+import type { EmploymentType } from "@/types/organization";
 import type {
   CandidateApplicationSummary,
   CandidateInterviewSummary,
@@ -586,7 +587,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         requisitionIds.length
           ? client
               .from("job_requisitions")
-              .select("id, title, requisition_number")
+              .select("id, title, requisition_number, employment_type")
               .in("id", requisitionIds)
           : Promise.resolve({ data: [] as Record<string, unknown>[] }),
         jobIds.length
@@ -623,6 +624,8 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           requisitionNumber:
             (requisition?.requisition_number as string) ?? "—",
           postingLocation: (posting?.location_name as string) ?? "—",
+          employmentType:
+            (requisition?.employment_type as EmploymentType) ?? undefined,
           status: row.status as ApplicationStatus,
           appliedAt: row.applied_at as string,
           updatedAt: row.updated_at as string,

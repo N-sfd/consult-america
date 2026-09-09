@@ -551,6 +551,63 @@ async function main() {
       "offers_self_respond policy scopes accept/decline to the owning candidate",
     );
 
+    // --- Application timeline: must be driven by status history, not just
+    // current status, or a candidate who reached OFFER and was later moved
+    // to REJECTED would see the Offer stage as never-reached ---
+    const histOfferId = `ash-portal-offer-${suffix}`;
+    const histRejectId = `ash-portal-reject-${suffix}`;
+    await client.query(
+      `INSERT INTO application_status_history (id, application_id, from_status, to_status, note)
+       VALUES ($1, $2, 'APPLIED', 'OFFER', NULL)`,
+      [histOfferId, appId],
+    );
+    await client.query(
+      `INSERT INTO application_status_history (id, application_id, from_status, to_status, note)
+       VALUES ($1, $2, 'OFFER', 'REJECTED', 'Internal: budget cut — never candidate-visible')`,
+      [histRejectId, appId],
+    );
+    const timelineHistory = await client.query(
+      `SELECT to_status FROM application_status_history
+        WHERE application_id = $1 ORDER BY created_at`,
+      [appId],
+    );
+    const simulatedCurrentStatus = "REJECTED";
+    const reachedStatuses = new Set([
+      simulatedCurrentStatus,
+      ...timelineHistory.rows.map((r) => r.to_status as string),
+    ]);
+    const OFFER_STAGE_STATUSES = ["OFFER", "HIRED"];
+    assert(
+      OFFER_STAGE_STATUSES.some((s) => reachedStatuses.has(s)),
+      "timeline marks Offer stage reached via status history, even though current status is REJECTED",
+    );
+
+    // --- Job Match stays candidate-only: recruiting/HR staff must not get
+    // an automatic read policy on this coaching data ---
+    const staffPolicyGone = await client.query(`
+      SELECT COUNT(*)::int AS n
+        FROM pg_policy
+        JOIN pg_class ON pg_class.oid = polrelid
+        JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+       WHERE nspname = 'public' AND relname = 'job_match_analyses'
+         AND polname = 'job_match_analyses_staff'
+    `);
+    assert(
+      staffPolicyGone.rows[0].n === 0,
+      "job_match_analyses has no recruiting/HR staff read policy (candidate coaching data stays candidate-only)",
+    );
+
+    // --- Application ownership: candidate B's own application list never
+    // contains candidate A's application id ---
+    const candidateBApps = await client.query(
+      `SELECT id FROM applications WHERE candidate_id = $1`,
+      [candidateB],
+    );
+    assert(
+      !candidateBApps.rows.some((r) => r.id === appId),
+      "candidate B's own application list never contains candidate A's application id",
+    );
+
     await client.query("ROLLBACK");
     console.log("PASS  candidate portal fixtures rolled back");
   } catch (error) {

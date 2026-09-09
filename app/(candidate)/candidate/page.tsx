@@ -135,12 +135,12 @@ export default async function CandidatePortalHomePage() {
             </p>
           ) : null}
         </div>
-        <div className="ca-platform-card ca-platform-kpi">
+        <Link href="/candidate/documents" className="ca-platform-card ca-platform-kpi">
           <p className="ca-platform-kpi-label">Documents</p>
           <p className="ca-platform-kpi-value">
             {documents.filter((d) => d.status === "ACTIVE" || !d.status).length}
           </p>
-        </div>
+        </Link>
         <div className="ca-platform-card ca-platform-kpi">
           <p className="ca-platform-kpi-label">Profile Completion</p>
           <p className="ca-platform-kpi-value">{completion?.percent ?? 0}%</p>
@@ -191,6 +191,13 @@ export default async function CandidatePortalHomePage() {
                 </div>
               ))}
             </div>
+
+            <Link
+              href={`/candidate/applications/${latest.applicationId}`}
+              className="mt-4 inline-block text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+            >
+              View application
+            </Link>
           </>
         ) : (
           <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">

@@ -72,6 +72,7 @@ export type CandidateApplicationSummary = {
   requisitionTitle: string;
   requisitionNumber: string;
   postingLocation: string;
+  employmentType?: EmploymentType;
   status: ApplicationStatus;
   appliedAt: string;
   updatedAt: string;

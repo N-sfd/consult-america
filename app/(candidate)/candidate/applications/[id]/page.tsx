@@ -3,11 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import CandidateOfferActions from "@/components/candidate/candidate-offer-actions";
-import { formatDate, formatDateTime } from "@/lib/recruiting/format";
+import SubmittedDocumentLink from "@/components/candidate/submitted-document-link";
+import { formatDate, formatDateTime, formatDateTimeWithZone } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
+import { employmentTypeLabels } from "@/types/organization";
 import {
   candidateApplicationStatusLabels,
+  candidateInterviewStatusLabels,
   offerStatusLabels,
   type ApplicationStatus,
 } from "@/types/recruiting";
@@ -18,43 +21,46 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const TIMELINE: { label: string; match: (status: ApplicationStatus) => boolean }[] =
-  [
-    {
-      label: "Application Received",
-      match: (s) => s === "APPLIED" || true,
-    },
-    {
-      label: "Under Review",
-      match: (s) =>
-        [
-          "REVIEW",
-          "RECRUITER_SCREEN",
-          "HIRING_MANAGER_REVIEW",
-          "INTERVIEW",
-          "FINAL_INTERVIEW",
-          "OFFER",
-          "HIRED",
-          "REJECTED",
-          "CLOSED",
-        ].includes(s),
-    },
-    {
-      label: "Interview",
-      match: (s) =>
-        ["INTERVIEW", "FINAL_INTERVIEW", "OFFER", "HIRED", "REJECTED", "CLOSED"].includes(
-          s,
-        ),
-    },
-    {
-      label: "Offer",
-      match: (s) => ["OFFER", "HIRED"].includes(s),
-    },
-    {
-      label: "Decision",
-      match: (s) => ["HIRED", "REJECTED", "CLOSED", "WITHDRAWN"].includes(s),
-    },
-  ];
+/**
+ * Each stage is "reached" if the application's current status OR any status
+ * it has ever transitioned to (application_status_history) falls in the
+ * stage's set — not just the current status. Otherwise a candidate who
+ * reached OFFER and was later moved to REJECTED would show Offer as never
+ * reached, since REJECTED alone doesn't match the Offer stage.
+ */
+const TIMELINE: { label: string; alwaysReached?: boolean; statuses: ApplicationStatus[] }[] = [
+  {
+    label: "Application Received",
+    alwaysReached: true,
+    statuses: [],
+  },
+  {
+    label: "Under Review",
+    statuses: [
+      "REVIEW",
+      "RECRUITER_SCREEN",
+      "HIRING_MANAGER_REVIEW",
+      "INTERVIEW",
+      "FINAL_INTERVIEW",
+      "OFFER",
+      "HIRED",
+      "REJECTED",
+      "CLOSED",
+    ],
+  },
+  {
+    label: "Interview",
+    statuses: ["INTERVIEW", "FINAL_INTERVIEW", "OFFER", "HIRED", "REJECTED", "CLOSED"],
+  },
+  {
+    label: "Offer",
+    statuses: ["OFFER", "HIRED"],
+  },
+  {
+    label: "Decision",
+    statuses: ["HIRED", "REJECTED", "CLOSED", "WITHDRAWN"],
+  },
+];
 
 export default async function CandidateApplicationDetailPage({
   params,
@@ -76,6 +82,11 @@ export default async function CandidateApplicationDetailPage({
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     );
+
+  const reachedStatuses = new Set<ApplicationStatus>([
+    application.status,
+    ...history.map((h) => h.toStatus),
+  ]);
 
   const offer = (profile?.offers ?? []).find((o) => o.applicationId === id);
   const interviews = (profile?.interviews ?? []).filter(
@@ -106,6 +117,9 @@ export default async function CandidateApplicationDetailPage({
         </h1>
         <p className="mt-2 text-black/55">
           {application.applicationNumber} · {application.postingLocation}
+          {application.employmentType
+            ? ` · ${employmentTypeLabels[application.employmentType]}`
+            : ""}
         </p>
       </div>
 
@@ -142,7 +156,9 @@ export default async function CandidateApplicationDetailPage({
         </h2>
         <ol className="mt-4 grid gap-3 sm:grid-cols-5">
           {TIMELINE.map((step) => {
-            const reached = step.match(application.status);
+            const reached =
+              step.alwaysReached ||
+              step.statuses.some((s) => reachedStatuses.has(s));
             return (
               <li
                 key={step.label}
@@ -190,6 +206,7 @@ export default async function CandidateApplicationDetailPage({
                       {doc?.status === "ARCHIVED" ? " · Archived since" : ""}
                     </p>
                   </div>
+                  {doc ? <SubmittedDocumentLink documentId={doc.id} /> : null}
                 </li>
               );
             })}
@@ -208,7 +225,8 @@ export default async function CandidateApplicationDetailPage({
           </h2>
           <p className="mt-3 text-sm text-black/70">
             {upcomingInterview.interviewType.replaceAll("_", " ")} ·{" "}
-            {formatDateTime(upcomingInterview.scheduledAt)}
+            {formatDateTimeWithZone(upcomingInterview.scheduledAt)} ·{" "}
+            {candidateInterviewStatusLabels[upcomingInterview.status]}
             {upcomingInterview.locationOrLink
               ? ` · ${upcomingInterview.locationOrLink}`
               : ""}
@@ -257,13 +275,13 @@ export default async function CandidateApplicationDetailPage({
               <li key={interview.id} className="flex justify-between gap-3">
                 <span className="text-black/70">
                   {interview.interviewType.replaceAll("_", " ")} ·{" "}
-                  {interview.status}
+                  {candidateInterviewStatusLabels[interview.status]}
                   {interview.locationOrLink
                     ? ` · ${interview.locationOrLink}`
                     : ""}
                 </span>
                 <span className="shrink-0 text-black/40">
-                  {formatDateTime(interview.scheduledAt)}
+                  {formatDateTimeWithZone(interview.scheduledAt)}
                 </span>
               </li>
             ))}
@@ -285,7 +303,6 @@ export default async function CandidateApplicationDetailPage({
                   {entry.fromStatus
                     ? `${candidateApplicationStatusLabels[entry.fromStatus]} → ${candidateApplicationStatusLabels[entry.toStatus]}`
                     : candidateApplicationStatusLabels[entry.toStatus]}
-                  {entry.note ? ` — ${entry.note}` : ""}
                 </span>
                 <span className="shrink-0 text-black/40">
                   {formatDateTime(entry.createdAt)}
