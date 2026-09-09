@@ -23,6 +23,8 @@
     "test:onboarding-lineage": "tsx --env-file=.env.local scripts/onboarding-lineage-regression.ts",
     "test:workforce-ops": "tsx --env-file=.env.local scripts/workforce-ops-regression.ts",
     "test:payroll-rls": "tsx --env-file=.env.local scripts/payroll-rls-regression.ts",
+    "test:candidate-auth": "tsx --env-file=.env.local scripts/candidate-auth-regression.ts",
+    "test:candidate-portal": "tsx --env-file=.env.local scripts/candidate-portal-regression.ts",
     "test:notifications": "tsx --env-file=.env.local scripts/notifications-regression.ts",
     "test:reports": "tsx --env-file=.env.local scripts/reports-regression.ts",
     "notifications:process-deliveries": "tsx --env-file=.env.local scripts/process-notification-deliveries.ts",

@@ -5,7 +5,7 @@ import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
 
 export const metadata: Metadata = {
-  title: "Interviews | ConsultAmerica",
+  title: "Interviews",
 };
 
 export const dynamic = "force-dynamic";

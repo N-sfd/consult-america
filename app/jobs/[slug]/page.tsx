@@ -4,11 +4,16 @@ import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 
 import { careerAreaLabels } from "@/data/jobs";
+import { getOptionalCandidateSession } from "@/lib/candidate/session";
 import { formatPostedDate, getAllJobSlugs, getJobBySlug } from "@/lib/jobs";
+import { recruitingRepository } from "@/lib/recruiting";
+import { candidateApplicationStatusLabels } from "@/types/recruiting";
 
 interface JobDetailPageProps {
   params: Promise<{ slug: string }>;
 }
+
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const slugs = await getAllJobSlugs();
@@ -46,6 +51,24 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net";
+  const session = await getOptionalCandidateSession();
+  let existingApplication:
+    | { applicationId: string; statusLabel: string }
+    | undefined;
+  if (session) {
+    const profile = await recruitingRepository.getCandidateProfile(
+      session.candidateId,
+    );
+    const match = profile?.applications.find(
+      (application) => application.requisitionId === job.requisitionId,
+    );
+    if (match) {
+      existingApplication = {
+        applicationId: match.applicationId,
+        statusLabel: candidateApplicationStatusLabels[match.status],
+      };
+    }
+  }
 
   const jobPostingJsonLd = {
     "@context": "https://schema.org",
@@ -109,11 +132,24 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <Link href={`/jobs/${job.slug}/apply`} className="ca-button-primary">
-              Apply Now
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-            <Link href="/jobs" className="ca-link text-sm">
+            {existingApplication ? (
+              <Link
+                href={`/candidate/applications/${existingApplication.applicationId}`}
+                className="ca-button-primary"
+              >
+                View Application · {existingApplication.statusLabel}
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <Link href={`/jobs/${job.slug}/apply`} className="ca-button-primary">
+                Apply Now
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            )}
+            <Link
+              href={session ? "/candidate/jobs" : "/jobs"}
+              className="ca-link text-sm"
+            >
               Back to open roles
             </Link>
           </div>
@@ -198,10 +234,14 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                 data, and digital engineering.
               </p>
               <Link
-                href={`/jobs/${job.slug}/apply`}
+                href={
+                  existingApplication
+                    ? `/candidate/applications/${existingApplication.applicationId}`
+                    : `/jobs/${job.slug}/apply`
+                }
                 className="ca-button-primary mt-8 w-full"
               >
-                Apply for this role
+                {existingApplication ? "View Application" : "Apply for this role"}
               </Link>
             </div>
           </aside>

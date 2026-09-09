@@ -54,16 +54,32 @@ export const DEMO_PAYROLL_SESSION: PortalSession = {
   isPayroll: true,
 };
 
-async function buildRealPortalSession(): Promise<PortalSession> {
+async function buildRealPortalSession(
+  returnTo = "/employee",
+): Promise<PortalSession> {
   const platformUser = await getAuthenticatedPlatformUser();
   if (!platformUser || !platformUser.employeeId) {
-    redirect("/login");
+    redirect(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+  }
+
+  const roles = platformUser.roles;
+  const hasWorkforceRole =
+    roles.includes("EMPLOYEE") ||
+    roles.includes("MANAGER") ||
+    roles.includes("HR_ADMIN") ||
+    roles.includes("HR_SPECIALIST") ||
+    roles.includes("PAYROLL_ADMIN") ||
+    roles.includes("SYSTEM_ADMIN");
+
+  if (!hasWorkforceRole) {
+    redirect(`/login?returnTo=${encodeURIComponent(returnTo)}`);
   }
 
   const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
-  if (!employee) redirect("/login");
+  if (!employee) {
+    redirect(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+  }
 
-  const roles = platformUser.roles;
   return {
     employeeId: employee.id,
     displayName: employee.preferredName || `${employee.firstName} ${employee.lastName}`.trim() || platformUser.displayName,
@@ -76,20 +92,20 @@ async function buildRealPortalSession(): Promise<PortalSession> {
 
 export async function getEmployeeSession(): Promise<PortalSession> {
   if (!isSupabaseBrowserConfigured()) return DEMO_EMPLOYEE_SESSION;
-  return buildRealPortalSession();
+  return buildRealPortalSession("/employee");
 }
 
 export async function getManagerSession(): Promise<PortalSession> {
   if (!isSupabaseBrowserConfigured()) return DEMO_MANAGER_SESSION;
-  return buildRealPortalSession();
+  return buildRealPortalSession("/manager");
 }
 
 export async function getHrSession(): Promise<PortalSession> {
   if (!isSupabaseBrowserConfigured()) return DEMO_HR_SESSION;
-  return buildRealPortalSession();
+  return buildRealPortalSession("/hr/requests");
 }
 
 export async function getPayrollSession(): Promise<PortalSession> {
   if (!isSupabaseBrowserConfigured()) return DEMO_PAYROLL_SESSION;
-  return buildRealPortalSession();
+  return buildRealPortalSession("/payroll");
 }

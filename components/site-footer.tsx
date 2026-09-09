@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import BrandLogo from "@/components/brand/brand-logo";
+import { companyContact } from "@/lib/site-data";
 
 const footerColumns = [
   {
@@ -53,6 +54,31 @@ export function SiteFooter() {
               Enterprise transformation, Oracle, AI &amp; data, and application engineering —
               from strategy through production.
             </p>
+            <div className="mt-5 space-y-1.5 text-sm text-[#5B6D6B]">
+              <p className="font-semibold text-[#073B3A]">
+                {companyContact.leadership.name}
+              </p>
+              <p className="text-[0.7rem] uppercase tracking-[0.12em]">
+                {companyContact.leadership.title}
+              </p>
+              <p>
+                <a
+                  href={`tel:${companyContact.phone.replace(/-/g, "")}`}
+                  className="transition-colors hover:text-[#073B3A]"
+                >
+                  {companyContact.phone}
+                </a>
+              </p>
+              <p>
+                <a
+                  href={`mailto:${companyContact.email}`}
+                  className="transition-colors hover:text-[#073B3A]"
+                >
+                  {companyContact.email}
+                </a>
+              </p>
+              <p>{companyContact.headquarters.full}</p>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">

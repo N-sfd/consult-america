@@ -24,11 +24,20 @@ interface JobBoardProps {
     workplaceTypes: string[];
     employmentTypes: string[];
   };
+  /** Optional per-requisition CTAs for signed-in candidate portal */
+  applicationCtasByRequisitionId?: Record<
+    string,
+    { label: string; href: string }
+  >;
 }
 
 const ALL = "all";
 
-export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
+export default function JobBoard({
+  jobs,
+  filterOptions,
+  applicationCtasByRequisitionId,
+}: JobBoardProps) {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") ?? ALL;
 
@@ -215,7 +224,15 @@ export default function JobBoard({ jobs, filterOptions }: JobBoardProps) {
 
       <div className="mt-4 grid gap-4">
         {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => <JobListItem key={job.id} job={job} />)
+          filteredJobs.map((job) => (
+            <JobListItem
+              key={job.id}
+              job={job}
+              applicationCta={
+                applicationCtasByRequisitionId?.[job.requisitionId]
+              }
+            />
+          ))
         ) : (
           <p className="cr-card py-12 text-center text-[var(--cr-text-secondary)]">
             No roles match your search. Try adjusting filters or explore all

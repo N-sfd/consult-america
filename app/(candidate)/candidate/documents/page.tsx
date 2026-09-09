@@ -6,7 +6,7 @@ import { recruitingRepository } from "@/lib/recruiting";
 import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "Documents | ConsultAmerica",
+  title: "Documents",
 };
 
 export const dynamic = "force-dynamic";

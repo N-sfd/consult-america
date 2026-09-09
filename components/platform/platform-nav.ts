@@ -212,13 +212,14 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
   ],
   candidate: [
     {
-      label: "My Journey",
+      label: "Candidate Portal",
       items: [
         { href: "/candidate", label: "Home", exact: true },
-        { href: "/candidate/applications", label: "Applications" },
-        { href: "/candidate/interviews", label: "Interviews" },
+        { href: "/candidate/profile", label: "My Profile" },
         { href: "/candidate/documents", label: "Documents" },
-        { href: "/candidate/profile", label: "Profile" },
+        { href: "/candidate/jobs", label: "Jobs" },
+        { href: "/candidate/applications", label: "Applications" },
+        { href: "/candidate/job-match", label: "Job Match" },
       ],
     },
   ],

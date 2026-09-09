@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { formatDate } from "@/lib/recruiting/format";
+import { calculateProfileCompletion } from "@/lib/candidate/profile-completion";
+import { formatDate, formatDateTime } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import {
   candidateApplicationStatusLabels,
+  offerStatusLabels,
   type ApplicationStatus,
 } from "@/types/recruiting";
 
 export const metadata: Metadata = {
-  title: "Candidate Portal | ConsultAmerica",
+  title: "Candidate Portal",
 };
 
 export const dynamic = "force-dynamic";
@@ -39,6 +41,7 @@ export default async function CandidatePortalHomePage() {
   const profile = await recruitingRepository.getCandidateProfile(session.candidateId);
 
   const applications = profile?.applications ?? [];
+  const documents = profile?.documents ?? [];
   const activeApplications = applications.filter(
     (application) =>
       application.status !== "REJECTED" &&
@@ -48,10 +51,34 @@ export default async function CandidatePortalHomePage() {
   const upcomingInterviews = (profile?.interviews ?? []).filter(
     (interview) => interview.status === "SCHEDULED",
   );
+  const activeOffer = (profile?.offers ?? []).find(
+    (offer) =>
+      offer.status === "EXTENDED" ||
+      offer.status === "ACCEPTED" ||
+      offer.status === "DECLINED",
+  );
   const latest = [...applications].sort((a, b) =>
     b.updatedAt.localeCompare(a.updatedAt),
   )[0];
   const activeStep = latest ? journeyIndex(latest.status) : -1;
+  const nextInterview = [...upcomingInterviews].sort((a, b) =>
+    a.scheduledAt.localeCompare(b.scheduledAt),
+  )[0];
+
+  const hasActiveResume = documents.some(
+    (doc) =>
+      doc.documentType === "RESUME" &&
+      (doc.isPrimaryResume || doc.status === "ACTIVE" || !doc.status),
+  );
+  const completion = profile
+    ? calculateProfileCompletion({
+        candidate: profile.candidate,
+        experience: profile.experience,
+        education: profile.education,
+        skills: profile.skills,
+        hasActiveResume,
+      })
+    : null;
 
   return (
     <div className="space-y-7">
@@ -61,14 +88,14 @@ export default async function CandidatePortalHomePage() {
             Welcome back, {session.displayName.split(" ")[0]}
           </h1>
           <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            Track your application, interviews, and documents in one place.
+            Track your applications, documents, and job match guidance in one place.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Link
-              href="/candidate/profile"
-              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
+              href="/candidate/jobs"
+              className="rounded-lg bg-[var(--ca-platform-deep)] px-3.5 py-2 text-sm font-semibold text-white"
             >
-              Complete Profile
+              Browse Jobs
             </Link>
             <Link
               href="/candidate/documents?upload=resume"
@@ -77,16 +104,22 @@ export default async function CandidatePortalHomePage() {
               Upload Resume
             </Link>
             <Link
-              href="/careers"
-              className="rounded-lg bg-[var(--ca-platform-deep)] px-3.5 py-2 text-sm font-semibold text-white"
+              href="/candidate/profile"
+              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
             >
-              Browse Jobs
+              Complete Profile
+            </Link>
+            <Link
+              href="/candidate/applications"
+              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
+            >
+              View Applications
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="ca-platform-card ca-platform-kpi">
           <p className="ca-platform-kpi-label">Active Applications</p>
           <p className="ca-platform-kpi-value">{activeApplications.length}</p>
@@ -94,14 +127,29 @@ export default async function CandidatePortalHomePage() {
         <div className="ca-platform-card ca-platform-kpi">
           <p className="ca-platform-kpi-label">Upcoming Interviews</p>
           <p className="ca-platform-kpi-value">{upcomingInterviews.length}</p>
+          {upcomingInterviews.length === 0 ? (
+            <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
+              No upcoming interviews.
+            </p>
+          ) : null}
         </div>
         <div className="ca-platform-card ca-platform-kpi">
-          <p className="ca-platform-kpi-label">Documents on File</p>
+          <p className="ca-platform-kpi-label">Documents</p>
           <p className="ca-platform-kpi-value">
-            {(profile?.documents ?? []).filter(
-              (d) => d.status === "ACTIVE" || !d.status,
-            ).length}
+            {documents.filter((d) => d.status === "ACTIVE" || !d.status).length}
           </p>
+        </div>
+        <div className="ca-platform-card ca-platform-kpi">
+          <p className="ca-platform-kpi-label">Profile Completion</p>
+          <p className="ca-platform-kpi-value">{completion?.percent ?? 0}%</p>
+          {(completion?.percent ?? 0) < 100 ? (
+            <Link
+              href="/candidate/profile"
+              className="mt-1 inline-block text-xs font-semibold text-[var(--ca-platform-mid)] hover:underline"
+            >
+              Complete Profile
+            </Link>
+          ) : null}
         </div>
       </section>
 
@@ -144,14 +192,57 @@ export default async function CandidatePortalHomePage() {
           </>
         ) : (
           <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">
-            No applications yet. Explore{" "}
-            <Link href="/careers" className="font-semibold text-[var(--ca-platform-mid)] hover:underline">
+            No applications yet. Browse{" "}
+            <Link
+              href="/candidate/jobs"
+              className="font-semibold text-[var(--ca-platform-mid)] hover:underline"
+            >
               open roles
             </Link>{" "}
             to get started.
           </p>
         )}
       </section>
+
+      {(nextInterview || activeOffer) && (
+        <section className="grid gap-4 md:grid-cols-2">
+          {nextInterview ? (
+            <div className="ca-platform-card p-6">
+              <h2 className="ca-platform-kpi-label">Upcoming Interview</h2>
+              <p className="mt-3 font-medium">{nextInterview.requisitionTitle}</p>
+              <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
+                {formatDateTime(nextInterview.scheduledAt)}
+                {nextInterview.locationOrLink
+                  ? ` · ${nextInterview.locationOrLink}`
+                  : ""}
+              </p>
+              <Link
+                href={`/candidate/applications/${nextInterview.applicationId}`}
+                className="mt-4 inline-block text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+              >
+                View application
+              </Link>
+            </div>
+          ) : null}
+          {activeOffer ? (
+            <div className="ca-platform-card p-6">
+              <h2 className="ca-platform-kpi-label">Offer</h2>
+              <p className="mt-3 font-medium">
+                {offerStatusLabels[activeOffer.status]}
+              </p>
+              <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
+                Review the details on your application.
+              </p>
+              <Link
+                href={`/candidate/applications/${activeOffer.applicationId}`}
+                className="mt-4 inline-block text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+              >
+                View offer
+              </Link>
+            </div>
+          ) : null}
+        </section>
+      )}
     </div>
   );
 }

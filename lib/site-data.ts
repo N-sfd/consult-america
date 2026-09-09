@@ -79,26 +79,41 @@ export const deliveryPhases = [
   "Deploy",
 ];
 
+export const companyContact = {
+  companyName: "Consult America",
+  tagline: "Innovative Technology Consulting Services",
+  experienceTagline: "26 Years of Progressive Innovation",
+  leadership: {
+    name: "Imtiaz Ali Kalwar",
+    title: "President & CEO",
+  },
+  phone: "703-496-7858",
+  mobile: "571-276-4808",
+  email: "ikalwar@consultamerica.net",
+  web: "www.consultamerica.net",
+  webUrl: "https://www.consultamerica.net",
+  office: {
+    label: "Office",
+    address: "1101 Opal Court, Suite 211",
+    cityStateZip: "Hagerstown, MD 21740",
+    full: "1101 Opal Court, Suite 211, Hagerstown, MD 21740",
+  },
+  headquarters: {
+    label: "Headquarters",
+    address: "20130 Lake View Center Plaza, Suite 407",
+    cityStateZip: "Ashburn, VA 20147",
+    full: "20130 Lake View Center Plaza, Suite 407, Ashburn, VA 20147",
+  },
+} as const;
+
 export const offices = [
   {
-    city: "Washington, D.C.",
-    detail: "Public sector and regulated enterprise delivery",
+    city: "Ashburn, VA",
+    detail: "Headquarters — Lake View Center Plaza",
   },
   {
-    city: "New York",
-    detail: "Financial services and transformation programs",
-  },
-  {
-    city: "Chicago",
-    detail: "Industrial, operations, and platform work",
-  },
-  {
-    city: "Dallas",
-    detail: "Oracle Cloud and integration programs",
-  },
-  {
-    city: "San Francisco",
-    detail: "AI, data, and digital product delivery",
+    city: "Hagerstown, MD",
+    detail: "Office — Opal Court",
   },
 ];
 

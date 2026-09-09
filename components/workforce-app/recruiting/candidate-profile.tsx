@@ -16,12 +16,14 @@ import { applicationStatusLabels } from "@/types/recruiting";
 
 const TABS = [
   "Overview",
-  "Resume",
+  "Profile",
   "Experience",
+  "Education",
+  "Skills",
   "Applications",
-  "Interviews",
-  "Feedback",
   "Documents",
+  "Interviews",
+  "Offer",
   "Activity",
 ] as const;
 
@@ -67,8 +69,6 @@ export default function CandidateProfile({
                 ? applicationStatusLabels[latestApplication.status]
                 : "No active application"}
             </span>
-            <span className="text-black/25">·</span>
-            <span>Match —</span>
           </div>
         </div>
 
@@ -129,6 +129,12 @@ export default function CandidateProfile({
             <Field label="Email" value={candidate.email} />
             <Field label="Phone" value={candidate.phone ?? "—"} />
             <Field
+              label="Location"
+              value={
+                [candidate.city, candidate.state].filter(Boolean).join(", ") || "—"
+              }
+            />
+            <Field
               label="Work Authorization"
               value={candidate.workAuthorization ?? "—"}
             />
@@ -143,7 +149,25 @@ export default function CandidateProfile({
               }
             />
             <Field label="Source" value={candidate.source ?? "—"} />
-            <Field label="LinkedIn" value={candidate.linkedinUrl ?? "—"} />
+            <div className="sm:col-span-2">
+              <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                Current Resume
+              </p>
+              {(() => {
+                const primary = documents.find(
+                  (d) =>
+                    d.documentType === "RESUME" &&
+                    (d.isPrimaryResume || d.status === "ACTIVE"),
+                );
+                return (
+                  <p className="mt-1 text-sm text-[var(--ca-app-ink)]">
+                    {primary
+                      ? `${primary.fileName}${primary.isPrimaryResume ? " · Current" : ""}`
+                      : "No primary resume on file."}
+                  </p>
+                );
+              })()}
+            </div>
             <div className="sm:col-span-2">
               <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
                 Skills
@@ -166,65 +190,95 @@ export default function CandidateProfile({
           </div>
         )}
 
-        {tab === "Resume" && (
-          <RecruiterCandidateDocuments
-            documents={documents.filter((d) => d.documentType === "RESUME")}
-            applicationDocumentLinks={(applicationDocumentLinks ?? []).filter(
-              (l) => l.purpose === "RESUME" || !l.purpose,
-            )}
-          />
+        {tab === "Profile" && (
+          <div className="grid gap-6 sm:grid-cols-2">
+            <Field label="First Name" value={candidate.firstName} />
+            <Field label="Last Name" value={candidate.lastName} />
+            <Field label="Preferred Name" value={candidate.preferredName ?? "—"} />
+            <Field label="Email" value={candidate.email} />
+            <Field label="Phone" value={candidate.phone ?? "—"} />
+            <Field label="City" value={candidate.city ?? "—"} />
+            <Field label="State" value={candidate.state ?? "—"} />
+            <Field label="LinkedIn" value={candidate.linkedinUrl ?? "—"} />
+            <Field label="Portfolio" value={candidate.portfolioUrl ?? "—"} />
+            <Field label="GitHub" value={candidate.githubUrl ?? "—"} />
+            <div className="sm:col-span-2">
+              <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                Professional Summary
+              </p>
+              <p className="mt-1 whitespace-pre-wrap text-sm text-[var(--ca-app-ink)]">
+                {candidate.professionalSummary?.trim() || "—"}
+              </p>
+            </div>
+          </div>
         )}
 
         {tab === "Experience" && (
           <div className="space-y-6">
-            {experience.length === 0 && education.length === 0 && (
+            {experience.length === 0 ? (
               <p className="text-sm text-black/45">No experience on file.</p>
-            )}
-            {experience.length > 0 && (
-              <div>
-                <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
-                  Work History
-                </p>
-                <div className="mt-2 space-y-4">
-                  {experience.map((job) => (
-                    <div key={job.id} className="border-b border-black/6 pb-4 last:border-0">
-                      <p className="font-medium text-[var(--ca-app-ink)]">
-                        {job.title} · {job.company}
+            ) : (
+              <div className="space-y-4">
+                {experience.map((job) => (
+                  <div key={job.id} className="border-b border-black/6 pb-4 last:border-0">
+                    <p className="font-medium text-[var(--ca-app-ink)]">
+                      {job.title} · {job.company}
+                    </p>
+                    <p className="mt-0.5 text-xs text-black/45">
+                      {formatDate(job.startDate)} —{" "}
+                      {job.isCurrent ? "Present" : formatDate(job.endDate)}
+                    </p>
+                    {job.description && (
+                      <p className="mt-1.5 text-sm text-black/60">
+                        {job.description}
                       </p>
-                      <p className="mt-0.5 text-xs text-black/45">
-                        {formatDate(job.startDate)} —{" "}
-                        {job.isCurrent ? "Present" : formatDate(job.endDate)}
-                      </p>
-                      {job.description && (
-                        <p className="mt-1.5 text-sm text-black/60">
-                          {job.description}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {education.length > 0 && (
-              <div>
-                <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
-                  Education
-                </p>
-                <div className="mt-2 space-y-3">
-                  {education.map((ed) => (
-                    <div key={ed.id}>
-                      <p className="font-medium text-[var(--ca-app-ink)]">
-                        {ed.institution}
-                      </p>
-                      <p className="text-xs text-black/45">
-                        {[ed.degree, ed.fieldOfStudy].filter(Boolean).join(", ") || "—"}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
           </div>
+        )}
+
+        {tab === "Education" && (
+          <div className="space-y-3">
+            {education.length === 0 ? (
+              <p className="text-sm text-black/45">No education on file.</p>
+            ) : (
+              education.map((ed) => (
+                <div key={ed.id} className="border-b border-black/6 pb-3 last:border-0">
+                  <p className="font-medium text-[var(--ca-app-ink)]">
+                    {ed.institution}
+                  </p>
+                  <p className="text-xs text-black/45">
+                    {[ed.degree, ed.fieldOfStudy].filter(Boolean).join(", ") || "—"}
+                  </p>
+                  {(ed.startDate || ed.endDate) && (
+                    <p className="mt-1 text-xs text-black/45">
+                      {[ed.startDate, ed.endDate].filter(Boolean).join(" — ")}
+                    </p>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+        {tab === "Skills" && (
+          skills.length ? (
+            <div className="flex flex-wrap gap-1.5">
+              {skills.map((skill) => (
+                <span
+                  key={skill.id}
+                  className="border border-black/10 px-2 py-0.5 text-xs text-black/60"
+                >
+                  {skill.skill}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-black/45">No skills on file.</p>
+          )
         )}
 
         {tab === "Applications" && (
@@ -295,74 +349,121 @@ export default function CandidateProfile({
           />
         )}
 
+        {tab === "Documents" && (
+          <div className="space-y-6">
+            <div>
+              <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                Current Resume
+              </p>
+              <RecruiterCandidateDocuments
+                documents={documents.filter(
+                  (d) =>
+                    d.documentType === "RESUME" &&
+                    (d.isPrimaryResume || d.status === "ACTIVE"),
+                )}
+                applicationDocumentLinks={[]}
+              />
+            </div>
+            <div>
+              <p className="mb-2 text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                All Documents &amp; Application History
+              </p>
+              <RecruiterCandidateDocuments
+                documents={documents}
+                applicationDocumentLinks={applicationDocumentLinks}
+              />
+            </div>
+          </div>
+        )}
+
         {tab === "Interviews" && (
-          <EmptyableList
-            items={interviews}
-            emptyLabel="No interviews scheduled."
-            render={(interview) => (
-              <div
-                key={interview.id}
-                className="space-y-2 border-b border-black/6 py-3 text-sm last:border-0"
-              >
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  <span className="font-medium text-[var(--ca-app-ink)]">
-                    {interview.requisitionTitle}
-                  </span>
-                  <span className="text-black/45">{interview.interviewType}</span>
-                  <span className="text-black/45">
-                    {formatDateTime(interview.scheduledAt)}
-                  </span>
-                  <InterviewStatusActions
+          <div className="space-y-6">
+            <EmptyableList
+              items={interviews}
+              emptyLabel="No interviews scheduled."
+              render={(interview) => (
+                <div
+                  key={interview.id}
+                  className="space-y-2 border-b border-black/6 py-3 text-sm last:border-0"
+                >
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <span className="font-medium text-[var(--ca-app-ink)]">
+                      {interview.requisitionTitle}
+                    </span>
+                    <span className="text-black/45">{interview.interviewType}</span>
+                    <span className="text-black/45">
+                      {formatDateTime(interview.scheduledAt)}
+                    </span>
+                    <InterviewStatusActions
+                      interviewId={interview.id}
+                      applicationId={interview.applicationId}
+                      requisitionId={
+                        applications.find(
+                          (a) => a.applicationId === interview.applicationId,
+                        )?.requisitionId ?? ""
+                      }
+                      status={interview.status}
+                    />
+                  </div>
+                  <SubmitInterviewFeedbackButton
                     interviewId={interview.id}
                     applicationId={interview.applicationId}
-                    requisitionId={
-                      applications.find(
-                        (a) => a.applicationId === interview.applicationId,
-                      )?.requisitionId ?? ""
-                    }
-                    status={interview.status}
+                    candidateId={candidate.id}
                   />
                 </div>
-                <SubmitInterviewFeedbackButton
-                  interviewId={interview.id}
-                  applicationId={interview.applicationId}
-                  candidateId={candidate.id}
-                />
-              </div>
-            )}
-          />
+              )}
+            />
+            <div>
+              <p className="mb-2 text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                Interview Feedback
+              </p>
+              <EmptyableList
+                items={feedback}
+                emptyLabel="No interview feedback yet."
+                render={(fb) => (
+                  <div key={fb.id} className="border-b border-black/6 py-3 text-sm last:border-0">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-[var(--ca-app-ink)]">
+                        {fb.recommendation.replace("_", " ")}
+                      </span>
+                      {fb.score != null && (
+                        <span className="text-black/45">Score: {fb.score}</span>
+                      )}
+                    </div>
+                    {fb.strengths && (
+                      <p className="mt-1 text-black/60">Strengths: {fb.strengths}</p>
+                    )}
+                    {fb.concerns && (
+                      <p className="mt-1 text-black/60">Concerns: {fb.concerns}</p>
+                    )}
+                    {fb.notes && <p className="mt-1 text-black/60">{fb.notes}</p>}
+                  </div>
+                )}
+              />
+            </div>
+          </div>
         )}
 
-        {tab === "Feedback" && (
+        {tab === "Offer" && (
           <EmptyableList
-            items={feedback}
-            emptyLabel="No interview feedback yet."
-            render={(fb) => (
-              <div key={fb.id} className="border-b border-black/6 py-3 text-sm last:border-0">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-[var(--ca-app-ink)]">
-                    {fb.recommendation.replace("_", " ")}
-                  </span>
-                  {fb.score != null && (
-                    <span className="text-black/45">Score: {fb.score}</span>
-                  )}
-                </div>
-                {fb.strengths && (
-                  <p className="mt-1 text-black/60">Strengths: {fb.strengths}</p>
-                )}
-                {fb.concerns && (
-                  <p className="mt-1 text-black/60">Concerns: {fb.concerns}</p>
-                )}
-                {fb.notes && <p className="mt-1 text-black/60">{fb.notes}</p>}
+            items={offers ?? []}
+            emptyLabel="No offers on file."
+            render={(offer) => (
+              <div
+                key={offer.id}
+                className="border-b border-black/6 py-3 text-sm last:border-0"
+              >
+                <p className="font-medium text-[var(--ca-app-ink)]">
+                  {offer.offerNumber} · {offer.status}
+                </p>
+                <p className="mt-1 text-black/55">
+                  Start {offer.startDate}
+                  {offer.baseSalary != null
+                    ? ` · ${offer.currency} ${offer.baseSalary}`
+                    : ""}
+                </p>
               </div>
             )}
-          />
-        )}
-
-        {tab === "Documents" && (
-          <RecruiterCandidateDocuments
-            documents={documents}
-            applicationDocumentLinks={applicationDocumentLinks}
           />
         )}
 

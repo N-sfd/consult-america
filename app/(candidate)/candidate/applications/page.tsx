@@ -7,7 +7,7 @@ import { requireCandidateActor } from "@/lib/candidate/security";
 import { candidateApplicationStatusLabels } from "@/types/recruiting";
 
 export const metadata: Metadata = {
-  title: "My Applications | ConsultAmerica",
+  title: "My Applications",
 };
 
 export const dynamic = "force-dynamic";
@@ -35,10 +35,10 @@ export default async function CandidateApplicationsPage() {
       {applications.length === 0 ? (
         <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
           No applications yet.{" "}
-          <Link href="/careers" className="text-[var(--ca-blue)] hover:underline">
+          <Link href="/candidate/jobs" className="text-[var(--ca-blue)] hover:underline">
             Browse open roles
-          </Link>
-          .
+          </Link>{" "}
+          to get started.
         </div>
       ) : (
         <div className="overflow-hidden rounded-lg border border-black/10 bg-white">

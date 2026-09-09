@@ -97,7 +97,7 @@ export default function AboutPage() {
 
         <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[#C9DDD7] pt-8 sm:flex-row sm:items-center">
           <div>
-            <p className="text-sm font-semibold text-[#122D2E]">National delivery centers</p>
+            <p className="text-sm font-semibold text-[#122D2E]">Locations</p>
             <p className="mt-2 text-sm text-[#5B6D6B]">
               {offices.map((office) => office.city).join(" · ")}
             </p>

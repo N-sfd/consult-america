@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 
 import CandidateProfileForm from "@/components/candidate/candidate-profile-form";
-import { recruitingRepository } from "@/lib/recruiting";
+import {
+  CandidateEducationForm,
+  CandidateExperienceForm,
+  CandidateSkillsForm,
+} from "@/components/candidate/candidate-profile-sections";
+import { calculateProfileCompletion } from "@/lib/candidate/profile-completion";
 import { requireCandidateActor } from "@/lib/candidate/security";
+import { recruitingRepository } from "@/lib/recruiting";
 
 export const metadata: Metadata = {
-  title: "My Profile | ConsultAmerica",
+  title: "My Profile",
 };
 
 export const dynamic = "force-dynamic";
@@ -22,17 +28,37 @@ export default async function CandidateProfilePage() {
     );
   }
 
-  const { candidate, experience, education, skills } = profile;
+  const { candidate, experience, education, skills, documents } = profile;
+  const hasActiveResume = documents.some(
+    (doc) =>
+      doc.documentType === "RESUME" &&
+      (doc.isPrimaryResume || doc.status === "ACTIVE" || !doc.status),
+  );
+  const completion = calculateProfileCompletion({
+    candidate,
+    experience,
+    education,
+    skills,
+    hasActiveResume,
+  });
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          My Profile
-        </h1>
-        <p className="mt-2 text-black/55">
-          {candidate.firstName} {candidate.lastName} · {candidate.email}
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-[-0.04em]">
+            My Profile
+          </h1>
+          <p className="mt-2 text-black/55">
+            {candidate.firstName} {candidate.lastName} · {candidate.email}
+          </p>
+        </div>
+        <div className="rounded-lg border border-black/10 bg-white px-4 py-3 text-sm">
+          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            Profile Completion
+          </p>
+          <p className="mt-1 text-2xl font-semibold">{completion.percent}%</p>
+        </div>
       </div>
 
       <CandidateProfileForm candidate={candidate} />
@@ -42,9 +68,7 @@ export default async function CandidateProfilePage() {
           Experience
         </h2>
         {experience.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">
-            No experience on file yet.
-          </p>
+          <p className="mt-4 text-sm text-black/50">No experience on file yet.</p>
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {experience.map((item) => (
@@ -55,10 +79,14 @@ export default async function CandidateProfilePage() {
                 <p className="text-black/55">
                   {item.startDate} – {item.isCurrent ? "Present" : item.endDate}
                 </p>
+                {item.description ? (
+                  <p className="mt-1 text-black/65">{item.description}</p>
+                ) : null}
               </li>
             ))}
           </ul>
         )}
+        <CandidateExperienceForm />
       </section>
 
       <section className="rounded-lg border border-black/10 bg-white p-6">
@@ -66,9 +94,7 @@ export default async function CandidateProfilePage() {
           Education
         </h2>
         {education.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">
-            No education on file yet.
-          </p>
+          <p className="mt-4 text-sm text-black/50">No education on file yet.</p>
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {education.map((item) => (
@@ -81,6 +107,7 @@ export default async function CandidateProfilePage() {
             ))}
           </ul>
         )}
+        <CandidateEducationForm />
       </section>
 
       <section className="rounded-lg border border-black/10 bg-white p-6">
@@ -101,6 +128,7 @@ export default async function CandidateProfilePage() {
             ))}
           </div>
         )}
+        <CandidateSkillsForm />
       </section>
     </div>
   );

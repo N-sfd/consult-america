@@ -156,8 +156,12 @@ export type CandidateProfile = {
   preferredName?: string;
   email: string;
   phone?: string;
+  city?: string;
+  state?: string;
+  professionalSummary?: string;
   linkedinUrl?: string;
   portfolioUrl?: string;
+  githubUrl?: string;
   workAuthorization?: string;
   willingToRelocate?: boolean;
   source?: string;

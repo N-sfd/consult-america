@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign In | Consult America Workforce",
+  title: "Sign In",
 };
 
 export default function LoginLayout({

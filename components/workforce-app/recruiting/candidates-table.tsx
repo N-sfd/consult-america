@@ -119,7 +119,10 @@ export default function CandidatesTable({
         candidate.role.toLowerCase().includes(normalizedQuery) ||
         candidate.email.toLowerCase().includes(normalizedQuery) ||
         candidate.applicationNumber.toLowerCase().includes(normalizedQuery) ||
-        candidate.location.toLowerCase().includes(normalizedQuery)
+        candidate.location.toLowerCase().includes(normalizedQuery) ||
+        (candidate.skills ?? []).some((skill) =>
+          skill.toLowerCase().includes(normalizedQuery),
+        )
       );
     });
   }, [candidates, query, stageFilter, jobFilter, locationFilter]);
@@ -220,7 +223,7 @@ export default function CandidatesTable({
               setQuery(event.target.value);
               setPage(1);
             }}
-            placeholder="Search candidates…"
+            placeholder="Search name, skills, or role…"
             className="h-9 w-full border border-black/10 bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
           />
         </label>

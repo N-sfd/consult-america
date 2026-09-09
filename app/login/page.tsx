@@ -7,28 +7,61 @@ import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import BrandLogo from "@/components/brand/brand-logo";
 import DemoPortalLinks from "@/components/auth/demo-portal-links";
 import LoginForm from "@/components/auth/login-form";
+import {
+  isCandidateReturnTo,
+  sanitizeReturnTo,
+} from "@/lib/auth/return-to";
 import { stockImage } from "@/lib/marketing/stock-images";
 
-export const metadata: Metadata = {
-  title: "Sign In | Consult America Workforce",
-  description:
-    "Sign in to Consult America Workforce — employee workspace, time, leave, documents, and internal services.",
-};
+type SearchParams = Promise<{
+  confirmEmail?: string;
+  returnTo?: string;
+}>;
 
-const capabilities = [
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const returnTo = sanitizeReturnTo(params.returnTo ?? null);
+  const candidate = isCandidateReturnTo(returnTo);
+
+  return {
+    title: candidate ? "Candidate Sign In" : "Workforce Sign In",
+    description: candidate
+      ? "Sign in to the Consult America Candidate Portal to manage applications, interviews, offers, and documents."
+      : "Sign in to Consult America Workforce — employee workspace, time, leave, documents, and internal services.",
+  };
+}
+
+const workforceCapabilities = [
   "Employee profile",
   "Time & leave",
   "Workforce documents",
   "Manager workflows",
 ];
 
+const candidateCapabilities = [
+  "Applications",
+  "Interviews",
+  "Offers",
+  "Documents",
+];
+
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ confirmEmail?: string }>;
+  searchParams: SearchParams;
 }) {
   const demoMode = !isSupabaseBrowserConfigured();
-  const { confirmEmail } = await searchParams;
+  const params = await searchParams;
+  const returnTo = sanitizeReturnTo(params.returnTo ?? null);
+  const candidate = isCandidateReturnTo(returnTo);
+  const confirmEmail = params.confirmEmail;
+  const signupHref = candidate
+    ? `/signup${returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : ""}`
+    : "/signup";
 
   return (
     <div className="login-page">
@@ -52,25 +85,52 @@ export default async function LoginPage({
             <div className="login-grid">
               <div className="login-brand-panel">
                 <div className="login-brand-content">
-                  <p className="login-eyebrow">Consult America Workforce</p>
-                  <h1 className="login-brand-headline">
-                    Work connected.
-                    <br />
-                    People supported.
-                  </h1>
-                  <p className="login-brand-supporting">
-                    Access your employee workspace, workforce information, time,
-                    leave, documents and internal services from one secure place.
-                  </p>
-
-                  <ul className="login-capability-list">
-                    {capabilities.map((item) => (
-                      <li key={item} className="login-capability-item">
-                        <span className="login-capability-dot" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  {candidate ? (
+                    <>
+                      <p className="login-eyebrow">Consult America Careers</p>
+                      <h1 className="login-brand-headline">Candidate Portal</h1>
+                      <p className="login-brand-supporting">
+                        Manage your applications, interviews, offers and
+                        documents in one place.
+                      </p>
+                      <ul className="login-capability-list">
+                        {candidateCapabilities.map((item) => (
+                          <li key={item} className="login-capability-item">
+                            <span
+                              className="login-capability-dot"
+                              aria-hidden="true"
+                            />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : (
+                    <>
+                      <p className="login-eyebrow">Consult America Workforce</p>
+                      <h1 className="login-brand-headline">
+                        Work connected.
+                        <br />
+                        People supported.
+                      </h1>
+                      <p className="login-brand-supporting">
+                        Access your employee workspace, workforce information,
+                        time, leave, documents and internal services from one
+                        secure place.
+                      </p>
+                      <ul className="login-capability-list">
+                        {workforceCapabilities.map((item) => (
+                          <li key={item} className="login-capability-item">
+                            <span
+                              className="login-capability-dot"
+                              aria-hidden="true"
+                            />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
 
                   <div className="login-brand-visual">
                     <div className="login-visual-sage-panel" aria-hidden="true" />
@@ -94,11 +154,27 @@ export default async function LoginPage({
                     <BrandLogo variant="mark" context="login" href={null} />
                   </div>
 
-                  <p className="login-eyebrow">Consult America Workforce</p>
-                  <h2 className="login-card-heading">Sign in to Workforce</h2>
-                  <p className="login-card-supporting">
-                    Use your authorized Consult America account to continue.
-                  </p>
+                  {candidate ? (
+                    <>
+                      <p className="login-eyebrow">Consult America Careers</p>
+                      <h2 className="login-card-heading">
+                        Sign in to Candidate Portal
+                      </h2>
+                      <p className="login-card-supporting">
+                        Use your Consult America careers account to continue.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="login-eyebrow">Consult America Workforce</p>
+                      <h2 className="login-card-heading">
+                        Sign in to Workforce
+                      </h2>
+                      <p className="login-card-supporting">
+                        Use your authorized Consult America account to continue.
+                      </p>
+                    </>
+                  )}
 
                   {confirmEmail === "1" && (
                     <div
@@ -113,14 +189,23 @@ export default async function LoginPage({
                     </div>
                   )}
 
-                  <LoginForm />
+                  <LoginForm returnTo={returnTo} />
 
-                  <div className="login-card-help">
-                    <span>New candidate?</span>
-                    <Link href="/signup" className="login-help-link">
-                      Create an account →
-                    </Link>
-                  </div>
+                  {candidate ? (
+                    <div className="login-card-help">
+                      <span>New candidate?</span>
+                      <Link href={signupHref} className="login-help-link">
+                        Create an account →
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="login-card-help">
+                      <span>New candidate?</span>
+                      <Link href="/signup" className="login-help-link">
+                        Create an account →
+                      </Link>
+                    </div>
+                  )}
 
                   <div className="login-card-help">
                     <span>Need help signing in?</span>
@@ -136,16 +221,34 @@ export default async function LoginPage({
             </div>
 
             <div className="login-mobile-brand">
-              <p className="login-eyebrow">Consult America Workforce</p>
-              <h1
-                className="login-brand-headline"
-                style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
-              >
-                Sign in to Workforce
-              </h1>
-              <p className="login-brand-supporting" style={{ marginTop: 8 }}>
-                Use your authorized Consult America account to continue.
-              </p>
+              {candidate ? (
+                <>
+                  <p className="login-eyebrow">Consult America Careers</p>
+                  <h1
+                    className="login-brand-headline"
+                    style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
+                  >
+                    Candidate Portal
+                  </h1>
+                  <p className="login-brand-supporting" style={{ marginTop: 8 }}>
+                    Manage your applications, interviews, offers and documents
+                    in one place.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="login-eyebrow">Consult America Workforce</p>
+                  <h1
+                    className="login-brand-headline"
+                    style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
+                  >
+                    Sign in to Workforce
+                  </h1>
+                  <p className="login-brand-supporting" style={{ marginTop: 8 }}>
+                    Use your authorized Consult America account to continue.
+                  </p>
+                </>
+              )}
             </div>
           </>
         )}

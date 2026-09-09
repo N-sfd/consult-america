@@ -8,6 +8,11 @@ import { getSupabaseServerAuthClient } from "@/app/lib/supabase/auth-server";
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import { createCandidateAccount } from "@/lib/candidate/provisioning";
 import { landingPathForRoles } from "@/lib/auth/roles";
+import {
+  isCandidateReturnTo,
+  isWorkforceReturnTo,
+  sanitizeReturnTo,
+} from "@/lib/auth/return-to";
 import type { PlatformRole } from "@/types/identity";
 
 export type LoginState = { error: string | null };
@@ -103,21 +108,94 @@ async function ensureCandidateProfileForAuthUser(
   return { roles };
 }
 
+async function loadRolesForAuthUser(authUser: User): Promise<PlatformRole[]> {
+  const service = getSupabaseServiceClient();
+  if (!service) return [];
+
+  const { data: profile } = await service
+    .from("profiles")
+    .select("id")
+    .eq("auth_user_id", authUser.id)
+    .maybeSingle();
+
+  if (!profile) return [];
+
+  const { data: roleRows } = await service
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", profile.id);
+
+  return (roleRows ?? []).map((row) => row.role as PlatformRole);
+}
+
 async function resolvePostLoginPath(
   authUser: User,
   email: string,
   returnTo?: string | null,
 ) {
-  if (returnTo && returnTo.startsWith("/") && !returnTo.startsWith("//")) {
-    return returnTo;
-  }
+  const safeReturnTo = sanitizeReturnTo(returnTo);
 
   try {
+    // Candidate destinations require CANDIDATE from the database — never from the URL.
+    if (isCandidateReturnTo(safeReturnTo)) {
+      let roles = await loadRolesForAuthUser(authUser);
+      if (!roles.includes("CANDIDATE")) {
+        const service = getSupabaseServiceClient();
+        const { data: existingProfile } = service
+          ? await service
+              .from("profiles")
+              .select("id")
+              .eq("auth_user_id", authUser.id)
+              .maybeSingle()
+          : { data: null };
+
+        // Provision only for auth-only orphans (typical candidate self-signup).
+        // Do not invent a CANDIDATE role for existing workforce accounts.
+        if (!existingProfile) {
+          ({ roles } = await ensureCandidateProfileForAuthUser(authUser, email));
+        }
+      }
+
+      if (roles.includes("CANDIDATE")) {
+        return safeReturnTo ?? "/candidate";
+      }
+      return landingPathForRoles(roles) ?? "/login";
+    }
+
+    // Workforce destinations must match an authorized role — never trust the URL alone.
+    if (isWorkforceReturnTo(safeReturnTo) && safeReturnTo) {
+      const roles = await loadRolesForAuthUser(authUser);
+      const allowedByRole = landingPathForRoles(roles);
+      if (
+        roles.includes("EMPLOYEE") ||
+        roles.includes("MANAGER") ||
+        roles.includes("HR_ADMIN") ||
+        roles.includes("HR_SPECIALIST") ||
+        roles.includes("PAYROLL_ADMIN") ||
+        roles.includes("RECRUITER") ||
+        roles.includes("HIRING_MANAGER") ||
+        roles.includes("SYSTEM_ADMIN") ||
+        roles.includes("SALES_REP") ||
+        roles.includes("SALES_MANAGER")
+      ) {
+        // Prefer the validated returnTo when the user holds any workforce role.
+        return safeReturnTo;
+      }
+      if (roles.includes("CANDIDATE")) {
+        return "/candidate";
+      }
+      return allowedByRole ?? "/login";
+    }
+
+    if (safeReturnTo) {
+      return safeReturnTo;
+    }
+
     const { roles } = await ensureCandidateProfileForAuthUser(authUser, email);
     return landingPathForRoles(roles) ?? "/candidate";
   } catch (error) {
     console.error("Post-login profile resolve failed:", error);
-    return "/candidate";
+    return isCandidateReturnTo(safeReturnTo) ? "/candidate" : "/login";
   }
 }
 
@@ -172,13 +250,16 @@ export async function login(
 
   const headerStore = await headers();
   const referer = headerStore.get("referer") ?? "";
-  let returnTo: string | null = null;
+  const formReturnTo = (formData.get("returnTo") as string | null) ?? null;
+  let returnTo: string | null = sanitizeReturnTo(formReturnTo);
 
-  try {
-    const url = new URL(referer);
-    returnTo = url.searchParams.get("returnTo");
-  } catch {
-    // invalid referer — fall through to role landing
+  if (!returnTo) {
+    try {
+      const url = new URL(referer);
+      returnTo = sanitizeReturnTo(url.searchParams.get("returnTo"));
+    } catch {
+      // invalid referer — fall through to role landing
+    }
   }
 
   const destination = await resolvePostLoginPath(data.user, email, returnTo);

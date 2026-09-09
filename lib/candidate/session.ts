@@ -30,14 +30,18 @@ export async function getCandidateSession(): Promise<CandidateSession> {
   if (!isSupabaseBrowserConfigured()) return DEMO_CANDIDATE_SESSION;
 
   const platformUser = await getAuthenticatedPlatformUser();
-  if (!platformUser || !platformUser.candidateId) {
-    redirect("/login");
+  if (
+    !platformUser ||
+    !platformUser.candidateId ||
+    !platformUser.roles.includes("CANDIDATE")
+  ) {
+    redirect("/login?returnTo=/candidate");
   }
 
   const profile = await recruitingRepository.getCandidateProfile(
     platformUser.candidateId,
   );
-  if (!profile) redirect("/login");
+  if (!profile) redirect("/login?returnTo=/candidate");
 
   return {
     candidateId: profile.candidate.id,
@@ -55,6 +59,7 @@ export async function getOptionalCandidateSession(): Promise<CandidateSession | 
 
   const platformUser = await getAuthenticatedPlatformUser();
   if (!platformUser?.candidateId) return null;
+  if (!platformUser.roles.includes("CANDIDATE")) return null;
 
   const profile = await recruitingRepository.getCandidateProfile(
     platformUser.candidateId,

@@ -21,7 +21,7 @@ export default function CandidateShell({ session, children }: CandidateShellProp
       }}
       headerAction={
         <Link
-          href="/careers"
+          href="/candidate/jobs"
           className="hidden text-sm font-semibold text-[var(--ca-platform-mid)] hover:text-[var(--ca-platform-deep)] sm:inline"
         >
           Browse jobs

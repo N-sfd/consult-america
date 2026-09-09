@@ -5,12 +5,20 @@ import { careerAreaLabels, formatPostedDate, type Job } from "@/lib/jobs";
 
 interface JobListItemProps {
   job: Job;
+  /** Candidate-portal CTA when an application already exists for this role */
+  applicationCta?: {
+    label: string;
+    href: string;
+  };
 }
 
-export default function JobListItem({ job }: JobListItemProps) {
+export default function JobListItem({ job, applicationCta }: JobListItemProps) {
+  const href = applicationCta?.href ?? `/jobs/${job.slug}`;
+  const cta = applicationCta?.label ?? "View Role";
+
   return (
     <Link
-      href={`/jobs/${job.slug}`}
+      href={href}
       className="group cr-card grid gap-4 p-6 transition-colors hover:border-[var(--cr-blue)]/40 md:grid-cols-12 md:items-center"
     >
       <div className="md:col-span-5">
@@ -34,7 +42,7 @@ export default function JobListItem({ job }: JobListItemProps) {
 
       <div className="flex md:col-span-3 md:justify-end">
         <span className="inline-flex items-center gap-2 text-sm font-medium text-[var(--cr-text)] transition-colors group-hover:text-[var(--cr-blue)]">
-          View Role
+          {cta}
           <ArrowUpRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
         </span>
       </div>

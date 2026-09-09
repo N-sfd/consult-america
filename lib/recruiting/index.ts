@@ -200,6 +200,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
           workAuthorization: candidate.workAuthorization,
           appliedAt: application?.appliedAt,
           lastActivityAt: application?.updatedAt ?? candidate.updatedAt,
+          skills: [],
         };
       });
     },
@@ -584,9 +585,18 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       const candidate = candidates.find((c) => c.id === candidateId);
       if (!candidate) throw new Error("Candidate not found");
 
+      if (input.firstName !== undefined) candidate.firstName = input.firstName;
+      if (input.lastName !== undefined) candidate.lastName = input.lastName;
+      if (input.preferredName !== undefined) candidate.preferredName = input.preferredName;
       if (input.phone !== undefined) candidate.phone = input.phone;
+      if (input.city !== undefined) candidate.city = input.city;
+      if (input.state !== undefined) candidate.state = input.state;
+      if (input.professionalSummary !== undefined) {
+        candidate.professionalSummary = input.professionalSummary;
+      }
       if (input.linkedinUrl !== undefined) candidate.linkedinUrl = input.linkedinUrl;
       if (input.portfolioUrl !== undefined) candidate.portfolioUrl = input.portfolioUrl;
+      if (input.githubUrl !== undefined) candidate.githubUrl = input.githubUrl;
       if (input.workAuthorization !== undefined) {
         candidate.workAuthorization = input.workAuthorization;
       }

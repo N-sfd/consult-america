@@ -7,12 +7,20 @@ import { login, type LoginState } from "@/app/actions/auth";
 
 const initialState: LoginState = { error: null };
 
-export default function LoginForm() {
+export default function LoginForm({
+  returnTo,
+}: {
+  returnTo?: string | null;
+}) {
   const [state, formAction, isPending] = useActionState(login, initialState);
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <form action={formAction} className="login-form">
+      {returnTo ? (
+        <input type="hidden" name="returnTo" value={returnTo} />
+      ) : null}
+
       {state.error && (
         <div className="login-error" role="alert">
           <p>{state.error}</p>
@@ -30,7 +38,11 @@ export default function LoginForm() {
           autoComplete="email"
           required
           className="login-input"
-          placeholder="you@company.com"
+          placeholder={
+            returnTo?.startsWith("/candidate")
+              ? "you@email.com"
+              : "you@company.com"
+          }
         />
       </div>
 
@@ -68,11 +80,7 @@ export default function LoginForm() {
         </a>
       </div>
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className="login-submit"
-      >
+      <button type="submit" disabled={isPending} className="login-submit">
         {isPending ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />

@@ -105,8 +105,12 @@ function mapCandidate(row: Record<string, unknown>): CandidateProfile {
     preferredName: (row.preferred_name as string) ?? undefined,
     email: row.email as string,
     phone: (row.phone as string) ?? undefined,
+    city: (row.city as string) ?? undefined,
+    state: (row.state as string) ?? undefined,
+    professionalSummary: (row.professional_summary as string) ?? undefined,
     linkedinUrl: (row.linkedin_url as string) ?? undefined,
     portfolioUrl: (row.portfolio_url as string) ?? undefined,
+    githubUrl: (row.github_url as string) ?? undefined,
     workAuthorization: (row.work_authorization as string) ?? undefined,
     willingToRelocate: (row.willing_to_relocate as boolean) ?? undefined,
     source: (row.source as string) ?? undefined,
@@ -435,11 +439,32 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         { data: candidateRows },
         { data: applicationRows },
         { data: postingRows },
+        { data: skillLinkRows },
       ] = await Promise.all([
         client.from("candidate_profiles").select("*"),
         client.from("applications").select("*"),
         client.from("jobs").select("id, title, location_name"),
+        client.from("candidate_skills").select("candidate_id, skill_id"),
       ]);
+
+      const skillIds = [
+        ...new Set((skillLinkRows ?? []).map((row) => row.skill_id as string)),
+      ];
+      const { data: skillNameRows } = skillIds.length
+        ? await client.from("skills").select("id, name").in("id", skillIds)
+        : { data: [] as Record<string, unknown>[] };
+      const skillNameById = new Map(
+        (skillNameRows ?? []).map((row) => [row.id as string, row.name as string]),
+      );
+      const skillsByCandidate = new Map<string, string[]>();
+      for (const row of skillLinkRows ?? []) {
+        const candidateId = row.candidate_id as string;
+        const name = skillNameById.get(row.skill_id as string);
+        if (!name) continue;
+        const list = skillsByCandidate.get(candidateId) ?? [];
+        list.push(name);
+        skillsByCandidate.set(candidateId, list);
+      }
 
       const postingById = new Map(
         (postingRows ?? []).map((row) => [row.id as string, row]),
@@ -483,6 +508,7 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           appliedAt: application?.applied_at as string | undefined,
           lastActivityAt:
             (application?.updated_at as string) ?? candidate.updatedAt,
+          skills: skillsByCandidate.get(candidate.id) ?? [],
         };
       });
     },
@@ -1185,9 +1211,18 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       const patch: Record<string, unknown> = {
         updated_at: new Date().toISOString(),
       };
+      if (input.firstName !== undefined) patch.first_name = input.firstName;
+      if (input.lastName !== undefined) patch.last_name = input.lastName;
+      if (input.preferredName !== undefined) patch.preferred_name = input.preferredName;
       if (input.phone !== undefined) patch.phone = input.phone;
+      if (input.city !== undefined) patch.city = input.city;
+      if (input.state !== undefined) patch.state = input.state;
+      if (input.professionalSummary !== undefined) {
+        patch.professional_summary = input.professionalSummary;
+      }
       if (input.linkedinUrl !== undefined) patch.linkedin_url = input.linkedinUrl;
       if (input.portfolioUrl !== undefined) patch.portfolio_url = input.portfolioUrl;
+      if (input.githubUrl !== undefined) patch.github_url = input.githubUrl;
       if (input.workAuthorization !== undefined) {
         patch.work_authorization = input.workAuthorization;
       }

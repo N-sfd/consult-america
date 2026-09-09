@@ -62,6 +62,7 @@ export type CandidateListItem = {
   workAuthorization?: string;
   appliedAt?: string;
   lastActivityAt: string;
+  skills?: string[];
 };
 
 export type CandidateApplicationSummary = {
@@ -119,9 +120,16 @@ export type RecruitingCandidateReads = {
 };
 
 export type UpdateCandidateContactInfoInput = {
+  firstName?: string;
+  lastName?: string;
+  preferredName?: string;
   phone?: string;
+  city?: string;
+  state?: string;
+  professionalSummary?: string;
   linkedinUrl?: string;
   portfolioUrl?: string;
+  githubUrl?: string;
   workAuthorization?: string;
   willingToRelocate?: boolean;
 };

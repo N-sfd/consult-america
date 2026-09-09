@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import { updateSupabaseSession } from "@/app/lib/supabase/middleware";
+import { sanitizeReturnTo } from "@/lib/auth/return-to";
 
 /**
  * Cheap session-cookie gate for real portals. Role authorization still
@@ -36,12 +37,13 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Logged-in users hitting /login: honor returnTo, else stay on login so
-  // the client can resolve role landing after session cookies settle.
-  // Server login action redirects via landingPathForRoles.
+  // Logged-in users hitting /login: honor only validated returnTo.
+  // Server login action also validates via sanitizeReturnTo.
   if (pathname === "/login" && user) {
-    const returnTo = request.nextUrl.searchParams.get("returnTo");
-    if (returnTo && returnTo.startsWith("/") && !returnTo.startsWith("//")) {
+    const returnTo = sanitizeReturnTo(
+      request.nextUrl.searchParams.get("returnTo"),
+    );
+    if (returnTo) {
       return NextResponse.redirect(new URL(returnTo, request.url));
     }
   }
