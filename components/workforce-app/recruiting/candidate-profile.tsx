@@ -12,7 +12,7 @@ import SubmitInterviewFeedbackButton from "@/components/workforce-app/recruiting
 import { formatDate, formatDateTime } from "@/lib/recruiting/format";
 import type { CandidateProfileDetail as CandidateProfileData } from "@/lib/recruiting/repository";
 import { cn } from "@/lib/utils";
-import { employmentTypeLabels } from "@/types/organization";
+import { employmentTypeLabels, workplaceTypeLabels } from "@/types/organization";
 import { applicationStatusLabels } from "@/types/recruiting";
 
 const TABS = [
@@ -203,6 +203,20 @@ export default function CandidateProfile({
             <Field label="LinkedIn" value={candidate.linkedinUrl ?? "—"} />
             <Field label="Portfolio" value={candidate.portfolioUrl ?? "—"} />
             <Field label="GitHub" value={candidate.githubUrl ?? "—"} />
+            <Field
+              label="Work Authorization"
+              value={candidate.workAuthorization ?? "—"}
+            />
+            <Field
+              label="Willing to Relocate"
+              value={
+                candidate.willingToRelocate === undefined
+                  ? "—"
+                  : candidate.willingToRelocate
+                    ? "Yes"
+                    : "No"
+              }
+            />
             <div className="sm:col-span-2">
               <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
                 Professional Summary
@@ -399,7 +413,8 @@ export default function CandidateProfile({
                     </span>
                     <span className="text-black/45">{interview.interviewType}</span>
                     <span className="text-black/45">
-                      {formatDateTime(interview.scheduledAt)}
+                      {formatDateTime(interview.scheduledAt)} ·{" "}
+                      {interview.durationMinutes} min
                     </span>
                     <InterviewStatusActions
                       interviewId={interview.id}
@@ -412,6 +427,11 @@ export default function CandidateProfile({
                       status={interview.status}
                     />
                   </div>
+                  {interview.locationOrLink ? (
+                    <p className="text-black/55">
+                      Location/link: {interview.locationOrLink}
+                    </p>
+                  ) : null}
                   <SubmitInterviewFeedbackButton
                     interviewId={interview.id}
                     applicationId={interview.applicationId}
@@ -464,11 +484,22 @@ export default function CandidateProfile({
                   {offer.offerNumber} · {offer.status}
                 </p>
                 <p className="mt-1 text-black/55">
-                  Start {offer.startDate}
-                  {offer.baseSalary != null
-                    ? ` · ${offer.currency} ${offer.baseSalary}`
-                    : ""}
+                  {employmentTypeLabels[offer.employmentType]} ·{" "}
+                  {workplaceTypeLabels[offer.workplaceType]} · Start {offer.startDate}
+                  {offer.expirationDate ? ` · Expires ${offer.expirationDate}` : ""}
                 </p>
+                <p className="mt-1 text-black/55">
+                  {offer.baseSalary != null
+                    ? `${offer.currency} ${offer.baseSalary} salary`
+                    : offer.hourlyRate != null
+                      ? `${offer.currency} ${offer.hourlyRate}/hr`
+                      : "No compensation on file."}
+                </p>
+                {offer.termsSummary ? (
+                  <p className="mt-1 whitespace-pre-wrap text-black/55">
+                    {offer.termsSummary}
+                  </p>
+                ) : null}
               </div>
             )}
           />
