@@ -41,7 +41,7 @@ export default async function CandidateJobsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Jobs</h1>
+        <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">Jobs</h1>
         <p className="mt-2 text-black/55">
           Browse published Consult America roles and apply with your current
           resume.
@@ -57,7 +57,7 @@ export default async function CandidateJobsPage() {
           Roles you already applied to show View Application instead of Apply.{" "}
           <Link
             href="/candidate/applications"
-            className="font-semibold text-[var(--ca-platform-mid)] hover:underline"
+            className="font-semibold text-[var(--cr-blue)] hover:underline"
           >
             View applications
           </Link>

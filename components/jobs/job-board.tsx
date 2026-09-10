@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 
 import JobFilterSelect from "@/components/jobs/job-filter-select";
 import JobListItem from "@/components/jobs/job-list-item";
@@ -106,6 +106,33 @@ export default function JobBoard({
   ).length;
 
   const hasActiveFilters = query !== "" || activeFilterCount > 0;
+
+  const activeChips: { key: string; label: string; onClear: () => void }[] = [];
+  if (query) activeChips.push({ key: "q", label: `"${query}"`, onClear: () => setQuery("") });
+  if (location !== ALL) {
+    activeChips.push({ key: "location", label: location, onClear: () => setLocation(ALL) });
+  }
+  if (careerArea !== ALL) {
+    activeChips.push({
+      key: "careerArea",
+      label: careerAreaLabels[careerArea as keyof typeof careerAreaLabels] ?? careerArea,
+      onClear: () => setCareerArea(ALL),
+    });
+  }
+  if (workplaceType !== ALL) {
+    activeChips.push({
+      key: "workplaceType",
+      label: workplaceType,
+      onClear: () => setWorkplaceType(ALL),
+    });
+  }
+  if (employmentType !== ALL) {
+    activeChips.push({
+      key: "employmentType",
+      label: employmentType,
+      onClear: () => setEmploymentType(ALL),
+    });
+  }
 
   function clearFilters() {
     setQueryState("");
@@ -239,7 +266,23 @@ export default function JobBoard({
         </SheetContent>
       </Sheet>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+      {activeChips.length > 0 ? (
+        <div className="mt-6 flex flex-wrap gap-2">
+          {activeChips.map((chip) => (
+            <button
+              key={chip.key}
+              type="button"
+              onClick={chip.onClear}
+              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cr-border)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--cr-text)] hover:border-[var(--cr-blue)]"
+            >
+              {chip.label}
+              <X className="h-3 w-3" />
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
         <p className="text-sm text-[var(--cr-text-secondary)]">
           <span className="font-semibold text-[var(--cr-navy)]">
             {filteredJobs.length}

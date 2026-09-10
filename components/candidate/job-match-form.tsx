@@ -54,7 +54,7 @@ export default function JobMatchForm({
 
   return (
     <div className="space-y-6">
-      <form onSubmit={onSubmit} className="space-y-4 rounded-lg border border-black/10 bg-white p-6">
+      <form onSubmit={onSubmit} className="ca-platform-card space-y-4 p-6">
         <p className="text-sm text-black/55">
           Job Match is candidate assistance only. It does not reject, advance,
           or rank applications for hiring decisions.

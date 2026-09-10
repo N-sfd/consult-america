@@ -86,7 +86,7 @@ export default async function CandidatePortalHomePage() {
     <div className="space-y-7">
       <section className="ca-platform-hero">
         <div className="relative z-[1]">
-          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
+          <h1 className="font-serif text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
             Welcome back, {session.displayName.split(" ")[0]}
           </h1>
           <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">

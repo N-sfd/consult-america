@@ -62,7 +62,7 @@ export default function CandidateProfileForm({
 
   if (!editing) {
     return (
-      <section className="space-y-4 rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card space-y-4 p-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Personal &amp; Contact
@@ -148,7 +148,7 @@ export default function CandidateProfileForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 rounded-lg border border-black/10 bg-white p-6"
+      className="ca-platform-card space-y-4 p-6"
     >
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">

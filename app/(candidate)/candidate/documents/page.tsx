@@ -43,10 +43,10 @@ export default async function CandidateDocumentsPage({ searchParams }: PageProps
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em] text-[#073B3A]">
+        <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">
           Documents
         </h1>
-        <p className="mt-2 max-w-2xl text-[#5B6D6B]">
+        <p className="mt-2 max-w-2xl text-black/55">
           Upload your resume and supporting documents to share with the Consult
           America recruiting team.
         </p>

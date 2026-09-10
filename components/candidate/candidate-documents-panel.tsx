@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { UploadCloud } from "lucide-react";
+import { FolderOpen, UploadCloud } from "lucide-react";
 
 import {
   deleteCandidateDocumentAction,
@@ -247,7 +247,7 @@ export default function CandidateDocumentsPanel({
       ) : null}
 
       {previousResumes.length > 0 ? (
-        <section className="rounded-xl border border-black/10 bg-white p-5">
+        <section className="ca-platform-card p-5">
           <h2 className="text-base font-semibold text-black">
             Previous Resumes
           </h2>
@@ -364,9 +364,17 @@ export default function CandidateDocumentsPanel({
         </div>
       )}
 
-      {supporting.length > 0 ? (
+      {supporting.length === 0 ? (
+        <div className="flex items-center gap-3 rounded-xl border border-dashed border-black/15 px-5 py-6 text-sm text-black/50">
+          <FolderOpen className="h-5 w-5 shrink-0 text-black/25" />
+          <p>
+            No supporting documents yet. Cover letters, transcripts, and
+            certifications you upload will show up here.
+          </p>
+        </div>
+      ) : (
         <section>
-          <div className="mt-1 hidden overflow-hidden rounded-xl border border-black/10 bg-white md:block">
+          <div className="ca-platform-card mt-1 hidden overflow-hidden md:block">
             <table className="w-full text-left text-sm">
               <thead className="border-b border-black/10 bg-black/[0.02] text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
                 <tr>
@@ -404,7 +412,7 @@ export default function CandidateDocumentsPanel({
             ))}
           </div>
         </section>
-      ) : null}
+      )}
 
       <ConfirmDialog
         open={confirmDeleteId !== null}

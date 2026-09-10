@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import ApplicationStatusPill from "@/components/candidate/application-status-pill";
+import ApplicationTimeline, {
+  type TimelineStep,
+} from "@/components/candidate/application-timeline";
 import CandidateOfferActions from "@/components/candidate/candidate-offer-actions";
 import SubmittedDocumentLink from "@/components/candidate/submitted-document-link";
 import { formatDate, formatDateTime, formatDateTimeWithZone } from "@/lib/recruiting/format";
@@ -96,6 +99,26 @@ export default async function CandidateApplicationDetailPage({
     return match?.createdAt;
   }
 
+  const reachedFlags = TIMELINE.map(
+    (step) => step.alwaysReached || step.statuses.some((s) => reachedStatuses.has(s)),
+  );
+  const currentStepIndex = reachedFlags.lastIndexOf(true);
+  const decisionTone: TimelineStep["tone"] =
+    application.status === "HIRED"
+      ? "positive"
+      : application.status === "REJECTED"
+        ? "negative"
+        : application.status === "WITHDRAWN" || application.status === "CLOSED"
+          ? "neutral"
+          : undefined;
+  const timelineSteps: TimelineStep[] = TIMELINE.map((step, i) => ({
+    label: step.label,
+    reached: reachedFlags[i],
+    current: i === currentStepIndex,
+    date: step.alwaysReached ? application.appliedAt : earliestDateFor(step.statuses),
+    tone: step.label === "Decision" ? decisionTone : undefined,
+  }));
+
   const offer = (profile?.offers ?? []).find((o) => o.applicationId === id);
   const interviews = (profile?.interviews ?? []).filter(
     (i) => i.applicationId === id,
@@ -120,7 +143,7 @@ export default async function CandidateApplicationDetailPage({
         >
           ← All applications
         </Link>
-        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
+        <h1 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.04em]">
           {application.requisitionTitle}
         </h1>
         <p className="mt-2 text-black/55">
@@ -132,7 +155,7 @@ export default async function CandidateApplicationDetailPage({
       </div>
 
       <section className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-lg border border-black/10 bg-white p-5">
+        <div className="ca-platform-card p-5">
           <p className="text-xs uppercase tracking-[0.12em] text-black/40">
             Status
           </p>
@@ -140,7 +163,7 @@ export default async function CandidateApplicationDetailPage({
             <ApplicationStatusPill status={application.status} />
           </p>
         </div>
-        <div className="rounded-lg border border-black/10 bg-white p-5">
+        <div className="ca-platform-card p-5">
           <p className="text-xs uppercase tracking-[0.12em] text-black/40">
             Applied
           </p>
@@ -148,7 +171,7 @@ export default async function CandidateApplicationDetailPage({
             {formatDateTime(application.appliedAt)}
           </p>
         </div>
-        <div className="rounded-lg border border-black/10 bg-white p-5">
+        <div className="ca-platform-card p-5">
           <p className="text-xs uppercase tracking-[0.12em] text-black/40">
             Last Updated
           </p>
@@ -158,40 +181,14 @@ export default async function CandidateApplicationDetailPage({
         </div>
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Application Timeline
         </h2>
-        <ol className="mt-4 grid gap-3 sm:grid-cols-5">
-          {TIMELINE.map((step) => {
-            const reached =
-              step.alwaysReached ||
-              step.statuses.some((s) => reachedStatuses.has(s));
-            const stageDate = step.alwaysReached
-              ? application.appliedAt
-              : earliestDateFor(step.statuses);
-            return (
-              <li
-                key={step.label}
-                className={`rounded-md border px-3 py-3 text-sm ${
-                  reached
-                    ? "border-[var(--ca-platform-deep)]/30 bg-[rgba(23,106,99,0.08)] font-medium"
-                    : "border-black/10 text-black/40"
-                }`}
-              >
-                <p>{step.label}</p>
-                {reached && stageDate ? (
-                  <p className="mt-1 text-xs font-normal text-black/45">
-                    {formatDate(stageDate)}
-                  </p>
-                ) : null}
-              </li>
-            );
-          })}
-        </ol>
+        <ApplicationTimeline steps={timelineSteps} />
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Documents submitted with this application
         </h2>
@@ -235,7 +232,7 @@ export default async function CandidateApplicationDetailPage({
       </section>
 
       {upcomingInterview ? (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
+        <section className="ca-platform-card p-6">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Upcoming Interview
           </h2>
@@ -258,13 +255,26 @@ export default async function CandidateApplicationDetailPage({
       (offer.status === "EXTENDED" ||
         offer.status === "ACCEPTED" ||
         offer.status === "DECLINED") ? (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
-            Offer
-          </h2>
+        <section
+          className={
+            offer.status === "EXTENDED"
+              ? "rounded-[var(--ca-platform-radius)] border-l-4 border-l-[var(--ca-platform-deep)] bg-[rgba(23,106,99,0.06)] p-6 shadow-[var(--ca-platform-shadow)]"
+              : "ca-platform-card p-6"
+          }
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+              Offer
+            </h2>
+            {offer.status === "EXTENDED" ? (
+              <span className="rounded-full bg-[var(--ca-platform-deep)] px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-white">
+                Action needed
+              </span>
+            ) : null}
+          </div>
           <p className="mt-3 text-sm text-black/70">
             Status:{" "}
-            <span className="font-semibold text-[var(--ca-app-ink)]">
+            <span className="font-semibold text-black">
               {offerStatusLabels[offer.status]}
             </span>
           </p>
@@ -282,7 +292,7 @@ export default async function CandidateApplicationDetailPage({
       ) : null}
 
       {interviews.length > 0 ? (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
+        <section className="ca-platform-card p-6">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Interviews
           </h2>
@@ -305,7 +315,7 @@ export default async function CandidateApplicationDetailPage({
         </section>
       ) : null}
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Status History
         </h2>

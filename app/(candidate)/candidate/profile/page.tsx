@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Briefcase, GraduationCap, Sparkles } from "lucide-react";
 
 import CandidateProfileForm from "@/components/candidate/candidate-profile-form";
 import {
@@ -49,14 +50,14 @@ export default async function CandidateProfilePage() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-[-0.04em]">
+          <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">
             My Profile
           </h1>
           <p className="mt-2 text-black/55">
             {candidate.firstName} {candidate.lastName} · {candidate.email}
           </p>
         </div>
-        <div className="rounded-lg border border-black/10 bg-white px-4 py-3 text-sm">
+        <div className="ca-platform-card px-4 py-3 text-sm">
           <p className="text-xs uppercase tracking-[0.12em] text-black/40">
             Profile Completion
           </p>
@@ -84,12 +85,15 @@ export default async function CandidateProfilePage() {
 
       <CandidateProfileForm candidate={candidate} />
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Experience
         </h2>
         {experience.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">No experience on file yet.</p>
+          <div className="mt-4 flex items-center gap-3 text-sm text-black/50">
+            <Briefcase className="h-5 w-5 shrink-0 text-black/25" />
+            <p>No experience on file yet.</p>
+          </div>
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {experience.map((item) => (
@@ -100,12 +104,15 @@ export default async function CandidateProfilePage() {
         <CandidateExperienceForm />
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Education
         </h2>
         {education.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">No education on file yet.</p>
+          <div className="mt-4 flex items-center gap-3 text-sm text-black/50">
+            <GraduationCap className="h-5 w-5 shrink-0 text-black/25" />
+            <p>No education on file yet.</p>
+          </div>
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {education.map((item) => (
@@ -116,12 +123,15 @@ export default async function CandidateProfilePage() {
         <CandidateEducationForm />
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="ca-platform-card p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Skills
         </h2>
         {skills.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">No skills on file yet.</p>
+          <div className="mt-4 flex items-center gap-3 text-sm text-black/50">
+            <Sparkles className="h-5 w-5 shrink-0 text-black/25" />
+            <p>No skills on file yet.</p>
+          </div>
         ) : (
           <div className="mt-4 flex flex-wrap gap-2">
             {skills.map((item) => (

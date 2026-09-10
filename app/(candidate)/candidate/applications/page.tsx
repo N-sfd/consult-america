@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Inbox } from "lucide-react";
 
 import ApplicationStatusPill from "@/components/candidate/application-status-pill";
 import { formatDate } from "@/lib/recruiting/format";
@@ -24,7 +25,7 @@ export default async function CandidateApplicationsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
+        <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">
           My Applications
         </h1>
         <p className="mt-2 text-black/55">
@@ -33,50 +34,51 @@ export default async function CandidateApplicationsPage() {
       </div>
 
       {applications.length === 0 ? (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-          No applications yet.{" "}
-          <Link href="/candidate/jobs" className="text-[var(--ca-blue)] hover:underline">
-            Browse open roles
-          </Link>{" "}
-          to get started.
+        <div className="ca-platform-card flex items-center gap-3 px-5 py-8 text-sm text-black/50">
+          <Inbox className="h-5 w-5 shrink-0 text-black/25" />
+          <p>
+            No applications yet.{" "}
+            <Link href="/candidate/jobs" className="text-[var(--ca-blue)] hover:underline">
+              Browse open roles
+            </Link>{" "}
+            to get started.
+          </p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
-          <ul className="divide-y divide-black/5">
-            {applications.map((application) => (
-              <li key={application.applicationId}>
-                <Link
-                  href={`/candidate/applications/${application.applicationId}`}
-                  className="block px-5 py-4 hover:bg-black/[0.02]"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div>
-                      <p className="text-xs text-black/40">
-                        {application.applicationNumber}
-                      </p>
-                      <p className="mt-1 font-medium">
-                        {application.requisitionTitle}
-                      </p>
-                      <p className="mt-1 text-sm text-black/55">
-                        {application.postingLocation} · Applied{" "}
-                        {formatDate(application.appliedAt)}
-                      </p>
-                      <p className="mt-1 text-xs text-black/40">
-                        Last activity {formatDate(application.updatedAt)}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <ApplicationStatusPill status={application.status} />
-                      <p className="mt-2 text-xs font-semibold text-[var(--ca-blue)]">
-                        View Application
-                      </p>
-                    </div>
+        <ul className="space-y-3">
+          {applications.map((application) => (
+            <li key={application.applicationId}>
+              <Link
+                href={`/candidate/applications/${application.applicationId}`}
+                className="ca-platform-card ca-platform-card--interactive block px-5 py-4"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs text-black/40">
+                      {application.applicationNumber}
+                    </p>
+                    <p className="mt-1 text-base font-semibold text-black">
+                      {application.requisitionTitle}
+                    </p>
+                    <p className="mt-1 text-sm text-black/55">
+                      {application.postingLocation} · Applied{" "}
+                      {formatDate(application.appliedAt)}
+                    </p>
+                    <p className="mt-1 text-xs text-black/40">
+                      Last activity {formatDate(application.updatedAt)}
+                    </p>
                   </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  <div className="text-right">
+                    <ApplicationStatusPill status={application.status} />
+                    <p className="mt-2 text-xs font-semibold text-[var(--ca-blue)]">
+                      View Application
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

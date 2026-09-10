@@ -114,7 +114,7 @@ export function DocumentCard({
   onDelete,
 }: Props) {
   return (
-    <div className="rounded-xl border border-black/10 bg-white p-4 md:hidden">
+    <div className="ca-platform-card p-4 md:hidden">
       <p className="font-medium text-black">{document.fileName}</p>
       <p className="mt-1 text-sm text-black/55">
         {DOCUMENT_TYPE_LABELS[document.documentType]} ·{" "}
@@ -177,18 +177,21 @@ export function ResumeCard({
 }) {
   if (!document) {
     return (
-      <section className="rounded-xl border border-black/10 bg-white p-5">
+      <section className="ca-platform-card p-5">
         <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[var(--ca-platform-deep)]">
           Resume
         </p>
-        <p className="mt-2 text-sm text-black/55">No documents uploaded yet.</p>
+        <div className="mt-2 flex items-center gap-3 text-sm text-black/55">
+          <FileText className="h-5 w-5 shrink-0 text-black/25" />
+          <p>No documents uploaded yet.</p>
+        </div>
         {emptyAction ? <div className="mt-4">{emptyAction}</div> : null}
       </section>
     );
   }
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-5">
+    <section className="ca-platform-card p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[var(--ca-platform-deep)]">
