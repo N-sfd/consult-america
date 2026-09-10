@@ -10,7 +10,11 @@ import {
   getEmployeeDocumentUrlAction,
   uploadEmployeeDocumentAction,
 } from "@/lib/documents/employee-document-actions";
-import type { EmployeeDocumentRow, EmployeeDocumentType } from "@/lib/documents/employee-documents-service";
+import {
+  employeeDocumentTypeLabels,
+  type EmployeeDocumentRow,
+  type EmployeeDocumentType,
+} from "@/lib/documents/employee-documents-service";
 import { changeEmployeeStatusAction, upsertWorkAuthorizationAction } from "@/lib/hr/actions";
 import type { EmployeeWorkAuthorization } from "@/lib/hr/repository";
 import type { CompensationRecord, EmployeeStatusHistory, EmployeeStatus, HrEvent, JobAssignment, OnboardingRecord, OnboardingTask } from "@/types/hr";
@@ -32,15 +36,9 @@ const WORK_AUTHORIZATION_TYPES = [
   "Other",
 ];
 
-const DOCUMENT_TYPES: { value: EmployeeDocumentType; label: string }[] = [
-  { value: "RESUME", label: "Resume" },
-  { value: "OFFER_LETTER", label: "Offer Letter" },
-  { value: "EMPLOYMENT_AGREEMENT", label: "Employment Agreement" },
-  { value: "WORK_AUTHORIZATION", label: "Work Authorization" },
-  { value: "CERTIFICATION", label: "Certification" },
-  { value: "POLICY_ACKNOWLEDGEMENT", label: "Policy Acknowledgement" },
-  { value: "OTHER", label: "Other" },
-];
+const DOCUMENT_TYPES: { value: EmployeeDocumentType; label: string }[] = (
+  Object.entries(employeeDocumentTypeLabels) as [EmployeeDocumentType, string][]
+).map(([value, label]) => ({ value, label }));
 
 function formatDate(value?: string) {
   if (!value) return "—";

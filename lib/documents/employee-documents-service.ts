@@ -1,12 +1,9 @@
 /**
  * Single source of truth for employee HR document metadata + private storage.
  *
- * Canonical table: `employee_documents` (db/schema/005_self_service.sql) —
- * provisioned with a private `employee-documents` bucket but never wired to
- * application code until now. This is a separate path from the existing
- * self-service `/employee/documents` page, which still runs on
- * lib/self-service/document-store.ts (in-memory) — reconciling the two is a
- * follow-up, not attempted here.
+ * Canonical table: `employee_documents` (db/schema/005_self_service.sql).
+ * Backs both the HR-side Workforce -> People -> Employee Detail -> Documents
+ * tab and the self-service `/employee/documents` page.
  */
 
 import { getSupabaseServiceClient, isSupabaseConfigured } from "@/app/lib/supabase/server";
@@ -18,6 +15,7 @@ import {
   uploadEmployeeDocumentObject,
   validateEmployeeDocumentFile,
 } from "@/lib/storage/employee-documents";
+import type { DocumentCategory } from "@/types/self-service";
 
 export type EmployeeDocumentType =
   | "RESUME"
@@ -46,6 +44,30 @@ export type EmployeeDocumentRow = {
   effectiveDate?: string;
   expirationDate?: string;
   status: "ACTIVE" | "ARCHIVED";
+  requiresAcknowledgement: boolean;
+  acknowledgedAt?: string;
+};
+
+/** Display labels — single source of truth for HR upload UI + self-service view. */
+export const employeeDocumentTypeLabels: Record<EmployeeDocumentType, string> = {
+  RESUME: "Resume",
+  OFFER_LETTER: "Offer Letter",
+  EMPLOYMENT_AGREEMENT: "Employment Agreement",
+  WORK_AUTHORIZATION: "Work Authorization",
+  CERTIFICATION: "Certification",
+  POLICY_ACKNOWLEDGEMENT: "Policy Acknowledgement",
+  OTHER: "Other",
+};
+
+/** Self-service tab grouping for each document type. */
+export const employeeDocumentCategories: Record<EmployeeDocumentType, DocumentCategory> = {
+  RESUME: "EMPLOYMENT",
+  OFFER_LETTER: "EMPLOYMENT",
+  EMPLOYMENT_AGREEMENT: "EMPLOYMENT",
+  WORK_AUTHORIZATION: "PERSONAL",
+  CERTIFICATION: "CERTIFICATION",
+  POLICY_ACKNOWLEDGEMENT: "POLICY",
+  OTHER: "PERSONAL",
 };
 
 function mapRow(row: Record<string, unknown>): EmployeeDocumentRow {
@@ -61,6 +83,8 @@ function mapRow(row: Record<string, unknown>): EmployeeDocumentRow {
     effectiveDate: (row.effective_date as string) ?? undefined,
     expirationDate: (row.expiration_date as string) ?? undefined,
     status: (row.status as EmployeeDocumentRow["status"]) ?? "ACTIVE",
+    requiresAcknowledgement: Boolean(row.requires_acknowledgement),
+    acknowledgedAt: (row.acknowledged_at as string) ?? undefined,
   };
 }
 
@@ -205,6 +229,63 @@ export async function archiveEmployeeDocument(input: {
   });
 
   return { ok: true };
+}
+
+/** Fetch a single document by id, regardless of employee — callers must
+ * verify ownership themselves (see lib/self-service/security.ts). */
+export async function getEmployeeDocumentById(
+  documentId: string,
+): Promise<EmployeeDocumentRow | null> {
+  const client = getSupabaseServiceClient();
+  if (!client) return null;
+
+  const { data } = await client
+    .from("employee_documents")
+    .select("*")
+    .eq("id", documentId)
+    .maybeSingle();
+
+  return data ? mapRow(data) : null;
+}
+
+export async function acknowledgeEmployeeDocument(input: {
+  documentId: string;
+  employeeId: string;
+  actorRole: AuditActorRole;
+}): Promise<{ ok: true; acknowledgedAt: string } | { ok: false; message: string }> {
+  const client = getSupabaseServiceClient();
+  if (!client) {
+    return { ok: false, message: "Document access requires the connected environment." };
+  }
+
+  const document = await getEmployeeDocumentById(input.documentId);
+  if (!document) return { ok: false, message: "Document not found." };
+  if (document.employeeId !== input.employeeId) {
+    return { ok: false, message: "Forbidden." };
+  }
+  if (!document.requiresAcknowledgement) {
+    return { ok: false, message: "This document does not require acknowledgement." };
+  }
+
+  const acknowledgedAt = new Date().toISOString();
+  const { error } = await client
+    .from("employee_documents")
+    .update({ acknowledged_at: acknowledgedAt })
+    .eq("id", input.documentId);
+
+  if (error) return { ok: false, message: error.message };
+
+  await writeAuditEvent({
+    eventType: "DOCUMENT_ACKNOWLEDGED",
+    actorEmployeeId: input.employeeId,
+    actorRole: input.actorRole,
+    targetEmployeeId: input.employeeId,
+    resourceType: "employee_document",
+    resourceId: input.documentId,
+    summary: `Acknowledged ${document.documentType} document`,
+  });
+
+  return { ok: true, acknowledgedAt };
 }
 
 export async function getEmployeeDocumentSignedUrl(

@@ -32,6 +32,7 @@ export type AuditEventType =
   | "CANDIDATE_MATCH_RUN"
   | "DOCUMENT_UPLOADED"
   | "DOCUMENT_ARCHIVED"
+  | "DOCUMENT_ACKNOWLEDGED"
   | "REPORT_EXPORTED";
 
 export type WriteAuditEventInput = {

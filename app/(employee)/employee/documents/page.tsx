@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function EmployeeDocumentsPage() {
   const actor = await requireEmployeeActor();
   requirePermission(actor, "self.documents.read");
-  const documents = getEmployeeDocuments(actor.session.employeeId);
+  const documents = await getEmployeeDocuments(actor.session.employeeId);
 
   return (
     <div className="space-y-8">

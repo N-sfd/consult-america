@@ -1,6 +1,11 @@
 import { hrRepository } from "@/lib/hr";
-import { listDocumentsForEmployee } from "@/lib/self-service/document-store";
-import { getDocumentStatus } from "@/types/self-service";
+import {
+  employeeDocumentCategories,
+  employeeDocumentTypeLabels,
+  getEmployeeDocuments as fetchEmployeeDocumentRows,
+  type EmployeeDocumentRow,
+} from "@/lib/documents/employee-documents-service";
+import { getDocumentStatus, type EmployeeDocumentView } from "@/types/self-service";
 import {
   seedDepartments,
   seedLocations,
@@ -195,8 +200,25 @@ export function getTimeEntries(timesheetId: string) {
   return listTimeEntries(timesheetId);
 }
 
-export function getEmployeeDocuments(employeeId: string) {
-  return listDocumentsForEmployee(employeeId);
+function toEmployeeDocumentView(row: EmployeeDocumentRow): EmployeeDocumentView {
+  return {
+    id: row.id,
+    employeeId: row.employeeId,
+    documentType: employeeDocumentTypeLabels[row.documentType],
+    category: employeeDocumentCategories[row.documentType],
+    fileName: row.fileName,
+    visibility: row.visibility,
+    uploadedAt: row.uploadedAt,
+    effectiveDate: row.effectiveDate,
+    requiresAcknowledgement: row.requiresAcknowledgement,
+    acknowledgedAt: row.acknowledgedAt,
+    expiresAt: row.expirationDate,
+  };
+}
+
+export async function getEmployeeDocuments(employeeId: string) {
+  const rows = await fetchEmployeeDocumentRows(employeeId);
+  return rows.map(toEmployeeDocumentView);
 }
 
 export async function getEmployeeOnboarding(employeeId: string) {
@@ -271,7 +293,7 @@ export async function getEmployeeDashboard(employeeId: string) {
       r.status === "IN_PROGRESS" ||
       r.status === "WAITING_FOR_EMPLOYEE",
   );
-  const documents = getEmployeeDocuments(employeeId);
+  const documents = await getEmployeeDocuments(employeeId);
   const leave = getLeaveRequests(employeeId).find(
     (r) => r.status === "APPROVED" || r.status === "PENDING",
   );

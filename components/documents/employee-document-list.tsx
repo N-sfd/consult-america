@@ -173,8 +173,14 @@ function DocumentDetailSheet({
       const result = await viewEmployeeDocumentAction({
         documentId: document.id,
       });
-      if (result.ok) setMessage(result.message);
-      else setError(result.message);
+      if (result.ok) {
+        setMessage(result.message);
+        if (result.signedUrl) {
+          window.open(result.signedUrl, "_blank", "noopener,noreferrer");
+        }
+      } else {
+        setError(result.message);
+      }
     });
   }
 
@@ -209,12 +215,6 @@ function DocumentDetailSheet({
           </Badge>
 
           <dl className="space-y-3 text-sm">
-            {document.version && (
-              <div className="flex justify-between gap-4">
-                <dt className="text-black/45">Version</dt>
-                <dd className="font-medium">{document.version}</dd>
-              </div>
-            )}
             <div className="flex justify-between gap-4">
               <dt className="text-black/45">Published</dt>
               <dd className="font-medium">

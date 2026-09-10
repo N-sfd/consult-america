@@ -321,7 +321,6 @@ export type EmployeeDocumentView = {
   visibility: DocumentVisibility;
   uploadedAt: string;
   effectiveDate?: string;
-  version?: string;
   requiresAcknowledgement?: boolean;
   acknowledgedAt?: string;
   expiresAt?: string;

@@ -8,7 +8,7 @@ import {
   getPayrollSession,
   type PortalSession,
 } from "@/lib/self-service/session";
-import { getDocumentById } from "@/lib/self-service/document-store";
+import { getEmployeeDocumentById } from "@/lib/documents/employee-documents-service";
 import type { SelfServicePermission } from "@/types/security";
 
 export class SecurityError extends Error {
@@ -132,13 +132,13 @@ export async function requireTeamResource(
 }
 
 /** Employee document access — never trust a document id alone. */
-export function getAuthorizedEmployeeDocument(
+export async function getAuthorizedEmployeeDocument(
   actor: PortalActor,
   documentId: string,
 ) {
   requirePermission(actor, "self.documents.read");
 
-  const document = getDocumentById(documentId);
+  const document = await getEmployeeDocumentById(documentId);
   if (!document) {
     deny(actor, "resource", "Document not found");
   }
