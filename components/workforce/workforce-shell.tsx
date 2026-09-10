@@ -12,8 +12,10 @@ const LEGACY_WORKFORCE_NAV: PlatformNavGroup[] = [
     label: "Recruiting",
     items: [
       { href: "/workforce/jobs", label: "Jobs" },
+      { href: "/app/recruiting/applications", label: "Applications" },
       { href: "/workforce/candidates", label: "Candidates" },
       { href: "/workforce/interviews", label: "Interviews" },
+      { href: "/app/recruiting/job-match", label: "Candidate Match" },
     ],
   },
   {
@@ -42,8 +44,8 @@ const LEGACY_WORKFORCE_NAV: PlatformNavGroup[] = [
 
 export default function WorkforceShell({
   children,
-  userName = "Nazia Ahmed",
-  userInitials = "NA",
+  userName,
+  userInitials,
 }: {
   children: React.ReactNode;
   userName?: string;
@@ -53,7 +55,7 @@ export default function WorkforceShell({
     <PlatformShell
       workspace="workforce"
       session={{
-        displayName: userName,
+        displayName: userName ?? "Workforce User",
         initials: userInitials,
         roleLabel: "Workforce",
       }}

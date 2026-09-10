@@ -9,7 +9,7 @@ import StageBadge, {
   CandidateAvatar,
 } from "@/components/workforce-app/recruiting/stage-badge";
 import SupabaseConnectBanner from "@/components/workforce-app/supabase-connect-banner";
-import { formatRelativeTime } from "@/lib/recruiting/format";
+import RelativeTime from "@/components/shared/relative-time";
 import type { CandidateListItem } from "@/lib/recruiting/repository";
 import { applicationStatusLabels, type ApplicationStatus } from "@/types/recruiting";
 
@@ -317,7 +317,9 @@ export default function CandidatesTable({
                   </p>
                   <div className="mt-2 flex items-center justify-between text-xs text-black/45">
                     <span>{candidate.location}</span>
-                    <span>Applied {formatRelativeTime(candidate.lastActivityAt)}</span>
+                    <span>
+                      Applied <RelativeTime iso={candidate.lastActivityAt} />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -383,7 +385,7 @@ export default function CandidatesTable({
                 <StageBadge stage={candidate.stage} />
                 <span className="truncate text-black/45">{candidate.location}</span>
                 <span className="text-black/45">
-                  {formatRelativeTime(candidate.lastActivityAt)}
+                  <RelativeTime iso={candidate.lastActivityAt} />
                 </span>
               </button>
             ))

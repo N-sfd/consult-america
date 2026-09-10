@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Plus, Search, X } from "lucide-react";
 
-import { formatRelativeTime } from "@/lib/recruiting/format";
+import RelativeTime from "@/components/shared/relative-time";
 import type { JobListItem } from "@/lib/recruiting/repository";
 import { RequisitionStatusBadge } from "@/components/workforce-app/recruiting/stage-badge";
 import { requisitionStatusLabels, type RequisitionStatus } from "@/types/recruiting";
@@ -264,7 +264,7 @@ export default function JobsTable({
                   <RequisitionStatusBadge status={job.status} />
                 </span>
                 <span className="text-black/45">
-                  {formatRelativeTime(job.updatedAt)}
+                  <RelativeTime iso={job.updatedAt} />
                 </span>
               </Link>
             ))

@@ -13,11 +13,13 @@ import {
   canTransitionOffer,
 } from "@/lib/recruiting/status-machine";
 import type {
+  ApplicationQueueItem,
   CandidateListItem,
   CandidateProfileDetail,
   CreateJobRequisitionInput,
   JobDetail,
   JobListItem,
+  RecruitingApplicationQueueReads,
   RecruitingApplicationWrites,
   RecruitingCandidateReads,
   RecruitingDashboardReads,
@@ -64,7 +66,8 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
   RecruitingPipelineWrites &
-  RecruitingOfferWrites {
+  RecruitingOfferWrites &
+  RecruitingApplicationQueueReads {
   const postings = [...seedPostings];
   const requisitions = [...seedRequisitions];
   const candidates: CandidateProfile[] = [...seedCandidates];
@@ -203,6 +206,40 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
           skills: [],
         };
       });
+    },
+
+    async listApplicationsQueue(): Promise<ApplicationQueueItem[]> {
+      return applications
+        .map((application): ApplicationQueueItem => {
+          const candidate = candidates.find((c) => c.id === application.candidateId);
+          const posting = postings.find((p) => p.id === application.jobId);
+          const requisition = requisitions.find((r) => r.id === application.requisitionId);
+          const lastActivity = activities
+            .filter((a) => a.applicationId === application.id)
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+
+          return {
+            applicationId: application.id,
+            applicationNumber: application.applicationNumber,
+            candidateId: application.candidateId,
+            candidateName: candidate ? `${candidate.firstName} ${candidate.lastName}` : "—",
+            candidateEmail: candidate?.email ?? "—",
+            jobTitle: posting?.title ?? requisition?.title ?? "—",
+            requisitionId: application.requisitionId,
+            departmentName: requisition ? departmentName(requisition.departmentId) : "—",
+            locationName: posting?.locationName ?? (requisition ? locationName(requisition.locationId) : "—"),
+            appliedAt: application.appliedAt,
+            status: application.status,
+            // Recruiter/hiring-manager identity resolution needs the
+            // `profiles` table, which has no memory-mode seed — left
+            // unassigned here; the Supabase repository resolves real names.
+            recruiterName: undefined,
+            hiringManagerName: undefined,
+            lastActivityAt: lastActivity?.createdAt ?? application.updatedAt,
+            skills: [],
+          };
+        })
+        .sort((a, b) => new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime());
     },
 
     async getCandidateProfile(
@@ -663,7 +700,8 @@ export const recruitingRepository: RecruitingRepository &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
   RecruitingPipelineWrites &
-  RecruitingOfferWrites = isSupabaseConfigured()
+  RecruitingOfferWrites &
+  RecruitingApplicationQueueReads = isSupabaseConfigured()
   ? createSupabaseRecruitingRepository()
   : createMemoryRecruitingRepository();
 

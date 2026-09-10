@@ -152,6 +152,7 @@ export async function moveApplicationStage(
     revalidatePath(`/app/recruiting/jobs/${requisitionId}/pipeline`);
     revalidatePath(`/app/recruiting/jobs/${requisitionId}`);
     revalidatePath("/app/recruiting/candidates");
+    revalidatePath("/app/recruiting/applications");
     return { ok: true };
   } catch (error) {
     return {

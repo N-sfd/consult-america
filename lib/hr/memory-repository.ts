@@ -3,6 +3,7 @@ import { nextEmployeeNumber } from "@/lib/hr/employee-number";
 import type {
   CreateAssignmentInput,
   CreateEmployeeProfileInput,
+  EmployeeWorkAuthorization,
   HrRepository,
   UpdateEmployeeContactInput,
 } from "@/lib/hr/repository";
@@ -45,6 +46,7 @@ export function createMemoryHrRepository(): HrRepository {
   const onboardingRecords: OnboardingRecord[] = [...seedOnboardingRecords];
   const onboardingTasks: OnboardingTask[] = [...seedOnboardingTasks];
   const compensationRecords: CompensationRecord[] = [...seedCompensationRecords];
+  const workAuthorizations: EmployeeWorkAuthorization[] = [];
 
   function getActiveCompensation(
     employeeId: string,
@@ -333,6 +335,45 @@ export function createMemoryHrRepository(): HrRepository {
         updatedAt: nowIso(),
       };
       compensationRecords.push(record);
+      return record;
+    },
+
+    async getWorkAuthorization(employeeId) {
+      return workAuthorizations.find((record) => record.employeeId === employeeId);
+    },
+
+    async upsertWorkAuthorization(input) {
+      const existing = workAuthorizations.find(
+        (record) => record.employeeId === input.employeeId,
+      );
+      if (existing) {
+        if (input.authorizationType !== undefined) {
+          existing.authorizationType = input.authorizationType;
+        }
+        if (input.authorizationExpirationDate !== undefined) {
+          existing.authorizationExpirationDate = input.authorizationExpirationDate;
+        }
+        if (input.verificationStatus !== undefined) {
+          existing.verificationStatus = input.verificationStatus;
+        }
+        if (input.hrNotes !== undefined) existing.hrNotes = input.hrNotes;
+        existing.updatedByUserId = input.updatedByUserId;
+        existing.updatedAt = nowIso();
+        return existing;
+      }
+
+      const record: EmployeeWorkAuthorization = {
+        id: createId("wauth"),
+        employeeId: input.employeeId,
+        authorizationType: input.authorizationType,
+        authorizationExpirationDate: input.authorizationExpirationDate,
+        verificationStatus: input.verificationStatus ?? "UNVERIFIED",
+        hrNotes: input.hrNotes,
+        updatedByUserId: input.updatedByUserId,
+        createdAt: nowIso(),
+        updatedAt: nowIso(),
+      };
+      workAuthorizations.push(record);
       return record;
     },
 

@@ -81,6 +81,13 @@ const seedAuthPeople: SeedAuthPerson[] = [
     displayName: "Jennifer Lee",
     roles: ["EMPLOYEE"],
   },
+  {
+    userId: "user-emp-demo-003",
+    employeeId: "emp-demo-003",
+    email: "alex.rivera@consultamerica.demo",
+    displayName: "Alex Rivera",
+    roles: ["RECRUITER"],
+  },
 ];
 
 async function findAuthUserByEmail(email: string) {

@@ -1,6 +1,8 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
+import { seedDepartments, seedLocations } from "@/data/recruiting/seed";
 import type { EmploymentType } from "@/types/organization";
 import type {
+  ApplicationQueueItem,
   CandidateApplicationSummary,
   CandidateInterviewSummary,
   CandidateProfileDetail,
@@ -8,6 +10,7 @@ import type {
   CreateJobRequisitionInput,
   JobDetail,
   JobListItem,
+  RecruitingApplicationQueueReads,
   RecruitingApplicationWrites,
   RecruitingCandidateReads,
   RecruitingCandidateSelfWrites,
@@ -270,7 +273,8 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
   RecruitingJobWrites &
   RecruitingApplicationWrites &
   RecruitingPipelineWrites &
-  RecruitingOfferWrites {
+  RecruitingOfferWrites &
+  RecruitingApplicationQueueReads {
   return {
     async listPublishedPostings() {
       const client = getSupabaseServiceClient();
@@ -511,6 +515,98 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           lastActivityAt:
             (application?.updated_at as string) ?? candidate.updatedAt,
           skills: skillsByCandidate.get(candidate.id) ?? [],
+        };
+      });
+    },
+
+    async listApplicationsQueue(): Promise<ApplicationQueueItem[]> {
+      const client = getSupabaseServiceClient();
+      if (!client) return [];
+
+      const [
+        { data: applicationRows },
+        { data: candidateRows },
+        { data: postingRows },
+        { data: requisitionRows },
+        { data: activityRows },
+      ] = await Promise.all([
+        client.from("applications").select("*"),
+        client.from("candidate_profiles").select("id, first_name, last_name, email"),
+        client.from("jobs").select("id, title, department_name, location_name"),
+        client
+          .from("job_requisitions")
+          .select("id, title, department_id, location_id, recruiter_user_id, hiring_manager_user_id"),
+        client
+          .from("recruiting_activities")
+          .select("application_id, created_at")
+          .order("created_at", { ascending: false }),
+      ]);
+
+      const candidateById = new Map((candidateRows ?? []).map((row) => [row.id as string, row]));
+      const postingById = new Map((postingRows ?? []).map((row) => [row.id as string, row]));
+      const requisitionById = new Map(
+        (requisitionRows ?? []).map((row) => [row.id as string, row]),
+      );
+
+      const profileIds = [
+        ...new Set(
+          (requisitionRows ?? [])
+            .flatMap((row) => [row.recruiter_user_id, row.hiring_manager_user_id])
+            .filter((id): id is string => Boolean(id)),
+        ),
+      ];
+      const { data: profileRows } = profileIds.length
+        ? await client.from("profiles").select("id, display_name").in("id", profileIds)
+        : { data: [] as Record<string, unknown>[] };
+      const displayNameByProfileId = new Map(
+        (profileRows ?? []).map((row) => [row.id as string, row.display_name as string]),
+      );
+
+      const lastActivityByApplication = new Map<string, string>();
+      for (const row of activityRows ?? []) {
+        const applicationId = row.application_id as string;
+        if (!lastActivityByApplication.has(applicationId)) {
+          lastActivityByApplication.set(applicationId, row.created_at as string);
+        }
+      }
+
+      const departmentNameById = new Map(seedDepartments.map((d) => [d.id, d.name]));
+      const locationNameById = new Map(seedLocations.map((l) => [l.id, l.name]));
+
+      return (applicationRows ?? []).map((row): ApplicationQueueItem => {
+        const candidate = candidateById.get(row.candidate_id as string);
+        const posting = postingById.get(row.job_id as string);
+        const requisition = requisitionById.get(row.requisition_id as string);
+
+        return {
+          applicationId: row.id as string,
+          applicationNumber: row.application_number as string,
+          candidateId: row.candidate_id as string,
+          candidateName: candidate
+            ? `${candidate.first_name as string} ${candidate.last_name as string}`
+            : "—",
+          candidateEmail: (candidate?.email as string) ?? "—",
+          jobTitle: (posting?.title as string) ?? (requisition?.title as string) ?? "—",
+          requisitionId: row.requisition_id as string | undefined,
+          departmentName:
+            (posting?.department_name as string) ??
+            departmentNameById.get(requisition?.department_id as string) ??
+            "—",
+          locationName:
+            (posting?.location_name as string) ??
+            locationNameById.get(requisition?.location_id as string) ??
+            "—",
+          appliedAt: row.applied_at as string,
+          status: row.status as ApplicationStatus,
+          recruiterName: requisition?.recruiter_user_id
+            ? displayNameByProfileId.get(requisition.recruiter_user_id as string)
+            : undefined,
+          hiringManagerName: requisition?.hiring_manager_user_id
+            ? displayNameByProfileId.get(requisition.hiring_manager_user_id as string)
+            : undefined,
+          lastActivityAt:
+            lastActivityByApplication.get(row.id as string) ?? (row.updated_at as string),
+          skills: [],
         };
       });
     },

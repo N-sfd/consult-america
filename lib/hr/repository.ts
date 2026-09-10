@@ -63,6 +63,34 @@ export type UpsertCompensationInput = {
   reason?: string;
 };
 
+export type WorkAuthorizationVerificationStatus =
+  | "UNVERIFIED"
+  | "PENDING"
+  | "VERIFIED"
+  | "EXPIRED";
+
+export type EmployeeWorkAuthorization = {
+  id: string;
+  employeeId: string;
+  authorizationType?: string;
+  authorizationExpirationDate?: string;
+  verificationStatus: WorkAuthorizationVerificationStatus;
+  /** HR-only field — never surface to broad workforce tables or non-HR roles. */
+  hrNotes?: string;
+  updatedByUserId?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpsertWorkAuthorizationInput = {
+  employeeId: string;
+  authorizationType?: string;
+  authorizationExpirationDate?: string;
+  verificationStatus?: WorkAuthorizationVerificationStatus;
+  hrNotes?: string;
+  updatedByUserId?: string;
+};
+
 export type HrRepository = {
   listEmployees(): Promise<EmployeeProfile[]>;
   getEmployeeById(id: string): Promise<EmployeeProfile | undefined>;
@@ -100,6 +128,13 @@ export type HrRepository = {
   upsertCompensation(
     input: UpsertCompensationInput,
   ): Promise<CompensationRecord>;
+
+  getWorkAuthorization(
+    employeeId: string,
+  ): Promise<EmployeeWorkAuthorization | undefined>;
+  upsertWorkAuthorization(
+    input: UpsertWorkAuthorizationInput,
+  ): Promise<EmployeeWorkAuthorization>;
 
   convertAcceptedOffer(
     input: HireConversionInput & {

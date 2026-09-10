@@ -17,10 +17,13 @@ const REQUISITION_TRANSITIONS: Record<RequisitionStatus, RequisitionStatus[]> = 
 };
 
 const APPLICATION_TRANSITIONS: Record<ApplicationStatus, ApplicationStatus[]> = {
-  // APPLIED ≈ submitted. Allow recruiter to advance without forced REVIEW hop.
+  // APPLIED ≈ submitted. Allow recruiter to advance without forced REVIEW hop,
+  // including scheduling an interview directly (Schedule Interview is offered
+  // on every application row regardless of stage).
   APPLIED: [
     "REVIEW",
     "RECRUITER_SCREEN",
+    "INTERVIEW",
     "REJECTED",
     "WITHDRAWN",
     "CLOSED",

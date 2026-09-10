@@ -1,5 +1,5 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
-import type { HrRepository } from "@/lib/hr/repository";
+import type { EmployeeWorkAuthorization, HrRepository } from "@/lib/hr/repository";
 import type {
   CompensationRecord,
   EmployeeProfile,
@@ -129,6 +129,22 @@ function mapAssignment(row: Record<string, unknown>): JobAssignment {
     assignmentStatus: row.assignment_status as JobAssignment["assignmentStatus"],
     primaryAssignment: Boolean(row.primary_assignment),
     changeReason: (row.change_reason as string) ?? undefined,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
+}
+
+function mapWorkAuthorization(row: Record<string, unknown>): EmployeeWorkAuthorization {
+  return {
+    id: row.id as string,
+    employeeId: row.employee_id as string,
+    authorizationType: (row.authorization_type as string) ?? undefined,
+    authorizationExpirationDate:
+      (row.authorization_expiration_date as string) ?? undefined,
+    verificationStatus:
+      row.verification_status as EmployeeWorkAuthorization["verificationStatus"],
+    hrNotes: (row.hr_notes as string) ?? undefined,
+    updatedByUserId: (row.updated_by_user_id as string) ?? undefined,
     createdAt: row.created_at as string,
     updatedAt: row.updated_at as string,
   };
@@ -529,6 +545,64 @@ export function createSupabaseHrRepository(): HrRepository {
         throw new Error(`Failed to create compensation record: ${error.message}`);
       }
       return mapCompensation(data);
+    },
+
+    async getWorkAuthorization(employeeId) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+      const { data } = await client
+        .from("employee_work_authorization")
+        .select("*")
+        .eq("employee_id", employeeId)
+        .maybeSingle();
+      return data ? mapWorkAuthorization(data) : undefined;
+    },
+
+    async upsertWorkAuthorization(input) {
+      const client = requireClient();
+      const now = nowIso();
+
+      const { data: existing } = await client
+        .from("employee_work_authorization")
+        .select("id")
+        .eq("employee_id", input.employeeId)
+        .maybeSingle();
+
+      const row: Record<string, unknown> = {
+        employee_id: input.employeeId,
+        updated_by_user_id: input.updatedByUserId ?? null,
+        updated_at: now,
+      };
+      if (input.authorizationType !== undefined) row.authorization_type = input.authorizationType;
+      if (input.authorizationExpirationDate !== undefined) {
+        row.authorization_expiration_date = input.authorizationExpirationDate;
+      }
+      if (input.verificationStatus !== undefined) row.verification_status = input.verificationStatus;
+      if (input.hrNotes !== undefined) row.hr_notes = input.hrNotes;
+
+      if (existing) {
+        const { data, error } = await client
+          .from("employee_work_authorization")
+          .update(row)
+          .eq("id", existing.id)
+          .select("*")
+          .single();
+        if (error) throw new Error(`Failed to update work authorization: ${error.message}`);
+        return mapWorkAuthorization(data);
+      }
+
+      const { data, error } = await client
+        .from("employee_work_authorization")
+        .insert({
+          id: createId("wauth"),
+          verification_status: "UNVERIFIED",
+          created_at: now,
+          ...row,
+        })
+        .select("*")
+        .single();
+      if (error) throw new Error(`Failed to create work authorization: ${error.message}`);
+      return mapWorkAuthorization(data);
     },
 
     async convertAcceptedOffer(input): Promise<HireConversionResult> {

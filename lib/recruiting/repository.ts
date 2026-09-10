@@ -65,6 +65,29 @@ export type CandidateListItem = {
   skills?: string[];
 };
 
+/** One row per application — the Applications queue (Workforce -> Recruiting -> Applications). */
+export type ApplicationQueueItem = {
+  applicationId: string;
+  applicationNumber: string;
+  candidateId: string;
+  candidateName: string;
+  candidateEmail: string;
+  jobTitle: string;
+  requisitionId?: string;
+  departmentName: string;
+  locationName: string;
+  appliedAt: string;
+  status: ApplicationStatus;
+  recruiterName?: string;
+  hiringManagerName?: string;
+  lastActivityAt: string;
+  skills?: string[];
+};
+
+export type RecruitingApplicationQueueReads = {
+  listApplicationsQueue(): Promise<ApplicationQueueItem[]>;
+};
+
 export type CandidateApplicationSummary = {
   applicationId: string;
   applicationNumber: string;

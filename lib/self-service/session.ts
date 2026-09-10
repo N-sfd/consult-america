@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import { getAuthenticatedPlatformUser } from "@/lib/auth/current-user";
+import { landingPathForRoles } from "@/lib/auth/roles";
 import { hrRepository } from "@/lib/hr";
 
 /**
@@ -72,7 +73,11 @@ async function buildRealPortalSession(
     roles.includes("SYSTEM_ADMIN");
 
   if (!hasWorkforceRole) {
-    redirect(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+    // Authenticated but lacks this portal's role — send them to a route
+    // they actually have access to. Redirecting to /login here would loop
+    // forever: proxy.ts bounces a logged-in user hitting /login straight
+    // back to `returnTo`, which immediately fails this same check again.
+    redirect(landingPathForRoles(roles) ?? "/login");
   }
 
   const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
@@ -85,7 +90,10 @@ async function buildRealPortalSession(
     displayName: employee.preferredName || `${employee.firstName} ${employee.lastName}`.trim() || platformUser.displayName,
     workEmail: employee.workEmail || platformUser.email,
     isManager: roles.includes("MANAGER"),
-    isHr: roles.includes("HR_ADMIN") || roles.includes("HR_SPECIALIST"),
+    isHr:
+      roles.includes("HR_ADMIN") ||
+      roles.includes("HR_SPECIALIST") ||
+      roles.includes("SYSTEM_ADMIN"),
     isPayroll: roles.includes("PAYROLL_ADMIN"),
   };
 }

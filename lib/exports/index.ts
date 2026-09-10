@@ -16,6 +16,36 @@ import {
   workforceDataAvailable,
 } from "@/lib/workforce/operations";
 import { toCsv } from "@/lib/exports/csv";
+import { writeAuditEvent } from "@/lib/audit/audit-log";
+import { recruitingRepository } from "@/lib/recruiting";
+import { getSupabaseServiceClient, isSupabaseConfigured } from "@/app/lib/supabase/server";
+import { candidateStageFor } from "@/lib/recruiting/candidate-stage";
+
+function countCsvRows(csv: string): number {
+  return Math.max(0, csv.split("\r\n").filter(Boolean).length - 1);
+}
+
+async function auditExport(input: {
+  actor: PortalActor;
+  reportType: string;
+  filters?: Record<string, unknown>;
+  csv: string;
+}) {
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: input.actor.session.employeeId,
+    actorRole: input.actor.role,
+    resourceType: "report",
+    resourceId: input.reportType,
+    summary: `Exported ${input.reportType} report`,
+    metadata: {
+      reportType: input.reportType,
+      filters: input.filters ?? {},
+      rowCount: countCsvRows(input.csv),
+      timestamp: new Date().toISOString(),
+    },
+  });
+}
 
 /**
  * Every export resolves its own actor (same requireXActor() the pages use)
@@ -79,7 +109,62 @@ export async function exportEmployeeDirectoryCsv(): Promise<string> {
     employmentStatus: e.employmentStatus,
     hireDate: e.hireDate,
   }));
-  return toCsv(rows, EMPLOYEE_DIRECTORY_COLUMNS);
+  const csv = toCsv(rows, EMPLOYEE_DIRECTORY_COLUMNS);
+  await auditExport({ actor, reportType: "People Directory", csv });
+  return csv;
+}
+
+export async function exportApplicationPipelineCsv(): Promise<string> {
+  const actor = await requireHrActor();
+  requirePermission(actor, "employee.read");
+
+  const applications = await recruitingRepository.listApplicationsQueue();
+  const rows = applications.map((a) => ({
+    applicationNumber: a.applicationNumber,
+    candidateName: a.candidateName,
+    candidateEmail: a.candidateEmail,
+    jobTitle: a.jobTitle,
+    departmentName: a.departmentName,
+    locationName: a.locationName,
+    appliedAt: a.appliedAt,
+    candidateStage: candidateStageFor(a.status),
+    internalStatus: a.status,
+    recruiterName: a.recruiterName ?? "",
+    hiringManagerName: a.hiringManagerName ?? "",
+    lastActivityAt: a.lastActivityAt,
+  }));
+  const csv = toCsv(rows, APPLICATION_PIPELINE_COLUMNS);
+  await auditExport({ actor, reportType: "Application Pipeline", csv });
+  return csv;
+}
+
+export async function exportCandidateMatchResultsCsv(runId: string): Promise<string> {
+  const actor = await requireHrActor();
+  requirePermission(actor, "employee.read");
+
+  const client = isSupabaseConfigured() ? getSupabaseServiceClient() : null;
+  const rows: Record<string, unknown>[] = [];
+
+  if (client) {
+    const { data } = await client
+      .from("jd_analysis")
+      .select("candidate_id, match_score, matched_skills, missing_skills, analysis_json, created_at")
+      .contains("analysis_json", { runId });
+
+    for (const row of data ?? []) {
+      rows.push({
+        candidateId: row.candidate_id as string,
+        matchScore: row.match_score as number,
+        matchedSkills: ((row.matched_skills as string[]) ?? []).join("; "),
+        missingSkills: ((row.missing_skills as string[]) ?? []).join("; "),
+        createdAt: row.created_at as string,
+      });
+    }
+  }
+
+  const csv = toCsv(rows, CANDIDATE_MATCH_RESULTS_COLUMNS);
+  await auditExport({ actor, reportType: "Candidate Match Results", filters: { runId }, csv });
+  return csv;
 }
 
 export async function exportPayrollRunSummaryCsv(): Promise<string> {
@@ -137,6 +222,29 @@ const EMPLOYEE_DIRECTORY_COLUMNS = [
   { key: "workEmail" as const, header: "Work Email" },
   { key: "employmentStatus" as const, header: "Employment Status" },
   { key: "hireDate" as const, header: "Hire Date" },
+];
+
+const APPLICATION_PIPELINE_COLUMNS = [
+  { key: "applicationNumber" as const, header: "Application Number" },
+  { key: "candidateName" as const, header: "Candidate" },
+  { key: "candidateEmail" as const, header: "Email" },
+  { key: "jobTitle" as const, header: "Position" },
+  { key: "departmentName" as const, header: "Department" },
+  { key: "locationName" as const, header: "Location" },
+  { key: "appliedAt" as const, header: "Applied" },
+  { key: "candidateStage" as const, header: "Candidate Stage" },
+  { key: "internalStatus" as const, header: "Internal Status" },
+  { key: "recruiterName" as const, header: "Recruiter" },
+  { key: "hiringManagerName" as const, header: "Hiring Manager" },
+  { key: "lastActivityAt" as const, header: "Last Activity" },
+];
+
+const CANDIDATE_MATCH_RESULTS_COLUMNS = [
+  { key: "candidateId" as const, header: "Candidate ID" },
+  { key: "matchScore" as const, header: "Match Score" },
+  { key: "matchedSkills" as const, header: "Matching Skills" },
+  { key: "missingSkills" as const, header: "Potential Gaps" },
+  { key: "createdAt" as const, header: "Analyzed At" },
 ];
 
 const PAYROLL_RUN_SUMMARY_COLUMNS = [
