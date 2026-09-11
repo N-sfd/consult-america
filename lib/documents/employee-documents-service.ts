@@ -70,6 +70,13 @@ export const employeeDocumentCategories: Record<EmployeeDocumentType, DocumentCa
   OTHER: "PERSONAL",
 };
 
+export const documentVisibilityLabels: Record<EmployeeDocumentVisibility, string> = {
+  HR_ONLY: "HR Only",
+  EMPLOYEE: "Employee",
+  MANAGER_AND_HR: "Employee + Manager",
+  PAYROLL_ONLY: "Payroll Only",
+};
+
 function mapRow(row: Record<string, unknown>): EmployeeDocumentRow {
   return {
     id: row.id as string,
@@ -117,6 +124,7 @@ export async function uploadEmployeeDocument(input: {
   bytes: ArrayBuffer | Buffer | Uint8Array;
   documentType: EmployeeDocumentType;
   visibility?: EmployeeDocumentVisibility;
+  requiresAcknowledgement?: boolean;
   effectiveDate?: string;
   expirationDate?: string;
   uploadedByUserId: string;
@@ -168,6 +176,7 @@ export async function uploadEmployeeDocument(input: {
     effective_date: input.effectiveDate ?? null,
     expiration_date: input.expirationDate ?? null,
     status: "ACTIVE",
+    requires_acknowledgement: input.requiresAcknowledgement ?? false,
   });
 
   if (insertError) {

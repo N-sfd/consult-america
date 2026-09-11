@@ -7,6 +7,7 @@ import {
   getEmployeeDocumentSignedUrl,
   uploadEmployeeDocument,
   type EmployeeDocumentType,
+  type EmployeeDocumentVisibility,
 } from "@/lib/documents/employee-documents-service";
 import { requireHrActor, toActionErrorMessage } from "@/lib/self-service/security";
 
@@ -21,6 +22,8 @@ export async function uploadEmployeeDocumentAction(
     const actor = await requireHrActor();
     const employeeId = String(formData.get("employeeId") ?? "");
     const documentType = String(formData.get("documentType") ?? "OTHER") as EmployeeDocumentType;
+    const visibility = String(formData.get("visibility") ?? "HR_ONLY") as EmployeeDocumentVisibility;
+    const requiresAcknowledgement = formData.get("requiresAcknowledgement") === "on";
     const file = formData.get("file") as File | null;
 
     if (!employeeId || !file) {
@@ -35,6 +38,8 @@ export async function uploadEmployeeDocumentAction(
       fileSize: file.size,
       bytes,
       documentType,
+      visibility,
+      requiresAcknowledgement,
       uploadedByUserId: actor.session.employeeId,
       actorEmployeeId: actor.session.employeeId,
       actorRole: actor.role,

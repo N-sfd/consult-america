@@ -11,9 +11,11 @@ import {
   uploadEmployeeDocumentAction,
 } from "@/lib/documents/employee-document-actions";
 import {
+  documentVisibilityLabels,
   employeeDocumentTypeLabels,
   type EmployeeDocumentRow,
   type EmployeeDocumentType,
+  type EmployeeDocumentVisibility,
 } from "@/lib/documents/employee-documents-service";
 import { changeEmployeeStatusAction, upsertWorkAuthorizationAction } from "@/lib/hr/actions";
 import type { EmployeeWorkAuthorization } from "@/lib/hr/repository";
@@ -38,6 +40,10 @@ const WORK_AUTHORIZATION_TYPES = [
 
 const DOCUMENT_TYPES: { value: EmployeeDocumentType; label: string }[] = (
   Object.entries(employeeDocumentTypeLabels) as [EmployeeDocumentType, string][]
+).map(([value, label]) => ({ value, label }));
+
+const DOCUMENT_VISIBILITIES: { value: EmployeeDocumentVisibility; label: string }[] = (
+  Object.entries(documentVisibilityLabels) as [EmployeeDocumentVisibility, string][]
 ).map(([value, label]) => ({ value, label }));
 
 function formatDate(value?: string) {
@@ -441,8 +447,22 @@ function DocumentsPanel({
             </select>
           </label>
           <label>
+            <span className={labelClass}>Visibility</span>
+            <select name="visibility" className={fieldClass} defaultValue="HR_ONLY">
+              {DOCUMENT_VISIBILITIES.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
             <span className={labelClass}>File</span>
             <input name="file" type="file" required className="mt-1.5 block text-sm" />
+          </label>
+          <label className="flex items-center gap-2 pb-2 text-sm">
+            <input name="requiresAcknowledgement" type="checkbox" />
+            Requires acknowledgement
           </label>
           <button
             type="submit"
@@ -467,6 +487,8 @@ function DocumentsPanel({
                 <th className="py-2 pr-4 font-medium">Uploaded</th>
                 <th className="py-2 pr-4 font-medium">Expiration</th>
                 <th className="py-2 pr-4 font-medium">Status</th>
+                <th className="py-2 pr-4 font-medium">Visibility</th>
+                <th className="py-2 pr-4 font-medium">Acknowledgment</th>
                 <th className="py-2 font-medium">Actions</th>
               </tr>
             </thead>
@@ -478,6 +500,14 @@ function DocumentsPanel({
                   <td className="py-2 pr-4 text-black/70">{formatDate(doc.uploadedAt)}</td>
                   <td className="py-2 pr-4 text-black/70">{formatDate(doc.expirationDate)}</td>
                   <td className="py-2 pr-4 text-black/70">{doc.status}</td>
+                  <td className="py-2 pr-4 text-black/70">{documentVisibilityLabels[doc.visibility]}</td>
+                  <td className="py-2 pr-4 text-black/70">
+                    {doc.requiresAcknowledgement
+                      ? doc.acknowledgedAt
+                        ? `Acknowledged ${formatDate(doc.acknowledgedAt)}`
+                        : "Required"
+                      : "—"}
+                  </td>
                   <td className="py-2">
                     <button
                       type="button"
