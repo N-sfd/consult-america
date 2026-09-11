@@ -17,12 +17,14 @@ ON CONFLICT (id) DO NOTHING;
 -- Owner (the candidate whose profile_id prefixes the path) plus recruiting
 -- staff can read; only the owner can write their own files.
 
+DROP POLICY IF EXISTS candidate_resumes_owner_rw ON storage.objects;
 CREATE POLICY candidate_resumes_owner_rw ON storage.objects
   FOR ALL USING (
     bucket_id = 'candidate-resumes'
     AND (storage.foldername(name))[1] = current_profile_id()
   );
 
+DROP POLICY IF EXISTS candidate_resumes_staff_read ON storage.objects;
 CREATE POLICY candidate_resumes_staff_read ON storage.objects
   FOR SELECT USING (
     bucket_id = 'candidate-resumes'
@@ -32,12 +34,14 @@ CREATE POLICY candidate_resumes_staff_read ON storage.objects
     )
   );
 
+DROP POLICY IF EXISTS candidate_documents_owner_rw ON storage.objects;
 CREATE POLICY candidate_documents_owner_rw ON storage.objects
   FOR ALL USING (
     bucket_id = 'candidate-documents'
     AND (storage.foldername(name))[1] = current_profile_id()
   );
 
+DROP POLICY IF EXISTS candidate_documents_staff_read ON storage.objects;
 CREATE POLICY candidate_documents_staff_read ON storage.objects
   FOR SELECT USING (
     bucket_id = 'candidate-documents'
@@ -51,12 +55,14 @@ CREATE POLICY candidate_documents_staff_read ON storage.objects
 -- Owner can read (not write — HR issues these, e.g. offer letters, policy
 -- acknowledgements); HR/system admin manage.
 
+DROP POLICY IF EXISTS employee_documents_owner_read ON storage.objects;
 CREATE POLICY employee_documents_owner_read ON storage.objects
   FOR SELECT USING (
     bucket_id = 'employee-documents'
     AND (storage.foldername(name))[1] = current_profile_id()
   );
 
+DROP POLICY IF EXISTS employee_documents_hr_admin_manage ON storage.objects;
 CREATE POLICY employee_documents_hr_admin_manage ON storage.objects
   FOR ALL USING (
     bucket_id = 'employee-documents'
@@ -72,9 +78,11 @@ CREATE POLICY employee_documents_hr_admin_manage ON storage.objects
 -- object path convention there is job-id-prefixed, not profile-id-prefixed,
 -- so no owner-based policy applies here.
 
+DROP POLICY IF EXISTS job_assets_public_read ON storage.objects;
 CREATE POLICY job_assets_public_read ON storage.objects
   FOR SELECT USING (bucket_id = 'job-assets');
 
+DROP POLICY IF EXISTS job_assets_staff_manage ON storage.objects;
 CREATE POLICY job_assets_staff_manage ON storage.objects
   FOR ALL USING (
     bucket_id = 'job-assets'

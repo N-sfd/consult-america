@@ -297,6 +297,7 @@ CREATE POLICY employee_documents_self ON public.employee_documents
 -- Recruiting records that were previously world-readable
 -- ---------------------------------------------------------------------------
 
+DROP POLICY IF EXISTS application_status_history_self ON public.application_status_history;
 CREATE POLICY application_status_history_self ON public.application_status_history
   FOR SELECT
   TO authenticated
@@ -306,11 +307,13 @@ CREATE POLICY application_status_history_self ON public.application_status_histo
     )
   );
 
+DROP POLICY IF EXISTS application_status_history_staff ON public.application_status_history;
 CREATE POLICY application_status_history_staff ON public.application_status_history
   FOR SELECT
   TO authenticated
   USING (is_recruiting_staff());
 
+DROP POLICY IF EXISTS application_status_history_hiring_manager ON public.application_status_history;
 CREATE POLICY application_status_history_hiring_manager ON public.application_status_history
   FOR SELECT
   TO authenticated
@@ -319,11 +322,13 @@ CREATE POLICY application_status_history_hiring_manager ON public.application_st
     AND hiring_manager_sees_application(application_id)
   );
 
+DROP POLICY IF EXISTS application_status_history_staff_write ON public.application_status_history;
 CREATE POLICY application_status_history_staff_write ON public.application_status_history
   FOR INSERT
   TO authenticated
   WITH CHECK (is_recruiting_staff());
 
+DROP POLICY IF EXISTS interviews_self ON public.interviews;
 CREATE POLICY interviews_self ON public.interviews
   FOR SELECT
   TO authenticated
@@ -333,12 +338,14 @@ CREATE POLICY interviews_self ON public.interviews
     )
   );
 
+DROP POLICY IF EXISTS interviews_staff ON public.interviews;
 CREATE POLICY interviews_staff ON public.interviews
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff())
   WITH CHECK (is_recruiting_staff());
 
+DROP POLICY IF EXISTS interviews_hiring_manager ON public.interviews;
 CREATE POLICY interviews_hiring_manager ON public.interviews
   FOR SELECT
   TO authenticated
@@ -348,12 +355,14 @@ CREATE POLICY interviews_hiring_manager ON public.interviews
   );
 
 -- Feedback is internal. Candidates have no policy.
+DROP POLICY IF EXISTS interview_feedback_staff ON public.interview_feedback;
 CREATE POLICY interview_feedback_staff ON public.interview_feedback
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff() OR is_hiring_manager())
   WITH CHECK (is_recruiting_staff() OR is_hiring_manager());
 
+DROP POLICY IF EXISTS interview_panel_members_staff ON public.interview_panel_members;
 CREATE POLICY interview_panel_members_staff ON public.interview_panel_members
   FOR ALL
   TO authenticated
@@ -361,6 +370,7 @@ CREATE POLICY interview_panel_members_staff ON public.interview_panel_members
   WITH CHECK (is_recruiting_staff());
 
 -- Candidate sees only offers that have been sent. Drafts stay internal.
+DROP POLICY IF EXISTS offers_self ON public.offers;
 CREATE POLICY offers_self ON public.offers
   FOR SELECT
   TO authenticated
@@ -371,6 +381,7 @@ CREATE POLICY offers_self ON public.offers
     )
   );
 
+DROP POLICY IF EXISTS offers_self_respond ON public.offers;
 CREATE POLICY offers_self_respond ON public.offers
   FOR UPDATE
   TO authenticated
@@ -387,40 +398,47 @@ CREATE POLICY offers_self_respond ON public.offers
     )
   );
 
+DROP POLICY IF EXISTS offers_staff ON public.offers;
 CREATE POLICY offers_staff ON public.offers
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff())
   WITH CHECK (is_recruiting_staff() OR is_hr_staff());
 
+DROP POLICY IF EXISTS offer_approvals_staff ON public.offer_approvals;
 CREATE POLICY offer_approvals_staff ON public.offer_approvals
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff())
   WITH CHECK (is_recruiting_staff() OR is_hr_staff());
 
+DROP POLICY IF EXISTS recruiting_notes_staff ON public.recruiting_notes;
 CREATE POLICY recruiting_notes_staff ON public.recruiting_notes
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff() OR is_hiring_manager())
   WITH CHECK (is_recruiting_staff());
 
+DROP POLICY IF EXISTS recruiting_activities_staff ON public.recruiting_activities;
 CREATE POLICY recruiting_activities_staff ON public.recruiting_activities
   FOR SELECT
   TO authenticated
   USING (is_recruiting_staff() OR is_hiring_manager());
 
+DROP POLICY IF EXISTS recruiting_activities_staff_write ON public.recruiting_activities;
 CREATE POLICY recruiting_activities_staff_write ON public.recruiting_activities
   FOR INSERT
   TO authenticated
   WITH CHECK (is_recruiting_staff());
 
+DROP POLICY IF EXISTS job_requisitions_staff ON public.job_requisitions;
 CREATE POLICY job_requisitions_staff ON public.job_requisitions
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff())
   WITH CHECK (is_recruiting_staff());
 
+DROP POLICY IF EXISTS job_requisitions_hiring_manager ON public.job_requisitions;
 CREATE POLICY job_requisitions_hiring_manager ON public.job_requisitions
   FOR SELECT
   TO authenticated
@@ -429,18 +447,21 @@ CREATE POLICY job_requisitions_hiring_manager ON public.job_requisitions
     AND hiring_manager_user_id = current_profile_id()
   );
 
+DROP POLICY IF EXISTS job_requisition_approvals_staff ON public.job_requisition_approvals;
 CREATE POLICY job_requisition_approvals_staff ON public.job_requisition_approvals
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff())
   WITH CHECK (is_recruiting_staff() OR is_hr_staff());
 
+DROP POLICY IF EXISTS job_skills_staff ON public.job_skills;
 CREATE POLICY job_skills_staff ON public.job_skills
   FOR ALL
   TO authenticated
   USING (is_recruiting_staff())
   WITH CHECK (is_recruiting_staff());
 
+DROP POLICY IF EXISTS skills_staff ON public.skills;
 CREATE POLICY skills_staff ON public.skills
   FOR SELECT
   TO authenticated
@@ -450,22 +471,26 @@ CREATE POLICY skills_staff ON public.skills
 -- Identity / roles — users may read their own role rows, not assign them
 -- ---------------------------------------------------------------------------
 
+DROP POLICY IF EXISTS user_roles_self ON public.user_roles;
 CREATE POLICY user_roles_self ON public.user_roles
   FOR SELECT
   TO authenticated
   USING (user_id = current_profile_id());
 
+DROP POLICY IF EXISTS user_roles_admin ON public.user_roles;
 CREATE POLICY user_roles_admin ON public.user_roles
   FOR ALL
   TO authenticated
   USING (current_user_has_role('SYSTEM_ADMIN') OR is_hr_staff())
   WITH CHECK (current_user_has_role('SYSTEM_ADMIN') OR current_user_has_role('HR_ADMIN'));
 
+DROP POLICY IF EXISTS role_permissions_admin ON public.role_permissions;
 CREATE POLICY role_permissions_admin ON public.role_permissions
   FOR SELECT
   TO authenticated
   USING (current_user_has_role('SYSTEM_ADMIN') OR is_hr_staff());
 
+DROP POLICY IF EXISTS audit_logs_admin ON public.audit_logs;
 CREATE POLICY audit_logs_admin ON public.audit_logs
   FOR SELECT
   TO authenticated
@@ -475,94 +500,111 @@ CREATE POLICY audit_logs_admin ON public.audit_logs
 -- HR / payroll / employee self-service
 -- ---------------------------------------------------------------------------
 
+DROP POLICY IF EXISTS compensation_self ON public.compensation_records;
 CREATE POLICY compensation_self ON public.compensation_records
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS compensation_payroll ON public.compensation_records;
 CREATE POLICY compensation_payroll ON public.compensation_records
   FOR ALL
   TO authenticated
   USING (is_payroll_staff())
   WITH CHECK (is_payroll_staff());
 
+DROP POLICY IF EXISTS employee_status_history_self ON public.employee_status_history;
 CREATE POLICY employee_status_history_self ON public.employee_status_history
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS employee_status_history_hr ON public.employee_status_history;
 CREATE POLICY employee_status_history_hr ON public.employee_status_history
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS hr_events_self ON public.hr_events;
 CREATE POLICY hr_events_self ON public.hr_events
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS hr_events_hr ON public.hr_events;
 CREATE POLICY hr_events_hr ON public.hr_events
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS onboarding_self ON public.onboarding_records;
 CREATE POLICY onboarding_self ON public.onboarding_records
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS onboarding_hr ON public.onboarding_records;
 CREATE POLICY onboarding_hr ON public.onboarding_records
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS onboarding_tasks_self ON public.onboarding_tasks;
 CREATE POLICY onboarding_tasks_self ON public.onboarding_tasks
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS onboarding_tasks_self_update ON public.onboarding_tasks;
 CREATE POLICY onboarding_tasks_self_update ON public.onboarding_tasks
   FOR UPDATE
   TO authenticated
   USING (employee_id = current_employee_id())
   WITH CHECK (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS onboarding_tasks_hr ON public.onboarding_tasks;
 CREATE POLICY onboarding_tasks_hr ON public.onboarding_tasks
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS leave_types_read ON public.leave_types;
 CREATE POLICY leave_types_read ON public.leave_types
   FOR SELECT
   TO authenticated
   USING (current_employee_id() IS NOT NULL OR is_hr_staff());
 
+DROP POLICY IF EXISTS leave_balances_self ON public.leave_balances;
 CREATE POLICY leave_balances_self ON public.leave_balances
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id() OR is_hr_staff() OR manages_employee(employee_id));
 
+DROP POLICY IF EXISTS leave_requests_self ON public.leave_requests;
 CREATE POLICY leave_requests_self ON public.leave_requests
   FOR ALL
   TO authenticated
   USING (employee_id = current_employee_id())
   WITH CHECK (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS leave_requests_manager ON public.leave_requests;
 CREATE POLICY leave_requests_manager ON public.leave_requests
   FOR SELECT
   TO authenticated
   USING (manages_employee(employee_id) OR is_hr_staff());
 
+DROP POLICY IF EXISTS leave_requests_hr ON public.leave_requests;
 CREATE POLICY leave_requests_hr ON public.leave_requests
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS leave_request_days_self ON public.leave_request_days;
 CREATE POLICY leave_request_days_self ON public.leave_request_days
   FOR SELECT
   TO authenticated
@@ -573,28 +615,33 @@ CREATE POLICY leave_request_days_self ON public.leave_request_days
     OR is_hr_staff()
   );
 
+DROP POLICY IF EXISTS timesheets_self ON public.timesheets;
 CREATE POLICY timesheets_self ON public.timesheets
   FOR ALL
   TO authenticated
   USING (employee_id = current_employee_id())
   WITH CHECK (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS timesheets_review ON public.timesheets;
 CREATE POLICY timesheets_review ON public.timesheets
   FOR SELECT
   TO authenticated
   USING (manages_employee(employee_id) OR is_hr_staff() OR is_payroll_staff());
 
+DROP POLICY IF EXISTS time_entries_self ON public.time_entries;
 CREATE POLICY time_entries_self ON public.time_entries
   FOR ALL
   TO authenticated
   USING (employee_id = current_employee_id())
   WITH CHECK (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS time_entries_review ON public.time_entries;
 CREATE POLICY time_entries_review ON public.time_entries
   FOR SELECT
   TO authenticated
   USING (manages_employee(employee_id) OR is_hr_staff() OR is_payroll_staff());
 
+DROP POLICY IF EXISTS notifications_self ON public.notifications;
 CREATE POLICY notifications_self ON public.notifications
   FOR SELECT
   TO authenticated
@@ -603,6 +650,7 @@ CREATE POLICY notifications_self ON public.notifications
     OR employee_id = current_employee_id()
   );
 
+DROP POLICY IF EXISTS notifications_self_update ON public.notifications;
 CREATE POLICY notifications_self_update ON public.notifications
   FOR UPDATE
   TO authenticated
@@ -615,6 +663,7 @@ CREATE POLICY notifications_self_update ON public.notifications
     OR employee_id = current_employee_id()
   );
 
+DROP POLICY IF EXISTS approval_requests_self ON public.approval_requests;
 CREATE POLICY approval_requests_self ON public.approval_requests
   FOR SELECT
   TO authenticated
@@ -624,6 +673,7 @@ CREATE POLICY approval_requests_self ON public.approval_requests
     OR is_hr_staff()
   );
 
+DROP POLICY IF EXISTS approval_history_self ON public.approval_history;
 CREATE POLICY approval_history_self ON public.approval_history
   FOR SELECT
   TO authenticated
@@ -633,30 +683,35 @@ CREATE POLICY approval_history_self ON public.approval_history
     OR manages_employee(actor_employee_id)
   );
 
+DROP POLICY IF EXISTS profile_change_self ON public.profile_change_requests;
 CREATE POLICY profile_change_self ON public.profile_change_requests
   FOR ALL
   TO authenticated
   USING (employee_id = current_employee_id())
   WITH CHECK (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS profile_change_hr ON public.profile_change_requests;
 CREATE POLICY profile_change_hr ON public.profile_change_requests
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS hr_requests_self ON public.hr_requests;
 CREATE POLICY hr_requests_self ON public.hr_requests
   FOR ALL
   TO authenticated
   USING (employee_id = current_employee_id())
   WITH CHECK (employee_id = current_employee_id());
 
+DROP POLICY IF EXISTS hr_requests_hr ON public.hr_requests;
 CREATE POLICY hr_requests_hr ON public.hr_requests
   FOR ALL
   TO authenticated
   USING (is_hr_staff())
   WITH CHECK (is_hr_staff());
 
+DROP POLICY IF EXISTS hr_request_messages_self ON public.hr_request_messages;
 CREATE POLICY hr_request_messages_self ON public.hr_request_messages
   FOR SELECT
   TO authenticated
@@ -667,37 +722,44 @@ CREATE POLICY hr_request_messages_self ON public.hr_request_messages
     OR is_hr_staff()
   );
 
+DROP POLICY IF EXISTS document_ack_self ON public.document_acknowledgements;
 CREATE POLICY document_ack_self ON public.document_acknowledgements
   FOR SELECT
   TO authenticated
   USING (employee_id = current_employee_id() OR is_hr_staff());
 
+DROP POLICY IF EXISTS document_ack_self_insert ON public.document_acknowledgements;
 CREATE POLICY document_ack_self_insert ON public.document_acknowledgements
   FOR INSERT
   TO authenticated
   WITH CHECK (employee_id = current_employee_id());
 
 -- Org reference data is internal. Careers pages read published jobs via service role.
+DROP POLICY IF EXISTS org_staff_read ON public.legal_entities;
 CREATE POLICY org_staff_read ON public.legal_entities
   FOR SELECT
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff() OR is_payroll_staff());
 
+DROP POLICY IF EXISTS org_business_units_staff_read ON public.business_units;
 CREATE POLICY org_business_units_staff_read ON public.business_units
   FOR SELECT
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff() OR is_payroll_staff());
 
+DROP POLICY IF EXISTS org_departments_staff_read ON public.departments;
 CREATE POLICY org_departments_staff_read ON public.departments
   FOR SELECT
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff() OR is_payroll_staff());
 
+DROP POLICY IF EXISTS org_positions_staff_read ON public.positions;
 CREATE POLICY org_positions_staff_read ON public.positions
   FOR SELECT
   TO authenticated
   USING (is_recruiting_staff() OR is_hr_staff() OR is_payroll_staff());
 
+DROP POLICY IF EXISTS org_locations_staff_read ON public.locations;
 CREATE POLICY org_locations_staff_read ON public.locations
   FOR SELECT
   TO authenticated
@@ -707,24 +769,28 @@ CREATE POLICY org_locations_staff_read ON public.locations
 -- CRM — sales roles only
 -- ---------------------------------------------------------------------------
 
+DROP POLICY IF EXISTS crm_accounts_sales ON public.crm_accounts;
 CREATE POLICY crm_accounts_sales ON public.crm_accounts
   FOR ALL
   TO authenticated
   USING (is_sales_staff())
   WITH CHECK (is_sales_staff());
 
+DROP POLICY IF EXISTS crm_contacts_sales ON public.crm_contacts;
 CREATE POLICY crm_contacts_sales ON public.crm_contacts
   FOR ALL
   TO authenticated
   USING (is_sales_staff())
   WITH CHECK (is_sales_staff());
 
+DROP POLICY IF EXISTS crm_opportunities_sales ON public.crm_opportunities;
 CREATE POLICY crm_opportunities_sales ON public.crm_opportunities
   FOR ALL
   TO authenticated
   USING (is_sales_staff())
   WITH CHECK (is_sales_staff());
 
+DROP POLICY IF EXISTS crm_activities_sales ON public.crm_activities;
 CREATE POLICY crm_activities_sales ON public.crm_activities
   FOR ALL
   TO authenticated
