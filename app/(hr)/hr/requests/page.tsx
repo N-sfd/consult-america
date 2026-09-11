@@ -143,23 +143,39 @@ export default async function HrRequestsPage({
       </div>
 
       <div className="ca-platform-card overflow-hidden">
-        <div className="hidden grid-cols-[110px_1.1fr_1fr_1fr_100px_90px_80px] gap-3 border-b border-[var(--ca-platform-border)] px-5 py-3 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[var(--ca-platform-muted)] lg:grid">
+        <div className="hidden grid-cols-[110px_1.1fr_1fr_1fr_100px_90px_90px_80px] gap-3 border-b border-[var(--ca-platform-border)] px-5 py-3 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[var(--ca-platform-muted)] lg:grid">
           <span>Request #</span>
           <span>Employee</span>
           <span>Type</span>
           <span>Assigned To</span>
           <span>Created</span>
+          <span>Age</span>
           <span>Status</span>
           <span>Priority</span>
         </div>
         <ul className="divide-y divide-[var(--ca-platform-border)]">
-          {requests.map((request) => (
+          {requests.map((request) => {
+            const ageDays = Math.max(
+              0,
+              Math.floor(
+                (Date.now() - Date.parse(request.createdAt)) / (1000 * 60 * 60 * 24),
+              ),
+            );
+            const agingLabel =
+              ageDays >= 7 ? "Aging · 7d+" : ageDays >= 3 ? "Aging · 3d+" : `${ageDays}d`;
+            const agingTone =
+              ageDays >= 7
+                ? "text-[var(--ca-platform-red)]"
+                : ageDays >= 3
+                  ? "text-amber-700"
+                  : "text-[var(--ca-platform-muted)]";
+            return (
             <li key={request.id}>
               <Link
                 href={`/hr/requests/${request.id}`}
                 className="block px-5 py-4 transition-colors hover:bg-[var(--ca-platform-sage-light)]"
               >
-                <div className="grid gap-2 lg:grid-cols-[110px_1.1fr_1fr_1fr_100px_90px_80px] lg:items-center lg:gap-3">
+                <div className="grid gap-2 lg:grid-cols-[110px_1.1fr_1fr_1fr_100px_90px_90px_80px] lg:items-center lg:gap-3">
                   <p className="text-xs text-[var(--ca-platform-muted)] lg:text-sm lg:font-medium lg:text-[var(--ca-platform-ink)]">
                     {request.requestNumber}
                   </p>
@@ -181,6 +197,9 @@ export default async function HrRequestsPage({
                   <p className="hidden text-sm text-[var(--ca-platform-muted)] lg:block">
                     {request.createdAt.slice(0, 10)}
                   </p>
+                  <p className={`hidden text-xs font-semibold lg:block ${agingTone}`} title="Operational aging indicator — not a contractual SLA">
+                    {agingLabel}
+                  </p>
                   <p className="text-[0.7rem] font-bold uppercase tracking-[0.08em] text-[var(--ca-platform-mid)]">
                     {hrRequestStatusLabels[request.status]}
                   </p>
@@ -196,7 +215,8 @@ export default async function HrRequestsPage({
                 </div>
               </Link>
             </li>
-          ))}
+            );
+          })}
           {requests.length === 0 && (
             <li className="px-5 py-8 text-sm text-[var(--ca-platform-muted)]">
               No requests in this queue.
@@ -204,6 +224,9 @@ export default async function HrRequestsPage({
           )}
         </ul>
       </div>
+      <p className="text-xs text-[var(--ca-platform-muted)]">
+        Age uses operational thresholds (3d / 7d) for queue visibility — not contractual SLA compliance.
+      </p>
     </div>
   );
 }

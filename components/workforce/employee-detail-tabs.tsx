@@ -122,7 +122,13 @@ export default function EmployeeDetailTabs({
         </TabsList>
 
         <TabsPanel value="overview">
-          <OverviewPanel profile={profile} workAuthorization={workAuthorization} onboarding={onboarding} />
+          <OverviewPanel
+            profile={profile}
+            workAuthorization={workAuthorization}
+            onboarding={onboarding}
+            documents={documents}
+            hrRequests={hrRequests}
+          />
         </TabsPanel>
 
         <TabsPanel value="employment">
@@ -176,21 +182,35 @@ function OverviewPanel({
   profile,
   workAuthorization,
   onboarding,
+  documents,
+  hrRequests,
 }: {
   profile: EmployeeProfileView;
   workAuthorization: EmployeeWorkAuthorization | null;
   onboarding: { percentComplete: number; record?: OnboardingRecord };
+  documents: EmployeeDocumentRow[];
+  hrRequests: HrRequest[];
 }) {
   const { employee, person } = profile;
+  const pendingAcks = documents.filter(
+    (doc) => doc.requiresAcknowledgement && !doc.acknowledgedAt,
+  ).length;
+  const openHr = hrRequests.filter(
+    (req) =>
+      req.status === "OPEN" ||
+      req.status === "IN_PROGRESS" ||
+      req.status === "WAITING_FOR_EMPLOYEE",
+  ).length;
+
   const fields: [string, string][] = [
     ["Email", person.personalEmail || employee.workEmail || "—"],
     ["Phone", person.personalPhone || "—"],
-    ["Job Title", profile.positionTitle || "—"],
+    ["Current role", profile.positionTitle || "—"],
     ["Department", profile.departmentName || "—"],
     ["Manager", profile.managerName || "Pending"],
     ["Location", profile.locationName || "—"],
+    ["Employment type", profile.employmentTypeLabel || "—"],
     ["Start Date", formatDate(employee.startDate || profile.assignment?.startDate)],
-    ["Hire Date", formatDate(employee.hireDate)],
     ["Employment Status", profile.statusLabel],
     ["Work Authorization", workAuthorization?.authorizationType || "Not specified"],
     [
@@ -199,18 +219,47 @@ function OverviewPanel({
         ? `${onboarding.record.status.replaceAll("_", " ").toLowerCase()} · ${onboarding.percentComplete}%`
         : "—",
     ],
-    ["Portal Access", employee.portalAccessStatus === "ready" ? "Ready" : "Pending"],
+    ["Pending document acknowledgments", String(pendingAcks)],
+    ["Open HR requests", String(openHr)],
   ];
 
   return (
-    <dl className={`${cardClass} grid gap-4 sm:grid-cols-2`}>
-      {fields.map(([label, value]) => (
-        <div key={label}>
-          <dt className={labelClass}>{label}</dt>
-          <dd className="mt-1 text-sm text-black/80">{value}</dd>
-        </div>
-      ))}
-    </dl>
+    <div className="space-y-4">
+      <dl className={`${cardClass} grid gap-4 sm:grid-cols-2`}>
+        {fields.map(([label, value]) => (
+          <div key={label}>
+            <dt className={labelClass}>{label}</dt>
+            <dd className="mt-1 text-sm text-black/80">{value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className={`${cardClass} flex flex-wrap gap-2`}>
+        <Link
+          href={`?tab=documents`}
+          className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70"
+        >
+          Documents
+        </Link>
+        <Link
+          href={`?tab=onboarding`}
+          className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70"
+        >
+          Onboarding
+        </Link>
+        <Link
+          href={`?tab=hr-requests`}
+          className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70"
+        >
+          HR Requests
+        </Link>
+        <Link
+          href={`?tab=time-leave`}
+          className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70"
+        >
+          Time &amp; Leave
+        </Link>
+      </div>
+    </div>
   );
 }
 

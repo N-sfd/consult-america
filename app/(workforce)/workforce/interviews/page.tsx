@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-
-import WorkforcePlaceholderPage from "@/components/workforce/workforce-placeholder";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "Interviews" };
 
-export default function Page() {
-  return (
-    <WorkforcePlaceholderPage
-      section="Recruiting"
-      title="Interviews"
-      description="Schedule, scorecards, and feedback loops for active requisitions."
-    />
-  );
+export default function WorkforceInterviewsRedirectPage() {
+  redirect("/app/recruiting/interviews");
 }

@@ -65,6 +65,7 @@ export default function CandidateMatchForm({ jobs }: { jobs: JobOption[] }) {
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<"match" | "name" | "status">("match");
+  const [compareIds, setCompareIds] = useState<string[]>([]);
   const [results, setResults] = useState<{
     jobTitle: string;
     runId: string;
@@ -124,11 +125,33 @@ export default function CandidateMatchForm({ jobs }: { jobs: JobOption[] }) {
     return copy;
   }, [results, sortBy]);
 
+  const compared = useMemo(
+    () => sortedCandidates.filter((c) => compareIds.includes(c.candidateId)),
+    [sortedCandidates, compareIds],
+  );
+
+  function toggleCompare(candidateId: string) {
+    setCompareIds((prev) => {
+      if (prev.includes(candidateId)) return prev.filter((id) => id !== candidateId);
+      if (prev.length >= 4) return prev;
+      return [...prev, candidateId];
+    });
+  }
+
   const canAnalyze =
     (mode === "existing" && requisitionId) || (mode !== "existing" && jobDescription.trim().length > 0);
 
   return (
     <div className="mt-6 space-y-6">
+      <div className="rounded-lg border border-amber-200/80 bg-amber-50/70 px-4 py-3 text-sm text-amber-950">
+        <p className="font-semibold">AI-assisted relevance analysis</p>
+        <p className="mt-1 text-amber-900/80">
+          Decision-support only. Candidate evaluation should include human review.
+          Scores do not use protected characteristics and never auto-reject, hide, or
+          advance candidates.
+        </p>
+      </div>
+
       <div className="border border-black/8 bg-white p-5">
         <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-black/50">
           Job Input
@@ -291,23 +314,67 @@ export default function CandidateMatchForm({ jobs }: { jobs: JobOption[] }) {
             </p>
           ) : (
             <div className="mt-4 space-y-4">
+              {compared.length >= 2 ? (
+                <div className="overflow-x-auto rounded-lg border border-black/10 bg-[#F8FAFC] p-4">
+                  <h3 className="text-sm font-semibold">Compare selected ({compared.length})</h3>
+                  <table className="mt-3 w-full min-w-[700px] text-left text-sm">
+                    <thead className="text-xs uppercase tracking-[0.08em] text-black/40">
+                      <tr>
+                        <th className="py-2 pr-3">Candidate</th>
+                        <th className="py-2 pr-3">Score</th>
+                        <th className="py-2 pr-3">Matched</th>
+                        <th className="py-2 pr-3">Gaps</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {compared.map((c) => (
+                        <tr key={c.candidateId} className="border-t border-black/5">
+                          <td className="py-2 pr-3 font-medium">{c.candidateName}</td>
+                          <td className="py-2 pr-3">{c.result.overallMatch}%</td>
+                          <td className="py-2 pr-3 text-black/70">
+                            {c.result.skillsFound.join(", ") || "—"}
+                          </td>
+                          <td className="py-2 pr-3 text-black/70">
+                            {c.result.skillsMissing.join(", ") || "—"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="text-xs text-black/45">
+                  Select 2–4 candidates below to compare using the same scoring model.
+                </p>
+              )}
               {sortedCandidates.map((candidate) => (
                 <div key={candidate.candidateId} className="border border-black/8 bg-white p-5">
                   <div className="flex flex-wrap items-start gap-5">
                     <MatchGauge score={candidate.result.overallMatch} />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <Link
-                          href={`/app/recruiting/candidates/${candidate.candidateId}`}
-                          className="font-medium text-[var(--ca-app-ink)] hover:underline"
-                        >
-                          {candidate.candidateName}
-                        </Link>
-                        {candidate.applicationStatus ? (
-                          <span className="text-xs text-black/45">
-                            {applicationStatusLabels[candidate.applicationStatus]}
-                          </span>
-                        ) : null}
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={compareIds.includes(candidate.candidateId)}
+                            onChange={() => toggleCompare(candidate.candidateId)}
+                            aria-label={`Compare ${candidate.candidateName}`}
+                          />
+                          <Link
+                            href={`/app/recruiting/candidates/${candidate.candidateId}`}
+                            className="font-medium text-[var(--ca-app-ink)] hover:underline"
+                          >
+                            {candidate.candidateName}
+                          </Link>
+                        </div>
+                        <span className="text-sm font-semibold text-black/70">
+                          {candidate.result.overallMatch}%{" "}
+                          {candidate.result.overallMatch >= 70
+                            ? "Strong Alignment"
+                            : candidate.result.overallMatch >= 40
+                              ? "Moderate Alignment"
+                              : "Limited Alignment"}
+                        </span>
                       </div>
                       <p className="mt-1 text-sm text-black/60">
                         {candidate.resumeFileName ?? "No resume on file"}

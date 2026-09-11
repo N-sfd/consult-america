@@ -120,6 +120,21 @@ export default async function WorkforceAdministrationPage() {
         </section>
 
         <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+            Reports
+          </h2>
+          <p className="mt-3 text-sm text-black/55">
+            Operational recruiting, workforce, onboarding, time, and HR reporting.
+          </p>
+          <Link
+            href="/workforce/reports"
+            className="mt-4 inline-block text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+          >
+            Open reports →
+          </Link>
+        </section>
+
+        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">Audit</h2>
           <p className="mt-3 text-sm text-black/55">
             Unified timeline across compliance, workforce operations, and recruiting activity.

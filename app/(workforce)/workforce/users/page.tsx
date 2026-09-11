@@ -8,13 +8,51 @@ import { getWorkforceSession } from "@/lib/workforce/session";
 export const metadata: Metadata = { title: "Users" };
 export const dynamic = "force-dynamic";
 
-export default async function WorkforceUsersPage() {
+type SearchParams = Promise<{
+  role?: string;
+  profileType?: string;
+  status?: string;
+}>;
+
+export default async function WorkforceUsersPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const session = await getWorkforceSession();
   if (!session.roles.includes("ADMIN") && !session.roles.includes("HR")) {
     redirect("/workforce");
   }
 
+  const params = await searchParams;
   const users = await listPlatformUsers();
+
+  const roles = [...new Set(users.flatMap((u) => u.roles))].sort();
+  const statuses = [...new Set(users.map((u) => u.status))].sort();
+
+  const filtered = users.filter((user) => {
+    if (params.role && !user.roles.includes(params.role as never)) return false;
+    if (params.status && user.status !== params.status) return false;
+    if (params.profileType === "employee" && !user.employeeId) return false;
+    if (params.profileType === "candidate" && !user.candidateId) return false;
+    if (params.profileType === "none" && (user.employeeId || user.candidateId)) return false;
+    return true;
+  });
+
+  function href(next: Record<string, string | undefined>) {
+    const qs = new URLSearchParams();
+    const merged = {
+      role: params.role,
+      profileType: params.profileType,
+      status: params.status,
+      ...next,
+    };
+    for (const [key, value] of Object.entries(merged)) {
+      if (value) qs.set(key, value);
+    }
+    const query = qs.toString();
+    return query ? `/workforce/users?${query}` : "/workforce/users";
+  }
 
   return (
     <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
@@ -31,7 +69,74 @@ export default async function WorkforceUsersPage() {
         </p>
       </div>
 
-      <p className="mt-6 text-sm text-black/45">{users.length} platform users</p>
+      <form
+        method="get"
+        className="mt-6 grid gap-3 rounded-lg border border-black/10 bg-white p-4 sm:grid-cols-4"
+      >
+        <label className="block text-xs">
+          <span className="font-semibold uppercase tracking-[0.1em] text-black/40">Role</span>
+          <select
+            name="role"
+            defaultValue={params.role ?? ""}
+            className="mt-1 w-full rounded-md border border-black/15 px-2.5 py-2 text-sm"
+          >
+            <option value="">All roles</option>
+            {roles.map((role) => (
+              <option key={role} value={role}>
+                {role.replaceAll("_", " ")}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block text-xs">
+          <span className="font-semibold uppercase tracking-[0.1em] text-black/40">
+            Profile type
+          </span>
+          <select
+            name="profileType"
+            defaultValue={params.profileType ?? ""}
+            className="mt-1 w-full rounded-md border border-black/15 px-2.5 py-2 text-sm"
+          >
+            <option value="">All types</option>
+            <option value="employee">Employee</option>
+            <option value="candidate">Candidate</option>
+            <option value="none">Unlinked</option>
+          </select>
+        </label>
+        <label className="block text-xs">
+          <span className="font-semibold uppercase tracking-[0.1em] text-black/40">Status</span>
+          <select
+            name="status"
+            defaultValue={params.status ?? ""}
+            className="mt-1 w-full rounded-md border border-black/15 px-2.5 py-2 text-sm"
+          >
+            <option value="">All statuses</option>
+            {statuses.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div className="flex items-end gap-2">
+          <button
+            type="submit"
+            className="rounded-md bg-[var(--ca-platform-deep)] px-3.5 py-2 text-sm font-semibold text-white"
+          >
+            Apply
+          </button>
+          <Link
+            href="/workforce/users"
+            className="rounded-md border border-black/15 px-3.5 py-2 text-sm font-medium text-black/65"
+          >
+            Clear
+          </Link>
+        </div>
+      </form>
+
+      <p className="mt-4 text-sm text-black/45">
+        {filtered.length} of {users.length} platform users
+      </p>
 
       <div className="mt-3 overflow-x-auto rounded-lg border border-black/10 bg-white">
         <table className="w-full min-w-[900px] text-left text-sm">
@@ -46,7 +151,7 @@ export default async function WorkforceUsersPage() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {filtered.map((user) => (
               <tr key={user.id} className="border-b border-black/5 last:border-b-0">
                 <td className="px-4 py-3 font-medium">{user.displayName}</td>
                 <td className="px-4 py-3 text-black/70">{user.email}</td>
@@ -93,7 +198,7 @@ export default async function WorkforceUsersPage() {
                 </td>
               </tr>
             ))}
-            {users.length === 0 && (
+            {filtered.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-8 text-center text-black/50">
                   No platform users found.

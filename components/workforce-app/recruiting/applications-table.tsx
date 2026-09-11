@@ -331,7 +331,7 @@ function ApplicationRow({ app }: { app: ApplicationQueueItem }) {
           <CandidateAvatar name={app.candidateName} />
           <div>
             <Link
-              href={`/app/recruiting/candidates/${app.candidateId}`}
+              href={`/app/recruiting/applications/${app.applicationId}`}
               className="font-medium text-[var(--ca-app-ink)] hover:underline"
             >
               {app.candidateName}
@@ -382,6 +382,14 @@ function ApplicationRow({ app }: { app: ApplicationQueueItem }) {
           </select>
           {app.requisitionId ? (
             <ScheduleInterviewButton applicationId={app.applicationId} requisitionId={app.requisitionId} />
+          ) : null}
+          {app.requisitionId ? (
+            <Link
+              href={`/app/recruiting/applications/${app.applicationId}`}
+              className="text-xs text-[var(--ca-blue)] hover:underline"
+            >
+              Open workspace
+            </Link>
           ) : null}
           {app.requisitionId ? (
             <Link

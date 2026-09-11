@@ -245,6 +245,9 @@ async function main() {
     "app/(workforce)/workforce/system-health/page.tsx",
     "app/(workforce)/workforce/notifications/page.tsx",
     "app/(workforce)/workforce/audit/page.tsx",
+    "app/(workforce-app)/app/recruiting/page.tsx",
+    "app/(workforce-app)/app/recruiting/interviews/page.tsx",
+    "app/(workforce-app)/app/recruiting/offers/page.tsx",
   ]) {
     const full = path.join(root, rel);
     const exists = await fs
