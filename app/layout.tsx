@@ -24,7 +24,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://consultamerica.net"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+    default:
+      "Enterprise Transformation, Oracle, AI & Application Engineering | Consult America",
     template: "%s | Consult America",
   },
   description:
@@ -40,7 +41,8 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Consult America",
-    title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+    title:
+      "Enterprise Transformation, Oracle, AI & Application Engineering | Consult America",
     description:
       "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
     images: [
@@ -54,7 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+    title:
+      "Enterprise Transformation, Oracle, AI & Application Engineering | Consult America",
     description:
       "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
   },

@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Time & Leave System | Consult America Platforms",
+  title: "Time & Leave System",
   description: "Enterprise workforce time tracking, leave balances, and manager approval workflows.",
 };
 

@@ -26,7 +26,7 @@ export async function generateMetadata({
 }: InnovationDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = getInnovationProductBySlug(slug);
-  if (!product) return { title: "Product Not Found | Consult America" };
+  if (!product) return { title: "Product Not Found" };
 
   return {
     title: `${product.name} | Consult America Innovation Lab`,

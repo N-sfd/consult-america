@@ -24,10 +24,10 @@ export async function generateMetadata({
 }: ProjectDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = getCaseStudyBySlug(slug);
-  if (!project) return { title: "Project Not Found | Consult America" };
+  if (!project) return { title: "Project Not Found" };
 
   return {
-    title: `${project.title} | Consult America`,
+    title: `${project.title}`,
     description: project.metaDescription,
   };
 }

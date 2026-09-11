@@ -26,10 +26,10 @@ export async function generateMetadata({
 }: CapabilityDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const page = capabilityPages[slug];
-  if (!page) return { title: "Capability Not Found | Consult America" };
+  if (!page) return { title: "Capability Not Found" };
 
   return {
-    title: `${page.title} | Consult America`,
+    title: `${page.title}`,
     description: page.metaDescription,
   };
 }

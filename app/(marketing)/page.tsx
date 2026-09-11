@@ -22,7 +22,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Consult America | Enterprise Transformation, Oracle, AI & Application Engineering",
+    title:
+      "Enterprise Transformation, Oracle, AI & Application Engineering | Consult America",
     description:
       "Consult America helps organizations modernize enterprise platforms, connect data and workflows, operationalize AI, and engineer digital products from strategy through production.",
     type: "website",

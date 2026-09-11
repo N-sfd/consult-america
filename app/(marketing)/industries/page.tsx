@@ -11,7 +11,7 @@ import { stockImage } from "@/lib/marketing/stock-images";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Industries | Consult America",
+  title: "Industries",
   description:
     "Sector context, not generic playbooks — for public sector, regulated enterprise, and high-growth operators.",
 };

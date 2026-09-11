@@ -10,7 +10,7 @@ import { capabilityPages } from "@/lib/marketing/capability-pages";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Capabilities | Consult America",
+  title: "Capabilities",
   description:
     "Strategy, Oracle, AI and data, digital engineering, and managed delivery — together.",
 };

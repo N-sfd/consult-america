@@ -12,7 +12,7 @@ const strategicSlugs = ["mediguide-ai", "joblens"];
 const otherApps = portfolioProjects.filter((project) => project.tier === 3);
 
 export const metadata: Metadata = {
-  title: "Applications | Consult America",
+  title: "Applications",
   description:
     "Application engineering portfolio — Data Agent, MediGuide, JobLens, and focused enterprise products.",
 };

@@ -16,7 +16,7 @@ import { stockImage } from "@/lib/marketing/stock-images";
 const CAREERS_HERO_IMAGE = stockImage("careersPageHero", { w: 1200, q: 82 });
 
 export const metadata: Metadata = {
-  title: "Careers | Consult America",
+  title: "Careers",
   description:
     "Build what's next at Consult America — enterprise transformation, Oracle, AI, data, and digital engineering careers.",
 };

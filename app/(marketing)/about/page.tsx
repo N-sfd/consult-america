@@ -10,7 +10,7 @@ import { deliveryPhases, capabilityGroups, offices } from "@/lib/site-data";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Company & Leadership | Consult America",
+  title: "About",
   description:
     "Consult America connects business strategy, Oracle transformation, AI intelligence, and application engineering from early architecture through production delivery.",
 };

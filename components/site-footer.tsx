@@ -50,15 +50,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <BrandLogo variant="full" context="footer" href="/" />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#5B6D6B]">
-              Enterprise transformation, Oracle, AI &amp; data, and application engineering —
-              from strategy through production.
-            </p>
-            <div className="mt-5 space-y-4 text-sm leading-relaxed text-[#5B6D6B]">
-              <p className="font-semibold text-[#073B3A]">
-                {companyContact.companyName}
-              </p>
-
+            <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#5B6D6B]">
               <div>
                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#073B3A]">
                   {companyContact.headquarters.label}

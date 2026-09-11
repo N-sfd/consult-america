@@ -6,7 +6,7 @@ import JobBoard from "@/components/jobs/job-board";
 import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
 
 export const metadata: Metadata = {
-  title: "Open Roles | Consult America Careers",
+  title: { absolute: "Open Roles | Consult America Careers" },
   description:
     "Explore career opportunities at Consult America across Oracle, AI, data, consulting, and enterprise transformation.",
 };

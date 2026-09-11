@@ -9,7 +9,7 @@ import SignupForm from "@/components/auth/signup-form";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Create Account | Consult America Careers",
+  title: { absolute: "Create Account | Consult America Careers" },
   description:
     "Create a Consult America candidate account to apply for roles and track your applications.",
 };

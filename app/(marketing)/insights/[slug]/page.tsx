@@ -23,7 +23,7 @@ export async function generateMetadata({
   const insight = getInsightBySlug(slug);
 
   if (!insight) {
-    return { title: "Insight Not Found | Consult America" };
+    return { title: "Insight Not Found" };
   }
 
   return {

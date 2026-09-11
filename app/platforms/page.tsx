@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import SectionLabel from "@/components/marketing/SectionLabel";
 
 export const metadata: Metadata = {
-  title: "Enterprise Platforms | Consult America",
+  title: "Enterprise Platforms",
   description:
     "Explore Consult America's unified software platform suite: CRM, Core HR, Employee Self-Service, Workforce Time & Leave, and Payroll.",
 };

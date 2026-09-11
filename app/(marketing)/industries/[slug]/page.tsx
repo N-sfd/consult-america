@@ -23,10 +23,10 @@ export async function generateMetadata({
 }: IndustryDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const page = industryPages[slug];
-  if (!page) return { title: "Industry Not Found | Consult America" };
+  if (!page) return { title: "Industry Not Found" };
 
   return {
-    title: `${page.title} | Consult America`,
+    title: `${page.title}`,
     description: page.metaDescription,
   };
 }

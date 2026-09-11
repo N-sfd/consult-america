@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Building2, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
+import { Building2, Mail, MapPin, Phone } from "lucide-react";
 
 import { ContactForm } from "@/components/contact-form";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { companyContact } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  title: "Contact | Consult America",
+  title: "Contact",
   description:
     "Contact Consult America regarding Oracle transformation, AI & data, enterprise platforms, or application engineering.",
 };
@@ -67,28 +67,7 @@ export default function ContactPage() {
               </p>
             </Reveal>
 
-            <Reveal delay={0.08} className="mt-8 rounded-2xl border border-white/12 bg-white/5 p-5">
-              <p className="text-lg font-semibold text-white">
-                {companyContact.companyName}
-              </p>
-              <p className="mt-1 text-sm text-white/65">
-                {companyContact.experienceTagline}
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.1} className="mt-6 space-y-4">
-              {[
-                "Your inquiry will be routed to the appropriate practice team",
-                "Architecture and scoping working session without sales overhead",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3 text-sm text-white/75">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#9BC4B8]" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </Reveal>
-
-            <Reveal delay={0.15} className="mt-8 space-y-5 text-sm text-white/70">
+            <Reveal delay={0.12} className="mt-8 space-y-5 text-sm text-white/70">
               {contactRows.map((row) => {
                 const Icon = row.icon;
                 const value =

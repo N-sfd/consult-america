@@ -97,10 +97,12 @@ function CrispLockup({
     variant === "mark"
       ? brandDisplay.mark.maxHeight
       : context === "footer"
-        ? 56
-        : context === "login" || context === "apply" || context === "mobile"
+        ? 60
+        : context === "login" || context === "apply"
           ? 40
-          : 58;
+          : context === "mobile"
+            ? 44
+            : 72;
 
   if (markOnly) {
     return (

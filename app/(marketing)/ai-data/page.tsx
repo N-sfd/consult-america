@@ -6,7 +6,7 @@ import RelatedInsights from "@/components/detail-pages/RelatedInsights";
 import AiDataPageHero from "@/components/marketing/ai-data-page-hero";
 
 export const metadata: Metadata = {
-  title: "AI & Data | Consult America",
+  title: "AI & Data",
   description:
     "Move from AI experiments to enterprise intelligence — data platforms, applied AI, governance, and enablement.",
 };

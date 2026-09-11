@@ -5,7 +5,7 @@ import RelatedInsights from "@/components/detail-pages/RelatedInsights";
 import OraclePageSections from "@/components/marketing/oracle-page-sections";
 
 export const metadata: Metadata = {
-  title: "Oracle | Consult America",
+  title: "Oracle",
   description:
     "Oracle Cloud programs that reach go-live and stay healthy — Fusion, EPM, integrations, and analytics.",
 };

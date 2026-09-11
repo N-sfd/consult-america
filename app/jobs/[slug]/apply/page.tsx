@@ -31,11 +31,11 @@ export async function generateMetadata({
   const job = await getJobBySlug(slug);
 
   if (!job) {
-    return { title: "Apply | Consult America Careers" };
+    return { title: { absolute: "Apply | Consult America Careers" } };
   }
 
   return {
-    title: `Apply — ${job.title} | Consult America Careers`,
+    title: { absolute: `Apply — ${job.title} | Consult America Careers` },
     description: `Apply for the ${job.title} opportunity at Consult America.`,
   };
 }

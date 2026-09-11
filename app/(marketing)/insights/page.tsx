@@ -15,7 +15,7 @@ import { insightCategoryLabels } from "@/data/insights";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
-  title: "Insights | Consult America",
+  title: "Insights",
   description:
     "Practical notes on Oracle, AI & data, enterprise transformation, and industry delivery from Consult America.",
 };
