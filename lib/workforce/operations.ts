@@ -1,4 +1,5 @@
 import { getSupabaseServiceClient, isSupabaseConfigured } from "@/app/lib/supabase/server";
+import { listAuditEvents } from "@/lib/audit/audit-log";
 import type {
   HrRequest,
   HrRequestCategory,
@@ -499,6 +500,154 @@ export async function getRecentWorkforceActivity(limit = 6): Promise<WorkforceAc
   return merged
     .sort((a, b) => b.occurredAt.localeCompare(a.occurredAt))
     .slice(0, limit);
+}
+
+export type AuditTimelineEntry = {
+  id: string;
+  source: "audit_logs" | "workforce_audit_events" | "recruiting_activities";
+  eventType: string;
+  summary: string;
+  actorRole?: string;
+  correlationId?: string;
+  occurredAt: string;
+};
+
+/**
+ * Unifies the three real audit trails into one filterable timeline for
+ * /workforce/audit: audit_logs (general compliance — employee/document/export/
+ * candidate-match events, actor-scoped, correlation id recovered from
+ * metadata_json where present), and the workforce_audit_events +
+ * recruiting_activities pair getRecentWorkforceActivity already merges for
+ * the dashboard feed (both carry a native correlation_id column).
+ */
+export async function listAuditTimeline(limit = 100): Promise<AuditTimelineEntry[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const [auditLogs, workforceEvents, recruitingEvents] = await Promise.all([
+    listAuditEvents(limit),
+    client
+      .from("workforce_audit_events")
+      .select("id, event_type, summary, correlation_id, created_at")
+      .order("created_at", { ascending: false })
+      .limit(limit),
+    client
+      .from("recruiting_activities")
+      .select("id, activity_type, summary, correlation_id, created_at")
+      .order("created_at", { ascending: false })
+      .limit(limit),
+  ]);
+
+  if (workforceEvents.error) throw new Error(workforceEvents.error.message);
+  if (recruitingEvents.error) throw new Error(recruitingEvents.error.message);
+
+  const merged: AuditTimelineEntry[] = [
+    ...auditLogs.map((row) => ({
+      id: row.id,
+      source: "audit_logs" as const,
+      eventType: row.eventType,
+      summary: row.summary,
+      actorRole: row.actorRole,
+      correlationId: row.correlationId,
+      occurredAt: row.createdAt,
+    })),
+    ...(workforceEvents.data ?? []).map((row) => ({
+      id: row.id as string,
+      source: "workforce_audit_events" as const,
+      eventType: row.event_type as string,
+      summary: row.summary as string,
+      correlationId: (row.correlation_id as string) ?? undefined,
+      occurredAt: row.created_at as string,
+    })),
+    ...(recruitingEvents.data ?? []).map((row) => ({
+      id: row.id as string,
+      source: "recruiting_activities" as const,
+      eventType: row.activity_type as string,
+      summary: row.summary as string,
+      correlationId: (row.correlation_id as string) ?? undefined,
+      occurredAt: row.created_at as string,
+    })),
+  ];
+
+  return merged
+    .sort((a, b) => b.occurredAt.localeCompare(a.occurredAt))
+    .slice(0, limit);
+}
+
+export type NotificationDeliveryRow = {
+  id: string;
+  channel: string;
+  status: string;
+  recipient: string;
+  attemptCount: number;
+  lastAttemptAt?: string;
+  sentAt?: string;
+  failedAt?: string;
+  failureReason?: string;
+  notificationType?: string;
+  title?: string;
+  entityType?: string;
+  entityId?: string;
+  correlationId?: string;
+  createdAt: string;
+};
+
+/**
+ * notification_deliveries has zero RLS policies for `authenticated` (service
+ * role only, by design — see db/schema/024) so this, like every other read
+ * in this file, goes through the service-role client; the actor/permission
+ * check happens in the calling page/action before this is ever called.
+ */
+export async function listNotificationDeliveries(filter?: {
+  status?: string;
+  channel?: string;
+}): Promise<NotificationDeliveryRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  let query = client
+    .from("notification_deliveries")
+    .select(
+      "id, notification_id, channel, status, recipient, attempt_count, last_attempt_at, sent_at, failed_at, failure_reason, created_at",
+    )
+    .order("created_at", { ascending: false });
+
+  if (filter?.status) query = query.eq("status", filter.status);
+  if (filter?.channel) query = query.eq("channel", filter.channel);
+
+  const { data: deliveries, error } = await query.limit(200);
+  if (error) throw new Error(error.message);
+  if (!deliveries || deliveries.length === 0) return [];
+
+  const notificationIds = [...new Set(deliveries.map((d) => d.notification_id as string))];
+  const { data: notifications, error: notifError } = await client
+    .from("notifications")
+    .select("id, notification_type, title, entity_type, entity_id, correlation_id")
+    .in("id", notificationIds);
+  if (notifError) throw new Error(notifError.message);
+
+  const notificationById = new Map((notifications ?? []).map((n) => [n.id as string, n]));
+
+  return deliveries.map((row) => {
+    const notification = notificationById.get(row.notification_id as string);
+    return {
+      id: row.id as string,
+      channel: row.channel as string,
+      status: row.status as string,
+      recipient: row.recipient as string,
+      attemptCount: Number(row.attempt_count ?? 0),
+      lastAttemptAt: (row.last_attempt_at as string) ?? undefined,
+      sentAt: (row.sent_at as string) ?? undefined,
+      failedAt: (row.failed_at as string) ?? undefined,
+      failureReason: (row.failure_reason as string) ?? undefined,
+      notificationType: (notification?.notification_type as string) ?? undefined,
+      title: (notification?.title as string) ?? undefined,
+      entityType: (notification?.entity_type as string) ?? undefined,
+      entityId: (notification?.entity_id as string) ?? undefined,
+      correlationId: (notification?.correlation_id as string) ?? undefined,
+      createdAt: row.created_at as string,
+    };
+  });
 }
 
 // ---------------------------------------------------------------------------

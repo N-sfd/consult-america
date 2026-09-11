@@ -76,3 +76,61 @@ export async function writeAuditEvent(input: WriteAuditEventInput): Promise<void
     console.warn(`[audit] failed to write ${input.eventType}: ${error.message}`);
   }
 }
+
+export type AuditLogRow = {
+  id: string;
+  eventType: string;
+  actorEmployeeId: string;
+  actorRole: AuditActorRole;
+  targetEmployeeId?: string;
+  resourceType?: string;
+  resourceId?: string;
+  summary: string;
+  correlationId?: string;
+  createdAt: string;
+};
+
+/**
+ * First read path for `audit_logs` — until now this table was write-only in
+ * application code (only `scripts/audit-regression.ts` ever selected from
+ * it, as a throwaway verification read).
+ */
+export async function listAuditEvents(limit = 100): Promise<AuditLogRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const { data, error } = await client
+    .from("audit_logs")
+    .select(
+      "id, event_type, actor_employee_id, actor_role, target_employee_id, resource_type, resource_id, summary, metadata_json, created_at",
+    )
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) throw new Error(error.message);
+
+  return (data ?? []).map((row) => {
+    let correlationId: string | undefined;
+    if (row.metadata_json) {
+      try {
+        const metadata = JSON.parse(row.metadata_json as string) as Record<string, unknown>;
+        if (typeof metadata.correlationId === "string") correlationId = metadata.correlationId;
+      } catch {
+        // metadata_json is best-effort context, not a contract — ignore malformed rows.
+      }
+    }
+
+    return {
+      id: row.id as string,
+      eventType: row.event_type as string,
+      actorEmployeeId: row.actor_employee_id as string,
+      actorRole: row.actor_role as AuditActorRole,
+      targetEmployeeId: (row.target_employee_id as string) ?? undefined,
+      resourceType: (row.resource_type as string) ?? undefined,
+      resourceId: (row.resource_id as string) ?? undefined,
+      summary: row.summary as string,
+      correlationId,
+      createdAt: row.created_at as string,
+    };
+  });
+}

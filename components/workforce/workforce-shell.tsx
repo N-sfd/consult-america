@@ -37,6 +37,8 @@ const LEGACY_WORKFORCE_NAV: PlatformNavGroup[] = [
     label: "Operations",
     items: [
       { href: "/workforce/payroll", label: "Payroll" },
+      { href: "/workforce/notifications", label: "Notifications" },
+      { href: "/workforce/audit", label: "Audit" },
       { href: "/workforce/settings", label: "Settings" },
     ],
   },
