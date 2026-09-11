@@ -1,4 +1,4 @@
-import { exportApplicationPipelineCsv } from "@/lib/exports";
+import { exportHiringReportCsv } from "@/lib/exports";
 import { csvExportResponse } from "@/lib/exports/route-helpers";
 import type { ReportFilters } from "@/lib/reports";
 
@@ -12,7 +12,5 @@ export async function GET(request: Request) {
     jobRequisitionId: url.searchParams.get("job") || undefined,
     recruiterUserId: url.searchParams.get("recruiter") || undefined,
   };
-  return csvExportResponse("application-pipeline.csv", () =>
-    exportApplicationPipelineCsv(filters),
-  );
+  return csvExportResponse("hiring-report.csv", () => exportHiringReportCsv(filters));
 }

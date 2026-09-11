@@ -14,6 +14,8 @@ export type WorkforceRole = "ADMIN" | "RECRUITER" | "HR" | "HIRING_MANAGER";
 
 export type WorkforceSession = {
   employeeId: string;
+  /** profiles.id — used for hiring-manager / recruiter assignment scope */
+  profileId?: string;
   displayName: string;
   workEmail: string;
   initials: string;
@@ -22,6 +24,7 @@ export type WorkforceSession = {
 
 export const DEMO_WORKFORCE_SESSION: WorkforceSession = {
   employeeId: "emp-demo-001",
+  profileId: "prof-demo-001",
   displayName: "Michael Brown",
   workEmail: "michael.brown@consultamerica.demo",
   initials: "MB",
@@ -66,6 +69,7 @@ export async function getWorkforceSession(): Promise<WorkforceSession> {
 
   return {
     employeeId: employee.id,
+    profileId: platformUser.userId,
     displayName,
     workEmail: employee.workEmail || platformUser.email,
     initials: initialsFor(displayName),

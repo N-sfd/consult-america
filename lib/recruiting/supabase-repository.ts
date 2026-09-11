@@ -598,9 +598,11 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
             "—",
           appliedAt: row.applied_at as string,
           status: row.status as ApplicationStatus,
+          recruiterUserId: (requisition?.recruiter_user_id as string) ?? undefined,
           recruiterName: requisition?.recruiter_user_id
             ? displayNameByProfileId.get(requisition.recruiter_user_id as string)
             : undefined,
+          hiringManagerUserId: (requisition?.hiring_manager_user_id as string) ?? undefined,
           hiringManagerName: requisition?.hiring_manager_user_id
             ? displayNameByProfileId.get(requisition.hiring_manager_user_id as string)
             : undefined,

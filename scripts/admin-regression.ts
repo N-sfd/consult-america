@@ -234,6 +234,26 @@ async function testSchemaShape(client: pg.Client) {
 async function main() {
   testCandidateStageMapping();
 
+  // Administration surfaces exist as real pages (not placeholders).
+  const fs = await import("node:fs/promises");
+  const path = await import("node:path");
+  const root = path.resolve(import.meta.dirname, "..");
+  for (const rel of [
+    "app/(workforce)/workforce/reports/page.tsx",
+    "app/(workforce)/workforce/administration/page.tsx",
+    "app/(workforce)/workforce/users/page.tsx",
+    "app/(workforce)/workforce/system-health/page.tsx",
+    "app/(workforce)/workforce/notifications/page.tsx",
+    "app/(workforce)/workforce/audit/page.tsx",
+  ]) {
+    const full = path.join(root, rel);
+    const exists = await fs
+      .access(full)
+      .then(() => true)
+      .catch(() => false);
+    check(exists, `${rel} exists`);
+  }
+
   const databaseUrl = process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
   if (!databaseUrl) throw new Error("Missing DATABASE_URL");
 

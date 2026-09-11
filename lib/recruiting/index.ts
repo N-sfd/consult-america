@@ -233,7 +233,9 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
             // Recruiter/hiring-manager identity resolution needs the
             // `profiles` table, which has no memory-mode seed — left
             // unassigned here; the Supabase repository resolves real names.
+            recruiterUserId: requisition?.recruiterUserId,
             recruiterName: undefined,
+            hiringManagerUserId: requisition?.hiringManagerUserId,
             hiringManagerName: undefined,
             lastActivityAt: lastActivity?.createdAt ?? application.updatedAt,
             skills: [],

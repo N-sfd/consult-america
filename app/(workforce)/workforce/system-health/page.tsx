@@ -6,7 +6,8 @@ import {
   getLatestHealthChecks,
   getNotificationDeliveryHealthSummary,
 } from "@/lib/workforce/operations";
-import { requireHrActor, requirePermission } from "@/lib/self-service/security";
+import { getWorkforceSession } from "@/lib/workforce/session";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "System Health" };
 
@@ -34,8 +35,10 @@ function formatTimestamp(value: string) {
 }
 
 export default async function WorkforceSystemHealthPage() {
-  const actor = await requireHrActor();
-  requirePermission(actor, "admin.manage");
+  const session = await getWorkforceSession();
+  if (!session.roles.includes("ADMIN") && !session.roles.includes("HR")) {
+    redirect("/workforce");
+  }
 
   const [healthChecks, deliverySummary, dbSummary] = await Promise.all([
     getLatestHealthChecks(),

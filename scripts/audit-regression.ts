@@ -70,6 +70,7 @@ async function testWriteAuditEventHelper(employeeId: string) {
 
   for (const event of events) {
     const resourceId = `regression-${crypto.randomUUID()}`;
+    const correlationId = `corr-regression-${crypto.randomUUID()}`;
     await writeAuditEvent({
       eventType: event.eventType,
       actorEmployeeId: employeeId,
@@ -77,17 +78,29 @@ async function testWriteAuditEventHelper(employeeId: string) {
       resourceType: event.resourceType,
       resourceId,
       summary: `regression check for ${event.eventType}`,
-      metadata: { regression: true },
+      correlationId,
+      metadata: { regression: true, correlation_id: correlationId },
     });
 
     const { data, error } = await client
       .from("audit_logs")
-      .select("id, event_type, metadata_json")
+      .select("id, event_type, resource_id, metadata_json")
       .eq("resource_id", resourceId)
       .maybeSingle();
 
     check(!error && Boolean(data), `writeAuditEvent persists ${event.eventType}`);
     check(data?.event_type === event.eventType, `${event.eventType} row has the correct event_type`);
+    if (event.eventType === "REPORT_EXPORTED" && data?.metadata_json) {
+      try {
+        const meta = JSON.parse(data.metadata_json as string) as Record<string, unknown>;
+        check(
+          typeof meta.correlation_id === "string" || typeof meta.correlationId === "string",
+          "REPORT_EXPORTED audit carries correlation id",
+        );
+      } catch {
+        check(false, "REPORT_EXPORTED audit carries correlation id");
+      }
+    }
 
     if (data?.id) {
       await client.from("audit_logs").delete().eq("id", data.id as string);

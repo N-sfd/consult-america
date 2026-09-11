@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 import WorkforceShell from "@/components/workforce/workforce-shell";
-import { requireHrActor, SecurityError } from "@/lib/self-service/security";
+import { getWorkforceSession } from "@/lib/workforce/session";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Workforce | ConsultAmerica",
-    template: "%s | ConsultAmerica Workforce",
-  },
+  // Do not set a nested title.template — root already uses "%s | Consult America".
+  title: "Workforce",
 };
 
 export default async function WorkforceLayout({
@@ -16,17 +13,7 @@ export default async function WorkforceLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let session;
-  try {
-    ({ session } = await requireHrActor());
-  } catch (error) {
-    // Same pattern as app/(hr)/hr/layout.tsx and friends — without this,
-    // the People pages' own requireHrActor() calls throw uncaught (no
-    // layout here previously guarded them), which Next surfaces as a raw
-    // 500 instead of a clean redirect.
-    if (error instanceof SecurityError) redirect("/login");
-    throw error;
-  }
+  const session = await getWorkforceSession();
 
   return <WorkforceShell userName={session.displayName}>{children}</WorkforceShell>;
 }

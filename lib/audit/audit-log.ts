@@ -87,6 +87,7 @@ export type AuditLogRow = {
   resourceId?: string;
   summary: string;
   correlationId?: string;
+  metadata?: Record<string, unknown>;
   createdAt: string;
 };
 
@@ -111,10 +112,14 @@ export async function listAuditEvents(limit = 100): Promise<AuditLogRow[]> {
 
   return (data ?? []).map((row) => {
     let correlationId: string | undefined;
+    let metadata: Record<string, unknown> | undefined;
     if (row.metadata_json) {
       try {
-        const metadata = JSON.parse(row.metadata_json as string) as Record<string, unknown>;
+        metadata = JSON.parse(row.metadata_json as string) as Record<string, unknown>;
         if (typeof metadata.correlationId === "string") correlationId = metadata.correlationId;
+        else if (typeof metadata.correlation_id === "string") {
+          correlationId = metadata.correlation_id;
+        }
       } catch {
         // metadata_json is best-effort context, not a contract — ignore malformed rows.
       }
@@ -130,6 +135,7 @@ export async function listAuditEvents(limit = 100): Promise<AuditLogRow[]> {
       resourceId: (row.resource_id as string) ?? undefined,
       summary: row.summary as string,
       correlationId,
+      metadata,
       createdAt: row.created_at as string,
     };
   });

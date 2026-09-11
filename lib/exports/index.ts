@@ -1,3 +1,20 @@
+import { toCsv } from "@/lib/exports/csv";
+import { writeAuditEvent } from "@/lib/audit/audit-log";
+import { getSupabaseServiceClient, isSupabaseConfigured } from "@/app/lib/supabase/server";
+import {
+  listApplicationPipelineExportRows,
+  loadReportWorkspace,
+  type ReportFilters,
+} from "@/lib/reports";
+import { getWorkforceSession } from "@/lib/workforce/session";
+import { reportSectionsForWorkforce, recruitingScopeForWorkforce } from "@/lib/reports/access";
+import {
+  listPersistedHrRequests,
+  listPersistedLeaveRequestsForEmployees,
+  listPersistedTimeEntriesForEmployees,
+  listPayrollRunSummaryRows,
+  workforceDataAvailable,
+} from "@/lib/workforce/operations";
 import { getDirectReports } from "@/lib/self-service";
 import { hrRepository } from "@/lib/hr";
 import {
@@ -8,18 +25,6 @@ import {
   requirePermission,
   type PortalActor,
 } from "@/lib/self-service/security";
-import {
-  listPersistedHrRequests,
-  listPersistedLeaveRequestsForEmployees,
-  listPersistedTimeEntriesForEmployees,
-  listPayrollRunSummaryRows,
-  workforceDataAvailable,
-} from "@/lib/workforce/operations";
-import { toCsv } from "@/lib/exports/csv";
-import { writeAuditEvent } from "@/lib/audit/audit-log";
-import { recruitingRepository } from "@/lib/recruiting";
-import { getSupabaseServiceClient, isSupabaseConfigured } from "@/app/lib/supabase/server";
-import { candidateStageFor } from "@/lib/recruiting/candidate-stage";
 
 function countCsvRows(csv: string): number {
   return Math.max(0, csv.split("\r\n").filter(Boolean).length - 1);
@@ -31,6 +36,7 @@ async function auditExport(input: {
   filters?: Record<string, unknown>;
   csv: string;
 }) {
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
   await writeAuditEvent({
     eventType: "REPORT_EXPORTED",
     actorEmployeeId: input.actor.session.employeeId,
@@ -38,11 +44,14 @@ async function auditExport(input: {
     resourceType: "report",
     resourceId: input.reportType,
     summary: `Exported ${input.reportType} report`,
+    correlationId,
     metadata: {
-      reportType: input.reportType,
+      report_type: input.reportType,
       filters: input.filters ?? {},
-      rowCount: countCsvRows(input.csv),
+      row_count: countCsvRows(input.csv),
+      actor: input.actor.session.employeeId,
       timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
     },
   });
 }
@@ -114,27 +123,242 @@ export async function exportEmployeeDirectoryCsv(): Promise<string> {
   return csv;
 }
 
-export async function exportApplicationPipelineCsv(): Promise<string> {
-  const actor = await requireHrActor();
-  requirePermission(actor, "employee.read");
+export async function exportApplicationPipelineCsv(
+  filters: ReportFilters = {},
+): Promise<string> {
+  const session = await getWorkforceSession();
+  const sections = reportSectionsForWorkforce(session);
+  if (!sections.includes("recruiting")) {
+    throw new Error("Forbidden: recruiting reports are not available for this role");
+  }
 
-  const applications = await recruitingRepository.listApplicationsQueue();
-  const rows = applications.map((a) => ({
-    applicationNumber: a.applicationNumber,
-    candidateName: a.candidateName,
-    candidateEmail: a.candidateEmail,
-    jobTitle: a.jobTitle,
-    departmentName: a.departmentName,
-    locationName: a.locationName,
-    appliedAt: a.appliedAt,
-    candidateStage: candidateStageFor(a.status),
-    internalStatus: a.status,
-    recruiterName: a.recruiterName ?? "",
-    hiringManagerName: a.hiringManagerName ?? "",
-    lastActivityAt: a.lastActivityAt,
-  }));
+  const rows = await listApplicationPipelineExportRows(
+    filters,
+    recruitingScopeForWorkforce(session),
+  );
   const csv = toCsv(rows, APPLICATION_PIPELINE_COLUMNS);
-  await auditExport({ actor, reportType: "Application Pipeline", csv });
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: session.employeeId,
+    actorRole: session.roles.includes("HR")
+      ? "HR"
+      : session.roles.includes("RECRUITER")
+        ? "RECRUITER"
+        : "ADMIN",
+    resourceType: "report",
+    resourceId: "Application Pipeline",
+    summary: "Exported Application Pipeline report",
+    correlationId,
+    metadata: {
+      report_type: "Application Pipeline",
+      filters,
+      row_count: countCsvRows(csv),
+      actor: session.employeeId,
+      timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
+    },
+  });
+  return csv;
+}
+
+export async function exportHiringReportCsv(filters: ReportFilters = {}): Promise<string> {
+  const session = await getWorkforceSession();
+  if (!reportSectionsForWorkforce(session).includes("recruiting")) {
+    throw new Error("Forbidden: hiring reports are not available for this role");
+  }
+  const data = await loadReportWorkspace(
+    filters,
+    ["recruiting"],
+    recruitingScopeForWorkforce(session),
+  );
+  const recruiting = data.recruiting;
+  const rows = [
+    ...(recruiting?.hiringByMonth ?? []).map((r) => ({
+      dimension: "Month",
+      label: r.label,
+      count: r.count,
+    })),
+    ...(recruiting?.hiringByDepartment ?? []).map((r) => ({
+      dimension: "Department",
+      label: r.label,
+      count: r.count,
+    })),
+    ...(recruiting?.hiringByLocation ?? []).map((r) => ({
+      dimension: "Location",
+      label: r.label,
+      count: r.count,
+    })),
+    ...(recruiting?.hiringBySource ?? []).map((r) => ({
+      dimension: "Source",
+      label: r.label,
+      count: r.count,
+    })),
+  ];
+  if (recruiting?.timeToHireDays != null) {
+    rows.push({
+      dimension: "TimeToHireDays",
+      label: `Average (${recruiting.timeToHireSampleSize} samples)`,
+      count: recruiting.timeToHireDays,
+    });
+  }
+  const csv = toCsv(rows, HIRING_REPORT_COLUMNS);
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: session.employeeId,
+    actorRole: "HR",
+    resourceType: "report",
+    resourceId: "Hiring Report",
+    summary: "Exported Hiring Report",
+    correlationId,
+    metadata: {
+      report_type: "Hiring Report",
+      filters,
+      row_count: countCsvRows(csv),
+      actor: session.employeeId,
+      timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
+    },
+  });
+  return csv;
+}
+
+export async function exportOnboardingStatusCsv(filters: ReportFilters = {}): Promise<string> {
+  const session = await getWorkforceSession();
+  if (!reportSectionsForWorkforce(session).includes("onboarding")) {
+    throw new Error("Forbidden: onboarding reports are not available for this role");
+  }
+  const data = await loadReportWorkspace(filters, ["onboarding"]);
+  const rows = (data.onboarding?.inProgress ?? []).map((row) => ({
+    employee: row.label,
+    status: row.status ?? "",
+    completionPercent: row.percent ?? "",
+    href: row.href ?? "",
+  }));
+  const csv = toCsv(rows, ONBOARDING_STATUS_COLUMNS);
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: session.employeeId,
+    actorRole: "HR",
+    resourceType: "report",
+    resourceId: "Onboarding Status",
+    summary: "Exported Onboarding Status report",
+    correlationId,
+    metadata: {
+      report_type: "Onboarding Status",
+      filters,
+      row_count: countCsvRows(csv),
+      actor: session.employeeId,
+      timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
+    },
+  });
+  return csv;
+}
+
+export async function exportTimeApprovalStatusCsv(filters: ReportFilters = {}): Promise<string> {
+  const session = await getWorkforceSession();
+  if (!reportSectionsForWorkforce(session).includes("time-leave")) {
+    throw new Error("Forbidden: time reports are not available for this role");
+  }
+  const data = await loadReportWorkspace(filters, ["time-leave"]);
+  const rows = (data.timeLeave?.timeByStatus ?? []).map((row) => ({
+    status: row.label,
+    count: row.count,
+  }));
+  const csv = toCsv(rows, STATUS_COUNT_COLUMNS);
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: session.employeeId,
+    actorRole: "HR",
+    resourceType: "report",
+    resourceId: "Time Approval Status",
+    summary: "Exported Time Approval Status report",
+    correlationId,
+    metadata: {
+      report_type: "Time Approval Status",
+      filters,
+      row_count: countCsvRows(csv),
+      actor: session.employeeId,
+      timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
+    },
+  });
+  return csv;
+}
+
+export async function exportLeaveReportCsv(filters: ReportFilters = {}): Promise<string> {
+  const session = await getWorkforceSession();
+  if (!reportSectionsForWorkforce(session).includes("time-leave")) {
+    throw new Error("Forbidden: leave reports are not available for this role");
+  }
+  const data = await loadReportWorkspace(filters, ["time-leave"]);
+  const rows = (data.timeLeave?.leaveByStatus ?? []).map((row) => ({
+    status: row.label,
+    count: row.count,
+  }));
+  const csv = toCsv(rows, STATUS_COUNT_COLUMNS);
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: session.employeeId,
+    actorRole: "HR",
+    resourceType: "report",
+    resourceId: "Leave Report",
+    summary: "Exported Leave Report",
+    correlationId,
+    metadata: {
+      report_type: "Leave Report",
+      filters,
+      row_count: countCsvRows(csv),
+      actor: session.employeeId,
+      timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
+    },
+  });
+  return csv;
+}
+
+export async function exportHrRequestSummaryCsv(filters: ReportFilters = {}): Promise<string> {
+  const session = await getWorkforceSession();
+  if (!reportSectionsForWorkforce(session).includes("hr")) {
+    throw new Error("Forbidden: HR request reports are not available for this role");
+  }
+  const data = await loadReportWorkspace(filters, ["hr"]);
+  const rows = [
+    ...(data.hr?.byCategory ?? []).map((row) => ({
+      dimension: "Category",
+      label: row.label,
+      count: row.count,
+    })),
+    ...(data.hr?.byStatus ?? []).map((row) => ({
+      dimension: "Status",
+      label: row.label,
+      count: row.count,
+    })),
+  ];
+  const csv = toCsv(rows, HR_SUMMARY_COLUMNS);
+  const correlationId = `corr-export-${crypto.randomUUID()}`;
+  await writeAuditEvent({
+    eventType: "REPORT_EXPORTED",
+    actorEmployeeId: session.employeeId,
+    actorRole: "HR",
+    resourceType: "report",
+    resourceId: "HR Request Summary",
+    summary: "Exported HR Request Summary report",
+    correlationId,
+    metadata: {
+      report_type: "HR Request Summary",
+      filters,
+      row_count: countCsvRows(csv),
+      actor: session.employeeId,
+      timestamp: new Date().toISOString(),
+      correlation_id: correlationId,
+    },
+  });
   return csv;
 }
 
@@ -237,6 +461,30 @@ const APPLICATION_PIPELINE_COLUMNS = [
   { key: "recruiterName" as const, header: "Recruiter" },
   { key: "hiringManagerName" as const, header: "Hiring Manager" },
   { key: "lastActivityAt" as const, header: "Last Activity" },
+];
+
+const HIRING_REPORT_COLUMNS = [
+  { key: "dimension" as const, header: "Dimension" },
+  { key: "label" as const, header: "Label" },
+  { key: "count" as const, header: "Count" },
+];
+
+const ONBOARDING_STATUS_COLUMNS = [
+  { key: "employee" as const, header: "Employee" },
+  { key: "status" as const, header: "Status" },
+  { key: "completionPercent" as const, header: "Completion %" },
+  { key: "href" as const, header: "People Link" },
+];
+
+const STATUS_COUNT_COLUMNS = [
+  { key: "status" as const, header: "Status" },
+  { key: "count" as const, header: "Count" },
+];
+
+const HR_SUMMARY_COLUMNS = [
+  { key: "dimension" as const, header: "Dimension" },
+  { key: "label" as const, header: "Label" },
+  { key: "count" as const, header: "Count" },
 ];
 
 const CANDIDATE_MATCH_RESULTS_COLUMNS = [

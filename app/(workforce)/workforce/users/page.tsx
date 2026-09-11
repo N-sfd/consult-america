@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { listPlatformUsers } from "@/lib/workforce/operations";
-import { requireHrActor, requirePermission } from "@/lib/self-service/security";
+import { getWorkforceSession } from "@/lib/workforce/session";
 
 export const metadata: Metadata = { title: "Users" };
+export const dynamic = "force-dynamic";
 
 export default async function WorkforceUsersPage() {
-  const actor = await requireHrActor();
-  requirePermission(actor, "admin.manage");
+  const session = await getWorkforceSession();
+  if (!session.roles.includes("ADMIN") && !session.roles.includes("HR")) {
+    redirect("/workforce");
+  }
 
   const users = await listPlatformUsers();
 
@@ -29,13 +34,15 @@ export default async function WorkforceUsersPage() {
       <p className="mt-6 text-sm text-black/45">{users.length} platform users</p>
 
       <div className="mt-3 overflow-x-auto rounded-lg border border-black/10 bg-white">
-        <table className="w-full min-w-[700px] text-left text-sm">
+        <table className="w-full min-w-[900px] text-left text-sm">
           <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
             <tr>
               <th className="px-4 py-3 font-medium">Name</th>
               <th className="px-4 py-3 font-medium">Email</th>
               <th className="px-4 py-3 font-medium">Status</th>
               <th className="px-4 py-3 font-medium">Roles</th>
+              <th className="px-4 py-3 font-medium">Profile</th>
+              <th className="px-4 py-3 font-medium">Last activity</th>
             </tr>
           </thead>
           <tbody>
@@ -54,14 +61,41 @@ export default async function WorkforceUsersPage() {
                         {role.replaceAll("_", " ")}
                       </span>
                     ))}
-                    {user.roles.length === 0 && <span className="text-black/30">No roles</span>}
+                    {user.roles.length === 0 && (
+                      <span className="text-black/30">No roles</span>
+                    )}
                   </div>
+                </td>
+                <td className="px-4 py-3 text-xs text-black/60">
+                  {user.employeeId ? (
+                    <Link
+                      href={`/workforce/people/${user.employeeId}`}
+                      className="font-medium text-[var(--ca-platform-mid)] hover:underline"
+                    >
+                      Employee
+                    </Link>
+                  ) : null}
+                  {user.employeeId && user.candidateId ? " · " : null}
+                  {user.candidateId ? (
+                    <Link
+                      href={`/app/recruiting/candidates/${user.candidateId}`}
+                      className="font-medium text-[var(--ca-platform-mid)] hover:underline"
+                    >
+                      Candidate
+                    </Link>
+                  ) : null}
+                  {!user.employeeId && !user.candidateId ? "—" : null}
+                </td>
+                <td className="px-4 py-3 text-xs text-black/45">
+                  {user.lastActivityAt
+                    ? user.lastActivityAt.slice(0, 19).replace("T", " ")
+                    : "—"}
                 </td>
               </tr>
             ))}
             {users.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-black/50">
+                <td colSpan={6} className="px-4 py-8 text-center text-black/50">
                   No platform users found.
                 </td>
               </tr>

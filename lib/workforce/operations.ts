@@ -508,7 +508,11 @@ export type AuditTimelineEntry = {
   eventType: string;
   summary: string;
   actorRole?: string;
+  actorEmployeeId?: string;
+  resourceType?: string;
+  resourceId?: string;
   correlationId?: string;
+  metadata?: Record<string, unknown>;
   occurredAt: string;
 };
 
@@ -528,12 +532,14 @@ export async function listAuditTimeline(limit = 100): Promise<AuditTimelineEntry
     listAuditEvents(limit),
     client
       .from("workforce_audit_events")
-      .select("id, event_type, summary, correlation_id, created_at")
+      .select("id, event_type, summary, actor_employee_id, entity_type, entity_id, correlation_id, created_at")
       .order("created_at", { ascending: false })
       .limit(limit),
     client
       .from("recruiting_activities")
-      .select("id, activity_type, summary, correlation_id, created_at")
+      .select(
+        "id, activity_type, summary, correlation_id, candidate_id, application_id, requisition_id, created_by_user_id, created_at",
+      )
       .order("created_at", { ascending: false })
       .limit(limit),
   ]);
@@ -548,7 +554,11 @@ export async function listAuditTimeline(limit = 100): Promise<AuditTimelineEntry
       eventType: row.eventType,
       summary: row.summary,
       actorRole: row.actorRole,
+      actorEmployeeId: row.actorEmployeeId,
+      resourceType: row.resourceType,
+      resourceId: row.resourceId,
       correlationId: row.correlationId,
+      metadata: row.metadata,
       occurredAt: row.createdAt,
     })),
     ...(workforceEvents.data ?? []).map((row) => ({
@@ -556,17 +566,36 @@ export async function listAuditTimeline(limit = 100): Promise<AuditTimelineEntry
       source: "workforce_audit_events" as const,
       eventType: row.event_type as string,
       summary: row.summary as string,
+      actorEmployeeId: (row.actor_employee_id as string) ?? undefined,
+      resourceType: (row.entity_type as string) ?? undefined,
+      resourceId: (row.entity_id as string) ?? undefined,
       correlationId: (row.correlation_id as string) ?? undefined,
       occurredAt: row.created_at as string,
     })),
-    ...(recruitingEvents.data ?? []).map((row) => ({
-      id: row.id as string,
-      source: "recruiting_activities" as const,
-      eventType: row.activity_type as string,
-      summary: row.summary as string,
-      correlationId: (row.correlation_id as string) ?? undefined,
-      occurredAt: row.created_at as string,
-    })),
+    ...(recruitingEvents.data ?? []).map((row) => {
+      const resourceType = row.application_id
+        ? "application"
+        : row.candidate_id
+          ? "candidate"
+          : row.requisition_id
+            ? "requisition"
+            : undefined;
+      const resourceId =
+        (row.application_id as string) ??
+        (row.candidate_id as string) ??
+        (row.requisition_id as string) ??
+        undefined;
+      return {
+        id: row.id as string,
+        source: "recruiting_activities" as const,
+        eventType: row.activity_type as string,
+        summary: row.summary as string,
+        resourceType,
+        resourceId,
+        correlationId: (row.correlation_id as string) ?? undefined,
+        occurredAt: row.created_at as string,
+      };
+    }),
   ];
 
   return merged
@@ -808,6 +837,9 @@ export type PlatformUserRow = {
   displayName: string;
   status: string;
   roles: string[];
+  employeeId?: string;
+  candidateId?: string;
+  lastActivityAt?: string;
 };
 
 /** Read-only platform user/role listing — no grant/revoke path exists yet. */
@@ -815,11 +847,17 @@ export async function listPlatformUsers(): Promise<PlatformUserRow[]> {
   const client = getSupabaseServiceClient();
   if (!client) return [];
 
-  const [{ data: profiles, error: profilesError }, { data: roleRows, error: rolesError }] =
-    await Promise.all([
-      client.from("profiles").select("id, email, display_name, status").order("display_name"),
-      client.from("user_roles").select("user_id, role"),
-    ]);
+  const [
+    { data: profiles, error: profilesError },
+    { data: roleRows, error: rolesError },
+    { data: employees },
+    { data: candidates },
+  ] = await Promise.all([
+    client.from("profiles").select("id, email, display_name, status, updated_at").order("display_name"),
+    client.from("user_roles").select("user_id, role"),
+    client.from("employee_profiles").select("id, user_id"),
+    client.from("candidate_profiles").select("id, profile_id"),
+  ]);
   if (profilesError) throw new Error(profilesError.message);
   if (rolesError) throw new Error(rolesError.message);
 
@@ -830,11 +868,25 @@ export async function listPlatformUsers(): Promise<PlatformUserRow[]> {
     rolesByUser.get(userId)!.push(row.role as string);
   }
 
+  const employeeByProfile = new Map(
+    (employees ?? [])
+      .filter((row) => row.user_id)
+      .map((row) => [row.user_id as string, row.id as string]),
+  );
+  const candidateByProfile = new Map(
+    (candidates ?? [])
+      .filter((row) => row.profile_id)
+      .map((row) => [row.profile_id as string, row.id as string]),
+  );
+
   return (profiles ?? []).map((row) => ({
     id: row.id as string,
     email: row.email as string,
     displayName: row.display_name as string,
     status: row.status as string,
     roles: rolesByUser.get(row.id as string) ?? [],
+    employeeId: employeeByProfile.get(row.id as string),
+    candidateId: candidateByProfile.get(row.id as string),
+    lastActivityAt: (row.updated_at as string) ?? undefined,
   }));
 }

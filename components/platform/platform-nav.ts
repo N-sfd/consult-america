@@ -204,12 +204,19 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
       label: "Operations",
       items: [
         { href: "/workforce/payroll", label: "Payroll" },
-        { href: "/hr/reports", label: "Reports" },
+        { href: "/workforce/reports", label: "Reports" },
       ],
     },
     {
       label: "Administration",
-      items: [{ href: "/workforce/settings", label: "Settings" }],
+      items: [
+        { href: "/workforce/administration", label: "Administration" },
+        { href: "/workforce/users", label: "Users" },
+        { href: "/workforce/notifications", label: "Notifications" },
+        { href: "/workforce/audit", label: "Audit" },
+        { href: "/workforce/system-health", label: "System Health" },
+        { href: "/workforce/settings", label: "Settings" },
+      ],
     },
   ],
   candidate: [

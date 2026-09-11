@@ -4,12 +4,79 @@
  */
 import pg from "pg";
 
+import { reportSectionsForWorkforce } from "../lib/reports/access";
+import type { WorkforceSession } from "../lib/workforce/session";
+
 let failed = 0;
 
 function check(ok: boolean, message: string) {
   if (!ok) failed += 1;
   console.log(ok ? `PASS  ${message}` : `FAIL  ${message}`);
 }
+
+function testReportSectionAccess() {
+  const base: Omit<WorkforceSession, "roles"> = {
+    employeeId: "emp-1",
+    displayName: "Test",
+    workEmail: "t@example.com",
+    initials: "T",
+  };
+  check(
+    reportSectionsForWorkforce({ ...base, roles: ["RECRUITER"] }).join(",") === "recruiting",
+    "recruiter sees recruiting reports only",
+  );
+  check(
+    reportSectionsForWorkforce({ ...base, roles: ["HR"] }).includes("hr"),
+    "HR sees HR service desk reports",
+  );
+  check(
+    !reportSectionsForWorkforce({ ...base, roles: ["HIRING_MANAGER"] }).includes("hr"),
+    "hiring manager does not see HR service desk reports",
+  );
+  check(
+    reportSectionsForWorkforce({ ...base, roles: ["ADMIN"] }).includes("workforce"),
+    "admin sees workforce reports",
+  );
+  check(
+    reportSectionsForWorkforce({ ...base, roles: [] }).length === 0,
+    "employee/candidate-equivalent session gets no workforce reports",
+  );
+}
+
+async function testExportSurfacesExist() {
+  const fs = await import("node:fs/promises");
+  const path = await import("node:path");
+  const root = path.resolve(import.meta.dirname, "..");
+  for (const rel of [
+    "app/api/exports/application-pipeline/route.ts",
+    "app/api/exports/hiring-report/route.ts",
+    "app/api/exports/onboarding-status/route.ts",
+    "app/api/exports/time-approval-status/route.ts",
+    "app/api/exports/leave-report/route.ts",
+    "app/api/exports/hr-request-summary/route.ts",
+    "components/workforce/reports/report-widgets.tsx",
+  ]) {
+    const full = path.join(root, rel);
+    const exists = await fs
+      .access(full)
+      .then(() => true)
+      .catch(() => false);
+    check(exists, `${rel} exists`);
+  }
+  const widgets = await fs.readFile(
+    path.join(root, "components/workforce/reports/report-widgets.tsx"),
+    "utf8",
+  );
+  check(
+    widgets.includes("No data available for this period."),
+    "report empty state uses required copy",
+  );
+  const exportsLib = await fs.readFile(path.join(root, "lib/exports/index.ts"), "utf8");
+  check(exportsLib.includes("REPORT_EXPORTED"), "CSV exports write REPORT_EXPORTED audit");
+  check(exportsLib.includes("correlation_id"), "export audit metadata includes correlation_id");
+  check(exportsLib.includes("row_count"), "export audit metadata includes row_count");
+}
+
 
 async function loadOrg(client: pg.Client) {
   const { rows } = await client.query(`
@@ -67,6 +134,9 @@ function totalRows(result: { rows: Array<Record<string, unknown>> }) {
 }
 
 async function main() {
+  testReportSectionAccess();
+  await testExportSurfacesExist();
+
   const databaseUrl = process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
   if (!databaseUrl) throw new Error("Missing DATABASE_URL");
 

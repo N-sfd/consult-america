@@ -78,7 +78,9 @@ export type ApplicationQueueItem = {
   locationName: string;
   appliedAt: string;
   status: ApplicationStatus;
+  recruiterUserId?: string;
   recruiterName?: string;
+  hiringManagerUserId?: string;
   hiringManagerName?: string;
   lastActivityAt: string;
   skills?: string[];
