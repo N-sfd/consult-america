@@ -148,7 +148,7 @@ export async function runCandidateMatch(
         if (client) {
           await client.from("jd_analysis").insert({
             id: `jda-${crypto.randomUUID()}`,
-            job_id: null,
+            job_id: requisitionId ?? null,
             candidate_id: candidateId,
             resume_document_id: resumeDoc?.id ?? null,
             analysis_json: { ...result, runId, requisitionId, jobTitle },

@@ -12,14 +12,21 @@ import { candidateStageFor, CANDIDATE_STAGES, type CandidateStage } from "@/lib/
 import type { ApplicationQueueItem } from "@/lib/recruiting/repository";
 import { APPLICATION_PIPELINE, applicationStatusLabels, type ApplicationStatus } from "@/types/recruiting";
 
-type SortKey = "newest" | "oldest" | "lastActivity" | "name";
+type SortKey = "newest" | "oldest" | "lastActivity" | "name" | "match";
 
 const SORT_LABELS: Record<SortKey, string> = {
   newest: "Newest",
   oldest: "Oldest",
   lastActivity: "Last Activity",
   name: "Candidate Name",
+  match: "Match Score",
 };
+
+function matchTone(score: number) {
+  if (score >= 70) return "text-emerald-700 bg-emerald-50 border-emerald-200";
+  if (score >= 40) return "text-amber-700 bg-amber-50 border-amber-200";
+  return "text-red-700 bg-red-50 border-red-200";
+}
 
 function formatDate(value?: string) {
   if (!value) return "—";
@@ -32,8 +39,10 @@ function formatDate(value?: string) {
 
 export default function ApplicationsTable({
   applications,
+  matchScoreByApplicationId = {},
 }: {
   applications: ApplicationQueueItem[];
+  matchScoreByApplicationId?: Record<string, number>;
 }) {
   const [query, setQuery] = useState("");
   const [stageFilter, setStageFilter] = useState<CandidateStage | "ALL">("ALL");
@@ -121,11 +130,18 @@ export default function ApplicationsTable({
       case "name":
         copy.sort((a, b) => a.candidateName.localeCompare(b.candidateName));
         break;
+      case "match":
+        copy.sort(
+          (a, b) =>
+            (matchScoreByApplicationId[b.applicationId] ?? -1) -
+            (matchScoreByApplicationId[a.applicationId] ?? -1),
+        );
+        break;
       default:
         copy.sort((a, b) => new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime());
     }
     return copy;
-  }, [filtered, sortKey]);
+  }, [filtered, sortKey, matchScoreByApplicationId]);
 
   return (
     <div className="mx-auto max-w-[1400px] px-4 py-5 lg:px-8 lg:py-6">
@@ -291,6 +307,7 @@ export default function ApplicationsTable({
                 <th className="px-4 py-2.5 font-medium">Candidate</th>
                 <th className="px-4 py-2.5 font-medium">Position</th>
                 <th className="px-4 py-2.5 font-medium">Applied</th>
+                <th className="px-4 py-2.5 font-medium">Match</th>
                 <th className="px-4 py-2.5 font-medium">Candidate Stage</th>
                 <th className="px-4 py-2.5 font-medium">Internal Status</th>
                 <th className="px-4 py-2.5 font-medium">Recruiter</th>
@@ -301,7 +318,11 @@ export default function ApplicationsTable({
             </thead>
             <tbody>
               {sorted.map((app) => (
-                <ApplicationRow key={app.applicationId} app={app} />
+                <ApplicationRow
+                  key={app.applicationId}
+                  app={app}
+                  matchScore={matchScoreByApplicationId[app.applicationId]}
+                />
               ))}
             </tbody>
           </table>
@@ -311,7 +332,13 @@ export default function ApplicationsTable({
   );
 }
 
-function ApplicationRow({ app }: { app: ApplicationQueueItem }) {
+function ApplicationRow({
+  app,
+  matchScore,
+}: {
+  app: ApplicationQueueItem;
+  matchScore?: number;
+}) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -345,6 +372,17 @@ function ApplicationRow({ app }: { app: ApplicationQueueItem }) {
         <p className="text-xs text-black/40">{app.departmentName} · {app.locationName}</p>
       </td>
       <td className="px-4 py-3 text-black/70">{formatDate(app.appliedAt)}</td>
+      <td className="px-4 py-3">
+        {matchScore !== undefined ? (
+          <span
+            className={`inline-flex items-center rounded-sm border px-2 py-0.5 text-xs font-semibold ${matchTone(matchScore)}`}
+          >
+            {Math.round(matchScore)}%
+          </span>
+        ) : (
+          <span className="text-xs text-black/35">—</span>
+        )}
+      </td>
       <td className="px-4 py-3">
         <span className="inline-flex items-center rounded-sm bg-black/[0.06] px-2 py-0.5 text-xs font-medium text-black/60">
           {candidateStageFor(app.status)}

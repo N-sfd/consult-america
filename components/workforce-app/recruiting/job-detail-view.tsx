@@ -21,7 +21,14 @@ export type Applicant = {
   application: Application;
   candidateName: string;
   candidateEmail: string;
+  matchScore?: number;
 };
+
+function matchTone(score: number) {
+  if (score >= 70) return "text-emerald-700 bg-emerald-50 border-emerald-200";
+  if (score >= 40) return "text-amber-700 bg-amber-50 border-amber-200";
+  return "text-red-700 bg-red-50 border-red-200";
+}
 
 export default function JobDetailView({
   detail,
@@ -79,6 +86,12 @@ export default function JobDetailView({
               Preview Public Job
             </a>
           )}
+          <Link
+            href={`/app/recruiting/job-match?requisitionId=${requisition.id}`}
+            className="border border-black/10 px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
+          >
+            Run Candidate Match
+          </Link>
           <Link
             href={`/app/recruiting/jobs/${requisition.id}/pipeline`}
             className="bg-[var(--ca-blue)] px-3 py-1.5 text-sm font-medium text-white hover:bg-[var(--ca-blue-hover)]"
@@ -170,7 +183,7 @@ export default function JobDetailView({
               <Link
                 key={applicant.application.id}
                 href={`/app/recruiting/candidates/${applicant.application.candidateId}`}
-                className="grid grid-cols-[2fr_1fr_1fr_1fr] items-center gap-3 border-b border-black/6 py-3 text-sm last:border-0 hover:bg-[var(--ca-app-bg)]"
+                className="grid grid-cols-[2fr_auto_1fr_1fr_1fr] items-center gap-3 border-b border-black/6 py-3 text-sm last:border-0 hover:bg-[var(--ca-app-bg)]"
               >
                 <span className="flex items-center gap-3">
                   <CandidateAvatar name={applicant.candidateName} />
@@ -183,6 +196,18 @@ export default function JobDetailView({
                     </span>
                   </span>
                 </span>
+                {applicant.matchScore !== undefined ? (
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-sm border px-2 py-0.5 text-xs font-semibold",
+                      matchTone(applicant.matchScore),
+                    )}
+                  >
+                    {Math.round(applicant.matchScore)}% match
+                  </span>
+                ) : (
+                  <span className="text-xs text-black/35">Not scored</span>
+                )}
                 <StageBadge stage={applicant.application.status} />
                 <span className="text-black/45">
                   {applicant.application.applicationNumber}

@@ -26,6 +26,7 @@ import type {
   RecruitingJobReads,
   RecruitingJobWrites,
   RecruitingCandidateSelfWrites,
+  RecruitingMatchScoreReads,
   RecruitingOfferWrites,
   RecruitingPipelineWrites,
   RecruitingRepository,
@@ -67,7 +68,8 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
   RecruitingApplicationWrites &
   RecruitingPipelineWrites &
   RecruitingOfferWrites &
-  RecruitingApplicationQueueReads {
+  RecruitingApplicationQueueReads &
+  RecruitingMatchScoreReads {
   const postings = [...seedPostings];
   const requisitions = [...seedRequisitions];
   const candidates: CandidateProfile[] = [...seedCandidates];
@@ -118,6 +120,13 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       return candidates.find(
         (candidate) => candidate.email.toLowerCase() === normalized,
       );
+    },
+
+    async listLatestMatchScoresForPairs() {
+      // Candidate Match results are only persisted to Supabase (jd_analysis);
+      // the in-memory/demo repository never writes them, so there is nothing
+      // to read back here.
+      return [];
     },
 
     async listApplicationsByRequisition(requisitionId: string) {
@@ -703,7 +712,8 @@ export const recruitingRepository: RecruitingRepository &
   RecruitingApplicationWrites &
   RecruitingPipelineWrites &
   RecruitingOfferWrites &
-  RecruitingApplicationQueueReads = isSupabaseConfigured()
+  RecruitingApplicationQueueReads &
+  RecruitingMatchScoreReads = isSupabaseConfigured()
   ? createSupabaseRecruitingRepository()
   : createMemoryRecruitingRepository();
 

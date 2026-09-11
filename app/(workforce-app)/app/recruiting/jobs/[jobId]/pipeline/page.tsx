@@ -42,6 +42,14 @@ export default async function RecruitingJobPipelinePage({
     applications.map((application, index) => [application.id, offers[index]]),
   );
 
+  const scores = await recruitingRepository.listLatestMatchScoresForPairs(
+    applications.map((application) => ({
+      candidateId: application.candidateId,
+      requisitionId: jobId,
+    })),
+  );
+  const matchScoreByCandidateId = new Map(scores.map((s) => [s.candidateId, s.score]));
+
   const cards = applications.map((application) => ({
     applicationId: application.id,
     candidateId: application.candidateId,
@@ -49,6 +57,7 @@ export default async function RecruitingJobPipelinePage({
     status: application.status,
     appliedAt: application.appliedAt,
     offer: offerByApplicationId.get(application.id),
+    matchScore: matchScoreByCandidateId.get(application.candidateId),
   }));
 
   const initialFocusStage =

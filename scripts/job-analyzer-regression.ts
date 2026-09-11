@@ -2,7 +2,7 @@
  * Job analyzer regression — explainable scoring, safety invariants.
  * Usage: npx tsx --env-file=.env.local scripts/job-analyzer-regression.ts
  */
-import { access } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { analyzeJobMatch } from "../lib/recruiting/candidate-match";
@@ -23,11 +23,51 @@ async function exists(rel: string) {
   }
 }
 
+async function includes(rel: string, needle: string) {
+  try {
+    const text = await readFile(path.resolve(import.meta.dirname, "..", rel), "utf8");
+    return text.includes(needle);
+  } catch {
+    return false;
+  }
+}
+
 async function main() {
   check(await exists("app/(workforce-app)/app/recruiting/job-match/page.tsx"), "job-match page exists");
   check(
     await exists("components/workforce-app/recruiting/candidate-match-form.tsx"),
     "candidate match form exists",
+  );
+
+  // Candidate Match must stay wired into the ATS pipeline, not just reachable
+  // as a standalone tool — these guard the read-side consumers of jd_analysis.
+  check(
+    await includes(
+      "app/(workforce-app)/app/recruiting/applications/[applicationId]/page.tsx",
+      "listLatestMatchScoresForPairs",
+    ),
+    "application workspace reads Candidate Match scores",
+  );
+  check(
+    await includes(
+      "components/workforce-app/recruiting/applications-table.tsx",
+      "matchScoreByApplicationId",
+    ),
+    "applications queue surfaces a Match column",
+  );
+  check(
+    await includes(
+      "components/workforce-app/recruiting/job-detail-view.tsx",
+      "matchScore",
+    ),
+    "job detail candidates tab surfaces match scores",
+  );
+  check(
+    await includes(
+      "components/workforce-app/recruiting/pipeline-board.tsx",
+      "Run Candidate Match",
+    ),
+    "pipeline board links back into Candidate Match",
   );
 
   const jd = `

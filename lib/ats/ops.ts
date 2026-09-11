@@ -57,6 +57,16 @@ export type AtsRecentApplication = {
   appliedAt: string;
 };
 
+export type AtsRecentMatchRun = {
+  id: string;
+  candidateId: string;
+  candidateName: string;
+  requisitionId?: string;
+  jobTitle: string;
+  score: number;
+  createdAt: string;
+};
+
 function startOfMonthIso() {
   const now = new Date();
   return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
@@ -87,9 +97,10 @@ export async function loadAtsDashboard() {
   let upcomingInterviews: AtsInterviewRow[] = [];
   let offersRequiringAction: AtsOfferRow[] = [];
   let recentHires: AtsRecentApplication[] = [];
+  let recentMatchRuns: AtsRecentMatchRun[] = [];
 
   if (client) {
-    const [{ data: interviewRows }, { data: offerRows }] = await Promise.all([
+    const [{ data: interviewRows }, { data: offerRows }, { data: matchRows }] = await Promise.all([
       client
         .from("interviews")
         .select(
@@ -104,6 +115,11 @@ export async function loadAtsDashboard() {
         )
         .order("created_at", { ascending: false })
         .limit(200),
+      client
+        .from("jd_analysis")
+        .select("id, candidate_id, job_id, match_score, created_at")
+        .order("created_at", { ascending: false })
+        .limit(8),
     ]);
 
     interviewsScheduled = (interviewRows ?? []).filter(
@@ -114,6 +130,23 @@ export async function loadAtsDashboard() {
     ).length;
 
     const appById = new Map(applications.map((a) => [a.applicationId, a]));
+    const candidateNameById = new Map(applications.map((a) => [a.candidateId, a.candidateName]));
+    const jobTitleByRequisitionId = new Map(jobs.map((j) => [j.requisitionId, j.title]));
+
+    recentMatchRuns = (matchRows ?? [])
+      .filter((row) => row.match_score !== null)
+      .map((row) => {
+        const requisitionId = (row.job_id as string) || undefined;
+        return {
+          id: row.id as string,
+          candidateId: row.candidate_id as string,
+          candidateName: candidateNameById.get(row.candidate_id as string) ?? "Candidate",
+          requisitionId,
+          jobTitle: (requisitionId && jobTitleByRequisitionId.get(requisitionId)) || "Ad-hoc job description",
+          score: Number(row.match_score ?? 0),
+          createdAt: row.created_at as string,
+        };
+      });
 
     upcomingInterviews = (interviewRows ?? [])
       .filter((row) => (row.status as string) === "SCHEDULED")
@@ -218,6 +251,7 @@ export async function loadAtsDashboard() {
     recentApplications,
     offersRequiringAction,
     recentHires,
+    recentMatchRuns,
   };
 }
 

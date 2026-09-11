@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 import {
@@ -55,9 +55,20 @@ function MatchGauge({ score }: { score: number }) {
   );
 }
 
-export default function CandidateMatchForm({ jobs }: { jobs: JobOption[] }) {
-  const [mode, setMode] = useState<InputMode>(jobs.length > 0 ? "existing" : "paste");
-  const [requisitionId, setRequisitionId] = useState(jobs[0]?.requisitionId ?? "");
+export default function CandidateMatchForm({
+  jobs,
+  initialRequisitionId,
+}: {
+  jobs: JobOption[];
+  initialRequisitionId?: string;
+}) {
+  const hasInitialJob = Boolean(
+    initialRequisitionId && jobs.some((job) => job.requisitionId === initialRequisitionId),
+  );
+  const [mode, setMode] = useState<InputMode>(hasInitialJob || jobs.length > 0 ? "existing" : "paste");
+  const [requisitionId, setRequisitionId] = useState(
+    hasInitialJob ? initialRequisitionId! : (jobs[0]?.requisitionId ?? ""),
+  );
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [fileName, setFileName] = useState<string | null>(null);
@@ -112,6 +123,15 @@ export default function CandidateMatchForm({ jobs }: { jobs: JobOption[] }) {
     }
     setResults({ jobTitle: result.jobTitle, runId: result.runId, candidates: result.candidates });
   }
+
+  const autoRan = useRef(false);
+  useEffect(() => {
+    if (autoRan.current || !hasInitialJob) return;
+    autoRan.current = true;
+    handleAnalyze();
+    // Only run once on mount for a deep-linked requisitionId.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sortedCandidates = useMemo(() => {
     if (!results) return [];

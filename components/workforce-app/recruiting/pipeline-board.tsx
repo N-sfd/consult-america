@@ -25,7 +25,14 @@ export type PipelineCard = {
   status: ApplicationStatus;
   appliedAt: string;
   offer?: Offer;
+  matchScore?: number;
 };
+
+function matchTone(score: number) {
+  if (score >= 70) return "text-emerald-700 bg-emerald-50 border-emerald-200";
+  if (score >= 40) return "text-amber-700 bg-amber-50 border-amber-200";
+  return "text-red-700 bg-red-50 border-red-200";
+}
 
 export default function PipelineBoard({
   requisitionId,
@@ -98,19 +105,27 @@ export default function PipelineBoard({
         <h1 className="text-[1.5rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
           Pipeline
         </h1>
-        {focusStage ? (
-          <button
-            type="button"
-            onClick={() => setFocusStage(null)}
-            className="text-sm text-[var(--ca-blue)] hover:underline"
+        <div className="flex flex-wrap items-center gap-4">
+          {focusStage ? (
+            <button
+              type="button"
+              onClick={() => setFocusStage(null)}
+              className="text-sm text-[var(--ca-blue)] hover:underline"
+            >
+              Show all stages
+            </button>
+          ) : (
+            <p className="text-sm text-black/45">
+              Click a stage header to filter
+            </p>
+          )}
+          <Link
+            href={`/app/recruiting/job-match?requisitionId=${requisitionId}`}
+            className="text-sm font-semibold text-[var(--ca-blue)] hover:underline"
           >
-            Show all stages
-          </button>
-        ) : (
-          <p className="text-sm text-black/45">
-            Click a stage header to filter
-          </p>
-        )}
+            Run Candidate Match
+          </Link>
+        </div>
       </div>
 
       <div className="mt-5 overflow-x-auto">
@@ -154,6 +169,13 @@ export default function PipelineBoard({
                         >
                           {item.candidateName}
                         </Link>
+                        {item.matchScore !== undefined ? (
+                          <span
+                            className={`shrink-0 rounded-sm border px-1.5 py-0.5 text-[0.65rem] font-semibold ${matchTone(item.matchScore)}`}
+                          >
+                            {Math.round(item.matchScore)}%
+                          </span>
+                        ) : null}
                       </div>
                       <p className="mt-1.5 text-xs text-black/45">
                         Applied {formatDate(item.appliedAt)}

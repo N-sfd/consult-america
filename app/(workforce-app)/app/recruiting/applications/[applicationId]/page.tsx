@@ -75,6 +75,15 @@ export default async function ApplicationDetailPage({
     (detail
       ? `${detail.candidate.firstName} ${detail.candidate.lastName}`
       : "Candidate");
+  const requisitionId = queueItem?.requisitionId ?? application?.requisitionId;
+
+  const matchScores =
+    candidateId && requisitionId
+      ? await recruitingRepository.listLatestMatchScoresForPairs([
+          { candidateId, requisitionId },
+        ])
+      : [];
+  const matchScore = matchScores[0];
 
   return (
     <div className="mx-auto max-w-[1200px] space-y-6 px-4 py-6 lg:px-8">
@@ -101,9 +110,9 @@ export default async function ApplicationDetailPage({
               Candidate
             </Link>
           ) : null}
-          {queueItem?.requisitionId || application?.requisitionId ? (
+          {requisitionId ? (
             <Link
-              href={`/app/recruiting/jobs/${queueItem?.requisitionId ?? application?.requisitionId}/pipeline`}
+              href={`/app/recruiting/jobs/${requisitionId}/pipeline`}
               className="rounded-md border border-black/15 px-3 py-1.5 font-medium text-black/70 hover:bg-black/[0.03]"
             >
               Job pipeline
@@ -119,7 +128,7 @@ export default async function ApplicationDetailPage({
         <div className="mt-3">
           <ApplicationQuickActions
             applicationId={applicationId}
-            requisitionId={queueItem?.requisitionId ?? application?.requisitionId}
+            requisitionId={requisitionId}
             currentStatus={status}
           />
         </div>
@@ -127,6 +136,75 @@ export default async function ApplicationDetailPage({
           Only transitions allowed by the application status machine are shown.
           Hire conversion still requires an accepted offer where applicable.
         </p>
+      </section>
+
+      <section className="rounded-lg border border-black/10 bg-white p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-serif text-lg font-semibold">Candidate Match</h2>
+          {requisitionId ? (
+            <Link
+              href={`/app/recruiting/job-match?requisitionId=${requisitionId}`}
+              className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+            >
+              {matchScore ? "Re-run analysis" : "Run Candidate Match"}
+            </Link>
+          ) : null}
+        </div>
+        {matchScore ? (
+          <div className="mt-3">
+            <div className="flex flex-wrap items-baseline gap-2">
+              <span className="text-2xl font-semibold tracking-[-0.03em]">
+                {Math.round(matchScore.score)}%
+              </span>
+              <span className="text-sm text-black/55">
+                {matchScore.score >= 70
+                  ? "Strong alignment"
+                  : matchScore.score >= 40
+                    ? "Moderate alignment"
+                    : "Limited alignment"}
+              </span>
+              <span className="text-xs text-black/40">
+                · as of {formatDay(matchScore.createdAt)}
+              </span>
+            </div>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-black/40">
+                  Matching skills
+                </p>
+                <p className="mt-1 text-sm text-black/70">
+                  {matchScore.matchedSkills.join(", ") || "None found"}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-black/40">
+                  Potential gaps
+                </p>
+                <p className="mt-1 text-sm text-black/70">
+                  {matchScore.missingSkills.join(", ") || "None identified"}
+                </p>
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-black/40">
+              AI-assisted relevance analysis · decision support only — human review
+              still decides every stage move.
+            </p>
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-black/45">
+            This application hasn&apos;t been scored yet.{" "}
+            {requisitionId ? (
+              <Link
+                href={`/app/recruiting/job-match?requisitionId=${requisitionId}`}
+                className="text-[var(--ca-platform-mid)] hover:underline"
+              >
+                Run Candidate Match for this role
+              </Link>
+            ) : (
+              "Assign a requisition to enable analysis."
+            )}
+          </p>
+        )}
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">

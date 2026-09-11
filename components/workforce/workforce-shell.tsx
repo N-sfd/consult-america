@@ -14,10 +14,10 @@ const LEGACY_WORKFORCE_NAV: PlatformNavGroup[] = [
       { href: "/app/recruiting", label: "ATS Home" },
       { href: "/workforce/jobs", label: "Jobs" },
       { href: "/app/recruiting/applications", label: "Applications" },
+      { href: "/app/recruiting/job-match", label: "Candidate Match" },
       { href: "/workforce/candidates", label: "Candidates" },
       { href: "/app/recruiting/interviews", label: "Interviews" },
       { href: "/app/recruiting/offers", label: "Offers" },
-      { href: "/app/recruiting/job-match", label: "Job Analyzer" },
     ],
   },
   {

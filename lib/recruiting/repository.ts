@@ -90,6 +90,28 @@ export type RecruitingApplicationQueueReads = {
   listApplicationsQueue(): Promise<ApplicationQueueItem[]>;
 };
 
+/** Latest Candidate Match (Job Analyzer) result for one candidate/job pair. */
+export type CandidateMatchScoreSummary = {
+  candidateId: string;
+  requisitionId: string;
+  score: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+  createdAt: string;
+};
+
+export type RecruitingMatchScoreReads = {
+  /**
+   * Returns the most recent jd_analysis row for each requested
+   * candidate/requisition pair (omitted where no analysis has been run).
+   * Callers pass the same requisitionId for every pair when they want all
+   * scores for one job (job pipeline, job detail candidates tab).
+   */
+  listLatestMatchScoresForPairs(
+    pairs: { candidateId: string; requisitionId: string }[],
+  ): Promise<CandidateMatchScoreSummary[]>;
+};
+
 export type CandidateApplicationSummary = {
   applicationId: string;
   applicationNumber: string;

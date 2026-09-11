@@ -5,6 +5,7 @@ import type {
   ApplicationQueueItem,
   CandidateApplicationSummary,
   CandidateInterviewSummary,
+  CandidateMatchScoreSummary,
   CandidateProfileDetail,
   CandidateListItem,
   CreateJobRequisitionInput,
@@ -17,6 +18,7 @@ import type {
   RecruitingDashboardReads,
   RecruitingJobReads,
   RecruitingJobWrites,
+  RecruitingMatchScoreReads,
   RecruitingOfferWrites,
   RecruitingPipelineWrites,
   RecruitingRepository,
@@ -274,7 +276,8 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
   RecruitingApplicationWrites &
   RecruitingPipelineWrites &
   RecruitingOfferWrites &
-  RecruitingApplicationQueueReads {
+  RecruitingApplicationQueueReads &
+  RecruitingMatchScoreReads {
   return {
     async listPublishedPostings() {
       const client = getSupabaseServiceClient();
@@ -327,6 +330,40 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         .maybeSingle();
 
       return data ? mapCandidate(data) : undefined;
+    },
+
+    async listLatestMatchScoresForPairs(pairs) {
+      const client = getSupabaseServiceClient();
+      if (!client || pairs.length === 0) return [];
+
+      const requisitionIds = [...new Set(pairs.map((p) => p.requisitionId))];
+      const candidateIds = [...new Set(pairs.map((p) => p.candidateId))];
+      const wanted = new Set(pairs.map((p) => `${p.candidateId}:${p.requisitionId}`));
+
+      const { data } = await client
+        .from("jd_analysis")
+        .select("candidate_id, job_id, match_score, matched_skills, missing_skills, created_at")
+        .in("job_id", requisitionIds)
+        .in("candidate_id", candidateIds)
+        .order("created_at", { ascending: false });
+
+      const latest = new Map<string, CandidateMatchScoreSummary>();
+      for (const row of data ?? []) {
+        const candidateId = row.candidate_id as string;
+        const requisitionId = row.job_id as string | null;
+        if (!requisitionId) continue;
+        const key = `${candidateId}:${requisitionId}`;
+        if (!wanted.has(key) || latest.has(key)) continue;
+        latest.set(key, {
+          candidateId,
+          requisitionId,
+          score: Number(row.match_score ?? 0),
+          matchedSkills: Array.isArray(row.matched_skills) ? (row.matched_skills as string[]) : [],
+          missingSkills: Array.isArray(row.missing_skills) ? (row.missing_skills as string[]) : [],
+          createdAt: row.created_at as string,
+        });
+      }
+      return [...latest.values()];
     },
 
     async listApplicationsByRequisition(requisitionId: string) {

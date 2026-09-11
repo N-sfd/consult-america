@@ -5,8 +5,13 @@ import CandidateMatchForm from "@/components/workforce-app/recruiting/candidate-
 
 export const metadata: Metadata = { title: "Candidate Match" };
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ requisitionId?: string }>;
+}) {
   const jobs = await recruitingRepository.listJobSummaries();
+  const { requisitionId } = await searchParams;
 
   return (
     <div className="mx-auto max-w-[1100px] px-4 py-5 lg:px-8 lg:py-6">
@@ -27,6 +32,7 @@ export default async function Page() {
             departmentName: job.departmentName,
             locationName: job.locationName,
           }))}
+        initialRequisitionId={requisitionId}
       />
     </div>
   );

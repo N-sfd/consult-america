@@ -178,10 +178,10 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
         { href: "/app/recruiting", label: "ATS Home", exact: true },
         { href: "/app/recruiting/jobs", label: "Jobs" },
         { href: "/app/recruiting/applications", label: "Applications" },
+        { href: "/app/recruiting/job-match", label: "Candidate Match" },
         { href: "/app/recruiting/candidates", label: "Candidates" },
         { href: "/app/recruiting/interviews", label: "Interviews" },
         { href: "/app/recruiting/offers", label: "Offers" },
-        { href: "/app/recruiting/job-match", label: "Job Analyzer" },
       ],
     },
     {

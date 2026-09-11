@@ -27,10 +27,19 @@ export default async function RecruitingJobDetailPage({
     candidateSummaries.map((c) => [c.candidateId, c]),
   );
 
+  const scores = await recruitingRepository.listLatestMatchScoresForPairs(
+    applications.map((application) => ({
+      candidateId: application.candidateId,
+      requisitionId: jobId,
+    })),
+  );
+  const matchScoreByCandidateId = new Map(scores.map((s) => [s.candidateId, s.score]));
+
   const applicants = applications.map((application) => ({
     application,
     candidateName: candidateById.get(application.candidateId)?.name ?? "—",
     candidateEmail: candidateById.get(application.candidateId)?.email ?? "—",
+    matchScore: matchScoreByCandidateId.get(application.candidateId),
   }));
 
   return <JobDetailView detail={detail} applicants={applicants} />;

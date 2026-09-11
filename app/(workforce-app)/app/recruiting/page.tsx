@@ -199,6 +199,43 @@ export default async function AtsHomePage() {
         </section>
 
         <section className="rounded-lg border border-black/10 bg-white">
+          <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+            <h2 className="font-serif text-lg font-semibold">Recent Candidate Match Runs</h2>
+            <Link
+              href="/app/recruiting/job-match"
+              className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
+            >
+              Run analysis
+            </Link>
+          </div>
+          <ul className="divide-y divide-black/5">
+            {data.recentMatchRuns.map((row) => (
+              <li key={row.id} className="px-5 py-3 text-sm">
+                <div className="flex items-center justify-between gap-2">
+                  <Link
+                    href={`/app/recruiting/candidates/${row.candidateId}`}
+                    className="font-medium text-[var(--ca-platform-mid)] hover:underline"
+                  >
+                    {row.candidateName}
+                  </Link>
+                  <span className="text-sm font-semibold text-black/70">
+                    {Math.round(row.score)}%
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-black/50">
+                  {row.jobTitle} · {formatDate(row.createdAt)}
+                </p>
+              </li>
+            ))}
+            {data.recentMatchRuns.length === 0 && (
+              <li className="px-5 py-8 text-sm text-black/45">
+                No candidate match runs yet.
+              </li>
+            )}
+          </ul>
+        </section>
+
+        <section className="rounded-lg border border-black/10 bg-white">
           <div className="border-b border-black/10 px-5 py-4">
             <h2 className="font-serif text-lg font-semibold">Recent Hires</h2>
           </div>
