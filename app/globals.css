@@ -216,7 +216,7 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: clamp(12px, 1.4vw, 24px);
+  column-gap: clamp(10px, 1.2vw, 20px);
   min-height: 84px;
   overflow: visible;
   box-sizing: border-box;
@@ -224,7 +224,7 @@ body {
 
 @media (min-width: 1280px) {
   .ca-header-inner {
-    min-height: 88px;
+    min-height: 92px;
   }
 }
 
@@ -234,12 +234,16 @@ body {
   min-width: 0;
   overflow: visible;
   grid-column: 1;
+  /* Mobile default — 190–220px */
+  width: clamp(190px, 52vw, 220px);
   max-width: 100%;
 }
 
 .ca-header-brand .brand-lockup-link,
-.ca-header-brand .brand-lockup {
-  display: block;
+.ca-header-brand .brand-lockup,
+.ca-header-brand .ca-brand-lockup-link {
+  display: flex;
+  align-items: center;
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -260,7 +264,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: clamp(16px, 1.2vw, 24px);
+  /* Prefer tighter nav gaps before shrinking the logo */
+  gap: clamp(10px, 0.9vw, 18px);
   white-space: nowrap;
   min-width: 0;
   grid-column: 2;
@@ -275,20 +280,48 @@ body {
   z-index: 1;
 }
 
+/* Tablet portrait / small laptop — 230–260px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ca-header-brand {
+    width: clamp(230px, 34vw, 260px);
+    max-width: clamp(230px, 34vw, 260px);
+  }
+}
+
+/* Tablet landscape — 270–300px */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .ca-header-brand {
+    width: clamp(270px, 30vw, 300px);
+    max-width: clamp(270px, 30vw, 300px);
+  }
+
+  .ca-header-inner {
+    min-height: 80px;
+  }
+}
+
 @media (min-width: 1280px) {
   .ca-header-actions {
     grid-column: 3;
   }
 
+  /* Desktop — 320–340px (up to 360 if space) */
   .ca-header-brand {
-    width: min(360px, 42vw);
-    max-width: min(360px, 42vw);
+    width: clamp(320px, 24vw, 340px);
+    max-width: min(360px, 28vw);
   }
 
   .ca-header-brand .brand-logo {
-    max-height: 64px;
+    max-height: 80px;
     width: auto;
     max-width: 100%;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ca-header-brand {
+    width: 340px;
+    max-width: 360px;
   }
 }
 
@@ -305,8 +338,6 @@ body {
 
   .ca-header-brand {
     grid-column: 1;
-    width: 100%;
-    max-width: 100%;
   }
 
   /* Scale the entire lockup into the leftover width — never clip title/subtitle/mark */
@@ -372,16 +403,22 @@ body {
 .ca-brand-lockup {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  max-width: min(100%, var(--brand-max-w, 360px));
+  gap: 0.75rem;
+  max-width: min(100%, var(--brand-max-w, 340px));
   min-width: 0;
+  width: 100%;
   line-height: 1;
+}
+
+.ca-header-brand .ca-brand-lockup {
+  width: 100%;
+  max-width: 100%;
 }
 
 .ca-brand-mark {
   display: block;
-  width: var(--brand-mark-size, 52px);
-  height: var(--brand-mark-size, 52px);
+  width: var(--brand-mark-size, 58px);
+  height: var(--brand-mark-size, 58px);
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -390,15 +427,16 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.18rem;
+  gap: 0.2rem;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .ca-brand-title {
   display: block;
   color: #0a1f5c;
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-size: clamp(1.2rem, 1.55vw, 1.55rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -409,7 +447,7 @@ body {
   display: block;
   color: #0a1f5c;
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  font-size: clamp(0.58rem, 1.35vw, 0.72rem);
+  font-size: clamp(0.64rem, 0.82vw, 0.78rem);
   font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.15;
@@ -417,7 +455,7 @@ body {
 }
 
 .ca-brand-lockup--title-only .ca-brand-title {
-  font-size: clamp(0.98rem, 2.2vw, 1.2rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
 }
 
 .ca-brand-lockup--footer .ca-brand-title {
@@ -432,10 +470,12 @@ body {
   gap: 0;
 }
 
+/* Tablet / mobile header type scales with lockup width */
 @media (max-width: 1279px) {
   .ca-header-brand .ca-brand-lockup {
     width: 100%;
     max-width: 100%;
+    gap: 0.55rem;
   }
 
   .ca-header-brand .ca-brand-wordmark {
@@ -444,24 +484,45 @@ body {
   }
 
   .ca-header-brand .ca-brand-title {
-    font-size: clamp(0.95rem, 3.6vw, 1.15rem);
+    font-size: clamp(1rem, 3.2vw, 1.28rem);
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .ca-header-brand .ca-brand-tagline {
-    font-size: clamp(0.52rem, 2vw, 0.65rem);
+    font-size: clamp(0.55rem, 1.8vw, 0.68rem);
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .ca-header-brand .ca-brand-mark {
-    width: clamp(36px, 10vw, 48px);
-    height: clamp(36px, 10vw, 48px);
+    width: clamp(40px, 9vw, 52px);
+    height: clamp(40px, 9vw, 52px);
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 767px) {
+  .ca-header-brand .ca-brand-title {
+    font-size: clamp(0.98rem, 4.2vw, 1.15rem);
+  }
+
+  .ca-header-brand .ca-brand-tagline {
+    font-size: clamp(0.52rem, 2.4vw, 0.62rem);
+  }
+
+  .ca-header-brand .ca-brand-mark {
+    width: clamp(38px, 11vw, 46px);
+    height: clamp(38px, 11vw, 46px);
+  }
+}
+
+/* Compact variant takes over below 480px via SiteHeader — keep spacing clear of hamburger */
+@media (max-width: 479px) {
+  .ca-header-brand {
+    width: clamp(170px, 58vw, 210px);
+    padding-right: 4px;
+  }
+
   .ca-header-brand .ca-brand-tagline {
     display: none;
   }

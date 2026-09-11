@@ -66,14 +66,30 @@ const organizationJsonLd = {
   name: "Consult America",
   url: siteUrl,
   logo: `${siteUrl}/brand/ca-logo-horizontal.png`,
+  email: "Info@consultamerica.com",
+  telephone: "+1-703-496-7858",
   description:
     "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Washington",
-    addressRegion: "DC",
-    addressCountry: "US",
-  },
+  address: [
+    {
+      "@type": "PostalAddress",
+      name: "Headquarters",
+      streetAddress: "20130 Lakeview Center Plaza, Suite 400",
+      addressLocality: "Ashburn",
+      addressRegion: "VA",
+      postalCode: "20147",
+      addressCountry: "US",
+    },
+    {
+      "@type": "PostalAddress",
+      name: "Branch Office",
+      streetAddress: "1101 Opal Court Suite 211",
+      addressLocality: "Hagerstown",
+      addressRegion: "MD",
+      postalCode: "21740",
+      addressCountry: "US",
+    },
+  ],
   sameAs: [
     "https://www.linkedin.com/company/consultamerica",
   ],

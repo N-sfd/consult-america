@@ -54,30 +54,45 @@ export function SiteFooter() {
               Enterprise transformation, Oracle, AI &amp; data, and application engineering —
               from strategy through production.
             </p>
-            <div className="mt-5 space-y-1.5 text-sm text-[#5B6D6B]">
+            <div className="mt-5 space-y-4 text-sm leading-relaxed text-[#5B6D6B]">
               <p className="font-semibold text-[#073B3A]">
-                {companyContact.leadership.name}
+                {companyContact.companyName}
               </p>
-              <p className="text-[0.7rem] uppercase tracking-[0.12em]">
-                {companyContact.leadership.title}
-              </p>
-              <p>
-                <a
-                  href={`tel:${companyContact.phone.replace(/-/g, "")}`}
-                  className="transition-colors hover:text-[#073B3A]"
-                >
-                  {companyContact.phone}
-                </a>
-              </p>
-              <p>
-                <a
-                  href={`mailto:${companyContact.email}`}
-                  className="transition-colors hover:text-[#073B3A]"
-                >
-                  {companyContact.email}
-                </a>
-              </p>
-              <p>{companyContact.headquarters.full}</p>
+
+              <div>
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#073B3A]">
+                  {companyContact.headquarters.label}
+                </p>
+                <p className="mt-1">{companyContact.headquarters.address}</p>
+                <p>{companyContact.headquarters.cityStateZip}</p>
+              </div>
+
+              <div>
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#073B3A]">
+                  {companyContact.office.label}
+                </p>
+                <p className="mt-1">{companyContact.office.address}</p>
+                <p>{companyContact.office.cityStateZip}</p>
+              </div>
+
+              <div className="space-y-1">
+                <p>
+                  <a
+                    href={`mailto:${companyContact.email}`}
+                    className="transition-colors hover:text-[#073B3A]"
+                  >
+                    {companyContact.email}
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href={`tel:${companyContact.phoneTel}`}
+                    className="transition-colors hover:text-[#073B3A]"
+                  >
+                    {companyContact.phone}
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
 

@@ -100,7 +100,7 @@ function CrispLockup({
         ? 56
         : context === "login" || context === "apply" || context === "mobile"
           ? 40
-          : 52;
+          : 58;
 
   if (markOnly) {
     return (

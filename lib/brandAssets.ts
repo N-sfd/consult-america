@@ -25,12 +25,14 @@ export const brandDimensions = {
  * UI lockups use the hi-res mark + live text; PNG paths are for OG/meta.
  */
 export const brandDisplay = {
-  marketing: { maxWidth: 360, maxHeight: 64, asset: "horizontal" as const },
+  /** Header lockup — CSS clamp/breakpoints refine width; keep max at ~340–360px */
+  marketing: { maxWidth: 340, maxHeight: 80, asset: "horizontal" as const },
   footer: { maxWidth: 380, maxHeight: 72, asset: "horizontal" as const },
   portal: { maxWidth: 340, maxHeight: 64, asset: "horizontal" as const },
   login: { maxWidth: 260, maxHeight: 48, asset: "compact" as const },
   apply: { maxWidth: 260, maxHeight: 48, asset: "compact" as const },
-  mobile: { maxWidth: 280, maxHeight: 48, asset: "compact" as const },
+  /** Compact header lockup when descriptor would be unreadable */
+  mobile: { maxWidth: 220, maxHeight: 48, asset: "compact" as const },
   mark: { maxWidth: 40, maxHeight: 38, asset: "mark" as const },
 } as const;
 

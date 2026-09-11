@@ -201,7 +201,7 @@ export default async function LoginPage({
                     <div className="login-card-help">
                       <span>Need Workforce access?</span>
                       <a
-                        href="mailto:support@consultamerica.net"
+                        href="mailto:Info@consultamerica.com"
                         className="login-help-link"
                       >
                         Contact support →
@@ -212,7 +212,7 @@ export default async function LoginPage({
                   <div className="login-card-help">
                     <span>Need help signing in?</span>
                     <a
-                      href="mailto:support@consultamerica.net"
+                      href="mailto:Info@consultamerica.com"
                       className="login-help-link"
                     >
                       Contact support →

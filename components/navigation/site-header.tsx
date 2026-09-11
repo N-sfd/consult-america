@@ -59,6 +59,8 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<MegaMenuKey | null>(null);
+  /** Compact lockup when the full descriptor would be unreadable */
+  const [compactLogo, setCompactLogo] = useState(false);
   const { setOpen: setContactOpen } = useContactPanel();
 
   useEffect(() => {
@@ -66,6 +68,14 @@ export default function SiteHeader() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 479px)");
+    const sync = () => setCompactLogo(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
@@ -108,7 +118,11 @@ export default function SiteHeader() {
           <div className="ca-header-container">
             <div className="ca-header-inner">
               <div className="ca-header-brand">
-                <BrandLogo variant="full" context="marketing" priority />
+                <BrandLogo
+                  variant={compactLogo ? "compact" : "full"}
+                  context={compactLogo ? "mobile" : "marketing"}
+                  priority
+                />
               </div>
 
               <nav

@@ -83,37 +83,36 @@ export const companyContact = {
   companyName: "Consult America",
   tagline: "Innovative Technology Consulting Services",
   experienceTagline: "26 Years of Progressive Innovation",
-  leadership: {
-    name: "Imtiaz Ali Kalwar",
-    title: "President & CEO",
-  },
   phone: "703-496-7858",
-  mobile: "571-276-4808",
-  email: "ikalwar@consultamerica.net",
-  web: "www.consultamerica.net",
-  webUrl: "https://www.consultamerica.net",
+  /** E.164 for tel: links */
+  phoneTel: "+17034967858",
+  /** Schema / intl display */
+  phoneIntl: "+1-703-496-7858",
+  email: "Info@consultamerica.com",
+  web: "www.consultamerica.com",
+  webUrl: "https://www.consultamerica.com",
   office: {
-    label: "Office",
-    address: "1101 Opal Court, Suite 211",
+    label: "Branch Office",
+    address: "1101 Opal Court Suite 211",
     cityStateZip: "Hagerstown, MD 21740",
-    full: "1101 Opal Court, Suite 211, Hagerstown, MD 21740",
+    full: "1101 Opal Court Suite 211, Hagerstown, MD 21740",
   },
   headquarters: {
     label: "Headquarters",
-    address: "20130 Lake View Center Plaza, Suite 407",
+    address: "20130 Lakeview Center Plaza, Suite 400",
     cityStateZip: "Ashburn, VA 20147",
-    full: "20130 Lake View Center Plaza, Suite 407, Ashburn, VA 20147",
+    full: "20130 Lakeview Center Plaza, Suite 400, Ashburn, VA 20147",
   },
 } as const;
 
 export const offices = [
   {
     city: "Ashburn, VA",
-    detail: "Headquarters — Lake View Center Plaza",
+    detail: "Headquarters — Lakeview Center Plaza",
   },
   {
     city: "Hagerstown, MD",
-    detail: "Office — Opal Court",
+    detail: "Branch Office — Opal Court",
   },
 ];
 
