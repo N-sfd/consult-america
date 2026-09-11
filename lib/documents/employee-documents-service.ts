@@ -240,6 +240,23 @@ export async function archiveEmployeeDocument(input: {
   return { ok: true };
 }
 
+/** HR reporting: documents HR marked as requiring acknowledgment that the
+ * employee hasn't acted on yet. */
+export async function listDocumentsPendingAcknowledgement(): Promise<EmployeeDocumentRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const { data } = await client
+    .from("employee_documents")
+    .select("*")
+    .eq("requires_acknowledgement", true)
+    .is("acknowledged_at", null)
+    .eq("status", "ACTIVE")
+    .order("uploaded_at", { ascending: true });
+
+  return (data ?? []).map(mapRow);
+}
+
 /** Fetch a single document by id, regardless of employee — callers must
  * verify ownership themselves (see lib/self-service/security.ts). */
 export async function getEmployeeDocumentById(

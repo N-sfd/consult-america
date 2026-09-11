@@ -87,6 +87,27 @@ export default async function HrReportsPage() {
           </ul>
         </div>
       </section>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-lg border border-black/10 bg-white p-6">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+            Outstanding Acknowledgments
+          </h2>
+          <ul className="mt-4 divide-y divide-black/5 text-sm">
+            {report.pendingAcknowledgments.map((doc) => (
+              <li key={doc.id} className="py-3">
+                <p className="font-medium">{doc.employeeName}</p>
+                <p className="mt-1 text-xs text-black/45">
+                  {doc.documentType} · uploaded {doc.uploadedAt.slice(0, 10)}
+                </p>
+              </li>
+            ))}
+            {report.pendingAcknowledgments.length === 0 && (
+              <li className="py-3 text-black/50">No outstanding acknowledgments.</li>
+            )}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

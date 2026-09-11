@@ -1,4 +1,5 @@
 import { hrRepository } from "@/lib/hr";
+import { listDocumentsPendingAcknowledgement } from "@/lib/documents/employee-documents-service";
 import {
   countAuditByEventType,
   listAuditLogs,
@@ -34,6 +35,13 @@ export type ReportBreakdownRow = {
   value: number;
 };
 
+export type PendingAcknowledgmentRow = {
+  id: string;
+  employeeName: string;
+  documentType: string;
+  uploadedAt: string;
+};
+
 export async function getHrOperationalReport() {
   const timesheets = getTimeStoreSnapshot().timesheets;
   const leaveRequests = getLeaveStoreSnapshot().leaveRequests;
@@ -42,6 +50,20 @@ export async function getHrOperationalReport() {
   const employees = await hrRepository.listEmployees();
   const auditCounts = countAuditByEventType();
   const recentAudit = listAuditLogs(8);
+  const pendingAcknowledgmentDocs = await listDocumentsPendingAcknowledgement();
+  const pendingAcknowledgments: PendingAcknowledgmentRow[] = await Promise.all(
+    pendingAcknowledgmentDocs.map(async (doc) => {
+      const employee = await hrRepository.getEmployeeById(doc.employeeId);
+      return {
+        id: doc.id,
+        employeeName: employee
+          ? `${employee.firstName} ${employee.lastName}`
+          : doc.employeeId,
+        documentType: doc.documentType,
+        uploadedAt: doc.uploadedAt,
+      };
+    }),
+  );
 
   const submittedTimesheets = timesheets.filter(
     (item) => item.status === "SUBMITTED",
@@ -95,6 +117,11 @@ export async function getHrOperationalReport() {
       label: "Access Denied Events",
       value: String(auditCounts.ACCESS_DENIED ?? 0),
       hint: "From audit log",
+    },
+    {
+      label: "Documents Pending Acknowledgment",
+      value: String(pendingAcknowledgments.length),
+      hint: "Uploaded, awaiting employee sign-off",
     },
   ];
 
@@ -151,6 +178,7 @@ export async function getHrOperationalReport() {
     leaveByStatus,
     hrByStatus,
     recentAudit,
+    pendingAcknowledgments,
     generatedAt: new Date().toISOString(),
   };
 }

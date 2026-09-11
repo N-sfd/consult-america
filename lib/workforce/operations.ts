@@ -34,6 +34,7 @@ const NOTIFICATION_ACTION_URL: Record<string, (entityId: string) => string> = {
   onboarding_record: () => "/employee",
   employee: (id) => `/workforce/people/${id}`,
   offer: () => "/workforce/candidates",
+  employee_document: () => "/employee/documents",
 };
 
 function mapNotificationRow(row: Record<string, unknown>): Notification {
