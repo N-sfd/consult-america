@@ -71,6 +71,7 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    /* Compact approved artwork only when full lockup descriptor would be unreadable */
     const mq = window.matchMedia("(max-width: 479px)");
     const sync = () => setCompactLogo(mq.matches);
     sync();

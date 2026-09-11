@@ -2,9 +2,8 @@
  * Approved Consult America logo assets — single source of truth.
  * Do not recreate wordmarks in HTML/CSS. Do not tint/blur/shadow logo images.
  *
- * Rule: never shrink the full lockup until ENTERPRISE TRANSFORMATION and
- * ORACLE • AI & DATA • APPLICATION ENGINEERING become unreadable.
- * Fix container width first; switch to compact/mark lockups when needed.
+ * Render PNGs at natural aspect ratio (object-fit: contain).
+ * Never crop/truncate descriptor text. Switch to compact below 480px.
  */
 export const brandAssets = {
   horizontal: "/brand/ca-logo-horizontal.png?v=crisp-1",
@@ -22,17 +21,16 @@ export const brandDimensions = {
 
 /**
  * Canonical display sizes — pages must not invent one-off widths.
- * UI lockups use the hi-res mark + live text; PNG paths are for OG/meta.
  */
 export const brandDisplay = {
-  /** Header lockup — CSS breakpoints refine width; desktop targets ~400–440px */
-  marketing: { maxWidth: 440, maxHeight: 96, asset: "horizontal" as const },
-  footer: { maxWidth: 400, maxHeight: 80, asset: "horizontal" as const },
-  portal: { maxWidth: 340, maxHeight: 64, asset: "horizontal" as const },
-  login: { maxWidth: 260, maxHeight: 48, asset: "compact" as const },
-  apply: { maxWidth: 260, maxHeight: 48, asset: "compact" as const },
-  /** Compact header lockup when descriptor would be unreadable */
-  mobile: { maxWidth: 240, maxHeight: 52, asset: "compact" as const },
+  /** Desktop/tablet full header artwork — ~400–440px */
+  marketing: { maxWidth: 420, maxHeight: 128, asset: "header" as const },
+  footer: { maxWidth: 380, maxHeight: 116, asset: "horizontal" as const },
+  portal: { maxWidth: 340, maxHeight: 104, asset: "horizontal" as const },
+  login: { maxWidth: 260, maxHeight: 80, asset: "compact" as const },
+  apply: { maxWidth: 260, maxHeight: 80, asset: "compact" as const },
+  /** Mobile compact artwork (<480px) */
+  mobile: { maxWidth: 220, maxHeight: 68, asset: "compact" as const },
   mark: { maxWidth: 40, maxHeight: 38, asset: "mark" as const },
 } as const;
 
