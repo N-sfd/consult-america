@@ -170,18 +170,18 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
   workforce: [
     {
       label: "Overview",
-      items: [{ href: "/app/dashboard", label: "Dashboard", exact: true }],
+      items: [{ href: "/app/dashboard", label: "Overview", exact: true }],
     },
     {
       label: "Recruiting",
       items: [
-        { href: "/app/recruiting", label: "ATS Home", exact: true },
+        { href: "/app/recruiting", label: "Dashboard", exact: true },
         { href: "/app/recruiting/jobs", label: "Jobs" },
         { href: "/app/recruiting/applications", label: "Applications" },
-        { href: "/app/recruiting/job-match", label: "Candidate Match" },
         { href: "/app/recruiting/candidates", label: "Candidates" },
         { href: "/app/recruiting/interviews", label: "Interviews" },
         { href: "/app/recruiting/offers", label: "Offers" },
+        { href: "/app/recruiting/job-match", label: "Candidate Match" },
       ],
     },
     {
@@ -189,34 +189,30 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
       items: [
         { href: "/workforce/people", label: "Employees" },
         { href: "#", label: "Onboarding", disabled: true },
-        { href: "/workforce/organization", label: "Organization" },
       ],
     },
     {
-      label: "Workforce",
+      label: "HR Operations",
       items: [
-        { href: "/employee/time", label: "Time" },
-        { href: "/employee/leave", label: "Leave" },
-        { href: "/manager/approvals", label: "Approvals", badgeKey: "approvals" },
-        { href: "/hr/requests", label: "HR Requests" },
-      ],
-    },
-    {
-      label: "Operations",
-      items: [
+        { href: "/hr/requests", label: "HR Service Desk" },
+        { href: "/employee/time", label: "Time & Leave" },
+        { href: "/employee/documents", label: "Documents" },
         { href: "/workforce/payroll", label: "Payroll" },
-        { href: "/workforce/reports", label: "Reports" },
       ],
+    },
+    {
+      label: "Reports",
+      items: [{ href: "/workforce/reports", label: "Reports" }],
     },
     {
       label: "Administration",
       items: [
         { href: "/workforce/administration", label: "Administration" },
-        { href: "/workforce/users", label: "Users" },
+        { href: "/workforce/users", label: "Users & Access" },
+        { href: "/workforce/system-health", label: "System Health" },
         { href: "/workforce/notifications", label: "Notifications" },
         { href: "/workforce/audit", label: "Audit" },
-        { href: "/workforce/system-health", label: "System Health" },
-        { href: "/workforce/settings", label: "Settings" },
+        { href: "/workforce/settings", label: "Configuration" },
       ],
     },
   ],

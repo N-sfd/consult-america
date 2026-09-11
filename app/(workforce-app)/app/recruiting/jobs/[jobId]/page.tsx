@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import JobDetailView from "@/components/workforce-app/recruiting/job-detail-view";
@@ -42,5 +43,9 @@ export default async function RecruitingJobDetailPage({
     matchScore: matchScoreByCandidateId.get(application.candidateId),
   }));
 
-  return <JobDetailView detail={detail} applicants={applicants} />;
+  return (
+    <Suspense fallback={<div className="px-4 py-8 text-sm text-black/45">Loading job…</div>}>
+      <JobDetailView detail={detail} applicants={applicants} />
+    </Suspense>
+  );
 }

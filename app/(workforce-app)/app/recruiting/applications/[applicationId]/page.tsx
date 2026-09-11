@@ -112,6 +112,14 @@ export default async function ApplicationDetailPage({
           ) : null}
           {requisitionId ? (
             <Link
+              href={`/app/recruiting/jobs/${requisitionId}`}
+              className="rounded-md border border-black/15 px-3 py-1.5 font-medium text-black/70 hover:bg-black/[0.03]"
+            >
+              Job detail
+            </Link>
+          ) : null}
+          {requisitionId ? (
+            <Link
               href={`/app/recruiting/jobs/${requisitionId}/pipeline`}
               className="rounded-md border border-black/15 px-3 py-1.5 font-medium text-black/70 hover:bg-black/[0.03]"
             >
@@ -143,10 +151,10 @@ export default async function ApplicationDetailPage({
           <h2 className="font-serif text-lg font-semibold">Candidate Match</h2>
           {requisitionId ? (
             <Link
-              href={`/app/recruiting/job-match?requisitionId=${requisitionId}`}
+              href={`/app/recruiting/jobs/${requisitionId}?tab=match`}
               className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
             >
-              {matchScore ? "Re-run analysis" : "Run Candidate Match"}
+              {matchScore ? "Open job Candidate Match" : "Run on job Candidate Match"}
             </Link>
           ) : null}
         </div>
@@ -195,10 +203,10 @@ export default async function ApplicationDetailPage({
             This application hasn&apos;t been scored yet.{" "}
             {requisitionId ? (
               <Link
-                href={`/app/recruiting/job-match?requisitionId=${requisitionId}`}
+                href={`/app/recruiting/jobs/${requisitionId}?tab=match`}
                 className="text-[var(--ca-platform-mid)] hover:underline"
               >
-                Run Candidate Match for this role
+                Run Candidate Match from this job
               </Link>
             ) : (
               "Assign a requisition to enable analysis."

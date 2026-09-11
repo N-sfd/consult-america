@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 
+import CandidateMatchForm from "@/components/workforce-app/recruiting/candidate-match-form";
 import StageBadge, {
   CandidateAvatar,
   RequisitionStatusBadge,
@@ -14,8 +16,27 @@ import { cn } from "@/lib/utils";
 import { applicationStatusLabels, type Application } from "@/types/recruiting";
 import { workplaceTypeLabels, employmentTypeLabels } from "@/types/organization";
 
-const TABS = ["Overview", "Candidates", "Pipeline", "Interviews", "Activity"] as const;
+const TABS = [
+  "Overview",
+  "Applications",
+  "Candidate Match",
+  "Interviews",
+  "Offers",
+  "Activity",
+] as const;
 type Tab = (typeof TABS)[number];
+
+const TAB_PARAM: Record<string, Tab> = {
+  overview: "Overview",
+  applications: "Applications",
+  candidates: "Applications",
+  match: "Candidate Match",
+  "candidate-match": "Candidate Match",
+  interviews: "Interviews",
+  offers: "Offers",
+  activity: "Activity",
+  pipeline: "Applications",
+};
 
 export type Applicant = {
   application: Application;
@@ -30,6 +51,11 @@ function matchTone(score: number) {
   return "text-red-700 bg-red-50 border-red-200";
 }
 
+function tabFromParam(value: string | null): Tab {
+  if (!value) return "Overview";
+  return TAB_PARAM[value.toLowerCase()] ?? "Overview";
+}
+
 export default function JobDetailView({
   detail,
   applicants,
@@ -37,8 +63,49 @@ export default function JobDetailView({
   detail: JobDetail;
   applicants: Applicant[];
 }) {
-  const [tab, setTab] = useState<Tab>("Overview");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [tab, setTab] = useState<Tab>(() => tabFromParam(searchParams.get("tab")));
   const { requisition } = detail;
+
+  const interviewApplicants = useMemo(
+    () =>
+      applicants.filter(
+        (a) =>
+          a.application.status === "INTERVIEW" ||
+          a.application.status === "FINAL_INTERVIEW",
+      ),
+    [applicants],
+  );
+
+  const offerApplicants = useMemo(
+    () => applicants.filter((a) => a.application.status === "OFFER"),
+    [applicants],
+  );
+
+  function selectTab(next: Tab) {
+    setTab(next);
+    const param =
+      next === "Overview"
+        ? "overview"
+        : next === "Applications"
+          ? "applications"
+          : next === "Candidate Match"
+            ? "match"
+            : next === "Interviews"
+              ? "interviews"
+              : next === "Offers"
+                ? "offers"
+                : "activity";
+    router.replace(`?tab=${param}`, { scroll: false });
+  }
+
+  const jobOption = {
+    requisitionId: requisition.id,
+    title: requisition.title,
+    departmentName: detail.departmentName,
+    locationName: detail.locationName,
+  };
 
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-5 lg:px-8 lg:py-6">
@@ -65,6 +132,10 @@ export default function JobDetailView({
             {detail.locationName} · {workplaceTypeLabels[requisition.workplaceType]} ·{" "}
             {employmentTypeLabels[requisition.employmentType]}
           </p>
+          <p className="mt-2 max-w-2xl text-xs text-black/40">
+            Recruiting command center — applications, match intelligence, interviews,
+            and offers stay on this requisition through hire.
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -86,12 +157,13 @@ export default function JobDetailView({
               Preview Public Job
             </a>
           )}
-          <Link
-            href={`/app/recruiting/job-match?requisitionId=${requisition.id}`}
+          <button
+            type="button"
+            onClick={() => selectTab("Candidate Match")}
             className="border border-black/10 px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
           >
-            Run Candidate Match
-          </Link>
+            Candidate Match
+          </button>
           <Link
             href={`/app/recruiting/jobs/${requisition.id}/pipeline`}
             className="bg-[var(--ca-blue)] px-3 py-1.5 text-sm font-medium text-white hover:bg-[var(--ca-blue-hover)]"
@@ -106,7 +178,7 @@ export default function JobDetailView({
           <button
             key={t}
             type="button"
-            onClick={() => setTab(t)}
+            onClick={() => selectTab(t)}
             className={cn(
               "shrink-0 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors",
               tab === t
@@ -115,18 +187,29 @@ export default function JobDetailView({
             )}
           >
             {t}
-            {t === "Candidates" && ` (${applicants.length})`}
+            {t === "Applications" && ` (${applicants.length})`}
+            {t === "Interviews" && interviewApplicants.length > 0
+              ? ` (${interviewApplicants.length})`
+              : null}
+            {t === "Offers" && offerApplicants.length > 0
+              ? ` (${offerApplicants.length})`
+              : null}
           </button>
         ))}
       </div>
 
-      <div className="mt-5 border border-black/8 bg-white p-5">
+      <div
+        className={cn(
+          "mt-5",
+          tab === "Candidate Match" ? "" : "border border-black/8 bg-white p-5",
+        )}
+      >
         {tab === "Overview" && (
           <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
             <div className="space-y-6">
               <div>
                 <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
-                  Summary
+                  Job description
                 </p>
                 <p className="mt-2 text-sm leading-6 text-black/65">
                   {requisition.description}
@@ -147,13 +230,20 @@ export default function JobDetailView({
               {requisition.qualifications.length > 0 && (
                 <div>
                   <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
-                    Qualifications
+                    Requirements / qualifications
                   </p>
                   <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm leading-6 text-black/65">
                     {requisition.qualifications.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
+                  <button
+                    type="button"
+                    onClick={() => selectTab("Candidate Match")}
+                    className="ca-link mt-4 inline-flex text-sm"
+                  >
+                    Match applicants to these requirements
+                  </button>
                 </div>
               )}
             </div>
@@ -171,94 +261,189 @@ export default function JobDetailView({
                 }
               />
               <Field label="Created" value={formatDate(requisition.createdAt)} />
+              <div className="border-t border-black/8 pt-4">
+                <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
+                  Pipeline snapshot
+                </p>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  {Object.entries(detail.pipelineCounts)
+                    .filter(([, count]) => count > 0)
+                    .slice(0, 6)
+                    .map(([status, count]) => (
+                      <div key={status} className="border border-black/8 px-2 py-2">
+                        <p className="text-lg font-medium text-[var(--ca-app-ink)]">{count}</p>
+                        <p className="text-[0.65rem] text-black/45">
+                          {applicationStatusLabels[status as keyof typeof applicationStatusLabels]}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
 
-        {tab === "Candidates" && (
-          <EmptyableList
-            items={applicants}
-            emptyLabel="No candidates have applied to this job yet."
-            render={(applicant) => (
+        {tab === "Applications" && (
+          <div>
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-black/55">
+                Applicants for this requisition. Open an application to review evidence,
+                interviews, and offer state without leaving the ATS.
+              </p>
               <Link
-                key={applicant.application.id}
-                href={`/app/recruiting/candidates/${applicant.application.candidateId}`}
-                className="grid grid-cols-[2fr_auto_1fr_1fr_1fr] items-center gap-3 border-b border-black/6 py-3 text-sm last:border-0 hover:bg-[var(--ca-app-bg)]"
+                href={`/app/recruiting/jobs/${requisition.id}/pipeline`}
+                className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
               >
-                <span className="flex items-center gap-3">
-                  <CandidateAvatar name={applicant.candidateName} />
-                  <span>
-                    <span className="block font-medium text-[var(--ca-app-ink)]">
-                      {applicant.candidateName}
-                    </span>
-                    <span className="block text-xs text-black/45">
-                      {applicant.candidateEmail}
-                    </span>
-                  </span>
-                </span>
-                {applicant.matchScore !== undefined ? (
-                  <span
-                    className={cn(
-                      "inline-flex items-center rounded-sm border px-2 py-0.5 text-xs font-semibold",
-                      matchTone(applicant.matchScore),
-                    )}
-                  >
-                    {Math.round(applicant.matchScore)}% match
-                  </span>
-                ) : (
-                  <span className="text-xs text-black/35">Not scored</span>
-                )}
-                <StageBadge stage={applicant.application.status} />
-                <span className="text-black/45">
-                  {applicant.application.applicationNumber}
-                </span>
-                <span className="text-black/45">
-                  {formatDate(applicant.application.appliedAt)}
-                </span>
+                Open pipeline board
               </Link>
-            )}
+            </div>
+            <EmptyableList
+              items={applicants}
+              emptyLabel="No candidates have applied to this job yet."
+              render={(applicant) => (
+                <div
+                  key={applicant.application.id}
+                  className="grid grid-cols-1 items-center gap-3 border-b border-black/6 py-3 text-sm last:border-0 sm:grid-cols-[2fr_auto_1fr_1fr_auto]"
+                >
+                  <Link
+                    href={`/app/recruiting/applications/${applicant.application.id}`}
+                    className="flex items-center gap-3 hover:opacity-90"
+                  >
+                    <CandidateAvatar name={applicant.candidateName} />
+                    <span>
+                      <span className="block font-medium text-[var(--ca-app-ink)]">
+                        {applicant.candidateName}
+                      </span>
+                      <span className="block text-xs text-black/45">
+                        {applicant.candidateEmail}
+                      </span>
+                    </span>
+                  </Link>
+                  {applicant.matchScore !== undefined ? (
+                    <span
+                      className={cn(
+                        "inline-flex w-fit items-center rounded-sm border px-2 py-0.5 text-xs font-semibold",
+                        matchTone(applicant.matchScore),
+                      )}
+                    >
+                      {Math.round(applicant.matchScore)}% match
+                    </span>
+                  ) : (
+                    <span className="text-xs text-black/35">Not scored</span>
+                  )}
+                  <StageBadge stage={applicant.application.status} />
+                  <span className="text-black/45">
+                    {formatDate(applicant.application.appliedAt)}
+                  </span>
+                  <Link
+                    href={`/app/recruiting/applications/${applicant.application.id}`}
+                    className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+                  >
+                    Review
+                  </Link>
+                </div>
+              )}
+            />
+          </div>
+        )}
+
+        {tab === "Candidate Match" && (
+          <CandidateMatchForm
+            jobs={[jobOption]}
+            lockedRequisitionId={requisition.id}
+            variant="embedded"
           />
         )}
 
-        {tab === "Pipeline" && (
+        {tab === "Interviews" && (
           <div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-              {Object.entries(detail.pipelineCounts)
-                .filter(([, count]) => count > 0)
-                .map(([status, count]) => (
-                  <Link
-                    key={status}
-                    href={`/app/recruiting/jobs/${requisition.id}/pipeline?stage=${status}`}
-                    className="border border-black/8 px-3 py-2.5 transition-colors hover:border-[var(--ca-blue)]"
-                  >
-                    <p className="text-xl font-medium text-[var(--ca-app-ink)]">
-                      {count}
-                    </p>
-                    <p className="mt-0.5 text-xs text-black/50">
-                      {applicationStatusLabels[status as keyof typeof applicationStatusLabels]}
-                    </p>
-                  </Link>
-                ))}
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-black/55">
+                Applications currently in interview stages for this requisition.
+              </p>
+              <Link
+                href="/app/recruiting/interviews"
+                className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+              >
+                All interviews
+              </Link>
             </div>
-            <Link
-              href={`/app/recruiting/jobs/${requisition.id}/pipeline`}
-              className="ca-link mt-5 inline-flex text-sm"
-            >
-              Open full pipeline board
-            </Link>
+            <EmptyableList
+              items={interviewApplicants}
+              emptyLabel="No interview-stage applications yet. Advance applicants from Applications or the pipeline."
+              render={(applicant) => (
+                <Link
+                  key={applicant.application.id}
+                  href={`/app/recruiting/applications/${applicant.application.id}`}
+                  className="flex items-center justify-between gap-3 border-b border-black/6 py-3 text-sm last:border-0 hover:bg-[var(--ca-app-bg)]"
+                >
+                  <span className="font-medium text-[var(--ca-app-ink)]">
+                    {applicant.candidateName}
+                  </span>
+                  <StageBadge stage={applicant.application.status} />
+                </Link>
+              )}
+            />
           </div>
         )}
 
-        {tab === "Interviews" && (
-          <p className="text-sm text-black/45">
-            Schedule and manage interviews from the pipeline board or candidate profile.
-          </p>
+        {tab === "Offers" && (
+          <div>
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-black/55">
+                Offer-stage applications. Accepted offers convert to the canonical
+                employee record — do not create a second employee manually.
+              </p>
+              <Link
+                href="/app/recruiting/offers"
+                className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+              >
+                All offers
+              </Link>
+            </div>
+            <EmptyableList
+              items={offerApplicants}
+              emptyLabel="No offer-stage applications yet."
+              render={(applicant) => (
+                <Link
+                  key={applicant.application.id}
+                  href={`/app/recruiting/applications/${applicant.application.id}`}
+                  className="flex items-center justify-between gap-3 border-b border-black/6 py-3 text-sm last:border-0 hover:bg-[var(--ca-app-bg)]"
+                >
+                  <span className="font-medium text-[var(--ca-app-ink)]">
+                    {applicant.candidateName}
+                  </span>
+                  <StageBadge stage={applicant.application.status} />
+                </Link>
+              )}
+            />
+          </div>
         )}
 
         {tab === "Activity" && (
-          <p className="text-sm text-black/45">
-            Job-level activity history isn&apos;t built yet.
-          </p>
+          <div className="space-y-3 text-sm text-black/55">
+            <p>
+              Job-level activity consolidates application stage moves, match runs,
+              interviews, and offers for this requisition.
+            </p>
+            <p className="text-black/45">
+              Detailed timelines remain on each{" "}
+              <button
+                type="button"
+                onClick={() => selectTab("Applications")}
+                className="text-[var(--ca-blue)] hover:underline"
+              >
+                application
+              </button>{" "}
+              and in Administration → Audit.
+            </p>
+            <Link
+              href="/workforce/audit"
+              className="inline-flex text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            >
+              Open audit log
+            </Link>
+          </div>
         )}
       </div>
     </div>

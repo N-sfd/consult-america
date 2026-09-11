@@ -58,16 +58,33 @@ function MatchGauge({ score }: { score: number }) {
 export default function CandidateMatchForm({
   jobs,
   initialRequisitionId,
+  /** When set, lock analysis to this requisition and hide paste/upload (ATS-embedded). */
+  lockedRequisitionId,
+  variant = "adhoc",
 }: {
   jobs: JobOption[];
   initialRequisitionId?: string;
+  lockedRequisitionId?: string;
+  variant?: "adhoc" | "embedded";
 }) {
+  const embedded = variant === "embedded" && Boolean(lockedRequisitionId);
+  const lockedId = lockedRequisitionId ?? "";
   const hasInitialJob = Boolean(
-    initialRequisitionId && jobs.some((job) => job.requisitionId === initialRequisitionId),
+    (embedded ? lockedId : initialRequisitionId) &&
+      jobs.some(
+        (job) =>
+          job.requisitionId === (embedded ? lockedId : initialRequisitionId),
+      ),
   );
-  const [mode, setMode] = useState<InputMode>(hasInitialJob || jobs.length > 0 ? "existing" : "paste");
+  const [mode, setMode] = useState<InputMode>(
+    embedded || hasInitialJob || jobs.length > 0 ? "existing" : "paste",
+  );
   const [requisitionId, setRequisitionId] = useState(
-    hasInitialJob ? initialRequisitionId! : (jobs[0]?.requisitionId ?? ""),
+    embedded
+      ? lockedId
+      : hasInitialJob
+        ? initialRequisitionId!
+        : (jobs[0]?.requisitionId ?? ""),
   );
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -111,9 +128,16 @@ export default function CandidateMatchForm({
     setResults(null);
 
     const result =
-      mode === "existing"
-        ? await runCandidateMatch({ mode: "existing", requisitionId })
-        : await runCandidateMatch({ mode: "text", jobTitle: jobTitle || undefined, jobDescription });
+      embedded || mode === "existing"
+        ? await runCandidateMatch({
+            mode: "existing",
+            requisitionId: embedded ? lockedId || requisitionId : requisitionId,
+          })
+        : await runCandidateMatch({
+            mode: "text",
+            jobTitle: jobTitle || undefined,
+            jobDescription,
+          });
 
     setAnalyzing(false);
 
@@ -126,12 +150,22 @@ export default function CandidateMatchForm({
 
   const autoRan = useRef(false);
   useEffect(() => {
-    if (autoRan.current || !hasInitialJob) return;
+    if (autoRan.current) return;
+    if (embedded && lockedId) {
+      autoRan.current = true;
+      handleAnalyze();
+      return;
+    }
+    if (!hasInitialJob) return;
     autoRan.current = true;
     handleAnalyze();
-    // Only run once on mount for a deep-linked requisitionId.
+    // Only run once on mount for a deep-linked / embedded requisition.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (embedded && lockedId) setRequisitionId(lockedId);
+  }, [embedded, lockedId]);
 
   const sortedCandidates = useMemo(() => {
     if (!results) return [];
@@ -162,7 +196,7 @@ export default function CandidateMatchForm({
     (mode === "existing" && requisitionId) || (mode !== "existing" && jobDescription.trim().length > 0);
 
   return (
-    <div className="mt-6 space-y-6">
+    <div className={embedded ? "space-y-6" : "mt-6 space-y-6"}>
       <div className="rounded-lg border border-amber-200/80 bg-amber-50/70 px-4 py-3 text-sm text-amber-950">
         <p className="font-semibold">AI-assisted relevance analysis</p>
         <p className="mt-1 text-amber-900/80">
@@ -172,10 +206,42 @@ export default function CandidateMatchForm({
         </p>
       </div>
 
+      {embedded ? (
+        <div className="flex flex-wrap items-center justify-between gap-3 border border-black/8 bg-white px-4 py-3">
+          <div>
+            <p className="text-sm font-medium text-[var(--ca-app-ink)]">
+              Matching applicants to this requisition&apos;s job description
+            </p>
+            <p className="mt-0.5 text-xs text-black/45">
+              Analysis uses the JD and resumes already on the application records.
+              Paste/upload JD remains available for{" "}
+              <Link
+                href="/app/recruiting/job-match"
+                className="text-[var(--ca-blue)] hover:underline"
+              >
+                ad-hoc analysis
+              </Link>
+              .
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={handleAnalyze}
+            disabled={analyzing || !requisitionId}
+            className="h-9 shrink-0 rounded-md bg-[var(--ca-navy)] px-4 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
+          >
+            {analyzing ? "Analyzing…" : results ? "Refresh analysis" : "Run Candidate Match"}
+          </button>
+        </div>
+      ) : (
       <div className="border border-black/8 bg-white p-5">
         <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-black/50">
           Job Input
         </h2>
+        <p className="mt-2 text-sm text-black/50">
+          Prefer analyzing from a job record. Paste or upload is for ad-hoc JDs
+          outside an open requisition.
+        </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {jobs.length > 0 && (
             <button
@@ -292,6 +358,17 @@ export default function CandidateMatchForm({
           {analyzing ? "Analyzing…" : "Analyze Candidates"}
         </button>
       </div>
+      )}
+
+      {embedded && error ? (
+        <p className="text-sm text-[var(--ca-error)]">{error}</p>
+      ) : null}
+
+      {embedded && analyzing && !results ? (
+        <p className="border border-dashed border-black/10 bg-white px-5 py-8 text-center text-sm text-black/45">
+          Analyzing applicants against this requisition…
+        </p>
+      ) : null}
 
       {results ? (
         <div>
@@ -386,6 +463,14 @@ export default function CandidateMatchForm({
                           >
                             {candidate.candidateName}
                           </Link>
+                          {candidate.applicationId ? (
+                            <Link
+                              href={`/app/recruiting/applications/${candidate.applicationId}`}
+                              className="text-xs font-medium text-[var(--ca-blue)] hover:underline"
+                            >
+                              Open application
+                            </Link>
+                          ) : null}
                         </div>
                         <span className="text-sm font-semibold text-black/70">
                           {candidate.result.overallMatch}%{" "}

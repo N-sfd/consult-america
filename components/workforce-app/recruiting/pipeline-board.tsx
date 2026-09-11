@@ -120,10 +120,10 @@ export default function PipelineBoard({
             </p>
           )}
           <Link
-            href={`/app/recruiting/job-match?requisitionId=${requisitionId}`}
+            href={`/app/recruiting/jobs/${requisitionId}?tab=match`}
             className="text-sm font-semibold text-[var(--ca-blue)] hover:underline"
           >
-            Run Candidate Match
+            Candidate Match
           </Link>
         </div>
       </div>
