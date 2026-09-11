@@ -42,7 +42,6 @@ export type SelfServicePermission =
   | "audit.read"
   | "reports.read"
   | "notifications.manage"
-  | "admin.manage"
   | "team.reports.read"
   | "self.pay.read"
   | "payroll.compensation.read"
