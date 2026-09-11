@@ -60,8 +60,6 @@ async function main() {
   `);
   const liveFnByKey = new Map(liveTriggers.map((r) => [`${r.name}@${r.table_name}`, r.fn]));
 
-  await client.end();
-
   const missing: TriggerIntent[] = [];
   const wrongFn: (TriggerIntent & { liveFn: string | undefined })[] = [];
   let okCount = 0;
@@ -73,6 +71,24 @@ async function main() {
     else if (liveFn !== t.fn) wrongFn.push({ ...t, liveFn });
     else okCount++;
   }
+
+  const status = missing.length || wrongFn.length ? "DRIFT" : "OK";
+  const summary = `Checked ${shouldExist.length} triggers: ${okCount} ok, ${missing.length} missing, ${wrongFn.length} wrong function.`;
+  await client.query(
+    `INSERT INTO system_health_checks (id, check_name, status, summary, details, checked_at)
+     VALUES ($1, 'trigger_drift', $2, $3, $4, now())`,
+    [
+      `shc-${crypto.randomUUID()}`,
+      status,
+      summary,
+      JSON.stringify({
+        missing: missing.map((t) => `${t.name}@${t.table}`),
+        wrongFn: wrongFn.map((t) => `${t.name}@${t.table}`),
+      }),
+    ],
+  );
+
+  await client.end();
 
   console.log(`Checked ${shouldExist.length} triggers expected to exist.`);
   console.log(`OK: ${okCount}`);

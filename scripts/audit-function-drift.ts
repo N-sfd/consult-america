@@ -113,6 +113,22 @@ async function main() {
     else drifted.push({ name, file, migrationBodyPreview: migBody.trim().slice(0, 300) });
   }
 
+  const status = missing.length || drifted.length ? "DRIFT" : "OK";
+  const summary = `Checked ${latest.size} functions: ${clean.length} clean, ${missing.length} missing, ${drifted.length} drifted.`;
+  await client.query(
+    `INSERT INTO system_health_checks (id, check_name, status, summary, details, checked_at)
+     VALUES ($1, 'function_drift', $2, $3, $4, now())`,
+    [
+      `shc-${crypto.randomUUID()}`,
+      status,
+      summary,
+      JSON.stringify({
+        missing: missing.map((m) => m.name),
+        drifted: drifted.map((d) => d.name),
+      }),
+    ],
+  );
+
   await client.end();
 
   console.log(`Checked ${latest.size} functions across ${files.length} migration files.`);

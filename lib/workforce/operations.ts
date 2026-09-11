@@ -715,3 +715,126 @@ export async function listPayrollRunSummaryRows(): Promise<PayrollRunSummaryRow[
     totalGrossAmount: Number(row.total_gross_amount ?? 0),
   }));
 }
+
+export type HealthCheckRow = {
+  checkName: string;
+  status: "OK" | "DRIFT" | "ERROR";
+  summary: string;
+  details: unknown;
+  checkedAt: string;
+};
+
+/**
+ * Reads the last known result per check — the actual drift computation
+ * only ever runs via `npm run db:audit-drift` (raw pg, CLI-only); this just
+ * surfaces what that run last persisted, through the same service-role
+ * client every other real-data read in this file uses.
+ */
+export async function getLatestHealthChecks(): Promise<HealthCheckRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const { data, error } = await client
+    .from("system_health_checks")
+    .select("check_name, status, summary, details, checked_at")
+    .order("checked_at", { ascending: false });
+  if (error) throw new Error(error.message);
+
+  const latestByName = new Map<string, HealthCheckRow>();
+  for (const row of data ?? []) {
+    const checkName = row.check_name as string;
+    if (latestByName.has(checkName)) continue;
+    latestByName.set(checkName, {
+      checkName,
+      status: row.status as HealthCheckRow["status"],
+      summary: row.summary as string,
+      details: row.details,
+      checkedAt: row.checked_at as string,
+    });
+  }
+
+  return [...latestByName.values()];
+}
+
+const DELIVERY_STATUSES = ["pending", "processing", "sent", "failed", "cancelled"] as const;
+
+/** Cheap per-status counts via Supabase's count-only query, not a row fetch. */
+export async function getNotificationDeliveryHealthSummary(): Promise<Record<string, number>> {
+  const client = getSupabaseServiceClient();
+  const summary: Record<string, number> = {};
+  if (!client) return summary;
+
+  await Promise.all(
+    DELIVERY_STATUSES.map(async (status) => {
+      const { count, error } = await client
+        .from("notification_deliveries")
+        .select("id", { count: "exact", head: true })
+        .eq("status", status);
+      if (error) throw new Error(error.message);
+      summary[status] = count ?? 0;
+    }),
+  );
+
+  return summary;
+}
+
+export type DbConnectivitySummary = {
+  configured: boolean;
+  tables: Array<{ name: string; ok: boolean; error?: string }>;
+};
+
+const HEALTH_PROBE_TABLES = ["employee_profiles", "notifications", "audit_logs"] as const;
+
+/** Lightweight connectivity + table-presence check, adapted from
+ * scripts/probe-supabase.ts but through the app's own client so a page can
+ * call it directly instead of shelling out. */
+export async function getDbConnectivitySummary(): Promise<DbConnectivitySummary> {
+  const client = getSupabaseServiceClient();
+  if (!client) return { configured: false, tables: [] };
+
+  const tables = await Promise.all(
+    HEALTH_PROBE_TABLES.map(async (name) => {
+      const { error } = await client.from(name).select("id").limit(1);
+      return { name, ok: !error, error: error?.message };
+    }),
+  );
+
+  return { configured: true, tables };
+}
+
+export type PlatformUserRow = {
+  id: string;
+  email: string;
+  displayName: string;
+  status: string;
+  roles: string[];
+};
+
+/** Read-only platform user/role listing — no grant/revoke path exists yet. */
+export async function listPlatformUsers(): Promise<PlatformUserRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const [{ data: profiles, error: profilesError }, { data: roleRows, error: rolesError }] =
+    await Promise.all([
+      client.from("profiles").select("id, email, display_name, status").order("display_name"),
+      client.from("user_roles").select("user_id, role"),
+    ]);
+  if (profilesError) throw new Error(profilesError.message);
+  if (rolesError) throw new Error(rolesError.message);
+
+  const rolesByUser = new Map<string, string[]>();
+  for (const row of roleRows ?? []) {
+    const userId = row.user_id as string;
+    if (!rolesByUser.has(userId)) rolesByUser.set(userId, []);
+    rolesByUser.get(userId)!.push(row.role as string);
+  }
+
+  return (profiles ?? []).map((row) => ({
+    id: row.id as string,
+    email: row.email as string,
+    displayName: row.display_name as string,
+    status: row.status as string,
+    roles: rolesByUser.get(row.id as string) ?? [],
+  }));
+}

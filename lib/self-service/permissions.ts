@@ -50,6 +50,7 @@ const hrPermissions: SelfServicePermission[] = [
   "audit.read",
   "reports.read",
   "notifications.manage",
+  "admin.manage",
 ];
 
 const payrollPermissions: SelfServicePermission[] = [
