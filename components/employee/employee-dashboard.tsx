@@ -1,28 +1,44 @@
 import Link from "next/link";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import type { getEmployeeDashboard } from "@/lib/self-service";
 
 type DashboardData = Awaited<ReturnType<typeof getEmployeeDashboard>>;
+
+function formatPeriodEnd(value: string) {
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const date = dateOnly ? new Date(`${value}T00:00:00`) : new Date(value);
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 export default function EmployeeDashboard({ data }: { data: DashboardData }) {
   const profile = data.profile;
   const firstName =
     profile?.person.preferredName || profile?.person.firstName || "there";
   const onboardingDone = data.onboarding.percentComplete === 100;
+  const timesheetDueLabel = data.timesheet?.periodEnd
+    ? formatPeriodEnd(data.timesheet.periodEnd)
+    : null;
 
   return (
     <div className="space-y-7">
       <section className="ca-platform-hero">
-        <div className="relative z-[1]">
-          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em] text-[var(--ca-platform-ink)]">
-            Good morning, {firstName}
-          </h1>
-          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            {profile?.positionTitle}
-            {profile?.departmentName ? ` · ${profile.departmentName}` : ""}
-          </p>
+        <div className="relative z-[1] space-y-5">
+          <PageHeader
+            className="border-b-0 pb-0"
+            title={`Good morning, ${firstName}`}
+            description={
+              [profile?.positionTitle, profile?.departmentName]
+                .filter(Boolean)
+                .join(" · ") || undefined
+            }
+          />
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {[
               { href: "/employee/onboarding", label: "Complete Onboarding" },
               { href: "/employee/documents", label: "View Documents" },
@@ -111,10 +127,12 @@ export default function EmployeeDashboard({ data }: { data: DashboardData }) {
         <div className="ca-platform-card p-5">
           <h2 className="ca-platform-kpi-label">Upcoming</h2>
           <ul className="mt-3 space-y-3 text-sm">
-            <li className="flex justify-between gap-4 border-b border-[var(--ca-platform-border)] pb-3">
-              <span>Timesheet Due</span>
-              <span className="text-[var(--ca-platform-muted)]">Friday</span>
-            </li>
+            {timesheetDueLabel ? (
+              <li className="flex justify-between gap-4 border-b border-[var(--ca-platform-border)] pb-3">
+                <span>Timesheet period ends</span>
+                <span className="text-[var(--ca-platform-muted)]">{timesheetDueLabel}</span>
+              </li>
+            ) : null}
             <li className="flex justify-between gap-4">
               <span>Approved Leave</span>
               <span className="text-[var(--ca-platform-muted)]">

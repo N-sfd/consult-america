@@ -10,6 +10,7 @@ import {
   CandidateSkillPill,
   CandidateSkillsForm,
 } from "@/components/candidate/candidate-profile-sections";
+import { PageHeader } from "@/components/shared";
 import { calculateProfileCompletion } from "@/lib/candidate/profile-completion";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import { recruitingRepository } from "@/lib/recruiting";
@@ -48,40 +49,36 @@ export default async function CandidateProfilePage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">
-            My Profile
-          </h1>
-          <p className="mt-2 text-black/55">
-            {candidate.firstName} {candidate.lastName} · {candidate.email}
-          </p>
-        </div>
-        <div className="ca-platform-card px-4 py-3 text-sm">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-            Profile Completion
-          </p>
-          <p className="mt-1 text-2xl font-semibold">{completion.percent}%</p>
-          <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-            {[
-              { label: "Personal details", done: completion.identity },
-              { label: "Contact info", done: completion.contact },
-              { label: "Resume", done: completion.resume },
-              { label: "Professional summary", done: completion.summary },
-              { label: "Experience", done: completion.experience },
-              { label: "Education", done: completion.education },
-              { label: "Skills", done: completion.skills },
-            ].map((item) => (
-              <li
-                key={item.label}
-                className={item.done ? "text-black/70" : "text-black/40"}
-              >
-                {item.done ? "✓" : "○"} {item.label}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <PageHeader
+        title="My Profile"
+        description={`${candidate.firstName} ${candidate.lastName} · ${candidate.email}`}
+        actions={
+          <div className="ca-platform-card px-4 py-3 text-sm">
+            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+              Profile Completion
+            </p>
+            <p className="mt-1 text-2xl font-semibold">{completion.percent}%</p>
+            <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+              {[
+                { label: "Personal details", done: completion.identity },
+                { label: "Contact info", done: completion.contact },
+                { label: "Resume", done: completion.resume },
+                { label: "Professional summary", done: completion.summary },
+                { label: "Experience", done: completion.experience },
+                { label: "Education", done: completion.education },
+                { label: "Skills", done: completion.skills },
+              ].map((item) => (
+                <li
+                  key={item.label}
+                  className={item.done ? "text-black/70" : "text-black/40"}
+                >
+                  {item.done ? "✓" : "○"} {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
+      />
 
       <CandidateProfileForm candidate={candidate} />
 

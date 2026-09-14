@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import AccountCreateForm from "@/components/crm/account-create-form";
+import { EmptyState, PageHeader } from "@/components/shared";
 import { crmRepository } from "@/lib/crm";
 import { accountStatusLabels, accountTierLabels } from "@/types/crm";
 
@@ -24,22 +25,17 @@ export default async function CrmAccountsPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-            Accounts
-          </h1>
-          <p className="mt-2 text-black/55">
-            Every account your team owns, with open pipeline at a glance.
-          </p>
-        </div>
-        <AccountCreateForm />
-      </div>
+      <PageHeader
+        title="Accounts"
+        description="Every account your team owns, with open pipeline at a glance."
+        actions={<AccountCreateForm />}
+      />
 
       {accounts.length === 0 ? (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-          No accounts yet.
-        </div>
+        <EmptyState
+          title="No accounts yet"
+          description="Create an account to start tracking contacts and opportunities."
+        />
       ) : (
         <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
           <ul className="divide-y divide-black/5">

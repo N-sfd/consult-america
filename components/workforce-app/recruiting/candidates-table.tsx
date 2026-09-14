@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowDown, ArrowUp, ArrowUpDown, Search, X } from "lucide-react";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import CandidateDrawer from "@/components/workforce-app/recruiting/candidate-drawer";
 import StageBadge, {
   CandidateAvatar,
@@ -188,21 +189,15 @@ export default function CandidatesTable({
   ];
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-5 lg:px-8 lg:py-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
-            Candidates
-          </h1>
-          <p className="mt-1 text-sm text-black/50">
-            Manage applicants across jobs and hiring stages.
-          </p>
-        </div>
-      </div>
+    <div className="mx-auto max-w-[1280px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+      <PageHeader
+        title="Candidates"
+        description="Manage applicants across jobs and hiring stages."
+      />
 
       {!isSupabaseConnected && <SupabaseConnectBanner />}
 
-      <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {kpiCards.map((kpi) => (
           <div key={kpi.label} className="border border-black/8 bg-white px-4 py-3">
             <p className="text-2xl font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
@@ -213,7 +208,7 @@ export default function CandidatesTable({
         ))}
       </div>
 
-      <div className="mt-5 flex flex-col gap-2 lg:flex-row lg:items-center">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
         <label className="relative block lg:max-w-xs lg:flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-black/35" />
           <input
@@ -289,13 +284,28 @@ export default function CandidatesTable({
       </div>
 
       {pageItems.length === 0 ? (
-        <p className="mt-4 border border-black/8 bg-white px-5 py-10 text-center text-sm text-black/45 md:hidden">
-          {candidates.length === 0
-            ? "No candidates yet."
-            : "No candidates match your search or filters."}
-        </p>
+        <EmptyState
+          className="md:hidden"
+          title={candidates.length === 0 ? "No candidates yet" : "No matching candidates"}
+          description={
+            candidates.length === 0
+              ? "Candidates appear here when they apply to published roles."
+              : "No candidates match your search or filters."
+          }
+          action={
+            hasActiveFilters ? (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+              >
+                Clear filters
+              </button>
+            ) : undefined
+          }
+        />
       ) : (
-        <div className="mt-4 space-y-2 md:hidden">
+        <div className="space-y-2 md:hidden">
           {pageItems.map((candidate) => (
             <button
               key={candidate.candidateId}
@@ -328,7 +338,7 @@ export default function CandidatesTable({
         </div>
       )}
 
-      <div className="mt-4 hidden overflow-x-auto border border-black/8 bg-white md:block">
+      <div className="hidden overflow-x-auto border border-black/8 bg-white md:block">
         <div className="min-w-[860px]">
           <div className="grid grid-cols-[2fr_1.4fr_0.9fr_1fr_0.8fr] gap-3 border-b border-black/8 bg-[var(--ca-app-bg)] px-5 py-2.5 text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
             <button
@@ -357,11 +367,19 @@ export default function CandidatesTable({
           </div>
 
           {pageItems.length === 0 ? (
-            <p className="px-5 py-10 text-center text-sm text-black/45">
-              {candidates.length === 0
-                ? "No candidates yet."
-                : "No candidates match your search or filters."}
-            </p>
+            <div className="p-5">
+              <EmptyState
+                compact
+                title={
+                  candidates.length === 0 ? "No candidates yet" : "No matching candidates"
+                }
+                description={
+                  candidates.length === 0
+                    ? "Candidates appear here when they apply to published roles."
+                    : "No candidates match your search or filters."
+                }
+              />
+            </div>
           ) : (
             pageItems.map((candidate) => (
               <button

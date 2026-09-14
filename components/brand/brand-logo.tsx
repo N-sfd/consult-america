@@ -107,7 +107,7 @@ function CrispLockup({
           : context === "mobile"
             ? 48
             : context === "apply"
-              ? 44
+              ? 48
               : 58;
 
   if (markOnly) {

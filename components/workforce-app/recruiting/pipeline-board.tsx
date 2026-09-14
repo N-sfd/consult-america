@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import { CandidateAvatar } from "@/components/workforce-app/recruiting/stage-badge";
 import OfferActions from "@/components/workforce-app/recruiting/offer-actions";
 import ScheduleInterviewButton from "@/components/workforce-app/recruiting/schedule-interview-button";
@@ -53,6 +54,7 @@ export default function PipelineBoard({
   const [focusStage, setFocusStage] = useState<ApplicationStatus | null>(
     initialFocusStage,
   );
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const visibleStages = useMemo(
@@ -65,6 +67,7 @@ export default function PipelineBoard({
 
   function handleMove(applicationId: string, status: ApplicationStatus) {
     const previous = items.find((i) => i.applicationId === applicationId);
+    setError(null);
     setItems((prev) =>
       prev.map((item) =>
         item.applicationId === applicationId ? { ...item, status } : item,
@@ -86,13 +89,13 @@ export default function PipelineBoard({
             ),
           );
         }
-        window.alert(result.error);
+        setError(result.error);
       }
     });
   }
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1400px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
       <Link
         href={`/app/recruiting/jobs/${requisitionId}`}
         className="inline-flex items-center gap-1 text-sm text-black/50 hover:text-[var(--ca-blue)]"
@@ -101,34 +104,41 @@ export default function PipelineBoard({
         {jobTitle}
       </Link>
 
-      <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-[1.5rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
-          Pipeline
-        </h1>
-        <div className="flex flex-wrap items-center gap-4">
-          {focusStage ? (
-            <button
-              type="button"
-              onClick={() => setFocusStage(null)}
-              className="text-sm text-[var(--ca-blue)] hover:underline"
+      <PageHeader
+        title="Pipeline"
+        description={
+          focusStage
+            ? `Showing ${applicationStatusLabels[focusStage]} only.`
+            : "Click a stage header to filter."
+        }
+        actions={
+          <div className="flex flex-wrap items-center gap-4">
+            {focusStage ? (
+              <button
+                type="button"
+                onClick={() => setFocusStage(null)}
+                className="text-sm text-[var(--ca-blue)] hover:underline"
+              >
+                Show all stages
+              </button>
+            ) : null}
+            <Link
+              href={`/app/recruiting/jobs/${requisitionId}?tab=match`}
+              className="text-sm font-semibold text-[var(--ca-blue)] hover:underline"
             >
-              Show all stages
-            </button>
-          ) : (
-            <p className="text-sm text-black/45">
-              Click a stage header to filter
-            </p>
-          )}
-          <Link
-            href={`/app/recruiting/jobs/${requisitionId}?tab=match`}
-            className="text-sm font-semibold text-[var(--ca-blue)] hover:underline"
-          >
-            Candidate Match
-          </Link>
-        </div>
-      </div>
+              Candidate Match
+            </Link>
+          </div>
+        }
+      />
 
-      <div className="mt-5 overflow-x-auto">
+      {error ? (
+        <p className="text-sm text-[var(--ca-error)]" role="alert">
+          {error}
+        </p>
+      ) : null}
+
+      <div className="overflow-x-auto">
         <div className="flex min-w-max gap-3 pb-2">
           {visibleStages.map((status) => {
             const stageItems = items.filter((item) => item.status === status);
@@ -222,9 +232,11 @@ export default function PipelineBoard({
                     </div>
                   ))}
                   {stageItems.length === 0 && (
-                    <p className="border border-dashed border-black/10 px-3 py-4 text-center text-xs text-black/35">
-                      No candidates
-                    </p>
+                    <EmptyState
+                      compact
+                      title="No candidates"
+                      className="items-center text-center"
+                    />
                   )}
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import { crmRepository } from "@/lib/crm";
 import { opportunityStageLabels } from "@/types/crm";
 
@@ -30,16 +31,10 @@ export default async function CrmDashboardPage() {
 
   return (
     <div className="space-y-7">
-      <section className="ca-platform-hero">
-        <div className="relative z-[1]">
-          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-            CRM Workspace
-          </h1>
-          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            Pipeline health and account activity at a glance.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title="CRM Workspace"
+        description="Pipeline health and account activity at a glance."
+      />
 
       <section className="grid gap-4 sm:grid-cols-3">
         <div className="ca-platform-card ca-platform-kpi">
@@ -87,7 +82,12 @@ export default async function CrmDashboardPage() {
           </Link>
         </div>
         {topAccounts.length === 0 ? (
-          <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">No accounts yet.</p>
+          <EmptyState
+            compact
+            className="mt-4 border-0 bg-transparent px-0"
+            title="No accounts yet"
+            description="Create an account to start tracking pipeline."
+          />
         ) : (
           <ul className="mt-4 divide-y divide-[var(--ca-platform-border)] text-sm">
             {topAccounts.map((account) => (

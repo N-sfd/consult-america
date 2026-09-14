@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ArchImage } from "@/components/marketing/image-system";
 import JobApplicationForm from "@/components/jobs/job-application-form";
 import { careerAreaLabels } from "@/data/jobs";
 import { getOptionalCandidateSession } from "@/lib/candidate/session";
@@ -111,16 +111,14 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
               </p>
             </div>
             <div className="lg:col-span-5">
-              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl lg:aspect-[4/3]">
-                <Image
-                  src={APPLY_HERO_IMAGE}
-                  alt="Consult America professionals collaborating"
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                />
-              </div>
+              <ArchImage
+                src={APPLY_HERO_IMAGE}
+                alt="Consult America professionals collaborating"
+                priority
+                aspectRatio="aspect-[4/5] lg:aspect-[4/5]"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                containerClassName="max-w-none"
+              />
             </div>
           </div>
         </div>

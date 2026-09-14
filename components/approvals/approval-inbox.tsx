@@ -7,6 +7,7 @@ import {
   actOnApprovalAction,
   type ApprovalInboxAction,
 } from "@/app/actions/approval-actions";
+import { EmptyState } from "@/components/shared";
 import type { ApprovalInboxItem } from "@/lib/self-service/approval-service";
 import { approvalStatusLabels, expenseCategoryLabels } from "@/types/self-service";
 
@@ -36,10 +37,14 @@ export default function ApprovalInbox({
         </div>
 
         {items.length === 0 ? (
-          <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-            No pending approvals
-            {activeFilter !== "ALL" ? ` for ${activeFilter.toLowerCase()}` : ""}.
-          </div>
+          <EmptyState
+            title="No pending approvals"
+            description={
+              activeFilter !== "ALL"
+                ? `Nothing waiting for ${activeFilter.toLowerCase().replaceAll("_", " ")} right now.`
+                : "Your approval queue is clear."
+            }
+          />
         ) : (
           items.map((item) => (
             <ApprovalCard key={item.approval.id} item={item} />
@@ -52,7 +57,14 @@ export default function ApprovalInbox({
           Recent Decisions
         </h2>
         {recent.length === 0 ? (
-          <p className="mt-4 text-sm text-black/50">No recent decisions yet.</p>
+          <div className="mt-4">
+            <EmptyState
+              compact
+              title="No recent decisions yet"
+              description="Approved and rejected items will appear here."
+              className="border-0 bg-transparent px-0 py-2"
+            />
+          </div>
         ) : (
           <ul className="mt-4 divide-y divide-black/5 text-sm">
             {recent.map((item) => (
@@ -91,6 +103,8 @@ function countByType(items: ApprovalInboxItem[]) {
       (i) => i.approval.requestType === "PROFILE_CHANGE",
     ).length,
     EXPENSE: items.filter((i) => i.approval.requestType === "EXPENSE").length,
+    HR_REQUEST: items.filter((i) => i.approval.requestType === "HR_REQUEST")
+      .length,
   };
 }
 
@@ -107,6 +121,7 @@ function FilterBar({
     { value: "LEAVE", label: "Leave" },
     { value: "PROFILE_CHANGE", label: "Profile" },
     { value: "EXPENSE", label: "Expense" },
+    { value: "HR_REQUEST", label: "HR Request" },
   ];
 
   return (

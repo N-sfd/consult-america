@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import type { getManagerDashboard } from "@/lib/self-service";
 
 type DashboardData = Awaited<ReturnType<typeof getManagerDashboard>>;
@@ -12,14 +13,15 @@ export default function ManagerDashboard({ data }: { data: DashboardData }) {
     <div className="space-y-7">
       <section className="ca-platform-hero">
         <div className="relative z-[1]">
-          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-            Manager Home
-          </h1>
-          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            {attention > 0
-              ? `${attention} item${attention === 1 ? "" : "s"} need your attention.`
-              : "Your team is clear — no pending approvals right now."}
-          </p>
+          <PageHeader
+            className="border-b-0 pb-0"
+            title="Manager Home"
+            description={
+              attention > 0
+                ? `${attention} item${attention === 1 ? "" : "s"} need your attention.`
+                : "Your team is clear — no pending approvals right now."
+            }
+          />
         </div>
       </section>
 
@@ -53,25 +55,33 @@ export default function ManagerDashboard({ data }: { data: DashboardData }) {
               View all
             </Link>
           </div>
-          <ul className="mt-4 divide-y divide-[var(--ca-platform-border)]">
-            {data.team.map((member) => (
-              <li key={member.employee.id} className="flex items-start gap-3 py-3.5">
-                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[var(--ca-platform-mid)]" />
-                <div>
-                  <p className="font-medium">
-                    {member.person.firstName} {member.person.lastName}
-                  </p>
-                  <p className="mt-0.5 text-sm text-[var(--ca-platform-muted)]">
-                    {member.positionTitle}
-                    {member.locationName ? ` · ${member.locationName}` : ""}
-                  </p>
-                </div>
-              </li>
-            ))}
-            {data.team.length === 0 && (
-              <li className="py-4 text-sm text-[var(--ca-platform-muted)]">No direct reports.</li>
-            )}
-          </ul>
+          {data.team.length === 0 ? (
+            <div className="mt-4">
+              <EmptyState
+                compact
+                title="No direct reports"
+                description="Team members assigned to you will appear here."
+                className="border-0 bg-transparent px-0 py-2"
+              />
+            </div>
+          ) : (
+            <ul className="mt-4 divide-y divide-[var(--ca-platform-border)]">
+              {data.team.map((member) => (
+                <li key={member.employee.id} className="flex items-start gap-3 py-3.5">
+                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[var(--ca-platform-mid)]" />
+                  <div>
+                    <p className="font-medium">
+                      {member.person.firstName} {member.person.lastName}
+                    </p>
+                    <p className="mt-0.5 text-sm text-[var(--ca-platform-muted)]">
+                      {member.positionTitle}
+                      {member.locationName ? ` · ${member.locationName}` : ""}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="ca-platform-card p-6">
@@ -84,19 +94,27 @@ export default function ManagerDashboard({ data }: { data: DashboardData }) {
               Inbox
             </Link>
           </div>
-          <ul className="mt-4 divide-y divide-[var(--ca-platform-border)]">
-            {data.approvals.map((item) => (
-              <li key={item.id} className="py-3.5">
-                <p className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[var(--ca-platform-red)]">
-                  {item.requestType}
-                </p>
-                <p className="mt-1 text-sm font-medium">{item.summary}</p>
-              </li>
-            ))}
-            {data.approvals.length === 0 && (
-              <li className="py-4 text-sm text-[var(--ca-platform-muted)]">No pending approvals.</li>
-            )}
-          </ul>
+          {data.approvals.length === 0 ? (
+            <div className="mt-4">
+              <EmptyState
+                compact
+                title="No pending approvals"
+                description="New requests from your team will show up here."
+                className="border-0 bg-transparent px-0 py-2"
+              />
+            </div>
+          ) : (
+            <ul className="mt-4 divide-y divide-[var(--ca-platform-border)]">
+              {data.approvals.map((item) => (
+                <li key={item.id} className="py-3.5">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[var(--ca-platform-red)]">
+                    {item.requestType}
+                  </p>
+                  <p className="mt-1 text-sm font-medium">{item.summary}</p>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
@@ -123,9 +141,14 @@ export default function ManagerDashboard({ data }: { data: DashboardData }) {
             ))}
           </ul>
         ) : (
-          <p className="mt-4 text-sm text-[var(--ca-platform-muted)]">
-            No team deadlines require action right now.
-          </p>
+          <div className="mt-4">
+            <EmptyState
+              compact
+              title="No team deadlines"
+              description="Nothing requires action right now."
+              className="border-0 bg-transparent px-0 py-2"
+            />
+          </div>
         )}
       </section>
     </div>

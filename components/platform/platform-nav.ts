@@ -225,6 +225,7 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
         { href: "/candidate/documents", label: "Documents" },
         { href: "/candidate/jobs", label: "Jobs" },
         { href: "/candidate/applications", label: "Applications" },
+        { href: "/candidate/interviews", label: "Interviews" },
         { href: "/candidate/job-match", label: "Job Match" },
       ],
     },

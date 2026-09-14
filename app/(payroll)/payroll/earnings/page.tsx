@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { PageHeader } from "@/components/shared";
+
 export const metadata: Metadata = {
   title: "Earnings | ConsultAmerica",
 };
@@ -25,12 +27,11 @@ const earningCodes = [
 export default function PayrollEarningsPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Earnings</h1>
-        <p className="mt-2 text-black/55">
-          Earning codes used by the payroll calculator.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Reference"
+        title="Earnings"
+        description="Earning codes used by the payroll calculator (read-only)."
+      />
 
       <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
         <ul className="divide-y divide-black/5">

@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import ScheduleInterviewButton from "@/components/workforce-app/recruiting/schedule-interview-button";
 import StageBadge, { CandidateAvatar } from "@/components/workforce-app/recruiting/stage-badge";
 import RelativeTime from "@/components/shared/relative-time";
@@ -144,25 +145,21 @@ export default function ApplicationsTable({
   }, [filtered, sortKey, matchScoreByApplicationId]);
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-5 lg:px-8 lg:py-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
-            Applications
-          </h1>
-          <p className="mt-1 text-sm text-black/50">
-            Review and move applications across the hiring pipeline.
-          </p>
-        </div>
-        <a
-          href="/api/exports/application-pipeline"
-          className="h-9 rounded-md border border-black/15 px-3 text-sm font-medium leading-9 text-black/70 hover:bg-black/[0.03]"
-        >
-          Export CSV
-        </a>
-      </div>
+    <div className="mx-auto max-w-[1400px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+      <PageHeader
+        title="Applications"
+        description="Review and move applications across the hiring pipeline."
+        actions={
+          <a
+            href="/api/exports/application-pipeline"
+            className="h-9 rounded-md border border-black/15 px-3 text-sm font-medium leading-9 text-black/70 hover:bg-black/[0.03]"
+          >
+            Export CSV
+          </a>
+        }
+      />
 
-      <div className="mt-5 flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:items-center">
+      <div className="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:items-center">
         <label className="relative block lg:max-w-xs lg:flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-black/35" />
           <input
@@ -278,29 +275,27 @@ export default function ApplicationsTable({
       </div>
 
       {sorted.length === 0 ? (
-        <div className="mt-6 border border-dashed border-black/10 bg-white px-5 py-14 text-center">
-          <p className="text-sm text-black/55">
-            {applications.length === 0
-              ? "No applications found"
-              : "No applications match these filters."}
-          </p>
-          <p className="mt-1 text-sm text-black/40">
-            {applications.length === 0
+        <EmptyState
+          title={applications.length === 0 ? "No applications found" : "No matching applications"}
+          description={
+            applications.length === 0
               ? "Applications will appear here when candidates apply to published roles."
-              : ""}
-          </p>
-          {applications.length > 0 && (
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="mt-4 inline-flex h-9 items-center border border-black/10 px-3 text-sm text-black/60 hover:border-black/20"
-            >
-              Clear Filters
-            </button>
-          )}
-        </div>
+              : "No applications match these filters."
+          }
+          action={
+            applications.length > 0 ? (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex h-9 items-center border border-black/10 px-3 text-sm text-black/60 hover:border-black/20"
+              >
+                Clear Filters
+              </button>
+            ) : undefined
+          }
+        />
       ) : (
-        <div className="mt-4 overflow-x-auto border border-black/8 bg-white">
+        <div className="overflow-x-auto border border-black/8 bg-white">
           <table className="w-full min-w-[1200px] text-left text-sm">
             <thead className="border-b border-black/8 bg-[var(--ca-app-bg)] text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
               <tr>

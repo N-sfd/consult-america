@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
 import { updateInterviewStatus } from "@/lib/recruiting/actions";
 import type { InterviewStatus } from "@/types/recruiting";
@@ -20,6 +20,7 @@ export default function InterviewStatusActions({
   status: InterviewStatus;
 }) {
   const [pending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
   if (status !== "SCHEDULED") {
     return (
@@ -30,6 +31,7 @@ export default function InterviewStatusActions({
   }
 
   function setStatus(next: InterviewStatus) {
+    setError(null);
     startTransition(async () => {
       const result = await updateInterviewStatus({
         interviewId,
@@ -38,37 +40,44 @@ export default function InterviewStatusActions({
         status: next,
       });
       if (!result.ok) {
-        window.alert(result.error);
+        setError(result.error);
       }
     });
   }
 
   return (
-    <div className="flex flex-wrap gap-1">
-      <button
-        type="button"
-        disabled={pending}
-        className={buttonClass}
-        onClick={() => setStatus("COMPLETED")}
-      >
-        Complete
-      </button>
-      <button
-        type="button"
-        disabled={pending}
-        className={buttonClass}
-        onClick={() => setStatus("CANCELLED")}
-      >
-        Cancel
-      </button>
-      <button
-        type="button"
-        disabled={pending}
-        className={buttonClass}
-        onClick={() => setStatus("NO_SHOW")}
-      >
-        No-show
-      </button>
+    <div className="flex flex-col gap-1">
+      {error ? (
+        <p className="text-xs text-[var(--ca-error)]" role="alert">
+          {error}
+        </p>
+      ) : null}
+      <div className="flex flex-wrap gap-1">
+        <button
+          type="button"
+          disabled={pending}
+          className={buttonClass}
+          onClick={() => setStatus("COMPLETED")}
+        >
+          Complete
+        </button>
+        <button
+          type="button"
+          disabled={pending}
+          className={buttonClass}
+          onClick={() => setStatus("CANCELLED")}
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          disabled={pending}
+          className={buttonClass}
+          onClick={() => setStatus("NO_SHOW")}
+        >
+          No-show
+        </button>
+      </div>
     </div>
   );
 }

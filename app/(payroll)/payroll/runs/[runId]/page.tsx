@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import RunActions from "@/components/payroll/run-actions";
+import { EmptyState, PageHeader } from "@/components/shared";
 import { getEmployeeProfile } from "@/lib/self-service";
 import {
   getPayPeriodById,
@@ -46,17 +47,14 @@ export default async function PayrollRunDetailPage({
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Payroll Run
-        </h1>
-        {period && (
-          <p className="mt-2 text-black/55">
-            {formatDate(period.periodStart)} – {formatDate(period.periodEnd)} ·
-            Pay date {formatDate(period.payDate)}
-          </p>
-        )}
-      </div>
+      <PageHeader
+        title="Payroll Run"
+        description={
+          period
+            ? `${formatDate(period.periodStart)} – ${formatDate(period.periodEnd)} · Pay date ${formatDate(period.payDate)}`
+            : undefined
+        }
+      />
 
       <section className="rounded-lg border border-black/10 bg-white p-6">
         <div className="grid gap-6 sm:grid-cols-4">
@@ -96,35 +94,37 @@ export default async function PayrollRunDetailPage({
       </section>
 
       <section className="overflow-hidden rounded-lg border border-black/10 bg-white">
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
-            <tr>
-              <th className="px-4 py-3 font-medium">Employee</th>
-              <th className="px-4 py-3 font-medium">Gross Pay</th>
-              <th className="px-4 py-3 font-medium">Deductions</th>
-              <th className="px-4 py-3 font-medium">Net Pay</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(({ slip, name }) => (
-              <tr key={slip.id} className="border-b border-black/5 last:border-b-0">
-                <td className="px-4 py-4 font-medium">{name}</td>
-                <td className="px-4 py-4 text-black/55">{currency(slip.grossPay)}</td>
-                <td className="px-4 py-4 text-black/55">
-                  {currency(slip.totalDeductions)}
-                </td>
-                <td className="px-4 py-4 font-medium">{currency(slip.netPay)}</td>
-              </tr>
-            ))}
-            {rows.length === 0 && (
+        {rows.length === 0 ? (
+          <EmptyState
+            compact
+            className="border-0"
+            title="No payslips calculated yet"
+            description="Calculate this run to generate employee payslips."
+          />
+        ) : (
+          <table className="w-full text-left text-sm">
+            <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-black/50">
-                  No payslips calculated yet.
-                </td>
+                <th className="px-4 py-3 font-medium">Employee</th>
+                <th className="px-4 py-3 font-medium">Gross Pay</th>
+                <th className="px-4 py-3 font-medium">Deductions</th>
+                <th className="px-4 py-3 font-medium">Net Pay</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rows.map(({ slip, name }) => (
+                <tr key={slip.id} className="border-b border-black/5 last:border-b-0">
+                  <td className="px-4 py-4 font-medium">{name}</td>
+                  <td className="px-4 py-4 text-black/55">{currency(slip.grossPay)}</td>
+                  <td className="px-4 py-4 text-black/55">
+                    {currency(slip.totalDeductions)}
+                  </td>
+                  <td className="px-4 py-4 font-medium">{currency(slip.netPay)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </section>
     </div>
   );

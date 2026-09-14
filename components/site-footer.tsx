@@ -43,16 +43,22 @@ const footerColumns = [
   },
 ];
 
+/**
+ * Light marketing footer — ivory/white surface, charcoal type, burgundy accents.
+ * Logo uses full lockup so the mark stays fully visible.
+ */
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[#E1ECE8] bg-[#F7FAF9] text-[#0B4A47]">
-      <div className="mx-auto max-w-[1440px] px-6 py-14 lg:px-8 xl:px-10 lg:py-16">
+    <footer className="border-t border-[#D8D0C5] bg-[#F7F3EC] text-[#211E1B]">
+      <div className="mx-auto max-w-[1440px] overflow-x-clip px-6 py-14 lg:px-8 xl:px-10 lg:py-16">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <BrandLogo variant="full" context="footer" href="/" />
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#5B6D6B]">
+            <div className="max-w-[400px]">
+              <BrandLogo variant="full" context="footer" href="/" />
+            </div>
+            <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#695F57]">
               <div>
-                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#073B3A]">
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#211E1B]">
                   {companyContact.headquarters.label}
                 </p>
                 <p className="mt-1">{companyContact.headquarters.address}</p>
@@ -60,7 +66,7 @@ export function SiteFooter() {
               </div>
 
               <div>
-                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#073B3A]">
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[#211E1B]">
                   {companyContact.office.label}
                 </p>
                 <p className="mt-1">{companyContact.office.address}</p>
@@ -71,7 +77,7 @@ export function SiteFooter() {
                 <p>
                   <a
                     href={`mailto:${companyContact.email}`}
-                    className="transition-colors hover:text-[#073B3A]"
+                    className="transition-colors hover:text-[#B83A3A]"
                   >
                     {companyContact.email}
                   </a>
@@ -79,7 +85,7 @@ export function SiteFooter() {
                 <p>
                   <a
                     href={`tel:${companyContact.phoneTel}`}
-                    className="transition-colors hover:text-[#073B3A]"
+                    className="transition-colors hover:text-[#B83A3A]"
                   >
                     {companyContact.phone}
                   </a>
@@ -91,7 +97,7 @@ export function SiteFooter() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#073B3A]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#211E1B]">
                   {column.title}
                 </p>
                 <ul className="mt-4 space-y-2.5">
@@ -99,7 +105,7 @@ export function SiteFooter() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-[#5B6D6B] transition-colors hover:text-[#073B3A]"
+                        className="text-sm text-[#695F57] transition-colors hover:text-[#B83A3A]"
                       >
                         {link.label}
                       </Link>
@@ -111,7 +117,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-[#DCE4E1] pt-8 text-center text-xs text-[#5B6D6B]">
+        <div className="mt-12 border-t border-[#D8D0C5] pt-8 text-center text-xs text-[#695F57]">
           <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
         </div>
       </div>

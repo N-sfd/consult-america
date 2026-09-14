@@ -32,7 +32,7 @@ export const brandDisplay = {
   portal: { maxWidth: 340, maxHeight: 56, asset: "balanced" as const },
   /** Auth header — full title + tagline, vertically centered with mark */
   login: { maxWidth: 400, maxHeight: 68, asset: "balanced" as const },
-  apply: { maxWidth: 280, maxHeight: 52, asset: "compact" as const },
+  apply: { maxWidth: 320, maxHeight: 56, asset: "compact" as const },
   /** Phone header — mark + title only, vertically centered */
   mobile: { maxWidth: 260, maxHeight: 52, asset: "compact" as const },
   mark: { maxWidth: 40, maxHeight: 40, asset: "mark" as const },

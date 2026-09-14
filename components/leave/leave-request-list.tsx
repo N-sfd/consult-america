@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 
 import { cancelLeaveAction } from "@/app/actions/leave-actions";
+import { EmptyState } from "@/components/shared";
 import type { LeaveRequest, LeaveType } from "@/types/self-service";
 import { leaveRequestStatusLabels } from "@/types/self-service";
 
@@ -24,9 +25,10 @@ export default function LeaveRequestList({
 }: LeaveRequestListProps) {
   if (requests.length === 0) {
     return (
-      <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-        No leave requests yet.
-      </div>
+      <EmptyState
+        title="No leave requests yet"
+        description="Submit a leave request to see it listed here."
+      />
     );
   }
 

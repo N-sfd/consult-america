@@ -19,12 +19,12 @@ export default function JobsChrome({ children }: { children: React.ReactNode }) 
   if (isApply) {
     return (
       <>
-        <header className="sticky top-0 z-[60] border-b border-[#DCE4E1] bg-white">
-          <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between gap-4 px-5 md:px-8">
-            <BrandLogo variant="compact" context="apply" href="/" priority />
+        <header className="sticky top-0 z-[60] border-b border-[#D8D0C5] bg-white">
+          <div className="mx-auto flex min-h-[76px] max-w-[1440px] items-center justify-between gap-4 overflow-x-clip px-5 py-2 md:px-8">
+            <BrandLogo variant="full" context="apply" href="/" priority />
             <Link
               href="/jobs"
-              className="text-sm font-medium text-[#5B6D6B] transition-colors hover:text-[#073B3A]"
+              className="shrink-0 text-sm font-medium text-[#695F57] transition-colors hover:text-[#B83A3A]"
             >
               All jobs
             </Link>

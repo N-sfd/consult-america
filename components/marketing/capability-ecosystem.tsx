@@ -137,7 +137,7 @@ export default function CapabilityEcosystem() {
   return (
     <section
       id="capabilities-ecosystem"
-      className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F0F6F4] py-12 sm:py-14 lg:py-16"
+      className="relative overflow-hidden border-b border-[#D8D0C5] bg-[#F7F3EC] py-12 sm:py-14 lg:py-16"
     >
       <div
         aria-hidden="true"
@@ -146,15 +146,15 @@ export default function CapabilityEcosystem() {
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="max-w-2xl">
-          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
             What We Do
           </p>
-          <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
+          <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#211E1B]">
             Connected capabilities.
             <br className="hidden sm:block" />
             Built around the enterprise.
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-[#5B6D6B]">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-[#695F57]">
             Transformation works best when strategy, platforms, data and engineering move together.
           </p>
         </div>

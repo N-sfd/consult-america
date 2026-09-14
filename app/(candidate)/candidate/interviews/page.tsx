@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import { formatDateTime } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
@@ -29,20 +30,16 @@ export default async function CandidateInterviewsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Interviews
-        </h1>
-        <p className="mt-2 text-black/55">
-          Scheduled and past interviews across your applications.
-        </p>
-      </div>
+      <PageHeader
+        title="Interviews"
+        description="Scheduled and past interviews across your applications."
+      />
 
       {interviews.length === 0 ? (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-          No interviews scheduled yet. We&apos;ll notify you here once one is
-          set up.
-        </div>
+        <EmptyState
+          title="No interviews scheduled yet"
+          description="We will notify you here once one is set up."
+        />
       ) : (
         <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
           <ul className="divide-y divide-black/5">

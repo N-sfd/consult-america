@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PageHeader } from "@/components/shared";
 import { ILLUSTRATIVE_WITHHOLDING_RATE } from "@/types/payroll";
 
 export const metadata: Metadata = {
@@ -9,10 +10,11 @@ export const metadata: Metadata = {
 export default function PayrollSettingsPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Settings</h1>
-        <p className="mt-2 text-black/55">Payroll configuration for this demo.</p>
-      </div>
+      <PageHeader
+        eyebrow="Reference"
+        title="Settings"
+        description="Payroll configuration for this demo (read-only)."
+      />
 
       <div className="rounded-lg border border-black/10 bg-white p-6">
         <dl className="grid gap-6 sm:grid-cols-2">

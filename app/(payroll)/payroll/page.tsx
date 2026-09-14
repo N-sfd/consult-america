@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { PageHeader } from "@/components/shared";
 import { hrRepository } from "@/lib/hr";
 import {
   getCurrentPayPeriod,
@@ -66,24 +67,22 @@ export default async function PayrollOverviewPage() {
 
   return (
     <div className="space-y-7">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-            Payroll
-          </h1>
-          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            {persisted
-              ? "Pay periods and payroll runs from recorded workforce data."
-              : "Demo calculator figures — not production payroll or tax data."}
-          </p>
-        </div>
-        <a
-          href="/api/exports/payroll-run-summary"
-          className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-ink)]"
-        >
-          Export CSV
-        </a>
-      </div>
+      <PageHeader
+        title="Payroll"
+        description={
+          persisted
+            ? "Pay periods and payroll runs from recorded workforce data."
+            : "Demo calculator figures — not production payroll or tax data."
+        }
+        actions={
+          <a
+            href="/api/exports/payroll-run-summary"
+            className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-ink)]"
+          >
+            Export CSV
+          </a>
+        }
+      />
 
       {period ? (
         <section className="ca-platform-summary-band">

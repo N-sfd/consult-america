@@ -52,15 +52,24 @@ const industries: {
 ];
 
 const featuredInsight = {
-  title: "Operationalizing Enterprise AI: From Experimentation to Production",
+  title: "AI without a data contract",
   href: "/insights/ai-without-a-data-contract",
   image: stockImage("insightsHero", { w: 1200, q: 85 }),
 };
 
 const supportingInsights = [
-  { title: "What Oracle Cloud Modernization Requires Beyond Technology", href: "/insights/what-stalls-fusion-programs" },
-  { title: "Building Trustworthy Document Intelligence with Source Verification", href: "/insights/cutover-checklists-that-work" },
-  { title: "Why Integration Must Come Before Analytics at Scale", href: "/insights/integration-before-analytics" },
+  {
+    title: "How to Prepare for a Successful Oracle Cloud Transformation",
+    href: "/insights/what-stalls-fusion-programs",
+  },
+  {
+    title: "Cutover checklists that work",
+    href: "/insights/cutover-checklists-that-work",
+  },
+  {
+    title: "Integration before analytics",
+    href: "/insights/integration-before-analytics",
+  },
 ];
 
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
@@ -72,12 +81,12 @@ export default function HomepageClosingSection() {
 
   return (
     <>
-      <section className="border-b border-[#E1ECE8] bg-white py-10 sm:py-12">
+      <section className="border-b border-[#D8D0C5] bg-white py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
+          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
             Why Consult America
           </p>
-          <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
+          <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#211E1B]">
             Built for execution, not just advice.
           </h2>
           <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">

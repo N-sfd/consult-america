@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import TimesheetEditor from "@/components/time/timesheet-editor";
+import { EmptyState, PageHeader } from "@/components/shared";
 import {
   getCurrentTimesheet,
   getTimeEntries,
@@ -32,49 +33,58 @@ export default async function EmployeeTimePage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-[-0.04em]">Time</h1>
-          <p className="mt-2 text-black/55">
-            Enter hours for the current period, save a draft, then submit to your
-            manager for approval.
-          </p>
-        </div>
-        <a
-          href="/api/exports/time-entries"
-          className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
-        >
-          Export CSV
-        </a>
-      </div>
+      <PageHeader
+        title="Time"
+        description="Enter hours for the current period, save a draft, then submit to your manager for approval."
+        actions={
+          <a
+            href="/api/exports/time-entries"
+            className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
+          >
+            Export CSV
+          </a>
+        }
+      />
 
       {current ? (
         <TimesheetEditor timesheet={current} entries={entries} />
       ) : (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-          No open timesheet period.
-        </div>
+        <EmptyState
+          title="No open timesheet period"
+          description="There is no editable timesheet for the current period."
+        />
       )}
 
       <section className="rounded-lg border border-black/10 bg-white p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           History
         </h2>
-        <ul className="mt-4 divide-y divide-black/5 text-sm">
-          {history.map((sheet) => (
-            <li
-              key={sheet.id}
-              className="flex items-center justify-between py-3"
-            >
-              <span>
-                {sheet.periodStart} – {sheet.periodEnd}
-              </span>
-              <span className="text-black/55">
-                {timesheetStatusLabels[sheet.status]} · {sheet.totalHours}h
-              </span>
-            </li>
-          ))}
-        </ul>
+        {history.length === 0 ? (
+          <div className="mt-4">
+            <EmptyState
+              compact
+              title="No timesheet history"
+              description="Submitted periods will appear here."
+              className="border-0 bg-transparent px-0 py-2"
+            />
+          </div>
+        ) : (
+          <ul className="mt-4 divide-y divide-black/5 text-sm">
+            {history.map((sheet) => (
+              <li
+                key={sheet.id}
+                className="flex items-center justify-between py-3"
+              >
+                <span>
+                  {sheet.periodStart} – {sheet.periodEnd}
+                </span>
+                <span className="text-black/55">
+                  {timesheetStatusLabels[sheet.status]} · {sheet.totalHours}h
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );

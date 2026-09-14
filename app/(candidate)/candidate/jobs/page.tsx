@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import JobBoard from "@/components/jobs/job-board";
+import { PageHeader } from "@/components/shared";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
 import { recruitingRepository } from "@/lib/recruiting";
@@ -40,29 +41,27 @@ export default async function CandidateJobsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">Jobs</h1>
-        <p className="mt-2 text-black/55">
-          Browse published Consult America roles and apply with your current
-          resume.
-        </p>
-      </div>
-
-      {(profile?.applications?.length ?? 0) === 0 ? (
-        <p className="text-sm text-black/50">
-          No applications yet. Browse open roles to get started.
-        </p>
-      ) : (
-        <p className="text-sm text-black/50">
-          Roles you already applied to show View Application instead of Apply.{" "}
-          <Link
-            href="/candidate/applications"
-            className="font-semibold text-[var(--cr-blue)] hover:underline"
-          >
-            View applications
-          </Link>
-        </p>
-      )}
+      <PageHeader
+        title="Jobs"
+        description="Browse published Consult America roles and apply with your current resume."
+        meta={
+          (profile?.applications?.length ?? 0) === 0 ? (
+            <p className="text-sm text-black/50">
+              No applications yet. Browse open roles to get started.
+            </p>
+          ) : (
+            <p className="text-sm text-black/50">
+              Roles you already applied to show View Application instead of Apply.{" "}
+              <Link
+                href="/candidate/applications"
+                className="font-semibold text-[var(--cr-blue)] hover:underline"
+              >
+                View applications
+              </Link>
+            </p>
+          )
+        }
+      />
 
       <Suspense fallback={<p className="text-sm text-black/50">Loading jobs…</p>}>
         <JobBoard

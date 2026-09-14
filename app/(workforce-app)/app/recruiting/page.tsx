@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import { loadAtsDashboard } from "@/lib/ats/ops";
 import { getWorkforceSession } from "@/lib/workforce/session";
 import {
@@ -64,15 +65,11 @@ export default async function AtsHomePage() {
 
   return (
     <div className="space-y-7">
-      <div>
-        <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">ATS</p>
-        <h1 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.03em]">
-          Recruiting Operations
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-black/55">
-          Live requisitions, applications, interviews, and offers — no demo conversion rates.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="ATS"
+        title="Recruiting Operations"
+        description="Live requisitions, applications, interviews, and offers — no demo conversion rates."
+      />
 
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {cards.map((card) => (
@@ -91,7 +88,9 @@ export default async function AtsHomePage() {
 
       <section className="rounded-lg border border-black/10 bg-white p-5">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-serif text-lg font-semibold">Application Pipeline</h2>
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
+            Application Pipeline
+          </h2>
           <Link
             href="/app/recruiting/applications"
             className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -112,7 +111,9 @@ export default async function AtsHomePage() {
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="rounded-lg border border-black/10 bg-white">
           <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
-            <h2 className="font-serif text-lg font-semibold">Upcoming Interviews</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
+              Upcoming Interviews
+            </h2>
             <Link
               href="/app/recruiting/interviews"
               className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -131,8 +132,13 @@ export default async function AtsHomePage() {
               </li>
             ))}
             {data.upcomingInterviews.length === 0 && (
-              <li className="px-5 py-8 text-sm text-black/45">
-                No data available for this period.
+              <li className="px-5 py-4">
+                <EmptyState
+                  compact
+                  title="No upcoming interviews"
+                  description="No data available for this period."
+                  className="border-0 bg-transparent px-0 py-4"
+                />
               </li>
             )}
           </ul>
@@ -140,7 +146,9 @@ export default async function AtsHomePage() {
 
         <section className="rounded-lg border border-black/10 bg-white">
           <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
-            <h2 className="font-serif text-lg font-semibold">Recent Applications</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
+              Recent Applications
+            </h2>
             <Link
               href="/app/recruiting/applications"
               className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -163,8 +171,13 @@ export default async function AtsHomePage() {
               </li>
             ))}
             {data.recentApplications.length === 0 && (
-              <li className="px-5 py-8 text-sm text-black/45">
-                No data available for this period.
+              <li className="px-5 py-4">
+                <EmptyState
+                  compact
+                  title="No recent applications"
+                  description="No data available for this period."
+                  className="border-0 bg-transparent px-0 py-4"
+                />
               </li>
             )}
           </ul>
@@ -172,7 +185,9 @@ export default async function AtsHomePage() {
 
         <section className="rounded-lg border border-black/10 bg-white">
           <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
-            <h2 className="font-serif text-lg font-semibold">Offers Requiring Action</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
+              Offers Requiring Action
+            </h2>
             <Link
               href="/app/recruiting/offers"
               className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -191,8 +206,13 @@ export default async function AtsHomePage() {
               </li>
             ))}
             {data.offersRequiringAction.length === 0 && (
-              <li className="px-5 py-8 text-sm text-black/45">
-                No data available for this period.
+              <li className="px-5 py-4">
+                <EmptyState
+                  compact
+                  title="No offers requiring action"
+                  description="No data available for this period."
+                  className="border-0 bg-transparent px-0 py-4"
+                />
               </li>
             )}
           </ul>
@@ -200,7 +220,9 @@ export default async function AtsHomePage() {
 
         <section className="rounded-lg border border-black/10 bg-white">
           <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
-            <h2 className="font-serif text-lg font-semibold">Recent Candidate Match Runs</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
+              Recent Candidate Match Runs
+            </h2>
             <Link
               href="/app/recruiting/job-match"
               className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -228,8 +250,13 @@ export default async function AtsHomePage() {
               </li>
             ))}
             {data.recentMatchRuns.length === 0 && (
-              <li className="px-5 py-8 text-sm text-black/45">
-                No candidate match runs yet.
+              <li className="px-5 py-4">
+                <EmptyState
+                  compact
+                  title="No match runs yet"
+                  description="No candidate match runs yet."
+                  className="border-0 bg-transparent px-0 py-4"
+                />
               </li>
             )}
           </ul>
@@ -237,7 +264,9 @@ export default async function AtsHomePage() {
 
         <section className="rounded-lg border border-black/10 bg-white">
           <div className="border-b border-black/10 px-5 py-4">
-            <h2 className="font-serif text-lg font-semibold">Recent Hires</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
+              Recent Hires
+            </h2>
           </div>
           <ul className="divide-y divide-black/5">
             {data.recentHires.map((row) => (
@@ -254,8 +283,13 @@ export default async function AtsHomePage() {
               </li>
             ))}
             {data.recentHires.length === 0 && (
-              <li className="px-5 py-8 text-sm text-black/45">
-                No data available for this period.
+              <li className="px-5 py-4">
+                <EmptyState
+                  compact
+                  title="No recent hires"
+                  description="No data available for this period."
+                  className="border-0 bg-transparent px-0 py-4"
+                />
               </li>
             )}
           </ul>

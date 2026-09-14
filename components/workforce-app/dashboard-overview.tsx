@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import SupabaseConnectBanner from "@/components/workforce-app/supabase-connect-banner";
 import type { Job } from "@/lib/jobs";
 import type { ApplicationStatus } from "@/types/recruiting";
@@ -44,17 +45,11 @@ export default function DashboardOverview({
 
   return (
     <div className="space-y-7">
-      <section className="ca-platform-hero">
-        <div className="relative z-[1] flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="ca-platform-kpi-label">Workforce</p>
-            <h1 className="mt-2 text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-              Good morning, {userFirstName}
-            </h1>
-            <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-              Recruiting, people and workforce operations.
-            </p>
-          </div>
+      <PageHeader
+        eyebrow="Workforce"
+        title={`Good morning, ${userFirstName}`}
+        description="Recruiting, people and workforce operations."
+        actions={
           <Link
             href="/jobs"
             className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -62,8 +57,8 @@ export default function DashboardOverview({
             Public careers board
             <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
-        </div>
-      </section>
+        }
+      />
 
       {!isSupabaseConnected && <SupabaseConnectBanner />}
 
@@ -137,8 +132,13 @@ export default function DashboardOverview({
             </li>
           ))}
           {openJobs.length === 0 && (
-            <li className="px-5 py-8 text-sm text-[var(--ca-platform-muted)]">
-              No open roles right now.
+            <li className="px-5 py-4">
+              <EmptyState
+                compact
+                title="No open roles"
+                description="No open roles right now."
+                className="border-0 bg-transparent px-0 py-4"
+              />
             </li>
           )}
         </ul>

@@ -413,7 +413,7 @@ export async function runJobMatchAction(input: {
 
     let jobDescription = input.jobDescription?.trim() ?? "";
     let jobTitle: string | undefined;
-    let jobRequisitionId = input.jobRequisitionId || null;
+    const jobRequisitionId = input.jobRequisitionId || null;
 
     if (jobRequisitionId) {
       const { data: req } = await client

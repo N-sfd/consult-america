@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import ApprovalInbox from "@/components/approvals/approval-inbox";
+import { PageHeader } from "@/components/shared";
 import {
   getApprovalInbox,
   getRecentApprovalDecisions,
@@ -44,16 +45,15 @@ export default async function ManagerApprovalsPage({
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Approvals</h1>
-        <p className="mt-2 text-black/55">
-          Central queue for timesheets, leave, expenses, and profile changes.
-          Review details and act here without switching apps.
-        </p>
-        <p className="mt-3 text-sm text-black/45">
-          {allPending.length} pending across all types
-        </p>
-      </div>
+      <PageHeader
+        title="Approvals"
+        description="Central queue for timesheets, leave, expenses, and profile changes. Review details and act here without switching apps."
+        meta={
+          <p className="text-sm text-[var(--ca-app-muted)]">
+            {allPending.length} pending across all types
+          </p>
+        }
+      />
 
       <ApprovalInbox
         items={items}

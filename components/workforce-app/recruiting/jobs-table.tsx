@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Plus, Search, X } from "lucide-react";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import RelativeTime from "@/components/shared/relative-time";
 import type { JobListItem } from "@/lib/recruiting/repository";
 import { RequisitionStatusBadge } from "@/components/workforce-app/recruiting/stage-badge";
@@ -104,26 +105,22 @@ export default function JobsTable({
   ];
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-5 lg:px-8 lg:py-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
-            Jobs / Requisitions
-          </h1>
-          <p className="mt-1 text-sm text-black/50">
-            Create, publish, and manage hiring requisitions.
-          </p>
-        </div>
-        <Link
-          href="/app/recruiting/jobs/new"
-          className="inline-flex h-9 items-center gap-1.5 bg-[var(--ca-blue)] px-3.5 text-sm font-medium text-white hover:bg-[var(--ca-blue-hover)]"
-        >
-          <Plus className="h-4 w-4" />
-          New Job
-        </Link>
-      </div>
+    <div className="mx-auto max-w-[1280px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+      <PageHeader
+        title="Jobs / Requisitions"
+        description="Create, publish, and manage hiring requisitions."
+        actions={
+          <Link
+            href="/app/recruiting/jobs/new"
+            className="inline-flex h-9 items-center gap-1.5 bg-[var(--ca-blue)] px-3.5 text-sm font-medium text-white hover:bg-[var(--ca-blue-hover)]"
+          >
+            <Plus className="h-4 w-4" />
+            New Job
+          </Link>
+        }
+      />
 
-      <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {kpiCards.map((kpi) => (
           <div key={kpi.label} className="border border-black/8 bg-white px-4 py-3">
             <p className="text-2xl font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
@@ -134,7 +131,7 @@ export default function JobsTable({
         ))}
       </div>
 
-      <div className="mt-5 flex flex-col gap-2 lg:flex-row lg:items-center">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
         <label className="relative block lg:max-w-xs lg:flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-black/35" />
           <input
@@ -201,11 +198,34 @@ export default function JobsTable({
 
       {/* Mobile: cards */}
       {filtered.length === 0 ? (
-        <p className="mt-4 border border-black/8 bg-white px-5 py-10 text-center text-sm text-black/45 md:hidden">
-          {jobs.length === 0 ? "No jobs yet." : "No jobs match your filters."}
-        </p>
+        <EmptyState
+          className="md:hidden"
+          title={jobs.length === 0 ? "No jobs yet" : "No matching jobs"}
+          description={
+            jobs.length === 0 ? "Create a requisition to get started." : "No jobs match your filters."
+          }
+          action={
+            jobs.length === 0 ? (
+              <Link
+                href="/app/recruiting/jobs/new"
+                className="inline-flex h-9 items-center gap-1.5 bg-[var(--ca-blue)] px-3.5 text-sm font-medium text-white hover:bg-[var(--ca-blue-hover)]"
+              >
+                <Plus className="h-4 w-4" />
+                New Job
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+              >
+                Clear filters
+              </button>
+            )
+          }
+        />
       ) : (
-        <div className="mt-4 space-y-2 md:hidden">
+        <div className="space-y-2 md:hidden">
           {filtered.map((job) => (
             <Link
               key={job.requisitionId}
@@ -229,7 +249,7 @@ export default function JobsTable({
       )}
 
       {/* Desktop: table */}
-      <div className="mt-4 hidden overflow-x-auto border border-black/8 bg-white md:block">
+      <div className="hidden overflow-x-auto border border-black/8 bg-white md:block">
         <div className="min-w-[800px]">
           <div className="grid grid-cols-[1.8fr_1fr_0.8fr_0.9fr_0.7fr] gap-3 border-b border-black/8 bg-[var(--ca-app-bg)] px-5 py-2.5 text-[0.65rem] uppercase tracking-[0.1em] text-black/40">
             <span>Job</span>
@@ -240,9 +260,17 @@ export default function JobsTable({
           </div>
 
           {filtered.length === 0 ? (
-            <p className="px-5 py-10 text-center text-sm text-black/45">
-              {jobs.length === 0 ? "No jobs yet." : "No jobs match your filters."}
-            </p>
+            <div className="p-5">
+              <EmptyState
+                compact
+                title={jobs.length === 0 ? "No jobs yet" : "No matching jobs"}
+                description={
+                  jobs.length === 0
+                    ? "Create a requisition to get started."
+                    : "No jobs match your filters."
+                }
+              />
+            </div>
           ) : (
             filtered.map((job) => (
               <Link

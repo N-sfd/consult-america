@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Inbox } from "lucide-react";
 
 import ApplicationStatusPill from "@/components/candidate/application-status-pill";
+import { EmptyState, PageHeader } from "@/components/shared";
 import { formatDate } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
@@ -24,26 +24,24 @@ export default async function CandidateApplicationsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">
-          My Applications
-        </h1>
-        <p className="mt-2 text-black/55">
-          Every role you&apos;ve applied to, and where it stands.
-        </p>
-      </div>
+      <PageHeader
+        title="My Applications"
+        description="Every role you have applied to, and where it stands."
+      />
 
       {applications.length === 0 ? (
-        <div className="ca-platform-card flex items-center gap-3 px-5 py-8 text-sm text-black/50">
-          <Inbox className="h-5 w-5 shrink-0 text-black/25" />
-          <p>
-            No applications yet.{" "}
-            <Link href="/candidate/jobs" className="text-[var(--ca-blue)] hover:underline">
+        <EmptyState
+          title="No applications yet"
+          description="Browse open roles to get started."
+          action={
+            <Link
+              href="/candidate/jobs"
+              className="text-sm font-semibold text-[var(--ca-blue)] hover:underline"
+            >
               Browse open roles
-            </Link>{" "}
-            to get started.
-          </p>
-        </div>
+            </Link>
+          }
+        />
       ) : (
         <ul className="space-y-3">
           {applications.map((application) => (

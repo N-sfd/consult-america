@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import CandidateDocumentsPanel from "@/components/candidate/candidate-documents-panel";
+import { PageHeader } from "@/components/shared";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import { recruitingRepository } from "@/lib/recruiting";
 import { isSupabaseConfigured } from "@/app/lib/supabase/server";
@@ -42,15 +43,10 @@ export default async function CandidateDocumentsPage({ searchParams }: PageProps
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-serif text-3xl font-semibold tracking-[-0.04em]">
-          Documents
-        </h1>
-        <p className="mt-2 max-w-2xl text-black/55">
-          Upload your resume and supporting documents to share with the Consult
-          America recruiting team.
-        </p>
-      </div>
+      <PageHeader
+        title="Documents"
+        description="Upload your resume and supporting documents to share with the Consult America recruiting team."
+      />
 
       <CandidateDocumentsPanel
         initialDocuments={documents}

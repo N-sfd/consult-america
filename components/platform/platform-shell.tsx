@@ -138,11 +138,11 @@ function PlatformSidebar({
   onNavigate?: () => void;
 }) {
   const meta = WORKSPACE_META[workspace];
-  const dark = variant === "admin" || variant === "crm";
 
   return (
     <aside className={cn("ca-platform-sidebar", `ca-platform-sidebar--${variant}`, className)}>
-      <PortalBrand surface={dark ? "dark" : "light"} href={logoHref} />
+      {/* All app sidebars are navy — brand sits on a white block */}
+      <PortalBrand surface="dark" href={logoHref} />
 
       <div className="ca-platform-sidebar-identity">
         <p className="ca-platform-workspace-name">{meta.name}</p>
@@ -159,25 +159,19 @@ function PlatformSidebar({
       />
 
       <div className="ca-platform-sidebar-footer">
-        <DemoWorkspaceMenu current={workspace} dark={dark} />
+        <DemoWorkspaceMenu current={workspace} dark />
         <div className="mt-3 flex flex-col gap-1.5">
           <Link
             href="/"
             onClick={onNavigate}
-            className={cn(
-              "hover:underline",
-              dark ? "text-white/70 hover:text-white" : "text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-deep)]",
-            )}
+            className="text-white/70 hover:text-white hover:underline"
           >
             Public site
           </Link>
           <form action={logout}>
             <button
               type="submit"
-              className={cn(
-                "text-left hover:underline",
-                dark ? "text-white/70 hover:text-white" : "text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-deep)]",
-              )}
+              className="text-left text-white/70 hover:text-white hover:underline"
             >
               Sign out
             </button>
@@ -212,6 +206,12 @@ export default function PlatformShell({
   const homeHref = logoHref ?? meta.homeHref;
   const pathname = usePathname() || "/";
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerPath, setDrawerPath] = useState(pathname);
+
+  if (drawerPath !== pathname) {
+    setDrawerPath(pathname);
+    if (drawerOpen) setDrawerOpen(false);
+  }
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
@@ -219,10 +219,6 @@ export default function PlatformShell({
       document.body.style.overflow = "";
     };
   }, [drawerOpen]);
-
-  useEffect(() => {
-    setDrawerOpen(false);
-  }, [pathname]);
 
   const initials = session.initials || initialsFromName(session.displayName);
 

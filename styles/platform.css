@@ -1,34 +1,38 @@
 /* Consult America — unified platform (workforce / portals / CRM) */
 
 :root {
-  --ca-platform-sidebar: 360px;
-  --ca-platform-topbar: 70px;
-  --ca-platform-bg: #f7faf9;
+  /* Dense operational app shell — navy sidebar, light canvas */
+  --ca-platform-sidebar: 260px;
+  --ca-platform-topbar: 64px;
+  --ca-platform-bg: #f4f6f8;
   --ca-platform-card: #ffffff;
-  --ca-platform-border: #dde6e3;
-  --ca-platform-ink: #122d2e;
-  --ca-platform-muted: #5b6d6b;
-  --ca-platform-deep: #073b3a;
-  --ca-platform-dark: #0b4a47;
+  --ca-platform-border: #e2e6eb;
+  --ca-platform-ink: #0b1220;
+  --ca-platform-muted: #5b6573;
+  --ca-platform-deep: #071a2f;
+  --ca-platform-dark: #0b1220;
   --ca-platform-mid: #176a63;
   --ca-platform-teal: #4b9488;
-  --ca-platform-sage: #e1ece8;
-  --ca-platform-sage-light: #f0f6f4;
+  --ca-platform-sage: #eef1f5;
+  --ca-platform-sage-light: #f4f6f8;
   --ca-platform-red: #b83a3a;
-  --ca-platform-shadow: 0 8px 24px rgba(7, 59, 58, 0.035);
-  --ca-platform-radius: 12px;
+  --ca-platform-shadow: 0 8px 24px rgba(7, 26, 47, 0.06);
+  --ca-platform-radius: 8px;
 
-  /* Keep legacy app tokens aligned with the platform system */
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 360px;
+  --ca-app-sidebar: 260px;
   --ca-app-sidebar-rail: 72px;
-  --ca-app-topbar: 70px;
-  --ca-app-bg: #f7faf9;
-  --ca-app-sidebar-bg: #ffffff;
-  --ca-app-ink: #122d2e;
-  --ca-app-muted: #5b6d6b;
-  --ca-app-border: #dde6e3;
-  --ca-app-selected: rgba(7, 59, 58, 0.06);
+  --ca-app-topbar: 64px;
+  --ca-app-bg: #f4f6f8;
+  --ca-app-canvas: #f4f6f8;
+  --ca-app-panel: #ffffff;
+  --ca-app-sidebar-bg: #071a2f;
+  --ca-app-ink: #0b1220;
+  --ca-app-muted: #5b6573;
+  --ca-app-border: #e2e6eb;
+  --ca-app-selected: #eef1f5;
+  --ca-app-info: #2563eb;
+  --ca-app-info-soft: rgba(37, 99, 235, 0.1);
 }
 
 @media (max-width: 1439px) and (min-width: 1180px) {
@@ -59,24 +63,19 @@
 }
 
 .ca-platform-sidebar--admin,
-.ca-platform-sidebar--crm {
-  background: linear-gradient(180deg, #073b3a 0%, #0b4a47 100%);
+.ca-platform-sidebar--crm,
+.ca-platform-sidebar--self-service,
+.ca-platform-sidebar--candidate {
+  background: var(--ca-app-sidebar-bg);
   color: #fff;
   border-right-color: transparent;
 }
 
-.ca-platform-sidebar--crm {
-  background: linear-gradient(180deg, #073b3a 0%, #0d5550 55%, #136860 100%);
-}
-
-.ca-platform-sidebar--crm .ca-platform-nav-link.is-active {
-  box-shadow: inset 3px 0 0 #4b9488;
-}
-
-.ca-platform-sidebar--self-service,
-.ca-platform-sidebar--candidate {
-  background: #fff;
-  color: var(--ca-platform-ink);
+.ca-platform-sidebar--crm .ca-platform-nav-link.is-active,
+.ca-platform-sidebar--admin .ca-platform-nav-link.is-active,
+.ca-platform-sidebar--self-service .ca-platform-nav-link.is-active,
+.ca-platform-sidebar--candidate .ca-platform-nav-link.is-active {
+  box-shadow: inset 3px 0 0 var(--ca-platform-red);
 }
 
 /* ── Portal brand (PortalBrand) ── */
@@ -125,7 +124,7 @@
 
 .ca-platform-sidebar--self-service .ca-platform-sidebar-identity,
 .ca-platform-sidebar--candidate .ca-platform-sidebar-identity {
-  border-bottom-color: var(--ca-platform-border);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
   padding-top: 0.35rem;
 }
 
@@ -136,11 +135,12 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.72;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .ca-platform-sidebar--self-service .ca-platform-workspace-name,
 .ca-platform-sidebar--candidate .ca-platform-workspace-name {
-  color: var(--ca-platform-muted);
+  color: rgba(255, 255, 255, 0.72);
   opacity: 1;
 }
 
@@ -188,53 +188,31 @@
 }
 
 .ca-platform-sidebar--admin .ca-platform-nav-link,
-.ca-platform-sidebar--crm .ca-platform-nav-link {
+.ca-platform-sidebar--crm .ca-platform-nav-link,
+.ca-platform-sidebar--self-service .ca-platform-nav-link,
+.ca-platform-sidebar--candidate .ca-platform-nav-link {
   color: rgba(255, 255, 255, 0.78);
 }
 
 .ca-platform-sidebar--admin .ca-platform-nav-link:hover,
-.ca-platform-sidebar--crm .ca-platform-nav-link:hover {
+.ca-platform-sidebar--crm .ca-platform-nav-link:hover,
+.ca-platform-sidebar--self-service .ca-platform-nav-link:hover,
+.ca-platform-sidebar--candidate .ca-platform-nav-link:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 
 .ca-platform-sidebar--admin .ca-platform-nav-link.is-active,
-.ca-platform-sidebar--crm .ca-platform-nav-link.is-active {
+.ca-platform-sidebar--crm .ca-platform-nav-link.is-active,
+.ca-platform-sidebar--self-service .ca-platform-nav-link.is-active,
+.ca-platform-sidebar--candidate .ca-platform-nav-link.is-active {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-weight: 600;
 }
 
 .ca-platform-sidebar--admin .ca-platform-nav-link.is-active::before,
-.ca-platform-sidebar--crm .ca-platform-nav-link.is-active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 20%;
-  bottom: 20%;
-  width: 2px;
-  border-radius: 2px;
-  background: var(--ca-platform-red);
-}
-
-.ca-platform-sidebar--self-service .ca-platform-nav-link,
-.ca-platform-sidebar--candidate .ca-platform-nav-link {
-  color: var(--ca-platform-muted);
-}
-
-.ca-platform-sidebar--self-service .ca-platform-nav-link:hover,
-.ca-platform-sidebar--candidate .ca-platform-nav-link:hover {
-  background: var(--ca-platform-sage-light);
-  color: var(--ca-platform-ink);
-}
-
-.ca-platform-sidebar--self-service .ca-platform-nav-link.is-active,
-.ca-platform-sidebar--candidate .ca-platform-nav-link.is-active {
-  background: rgba(7, 59, 58, 0.07);
-  color: var(--ca-platform-deep);
-  font-weight: 600;
-}
-
+.ca-platform-sidebar--crm .ca-platform-nav-link.is-active::before,
 .ca-platform-sidebar--self-service .ca-platform-nav-link.is-active::before,
 .ca-platform-sidebar--candidate .ca-platform-nav-link.is-active::before {
   content: "";
@@ -271,7 +249,7 @@
 
 .ca-platform-sidebar--self-service .ca-platform-sidebar-footer,
 .ca-platform-sidebar--candidate .ca-platform-sidebar-footer {
-  border-top-color: var(--ca-platform-border);
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 .ca-platform-main {

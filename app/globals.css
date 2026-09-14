@@ -15,7 +15,13 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Consult America Rich Green Palette System */
+  /* Public marketing — warm ivory + white, charcoal selective, burgundy accent */
+  --ca-ivory: #F7F3EC;
+  --ca-ivory-deep: #EFE8DC;
+  --ca-charcoal: #211E1B;
+  --ca-charcoal-soft: #3A342F;
+
+  /* Supporting teal retained for operational continuity / legacy surfaces */
   --ca-green-950: #073B3A;
   --ca-green-900: #0B4A47;
   --ca-green-800: #105A55;
@@ -28,16 +34,23 @@
   --ca-green-50:  #F0F6F4;
 
   --ca-white: #FFFFFF;
-  --ca-light: #F8FBFA;
-  --ca-surface: #E1ECE8;
-  --ca-surface-soft: #F0F6F4;
-  --ca-surface-sage: #E1ECE8;
+  --ca-off-white: #F7F3EC;
+  --ca-light: #F7F3EC;
+  --ca-surface: #EFE8DC;
+  --ca-surface-soft: #F7F3EC;
+  --ca-surface-sage: #EFE8DC;
+  --ca-cloud: #F4F6F8;
+  --ca-ice: #F7F3EC;
+  --ca-warm: #EFE8DC;
+  --ca-teal: #176A63;
+  --ca-enterprise-blue: #2563eb;
+  --ca-text: #211E1B;
 
-  --ca-ink: #122D2E;
-  --ca-text-primary: #122D2E;
-  --ca-text-secondary: #5B6D6B;
-  --ca-ink-secondary: #5B6D6B;
-  --ca-muted: #5B6D6B;
+  --ca-ink: #211E1B;
+  --ca-text-primary: #211E1B;
+  --ca-text-secondary: #695F57;
+  --ca-ink-secondary: #695F57;
+  --ca-muted: #695F57;
 
   --ca-green: #0B4A47;
   --ca-green-deep: #073B3A;
@@ -65,15 +78,15 @@
   --ca-blue-hover: var(--ca-red-hover);
   --ca-blue-soft: var(--ca-surface-soft);
 
-  --ca-border: #C9DDD7;
-  --ca-border-light: #E1ECE8;
-  --ca-header-border: #C9DDD7;
+  --ca-border: #D8D0C5;
+  --ca-border-light: #E8E1D6;
+  --ca-header-border: #D8D0C5;
 
-  --ca-bg: #F0F6F4;
+  --ca-bg: #F7F3EC;
   --ca-bg-secondary: #FFFFFF;
-  --ca-navy: #0B4A47;
-  --ca-dark-navy: #073B3A;
-  --ca-deep-navy: #052827;
+  --ca-navy: #071A2F;
+  --ca-dark-navy: #05070d;
+  --ca-deep-navy: #05070d;
 
   --ca-max-width: 1280px;
   --page-max: 1440px;
@@ -87,15 +100,19 @@
   --ca-insight-toc: 280px;
   --ca-insight-section-y: clamp(5.5rem, 10vw, 9rem);
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 240px;
+  --ca-app-sidebar: 260px;
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 64px;
-  --ca-app-bg: #F8FAF9;
-  --ca-app-sidebar-bg: #FFFFFF;
-  --ca-app-ink: #163536;
-  --ca-app-muted: #596968;
-  --ca-app-border: #DCE4E1;
-  --ca-app-selected: #EEF3F1;
+  --ca-app-bg: #F4F6F8;
+  --ca-app-canvas: #F4F6F8;
+  --ca-app-panel: #FFFFFF;
+  --ca-app-sidebar-bg: #071A2F;
+  --ca-app-ink: #0B1220;
+  --ca-app-muted: #5B6573;
+  --ca-app-border: #E2E6EB;
+  --ca-app-selected: #EEF1F5;
+  --ca-app-info: #2563eb;
+  --ca-app-info-soft: rgba(37, 99, 235, 0.1);
   --ca-space-1: 0.5rem;
   --ca-space-2: 0.75rem;
   --ca-space-3: 1rem;
@@ -181,6 +198,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -193,6 +211,7 @@ body {
   letter-spacing: 0;
   margin: 0;
   padding: 0;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeSpeed;
 }
@@ -479,10 +498,12 @@ body {
 
 .ca-brand-lockup--footer .ca-brand-title {
   font-size: 1.45rem;
+  color: #211e1b;
 }
 
 .ca-brand-lockup--footer .ca-brand-tagline {
   font-size: 0.78rem;
+  color: #211e1b;
 }
 
 .ca-brand-lockup--mark {

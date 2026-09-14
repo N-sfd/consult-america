@@ -142,10 +142,10 @@ export default function JobDetailView({
           <button
             type="button"
             disabled
-            title="Editing a published requisition is coming soon"
+            title="Editing a published requisition is not available yet"
             className="cursor-not-allowed border border-black/10 px-3 py-1.5 text-sm font-medium text-black/30"
           >
-            Edit
+            Edit unavailable
           </button>
           {detail.postingSlug && (
             <a

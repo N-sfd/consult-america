@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import { crmRepository } from "@/lib/crm";
 
 export const metadata: Metadata = {
@@ -14,19 +15,16 @@ export default async function CrmContactsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Contacts
-        </h1>
-        <p className="mt-2 text-black/55">
-          Everyone you&apos;re in touch with, across every account.
-        </p>
-      </div>
+      <PageHeader
+        title="Contacts"
+        description="Everyone you are in touch with, across every account."
+      />
 
       {contacts.length === 0 ? (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
-          No contacts yet.
-        </div>
+        <EmptyState
+          title="No contacts yet"
+          description="Contacts appear here once you add them to an account."
+        />
       ) : (
         <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
           <ul className="divide-y divide-black/5">

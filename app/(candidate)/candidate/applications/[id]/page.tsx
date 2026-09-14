@@ -143,7 +143,7 @@ export default async function CandidateApplicationDetailPage({
         >
           ← All applications
         </Link>
-        <h1 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.04em]">
+        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
           {application.requisitionTitle}
         </h1>
         <p className="mt-2 text-black/55">

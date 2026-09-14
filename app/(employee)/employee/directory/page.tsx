@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import EmployeeDirectory from "@/components/directory/employee-directory";
+import { PageHeader } from "@/components/shared";
 import { getDirectoryEntries } from "@/lib/self-service";
 import {
   requireEmployeeActor,
@@ -21,15 +22,10 @@ export default async function EmployeeDirectoryPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Team Directory
-        </h1>
-        <p className="mt-2 text-black/55">
-          Browse active coworkers by name, title, department, or location, or
-          switch to the org chart to see reporting lines.
-        </p>
-      </div>
+      <PageHeader
+        title="Team Directory"
+        description="Browse active coworkers by name, title, department, or location, or switch to the org chart to see reporting lines."
+      />
 
       <EmployeeDirectory entries={entries} />
     </div>

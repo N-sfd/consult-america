@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { EmptyState, PageHeader } from "@/components/shared";
 import { hrRepository } from "@/lib/hr";
 import { listHrRequestsForQueue } from "@/lib/self-service/hr-request-store";
 import {
@@ -89,22 +90,18 @@ export default async function HrRequestsPage({
 
   return (
     <div className="space-y-7">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold tracking-[-0.03em]">
-            HR Requests
-          </h1>
-          <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            Service-desk queue for open, assigned, waiting, and resolved employee requests.
-          </p>
-        </div>
-        <a
-          href="/api/exports/hr-requests"
-          className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-ink)]"
-        >
-          Export CSV
-        </a>
-      </div>
+      <PageHeader
+        title="HR Requests"
+        description="Service-desk queue for open, assigned, waiting, and resolved employee requests."
+        actions={
+          <a
+            href="/api/exports/hr-requests"
+            className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-ink)]"
+          >
+            Export CSV
+          </a>
+        }
+      />
 
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {(
@@ -218,8 +215,13 @@ export default async function HrRequestsPage({
             );
           })}
           {requests.length === 0 && (
-            <li className="px-5 py-8 text-sm text-[var(--ca-platform-muted)]">
-              No requests in this queue.
+            <li className="px-5 py-4">
+              <EmptyState
+                compact
+                title="No requests in this queue"
+                description="Try another filter or check back when new employee requests arrive."
+                className="border-0 bg-transparent px-0 py-4"
+              />
             </li>
           )}
         </ul>

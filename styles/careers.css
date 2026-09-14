@@ -1,17 +1,17 @@
 /* Consult America Careers — Modern Enterprise Theme */
 
 :root {
-  --cr-bg: #F7F9FA;
+  --cr-bg: #F7F3EC;
   --cr-bg-soft: #FFFFFF;
   --cr-surface: #FFFFFF;
-  --cr-navy: #102033;
-  --cr-text: #102033;
-  --cr-text-secondary: #526170;
-  --cr-blue: #B63A3A;
-  --cr-blue-hover: #942E31;
-  --cr-border: #DDE4E8;
+  --cr-navy: #211E1B;
+  --cr-text: #211E1B;
+  --cr-text-secondary: #695F57;
+  --cr-blue: #B83A3A;
+  --cr-blue-hover: #992F31;
+  --cr-border: #D8D0C5;
   --cr-success: #357C78;
-  --cr-error: #B63A3A;
+  --cr-error: #B83A3A;
   --cr-max: 1360px;
 }
 

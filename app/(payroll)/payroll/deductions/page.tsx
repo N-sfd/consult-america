@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PageHeader } from "@/components/shared";
 import { ILLUSTRATIVE_WITHHOLDING_RATE } from "@/types/payroll";
 
 export const metadata: Metadata = {
@@ -9,14 +10,11 @@ export const metadata: Metadata = {
 export default function PayrollDeductionsPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Deductions
-        </h1>
-        <p className="mt-2 text-black/55">
-          Deduction codes used by the payroll calculator.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Reference"
+        title="Deductions"
+        description="Deduction codes used by the payroll calculator (read-only)."
+      />
 
       <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
         <ul className="divide-y divide-black/5">
