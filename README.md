@@ -18,29 +18,64 @@ The app is organized as role-scoped route groups under `app/`, each backed by bu
 ### Recruiting & ATS
 `app/(workforce)/workforce/{candidates,jobs,interviews,recruiting}`, `app/jobs`, `app/(candidate)`
 
-- `lib/recruiting` — requisition repository (Supabase-backed, with an in-memory double for tests), candidate stage/status state machine (`status-machine.ts`, `candidate-stage.ts`), application stage transitions, job description extraction (`jd-extraction.ts`), and Candidate Match (`candidate-match.ts`, `candidate-match-actions.ts`) — AI-assisted candidate/job fit scoring surfaced inside the ATS pipeline
-- `lib/ats/ops.ts` — pipeline operations shared across ATS screens
-- `lib/candidate` — candidate portal session/security, job-match surfacing, profile completion, account provisioning
+- ATS dashboard (`loadAtsDashboard` in `lib/ats/ops.ts`) — pipeline stage counts, recent applications, upcoming interviews, open offers, and recent Candidate Match runs in one view
+- Interview and offer queues: `listAtsInterviews()`, `listAtsOffers()`
+- Requisition & candidate repository (Supabase-backed, with an in-memory double for tests)
+- Candidate stage/status state machine (`status-machine.ts`, `candidate-stage.ts`) and application stage transitions (`application-transitions.ts`), so a candidate can only move through valid pipeline states
+- Candidate portal (`lib/candidate`): session/security, job listing + apply flow, profile completion tracking, self-service account provisioning
+- Job Analyzer / Candidate Match — see below
+
+### Job Analyzer (Candidate Match)
+One deterministic scoring engine, two surfaces:
+
+- `lib/candidate/job-match.ts` implements `analyzeJobMatch()` — a keyword-overlap heuristic (tokenizes resume + skills vs. job description, scores coverage 12–96%) returning skills found/missing, an experience-alignment note, keywords to consider, and improvement suggestions
+- `lib/recruiting/candidate-match.ts` re-exports that same function for the recruiter-facing tool — explicitly one algorithm, not two independent scorers
+- Explainable and decision-support only by design: source comments state it must never auto-reject, auto-advance, rank candidates, or change application status — recruiters and candidates see the same transparent breakdown, not a black-box score
+- Job description ingestion (`jd-extraction.ts`): paste text, or upload PDF/DOCX/TXT (≤8MB); parse failures degrade gracefully to "paste the description instead" rather than erroring
+- Wired directly into the ATS pipeline rather than living as a standalone tool: match scores appear in the applications queue (`applications-table.tsx`), the application workspace, the job detail candidates tab, and the pipeline board can re-run Candidate Match for a candidate/job pair
+- Results are exportable via `app/api/exports/candidate-match-results`
+- Covered by `npm run test:job-analyzer` (`scripts/job-analyzer-regression.ts`), which asserts the scoring invariants above and that all four ATS surfaces stay wired to `jd_analysis`
 
 ### HR
 `app/(hr)`
 
-- `lib/hr` — HR request actions, employee-number assignment (`employee-number.ts`), repository with Supabase and in-memory implementations; feeds manager approvals and payroll handoff
+- Hire conversion: `hireCandidate()` / `convertHire()` — turns an accepted candidate application into an employee record
+- Direct employee creation (`createEmployeeDirect`) for hires made outside the ATS pipeline
+- Employee lifecycle actions: `changeEmployeeStatusAction`, `updateEmployeeAssignment` (role/department/manager changes)
+- Work authorization tracking: `upsertWorkAuthorizationAction` with a verification-status lifecycle
+- Employee numbering: sequential, gap-aware IDs via `formatEmployeeNumber()` / `nextEmployeeNumber()`
+- Employee profile, contact, assignment, and compensation repository (Supabase-backed, with an in-memory implementation for tests)
+- Feeds manager approvals and the payroll handoff downstream
 
 ### Employee & Manager Self-Service
 `app/(employee)`, `app/(manager)`
 
-- `lib/self-service` — one store per domain: time, leave, expenses, benefits, compensation, performance, profile changes, HR requests, payroll view — plus a shared approval/workflow engine (`approval-service.ts`, `workflow-store.ts`), session, permissions, security, and surface-scoped notification/reporting services
+One store per domain in `lib/self-service`, each with employee-side actions and a matching manager/HR approval path:
+
+- **Time** (`time-store.ts`) — draft and submit timesheets, business-day and hours calculation, manager approve/reject/return with full approval history
+- **Leave** (`leave-store.ts`) — leave balances by type, leave-hour calculation, submit/cancel requests, manager approval queue
+- **Expenses** (`expense-store.ts`) — submit/cancel claims, manager approve/reject
+- **Benefits** (`benefits-store.ts`) — plan catalog, elections, cancel election
+- **Compensation** (`compensation-store.ts`) — active compensation lookup as of a given date, upsert
+- **Performance** (`performance-store.ts`) — goals with progress tracking, review cycles, self-assessment, manager assessment, employee acknowledgment
+- **Profile changes** (`profile-change-store.ts`) — employee-submitted changes routed for approve/reject
+- **HR requests** (`hr-request-store.ts`) — two-way employee/HR message thread with status workflow
+- Unified approval inbox across all of the above (`approval-service.ts`), a shared pending-approval/history engine (`workflow-store.ts`), and in-app notifications with per-employee read/unread state
 
 ### Payroll
 `app/(payroll)`
 
-- Pay periods, runs, earnings/deductions, and employee pay read through `lib/self-service/payroll-store.ts` and `lib/hr`; payroll reporting via `lib/reports`
+- Pay periods and payroll runs, with `calculatePayrollRun()` computing payslips for every employee in a period
+- Payslip lookup per employee or per run, including "latest payslip" for self-service
+- Run lifecycle: `submitRunForReview()` → `approvePayrollRun()` → `lockPayrollRun()`
+- Payroll reporting via `lib/reports`, exports via `app/api/exports/payroll-run-summary`
 
 ### CRM
 `app/(crm)`
 
-- `lib/crm` — accounts/contacts/opportunities repository (Supabase and in-memory), actions, session handling
+- Accounts, contacts, and opportunities with list and detail views (`repository.ts`)
+- Opportunity pipeline summary rolled up by stage (`PipelineSummary` / `PipelineStageSummary`)
+- Actions: create account/contact/opportunity, move an opportunity between pipeline stages, log an activity against a record (`actions.ts`)
 
 ### Workforce Administration
 `app/(workforce)/workforce/{administration,organization,people,users,settings,system-health}`
