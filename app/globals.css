@@ -203,7 +203,7 @@ body {
   }
 }
 
-/* Header shell — structural grid (also in marketing.css; kept here for safety) */
+/* Header shell — structural grid */
 .ca-header-container {
   width: 100%;
   max-width: var(--page-wide, 1760px);
@@ -224,50 +224,35 @@ body {
 
 @media (min-width: 1280px) {
   .ca-header-inner {
-    min-height: 100px;
+    min-height: 96px;
   }
 }
 
 .ca-header-brand {
   display: flex;
   align-items: center;
-  /* Never let flex/grid shrink or clip the logo */
   flex-shrink: 0;
   overflow: visible;
   grid-column: 1;
-  /* Mobile default before compact switch — full artwork scaled */
-  width: clamp(240px, 62vw, 300px);
+  /* Mobile default — title-only lockup */
+  width: clamp(210px, 62vw, 260px);
 }
 
 .ca-header-brand .brand-lockup-link,
-.ca-header-brand .ca-brand-lockup-link,
-.ca-header-brand .brand-lockup,
-.ca-header-brand .ca-brand-artwork {
-  display: block;
+.ca-header-brand .ca-brand-lockup-link {
+  display: flex;
+  align-items: center;
   width: 100%;
   max-width: 100%;
-  min-width: 0;
   flex-shrink: 0;
   overflow: visible;
   line-height: 0;
-}
-
-.ca-header-brand .brand-logo,
-.ca-header-brand .ca-brand-artwork-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  max-height: none;
-  object-fit: contain;
-  object-position: left center;
 }
 
 .ca-header-nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  /* Prefer tighter nav gaps before shrinking the logo */
   gap: clamp(6px, 0.7vw, 14px);
   white-space: nowrap;
   min-width: 0;
@@ -283,21 +268,25 @@ body {
   z-index: 1;
 }
 
-/* Tablet portrait — full logo ~280–320px + hamburger */
+/* Tablet portrait — full title + tagline beside mark */
 @media (min-width: 768px) and (max-width: 1023px) {
   .ca-header-brand {
-    width: clamp(280px, 40vw, 320px);
-  }
-}
-
-/* Tablet landscape — full logo ~300–360px + hamburger */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .ca-header-brand {
-    width: clamp(300px, 32vw, 360px);
+    width: clamp(340px, 52vw, 400px);
   }
 
   .ca-header-inner {
-    min-height: 92px;
+    min-height: 84px;
+  }
+}
+
+/* Tablet landscape — room for full lockup + hamburger */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .ca-header-brand {
+    width: clamp(380px, 42vw, 420px);
+  }
+
+  .ca-header-inner {
+    min-height: 90px;
   }
 }
 
@@ -306,9 +295,9 @@ body {
     grid-column: 3;
   }
 
-  /* Desktop — complete logo ~400–440px, never clipped */
+  /* Desktop — room for mark + full tagline, never clipped */
   .ca-header-brand {
-    width: clamp(400px, 28vw, 440px);
+    width: clamp(400px, 30vw, 440px);
   }
 }
 
@@ -324,14 +313,15 @@ body {
   }
 
   .ca-header-inner {
-    grid-template-columns: auto 44px;
+    grid-template-columns: minmax(0, 1fr) 44px;
     column-gap: 12px;
-    min-height: 76px;
+    min-height: 80px;
     justify-content: space-between;
   }
 
   .ca-header-brand {
     grid-column: 1;
+    min-width: 0;
   }
 
   .ca-header-actions {
@@ -341,11 +331,6 @@ body {
   }
 }
 
-/*
-  Hide header CTA until desktop nav mode. .ca-button-primary sets
-  display:inline-flex later in this file, so we beat it with a more
-  specific selector. Below 1280, contact lives in the hamburger menu.
-*/
 .ca-header-actions .ca-header-cta {
   display: none;
   flex-shrink: 0;
@@ -385,12 +370,245 @@ body {
   box-shadow: 0 0 0 2px #c52f32;
 }
 
-/* Approved artwork lockup — natural aspect ratio, never cropped */
+/*
+  Crisp brand lockup — mark + live type, vertically centered.
+  Mark sits in a padded frame so the swirl is never edge-cropped.
+*/
+.ca-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: min(100%, var(--brand-max-w, 440px));
+  width: 100%;
+  overflow: visible;
+  line-height: 1;
+}
+
+.ca-header-brand .ca-brand-lockup {
+  width: 100%;
+  max-width: 100%;
+}
+
+.ca-brand-mark-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Reserved box + inset art — mark PNG is edge-to-edge */
+  width: var(--brand-mark-size, 58px);
+  height: var(--brand-mark-size, 58px);
+  overflow: visible;
+  line-height: 0;
+}
+
+.ca-brand-mark {
+  display: block;
+  /* Optical inset so swirl tips never clip against header edges */
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.ca-brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  /* Vertically balance title+tagline against the mark */
+  gap: 0.18rem;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: visible;
+  padding-block: 0;
+}
+
+.ca-brand-title {
+  display: block;
+  color: #0a1f5c;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(1.35rem, 0.35vw + 1.2rem, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.ca-brand-tagline {
+  display: block;
+  color: #0a1f5c;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(0.68rem, 0.15vw + 0.6rem, 0.8rem);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+@media (min-width: 1280px) {
+  .ca-header-brand .ca-brand-lockup {
+    gap: 0.85rem;
+  }
+
+  .ca-header-brand .ca-brand-mark-frame {
+    width: clamp(56px, 4vw, 64px);
+    height: clamp(56px, 4vw, 64px);
+  }
+
+  .ca-header-brand .ca-brand-title {
+    font-size: clamp(1.5rem, 0.35vw + 1.35rem, 1.75rem);
+  }
+
+  .ca-header-brand .ca-brand-tagline {
+    font-size: clamp(0.74rem, 0.12vw + 0.68rem, 0.84rem);
+  }
+}
+
+.ca-brand-lockup--title-only .ca-brand-title {
+  font-size: clamp(1.2rem, 3.2vw, 1.45rem);
+}
+
+.ca-brand-lockup--footer .ca-brand-mark-frame {
+  width: 56px;
+  height: 56px;
+}
+
+.ca-brand-lockup--footer .ca-brand-title {
+  font-size: 1.45rem;
+}
+
+.ca-brand-lockup--footer .ca-brand-tagline {
+  font-size: 0.78rem;
+}
+
+.ca-brand-lockup--mark {
+  gap: 0;
+  width: auto;
+}
+
+.ca-brand-lockup--login {
+  gap: 0.7rem;
+}
+
+.ca-brand-lockup--login .ca-brand-title {
+  font-size: clamp(1.3rem, 2.2vw, 1.55rem);
+}
+
+.ca-brand-lockup--login .ca-brand-tagline {
+  font-size: clamp(0.66rem, 0.9vw, 0.78rem);
+}
+
+.ca-brand-lockup--apply .ca-brand-title,
+.ca-brand-lockup--mobile .ca-brand-title {
+  font-size: clamp(1.12rem, 3.8vw, 1.32rem);
+}
+
+.ca-brand-lockup--mobile {
+  gap: 0.55rem;
+}
+
+/* Auth — tablet keeps tagline; phone is title-only */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .ca-brand-lockup--login .ca-brand-mark-frame {
+    width: 52px;
+    height: 52px;
+  }
+
+  .ca-brand-lockup--login .ca-brand-title {
+    font-size: clamp(1.25rem, 2vw, 1.45rem);
+  }
+
+  .ca-brand-lockup--login .ca-brand-tagline {
+    font-size: clamp(0.64rem, 1vw, 0.74rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .ca-brand-lockup--login .ca-brand-tagline {
+    display: none;
+  }
+
+  .ca-brand-lockup--login .ca-brand-mark-frame {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ca-brand-lockup--login .ca-brand-title {
+    font-size: clamp(1.1rem, 4vw, 1.28rem);
+  }
+}
+
+/* Tablet (< desktop nav): full lockup, mark + title + tagline centered */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .ca-header-brand .ca-brand-lockup {
+    gap: 0.7rem;
+  }
+
+  .ca-header-brand .ca-brand-mark-frame {
+    width: clamp(52px, 5.5vw, 60px);
+    height: clamp(52px, 5.5vw, 60px);
+  }
+
+  .ca-header-brand .ca-brand-title {
+    font-size: clamp(1.35rem, 1.8vw, 1.6rem);
+  }
+
+  .ca-header-brand .ca-brand-tagline {
+    display: block;
+    font-size: clamp(0.68rem, 1.1vw, 0.8rem);
+  }
+}
+
+/* Phone: title-only, vertically balanced with mark — never ellipsis */
+@media (max-width: 767px) {
+  .ca-header-inner {
+    min-height: 72px;
+  }
+
+  .ca-header-brand .ca-brand-lockup {
+    gap: 0.55rem;
+  }
+
+  .ca-header-brand .ca-brand-title {
+    font-size: clamp(1.12rem, 4vw, 1.32rem);
+  }
+
+  .ca-header-brand .ca-brand-tagline {
+    display: none;
+  }
+
+  .ca-header-brand .ca-brand-mark-frame {
+    width: clamp(42px, 10vw, 50px);
+    height: clamp(42px, 10vw, 50px);
+  }
+}
+
+@media (max-width: 479px) {
+  .ca-header-brand {
+    width: clamp(180px, 68vw, 230px);
+    padding-right: 4px;
+  }
+
+  .ca-header-brand .ca-brand-mark-frame {
+    width: 42px;
+    height: 42px;
+  }
+
+  .ca-header-brand .ca-brand-title {
+    font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+  }
+}
+
+/* Legacy raster helpers */
 .brand-lockup,
 .ca-brand-artwork {
   display: block;
   width: 100%;
-  max-width: var(--brand-max-w, 420px);
+  max-width: var(--brand-max-w, 440px);
   overflow: visible;
   line-height: 0;
 }
@@ -403,75 +621,6 @@ body {
   max-width: 100%;
   object-fit: contain;
   object-position: left center;
-}
-
-.ca-brand-artwork--mark {
-  width: auto;
-  max-width: var(--brand-max-w, 40px);
-}
-
-.ca-brand-artwork--mark .ca-brand-artwork-img {
-  width: var(--brand-max-w, 40px);
-  height: auto;
-}
-
-/* Compact mobile artwork (<480px via SiteHeader) */
-@media (max-width: 479px) {
-  .ca-header-brand {
-    width: clamp(180px, 58vw, 220px);
-    padding-right: 4px;
-  }
-}
-
-/* Legacy crisp-text classes kept inert for any residual markup */
-.ca-brand-lockup {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  max-width: min(100%, var(--brand-max-w, 420px));
-  overflow: visible;
-  line-height: 1;
-}
-
-.ca-brand-mark {
-  display: block;
-  width: var(--brand-mark-size, 56px);
-  height: var(--brand-mark-size, 56px);
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-.ca-brand-wordmark {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.2rem;
-  overflow: visible;
-}
-
-.ca-brand-title {
-  display: block;
-  color: #0a1f5c;
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: clip;
-}
-
-.ca-brand-tagline {
-  display: block;
-  color: #0a1f5c;
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1.15;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: clip;
 }
 
 .brand-logo--compact-fallback {

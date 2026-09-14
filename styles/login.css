@@ -15,6 +15,7 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  overflow: visible;
 }
 
 .login-header-inner {
@@ -23,8 +24,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(20px, 3vw, 48px);
-  height: 64px;
+  gap: 16px;
+  padding: 10px clamp(16px, 3vw, 48px);
+  min-height: 84px;
+  height: auto;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.login-header-inner .brand-lockup-link,
+.login-header-inner .ca-brand-lockup-link,
+.login-header-inner .ca-brand-lockup {
+  overflow: visible;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.login-header-inner .ca-brand-lockup {
+  max-width: min(100%, 400px);
 }
 
 .login-back-link {
@@ -32,6 +49,35 @@
   color: #5B6D6B;
   text-decoration: none;
   transition: color 200ms;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .login-header-inner {
+    min-height: 80px;
+    padding-block: 12px;
+  }
+
+  .login-header-inner .ca-brand-lockup {
+    max-width: min(100%, 380px);
+  }
+}
+
+@media (max-width: 640px) {
+  .login-header-inner {
+    min-height: 68px;
+    padding-block: 8px;
+    gap: 10px;
+  }
+
+  .login-header-inner .ca-brand-lockup {
+    max-width: min(100%, 240px);
+  }
+
+  .login-back-link {
+    font-size: 12px;
+  }
 }
 
 .login-back-link:hover {

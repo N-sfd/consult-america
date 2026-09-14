@@ -28,7 +28,7 @@ export default function SignupPage() {
     <div className="login-page">
       <header className="login-header">
         <div className="login-header-inner">
-          <BrandLogo variant="compact" context="login" href="/" priority />
+          <BrandLogo variant="full" context="login" href="/" priority />
           <Link href="/" className="login-back-link flex items-center gap-1">
             Back to Consult America
             <ArrowUpRight className="h-3.5 w-3.5" />

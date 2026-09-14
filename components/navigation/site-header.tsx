@@ -71,8 +71,8 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    /* Compact approved artwork only when full lockup descriptor would be unreadable */
-    const mq = window.matchMedia("(max-width: 479px)");
+    /* Phone: title-only. Tablet+ keeps full lockup with tagline. */
+    const mq = window.matchMedia("(max-width: 767px)");
     const sync = () => setCompactLogo(mq.matches);
     sync();
     mq.addEventListener("change", sync);
