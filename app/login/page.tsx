@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
@@ -18,6 +19,152 @@ type SearchParams = Promise<{
   returnTo?: string;
 }>;
 
+type PlatformContext = {
+  title: string;
+  eyebrow: string;
+  headline: ReactNode;
+  supporting: string;
+  capabilities: string[];
+  cardHeading: string;
+  accessLabel: string;
+};
+
+const DEFAULT_PLATFORM: PlatformContext = {
+  title: "Platform Sign In | Consult America",
+  eyebrow: "Consult America Platform",
+  headline: (
+    <>
+      One platform.
+      <br />
+      Connected work.
+    </>
+  ),
+  supporting:
+    "Sign in to CRM, ATS, HR, Employee, Payroll, and Admin — modules of one Consult America operating environment.",
+  capabilities: ["CRM & ClientFlow", "ATS · Recruiting", "HR · Requests", "Employee · Payroll · Admin"],
+  cardHeading: "Sign in to the platform",
+  accessLabel: "Need platform access?",
+};
+
+function platformContextFor(returnTo: string | null): PlatformContext {
+  if (!returnTo) return DEFAULT_PLATFORM;
+
+  if (returnTo.startsWith("/hr")) {
+    return {
+      ...DEFAULT_PLATFORM,
+      title: "HR Sign In | Consult America",
+      headline: (
+        <>
+          Continue to HR.
+          <br />
+          Requests &amp; people.
+        </>
+      ),
+      supporting:
+        "Sign in to open HR Requests and people operations — continuous with ATS hire lineage.",
+      capabilities: ["Requests", "People operations", "Onboarding continuity", "Shared suite chrome"],
+      cardHeading: "Sign in to continue to HR",
+    };
+  }
+
+  if (returnTo.startsWith("/app/") || returnTo.startsWith("/app")) {
+    return {
+      ...DEFAULT_PLATFORM,
+      title: "ATS Sign In | Consult America",
+      headline: (
+        <>
+          Continue to ATS.
+          <br />
+          Recruiting.
+        </>
+      ),
+      supporting:
+        "Sign in to open Recruiting — jobs, pipeline, interviews, and hire lineage into HR.",
+      capabilities: ["Jobs & pipeline", "Interviews & offers", "Candidate Match", "Hire → HR"],
+      cardHeading: "Sign in to continue to ATS",
+    };
+  }
+
+  if (
+    returnTo.startsWith("/workforce/administration") ||
+    returnTo.startsWith("/workforce/admin") ||
+    returnTo.startsWith("/workforce/users") ||
+    returnTo.startsWith("/workforce/audit") ||
+    returnTo.startsWith("/workforce/settings") ||
+    returnTo.startsWith("/workforce/system-health")
+  ) {
+    return {
+      ...DEFAULT_PLATFORM,
+      title: "Admin Sign In | Consult America",
+      headline: (
+        <>
+          Continue to Admin.
+          <br />
+          Workforce Administration.
+        </>
+      ),
+      supporting:
+        "Sign in to govern users, roles, security, and configuration across the suite.",
+      capabilities: ["Users & access", "Roles & security", "Audit", "Configuration"],
+      cardHeading: "Sign in to continue to Admin",
+    };
+  }
+
+  if (returnTo.startsWith("/crm")) {
+    return {
+      ...DEFAULT_PLATFORM,
+      title: "CRM Sign In | Consult America",
+      headline: (
+        <>
+          Continue to CRM.
+          <br />
+          Pipeline &amp; ClientFlow.
+        </>
+      ),
+      supporting:
+        "Sign in to accounts, opportunities, and ClientFlow on the contact continuum.",
+      capabilities: ["Accounts & contacts", "Opportunities", "ClientFlow", "Email delivery"],
+      cardHeading: "Sign in to continue to CRM",
+    };
+  }
+
+  if (returnTo.startsWith("/payroll")) {
+    return {
+      ...DEFAULT_PLATFORM,
+      title: "Payroll Sign In | Consult America",
+      headline: (
+        <>
+          Continue to Payroll.
+          <br />
+          Runs &amp; earnings.
+        </>
+      ),
+      supporting: "Sign in to payroll runs on the employee continuum from ATS → HR.",
+      capabilities: ["Payroll runs", "Earnings", "Deductions", "Employee pay"],
+      cardHeading: "Sign in to continue to Payroll",
+    };
+  }
+
+  if (returnTo.startsWith("/employee")) {
+    return {
+      ...DEFAULT_PLATFORM,
+      title: "Employee Sign In | Consult America",
+      headline: (
+        <>
+          Continue to Employee.
+          <br />
+          Self-service.
+        </>
+      ),
+      supporting: "Sign in to profile, time, leave, and requests on shared people data.",
+      capabilities: ["Profile", "Time & leave", "Documents", "HR requests"],
+      cardHeading: "Sign in to continue to Employee",
+    };
+  }
+
+  return DEFAULT_PLATFORM;
+}
+
 export async function generateMetadata({
   searchParams,
 }: {
@@ -26,26 +173,19 @@ export async function generateMetadata({
   const params = await searchParams;
   const returnTo = sanitizeReturnTo(params.returnTo ?? null);
   const candidate = isCandidateReturnTo(returnTo);
+  const platform = platformContextFor(returnTo);
 
   return {
-    // Absolute avoids nested "Sign In | … | Consult America" brand duplication.
     title: {
       absolute: candidate
         ? "Candidate Sign In | Consult America"
-        : "Workforce Sign In | Consult America",
+        : platform.title,
     },
     description: candidate
       ? "Sign in to the Consult America Candidate Portal to manage applications, interviews, offers, profile, and documents."
-      : "Sign in to Consult America Workforce — employee workspace, time, leave, documents, and internal services.",
+      : platform.supporting,
   };
 }
-
-const workforceCapabilities = [
-  "Employee profile",
-  "Time & leave",
-  "Workforce documents",
-  "Manager workflows",
-];
 
 const candidateCapabilities = [
   "Applications",
@@ -63,6 +203,7 @@ export default async function LoginPage({
   const params = await searchParams;
   const returnTo = sanitizeReturnTo(params.returnTo ?? null);
   const candidate = isCandidateReturnTo(returnTo);
+  const platform = platformContextFor(returnTo);
   const confirmEmail = params.confirmEmail;
   const signupHref = `/signup${
     returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : ""
@@ -112,19 +253,11 @@ export default async function LoginPage({
                     </>
                   ) : (
                     <>
-                      <p className="login-eyebrow">Consult America Workforce</p>
-                      <h1 className="login-brand-headline">
-                        Work connected.
-                        <br />
-                        People supported.
-                      </h1>
-                      <p className="login-brand-supporting">
-                        Access your employee workspace, workforce information,
-                        time, leave, documents and internal services from one
-                        secure place.
-                      </p>
+                      <p className="login-eyebrow">{platform.eyebrow}</p>
+                      <h1 className="login-brand-headline">{platform.headline}</h1>
+                      <p className="login-brand-supporting">{platform.supporting}</p>
                       <ul className="login-capability-list">
-                        {workforceCapabilities.map((item) => (
+                        {platform.capabilities.map((item) => (
                           <li key={item} className="login-capability-item">
                             <span
                               className="login-capability-dot"
@@ -165,10 +298,8 @@ export default async function LoginPage({
                     </h2>
                   ) : (
                     <>
-                      <p className="login-eyebrow">Consult America Workforce</p>
-                      <h2 className="login-card-heading">
-                        Sign in to Workforce
-                      </h2>
+                      <p className="login-eyebrow">{platform.eyebrow}</p>
+                      <h2 className="login-card-heading">{platform.cardHeading}</h2>
                       <p className="login-card-supporting">
                         Use your authorized Consult America account to continue.
                       </p>
@@ -199,7 +330,7 @@ export default async function LoginPage({
                     </div>
                   ) : (
                     <div className="login-card-help">
-                      <span>Need Workforce access?</span>
+                      <span>{platform.accessLabel}</span>
                       <a
                         href="mailto:Info@consultamerica.com"
                         className="login-help-link"
@@ -239,12 +370,12 @@ export default async function LoginPage({
                 </>
               ) : (
                 <>
-                  <p className="login-eyebrow">Consult America Workforce</p>
+                  <p className="login-eyebrow">{platform.eyebrow}</p>
                   <h1
                     className="login-brand-headline"
                     style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
                   >
-                    Sign in to Workforce
+                    {platform.cardHeading}
                   </h1>
                   <p className="login-brand-supporting" style={{ marginTop: 8 }}>
                     Use your authorized Consult America account to continue.
