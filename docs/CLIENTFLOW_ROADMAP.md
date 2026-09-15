@@ -194,7 +194,7 @@ Still ensure the same six required env vars are present in **Vercel Production**
 | Six required vars in Vercel Production | **DONE** (synced from local; redeployed) |
 | Production redeploy | **DONE** — https://consultamerica-nu.vercel.app |
 | Signed-in platform UI spot-check | **ACTION REQUIRED** — auth-gated routes 307→`/login`; after sign-in verify CRM/ATS/HR/Admin + module switcher |
-| Production redeploy of suite freeze | **PENDING DEPLOY** — ship this commit to clear live `/platforms/ats` 410 |
+| Production redeploy of suite freeze | **DONE** — https://consultamerica-nu.vercel.app (`63ecd06`) |
 
 Suggested signed-in checks (production). For each applicable module verify:
 authentication · authorization · workspace/module switching · direct URL load · refresh ·
