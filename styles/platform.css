@@ -1,8 +1,15 @@
 /* Consult America — unified platform (workforce / portals / CRM) */
 
 :root {
+  /*
+   * Shared workspace shell geometry.
+   * Must fully contain PortalBrand lockup (marketing: 440px max) + horizontal padding + breathing room.
+   * Never shrink the logo to fit — widen the shell instead.
+   */
+  --workspace-sidebar-width: 520px;
+
   /* Dense operational app shell — teal chrome, pale canvas, lime active */
-  --ca-platform-sidebar: 260px;
+  --ca-platform-sidebar: var(--workspace-sidebar-width);
   --ca-platform-topbar: 64px;
   --ca-platform-bg: var(--ca-canvas, #f5f6f1);
   --ca-platform-card: var(--ca-white, #ffffff);
@@ -22,7 +29,7 @@
   --ca-platform-radius: 8px;
 
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 260px;
+  --ca-app-sidebar: var(--workspace-sidebar-width);
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 64px;
   --ca-app-bg: var(--ca-canvas, #f5f6f1);
@@ -37,12 +44,7 @@
   --ca-app-info-soft: rgba(53, 109, 118, 0.12);
 }
 
-@media (max-width: 1439px) and (min-width: 1180px) {
-  :root {
-    --ca-platform-sidebar: 340px;
-    --ca-app-sidebar: 340px;
-  }
-}
+/* Do not shrink sidebar on mid-width desktops — logo lockup needs the full token. */
 
 .ca-platform {
   min-height: 100vh;
@@ -57,11 +59,12 @@
 
 .ca-platform-sidebar {
   display: flex;
-  width: var(--ca-platform-sidebar);
+  width: var(--workspace-sidebar-width);
   flex-shrink: 0;
   flex-direction: column;
   border-right: 1px solid var(--ca-platform-border);
-  overflow-x: hidden;
+  overflow-x: visible;
+  overflow-y: auto;
 }
 
 .ca-platform-sidebar--admin,
@@ -89,9 +92,10 @@
 
 .ca-portal-brand--block,
 .ca-portal-brand--light {
-  min-height: 104px;
-  padding: 16px 18px;
+  min-height: 112px;
+  padding: 18px 24px;
   background: #ffffff;
+  overflow: visible;
 }
 
 .ca-portal-brand--block {
@@ -112,11 +116,13 @@
   display: inline-flex;
   align-items: center;
   line-height: 0;
-  max-width: 100%;
+  max-width: none;
+  width: auto;
 }
 
 .ca-portal-brand-logo {
-  max-width: 100%;
+  max-width: none;
+  width: auto;
 }
 
 .ca-platform-sidebar-identity {
@@ -529,7 +535,7 @@
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 60;
-  width: min(var(--ca-platform-sidebar), 92vw);
+  width: min(var(--workspace-sidebar-width), 92vw);
   transform: translateX(-105%);
   transition: transform 280ms ease;
   overflow-x: hidden;

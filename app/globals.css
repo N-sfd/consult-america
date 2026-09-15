@@ -109,7 +109,8 @@
 
   /* Application shell — same ecosystem tokens, denser use */
   --ca-app-max: 1440px;
-  --ca-app-sidebar: 260px;
+  --workspace-sidebar-width: 520px;
+  --ca-app-sidebar: var(--workspace-sidebar-width);
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 64px;
   --ca-app-bg: var(--ca-canvas);

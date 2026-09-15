@@ -32,7 +32,7 @@ export default function PortalBrand({
   const lockup = (
     <BrandLogo
       href={null}
-      context={isMobile ? "mobile" : "marketing"}
+      context={isMobile ? "mobile" : "portal"}
       variant={isMobile ? "compact" : "full"}
       priority
       className="ca-portal-brand-logo"

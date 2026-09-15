@@ -29,7 +29,11 @@ export const brandDisplay = {
   /** Desktop header lockup — room for full tagline beside mark */
   marketing: { maxWidth: 440, maxHeight: 72, asset: "balanced" as const },
   footer: { maxWidth: 400, maxHeight: 68, asset: "balanced" as const },
-  portal: { maxWidth: 340, maxHeight: 56, asset: "balanced" as const },
+  /**
+   * Portal sidebar lockup — same approved dimensions as marketing.
+   * Shell width (--workspace-sidebar-width) must contain this; never shrink the logo.
+   */
+  portal: { maxWidth: 440, maxHeight: 72, asset: "balanced" as const },
   /** Auth header — full title + tagline, vertically centered with mark */
   login: { maxWidth: 400, maxHeight: 68, asset: "balanced" as const },
   apply: { maxWidth: 320, maxHeight: 56, asset: "compact" as const },

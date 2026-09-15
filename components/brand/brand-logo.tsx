@@ -15,7 +15,8 @@ export type BrandLogoContext =
   | "footer"
   | "login"
   | "apply"
-  | "mobile";
+  | "mobile"
+  | "portal";
 
 export type BrandLogoProps = {
   variant?: BrandLogoVariant;
@@ -46,6 +47,7 @@ function resolvePreset(context: BrandLogoContext, variant?: BrandLogoVariant) {
   if (context === "login") return brandDisplay.login;
   if (context === "apply") return brandDisplay.apply;
   if (context === "mobile") return brandDisplay.mobile;
+  if (context === "portal") return brandDisplay.portal;
   return brandDisplay.marketing;
 }
 
