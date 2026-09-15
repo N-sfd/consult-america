@@ -2,34 +2,29 @@
 
 import { ArrowUpRight } from "lucide-react";
 
-import HomeBackgroundArc from "@/components/marketing/home-background-arc";
 import { useContactPanel } from "@/components/providers/contact-provider";
 
+/**
+ * Optional mid-page CTA — light surface so it never stacks as a second dark block
+ * against HomepageContactSection + SiteFooter.
+ */
 export default function PreFooterCta() {
   const { setOpen } = useContactPanel();
 
   return (
-    <section
-      className="relative overflow-hidden py-16 sm:py-20 lg:py-24"
-      style={{
-        background:
-          "linear-gradient(135deg, #073B3A 0%, #0B4A47 50%, #176A63 100%)",
-      }}
-    >
-      <HomeBackgroundArc tone="light" className="-right-[18%] top-1/2 -translate-y-1/2 opacity-90" />
-
+    <section className="relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-canvas)] py-12 sm:py-14">
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="max-w-2xl">
-          <h2 className="font-serif text-[clamp(1.75rem,3vw,2.75rem)] font-semibold tracking-[-0.03em] text-white">
+          <h2 className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
             Build what&apos;s next.
           </h2>
-          <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-white/80">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--ca-text-secondary)]">
             Bring transformation, data, AI and engineering together around the outcomes that matter.
           </p>
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="mt-9 inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#B83A3A] px-7 text-sm font-semibold text-white transition-colors hover:bg-[#992F31]"
+            className="mt-7 inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--ca-lime)] px-7 text-sm font-semibold text-[var(--ca-ink)] transition-colors hover:bg-[var(--ca-accent-hover)]"
           >
             Start a Conversation
             <ArrowUpRight className="h-4 w-4" />

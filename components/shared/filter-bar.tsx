@@ -40,8 +40,8 @@ export function FilterBar({
           const classes = cn(
             "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-semibold tracking-wide transition-colors",
             item.active
-              ? "border-[var(--ca-burgundy)] bg-[var(--ca-burgundy)] text-white"
-              : "border-[var(--ca-app-border)] bg-white text-[var(--ca-app-ink)] hover:border-[var(--ca-burgundy)]/40 hover:text-[var(--ca-burgundy)]",
+              ? "border-[var(--ca-lime)] bg-[var(--ca-lime)] text-[var(--ca-ink)]"
+              : "border-[var(--ca-app-border)] bg-white text-[var(--ca-app-ink)] hover:border-[var(--ca-teal)]/40 hover:text-[var(--ca-teal)]",
           );
 
           const body = (

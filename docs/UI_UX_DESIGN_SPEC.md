@@ -1,158 +1,169 @@
 # ConsultAmerica UI/UX Design Specification
 
-Single design system for public marketing, Insights, Jobs, ATS, HR, Employee Portal, and Payroll.
+Single brand system for public marketing, Insights, Jobs, ATS, HR, Employee Portal, Payroll, and CRM — with **unequal visual density** by surface.
 
 ---
 
-## 1. Product surfaces
+## 0. Platform model
+
+**CONSULT AMERICA** — one enterprise platform. Multiple workspaces. Shared identity, data, intelligence, security, and workflows.
+
+Workspaces (Recruiting/Workforce, HR, Payroll, CRM, Employee, Manager, Candidate, Administration) are not separate products. They share:
+
+- Header / navigation logic, logo, typography, ivory/white/charcoal/burgundy tokens
+- Buttons, forms, tables, status patterns, notifications, search, profile, permissions
+- Continuous business data (Hire → Employee; Admin governs ATS/HR/CRM workflows)
+
+| Lineage | Stages |
+|---------|--------|
+| Recruiting | Requisition → Applications → AI Candidate Match → Human Review → Interview → Offer → Hire |
+| HR | Hire → Employee Record → Onboarding → Documents → Benefits/Payroll → Performance |
+| CRM | Prospect → Account → Opportunity → Contract → Customer |
+| Administration | Users → Roles → Security → Workflows → Audit → Configuration |
+
+**Hire continuity:** Marking HIRED must create the Employee via `convertHire` / `hireCandidate`. Status-only HIRED is blocked. Candidate Match is the recruiting intelligence layer (not a standalone AI demo); scores are advisory.
+
+**Density still differs:** Marketing communicates brand; operational workspaces communicate workflow. Same brand, not equal visual density.
+
+---
+
+## 1. Core density rule
+
+**Marketing communicates the brand. ATS communicates the workflow.**
+
+Both must unmistakably look like Consult America (deep teal, canvas/mist neutrals, lime accent, shared logo, type, buttons, spacing, borders). They must **not** have equal visual density.
+
+| Density | Surfaces | Allowed |
+|---------|----------|---------|
+| **Expressive** | Homepage, Capabilities, Industries, Careers, Jobs **landing**/detail browse | Cinematic photography (cool/teal-graded), shaped/masked images, layered motion, editorial layouts, larger type, deep-teal→mist hero gradients |
+| **Calm / operational** | Candidate **Apply**, Candidate Portal, ATS Pipeline / Match / Interviews / Offers, HR, Payroll, CRM, Employee/Manager self-service, Administration | Canvas/white work surfaces, teal chrome, lime active states, clear status colors, restrained shadows, **minimal decorative animation** |
+
+Once a candidate enters an operational workflow (Apply → Profile → Match → Human Review → Interview → Offer), decorative motion reduces substantially. The UI must make the next action obvious.
+
+**Canonical hiring lineage (preserve):**  
+Requisition → Applications → Candidate Match → Human Review → Interview → Offer → Hire → Employee  
+
+HR operates on the employee created from hire. Administration governs these workflows — it must not feel like a disconnected product.
+
+**Rule:** Never put dramatic marketing layouts inside ATS/HR/Payroll/CRM/Apply. Never put dense SaaS chrome on the public homepage.
+
+---
+
+## 2. Product surfaces
 
 | Surface | UX language | Primary users |
 |---------|-------------|---------------|
 | **Marketing** | Editorial · large · expressive · story-driven | Prospects, candidates |
-| **Insights** | Long-form editorial · reading-first · G&CO-like article craft | Prospects, practitioners |
-| **Jobs / Careers** | Marketing + conversion (still editorial) | Candidates |
-| **Application** (ATS / HR / Employee / Manager / Payroll) | Structured · dense · fast · operational · task-driven | Recruiters, HR, employees, managers |
-
-**Rule:** Never put dramatic marketing layouts inside ATS/HR/Payroll. Never put dense SaaS chrome on the public homepage.
+| **Insights** | Long-form editorial · reading-first | Prospects, practitioners |
+| **Jobs landing / Careers** | Marketing + conversion (still editorial) | Candidates |
+| **Apply + Application portals** | Structured · dense · fast · operational · task-driven | Candidates, recruiters, HR, employees, managers |
 
 ---
 
-## 2. Brand tokens (shared)
+## 3. Brand tokens (shared)
 
 ```text
---ca-black / --ca-navy     #05070d
---ca-white                 #ffffff
---ca-off-white             #f4f4f4
---ca-blue                  #3b82f6
---ca-blue-hover            #2563eb
---ca-app-bg                #F4F6F8   (internal portals)
---ca-app-sidebar           #071A2F
---ca-ink-dark              #0B1220   (light surfaces)
+--ca-teal-deep / primary dark     #073B4C
+--ca-teal-chrome / app chrome     #0B4655
+--ca-teal / secondary             #356D76
+--ca-teal-soft                    #86AEB2
+--ca-mist / pale transitional     #D7E2E1
+--ca-canvas / main warm bg        #F5F6F1
+--ca-white                        #ffffff
+--ca-ink / primary text           #102F35
+--ca-lime / interactive accent    #C9F45A
+--ca-lime-soft                    #EAF7BD
+--ca-line / borders               #D5DFDB
 ```
 
-Typography base: Helvetica Neue / Helvetica / Arial (marketing + app).  
-Avoid decorative display fonts that fight the consultancy tone.
+**Accent rule:** Lime is for CTAs, active indicators, badges, progress, and small graphic details only (~3–5%). Do not fill large sections with lime. Burgundy is retired as the brand accent.
 
-Reduce: rounded cards, multi-layer shadows, gradients, icon grids.  
-Prefer: typography, thin rules, whitespace, large visual blocks, asymmetrical grids.
+Typography: Helvetica Neue / Helvetica / Arial for app chrome.  
+Marketing may use restrained display (serif) for headlines only — **never** on operational page titles.
+
+Shared: logo lockup, lime CTAs (dark ink on lime), deep-teal chrome, white/canvas panels, ink body text, mist borders.
+
+App shell: deep teal sidebar (`#0B4655`), canvas work surface, lime active rail / selected states.
+
+Reduce on app surfaces: multi-layer shadows, glow, decorative motion, oversized hero type, shaped photo masks.
 
 ---
 
-## 3. Marketing layout
+## 4. Marketing layout (expressive)
 
 ```text
 Max width          1440px
 Desktop gutters    64–96px (clamp)
-Section rhythm     64–96px (tighten from oversized stacks)
+Section rhythm     64–96px
 Hero type          72–104px equivalent (clamp display)
 Grids              12-col; editorial 4/8 and 5/7 splits
+Motion             transform/opacity only; clipped; respect prefers-reduced-motion
+Imagery            Arch / clipped / layered editorial system; ProductFrame for UI screenshots (geometric)
 ```
-
-Homepage composition remains one story arc per section: brand/capability first, then proof, then careers/insights.
-
-Hover: underline growth, blue accent, restrained motion (200–350ms). No glow stacks.
 
 ---
 
-## 4. Insights / article layout
+## 5. Insights / article layout
 
 ```text
 Reading column     720–780px
 Sticky TOC         ~280px (desktop)
-Section spacing    120–160px between major blocks
-Body text          18–20px
-Line height        1.7–1.8
-Diagrams / images  may break wider than body copy
+Body text          18–20px / line-height 1.7–1.8
 ```
 
-### Article page structure
-
-1. Header — category, large title, last updated, scroll cue  
-2. Article body + sticky “On this page”  
-3. Section dividers (thin rules)  
-4. Optional diagram / image blocks (fuller width)  
-5. Mid-article ConsultAmerica CTA  
-6. Remaining sections  
-7. FAQ  
-8. Related insights  
-9. Site footer  
-
-Pull quotes: large type, thin rule, restrained accent — not cards.
-
-CTA block: typography + two actions (`Explore …` / `Let’s Talk`), no heavy card chrome.
+Do not reuse Insights reading column or marketing hero type inside Application surfaces.
 
 ---
 
-## 5. Application (ATS / HR / Portal / Payroll)
+## 6. Application (calm operational)
 
 ```text
 Workspace width    1280–1440px
-Sidebar            240–280px navy
-Base type          16px
-Table / status     12–16px uppercase labels
-Spacing scale      8 / 12 / 16 / 24
-Surfaces           #F4F6F8 canvas, white work panels, thin borders
+Sidebar            240–280px deep teal (#0B4655)
+Base type          14–16px sans
+Table / status     11–12px uppercase chips (StatusBadge)
+Spacing            8 / 12 / 16 / 24
+Surfaces           #F5F6F1 canvas, white panels, thin #D5DFDB borders
+Shadow             single subtle elevation or none
+Motion             none decorative; 150–200ms color/opacity for UI feedback only
+Active             lime rail / selected (#C9F45A / #EAF7BD)
 ```
 
 Patterns:
 
-- Compact navigation  
-- Clear tables and status chips  
-- High-density forms  
-- Strong empty states  
-- Drawers / modals for actions (prefer over page jumps when acting)  
-- Explicit approval workflows (approve / reject / return + required comments)
+- `PageHeader` + clear primary action  
+- Compact nav; drawers/modals for actions  
+- `DataTable` / `FilterBar` / `EmptyState` / `ApprovalActions`  
+- Explicit approve / reject / return + comments  
+- Status colors that encode stage (applied → review → interview → offer → hired)
 
-Do **not** reuse Insights reading column or marketing hero type here.
-
----
-
-## 6. Component inventory (future modules)
-
-Shared across app surfaces:
-
-- StatusBadge  
-- DataTable  
-- FilterBar  
-- FormField / FormSection  
-- EmptyState  
-- Drawer / Modal  
-- ApprovalActions  
-- PageHeader (title + description + primary action)
-
-Marketing / Insights:
-
-- Section / SectionLabel  
-- EditorialRule  
-- InsightToc  
-- PullQuote  
-- ArticleCta  
-- RelatedInsights  
+CSS hooks: `.experience-marketing` (expressive) vs `.experience-app` (calm).  
+Jobs browse may use `.experience-careers` (editorial). Apply must use `.experience-app`.
 
 ---
 
-## 7. Responsive rules
+## 7. Component inventory
 
-| Breakpoint | Marketing | Insights | App |
-|------------|-----------|----------|-----|
-| < 768px | stacked sections, larger type slightly reduced | TOC collapses above body | sidebar → horizontal / drawer nav |
-| ≥ 1024px | 12-col editorial | sticky TOC | fixed sidebar |
+Shared app: StatusBadge, DataTable, FilterBar, FormField/FormSection, EmptyState, Drawer/Modal, ApprovalActions, PageHeader.
 
-Mobile app: task-first (Time, Leave, Approvals) — not a compressed desktop sidebar.
+Marketing: Section/SectionLabel, EditorialImage, ArchImage, ClippedImage, ProductFrame, InsightToc, PullQuote, ArticleCta.
 
 ---
 
-## 8. Phase guidance
+## 8. Responsive rules
 
-- **Phase 1–2 public / jobs:** Marketing + Insights tokens  
-- **Phase 2–5 ATS / HR / Portal / Payroll:** Application tokens only  
-- New modules must reference this spec before inventing local styles  
+| Breakpoint | Marketing | App |
+|------------|-----------|-----|
+| < 768px | stacked sections; hide moving arcs | sidebar → drawer; task-first mobile |
+| ≥ 1024px | 12-col editorial | fixed navy sidebar |
 
 ---
 
 ## 9. Quality bar
 
-- One visual system, three UX languages  
+- One platform, multiple workspaces — shared chrome and continuous data  
+- One brand, two densities  
 - Brand color continuity without layout bleed  
-- Lint / build / Phase 4 verify scripts remain green  
 - Prefer refine-in-place over redesign-from-scratch  
+- Preserve hiring lineage and Hire→Employee continuity  
+- Candidate Match as embedded recruiting intelligence (advisory scores)  

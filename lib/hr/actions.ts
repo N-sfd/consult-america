@@ -92,6 +92,8 @@ export async function hireCandidate(
     revalidatePath(`/app/recruiting/jobs/${resolvedRequisitionId}`);
     revalidatePath("/app/recruiting/candidates");
     revalidatePath("/workforce/people");
+    revalidatePath(`/workforce/people/${result.employeeId}`);
+    revalidatePath("/employee/onboarding");
     revalidatePath(`/app/recruiting/candidates/${application.candidateId}`);
 
     return {

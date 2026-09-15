@@ -102,7 +102,7 @@ export default function SectionBackdrop({
           </ShapeLayer>
           <ShapeLayer className="bottom-[12%] right-[18%] hidden lg:block" style={parallax(offset.fast)}>
             <div
-              className="ca-shape ca-shape--spin ca-shape--delay-1 h-[160px] w-[160px] rounded-full border border-dashed border-[#B83A3A]/20 bg-[#176A63]/8"
+              className="ca-shape ca-shape--spin ca-shape--delay-1 h-[160px] w-[160px] rounded-full border border-dashed border-[var(--ca-teal)]/20 bg-[var(--ca-teal)]/8"
             />
           </ShapeLayer>
         </>

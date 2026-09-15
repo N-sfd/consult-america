@@ -46,7 +46,7 @@ export default function DashboardOverview({
   return (
     <div className="space-y-7">
       <PageHeader
-        eyebrow="Workforce"
+        eyebrow="ATS"
         title={`Good morning, ${userFirstName}`}
         description="Recruiting, people and workforce operations."
         actions={

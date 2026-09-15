@@ -236,9 +236,12 @@ export const applicationsMegaMenu = {
     { href: "/ai-data", label: "Data Explorer", detail: "Governed analytics experiences" },
   ],
   workforce: [
-    { href: "/careers", label: "Careers", detail: "Join delivery and engineering teams" },
-    { href: "/jobs", label: "Talent & Recruiting", detail: "Open roles and candidate portal" },
-    { href: "/platforms/employee", label: "Employee Experience", detail: "Self-service HR portals" },
+    { href: "/platforms/ats", label: "ATS", detail: "Recruiting through hire lineage" },
+    { href: "/platforms/hr", label: "HR", detail: "Requests and people from hire onward" },
+    { href: "/platforms/admin", label: "Admin", detail: "Workforce Administration across the suite" },
+    { href: "/platforms/crm", label: "CRM", detail: "Pipeline and ClientFlow" },
+    { href: "/platforms/employee", label: "Employee", detail: "Self-service on shared people data" },
+    { href: "/platforms/payroll", label: "Payroll", detail: "Runs on the employee continuum" },
   ],
   featured: {
     title: "Consult America Labs",
@@ -268,6 +271,10 @@ export const companyMegaMenu = {
   portals: [
     { href: "/jobs", label: "Candidate Portal" },
     { href: "/login", label: "Employee Portal" },
+    { href: "/app/recruiting", label: "ATS" },
+    { href: "/hr/requests", label: "HR" },
+    { href: "/workforce/administration", label: "Admin" },
+    { href: "/crm", label: "CRM" },
   ],
 };
 

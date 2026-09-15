@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
 
 import {
@@ -252,13 +253,27 @@ function ConvertToEmployeeButton({
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const [employeeNumber, setEmployeeNumber] = useState<string | null>(null);
+  const [hired, setHired] = useState<{
+    employeeId: string;
+    employeeNumber: string;
+  } | null>(null);
 
-  if (employeeNumber) {
+  if (hired) {
     return (
-      <p className="mt-2 text-[0.65rem] font-medium text-[var(--ca-success,#16865b)]">
-        Hired as {employeeNumber}
-      </p>
+      <div className="mt-2 space-y-1.5 rounded-md border border-[var(--ca-app-border)] bg-white p-2">
+        <p className="text-[0.7rem] font-semibold text-[var(--ca-success,#16865b)]">
+          Hired as {hired.employeeNumber}
+        </p>
+        <p className="text-[0.65rem] text-[var(--ca-app-muted)]">
+          Employee record created in HR — continue onboarding from People.
+        </p>
+        <Link
+          href={`/workforce/people/${hired.employeeId}`}
+          className="inline-flex text-[0.7rem] font-semibold text-[var(--ca-burgundy)] hover:underline"
+        >
+          Open employee record →
+        </Link>
+      </div>
     );
   }
 
@@ -273,15 +288,22 @@ function ConvertToEmployeeButton({
           startTransition(async () => {
             const result = await convertHire(applicationId, requisitionId);
             if (result.ok) {
-              setEmployeeNumber(result.employeeNumber);
+              setHired({
+                employeeId: result.employeeId,
+                employeeNumber: result.employeeNumber,
+              });
             } else {
               setError(result.error);
             }
           });
         }}
       >
-        {isPending ? "Hiring…" : "Hire Candidate"}
+        {isPending ? "Hiring…" : "Hire → Create Employee"}
       </button>
+      <p className="mt-1 text-[0.6rem] leading-snug text-black/45">
+        Creates the HR employee from this accepted offer (same person — not a
+        duplicate entry).
+      </p>
       {error && <p className="mt-1 text-[0.65rem] text-[var(--ca-error)]">{error}</p>}
     </div>
   );

@@ -22,7 +22,7 @@ export default function CandidateShell({ session, children }: CandidateShellProp
       headerAction={
         <Link
           href="/candidate/jobs"
-          className="hidden text-sm font-semibold text-[var(--ca-platform-mid)] hover:text-[var(--ca-platform-deep)] sm:inline"
+          className="hidden text-sm font-semibold text-[var(--ca-burgundy,#B83A3A)] hover:opacity-90 sm:inline"
         >
           Browse jobs
         </Link>

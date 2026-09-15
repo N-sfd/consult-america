@@ -14,12 +14,10 @@ export default function HomepageCareersSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="careers" className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F0F6F4] py-10 sm:py-12 lg:max-h-[420px] lg:py-14">
-      <div
-        aria-hidden="true"
-        className="ca-home-ring ca-home-orbit right-[4%] top-[12%] hidden h-[240px] w-[240px] opacity-30 lg:block"
-      />
-
+    <section
+      id="careers"
+      className="relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-mist)] py-12 sm:py-14 lg:py-16"
+    >
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
@@ -29,11 +27,11 @@ export default function HomepageCareersSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: revealEase }}
             >
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Careers</p>
-              <h2 className="mt-3 font-serif text-[clamp(1.5rem,2.8vw,2.25rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
+              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Careers</p>
+              <h2 className="mt-3 font-serif text-[clamp(1.5rem,2.8vw,2.25rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
                 Build what&apos;s next.
               </h2>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#5B6D6B]">
+              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--ca-text-secondary)]">
                 Join teams working across enterprise transformation, Oracle, AI, data and application
                 engineering.
               </p>
@@ -63,7 +61,7 @@ export default function HomepageCareersSection() {
             >
               <Link
                 href="/careers"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-[#B83A3A] px-6 text-sm font-semibold text-white hover:bg-[#992F31]"
+                className="inline-flex h-11 items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] hover:bg-[var(--ca-accent-hover)]"
               >
                 Explore Careers
                 <ArrowUpRight className="h-4 w-4" />

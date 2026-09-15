@@ -83,7 +83,7 @@ export default function EnterpriseTransformSection() {
             </ul>
             <Link
               href="/capabilities/enterprise-transformation"
-              className="mt-7 inline-flex h-[52px] items-center gap-2 rounded-lg bg-[#B83A3A] px-6 text-sm font-semibold text-white hover:bg-[#992F31]"
+              className="mt-7 inline-flex h-[52px] items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] hover:bg-[var(--ca-accent-hover)]"
             >
               Explore Transformation
               <ArrowUpRight className="h-4 w-4" />

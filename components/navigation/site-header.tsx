@@ -36,8 +36,8 @@ function NavButton({
       type="button"
       data-open={isOpen}
       className={cn(
-        "ca-nav-link flex cursor-pointer items-center gap-1 whitespace-nowrap px-1.5 py-2 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B83A3A] focus-visible:ring-offset-2",
-        isOpen ? "text-[#B83A3A]" : "text-[#211E1B]",
+        "ca-nav-link flex cursor-pointer items-center gap-1 whitespace-nowrap px-1.5 py-2 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2",
+        isOpen ? "text-[var(--ca-teal)]" : "text-[var(--ca-ink)]",
       )}
       onMouseEnter={() => setOpenMenu(menuKey)}
       onClick={() => setOpenMenu(isOpen ? null : menuKey)}
@@ -158,8 +158,8 @@ export default function SiteHeader() {
                   aria-label="Open navigation menu"
                   aria-expanded={drawerOpen}
                 >
-                  <span className="h-0.5 w-4.5 bg-[#122D2E]" />
-                  <span className="h-0.5 w-4.5 bg-[#122D2E]" />
+                  <span className="h-0.5 w-4.5 bg-[var(--ca-ink)]" />
+                  <span className="h-0.5 w-4.5 bg-[var(--ca-ink)]" />
                 </button>
               </div>
           </div>

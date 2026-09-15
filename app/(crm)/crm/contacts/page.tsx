@@ -17,7 +17,7 @@ export default async function CrmContactsPage() {
     <div className="space-y-8">
       <PageHeader
         title="Contacts"
-        description="Everyone you are in touch with, across every account."
+        description="ClientFlow contacts across accounts — Talk to Expert inquiries land here."
       />
 
       {contacts.length === 0 ? (
@@ -31,7 +31,7 @@ export default async function CrmContactsPage() {
             {contacts.map((contact) => (
               <li key={contact.id}>
                 <Link
-                  href={`/crm/accounts/${contact.accountId}`}
+                  href={`/crm/contacts/${contact.id}`}
                   className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 hover:bg-black/[0.02]"
                 >
                   <div>

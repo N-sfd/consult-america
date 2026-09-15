@@ -50,7 +50,7 @@ export type Opportunity = {
   updatedAt: string;
 };
 
-export type ActivityType = "NOTE" | "CALL" | "MEETING" | "EMAIL" | "TASK";
+export type ActivityType = "NOTE" | "CALL" | "MEETING" | "EMAIL" | "TASK" | "SYSTEM";
 
 export type Activity = {
   id: string;
@@ -106,4 +106,5 @@ export const activityTypeLabels: Record<ActivityType, string> = {
   MEETING: "Meeting",
   EMAIL: "Email",
   TASK: "Task",
+  SYSTEM: "System",
 };

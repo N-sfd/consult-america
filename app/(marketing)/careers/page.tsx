@@ -41,10 +41,10 @@ export default function CareersPage() {
         <div className="grid gap-6 md:grid-cols-2">
           {whyWorkHere.map((item, index) => (
             <FeatureCard key={item.title} delay={index * 0.08}>
-              <h2 className="text-lg font-semibold tracking-[-0.03em] text-[#211E1B]">
+              <h2 className="text-lg font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
                 {item.title}
               </h2>
-              <p className="mt-3 text-sm leading-7 text-[#695F57]">{item.description}</p>
+              <p className="mt-3 text-sm leading-7 text-[var(--ca-text-secondary)]">{item.description}</p>
             </FeatureCard>
           ))}
         </div>
@@ -65,14 +65,14 @@ export default function CareersPage() {
             <Reveal key={path.title} delay={index * 0.08}>
               <Link
                 href={path.href}
-                className="ca-feature-card ca-feature-card--hover group block rounded-2xl border border-[#D8D0C5]/80 bg-white p-6"
+                className="ca-feature-card ca-feature-card--hover group block rounded-2xl border border-[var(--ca-line)]/80 bg-white p-6"
               >
-                <span className="text-sm font-bold text-[#B83A3A]">{path.number}</span>
-                <h2 className="mt-3 text-lg font-semibold text-[#211E1B] group-hover:text-[#B83A3A]">
+                <span className="text-sm font-bold text-[var(--ca-lime)]">{path.number}</span>
+                <h2 className="mt-3 text-lg font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-lime)]">
                   {path.title}
                 </h2>
-                <p className="mt-2 text-sm leading-7 text-[#695F57]">{path.description}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#B83A3A]">
+                <p className="mt-2 text-sm leading-7 text-[var(--ca-text-secondary)]">{path.description}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-lime)]">
                   Learn more <ArrowUpRight className="h-4 w-4" />
                 </span>
               </Link>

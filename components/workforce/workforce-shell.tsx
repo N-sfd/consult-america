@@ -1,53 +1,16 @@
 "use client";
 
-import PlatformShell from "@/components/platform/platform-shell";
-import type { PlatformNavGroup } from "@/components/platform/platform-nav";
+import { usePathname } from "next/navigation";
 
-const LEGACY_WORKFORCE_NAV: PlatformNavGroup[] = [
-  {
-    label: "Overview",
-    items: [{ href: "/workforce", label: "Dashboard", exact: true }],
-  },
-  {
-    label: "Recruiting",
-    items: [
-      { href: "/app/recruiting", label: "ATS Home" },
-      { href: "/workforce/jobs", label: "Jobs" },
-      { href: "/app/recruiting/applications", label: "Applications" },
-      { href: "/app/recruiting/job-match", label: "Candidate Match" },
-      { href: "/workforce/candidates", label: "Candidates" },
-      { href: "/app/recruiting/interviews", label: "Interviews" },
-      { href: "/app/recruiting/offers", label: "Offers" },
-    ],
-  },
-  {
-    label: "People",
-    items: [
-      { href: "/workforce/people", label: "Employees" },
-      { href: "/workforce/organization", label: "Organization" },
-    ],
-  },
-  {
-    label: "Workforce",
-    items: [
-      { href: "/employee/time", label: "Time" },
-      { href: "/employee/leave", label: "Leave" },
-      { href: "/manager/approvals", label: "Approvals" },
-    ],
-  },
-  {
-    label: "Operations",
-    items: [
-      { href: "/workforce/payroll", label: "Payroll" },
-      { href: "/workforce/reports", label: "Reports" },
-      { href: "/workforce/notifications", label: "Notifications" },
-      { href: "/workforce/audit", label: "Audit" },
-      { href: "/workforce/system-health", label: "System Health" },
-      { href: "/workforce/users", label: "Users" },
-      { href: "/workforce/administration", label: "Administration" },
-      { href: "/workforce/settings", label: "Settings" },
-    ],
-  },
+import PlatformShell from "@/components/platform/platform-shell";
+
+const ADMIN_PREFIXES = [
+  "/workforce/administration",
+  "/workforce/admin",
+  "/workforce/users",
+  "/workforce/system-health",
+  "/workforce/audit",
+  "/workforce/settings",
 ];
 
 export default function WorkforceShell({
@@ -59,18 +22,21 @@ export default function WorkforceShell({
   userName?: string;
   userInitials?: string;
 }) {
+  const pathname = usePathname() || "/";
+  const isAdmin = ADMIN_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+
   return (
     <PlatformShell
       workspace="workforce"
+      workspaceLabel={isAdmin ? "Admin" : "ATS"}
       session={{
-        displayName: userName ?? "Workforce User",
+        displayName: userName ?? (isAdmin ? "Admin User" : "ATS User"),
         initials: userInitials,
-        roleLabel: "Workforce",
+        roleLabel: isAdmin ? "Admin" : "ATS",
       }}
-      navGroups={LEGACY_WORKFORCE_NAV}
       showSearch
       searchPlaceholder="Search people, jobs, candidates…"
-      logoHref="/workforce"
+      logoHref={isAdmin ? "/workforce/administration" : "/app/recruiting"}
     >
       {children}
     </PlatformShell>

@@ -147,6 +147,15 @@ export async function moveApplicationStage(
   status: ApplicationStatus,
   requisitionId: string,
 ): Promise<{ ok: true } | { ok: false; error: string }> {
+  // Hire continuity: HIRED must create an Employee via convertHire / hireCandidate.
+  if (status === "HIRED") {
+    return {
+      ok: false,
+      error:
+        "Use Hire Candidate after an accepted offer — that creates the Employee in HR. Status-only HIRED is blocked.",
+    };
+  }
+
   try {
     await recruitingRepository.updateApplicationStage(applicationId, status);
     revalidatePath(`/app/recruiting/jobs/${requisitionId}/pipeline`);

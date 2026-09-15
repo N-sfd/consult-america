@@ -144,7 +144,7 @@ export default function SelectedWorkSection() {
 
                 <Link
                   href={`/work/case-studies/${story.slug}`}
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#B83A3A] hover:text-[#992F31]"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--ca-teal)] hover:text-[var(--ca-teal-chrome)]"
                 >
                   Read Story
                   <ArrowUpRight className="h-4 w-4" />

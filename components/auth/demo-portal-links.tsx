@@ -31,7 +31,7 @@ export default function DemoPortalLinks() {
     <div className="ca-chooser">
       <div className="ca-chooser-panel">
         <div className="ca-chooser-panel-inner">
-          <p className="ca-chooser-kicker">Consult America Workforce</p>
+          <p className="ca-chooser-kicker">Consult America Platform</p>
           <h1 className="ca-chooser-title">
             One connected platform
             <br />
@@ -40,16 +40,16 @@ export default function DemoPortalLinks() {
             and growth.
           </h1>
           <p className="ca-chooser-copy">
-            Employee self-service, recruiting, HR, payroll, and CRM — one
-            design system, role-specific workspaces.
+            CRM, ATS, HR, Employee, Payroll, and Admin — modules of one
+            operating system, not separate products.
           </p>
         </div>
       </div>
 
       <div className="ca-chooser-body">
-        <h2 className="ca-chooser-heading">Explore Consult America Workforce</h2>
+        <h2 className="ca-chooser-heading">Explore the platform</h2>
         <p className="ca-chooser-supporting">
-          Select a workspace to preview the platform.
+          Select a module to preview the shared suite chrome.
         </p>
 
         <div className="ca-chooser-grid">

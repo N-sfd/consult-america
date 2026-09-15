@@ -10,6 +10,10 @@ import {
   type ApplicationStatus,
 } from "@/types/recruiting";
 
+/**
+ * Status moves only — never HIRED here.
+ * Hire must go through offer accept → convertHire so HR gets an Employee record.
+ */
 const QUICK_ACTIONS: Array<{
   label: string;
   target: ApplicationStatus;
@@ -18,7 +22,6 @@ const QUICK_ACTIONS: Array<{
   { label: "Schedule Interview", target: "INTERVIEW" },
   { label: "Create Offer", target: "OFFER" },
   { label: "Reject", target: "REJECTED" },
-  { label: "Hire", target: "HIRED" },
 ];
 
 export default function ApplicationQuickActions({
@@ -56,9 +59,21 @@ export default function ApplicationQuickActions({
 
   if (allowed.length === 0) {
     return (
-      <p className="text-sm text-black/45">
-        No status transitions available from {applicationStatusLabels[currentStatus]}.
-      </p>
+      <div className="space-y-2">
+        <p className="text-sm text-[var(--ca-app-muted)]">
+          No status transitions available from{" "}
+          {applicationStatusLabels[currentStatus]}.
+        </p>
+        {currentStatus === "OFFER" || currentStatus === "HIRED" ? (
+          <p className="text-xs text-[var(--ca-app-muted)]">
+            To hire into HR, accept the offer then use{" "}
+            <strong className="font-semibold text-[var(--ca-app-ink)]">
+              Hire → Create Employee
+            </strong>{" "}
+            — that creates the Employee record (not a status-only flip).
+          </p>
+        ) : null}
+      </div>
     );
   }
 
@@ -71,7 +86,7 @@ export default function ApplicationQuickActions({
             type="button"
             disabled={pending}
             onClick={() => run(action.target)}
-            className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/75 hover:bg-black/[0.03] disabled:opacity-50"
+            className="rounded-md border border-[var(--ca-app-border)] bg-white px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-burgundy)]/40 disabled:opacity-50"
           >
             {action.label}
           </button>

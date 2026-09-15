@@ -11,7 +11,6 @@ import HomepageClosingSection from "@/components/marketing/homepage-closing-sect
 import HomepageContactSection from "@/components/marketing/homepage-contact-section";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
 import PositioningSection from "@/components/marketing/positioning-section";
-import PreFooterCta from "@/components/marketing/pre-footer-cta";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
 
 export const metadata: Metadata = {
@@ -46,7 +45,6 @@ export default function Home() {
       <HomepageClosingSection />
       <HomepageCareersSection />
       <HomepageContactSection />
-      <PreFooterCta />
     </>
   );
 }

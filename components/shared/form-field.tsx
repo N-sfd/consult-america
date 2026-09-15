@@ -28,7 +28,7 @@ export function FormField({
         className="block text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--ca-app-muted)]"
       >
         {label}
-        {required ? <span className="ml-0.5 text-[var(--ca-burgundy)]">*</span> : null}
+        {required ? <span className="ml-0.5 text-[var(--ca-error)]">*</span> : null}
       </label>
       {children}
       {hint && !error ? (

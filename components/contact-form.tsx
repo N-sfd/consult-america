@@ -21,6 +21,8 @@ export function ContactForm() {
       company: String(formData.get("company") ?? ""),
       message: String(formData.get("message") ?? ""),
       source: "contact-page",
+      sourcePage: typeof window !== "undefined" ? window.location.pathname : "/contact",
+      consentGiven: formData.get("consent") === "on",
     });
 
     setPending(false);
@@ -82,6 +84,10 @@ export function ContactForm() {
         placeholder="Message"
         className="ca-underline-input resize-none"
       />
+      <label className="mt-4 flex items-start gap-2 text-sm leading-5 text-white/70">
+        <input type="checkbox" name="consent" required className="mt-1" />
+        <span>I agree to be contacted by Consult America about this inquiry.</span>
+      </label>
       {error && <p className="text-sm text-red-400">{error}</p>}
       <button
         type="submit"

@@ -1,6 +1,8 @@
 # ConsultAmerica
 
-Next.js platform combining a public consultancy/marketing site with a full internal workforce suite — ATS/recruiting, HR, employee & manager self-service, payroll, and CRM — backed by Supabase (Postgres + Auth + Storage).
+Next.js **enterprise platform**: one Consult America product with multiple workspaces (Recruiting/Workforce, HR, Payroll, CRM, Employee, Manager, Candidate) sharing identity, design tokens, security, and continuous data — plus a public consultancy/marketing site. Backed by Supabase (Postgres + Auth + Storage).
+
+Hire in ATS creates the HR employee; Administration governs platform workflows; Candidate Match is the recruiting intelligence layer (not a standalone AI demo).
 
 ## Getting started
 
@@ -26,7 +28,7 @@ The app is organized as role-scoped route groups under `app/`, each backed by bu
 - Job Analyzer / Candidate Match — see below
 
 ### Job Analyzer (Candidate Match)
-One deterministic scoring engine, two surfaces:
+Recruiting **intelligence layer** inside the hiring lineage (Requisition → Applications → Match → Review → …), not a standalone AI demo. One deterministic scoring engine, two surfaces:
 
 - `lib/candidate/job-match.ts` implements `analyzeJobMatch()` — a keyword-overlap heuristic (tokenizes resume + skills vs. job description, scores coverage 12–96%) returning skills found/missing, an experience-alignment note, keywords to consider, and improvement suggestions
 - `lib/recruiting/candidate-match.ts` re-exports that same function for the recruiter-facing tool — explicitly one algorithm, not two independent scorers
@@ -70,12 +72,14 @@ One store per domain in `lib/self-service`, each with employee-side actions and 
 - Run lifecycle: `submitRunForReview()` → `approvePayrollRun()` → `lockPayrollRun()`
 - Payroll reporting via `lib/reports`, exports via `app/api/exports/payroll-run-summary`
 
-### CRM
+### CRM / ClientFlow
 `app/(crm)`
 
 - Accounts, contacts, and opportunities with list and detail views (`repository.ts`)
 - Opportunity pipeline summary rolled up by stage (`PipelineSummary` / `PipelineStageSummary`)
 - Actions: create account/contact/opportunity, move an opportunity between pipeline stages, log an activity against a record (`actions.ts`)
+- **ClientFlow roadmap** (Talk to Expert → Gmail → enrollment → automation → analytics/AI): [`docs/CLIENTFLOW_ROADMAP.md`](docs/CLIENTFLOW_ROADMAP.md). Do not build the visual workflow builder before the Phase 1 lead-to-email transaction is reliable.
+- Phase 1: extends `crm_accounts` / `crm_contacts` / `crm_activities`; adds inquiries, services catalog, email outbox, fixed workflow runs (`036_clientflow_phase1.sql`). Contact detail at `/crm/contacts/[id]` (Overview | Activity | Emails). Ops queue at `/crm/emails`. `npm run test:clientflow` / `npm run clientflow:process-emails`.
 
 ### Workforce Administration
 `app/(workforce)/workforce/{administration,organization,people,users,settings,system-health}`
@@ -108,28 +112,34 @@ Data model lives in `db/schema/*.sql` (36 migrations: organization, identity, re
 
 ## Design
 
-Full spec: [`docs/UI_UX_DESIGN_SPEC.md`](docs/UI_UX_DESIGN_SPEC.md). Summary:
+Full spec: [`docs/UI_UX_DESIGN_SPEC.md`](docs/UI_UX_DESIGN_SPEC.md).  
+ClientFlow (client lifecycle / automation): [`docs/CLIENTFLOW_ROADMAP.md`](docs/CLIENTFLOW_ROADMAP.md). Summary:
 
 **One visual system, three UX languages** — never mix them:
 
 - **Marketing / Jobs** — editorial, expressive, story-driven; 12-col grid, 1440px max width, large display type (72–104px hero clamp), restrained motion.
 - **Insights (articles)** — long-form reading experience; 720–780px reading column, sticky table of contents, 18–20px body copy, 1.7–1.8 line height.
-- **Application (ATS / HR / Employee / Manager / Payroll)** — dense, structured, task-driven; 1280–1440px workspace, 240–280px navy sidebar, 16px base type, compact tables/status chips, drawers/modals over page navigation, explicit approve/reject/return workflows.
+- **Application (ATS / HR / Employee / Manager / Payroll / CRM)** — dense, structured, task-driven; 1280–1440px workspace, 240–280px deep-teal sidebar, 16px base type, compact tables/status chips, drawers/modals over page navigation, explicit approve/reject/return workflows.
 
-**Shared brand tokens** (`--ca-*`, see `app/lib` / `components/brand`, styles in `styles/`):
+**Shared brand tokens** (`:root` in `app/globals.css`):
 
 ```
---ca-black / --ca-navy   #05070d
---ca-white               #ffffff
---ca-off-white           #f4f4f4
---ca-blue                #3b82f6
---ca-blue-hover          #2563eb
---ca-app-bg              #F4F6F8   (internal portals)
---ca-app-sidebar         #071A2F
---ca-ink-dark            #0B1220   (light surfaces)
+--ca-teal-deep           #073B4C   primary dark / hero
+--ca-teal-chrome         #0B4655   app chrome
+--ca-teal                #356D76   secondary / links
+--ca-teal-soft           #86AEB2
+--ca-mist                #D7E2E1   pale transitional
+--ca-canvas              #F5F6F1   main warm background
+--ca-white               #FFFFFF
+--ca-ink                 #102F35   primary text
+--ca-lime                #C9F45A   CTA / active accent (restrained)
+--ca-lime-soft           #EAF7BD
+--ca-line                #D5DFDB   borders
+--ca-app-sidebar-bg      #0B4655
+--ca-app-bg              #F5F6F1
 ```
 
-Typography: Helvetica Neue / Helvetica / Arial across marketing and app — no decorative display fonts. Visual language favors typography, thin rules, whitespace, and asymmetrical grids over rounded cards, gradients, or icon grids.
+Typography: Helvetica Neue / Helvetica / Arial for app chrome; restrained serif for marketing headlines only. Lime is interactive accent only — not section fills. Visual language favors typography, thin rules, whitespace, and asymmetrical grids over template cloning.
 
 **Shared component inventory** (`components/ui`, `components/shared`): StatusBadge, DataTable, FilterBar, FormField/FormSection, EmptyState, Drawer/Modal, ApprovalActions, PageHeader. Marketing/Insights adds Section, EditorialRule, InsightToc, PullQuote, ArticleCta, RelatedInsights.
 

@@ -81,12 +81,12 @@ export default function HomepageClosingSection() {
 
   return (
     <>
-      <section className="border-b border-[#D8D0C5] bg-white py-10 sm:py-12">
+      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
+          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
             Why Consult America
           </p>
-          <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#211E1B]">
+          <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[var(--ca-ink)]">
             Built for execution, not just advice.
           </h2>
           <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
@@ -100,7 +100,7 @@ export default function HomepageClosingSection() {
                 className="ca-home-pillar"
               >
                 <p className="ca-home-pillar-num">{item.num}</p>
-                <p className="ca-home-pillar-label mt-2 text-sm font-semibold uppercase tracking-[0.06em] text-[#073B3A]">
+                <p className="ca-home-pillar-label mt-2 text-sm font-semibold uppercase tracking-[0.06em] text-[var(--ca-ink)]">
                   {item.title}
                 </p>
               </motion.div>
@@ -112,8 +112,8 @@ export default function HomepageClosingSection() {
       <section
         id="industries"
         className={cn(
-          "relative overflow-hidden border-b border-[#E1ECE8] py-10 sm:py-12",
-          activeIndustry === 1 ? "ca-practice-healthcare-bg" : "bg-[#F7FAF9]",
+          "relative overflow-x-clip border-b border-[var(--ca-line)] py-10 sm:py-12",
+          activeIndustry === 1 ? "ca-practice-healthcare-bg" : "bg-[var(--ca-canvas)]",
         )}
       >
         <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
@@ -176,14 +176,14 @@ export default function HomepageClosingSection() {
             </motion.div>
 
             <div className="lg:col-span-7">
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Industries</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
+              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Industries</p>
+              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[var(--ca-ink)]">
                 Technology grounded in industry operations.
               </h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#5B6D6B]">
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ca-text-secondary)]">
                 Domain knowledge for complex, regulated, and technology-intensive operations.
               </p>
-              <ul className="mt-5 divide-y divide-[#DDE6E3] border-y border-[#DDE6E3]" role="tablist">
+              <ul className="mt-5 divide-y divide-[var(--ca-line)] border-y border-[var(--ca-line)]" role="tablist">
                 {industries.map((ind, index) => (
                   <li key={ind.name}>
                     <button
@@ -194,21 +194,23 @@ export default function HomepageClosingSection() {
                       onFocus={() => setActiveIndustry(index)}
                       onClick={() => setActiveIndustry(index)}
                       className={cn(
-                        "ca-home-pillar group flex w-full items-center justify-between py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#176A63]",
-                        index === activeIndustry && "border-l-2 border-l-[#176A63] pl-3",
+                        "ca-home-pillar group flex w-full items-center justify-between py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-teal)]",
+                        index === activeIndustry && "border-l-2 border-l-[var(--ca-lime)] pl-3",
                       )}
                     >
                       <span
                         className={cn(
                           "ca-home-pillar-label text-sm font-medium transition-colors",
-                          index === activeIndustry ? "text-[#176A63]" : "text-[#073B3A] group-hover:text-[#176A63]",
+                          index === activeIndustry
+                            ? "text-[var(--ca-teal-chrome)]"
+                            : "text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)]",
                         )}
                       >
                         {ind.name}
                       </span>
                       <ArrowUpRight
                         className={cn(
-                          "h-4 w-4 text-[#176A63] transition-opacity",
+                          "h-4 w-4 text-[var(--ca-teal)] transition-opacity",
                           index === activeIndustry ? "opacity-100" : "opacity-0 group-hover:opacity-100",
                         )}
                       />
@@ -221,7 +223,7 @@ export default function HomepageClosingSection() {
               </ul>
               <Link
                 href="/industries"
-                className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)] hover:text-[var(--ca-teal-chrome)]"
               >
                 View all industries
                 <ArrowUpRight className="h-4 w-4" />
@@ -231,18 +233,18 @@ export default function HomepageClosingSection() {
         </div>
       </section>
 
-      <section className="border-b border-[#E1ECE8] bg-white py-10 sm:py-12">
+      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Insights</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[#073B3A]">
+              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Insights</p>
+              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[var(--ca-ink)]">
                 Ideas for modern enterprise technology.
               </h2>
             </div>
             <Link
               href="/insights"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63] hover:text-[#073B3A]"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)] hover:text-[var(--ca-teal-chrome)]"
             >
               Browse all insights
               <ArrowUpRight className="h-4 w-4" />
@@ -255,7 +257,7 @@ export default function HomepageClosingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, ease: revealEase }}
-              className="overflow-hidden rounded-[14px] border border-[#DDE6E3] bg-[#F8FAF9] lg:col-span-7"
+              className="overflow-hidden rounded-[14px] border border-[var(--ca-line)] bg-[var(--ca-canvas)] lg:col-span-7"
             >
               <Link href={featuredInsight.href} className="group block">
                 <div className="ca-home-frame-wide ca-home-photo-overlay relative h-[200px] sm:h-[240px]">
@@ -268,11 +270,11 @@ export default function HomepageClosingSection() {
                   />
                 </div>
                 <div className="p-5 sm:p-6">
-                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">Featured</p>
-                  <h3 className="mt-2 font-serif text-lg font-semibold text-[#073B3A] group-hover:text-[#176A63] sm:text-xl">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Featured</p>
+                  <h3 className="mt-2 font-serif text-lg font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)] sm:text-xl">
                     {featuredInsight.title}
                   </h3>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#176A63]">
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-teal)]">
                     Read article
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </span>
@@ -291,9 +293,9 @@ export default function HomepageClosingSection() {
                 >
                   <Link
                     href={item.href}
-                    className="ca-home-pillar group block border-t border-[#DDE6E3] py-3.5 first:border-t-0 lg:first:border-t"
+                    className="ca-home-pillar group block border-t border-[var(--ca-line)] py-3.5 first:border-t-0 lg:first:border-t"
                   >
-                    <p className="ca-home-pillar-label text-sm font-medium text-[#073B3A] group-hover:text-[#176A63]">
+                    <p className="ca-home-pillar-label text-sm font-medium text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)]">
                       {item.title}
                     </p>
                   </Link>

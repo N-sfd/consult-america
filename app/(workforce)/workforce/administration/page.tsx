@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { PageHeader } from "@/components/shared";
 import {
   getDbConnectivitySummary,
   getLatestHealthChecks,
@@ -10,7 +11,7 @@ import {
 } from "@/lib/workforce/operations";
 import { getWorkforceSession } from "@/lib/workforce/session";
 
-export const metadata: Metadata = { title: "Administration" };
+export const metadata: Metadata = { title: "Workforce Administration" };
 export const dynamic = "force-dynamic";
 
 const DELIVERY_STATUS_LABELS: Record<string, string> = {
@@ -40,27 +41,46 @@ export default async function WorkforceAdministrationPage() {
   const failedDeliveries = deliverySummary.failed ?? 0;
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
-      <div>
-        <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
-          Workforce
-        </p>
-        <h1 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.03em]">
-          Administration
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-black/55">
-          Users, health, notifications, and audit — only surfaces that persist
-          real data. Role grant/revoke is not available from this workspace yet.
-        </p>
-      </div>
+    <div className="mx-auto max-w-[1400px] space-y-7 px-4 py-6 lg:px-8 lg:py-8">
+      <PageHeader
+        eyebrow="Consult America Platform"
+        title="Workforce Administration"
+        description="Govern Users, Roles, Security, Workflows, Audit, and Configuration for ATS, HR, and CRM — one control plane for the Consult America platform, not a standalone admin app."
+      />
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-2">
+      <nav className="ca-workflow-lineage" aria-label="Administration lineage">
+        <span>Users</span>
+        <span className="ca-workflow-sep" aria-hidden>
+          →
+        </span>
+        <span>Roles</span>
+        <span className="ca-workflow-sep" aria-hidden>
+          →
+        </span>
+        <span>Security</span>
+        <span className="ca-workflow-sep" aria-hidden>
+          →
+        </span>
+        <span>Workflows</span>
+        <span className="ca-workflow-sep" aria-hidden>
+          →
+        </span>
+        <span>Audit</span>
+        <span className="ca-workflow-sep" aria-hidden>
+          →
+        </span>
+        <span>Configuration</span>
+      </nav>
+
+      <div className="grid gap-4 lg:grid-cols-2">
         <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Users &amp; Access
           </h2>
           <p className="mt-3 text-2xl font-semibold tracking-[-0.03em]">{users.length}</p>
-          <p className="mt-1 text-sm text-black/55">Platform accounts (read-only)</p>
+          <p className="mt-1 text-sm text-black/55">
+            Platform accounts shared across Workforce, HR, Payroll, and CRM
+          </p>
           <Link
             href="/workforce/users"
             className="mt-4 inline-block text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
@@ -147,13 +167,13 @@ export default async function WorkforceAdministrationPage() {
           </Link>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] lg:col-span-2">
+        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Configuration
           </h2>
           <p className="mt-3 text-sm text-black/55">
-            Only settings that persist should live here. Role changes remain out of scope until
-            explicitly approved.
+            Platform settings that persist for ATS, HR, and CRM workflows. Role grant/revoke remains
+            out of scope until explicitly approved.
           </p>
           <Link
             href="/workforce/settings"

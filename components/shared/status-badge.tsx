@@ -14,7 +14,7 @@ export type StatusTone =
 const TONE_CLASSES: Record<StatusTone, string> = {
   neutral: "bg-black/[0.06] text-black/65",
   info: "bg-[var(--ca-app-info-soft)] text-[var(--ca-app-info)]",
-  accent: "bg-[var(--ca-burgundy)]/10 text-[var(--ca-burgundy)]",
+  accent: "bg-[var(--ca-lime-soft)] text-[var(--ca-ink)]",
   warning: "bg-amber-500/15 text-amber-800",
   success: "bg-emerald-600/12 text-emerald-800",
   danger: "bg-red-600/10 text-red-700",

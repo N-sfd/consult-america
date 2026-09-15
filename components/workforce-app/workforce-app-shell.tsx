@@ -21,7 +21,7 @@ export default function WorkforceAppShell({
         displayName: session.displayName,
         email: session.workEmail,
         initials: session.initials,
-        roleLabel: "Workforce Admin",
+        roleLabel: "ATS",
       }}
       showSearch
       searchPlaceholder="Search people, jobs, candidates…"
@@ -29,7 +29,7 @@ export default function WorkforceAppShell({
       unreadCount={unreadCount}
       pendingApprovalsCount={pendingApprovalsCount}
       approvalsHref="/manager/approvals"
-      logoHref="/app/dashboard"
+      logoHref="/app/recruiting"
     >
       {children}
     </PlatformShell>

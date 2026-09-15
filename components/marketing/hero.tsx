@@ -99,12 +99,11 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 const toneBackground: Record<HeroSlide["tone"], string> = {
   transform:
-    "radial-gradient(circle at 82% 28%, rgba(184,58,58,.08), transparent 30%), radial-gradient(circle at 18% 78%, rgba(33,30,27,.04), transparent 26%), linear-gradient(115deg, #FFFFFF 0%, #F7F3EC 52%, #EFE8DC 100%)",
+    "radial-gradient(circle at 82% 22%, rgba(201,244,90,.12), transparent 28%), radial-gradient(circle at 18% 78%, rgba(134,174,178,.2), transparent 32%), linear-gradient(165deg, #073B4C 0%, #0B4655 45%, #356D76 72%, #D7E2E1 100%)",
   oracle:
-    "radial-gradient(circle at 78% 32%, rgba(184,58,58,.07), transparent 30%), radial-gradient(circle at 20% 80%, rgba(33,30,27,.05), transparent 26%), linear-gradient(120deg, #FFFFFF 0%, #F7F3EC 55%, #EFE8DC 100%)",
-  /* Charcoal AI section — selective dark surface */
+    "radial-gradient(circle at 78% 26%, rgba(201,244,90,.1), transparent 28%), radial-gradient(circle at 20% 80%, rgba(134,174,178,.18), transparent 30%), linear-gradient(160deg, #073B4C 0%, #0B4655 48%, #86AEB2 78%, #D7E2E1 100%)",
   ai:
-    "radial-gradient(circle at 86% 24%, rgba(184,58,58,.16), transparent 28%), radial-gradient(circle at 18% 78%, rgba(255,255,255,.06), transparent 24%), linear-gradient(125deg, #211E1B 0%, #2A2622 48%, #3A342F 100%)",
+    "radial-gradient(circle at 86% 20%, rgba(201,244,90,.14), transparent 26%), radial-gradient(circle at 16% 82%, rgba(53,109,118,.35), transparent 30%), linear-gradient(155deg, #052A36 0%, #073B4C 40%, #0B4655 70%, #356D76 100%)",
 };
 
 export default function Hero() {
@@ -183,7 +182,7 @@ export default function Hero() {
     <section
       aria-roledescription="carousel"
       aria-labelledby={labelId}
-      className="ca-home-hero-grid relative overflow-x-clip overflow-y-hidden border-b border-[#D8D0C5]"
+      className="ca-home-hero-grid relative overflow-x-clip overflow-y-hidden border-b border-[var(--ca-line)]"
       style={{ background: toneBackground[slide.tone], minHeight: "clamp(620px, 72vh, 680px)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -232,8 +231,8 @@ export default function Hero() {
         moving={!shouldReduceMotion && slide.tone === "transform"}
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-between px-6 py-16 sm:py-20 lg:min-h-[640px] lg:px-8 lg:py-20 xl:px-10">
-        <div className="grid flex-1 grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-between px-6 py-14 sm:py-16 lg:min-h-[640px] lg:px-8 lg:py-[4.5rem] xl:px-10">
+        <div className="grid flex-1 grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <AnimatePresence mode="wait">
               <motion.div
@@ -243,35 +242,20 @@ export default function Hero() {
                 exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
                 transition={contentTransition}
               >
-                <p
-                  className={cn(
-                    "text-[0.75rem] font-bold uppercase tracking-[0.14em]",
-                    slide.tone === "ai" ? "text-[#E8C4C4]" : "text-[#B83A3A]",
-                  )}
-                >
+                <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">
                   {slide.eyebrow}
                 </p>
-                <h1
-                  className={cn(
-                    "mt-4 max-w-[680px] font-serif text-[clamp(3.125rem,4.7vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.035em]",
-                    slide.tone === "ai" ? "text-white" : "text-[#211E1B]",
-                  )}
-                >
+                <h1 className="mt-5 max-w-[680px] font-serif text-[clamp(2.875rem,4.5vw,4.25rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-white">
                   {slide.headline}
                 </h1>
-                <p
-                  className={cn(
-                    "mt-5 max-w-[36rem] text-[clamp(1.0625rem,1.1vw,1.1875rem)] leading-[1.62]",
-                    slide.tone === "ai" ? "text-white/72" : "text-[#695F57]",
-                  )}
-                >
+                <p className="mt-6 max-w-[34rem] text-[clamp(1.0625rem,1.05vw,1.1875rem)] leading-[1.65] text-white/78">
                   {slide.supporting}
                 </p>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                   {slide.primaryCta.href ? (
                     <Link
                       href={slide.primaryCta.href}
-                      className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg bg-[#B83A3A] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#992F31]"
+                      className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] transition-colors hover:bg-[var(--ca-accent-hover)]"
                     >
                       {slide.primaryCta.label}
                       <ArrowRight className="h-4 w-4" />
@@ -281,12 +265,7 @@ export default function Hero() {
                     <button
                       type="button"
                       onClick={() => setOpen(true)}
-                      className={cn(
-                        "inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg border px-6 text-sm font-semibold transition-colors",
-                        slide.tone === "ai"
-                          ? "border-white/25 bg-white/5 text-white hover:border-white/45 hover:bg-white/10"
-                          : "border-[#D8D0C5] bg-white text-[#211E1B] hover:border-[#B83A3A]/50",
-                      )}
+                      className="inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/[0.06] px-6 text-sm font-semibold text-white transition-colors hover:border-white/45 hover:bg-white/10"
                     >
                       {slide.secondaryCta.label}
                       <ArrowUpRight className="h-4 w-4" />
@@ -310,7 +289,7 @@ export default function Hero() {
               >
                 {slide.visual === "photo-overlay" && slide.imageKey ? (
                   <>
-                    <div className="ca-home-frame-hero-offset ca-home-photo-overlay relative z-10 mx-auto w-[92%] max-w-[680px] shadow-[0_24px_60px_rgba(33,30,27,0.10)] ring-1 ring-[#D8D0C5] sm:w-[88%] lg:ml-auto lg:mr-[4%]">
+                    <div className="ca-home-frame-hero-offset ca-home-photo-overlay relative z-10 mx-auto w-[92%] max-w-[680px] shadow-[0_24px_60px_rgba(33,30,27,0.10)] ring-1 ring-[var(--ca-line)] sm:w-[88%] lg:ml-auto lg:mr-[4%]">
                       <div className="ca-home-img-hero relative aspect-[3/2] w-full">
                         <Image
                           src={stockImage(slide.imageKey, { w: 1400, q: 85 })}
@@ -360,7 +339,7 @@ export default function Hero() {
                         !shouldReduceMotion && "ca-decor-orbit",
                       )}
                     />
-                    <div className="ca-practice-oracle-arch ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(33,30,27,0.10)] ring-1 ring-[#D8D0C5]">
+                    <div className="ca-practice-oracle-arch ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(33,30,27,0.10)] ring-1 ring-[var(--ca-line)]">
                       <div className="ca-practice-img-oracle relative aspect-[4/5] w-full">
                         <Image
                           src={stockImage(slide.imageKey, { w: 1200, q: 88 })}
@@ -423,13 +402,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Progress navigation */}
-        <div
-          className={cn(
-            "mt-12 flex flex-col gap-4 border-t pt-6 sm:mt-14 lg:mt-16",
-            slide.tone === "ai" ? "border-white/15" : "border-[#D8D0C5]/80",
-          )}
-        >
+        {/* Story selector — integrated hero chrome, not a detached nav bar */}
+        <div className="mt-10 rounded-xl border border-white/12 bg-white/[0.05] px-4 py-4 backdrop-blur-[2px] sm:mt-12 sm:px-5 sm:py-5 lg:mt-14">
           <div className="flex items-center justify-between gap-4">
             <div className="hidden flex-1 grid-cols-3 gap-6 md:grid" role="tablist" aria-label="Hero stories">
               {SLIDES.map((item, i) => {
@@ -442,19 +416,13 @@ export default function Hero() {
                     aria-selected={active}
                     aria-controls={`hero-story-${item.id}`}
                     onClick={() => goTo(i)}
-                    className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B83A3A] focus-visible:ring-offset-2"
+                    className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     <div className="flex items-baseline gap-3">
                       <span
                         className={cn(
                           "text-[0.7rem] font-bold tracking-[0.14em]",
-                          active
-                            ? slide.tone === "ai"
-                              ? "text-white"
-                              : "text-[#211E1B]"
-                            : slide.tone === "ai"
-                              ? "text-white/45"
-                              : "text-[#A3988C]",
+                          active ? "text-white" : "text-white/45",
                         )}
                       >
                         {String(i + 1).padStart(2, "0")}
@@ -463,27 +431,18 @@ export default function Hero() {
                         className={cn(
                           "text-sm font-semibold",
                           active
-                            ? slide.tone === "ai"
-                              ? "text-white"
-                              : "text-[#211E1B]"
-                            : slide.tone === "ai"
-                              ? "text-white/55 group-hover:text-white"
-                              : "text-[#695F57] group-hover:text-[#211E1B]",
+                            ? "text-white"
+                            : "text-white/55 group-hover:text-white",
                         )}
                       >
                         {item.navLabel}
                       </span>
                     </div>
-                    <div
-                      className={cn(
-                        "mt-2 h-[2px] overflow-hidden rounded-full",
-                        slide.tone === "ai" ? "bg-white/20" : "bg-[#D8D0C5]",
-                      )}
-                    >
+                    <div className="mt-2.5 h-px overflow-hidden bg-white/15">
                       <div
                         key={active ? `progress-${progressKey}` : `idle-${i}`}
                         className={cn(
-                          "h-full origin-left bg-[#B83A3A]",
+                          "h-full origin-left bg-[var(--ca-lime)]",
                           active && autoplayActive && "ca-hero-progress-fill",
                           active && !autoplayActive && "w-full",
                           !active && "w-0",
@@ -514,24 +473,13 @@ export default function Hero() {
                     aria-label={item.navLabel}
                     onClick={() => goTo(i)}
                     className={cn(
-                      "h-2.5 w-2.5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B83A3A]",
-                      i === index
-                        ? "bg-[#B83A3A]"
-                        : slide.tone === "ai"
-                          ? "bg-white/30"
-                          : "bg-[#D8D0C5]",
+                      "h-2 w-2 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)]",
+                      i === index ? "bg-[var(--ca-lime)]" : "bg-white/30",
                     )}
                   />
                 ))}
               </div>
-              <p
-                className={cn(
-                  "text-sm font-semibold",
-                  slide.tone === "ai" ? "text-white" : "text-[#211E1B]",
-                )}
-              >
-                {slide.navLabel}
-              </p>
+              <p className="text-sm font-semibold text-white">{slide.navLabel}</p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -539,12 +487,7 @@ export default function Hero() {
                 <button
                   type="button"
                   onClick={() => setPaused((p) => !p)}
-                  className={cn(
-                    "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B83A3A]",
-                    slide.tone === "ai"
-                      ? "border-white/25 bg-white/5 text-white hover:border-white/45"
-                      : "border-[#D8D0C5] bg-white text-[#211E1B] hover:border-[#B83A3A]/50",
-                  )}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-white transition-colors hover:border-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)]"
                   aria-label={paused ? "Play hero stories" : "Pause hero stories"}
                 >
                   {paused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
@@ -553,12 +496,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={prev}
-                className={cn(
-                  "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B83A3A]",
-                  slide.tone === "ai"
-                    ? "border-white/25 bg-white/5 text-white hover:border-white/45"
-                    : "border-[#D8D0C5] bg-white text-[#211E1B] hover:border-[#B83A3A]/50",
-                )}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-white transition-colors hover:border-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)]"
                 aria-label="Previous story"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -566,12 +504,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={next}
-                className={cn(
-                  "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B83A3A]",
-                  slide.tone === "ai"
-                    ? "border-white/25 bg-white/5 text-white hover:border-white/45"
-                    : "border-[#D8D0C5] bg-white text-[#211E1B] hover:border-[#B83A3A]/50",
-                )}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-white transition-colors hover:border-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)]"
                 aria-label="Next story"
               >
                 <ArrowRight className="h-4 w-4" />

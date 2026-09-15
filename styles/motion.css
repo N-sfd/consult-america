@@ -329,12 +329,7 @@ button.ca-side-panel:hover {
   animation: caOracleDot 14s ease-in-out infinite;
 }
 
-.ca-header-glass {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: rgba(7, 59, 58, 0.05);
-}
+/* Header glass surface defined in marketing.css — keep motion.css free of competing header chrome */
 
 @media (prefers-reduced-motion: reduce) {
   .ca-shape,

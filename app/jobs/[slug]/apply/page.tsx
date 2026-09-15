@@ -2,20 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { ArchImage } from "@/components/marketing/image-system";
 import JobApplicationForm from "@/components/jobs/job-application-form";
+import { PageHeader } from "@/components/shared";
 import { careerAreaLabels } from "@/data/jobs";
 import { getOptionalCandidateSession } from "@/lib/candidate/session";
 import { getAllJobSlugs, getJobBySlug } from "@/lib/jobs";
-import { stockImage } from "@/lib/marketing/stock-images";
 import { recruitingRepository } from "@/lib/recruiting";
 import { isSupabaseConfigured } from "@/app/lib/supabase/server";
 
 interface JobApplyPageProps {
   params: Promise<{ slug: string }>;
 }
-
-const APPLY_HERO_IMAGE = stockImage("jobApplyHero", { w: 1400, q: 80 });
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +37,10 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Calm operational Apply surface — brand tokens without marketing density.
+ * Decorative photography / motion belong on Jobs landing, not here.
+ */
 export default async function JobApplyPage({ params }: JobApplyPageProps) {
   const { slug } = await params;
   const job = await getJobBySlug(slug);
@@ -82,81 +83,82 @@ export default async function JobApplyPage({ params }: JobApplyPageProps) {
   }
 
   return (
-    <div className="bg-[var(--cr-bg)]">
-      <div className="border-b border-[var(--cr-border)] bg-white">
-        <div className="cr-shell py-3">
-          <Link href={`/jobs/${job.slug}`} className="ca-link text-sm">
+    <div className="experience-app min-h-[70vh]">
+      <div className="border-b border-[var(--exp-border)] bg-white">
+        <div className="mx-auto max-w-[1040px] px-5 py-3 md:px-8">
+          <Link
+            href={`/jobs/${job.slug}`}
+            className="text-sm font-medium text-[var(--exp-muted)] transition-colors hover:text-[var(--exp-accent)]"
+          >
             ← Back to role
           </Link>
         </div>
       </div>
 
-      <div className="bg-[var(--cr-bg-soft)]">
-        <div className="cr-shell py-12 md:py-16">
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-7">
-              <span className="ca-eyebrow text-[var(--cr-blue)]">Careers</span>
-              <h1 className="mt-5 max-w-xl text-[2.125rem] font-medium leading-[1.05] tracking-[-0.03em] text-[var(--cr-navy)] md:text-[2.75rem]">
-                {job.title}
-              </h1>
-              <p className="mt-4 text-[var(--cr-blue)]">
-                {careerAreaLabels[job.careerArea]}
-              </p>
-              <p className="mt-2 text-[var(--cr-text-secondary)]">
-                {job.location} · {job.workplaceType} · {job.employmentType}
-              </p>
-              <p className="mt-6 max-w-lg text-[var(--cr-text)]">
-                Help organizations move complex enterprise transformation from
-                roadmap to production.
-              </p>
-            </div>
-            <div className="lg:col-span-5">
-              <ArchImage
-                src={APPLY_HERO_IMAGE}
-                alt="Consult America professionals collaborating"
-                priority
-                aspectRatio="aspect-[4/5] lg:aspect-[4/5]"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                containerClassName="max-w-none"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <div className="mx-auto max-w-[1040px] space-y-8 px-5 py-8 md:px-8 md:py-10">
+        <PageHeader
+          eyebrow="Apply"
+          title={job.title}
+          description={`${careerAreaLabels[job.careerArea]} · ${job.location} · ${job.workplaceType} · ${job.employmentType}`}
+          meta={
+            <nav className="ca-workflow-lineage" aria-label="Hiring workflow">
+              <span aria-current="step">Apply</span>
+              <span className="ca-workflow-sep" aria-hidden>
+                →
+              </span>
+              <span>Profile</span>
+              <span className="ca-workflow-sep" aria-hidden>
+                →
+              </span>
+              <span>Match</span>
+              <span className="ca-workflow-sep" aria-hidden>
+                →
+              </span>
+              <span>Review</span>
+              <span className="ca-workflow-sep" aria-hidden>
+                →
+              </span>
+              <span>Interview</span>
+              <span className="ca-workflow-sep" aria-hidden>
+                →
+              </span>
+              <span>Offer</span>
+            </nav>
+          }
+        />
 
-      <div className="cr-shell py-12 md:py-16">
-        <div className="mx-auto max-w-[1040px]">
-          <div className="mb-8">
-            <h2 className="text-2xl font-medium tracking-[-0.03em] text-[var(--cr-navy)]">
-              Application
-            </h2>
-            <p className="mt-2 text-[var(--cr-text-secondary)]">
-              Tell us about yourself and upload your resume.
-            </p>
+        <section className="ca-app-panel p-5 sm:p-6">
+          <h2 className="text-sm font-semibold text-[var(--exp-text)]">
+            Application
+          </h2>
+          <p className="mt-1 text-sm text-[var(--exp-muted)]">
+            Complete the steps below. You can reuse an existing resume if you
+            already have a candidate account.
+          </p>
+          <div className="mt-6">
+            <JobApplicationForm
+              jobTitle={job.title}
+              jobSlug={job.slug}
+              requisitionId={job.requisitionId}
+              postingId={job.id}
+              department={job.department}
+              location={job.location}
+              workplaceType={job.workplaceType}
+              employmentType={job.employmentType}
+              existingResume={existingResume}
+              supabaseConnected={isSupabaseConfigured()}
+              prefill={
+                session
+                  ? {
+                      firstName: session.displayName.split(" ")[0] ?? "",
+                      lastName: session.displayName.split(" ").slice(1).join(" "),
+                      email: session.email,
+                    }
+                  : undefined
+              }
+            />
           </div>
-
-          <JobApplicationForm
-            jobTitle={job.title}
-            jobSlug={job.slug}
-            requisitionId={job.requisitionId}
-            postingId={job.id}
-            department={job.department}
-            location={job.location}
-            workplaceType={job.workplaceType}
-            employmentType={job.employmentType}
-            existingResume={existingResume}
-            supabaseConnected={isSupabaseConfigured()}
-            prefill={
-              session
-                ? {
-                    firstName: session.displayName.split(" ")[0] ?? "",
-                    lastName: session.displayName.split(" ").slice(1).join(" "),
-                    email: session.email,
-                  }
-                : undefined
-            }
-          />
-        </div>
+        </section>
       </div>
     </div>
   );

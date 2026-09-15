@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { Bell, HelpCircle, Menu, Search, X } from "lucide-react";
 
 import { logout } from "@/app/actions/auth";
@@ -27,6 +27,8 @@ export type PlatformSessionInfo = {
 
 export type PlatformShellProps = {
   workspace: PlatformWorkspaceId;
+  /** Override sidebar module name (e.g. Admin vs ATS on shared workforce routes). */
+  workspaceLabel?: string;
   session: PlatformSessionInfo;
   children: React.ReactNode;
   variant?: PlatformShellVariant;
@@ -53,20 +55,37 @@ function initialsFromName(name: string) {
     .join("");
 }
 
-function isActivePath(pathname: string, href: string, exact?: boolean) {
-  if (exact) return pathname === href;
-  return pathname === href || pathname.startsWith(`${href}/`);
+function isActiveNavHref(
+  pathname: string,
+  searchParams: URLSearchParams,
+  href: string,
+  exact?: boolean,
+) {
+  const [pathPart, queryPart] = href.split("?");
+  const pathMatches = exact
+    ? pathname === pathPart
+    : pathname === pathPart || pathname.startsWith(`${pathPart}/`);
+  if (!pathMatches) return false;
+  if (!queryPart) return true;
+
+  const required = new URLSearchParams(queryPart);
+  for (const [key, value] of required.entries()) {
+    if (searchParams.get(key) !== value) return false;
+  }
+  return true;
 }
 
 function SidebarNav({
   groups,
   pathname,
+  searchParams,
   unreadCount,
   pendingApprovalsCount,
   onNavigate,
 }: {
   groups: PlatformNavGroup[];
   pathname: string;
+  searchParams: URLSearchParams;
   unreadCount: number;
   pendingApprovalsCount: number;
   onNavigate?: () => void;
@@ -87,7 +106,18 @@ function SidebarNav({
                 );
               }
 
-              const active = isActivePath(pathname, item.href, item.exact);
+              // Query-specific siblings (e.g. Onboarding) win over the plain path item.
+              const siblings = group.items.filter(
+                (other) =>
+                  other.href !== item.href &&
+                  other.href.split("?")[0] === item.href.split("?")[0],
+              );
+              const siblingQueryMatch = siblings.some((other) =>
+                isActiveNavHref(pathname, searchParams, other.href, other.exact),
+              );
+              const active =
+                isActiveNavHref(pathname, searchParams, item.href, item.exact) &&
+                (item.href.includes("?") || !siblingQueryMatch);
               const badge =
                 item.badgeKey === "notifications"
                   ? unreadCount
@@ -97,7 +127,7 @@ function SidebarNav({
 
               return (
                 <Link
-                  key={item.href}
+                  key={`${item.href}-${item.label}`}
                   href={item.href}
                   onClick={onNavigate}
                   className={cn("ca-platform-nav-link", active && "is-active")}
@@ -116,22 +146,26 @@ function SidebarNav({
 
 function PlatformSidebar({
   workspace,
+  workspaceLabel,
   session,
   variant,
   groups,
   logoHref,
   pathname,
+  searchParams,
   unreadCount,
   pendingApprovalsCount,
   className,
   onNavigate,
 }: {
   workspace: PlatformWorkspaceId;
+  workspaceLabel?: string;
   session: PlatformSessionInfo;
   variant: PlatformShellVariant;
   groups: PlatformNavGroup[];
   logoHref: string;
   pathname: string;
+  searchParams: URLSearchParams;
   unreadCount: number;
   pendingApprovalsCount: number;
   className?: string;
@@ -145,7 +179,7 @@ function PlatformSidebar({
       <PortalBrand surface="dark" href={logoHref} />
 
       <div className="ca-platform-sidebar-identity">
-        <p className="ca-platform-workspace-name">{meta.name}</p>
+        <p className="ca-platform-workspace-name">{workspaceLabel ?? meta.name}</p>
         <p className="ca-platform-user-name">{session.displayName}</p>
         {session.roleLabel ? <p className="ca-platform-user-role">{session.roleLabel}</p> : null}
       </div>
@@ -153,6 +187,7 @@ function PlatformSidebar({
       <SidebarNav
         groups={groups}
         pathname={pathname}
+        searchParams={searchParams}
         unreadCount={unreadCount}
         pendingApprovalsCount={pendingApprovalsCount}
         onNavigate={onNavigate}
@@ -182,8 +217,22 @@ function PlatformSidebar({
   );
 }
 
-export default function PlatformShell({
+export default function PlatformShell(props: PlatformShellProps) {
+  return (
+    <Suspense fallback={<PlatformShellFrame {...props} searchParams={new URLSearchParams()} />}>
+      <PlatformShellWithSearchParams {...props} />
+    </Suspense>
+  );
+}
+
+function PlatformShellWithSearchParams(props: PlatformShellProps) {
+  const searchParams = useSearchParams();
+  return <PlatformShellFrame {...props} searchParams={searchParams} />;
+}
+
+function PlatformShellFrame({
   workspace,
+  workspaceLabel,
   session,
   children,
   variant,
@@ -199,7 +248,8 @@ export default function PlatformShell({
   bottomNav,
   hideSidebarOnMobile = false,
   contentClassName,
-}: PlatformShellProps) {
+  searchParams,
+}: PlatformShellProps & { searchParams: URLSearchParams }) {
   const meta = WORKSPACE_META[workspace];
   const resolvedVariant = variant ?? meta.variant;
   const groups = navGroups ?? NAV_BY_WORKSPACE[workspace];
@@ -229,11 +279,13 @@ export default function PlatformShell({
       <div className="ca-platform-frame">
         <PlatformSidebar
           workspace={workspace}
+          workspaceLabel={workspaceLabel}
           session={session}
           variant={resolvedVariant}
           groups={groups}
           logoHref={homeHref}
           pathname={pathname}
+          searchParams={searchParams}
           unreadCount={unreadCount}
           pendingApprovalsCount={pendingApprovalsCount}
           className="ca-platform-sidebar--desktop"
@@ -250,11 +302,13 @@ export default function PlatformShell({
             <div className={cn("ca-platform-drawer is-open")}>
               <PlatformSidebar
                 workspace={workspace}
+                workspaceLabel={workspaceLabel}
                 session={session}
                 variant={resolvedVariant}
                 groups={groups}
                 logoHref={homeHref}
                 pathname={pathname}
+                searchParams={searchParams}
                 unreadCount={unreadCount}
                 pendingApprovalsCount={pendingApprovalsCount}
                 className="h-full"
@@ -285,9 +339,7 @@ export default function PlatformShell({
 
             <div className="ca-platform-header-context hidden sm:block">
               <p className="ca-platform-header-eyebrow">{meta.eyebrow}</p>
-              <p className="ca-platform-header-title">
-                {session.email || session.displayName}
-              </p>
+              <p className="ca-platform-header-title">{workspaceLabel ?? meta.name}</p>
             </div>
 
             {showSearch ? (

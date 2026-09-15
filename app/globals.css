@@ -15,78 +15,115 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Public marketing — warm ivory + white, charcoal selective, burgundy accent */
-  --ca-ivory: #F7F3EC;
-  --ca-ivory-deep: #EFE8DC;
-  --ca-charcoal: #211E1B;
-  --ca-charcoal-soft: #3A342F;
+  /* ── Consult America platform palette (teal / blue-gray / lime) ──
+     Atmosphere from approved visual reference — not a template copy.
+     Ratio target: ~60–65% white/pale · 20–25% teal · 5–8% soft blue-gray · 3–5% lime */
 
-  /* Supporting teal retained for operational continuity / legacy surfaces */
-  --ca-green-950: #073B3A;
-  --ca-green-900: #0B4A47;
-  --ca-green-800: #105A55;
-  --ca-green-700: #176A63;
-  --ca-green-600: #287B72;
-  --ca-green-500: #4B9488;
-  --ca-green-300: #9BC4B8;
-  --ca-green-200: #C9DDD7;
-  --ca-green-100: #E1ECE8;
-  --ca-green-50:  #F0F6F4;
-
+  --ca-teal-deep: #073B4C;
+  --ca-teal-chrome: #0B4655;
+  --ca-teal: #356D76;
+  --ca-teal-soft: #86AEB2;
+  --ca-mist: #D7E2E1;
+  --ca-canvas: #F5F6F1;
   --ca-white: #FFFFFF;
-  --ca-off-white: #F7F3EC;
-  --ca-light: #F7F3EC;
-  --ca-surface: #EFE8DC;
-  --ca-surface-soft: #F7F3EC;
-  --ca-surface-sage: #EFE8DC;
-  --ca-cloud: #F4F6F8;
-  --ca-ice: #F7F3EC;
-  --ca-warm: #EFE8DC;
-  --ca-teal: #176A63;
-  --ca-enterprise-blue: #2563eb;
-  --ca-text: #211E1B;
+  --ca-ink: #102F35;
+  --ca-lime: #C9F45A;
+  --ca-lime-soft: #EAF7BD;
+  --ca-line: #D5DFDB;
 
-  --ca-ink: #211E1B;
-  --ca-text-primary: #211E1B;
-  --ca-text-secondary: #695F57;
-  --ca-ink-secondary: #695F57;
-  --ca-muted: #695F57;
+  /* Semantic roles */
+  --ca-bg: var(--ca-canvas);
+  --ca-bg-secondary: var(--ca-white);
+  --ca-surface: var(--ca-mist);
+  --ca-surface-soft: var(--ca-canvas);
+  --ca-surface-sage: var(--ca-mist);
+  --ca-off-white: var(--ca-canvas);
+  --ca-light: var(--ca-canvas);
+  --ca-ivory: var(--ca-canvas);
+  --ca-ivory-deep: var(--ca-mist);
+  --ca-cloud: var(--ca-canvas);
+  --ca-ice: var(--ca-mist);
+  --ca-warm: var(--ca-mist);
 
-  --ca-green: #0B4A47;
-  --ca-green-deep: #073B3A;
-  --ca-footer: #052827;
-  --ca-dark-section: #073B3A;
-  --ca-dark-secondary: #0B4A47;
-  --ca-dark-card: #0B4A47;
-  --ca-dark-border: rgba(155, 196, 184, 0.18);
+  --ca-text: var(--ca-ink);
+  --ca-text-primary: var(--ca-ink);
+  --ca-charcoal: var(--ca-ink);
+  --ca-charcoal-soft: #1A3D44;
+  --ca-text-secondary: #5A6F73;
+  --ca-ink-secondary: #5A6F73;
+  --ca-muted: #5A6F73;
+
+  --ca-border: var(--ca-line);
+  --ca-border-light: var(--ca-mist);
+  --ca-header-border: var(--ca-line);
+
+  /* Dark brand surfaces (hero / capability / contact / app chrome) */
+  --ca-navy: var(--ca-teal-deep);
+  --ca-dark-navy: #052A36;
+  --ca-deep-navy: #052A36;
+  --ca-green: var(--ca-teal-chrome);
+  --ca-green-deep: var(--ca-teal-deep);
+  --ca-green-950: var(--ca-teal-deep);
+  --ca-green-900: var(--ca-teal-chrome);
+  --ca-green-800: #0E5260;
+  --ca-green-700: var(--ca-teal);
+  --ca-green-600: #3F7F88;
+  --ca-green-500: var(--ca-teal-soft);
+  --ca-green-300: #A8C5C8;
+  --ca-green-200: var(--ca-mist);
+  --ca-green-100: #E8F0EF;
+  --ca-green-50: var(--ca-canvas);
+  --ca-teal-legacy: var(--ca-teal);
+
+  --ca-dark-section: var(--ca-teal-deep);
+  --ca-dark-secondary: var(--ca-teal-chrome);
+  --ca-dark-card: var(--ca-teal-chrome);
+  --ca-dark-border: rgba(215, 226, 225, 0.18);
   --ca-text-on-dark: #FFFFFF;
   --ca-muted-on-dark: rgba(255, 255, 255, 0.78);
-  --ca-footer-bg: #052827;
-  --ca-footer-border: #0B4A47;
-  --ca-footer-hover: #9BC4B8;
+  --ca-footer: var(--ca-teal-deep);
+  --ca-footer-bg: #052A36;
+  --ca-footer-border: var(--ca-teal-chrome);
+  --ca-footer-hover: var(--ca-lime);
 
-  --ca-red: #B83A3A;
-  --ca-red-hover: #992F31;
-  --ca-red-dark: #992F31;
-  --ca-burgundy: #B83A3A;
-  --ca-burgundy-hover: #992F31;
-  --ca-burgundy-accent: #B83A3A;
+  /* Interactive accent — lime (CTAs, active, badges). Not section fills. */
+  --ca-accent: var(--ca-lime);
+  --ca-accent-hover: #B8E34A;
+  --ca-accent-soft: var(--ca-lime-soft);
+  --ca-accent-fg: var(--ca-ink);
+  --ca-enterprise-blue: var(--ca-teal);
 
-  /* "ca-blue" is a legacy name from before the rebrand to the red accent —
-     kept so the ~180 existing var(--ca-blue) usages across the app resolve. */
-  --ca-blue: var(--ca-red);
-  --ca-blue-hover: var(--ca-red-hover);
-  --ca-blue-soft: var(--ca-surface-soft);
+  /* Legacy accent aliases → lime / teal (burgundy retired as brand accent) */
+  --ca-burgundy: var(--ca-accent);
+  --ca-burgundy-hover: var(--ca-accent-hover);
+  --ca-burgundy-accent: var(--ca-accent);
+  --ca-blue: var(--ca-teal);
+  --ca-blue-hover: var(--ca-teal-chrome);
+  --ca-blue-soft: var(--ca-lime-soft);
 
-  --ca-border: #D8D0C5;
-  --ca-border-light: #E8E1D6;
-  --ca-header-border: #D8D0C5;
+  /* Destructive stays true red — never lime */
+  --ca-red: #C45B4A;
+  --ca-red-hover: #A8483A;
+  --ca-red-dark: #A8483A;
+  --ca-error: #C45B4A;
 
-  --ca-bg: #F7F3EC;
-  --ca-bg-secondary: #FFFFFF;
-  --ca-navy: #071A2F;
-  --ca-dark-navy: #05070d;
-  --ca-deep-navy: #05070d;
+  /* Application shell — same ecosystem tokens, denser use */
+  --ca-app-max: 1440px;
+  --ca-app-sidebar: 260px;
+  --ca-app-sidebar-rail: 72px;
+  --ca-app-topbar: 64px;
+  --ca-app-bg: var(--ca-canvas);
+  --ca-app-canvas: var(--ca-canvas);
+  --ca-app-panel: var(--ca-white);
+  --ca-app-sidebar-bg: var(--ca-teal-chrome);
+  --ca-app-ink: var(--ca-ink);
+  --ca-app-muted: #5A6F73;
+  --ca-app-border: var(--ca-line);
+  --ca-app-selected: var(--ca-lime-soft);
+  --ca-app-info: var(--ca-teal);
+  --ca-app-info-soft: rgba(53, 109, 118, 0.12);
+  --ca-app-accent: var(--ca-lime);
+  --ca-app-accent-fg: var(--ca-ink);
 
   --ca-max-width: 1280px;
   --page-max: 1440px;
@@ -99,20 +136,6 @@
   --ca-insight-reading: 760px;
   --ca-insight-toc: 280px;
   --ca-insight-section-y: clamp(5.5rem, 10vw, 9rem);
-  --ca-app-max: 1440px;
-  --ca-app-sidebar: 260px;
-  --ca-app-sidebar-rail: 72px;
-  --ca-app-topbar: 64px;
-  --ca-app-bg: #F4F6F8;
-  --ca-app-canvas: #F4F6F8;
-  --ca-app-panel: #FFFFFF;
-  --ca-app-sidebar-bg: #071A2F;
-  --ca-app-ink: #0B1220;
-  --ca-app-muted: #5B6573;
-  --ca-app-border: #E2E6EB;
-  --ca-app-selected: #EEF1F5;
-  --ca-app-info: #2563eb;
-  --ca-app-info-soft: rgba(37, 99, 235, 0.1);
   --ca-space-1: 0.5rem;
   --ca-space-2: 0.75rem;
   --ca-space-3: 1rem;
@@ -122,24 +145,24 @@
   --ca-radius-lg: 10px;
   --header-offset: 6rem;
 
-  --background: #FFFFFF;
+  --background: var(--ca-white);
   --foreground: var(--ca-text-primary);
-  --card: #FFFFFF;
+  --card: var(--ca-white);
   --card-foreground: var(--ca-text-primary);
-  --popover: #FFFFFF;
+  --popover: var(--ca-white);
   --popover-foreground: var(--ca-text-primary);
-  --primary: var(--ca-red);
-  --primary-foreground: #FFFFFF;
-  --secondary: var(--ca-surface);
-  --secondary-foreground: var(--ca-green);
-  --muted: var(--ca-surface);
+  --primary: var(--ca-accent);
+  --primary-foreground: var(--ca-accent-fg);
+  --secondary: var(--ca-mist);
+  --secondary-foreground: var(--ca-ink);
+  --muted: var(--ca-canvas);
   --muted-foreground: var(--ca-text-secondary);
-  --accent: var(--ca-surface);
-  --accent-foreground: var(--ca-green);
-  --destructive: var(--ca-red);
+  --accent: var(--ca-lime-soft);
+  --accent-foreground: var(--ca-ink);
+  --destructive: var(--ca-error);
   --border: var(--ca-border);
   --input: var(--ca-border);
-  --ring: var(--ca-red);
+  --ring: var(--ca-teal);
   --radius: 8px;
 
   --ease-ca: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -150,15 +173,16 @@
 
 @theme inline {
   --color-ca-navy: var(--ca-navy);
-  --color-ca-blue: var(--ca-red);
-  --color-ca-blue-hover: var(--ca-red-hover);
+  --color-ca-blue: var(--ca-teal);
+  --color-ca-blue-hover: var(--ca-teal-chrome);
   --color-ca-blue-soft: var(--ca-blue-soft);
+  --color-ca-lime: var(--ca-lime);
   --color-ca-cloud: var(--ca-cloud);
   --color-ca-ice: var(--ca-ice);
   --color-ca-warm: var(--ca-warm);
   --color-ca-green: var(--ca-teal);
-  --color-ca-amber: var(--ca-enterprise-blue);
-  --color-ca-gold: var(--ca-enterprise-blue);
+  --color-ca-amber: var(--ca-lime);
+  --color-ca-gold: var(--ca-lime);
   --color-ca-white: var(--ca-white);
   --color-ca-off-white: var(--ca-off-white);
   --color-ca-surface: var(--ca-surface);
@@ -235,15 +259,15 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: clamp(8px, 0.9vw, 16px);
-  min-height: 88px;
+  column-gap: clamp(12px, 1.1vw, 20px);
+  min-height: 84px;
   overflow: visible;
   box-sizing: border-box;
 }
 
 @media (min-width: 1280px) {
   .ca-header-inner {
-    min-height: 96px;
+    min-height: 88px;
   }
 }
 
@@ -272,7 +296,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: clamp(6px, 0.7vw, 14px);
+  gap: clamp(10px, 1vw, 18px);
   white-space: nowrap;
   min-width: 0;
   grid-column: 2;
@@ -357,6 +381,7 @@ body {
   border-radius: 8px;
   min-height: 44px;
   padding-inline: 18px;
+  box-shadow: none;
 }
 
 @media (min-width: 1280px) {
@@ -731,13 +756,13 @@ body {
   align-items: center;
   gap: 0.4rem;
   font-weight: 600;
-  color: var(--ca-red);
+  color: var(--ca-teal);
   transition: gap 200ms ease, color 200ms ease;
 }
 
 .ca-link:hover {
   gap: 0.65rem;
-  color: var(--ca-red-hover);
+  color: var(--ca-teal-chrome);
 }
 
 .ca-button-primary {
@@ -747,22 +772,22 @@ body {
   gap: 0.5em;
   min-height: 2.75rem;
   padding: 0.75em 1.5em;
-  border: 1px solid var(--ca-red);
+  border: 1px solid var(--ca-accent);
   border-radius: 999px;
-  background: var(--ca-red);
-  color: #FFFFFF;
+  background: var(--ca-accent);
+  color: var(--ca-accent-fg);
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(182, 58, 58, 0.2);
+  box-shadow: 0 4px 14px rgba(7, 59, 76, 0.12);
   transition: background 200ms ease, border-color 200ms ease, gap 200ms ease, transform 200ms ease;
 }
 
 .ca-button-primary:hover {
-  background: var(--ca-red-hover);
-  border-color: var(--ca-red-hover);
-  color: #FFFFFF;
+  background: var(--ca-accent-hover);
+  border-color: var(--ca-accent-hover);
+  color: var(--ca-accent-fg);
   gap: 0.7em;
   transform: translateY(-1px);
 }

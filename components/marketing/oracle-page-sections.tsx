@@ -105,12 +105,12 @@ export default function OraclePageSections() {
                 className="ca-editorial-row group flex items-center justify-between gap-6 border-b border-[#E1ECE8] px-5 py-6 last:border-b-0 md:px-7 md:py-7"
               >
                 <div>
-                  <h3 className="text-xl font-semibold text-[#122D2E] group-hover:text-[#B83A3A]">
+                  <h3 className="text-xl font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)]">
                     {mod.label}
                   </h3>
-                  <p className="mt-1 text-sm text-[#5B6D6B]">{mod.detail}</p>
+                  <p className="mt-1 text-sm text-[var(--ca-text-secondary)]">{mod.detail}</p>
                 </div>
-                <ArrowUpRight className="h-5 w-5 shrink-0 text-[#5B6D6B] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#B83A3A]" />
+                <ArrowUpRight className="h-5 w-5 shrink-0 text-[var(--ca-text-secondary)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--ca-teal)]" />
               </Link>
             </Reveal>
           ))}

@@ -1,27 +1,101 @@
-/* ConsultAmerica — three visual experiences (shared brand tokens) */
+/* Consult America — shared brand, unequal visual density
+   Marketing communicates the brand. ATS communicates the workflow. */
 
-/* Public marketing: editorial, spacious */
+/* Public marketing: editorial, spacious, motion + shaped imagery OK */
 .experience-marketing {
-  --exp-bg: var(--ca-ice);
+  --exp-bg: var(--ca-canvas, #f5f6f1);
   --exp-surface: var(--ca-white);
-  --exp-text: var(--ca-text-primary);
-  --exp-muted: var(--ca-text-secondary);
+  --exp-text: var(--ca-ink, #102f35);
+  --exp-muted: var(--ca-text-secondary, #5a6f73);
+  --exp-accent: var(--ca-lime, #c9f45a);
+  --exp-border: var(--ca-line, #d5dfdb);
+  --exp-radius: 10px;
+  --exp-shadow: 0 16px 40px rgba(7, 59, 76, 0.08);
 }
 
-/* Careers / candidate: friendly, conversion-focused */
+/* Jobs landing / Careers browse: still editorial (conversion), not ATS chrome */
 .experience-careers {
-  --exp-bg: var(--ca-bg);
-  --exp-surface: var(--ca-white);
-  --exp-text: var(--ca-text-primary);
-  --exp-muted: var(--ca-text-secondary);
+  --exp-bg: var(--cr-bg, #f5f6f1);
+  --exp-surface: var(--cr-surface, #ffffff);
+  --exp-text: var(--cr-navy, #102f35);
+  --exp-muted: var(--cr-text-secondary, #5a6f73);
+  --exp-accent: var(--cr-accent, #c9f45a);
+  --exp-border: var(--cr-border, #d5dfdb);
+  --exp-radius: 10px;
+  --exp-shadow: 0 12px 32px rgba(7, 59, 76, 0.06);
 }
 
-/* HR / ATS / employee: compact, operational */
+/*
+  Calm operational application UI:
+  Apply · Candidate Portal · ATS · HR · Payroll · CRM · Employee/Manager
+  Same brand tokens; no decorative motion, no marketing hero density.
+*/
 .experience-app {
-  --exp-bg: var(--ca-app-bg);
+  --exp-bg: var(--ca-app-bg, #f5f6f1);
   --exp-surface: var(--ca-white);
-  --exp-text: var(--ca-app-ink);
-  --exp-muted: var(--ca-app-muted);
+  --exp-text: var(--ca-app-ink, #102f35);
+  --exp-muted: var(--ca-app-muted, #5a6f73);
+  --exp-accent: var(--ca-lime, #c9f45a);
+  --exp-border: var(--ca-app-border, #d5dfdb);
+  --exp-radius: 8px;
+  --exp-shadow: 0 1px 2px rgba(11, 18, 32, 0.04);
+  background: var(--exp-bg);
+  color: var(--exp-text);
   font-size: 14px;
   line-height: 1.5;
+  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.experience-app h1,
+.experience-app h2,
+.experience-app h3,
+.experience-app .font-serif {
+  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+/* Kill decorative marketing motion inside app shells */
+.experience-app .ca-decor-drift--slow,
+.experience-app .ca-decor-orbit,
+.experience-app .ca-detail-float,
+.experience-app .ca-home-moving,
+.experience-app .ca-background-arc,
+.experience-app .ca-home-bg-arc {
+  animation: none !important;
+  transform: none !important;
+}
+
+.experience-app .ca-platform-card--interactive:hover,
+.experience-app .ca-platform-metric:hover {
+  transform: none;
+}
+
+/* Calm panels */
+.experience-app .ca-app-panel {
+  background: var(--exp-surface);
+  border: 1px solid var(--exp-border);
+  border-radius: var(--exp-radius);
+  box-shadow: var(--exp-shadow);
+}
+
+/* Hiring lineage helper (ATS / candidate) */
+.ca-workflow-lineage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--exp-muted, #5b6573);
+}
+
+.ca-workflow-lineage span[aria-current="step"] {
+  color: var(--exp-accent, #b83a3a);
+}
+
+.ca-workflow-lineage .ca-workflow-sep {
+  opacity: 0.35;
+  font-weight: 400;
+  letter-spacing: 0;
 }

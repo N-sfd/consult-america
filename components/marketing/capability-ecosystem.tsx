@@ -137,24 +137,24 @@ export default function CapabilityEcosystem() {
   return (
     <section
       id="capabilities-ecosystem"
-      className="relative overflow-hidden border-b border-[#D8D0C5] bg-[#F7F3EC] py-12 sm:py-14 lg:py-16"
+      className="relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-canvas)] pt-16 pb-14 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-[12%] top-[18%] hidden h-[420px] w-[420px] rounded-full border border-[#073B3A]/[0.04] lg:block"
+        className="pointer-events-none absolute -right-[12%] top-[22%] hidden h-[380px] w-[380px] rounded-full border border-[var(--ca-teal-deep)]/[0.05] lg:block"
       />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="max-w-2xl">
-          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#B83A3A]">
+          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
             What We Do
           </p>
-          <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#211E1B]">
+          <h2 className="mt-4 font-serif text-[clamp(1.875rem,3.2vw,2.625rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
             Connected capabilities.
             <br className="hidden sm:block" />
             Built around the enterprise.
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-[#695F57]">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--ca-text-secondary)]">
             Transformation works best when strategy, platforms, data and engineering move together.
           </p>
         </div>
@@ -171,7 +171,7 @@ export default function CapabilityEcosystem() {
               return (
                 <div
                   key={cap.id}
-                  className="overflow-hidden rounded-xl border border-[#DDE6E3] bg-white"
+                  className="overflow-hidden rounded-xl border border-[var(--ca-line)] bg-white"
                 >
                   <button
                     type="button"
@@ -180,24 +180,24 @@ export default function CapabilityEcosystem() {
                     aria-expanded={open}
                   >
                     <span>
-                      <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#073B3A]">
+                      <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[var(--ca-ink)]">
                         {cap.label}
                       </span>
-                      <span className="mt-0.5 block text-xs text-[#5B6D6B]">{cap.short}</span>
+                      <span className="mt-0.5 block text-xs text-[var(--ca-text-secondary)]">{cap.short}</span>
                     </span>
                     <ChevronDown
                       className={cn(
-                        "h-4 w-4 shrink-0 text-[#176A63] transition-transform",
+                        "h-4 w-4 shrink-0 text-[var(--ca-teal)] transition-transform",
                         open && "rotate-180",
                       )}
                     />
                   </button>
                   {open ? (
-                    <div className="border-t border-[#E1ECE8] px-4 pb-4 pt-3">
-                      <p className="text-sm leading-relaxed text-[#5B6D6B]">{cap.detail}</p>
+                    <div className="border-t border-[var(--ca-line)] px-4 pb-4 pt-3">
+                      <p className="text-sm leading-relaxed text-[var(--ca-text-secondary)]">{cap.detail}</p>
                       <Link
                         href={cap.href}
-                        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63]"
+                        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)]"
                       >
                         {cap.cta}
                         <ArrowUpRight className="h-3.5 w-3.5" />
@@ -223,25 +223,25 @@ export default function CapabilityEcosystem() {
                   className={cn(
                     "rounded-xl border p-4 text-left transition-all",
                     isActive
-                      ? "border-[#B83A3A]/30 bg-white shadow-[0_12px_28px_rgba(7,59,58,0.08)]"
-                      : "border-[#DDE6E3] bg-white/80 hover:border-[#176A63]/30",
+                      ? "border-[var(--ca-teal)]/35 bg-white shadow-[0_12px_28px_rgba(16,47,53,0.06)]"
+                      : "border-[var(--ca-line)] bg-white/80 hover:border-[var(--ca-teal)]/30",
                   )}
                 >
                   <span
                     className={cn(
                       "text-[0.68rem] font-bold uppercase tracking-[0.12em]",
-                      isActive ? "text-[#B83A3A]" : "text-[#176A63]",
+                      isActive ? "text-[var(--ca-teal-chrome)]" : "text-[var(--ca-teal)]",
                     )}
                   >
                     {cap.label}
                   </span>
-                  <p className="mt-1 text-sm font-medium text-[#073B3A]">{cap.short}</p>
+                  <p className="mt-1 text-sm font-medium text-[var(--ca-ink)]">{cap.short}</p>
                   {isActive ? (
                     <>
-                      <p className="mt-2 text-sm leading-relaxed text-[#5B6D6B]">{cap.detail}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-[var(--ca-text-secondary)]">{cap.detail}</p>
                       <Link
                         href={cap.href}
-                        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#176A63]"
+                        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)]"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {cap.cta}
@@ -298,9 +298,9 @@ export default function CapabilityEcosystem() {
                         y1="50"
                         x2={end.x}
                         y2={end.y}
-                        stroke={isActive ? "#B83A3A" : "#073B3A"}
+                        stroke={isActive ? "#C9F45A" : "#073B4C"}
                         strokeWidth={isActive ? "0.45" : "0.28"}
-                        strokeOpacity={isActive ? 0.45 : 0.12}
+                        strokeOpacity={isActive ? 0.55 : 0.12}
                         strokeLinecap="round"
                       />
                     );
@@ -314,8 +314,8 @@ export default function CapabilityEcosystem() {
                         cx={pt.x}
                         cy={pt.y}
                         r={isActive ? 1.1 : 0.7}
-                        fill={isActive ? "#B83A3A" : "#176A63"}
-                        fillOpacity={isActive ? 0.9 : 0.35}
+                        fill={isActive ? "#C9F45A" : "#356D76"}
+                        fillOpacity={isActive ? 0.95 : 0.35}
                       />
                     );
                   })}
@@ -323,9 +323,9 @@ export default function CapabilityEcosystem() {
 
                 <div
                   aria-hidden="true"
-                  className="absolute left-1/2 top-1/2 z-10 flex h-[150px] w-[150px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-[#073B3A] text-center shadow-[0_20px_48px_rgba(7,59,58,0.28)] ring-4 ring-[#073B3A]/10 xl:h-[162px] xl:w-[162px]"
+                  className="absolute left-1/2 top-1/2 z-10 flex h-[150px] w-[150px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-[var(--ca-teal-deep)] text-center shadow-[0_20px_48px_rgba(7,59,76,0.22)] ring-4 ring-[var(--ca-teal-deep)]/10 xl:h-[162px] xl:w-[162px]"
                 >
-                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.18em] text-[#9BC4B8]">
+                  <p className="text-[0.58rem] font-bold uppercase tracking-[0.18em] text-[var(--ca-teal-soft)]">
                     Consult America
                   </p>
                   <p className="mt-1.5 px-4 font-serif text-[0.95rem] font-semibold leading-[1.15] text-white xl:text-[1.05rem]">
@@ -357,19 +357,19 @@ export default function CapabilityEcosystem() {
                       className={cn(
                         "absolute z-20 w-[132px] rounded-[12px] border bg-white px-3 py-2.5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#176A63] focus-visible:ring-offset-2 xl:w-[148px]",
                         isActive
-                          ? "scale-[1.04] border-[#B83A3A]/35 shadow-[0_16px_36px_rgba(7,59,58,0.14)]"
-                          : "border-[#DDE6E3] shadow-[0_4px_14px_rgba(7,59,58,0.04)] hover:border-[#176A63]/35 hover:shadow-[0_10px_24px_rgba(7,59,58,0.08)]",
+                          ? "scale-[1.03] border-[var(--ca-teal)]/40 shadow-[0_14px_32px_rgba(16,47,53,0.10)]"
+                          : "border-[var(--ca-line)] shadow-[0_4px_14px_rgba(16,47,53,0.04)] hover:border-[var(--ca-teal)]/35 hover:shadow-[0_10px_24px_rgba(16,47,53,0.06)]",
                       )}
                     >
                       <span
                         className={cn(
                           "block text-[0.62rem] font-bold uppercase tracking-[0.11em]",
-                          isActive ? "text-[#B83A3A]" : "text-[#176A63]",
+                          isActive ? "text-[var(--ca-teal-chrome)]" : "text-[var(--ca-teal)]",
                         )}
                       >
                         {cap.label}
                       </span>
-                      <span className="mt-0.5 block text-[0.78rem] leading-snug text-[#5B6D6B]">
+                      <span className="mt-0.5 block text-[0.78rem] leading-snug text-[var(--ca-text-secondary)]">
                         {cap.short}
                       </span>
                     </button>
@@ -384,14 +384,14 @@ export default function CapabilityEcosystem() {
                 role="tabpanel"
                 aria-labelledby={`capability-tab-${active.id}`}
                 aria-live="polite"
-                className="relative overflow-hidden rounded-2xl border border-[#DDE6E3] bg-white shadow-[0_16px_44px_rgba(7,59,58,0.07)]"
+                className="relative overflow-hidden rounded-2xl border border-[var(--ca-line)] bg-white shadow-[0_16px_44px_rgba(16,47,53,0.06)]"
               >
                 <div
                   aria-hidden="true"
-                  className="absolute inset-y-0 left-0 w-[3px] bg-[#B83A3A]"
+                  className="absolute inset-y-0 left-0 w-[3px] bg-[var(--ca-lime)]"
                 />
                 <div className="p-7 sm:p-8">
-                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#8A9A97]">
+                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--ca-text-secondary)]">
                     {String(activeIndex + 1).padStart(2, "0")} /{" "}
                     {String(CAPABILITIES.length).padStart(2, "0")}
                   </p>
@@ -405,15 +405,15 @@ export default function CapabilityEcosystem() {
                       transition={{ duration: 0.32, ease: revealEase }}
                     >
                       {/* Avoid repeating the tab name; panel focuses on the short title */}
-                      <h3 className="mt-4 font-serif text-[1.75rem] font-semibold leading-tight tracking-[-0.02em] text-[#073B3A]">
+                      <h3 className="mt-4 font-serif text-[1.75rem] font-semibold leading-tight tracking-[-0.02em] text-[var(--ca-ink)]">
                         {active.short}
                       </h3>
-                      <p className="mt-4 text-[1.02rem] leading-relaxed text-[#5B6D6B]">
+                      <p className="mt-4 text-[1.02rem] leading-relaxed text-[var(--ca-text-secondary)]">
                         {active.detail}
                       </p>
                       <Link
                         href={active.href}
-                        className="mt-7 inline-flex h-11 items-center gap-2 rounded-lg bg-[#B83A3A] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#992F31]"
+                        className="mt-7 inline-flex h-11 items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-5 text-sm font-semibold text-[var(--ca-ink)] transition-colors hover:bg-[var(--ca-accent-hover)]"
                       >
                         {active.cta}
                         <ArrowUpRight className="h-4 w-4" />
@@ -421,7 +421,7 @@ export default function CapabilityEcosystem() {
                     </motion.div>
                   </AnimatePresence>
 
-                  <div className="mt-8 flex gap-1.5 border-t border-[#E1ECE8] pt-5" aria-hidden="true">
+                  <div className="mt-8 flex gap-1.5 border-t border-[var(--ca-line)] pt-5" aria-hidden="true">
                     {CAPABILITIES.map((cap) => (
                       <button
                         key={cap.id}
@@ -430,7 +430,7 @@ export default function CapabilityEcosystem() {
                         onClick={() => setActiveId(cap.id)}
                         className={cn(
                           "h-1 flex-1 rounded-full transition-colors",
-                          cap.id === activeId ? "bg-[#176A63]" : "bg-[#DDE6E3] hover:bg-[#C9DDD7]",
+                          cap.id === activeId ? "bg-[var(--ca-lime)]" : "bg-[var(--ca-mist)] hover:bg-[var(--ca-teal-soft)]",
                         )}
                       />
                     ))}

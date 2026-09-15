@@ -1,17 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import {
   DEMO_WORKSPACES,
+  SUITE_SWITCHER,
+  isCurrentSuiteItem,
+  isPrimaryDemoWorkspace,
   type PlatformWorkspaceId,
 } from "@/components/platform/platform-nav";
 import { cn } from "@/lib/utils";
 
-/** Collapsed demo-only workspace switcher — hidden when Supabase is configured. */
+/**
+ * Suite module switcher — navigation across one Consult America enterprise platform.
+ * Always available in app chrome; demo mode also lists Manager / Candidate.
+ */
 export default function DemoWorkspaceMenu({
   current,
   dark = false,
@@ -20,10 +27,19 @@ export default function DemoWorkspaceMenu({
   dark?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname() || "/";
+  const demoMode = !isSupabaseBrowserConfigured();
 
-  if (isSupabaseBrowserConfigured()) return null;
+  const suiteItems = SUITE_SWITCHER.filter((item) => !isCurrentSuiteItem(item, current, pathname));
+  const extraDemo = demoMode
+    ? DEMO_WORKSPACES.filter(
+        (item) =>
+          (item.label === "Manager" || item.label === "Candidate") &&
+          !isPrimaryDemoWorkspace(item, current),
+      )
+    : [];
 
-  const others = DEMO_WORKSPACES.filter((item) => item.id !== current);
+  const others = [...suiteItems, ...extraDemo];
 
   return (
     <div className="relative">
@@ -37,8 +53,9 @@ export default function DemoWorkspaceMenu({
             : "bg-[var(--ca-platform-sage-light)] text-[var(--ca-platform-muted)] hover:text-[var(--ca-platform-deep)]",
         )}
         aria-expanded={open}
+        aria-label="Switch platform module"
       >
-        <span>Demo Workspace</span>
+        <span>Platform modules</span>
         <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")} />
       </button>
 
@@ -51,13 +68,23 @@ export default function DemoWorkspaceMenu({
               : "border-[var(--ca-platform-border)] bg-white text-[var(--ca-platform-muted)]",
           )}
         >
+          <p
+            className={cn(
+              "px-3 py-2 text-[0.65rem] font-bold uppercase tracking-[0.12em]",
+              dark ? "text-white/45" : "text-[var(--ca-platform-muted)]",
+            )}
+          >
+            Consult America Platform
+          </p>
           {others.map((item) => (
             <Link
-              key={item.href}
+              key={`${item.label}-${item.href}`}
               href={item.href}
               className={cn(
                 "block px-3 py-2 transition-colors",
-                dark ? "hover:bg-white/8 hover:text-white" : "hover:bg-[var(--ca-platform-sage-light)] hover:text-[var(--ca-platform-deep)]",
+                dark
+                  ? "hover:bg-white/8 hover:text-white"
+                  : "hover:bg-[var(--ca-platform-sage-light)] hover:text-[var(--ca-platform-deep)]",
               )}
               onClick={() => setOpen(false)}
             >

@@ -1,17 +1,36 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { submitContactAction } from "@/app/actions/contact-actions";
 
+function readUtmParams(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const utm: Record<string, string> = {};
+  for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) {
+    const value = params.get(key);
+    if (value) utm[key] = value;
+  }
+  return utm;
+}
+
 export default function ContactPanel() {
   const { open, setOpen } = useContactPanel();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [sourcePage, setSourcePage] = useState("/");
+  const [utm, setUtm] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!open || typeof window === "undefined") return;
+    setSourcePage(`${window.location.pathname}${window.location.search}`);
+    setUtm(readUtmParams());
+  }, [open]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,6 +44,10 @@ export default function ContactPanel() {
       company: String(formData.get("company") ?? ""),
       message: String(formData.get("message") ?? ""),
       source: "contact-panel",
+      sourcePage,
+      campaign: utm.utm_campaign,
+      utm,
+      consentGiven: formData.get("consent") === "on",
     });
 
     setPending(false);
@@ -57,7 +80,7 @@ export default function ContactPanel() {
           >
             <div className="flex items-center justify-between border-b border-[#E2E7EC] pb-4">
               <div>
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#B63838]">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
                   DIRECT INQUIRY
                 </span>
                 <p className="mt-1 font-serif text-2xl font-semibold text-[#101828]">
@@ -85,7 +108,7 @@ export default function ContactPanel() {
                 <button
                   type="button"
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 text-xs font-bold text-[#B63838] hover:underline cursor-pointer"
+                  className="mt-6 text-xs font-bold text-[var(--ca-teal)] hover:underline cursor-pointer"
                 >
                   Send another inquiry
                 </button>
@@ -133,7 +156,13 @@ export default function ContactPanel() {
                   placeholder="Tell us about your program, platform, or timeline..."
                   className="ca-underline-input mt-2 resize-none"
                 />
-                {error && <p className="mt-3 text-sm text-[#B63838]">{error}</p>}
+                <label className="mt-6 flex items-start gap-2 text-sm leading-5 text-[#475467]">
+                  <input type="checkbox" name="consent" required className="mt-1" />
+                  <span>
+                    I agree to be contacted by Consult America about this inquiry.
+                  </span>
+                </label>
+                {error && <p className="mt-3 text-sm text-[var(--ca-error)]">{error}</p>}
                 <button
                   type="submit"
                   disabled={pending}

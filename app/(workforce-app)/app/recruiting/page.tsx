@@ -66,9 +66,42 @@ export default async function AtsHomePage() {
   return (
     <div className="space-y-7">
       <PageHeader
-        eyebrow="ATS"
+        eyebrow="Recruiting"
         title="Recruiting Operations"
-        description="Live requisitions, applications, interviews, and offers — no demo conversion rates."
+        description="Live requisitions, applications, interviews, and offers — hire creates the HR employee, not a status-only flip."
+        meta={
+          <nav className="ca-workflow-lineage" aria-label="Hiring lineage">
+            <span>Requisition</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Applications</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Match</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Review</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Interview</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Offer</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Hire</span>
+            <span className="ca-workflow-sep" aria-hidden>
+              →
+            </span>
+            <span>Employee</span>
+          </nav>
+        }
       />
 
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">

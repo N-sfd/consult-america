@@ -1,11 +1,11 @@
 /* Consult America — Homepage art-direction composition system */
 
-/* Hero surface — warm ivory + white, burgundy accent wash */
+/* Hero — deep teal fading into pale blue-gray (reference atmosphere) */
 .ca-grad-hero {
   background:
-    radial-gradient(circle at 82% 28%, rgba(184, 58, 58, 0.1), transparent 30%),
-    radial-gradient(circle at 18% 72%, rgba(33, 30, 27, 0.05), transparent 28%),
-    linear-gradient(115deg, #ffffff 0%, #f7f3ec 52%, #efe8dc 100%);
+    radial-gradient(circle at 82% 22%, rgba(201, 244, 90, 0.1), transparent 28%),
+    radial-gradient(circle at 18% 78%, rgba(134, 174, 178, 0.18), transparent 32%),
+    linear-gradient(165deg, #073B4C 0%, #0B4655 42%, #356D76 68%, #D7E2E1 100%);
 }
 
 .ca-home-hero-grid::before {
@@ -15,8 +15,8 @@
   pointer-events: none;
   opacity: 1;
   background-image:
-    linear-gradient(rgba(33, 30, 27, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(33, 30, 27, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, black 10%, transparent 75%);
   mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, black 10%, transparent 75%);
@@ -145,7 +145,7 @@
 .ca-home-sage-disc {
   position: absolute;
   border-radius: 9999px;
-  background: rgba(184, 58, 58, 0.06);
+  background: rgba(53, 109, 118, 0.08);
   pointer-events: none;
 }
 
@@ -273,30 +273,30 @@
   border-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Outcomes / pillars */
+/* Outcomes / pillars — one continuous teal rule language */
 .ca-home-pillar {
-  border-top: 1px solid #176a63;
-  padding-top: 1rem;
-  transition: border-color 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  border-top: 1px solid var(--ca-teal, #356D76);
+  padding-top: 0.85rem;
+  transition: border-color 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .ca-home-pillar:hover {
-  border-top-width: 2px;
+  border-top-color: var(--ca-teal-chrome, #0B4655);
 }
 
 .ca-home-pillar:hover .ca-home-pillar-label {
-  transform: translateX(3px);
+  transform: translateX(2px);
 }
 
 .ca-home-pillar-label {
-  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .ca-home-pillar-num {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #176a63;
+  color: var(--ca-teal, #356D76);
 }
 
 /* AI curved paths */
@@ -331,14 +331,14 @@
   max-height: min(22.5rem, 36vh); /* 360px featured work */
 }
 
-/* Compact section helpers */
+/* Compact outcomes rail — sits tight under the hero */
 .ca-home-outcomes {
-  max-height: 320px;
+  max-height: none;
 }
 
 @media (min-width: 1024px) {
   .ca-home-outcomes .ca-home-pillar {
-    padding-top: 0.75rem;
+    padding-top: 0.7rem;
   }
 }
 

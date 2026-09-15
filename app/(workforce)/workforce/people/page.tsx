@@ -179,11 +179,34 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
     <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">Workforce</p>
-          <h1 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.03em]">People</h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-black/55">
-            Operational employee directory — search, filter, and open the employee 360 profile.
+          <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
+            Consult America Platform
           </p>
+          <h1 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.03em]">
+            {filters.status === "PRE_HIRE" ? "Onboarding" : "People"}
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-black/55">
+            {filters.status === "PRE_HIRE"
+              ? "Pre-hire employees created from accepted ATS offers — continue documents and onboarding here. No manual re-entry."
+              : "Employee directory shared with Recruiting. A hire in ATS becomes the employee record here — open the 360 profile to continue onboarding."}
+          </p>
+          {filters.status !== "PRE_HIRE" ? (
+            <p className="mt-2 text-xs text-black/45">
+              Prefer new hires from Recruiting?{" "}
+              <Link
+                href="/workforce/people?status=PRE_HIRE"
+                className="font-medium text-[var(--ca-burgundy)] hover:underline"
+              >
+                View onboarding queue →
+              </Link>
+            </p>
+          ) : (
+            <p className="mt-2 text-xs text-black/45">
+              <Link href="/workforce/people" className="font-medium text-[var(--ca-burgundy)] hover:underline">
+                ← All employees
+              </Link>
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           <Link

@@ -1,4 +1,5 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
+import { normalizeEmail } from "@/lib/clientflow/normalize-email";
 import type {
   AccountDetail,
   AccountListItem,
@@ -289,6 +290,7 @@ export function createSupabaseCrmRepository(): CrmRepository {
           name: input.name,
           title: input.title,
           email: input.email,
+          email_normalized: normalizeEmail(input.email),
           phone: input.phone,
           is_primary: input.isPrimary ?? false,
           created_at: now,

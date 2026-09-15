@@ -32,44 +32,44 @@ export const WORKSPACE_META: Record<
   { name: string; eyebrow: string; homeHref: string; variant: PlatformShellVariant }
 > = {
   employee: {
-    name: "Employee Portal",
-    eyebrow: "Employee Portal",
+    name: "Employee",
+    eyebrow: "Consult America Platform",
     homeHref: "/employee",
     variant: "self-service",
   },
   manager: {
-    name: "Manager Portal",
-    eyebrow: "Manager Portal",
+    name: "Manager",
+    eyebrow: "Consult America Platform",
     homeHref: "/manager",
     variant: "admin",
   },
   hr: {
-    name: "HR Service Desk",
-    eyebrow: "HR Service Desk",
+    name: "HR",
+    eyebrow: "Consult America Platform",
     homeHref: "/hr/requests",
     variant: "admin",
   },
   payroll: {
-    name: "Payroll Administration",
-    eyebrow: "Payroll Administration",
+    name: "Payroll",
+    eyebrow: "Consult America Platform",
     homeHref: "/payroll",
     variant: "admin",
   },
   workforce: {
-    name: "Workforce",
-    eyebrow: "Workforce",
+    name: "ATS",
+    eyebrow: "Consult America Platform",
     homeHref: "/app/dashboard",
     variant: "admin",
   },
   candidate: {
-    name: "Candidate Portal",
-    eyebrow: "Candidate Portal",
+    name: "Candidate",
+    eyebrow: "Consult America Platform",
     homeHref: "/candidate",
     variant: "self-service",
   },
   crm: {
-    name: "CRM Workspace",
-    eyebrow: "CRM Workspace",
+    name: "CRM",
+    eyebrow: "Consult America Platform",
     homeHref: "/crm",
     variant: "crm",
   },
@@ -140,7 +140,7 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
     {
       label: "Service Desk",
       items: [
-        { href: "/hr/requests", label: "HR Requests" },
+        { href: "/hr/requests", label: "Requests" },
         { href: "/hr/reports", label: "Reports" },
         { href: "/hr/audit", label: "Audit Log" },
         { href: "/hr/notifications", label: "Notifications", badgeKey: "notifications" },
@@ -173,9 +173,9 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
       items: [{ href: "/app/dashboard", label: "Overview", exact: true }],
     },
     {
-      label: "Recruiting",
+      label: "ATS · Recruiting",
       items: [
-        { href: "/app/recruiting", label: "Dashboard", exact: true },
+        { href: "/app/recruiting", label: "Recruiting", exact: true },
         { href: "/app/recruiting/jobs", label: "Jobs" },
         { href: "/app/recruiting/applications", label: "Applications" },
         { href: "/app/recruiting/candidates", label: "Candidates" },
@@ -188,16 +188,19 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
       label: "People",
       items: [
         { href: "/workforce/people", label: "Employees" },
-        { href: "#", label: "Onboarding", disabled: true },
+        {
+          href: "/workforce/people?status=PRE_HIRE",
+          label: "Onboarding",
+        },
       ],
     },
     {
       label: "HR Operations",
       items: [
-        { href: "/hr/requests", label: "HR Service Desk" },
+        { href: "/hr/requests", label: "Requests" },
         { href: "/employee/time", label: "Time & Leave" },
         { href: "/employee/documents", label: "Documents" },
-        { href: "/workforce/payroll", label: "Payroll" },
+        { href: "/payroll", label: "Payroll" },
       ],
     },
     {
@@ -205,9 +208,9 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
       items: [{ href: "/workforce/reports", label: "Reports" }],
     },
     {
-      label: "Administration",
+      label: "Admin",
       items: [
-        { href: "/workforce/administration", label: "Administration" },
+        { href: "/workforce/administration", label: "Workforce Administration" },
         { href: "/workforce/users", label: "Users & Access" },
         { href: "/workforce/system-health", label: "System Health" },
         { href: "/workforce/notifications", label: "Notifications" },
@@ -238,6 +241,8 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
         { href: "/crm/accounts", label: "Accounts" },
         { href: "/crm/opportunities", label: "Opportunities" },
         { href: "/crm/contacts", label: "Contacts" },
+        { href: "/crm/emails", label: "Email delivery" },
+        { href: "/crm/templates", label: "Email templates" },
       ],
     },
   ],
@@ -250,22 +255,28 @@ export const DEMO_WORKSPACES: {
   description: string;
 }[] = [
   {
-    id: "employee",
-    href: "/employee",
-    label: "Employee",
-    description: "Self-service profile, time, leave, and pay.",
+    id: "crm",
+    href: "/crm",
+    label: "CRM",
+    description: "Accounts, opportunities, and ClientFlow.",
   },
   {
-    id: "manager",
-    href: "/manager",
-    label: "Manager",
-    description: "Team overview, approvals, and reports.",
+    id: "workforce",
+    href: "/app/recruiting",
+    label: "ATS",
+    description: "Recruiting through hire lineage.",
   },
   {
     id: "hr",
     href: "/hr/requests",
     label: "HR",
-    description: "Service desk requests, reports, and audit.",
+    description: "Requests and people operations from hire onward.",
+  },
+  {
+    id: "employee",
+    href: "/employee",
+    label: "Employee",
+    description: "Self-service profile, time, leave, and pay.",
   },
   {
     id: "payroll",
@@ -275,15 +286,15 @@ export const DEMO_WORKSPACES: {
   },
   {
     id: "workforce",
-    href: "/app/dashboard",
-    label: "Recruiting",
-    description: "Jobs, candidates, and hiring pipeline.",
+    href: "/workforce/administration",
+    label: "Admin",
+    description: "Workforce Administration — users, roles, audit, config.",
   },
   {
-    id: "crm",
-    href: "/crm",
-    label: "CRM",
-    description: "Accounts, opportunities, and pipeline.",
+    id: "manager",
+    href: "/manager",
+    label: "Manager",
+    description: "Team overview, approvals, and reports.",
   },
   {
     id: "candidate",
@@ -292,3 +303,55 @@ export const DEMO_WORKSPACES: {
     description: "Applications, interviews, and documents.",
   },
 ];
+
+/** Primary suite modules shown in the authenticated platform switcher. */
+export const SUITE_SWITCHER: {
+  id: PlatformWorkspaceId;
+  href: string;
+  label: string;
+}[] = [
+  { id: "crm", href: "/crm", label: "CRM" },
+  { id: "workforce", href: "/app/recruiting", label: "ATS" },
+  { id: "hr", href: "/hr/requests", label: "HR" },
+  { id: "employee", href: "/employee", label: "Employee" },
+  { id: "payroll", href: "/payroll", label: "Payroll" },
+  { id: "workforce", href: "/workforce/administration", label: "Admin" },
+];
+
+/** Primary demo entry for a workspace (used to hide the “current” switcher item). */
+export function isPrimaryDemoWorkspace(
+  item: (typeof DEMO_WORKSPACES)[number],
+  workspace: PlatformWorkspaceId,
+): boolean {
+  return item.id === workspace && item.label === WORKSPACE_META[workspace].name;
+}
+
+export function isCurrentSuiteItem(
+  item: { id: PlatformWorkspaceId; href: string; label: string },
+  workspace: PlatformWorkspaceId,
+  pathname: string,
+): boolean {
+  if (item.label === "Admin") {
+    return (
+      pathname.startsWith("/workforce/administration") ||
+      pathname.startsWith("/workforce/admin") ||
+      pathname.startsWith("/workforce/users") ||
+      pathname.startsWith("/workforce/system-health") ||
+      pathname.startsWith("/workforce/audit") ||
+      pathname.startsWith("/workforce/settings")
+    );
+  }
+  if (item.label === "ATS") {
+    return (
+      pathname.startsWith("/app/") ||
+      (pathname.startsWith("/workforce/") &&
+        !pathname.startsWith("/workforce/administration") &&
+        !pathname.startsWith("/workforce/admin") &&
+        !pathname.startsWith("/workforce/users") &&
+        !pathname.startsWith("/workforce/system-health") &&
+        !pathname.startsWith("/workforce/audit") &&
+        !pathname.startsWith("/workforce/settings"))
+    );
+  }
+  return item.id === workspace && item.label === WORKSPACE_META[workspace].name;
+}

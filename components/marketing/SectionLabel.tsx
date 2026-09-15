@@ -8,7 +8,7 @@ interface SectionLabelProps {
 
 export default function SectionLabel({
   children,
-  tone = "burgundy",
+  tone = "teal",
   className,
 }: SectionLabelProps) {
   return (
@@ -18,9 +18,9 @@ export default function SectionLabel({
         tone === "light" && "text-white/80",
         tone === "dark" && "text-[#5B6D6B]",
         tone === "blue" && "text-[#176A63]",
-        (tone === "burgundy" || tone === "red") && "text-[#B83A3A]",
-        (tone === "sage" || tone === "teal") && "text-[#176A63]",
-        tone === "emerald" && "text-[#9BC4B8]",
+        (tone === "sage" || tone === "teal") && "text-[var(--ca-teal)]",
+        (tone === "burgundy" || tone === "red") && "text-[var(--ca-lime)]",
+        tone === "emerald" && "text-[var(--ca-teal-soft)]",
         className,
       )}
     >

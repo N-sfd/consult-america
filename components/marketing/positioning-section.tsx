@@ -11,32 +11,36 @@ const pillars = [
 
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
+/**
+ * Outcomes rail — continuous with the hero, not a separate template block.
+ * Shared max-width/gutter; compact vertical rhythm; one teal rule language.
+ */
 export default function PositioningSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="ca-home-outcomes relative overflow-hidden border-b border-[#E1ECE8] bg-white py-8 sm:py-10 lg:py-12">
-      <div
-        aria-hidden="true"
-        className="ca-home-ring pointer-events-none absolute -right-[10%] top-[12%] hidden h-[min(650px,52vw)] w-[min(650px,52vw)] opacity-[0.05] lg:block"
-      />
-
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-        <div className="grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-8">
+    <section
+      aria-label="Outcomes"
+      className="ca-home-outcomes relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-white)]"
+    >
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 py-7 sm:py-8 lg:px-8 lg:py-9 xl:px-10">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-7 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-0">
           {pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: index * 0.04, ease: revealEase }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: index * 0.03, ease: revealEase }}
               className="ca-home-pillar"
             >
               <p className="ca-home-pillar-num">{pillar.num}</p>
-              <h3 className="ca-home-pillar-label mt-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#073B3A]">
+              <h3 className="ca-home-pillar-label mt-1.5 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-ink)]">
                 {pillar.title}
               </h3>
-              <p className="mt-1.5 text-sm leading-snug text-[#5B6D6B]">{pillar.detail}</p>
+              <p className="mt-1.5 max-w-[18rem] text-sm leading-snug text-[var(--ca-text-secondary)]">
+                {pillar.detail}
+              </p>
             </motion.div>
           ))}
         </div>

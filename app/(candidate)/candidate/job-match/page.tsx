@@ -45,8 +45,8 @@ export default async function CandidateJobMatchPage() {
       <div>
         <h1 className="text-3xl font-semibold tracking-[-0.04em]">Job Match</h1>
         <p className="mt-2 max-w-2xl text-black/55">
-          Compare your stored resume to a Consult America role or a pasted job
-          description. Results stay on your candidate record for guidance only.
+          Guidance-only match of your resume to a Consult America role. Recruiters
+          use the same intelligence inside the hiring workflow after you apply.
         </p>
       </div>
 

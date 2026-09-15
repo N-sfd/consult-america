@@ -1,17 +1,19 @@
-/* Consult America Careers — Modern Enterprise Theme */
+/* Consult America Careers — shared teal / mist / lime tokens */
 
 :root {
-  --cr-bg: #F7F3EC;
-  --cr-bg-soft: #FFFFFF;
-  --cr-surface: #FFFFFF;
-  --cr-navy: #211E1B;
-  --cr-text: #211E1B;
-  --cr-text-secondary: #695F57;
-  --cr-blue: #B83A3A;
-  --cr-blue-hover: #992F31;
-  --cr-border: #D8D0C5;
-  --cr-success: #357C78;
-  --cr-error: #B83A3A;
+  --cr-bg: var(--ca-canvas, #F5F6F1);
+  --cr-bg-soft: var(--ca-white, #FFFFFF);
+  --cr-surface: var(--ca-white, #FFFFFF);
+  --cr-navy: var(--ca-ink, #102F35);
+  --cr-text: var(--ca-ink, #102F35);
+  --cr-text-secondary: #5A6F73;
+  --cr-blue: var(--ca-teal, #356D76);
+  --cr-blue-hover: var(--ca-teal-chrome, #0B4655);
+  --cr-accent: var(--ca-lime, #C9F45A);
+  --cr-accent-fg: var(--ca-ink, #102F35);
+  --cr-border: var(--ca-line, #D5DFDB);
+  --cr-success: var(--ca-teal, #356D76);
+  --cr-error: var(--ca-error, #C45B4A);
   --cr-max: 1360px;
 }
 
@@ -27,7 +29,7 @@
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #102033;
+  color: var(--cr-navy);
 }
 
 .cr-input {
@@ -50,12 +52,12 @@
 }
 
 .cr-input:hover {
-  border-color: #B5C4CD;
+  border-color: var(--ca-teal-soft, #86AEB2);
 }
 
 .cr-input:focus {
   border-color: var(--cr-blue);
-  box-shadow: 0 0 0 4px rgb(182 58 58 / 0.1);
+  box-shadow: 0 0 0 4px rgba(53, 109, 118, 0.14);
 }
 
 .cr-input.cr-search-input {
@@ -72,9 +74,9 @@
 
 .cr-card {
   border-radius: 0.75rem;
-  border: 1px solid #DDE4E8;
+  border: 1px solid var(--cr-border);
   background: var(--cr-surface);
-  box-shadow: 0 1px 3px rgba(16, 32, 51, 0.04);
+  box-shadow: 0 1px 3px rgba(16, 47, 53, 0.04);
 }
 
 /* ── Job search input ── */
@@ -91,7 +93,7 @@
   transform: translateY(-50%);
   width: 20px;
   height: 20px;
-  color: #5B6D6B;
+  color: #5A6F73;
   pointer-events: none;
   z-index: 1;
 }
@@ -102,10 +104,10 @@
   padding: 0 18px 0 52px;
   font-size: 17px;
   line-height: 1;
-  border: 1px solid #D6E0DD;
+  border: 1px solid var(--cr-border);
   border-radius: 10px;
-  background: #FFFFFF;
-  color: #122D2E;
+  background: var(--cr-surface);
+  color: var(--cr-text);
   outline: none;
   transition:
     border-color 150ms ease,
@@ -118,20 +120,20 @@
 }
 
 .job-search-input input:hover {
-  border-color: #B5C4CD;
+  border-color: var(--ca-teal-soft, #86AEB2);
 }
 
 .job-search-input input:focus {
-  border-color: #287B72;
-  box-shadow: 0 0 0 3px rgba(40, 123, 114, 0.12);
+  border-color: var(--cr-blue);
+  box-shadow: 0 0 0 3px rgba(53, 109, 118, 0.14);
 }
 
 /* ── Job filter panel ── */
 .job-filter-panel {
-  background: #FFFFFF;
-  border: 1px solid #DDE6E3;
+  background: var(--cr-surface);
+  border: 1px solid var(--cr-border);
   border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(7, 59, 58, 0.05);
+  box-shadow: 0 10px 30px rgba(7, 59, 76, 0.06);
 }
 
 @media (min-width: 640px) {
