@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight, ChevronDown } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import BrandLogo from "@/components/brand/brand-logo";
@@ -9,10 +10,16 @@ import MobileMenu from "@/components/navigation/mobile-menu";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { cn } from "@/lib/utils";
 
-const navItems: { label: string; key: MegaMenuKey }[] = [
+/**
+ * `href` on Oracle/AI & Data surfaces those primary landing pages as a
+ * direct click — the chevron still opens the grouped mega-menu for anyone
+ * who wants the deeper category list. Items without `href` (Applications,
+ * Industries, etc.) group specialized/secondary destinations behind the menu only.
+ */
+const navItems: { label: string; key: MegaMenuKey; href?: string }[] = [
   { label: "Solutions", key: "solutions" },
-  { label: "Oracle", key: "oracle" },
-  { label: "AI & Data", key: "ai-data" },
+  { label: "Oracle", key: "oracle", href: "/oracle" },
+  { label: "AI & Data", key: "ai-data", href: "/ai-data" },
   { label: "Applications", key: "applications" },
   { label: "Industries", key: "industries" },
   { label: "Resources", key: "resources" },
@@ -22,15 +29,53 @@ const navItems: { label: string; key: MegaMenuKey }[] = [
 function NavButton({
   label,
   menuKey,
+  href,
   openMenu,
   setOpenMenu,
 }: {
   label: string;
   menuKey: MegaMenuKey;
+  href?: string;
   openMenu: MegaMenuKey | null;
   setOpenMenu: (menu: MegaMenuKey | null) => void;
 }) {
   const isOpen = openMenu === menuKey;
+
+  if (href) {
+    return (
+      <span
+        data-open={isOpen}
+        className="ca-nav-link flex items-center gap-0.5 whitespace-nowrap px-1.5 py-2"
+        onMouseEnter={() => setOpenMenu(menuKey)}
+      >
+        <Link
+          href={href}
+          className={cn(
+            "text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2",
+            isOpen ? "text-[var(--ca-teal)]" : "text-[var(--ca-ink)]",
+          )}
+        >
+          {label}
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpenMenu(isOpen ? null : menuKey)}
+          aria-expanded={isOpen}
+          aria-haspopup="true"
+          aria-label={`${label} menu`}
+          className="flex cursor-pointer items-center rounded p-0.5 opacity-60 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2"
+        >
+          <ChevronDown
+            className={cn(
+              "h-3.5 w-3.5 shrink-0 transition-transform duration-200",
+              isOpen && "rotate-180",
+            )}
+          />
+        </button>
+      </span>
+    );
+  }
+
   return (
     <button
       type="button"
@@ -135,6 +180,7 @@ export default function SiteHeader() {
                     key={item.key}
                     label={item.label}
                     menuKey={item.key}
+                    href={item.href}
                     openMenu={openMenu}
                     setOpenMenu={setOpenMenu}
                   />

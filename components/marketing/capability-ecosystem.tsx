@@ -2,9 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Cloud,
+  Code2,
+  Database,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 type Capability = {
@@ -14,6 +25,9 @@ type Capability = {
   detail: string;
   href: string;
   cta: string;
+  icon: LucideIcon;
+  /** Illustrative — no live metrics source; keep directional, not a specific client claim */
+  metric: { value: string; label: string };
   /** Degrees from top, clockwise */
   angle: number;
 };
@@ -29,6 +43,8 @@ const CAPABILITIES: Capability[] = [
       "Modernize finance, procurement, supply chain, projects and workforce operations on Oracle Cloud.",
     href: "/oracle",
     cta: "Explore Oracle",
+    icon: Database,
+    metric: { value: "12-16 wk", label: "typical go-live" },
     angle: 0,
   },
   {
@@ -39,6 +55,8 @@ const CAPABILITIES: Capability[] = [
       "Build trusted data foundations and practical AI inside business workflows.",
     href: "/ai-data",
     cta: "Explore AI & Data",
+    icon: Sparkles,
+    metric: { value: "30-45%", label: "faster decision cycles" },
     angle: 60,
   },
   {
@@ -49,6 +67,8 @@ const CAPABILITIES: Capability[] = [
       "Engineer focused applications and platforms where packaged software stops meeting the work.",
     href: "/capabilities/digital-engineering",
     cta: "Explore Engineering",
+    icon: Code2,
+    metric: { value: "8-10 wk", label: "MVP to production" },
     angle: 120,
   },
   {
@@ -59,6 +79,8 @@ const CAPABILITIES: Capability[] = [
       "Keep transformation programs moving with delivery leadership, testing, and managed support.",
     href: "/capabilities/managed-delivery",
     cta: "Explore Delivery",
+    icon: ShieldCheck,
+    metric: { value: "24/7", label: "delivery coverage" },
     angle: 180,
   },
   {
@@ -69,6 +91,8 @@ const CAPABILITIES: Capability[] = [
       "Integrate ERP, CRM, and custom platforms so information and processes move without friction.",
     href: "/capabilities/digital-engineering",
     cta: "Explore Integration",
+    icon: Cloud,
+    metric: { value: "99.9%", label: "integration uptime target" },
     angle: 240,
   },
   {
@@ -79,6 +103,8 @@ const CAPABILITIES: Capability[] = [
       "Connect every customer moment to the enterprise systems behind sales, service, and growth.",
     href: "/platforms/crm",
     cta: "Explore CRM",
+    icon: Users,
+    metric: { value: "20-35%", label: "pipeline velocity gain" },
     angle: 300,
   },
 ];
@@ -125,7 +151,7 @@ export default function CapabilityEcosystem() {
   const [activeId, setActiveId] = useState(CAPABILITIES[0].id);
   const [openMobile, setOpenMobile] = useState(CAPABILITIES[0].id);
   const [mounted, setMounted] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const layout = useLayoutMode();
   const active = CAPABILITIES.find((c) => c.id === activeId) ?? CAPABILITIES[0];
   const activeIndex = CAPABILITIES.findIndex((c) => c.id === activeId);
@@ -137,7 +163,7 @@ export default function CapabilityEcosystem() {
   return (
     <section
       id="capabilities-ecosystem"
-      className="relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-canvas)] pt-16 pb-14 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20"
+      className="relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-canvas)] py-12 sm:py-14 lg:py-16"
     >
       <div
         aria-hidden="true"
@@ -168,6 +194,7 @@ export default function CapabilityEcosystem() {
           <div className="mt-8 space-y-2">
             {CAPABILITIES.map((cap) => {
               const open = openMobile === cap.id;
+              const Icon = cap.icon;
               return (
                 <div
                   key={cap.id}
@@ -176,14 +203,19 @@ export default function CapabilityEcosystem() {
                   <button
                     type="button"
                     onClick={() => setOpenMobile(open ? "" : cap.id)}
-                    className="flex w-full items-center justify-between px-4 py-4 text-left"
+                    className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left"
                     aria-expanded={open}
                   >
-                    <span>
-                      <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[var(--ca-ink)]">
-                        {cap.label}
+                    <span className="flex items-center gap-3">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--ca-teal)]/10 text-[var(--ca-teal-chrome)]">
+                        <Icon className="h-4.5 w-4.5" />
                       </span>
-                      <span className="mt-0.5 block text-xs text-[var(--ca-text-secondary)]">{cap.short}</span>
+                      <span>
+                        <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[var(--ca-ink)]">
+                          {cap.label}
+                        </span>
+                        <span className="mt-0.5 block text-xs text-[var(--ca-text-secondary)]">{cap.short}</span>
+                      </span>
                     </span>
                     <ChevronDown
                       className={cn(
@@ -195,9 +227,13 @@ export default function CapabilityEcosystem() {
                   {open ? (
                     <div className="border-t border-[var(--ca-line)] px-4 pb-4 pt-3">
                       <p className="text-sm leading-relaxed text-[var(--ca-text-secondary)]">{cap.detail}</p>
+                      <div className="mt-3 inline-flex items-baseline gap-1.5 rounded-md bg-[var(--ca-lime)]/15 px-2.5 py-1">
+                        <span className="text-sm font-bold text-[var(--ca-teal-chrome)]">{cap.metric.value}</span>
+                        <span className="text-xs text-[var(--ca-text-secondary)]">{cap.metric.label}</span>
+                      </div>
                       <Link
                         href={cap.href}
-                        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)]"
+                        className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)]"
                       >
                         {cap.cta}
                         <ArrowUpRight className="h-3.5 w-3.5" />
@@ -214,6 +250,7 @@ export default function CapabilityEcosystem() {
           <div className="mt-10 grid grid-cols-2 gap-3">
             {CAPABILITIES.map((cap) => {
               const isActive = activeId === cap.id;
+              const Icon = cap.icon;
               return (
                 <button
                   key={cap.id}
@@ -229,7 +266,15 @@ export default function CapabilityEcosystem() {
                 >
                   <span
                     className={cn(
-                      "text-[0.68rem] font-bold uppercase tracking-[0.12em]",
+                      "flex h-8 w-8 items-center justify-center rounded-lg",
+                      isActive ? "bg-[var(--ca-lime)]/25 text-[var(--ca-teal-chrome)]" : "bg-[var(--ca-teal)]/10 text-[var(--ca-teal)]",
+                    )}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span
+                    className={cn(
+                      "mt-2.5 block text-[0.68rem] font-bold uppercase tracking-[0.12em]",
                       isActive ? "text-[var(--ca-teal-chrome)]" : "text-[var(--ca-teal)]",
                     )}
                   >
@@ -239,9 +284,13 @@ export default function CapabilityEcosystem() {
                   {isActive ? (
                     <>
                       <p className="mt-2 text-sm leading-relaxed text-[var(--ca-text-secondary)]">{cap.detail}</p>
+                      <div className="mt-3 inline-flex items-baseline gap-1.5 rounded-md bg-[var(--ca-lime)]/15 px-2.5 py-1">
+                        <span className="text-sm font-bold text-[var(--ca-teal-chrome)]">{cap.metric.value}</span>
+                        <span className="text-xs text-[var(--ca-text-secondary)]">{cap.metric.label}</span>
+                      </div>
                       <Link
                         href={cap.href}
-                        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)]"
+                        className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)]"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {cap.cta}
@@ -338,6 +387,7 @@ export default function CapabilityEcosystem() {
                 {CAPABILITIES.map((cap) => {
                   const isActive = cap.id === activeId;
                   const pos = polar(cap.angle, NODE_RADIUS);
+                  const Icon = cap.icon;
                   return (
                     <button
                       key={cap.id}
@@ -363,7 +413,15 @@ export default function CapabilityEcosystem() {
                     >
                       <span
                         className={cn(
-                          "block text-[0.62rem] font-bold uppercase tracking-[0.11em]",
+                          "flex h-7 w-7 items-center justify-center rounded-md",
+                          isActive ? "bg-[var(--ca-lime)]/25 text-[var(--ca-teal-chrome)]" : "bg-[var(--ca-teal)]/10 text-[var(--ca-teal)]",
+                        )}
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span
+                        className={cn(
+                          "mt-2 block text-[0.62rem] font-bold uppercase tracking-[0.11em]",
                           isActive ? "text-[var(--ca-teal-chrome)]" : "text-[var(--ca-teal)]",
                         )}
                       >
@@ -391,10 +449,15 @@ export default function CapabilityEcosystem() {
                   className="absolute inset-y-0 left-0 w-[3px] bg-[var(--ca-lime)]"
                 />
                 <div className="p-7 sm:p-8">
-                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--ca-text-secondary)]">
-                    {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                    {String(CAPABILITIES.length).padStart(2, "0")}
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--ca-text-secondary)]">
+                      {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                      {String(CAPABILITIES.length).padStart(2, "0")}
+                    </p>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--ca-teal)]/10 text-[var(--ca-teal-chrome)]">
+                      <active.icon className="h-5 w-5" />
+                    </span>
+                  </div>
 
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -411,6 +474,12 @@ export default function CapabilityEcosystem() {
                       <p className="mt-4 text-[1.02rem] leading-relaxed text-[var(--ca-text-secondary)]">
                         {active.detail}
                       </p>
+                      <div className="mt-5 inline-flex items-baseline gap-2 rounded-lg bg-[var(--ca-lime)]/15 px-3.5 py-2">
+                        <span className="font-serif text-xl font-semibold text-[var(--ca-teal-chrome)]">
+                          {active.metric.value}
+                        </span>
+                        <span className="text-sm text-[var(--ca-text-secondary)]">{active.metric.label}</span>
+                      </div>
                       <Link
                         href={active.href}
                         className="mt-7 inline-flex h-11 items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-5 text-sm font-semibold text-[var(--ca-ink)] transition-colors hover:bg-[var(--ca-accent-hover)]"

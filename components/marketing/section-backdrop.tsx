@@ -1,8 +1,8 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 export type BackdropVariant =
@@ -41,7 +41,7 @@ export default function SectionBackdrop({
   variant: BackdropVariant;
   className?: string;
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useStableReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState<ParallaxOffsets>({ slow: 0, mid: 0, fast: 0 });
 

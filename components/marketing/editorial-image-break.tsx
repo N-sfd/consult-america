@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 export default function EditorialImageBreak() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
 
   return (
     <section className="relative w-full overflow-hidden border-b border-[#D7CCBD] bg-[#211E1B] py-32 sm:py-40 lg:py-48 min-h-[550px] lg:min-h-[640px] flex items-center">

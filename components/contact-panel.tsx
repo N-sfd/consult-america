@@ -19,7 +19,7 @@ function readUtmParams(): Record<string, string> {
 }
 
 export default function ContactPanel() {
-  const { open, setOpen } = useContactPanel();
+  const { open, source, setOpen } = useContactPanel();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -38,13 +38,16 @@ export default function ContactPanel() {
     setPending(true);
 
     const formData = new FormData(event.currentTarget);
+    const rawMessage = String(formData.get("message") ?? "");
+    const message = source.practice ? `Practice: ${source.practice}\n\n${rawMessage}` : rawMessage;
     const result = await submitContactAction({
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
       company: String(formData.get("company") ?? ""),
-      message: String(formData.get("message") ?? ""),
+      message,
       source: "contact-panel",
       sourcePage,
+      serviceKey: source.serviceKey,
       campaign: utm.utm_campaign,
       utm,
       consentGiven: formData.get("consent") === "on",
@@ -86,6 +89,11 @@ export default function ContactPanel() {
                 <p className="mt-1 font-serif text-2xl font-semibold text-[#101828]">
                   Contact Practice Leadership
                 </p>
+                {source.practice ? (
+                  <p className="mt-1 text-sm text-[#475467]">
+                    Inquiring about <span className="font-semibold text-[var(--ca-teal)]">{source.practice}</span>
+                  </p>
+                ) : null}
               </div>
               <button
                 type="button"

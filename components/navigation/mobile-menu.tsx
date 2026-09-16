@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { ArrowUpRight, ChevronDown, X } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
 import BrandLogo from "@/components/brand/brand-logo";
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import {
   aiDataMegaMenuGrouped,
   applicationsMegaMenu,
@@ -46,7 +47,7 @@ function AccordionSection({
   children: React.ReactNode;
 }) {
   const isOpen = openSection === sectionKey;
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useStableReducedMotion();
   return (
     <div className="border-b border-[#DCE4E1]">
       <button
@@ -162,6 +163,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               </AccordionSection>
 
               <AccordionSection title="Oracle" sectionKey="oracle" openSection={openSection} setOpenSection={setOpenSection}>
+                <Link
+                  href="/oracle"
+                  onClick={handleClose}
+                  className="block min-h-[44px] py-2.5 text-[0.9375rem] font-semibold text-[#B83A3A]"
+                >
+                  Oracle overview →
+                </Link>
                 <MobileLinks
                   links={[
                     ...oracleMegaMenuGrouped.finance,
@@ -173,6 +181,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               </AccordionSection>
 
               <AccordionSection title="AI & Data" sectionKey="ai-data" openSection={openSection} setOpenSection={setOpenSection}>
+                <Link
+                  href="/ai-data"
+                  onClick={handleClose}
+                  className="block min-h-[44px] py-2.5 text-[0.9375rem] font-semibold text-[#B83A3A]"
+                >
+                  AI & Data overview →
+                </Link>
                 <MobileLinks
                   links={[...aiDataMegaMenuGrouped.ai, ...aiDataMegaMenuGrouped.data]}
                   onClose={handleClose}
@@ -200,7 +215,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
 
               <AccordionSection title="Company" sectionKey="company" openSection={openSection} setOpenSection={setOpenSection}>
                 <MobileLinks links={companyMegaMenu.links} onClose={handleClose} />
-                <p className="pt-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#176A63]">Portals</p>
+                <p className="pt-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#176A63]">Sign In</p>
                 <MobileLinks links={companyMegaMenu.portals} onClose={handleClose} />
               </AccordionSection>
             </nav>

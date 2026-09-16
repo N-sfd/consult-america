@@ -4,13 +4,15 @@ import type { DetailPageOverviewItem } from "@/lib/marketing/detail-page-types";
 
 export default function CapabilityOverview({
   heading = "Where we focus",
+  eyebrow = "Focus areas",
   items,
 }: {
   heading?: string;
+  eyebrow?: string;
   items: DetailPageOverviewItem[];
 }) {
   return (
-    <PageSection tone="soft" eyebrow="Focus areas" title={heading}>
+    <PageSection tone="soft" eyebrow={eyebrow} title={heading}>
       <div className="overflow-hidden rounded-2xl border border-[#C9DDD7]/70 bg-white/80 shadow-[0_8px_32px_rgba(7,59,58,0.05)] backdrop-blur-sm">
         <div className="grid md:grid-cols-2 lg:grid-cols-4">
           {items.map((item, index) => (

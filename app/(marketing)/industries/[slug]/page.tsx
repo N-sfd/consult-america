@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import CapabilityOverview from "@/components/detail-pages/CapabilityOverview";
+import ComplianceHighlights from "@/components/detail-pages/ComplianceHighlights";
 import ContactCTA from "@/components/detail-pages/ContactCTA";
 import DetailHero from "@/components/detail-pages/DetailHero";
 import OutcomeGrid from "@/components/detail-pages/OutcomeGrid";
@@ -58,7 +59,17 @@ export default async function IndustryDetailPage({
         layout={slug === "financial-services" ? "split-right" : "split-left"}
       />
       <CapabilityOverview heading="Where we focus" items={page.overview} />
+      {page.domainUseCases?.length ? (
+        <CapabilityOverview
+          eyebrow="Domain Use Cases"
+          heading="Specialized patterns for this industry"
+          items={page.domainUseCases}
+        />
+      ) : null}
       <OutcomeGrid items={page.outcomes} />
+      {page.complianceHighlights?.length ? (
+        <ComplianceHighlights items={page.complianceHighlights} />
+      ) : null}
       <RelatedWork items={page.relatedWork ?? []} />
       <RelatedInsights category={page.insightCategory} />
       <ContactCTA headline={`Ready to modernize ${page.title.toLowerCase()}?`} />

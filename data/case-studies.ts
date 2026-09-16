@@ -15,6 +15,11 @@ export type CaseStudyRelatedWork = {
   imageAlt: string;
 };
 
+export type CaseStudyMetric = {
+  value: string;
+  label: string;
+};
+
 export type CaseStudy = {
   slug: string;
   category: string;
@@ -24,6 +29,8 @@ export type CaseStudy = {
   image: string;
   imageAlt: string;
   capabilities: string[];
+  /** Directional, representative-engagement KPIs — quantify the `outcomes` below, not a named client's reported figures. */
+  metrics: CaseStudyMetric[];
   clientContext: string;
   challenge: string;
   approach: string;
@@ -89,6 +96,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Reporting",
       "Change Readiness",
     ],
+    metrics: [
+      { value: "35-45%", label: "fewer manual reconciliations" },
+      { value: "100%", label: "audit trails preserved through go-live" },
+    ],
     clientContext:
       "A multi-agency public-sector organization operating legacy finance and procurement systems across separate business units, each with its own approval paths, chart of accounts conventions, and reporting requirements — with audit and appropriations controls that any modernization had to preserve, not just survive.",
     challenge:
@@ -141,6 +152,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Testing",
       "Change Management",
     ],
+    metrics: [
+      { value: "30-40%", label: "faster month-end close" },
+      { value: "100%", label: "on-time close cycles through migration" },
+    ],
     clientContext:
       "A multi-entity organization running disconnected legacy ERP instances per business unit, with finance teams closing the books through manual consolidation rather than a shared chart of accounts.",
     challenge:
@@ -187,6 +202,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Workflow Automation",
       "Governance",
       "Integration",
+    ],
+    metrics: [
+      { value: "60-70%", label: "less manual contract review time" },
+      { value: "100%", label: "extractions traceable to source" },
     ],
     clientContext:
       "An organization managing thousands of active contracts across legal, procurement, and finance, with key terms trapped in unstructured PDFs and no reliable way to search or report on them.",

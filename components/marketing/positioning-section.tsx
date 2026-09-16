@@ -1,6 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 const pillars = [
   { num: "01", title: "Transform", detail: "Modernize platforms and operating models." },
@@ -16,7 +18,7 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
  * Shared max-width/gutter; compact vertical rhythm; one teal rule language.
  */
 export default function PositioningSection() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
 
   return (
     <section

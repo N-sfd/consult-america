@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { stockImage } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 const capabilities = [
   {
@@ -33,7 +34,7 @@ const capabilities = [
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function WhatWeDoSection() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
 
   return (
     <section className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F7FAF9] py-14 sm:py-16 lg:py-20">

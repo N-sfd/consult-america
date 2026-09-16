@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 const journeySteps = ["Discover", "Engage", "Sell", "Serve", "Expand"];
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function CRMShowcase() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
 
   return (
     <section
@@ -27,7 +29,7 @@ export default function CRMShowcase() {
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
               CRM &amp; Customer Experience
             </p>
-            <h2 className="mt-3 max-w-lg font-serif text-[clamp(1.35rem,2.5vw,2rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
+            <h2 className="mt-3 max-w-lg font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Connect every customer moment to the enterprise behind it.
             </h2>
             <Link

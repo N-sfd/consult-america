@@ -14,10 +14,96 @@ const practices = [
   "Other / Not sure",
 ];
 
+type PracticeQuestion = {
+  name: string;
+  label: string;
+  type: "text" | "select";
+  options?: string[];
+  placeholder?: string;
+};
+
+/** Extra qualification fields shown once a practice is picked — folded into
+ * the inquiry message the same way `practice` already is, so no backend/
+ * ClientFlow schema change is required to capture them. */
+const PRACTICE_QUESTIONS: Record<string, PracticeQuestion[]> = {
+  Oracle: [
+    {
+      name: "q_erp",
+      label: "Current ERP / systems in place",
+      type: "text",
+      placeholder: "e.g. On-prem E-Business Suite, PeopleSoft, SAP",
+    },
+    {
+      name: "q_modules",
+      label: "Primary modules of interest",
+      type: "select",
+      options: ["Financials", "Procurement", "HCM", "Supply Chain", "Projects", "Multiple / Not sure"],
+    },
+  ],
+  "AI & Data": [
+    {
+      name: "q_challenge",
+      label: "Primary data challenge",
+      type: "select",
+      options: [
+        "Data quality & governance",
+        "Analytics & reporting",
+        "Generative AI / agents",
+        "Document intelligence",
+        "Not sure",
+      ],
+    },
+    {
+      name: "q_scale",
+      label: "Approximate data volume / scale",
+      type: "text",
+      placeholder: "e.g. 10M records across 5 systems",
+    },
+  ],
+  "Application Engineering": [
+    {
+      name: "q_project_type",
+      label: "Project type",
+      type: "select",
+      options: ["New application", "Modernize legacy app", "Integration / API work", "Not sure"],
+    },
+    {
+      name: "q_timeline",
+      label: "Target timeline",
+      type: "select",
+      options: ["ASAP / under 3 months", "3-6 months", "6-12 months", "Exploring options"],
+    },
+  ],
+  CRM: [
+    {
+      name: "q_current_crm",
+      label: "Current CRM platform",
+      type: "text",
+      placeholder: "e.g. Salesforce, HubSpot, none",
+    },
+    {
+      name: "q_crm_goal",
+      label: "Primary goal",
+      type: "select",
+      options: ["Sales pipeline", "Customer service", "Marketing automation", "Full replacement"],
+    },
+  ],
+  "Enterprise Transformation": [
+    {
+      name: "q_objective",
+      label: "Primary objective",
+      type: "select",
+      options: ["Strategy & roadmap", "Platform modernization", "Process redesign", "Not sure"],
+    },
+  ],
+};
+
 export default function HomepageContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [practice, setPractice] = useState("");
+  const activeQuestions = PRACTICE_QUESTIONS[practice] ?? [];
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,9 +111,17 @@ export default function HomepageContactSection() {
     setPending(true);
 
     const formData = new FormData(event.currentTarget);
-    const practice = String(formData.get("practice") ?? "");
     const message = String(formData.get("message") ?? "");
-    const combinedMessage = practice ? `Practice: ${practice}\n\n${message}` : message;
+    const qualificationLines = activeQuestions
+      .map((q) => {
+        const value = String(formData.get(q.name) ?? "").trim();
+        return value ? `${q.label}: ${value}` : null;
+      })
+      .filter((line): line is string => Boolean(line));
+    const detailBlock = [practice ? `Practice: ${practice}` : null, ...qualificationLines]
+      .filter(Boolean)
+      .join("\n");
+    const combinedMessage = detailBlock ? `${detailBlock}\n\n${message}` : message;
     const serviceKey =
       practice === "Oracle"
         ? "oracle"
@@ -77,7 +171,7 @@ export default function HomepageContactSection() {
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">
               Start a Conversation
             </p>
-            <h2 className="mt-4 font-serif text-[clamp(1.625rem,2.8vw,2.375rem)] font-semibold tracking-[-0.03em] text-white">
+            <h2 className="mt-4 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
               What should your technology make possible next?
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/75">
@@ -139,7 +233,8 @@ export default function HomepageContactSection() {
                     id="home-practice"
                     name="practice"
                     className="w-full rounded-lg border border-[#DDE6E3] bg-white px-4 py-3 text-sm text-[var(--ca-teal-deep)] outline-none focus:border-[var(--ca-teal)] focus:ring-1 focus:ring-[var(--ca-teal)]"
-                    defaultValue=""
+                    value={practice}
+                    onChange={(e) => setPractice(e.target.value)}
                   >
                     <option value="" disabled>
                       Practice area
@@ -151,6 +246,37 @@ export default function HomepageContactSection() {
                     ))}
                   </select>
                 </div>
+                {activeQuestions.map((q) => (
+                  <div key={q.name} className="sm:col-span-1">
+                    <label htmlFor={`home-${q.name}`} className="sr-only">
+                      {q.label}
+                    </label>
+                    {q.type === "select" ? (
+                      <select
+                        id={`home-${q.name}`}
+                        name={q.name}
+                        className="w-full rounded-lg border border-[#DDE6E3] bg-white px-4 py-3 text-sm text-[var(--ca-teal-deep)] outline-none focus:border-[var(--ca-teal)] focus:ring-1 focus:ring-[var(--ca-teal)]"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          {q.label}
+                        </option>
+                        {q.options?.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        id={`home-${q.name}`}
+                        name={q.name}
+                        placeholder={q.placeholder ?? q.label}
+                        className="w-full rounded-lg border border-[#DDE6E3] bg-white px-4 py-3 text-sm text-[var(--ca-teal-deep)] outline-none focus:border-[var(--ca-teal)] focus:ring-1 focus:ring-[var(--ca-teal)]"
+                      />
+                    )}
+                  </div>
+                ))}
                 <div className="sm:col-span-2">
                   <label htmlFor="home-message" className="sr-only">
                     Message

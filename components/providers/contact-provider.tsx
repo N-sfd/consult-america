@@ -9,20 +9,33 @@ import {
   type ReactNode,
 } from "react";
 
+/** Where a contextual CTA (e.g. inline on the Oracle page) opened the panel from. */
+export type ContactSource = {
+  practice?: string;
+  serviceKey?: string;
+};
+
 type ContactContextValue = {
   open: boolean;
-  setOpen: (open: boolean) => void;
+  source: ContactSource;
+  setOpen: (open: boolean, source?: ContactSource) => void;
   toggle: () => void;
 };
 
 const ContactContext = createContext<ContactContextValue | null>(null);
 
 export function ContactProvider({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState(false);
-  const toggle = useCallback(() => setOpen((value) => !value), []);
+  const [open, setOpenState] = useState(false);
+  const [source, setSource] = useState<ContactSource>({});
+
+  const setOpen = useCallback((next: boolean, nextSource?: ContactSource) => {
+    if (next) setSource(nextSource ?? {});
+    setOpenState(next);
+  }, []);
+  const toggle = useCallback(() => setOpenState((value) => !value), []);
   const value = useMemo(
-    () => ({ open, setOpen, toggle }),
-    [open, toggle],
+    () => ({ open, source, setOpen, toggle }),
+    [open, source, setOpen, toggle],
   );
 
   return (

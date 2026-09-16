@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import CrmWorkspaceUi, {
   type CrmWorkspaceTab,
 } from "@/components/marketing/crm-workspace-ui";
 import { useContactPanel } from "@/components/providers/contact-provider";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 const capabilities = [
@@ -37,7 +38,7 @@ const journey = ["Discover", "Qualify", "Engage", "Propose", "Close", "Expand"];
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function CrmWorkspacePage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const { setOpen } = useContactPanel();
   const [tab, setTab] = useState<CrmWorkspaceTab>("accounts");
 

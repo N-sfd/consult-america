@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { stockImage } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 const capabilities = [
@@ -46,7 +47,7 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function OracleFlagship() {
   const [active, setActive] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const current = capabilities[active];
 
   return (

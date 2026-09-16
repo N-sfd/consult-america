@@ -58,6 +58,40 @@ export const industryPages: Record<string, DetailPageContent> = {
           "Shared data platforms replace siloed reports with a single, auditable source of truth.",
       },
     ],
+    complianceHighlights: [
+      {
+        title: "FedRAMP & StateRAMP awareness",
+        description:
+          "Cloud architecture decisions account for FedRAMP and StateRAMP authorization boundaries from the design phase, not as a retrofit.",
+      },
+      {
+        title: "NIST 800-53 / FISMA alignment",
+        description:
+          "Security controls map to NIST 800-53 control families so agency ATO packages have less rework to do.",
+      },
+      {
+        title: "Appropriations & audit controls",
+        description:
+          "Encumbrance tracking, approval chains, and audit trails are treated as functional requirements, not add-ons.",
+      },
+    ],
+    domainUseCases: [
+      {
+        title: "Grants lifecycle management",
+        description:
+          "Award, drawdown, and compliance reporting connected end to end instead of tracked across disconnected spreadsheets.",
+      },
+      {
+        title: "Multi-agency data sharing",
+        description:
+          "Shared reference data and reporting layers across agencies without duplicating systems of record.",
+      },
+      {
+        title: "Constituent-facing service delivery",
+        description:
+          "Public-facing application and case-status portals connected to the same backend systems staff already use.",
+      },
+    ],
     insightCategory: "industry-perspectives",
     metaDescription:
       "Modernize public-sector finance, procurement, grants, workforce, data, and service delivery.",
@@ -119,6 +153,40 @@ export const industryPages: Record<string, DetailPageContent> = {
           "Integrated platforms replace manual reconciliation between core banking, ERP, and reporting tools.",
       },
     ],
+    complianceHighlights: [
+      {
+        title: "SOX-aligned controls",
+        description:
+          "Financial reporting changes are built with the change-control and evidence trail SOX testing expects.",
+      },
+      {
+        title: "GLBA data safeguards",
+        description:
+          "Customer financial data handling follows GLBA Safeguards Rule practices across integrations and storage.",
+      },
+      {
+        title: "SOC 2 / PCI-DSS environments",
+        description:
+          "Architecture and access controls are designed to operate inside SOC 2 Type II and PCI-DSS-scoped environments.",
+      },
+    ],
+    domainUseCases: [
+      {
+        title: "Regulatory reporting automation",
+        description:
+          "Pipelines that assemble call reports and regulatory filings from source systems instead of manual spreadsheet rollups.",
+      },
+      {
+        title: "Reconciliation & exception management",
+        description:
+          "Automated matching across core banking, ERP, and sub-ledgers, with exceptions routed for review instead of buried in spreadsheets.",
+      },
+      {
+        title: "Core banking / ERP integration",
+        description:
+          "Connected data flows between core banking platforms and enterprise finance systems, replacing manual bridges.",
+      },
+    ],
     metaDescription:
       "Connect finance, data, automation, reporting, and enterprise platforms for operational control.",
   },
@@ -177,6 +245,40 @@ export const industryPages: Record<string, DetailPageContent> = {
         title: "Cleaner revenue cycle",
         description:
           "Connected billing, finance, and supply-chain data reduces reconciliation work downstream.",
+      },
+    ],
+    complianceHighlights: [
+      {
+        title: "HIPAA-aligned data handling",
+        description:
+          "PHI flows are mapped and access-controlled to HIPAA Privacy and Security Rule requirements across every integration.",
+      },
+      {
+        title: "HITRUST-aligned controls",
+        description:
+          "Technical and administrative controls follow the HITRUST CSF framework healthcare organizations are assessed against.",
+      },
+      {
+        title: "Interoperability standards (HL7 / FHIR)",
+        description:
+          "Clinical data exchange is built on HL7 FHIR so integrations stay portable across EHR and care-coordination platforms.",
+      },
+    ],
+    domainUseCases: [
+      {
+        title: "Clinical documentation workflows",
+        description:
+          "Structured capture and review workflows that fit inside existing clinician documentation time, not alongside it.",
+      },
+      {
+        title: "Revenue cycle & claims processing",
+        description:
+          "Billing and claims data connected end to end to cut denial rework and reconciliation across finance and clinical systems.",
+      },
+      {
+        title: "Care coordination & interoperability",
+        description:
+          "FHIR-based data exchange between care teams, payers, and downstream systems without one-off point integrations.",
       },
     ],
     metaDescription:

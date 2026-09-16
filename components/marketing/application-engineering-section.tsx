@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { portfolioProjects } from "@/lib/marketing/portfolio-data";
 import { stockImage } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 const strategicApps = portfolioProjects.filter((p) => p.tier === 2);
@@ -17,7 +18,7 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function ApplicationEngineeringSection() {
   const [active, setActive] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const current = strategicApps[active] ?? strategicApps[0];
 
   const next = () => setActive((i) => (i + 1) % strategicApps.length);
@@ -68,7 +69,7 @@ export default function ApplicationEngineeringSection() {
               <div
                 aria-hidden="true"
                 className={cn(
-                  "ca-practice-tech-quarter -right-[16%] bottom-[-12%] hidden h-[320px] w-[320px] opacity-70 lg:block",
+                  "ca-practice-tech-quarter -right-[16%] bottom-[-12%] hidden h-[320px] w-[320px] opacity-30 lg:block",
                   !shouldReduceMotion && "ca-decor-drift--slow",
                 )}
               />
@@ -105,7 +106,9 @@ export default function ApplicationEngineeringSection() {
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
                 Flagship
               </p>
-              <h3 className="mt-2 font-serif text-2xl font-semibold text-white">Data Agent</h3>
+              <h3 className="mt-2 font-serif text-[clamp(1.375rem,2vw,1.75rem)] font-semibold tracking-[-0.02em] text-white">
+                Data Agent
+              </h3>
               <p className="mt-3 max-w-md text-base leading-relaxed text-white/78">
                 Turn complex documents into usable intelligence with source grounding and human review.
               </p>
@@ -141,7 +144,7 @@ export default function ApplicationEngineeringSection() {
         <div className="relative mt-14 overflow-hidden border-t border-[#E1ECE8] pt-12">
           <div
             aria-hidden="true"
-            className="ca-home-sage-disc -right-[8%] top-[20%] hidden h-[360px] w-[360px] opacity-50 lg:block"
+            className="ca-home-sage-disc -right-[8%] top-[20%] hidden h-[360px] w-[360px] opacity-20 lg:block"
           />
 
           <div className="relative z-10 flex items-end justify-between gap-4">
@@ -149,7 +152,7 @@ export default function ApplicationEngineeringSection() {
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
                 Strategic Products
               </p>
-              <h3 className="mt-2 font-serif text-xl font-semibold text-[#073B3A] sm:text-2xl">
+              <h3 className="mt-2 font-serif text-[clamp(1.375rem,2vw,1.75rem)] font-semibold tracking-[-0.02em] text-[#073B3A]">
                 Applications shaped around real work.
               </h3>
             </div>

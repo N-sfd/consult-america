@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 interface BaseImageProps {
@@ -33,7 +34,7 @@ export function EditorialImage({
   aspectRatio = "aspect-[16/10]",
   overlay,
 }: BaseImageProps) {
-  const shouldReduce = useReducedMotion();
+  const shouldReduce = useStableReducedMotion();
 
   return (
     <motion.div
@@ -84,7 +85,7 @@ export function ArchImage({
   showBackingArc = true,
   overlay,
 }: ArchImageProps) {
-  const shouldReduce = useReducedMotion();
+  const shouldReduce = useStableReducedMotion();
 
   return (
     <div className="relative flex justify-center w-full max-w-[500px] mx-auto">
@@ -159,7 +160,7 @@ export function ServiceEditorialImage({
   detailBadge,
   overlay,
 }: ServiceEditorialImageProps) {
-  const shouldReduce = useReducedMotion();
+  const shouldReduce = useStableReducedMotion();
   const accent = cornerAccent ?? variant ?? "bottom-right";
 
   const cornerClass =
@@ -253,7 +254,7 @@ export function ClippedImage({
   aspectRatio = "aspect-[16/10]",
   overlay,
 }: ClippedImageProps) {
-  const shouldReduce = useReducedMotion();
+  const shouldReduce = useStableReducedMotion();
 
   const radiusClass = {
     "top-right": "rounded-tr-[48px] rounded-tl-sm rounded-br-sm rounded-bl-sm",
@@ -321,7 +322,7 @@ export function ProductFrame({
   className,
   tone = "dark",
 }: ProductFrameProps) {
-  const shouldReduce = useReducedMotion();
+  const shouldReduce = useStableReducedMotion();
   const isDark = tone === "dark";
 
   return (

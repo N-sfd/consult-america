@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 import PracticeAiPaths from "@/components/marketing/practice-ai-paths";
@@ -44,7 +45,7 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function AIDataStory() {
   const [active, setActive] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const current = stages[active];
 
   return (

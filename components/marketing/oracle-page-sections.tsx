@@ -7,6 +7,7 @@ import FeatureCard from "@/components/marketing/inner-page/feature-card";
 import { PageHero } from "@/components/marketing/inner-page";
 import PageSection from "@/components/marketing/inner-page/page-section";
 import Reveal from "@/components/marketing/inner-page/reveal";
+import { useContactPanel } from "@/components/providers/contact-provider";
 import { stockImage } from "@/lib/marketing/stock-images";
 
 const outcomes = [
@@ -47,6 +48,8 @@ const lifecycle = [
 ];
 
 export default function OraclePageSections() {
+  const { setOpen } = useContactPanel();
+
   return (
     <>
       <PageHero
@@ -114,6 +117,19 @@ export default function OraclePageSections() {
               </Link>
             </Reveal>
           ))}
+        </div>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#E1ECE8] bg-[#F8FAF9] px-6 py-5">
+          <p className="text-sm text-[#5B6D6B]">
+            Not sure which module fits your environment? Talk it through with an Oracle practice lead.
+          </p>
+          <button
+            type="button"
+            onClick={() => setOpen(true, { practice: "Oracle", serviceKey: "oracle" })}
+            className="inline-flex h-11 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--ca-teal-deep)] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0B4655]"
+          >
+            Talk to an Oracle expert
+            <ArrowUpRight className="h-4 w-4" />
+          </button>
         </div>
       </PageSection>
 

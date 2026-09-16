@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { caseStudies } from "@/data/case-studies";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 const stories = [
@@ -21,7 +22,7 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 export default function SelectedWorkSection() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const story = stories[index];
   const supporting = stories.filter((_, i) => i !== index);
 
@@ -131,7 +132,23 @@ export default function SelectedWorkSection() {
                   {story.summary}
                 </p>
 
-                <dl className="mt-5 space-y-2 border-t border-[#DDE6E3] pt-4">
+                <div className="mt-5 flex flex-wrap gap-2 border-t border-[#DDE6E3] pt-4">
+                  {story.metrics.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="rounded-lg bg-[var(--ca-lime)]/15 px-3 py-2"
+                    >
+                      <p className="font-serif text-lg font-semibold leading-none text-[#176A63]">
+                        {metric.value}
+                      </p>
+                      <p className="mt-1 text-[0.72rem] leading-tight text-[#5B6D6B]">
+                        {metric.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <dl className="mt-4 space-y-2">
                   <div>
                     <dt className="text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#8A9A97]">
                       Capabilities

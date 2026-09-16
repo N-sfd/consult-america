@@ -3,15 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { stockImage } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 const journey = ["Discover", "Apply", "Interview", "Hire", "Onboard", "Work"];
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function HomepageCareersSection() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
 
   return (
     <section
@@ -28,7 +29,7 @@ export default function HomepageCareersSection() {
               transition={{ duration: 0.5, ease: revealEase }}
             >
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Careers</p>
-              <h2 className="mt-3 font-serif text-[clamp(1.5rem,2.8vw,2.25rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
+              <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
                 Build what&apos;s next.
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--ca-text-secondary)]">
@@ -86,7 +87,7 @@ export default function HomepageCareersSection() {
             <div className="ca-home-compose relative mx-auto max-w-[520px] lg:ml-auto">
               <div
                 aria-hidden="true"
-                className="ca-home-sage-disc ca-home-moving--slow -left-[6%] top-[10%] hidden h-[220px] w-[220px] opacity-65 lg:block"
+                className="ca-home-sage-disc ca-home-moving--slow -left-[6%] top-[10%] hidden h-[220px] w-[220px] opacity-20 lg:block"
               />
               <div className="ca-home-frame-careers ca-home-photo-overlay relative z-10 shadow-[0_20px_50px_rgba(7,59,58,0.12)] ring-1 ring-[#C9DDD7]/60">
                 <div className="ca-home-img-careers relative aspect-[4/3] w-full max-h-[420px]">

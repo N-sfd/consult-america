@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
 
 import HomeBackgroundArc from "@/components/marketing/home-background-arc";
@@ -11,6 +11,7 @@ import PracticeAiPaths from "@/components/marketing/practice-ai-paths";
 import { useContactPanel } from "@/components/providers/contact-provider";
 import { cn } from "@/lib/utils";
 import { stockImage, type StockImageKey } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 type HeroSlide = {
   id: string;
@@ -18,8 +19,7 @@ type HeroSlide = {
   eyebrow: string;
   headline: ReactNode;
   supporting: string;
-  primaryCta: { label: string; href?: string; action?: "contact" };
-  secondaryCta?: { label: string; action: "contact" };
+  exploreCta: { label: string; href: string };
   tone: "transform" | "oracle" | "ai";
   visual: "photo-overlay" | "tall-arch" | "product";
   imageKey?: StockImageKey;
@@ -44,8 +44,7 @@ const SLIDES: HeroSlide[] = [
     ),
     supporting:
       "Modernize enterprise platforms, connect data and workflows, operationalize AI, and engineer digital products from strategy through production.",
-    primaryCta: { label: "Explore What We Do", href: "#capabilities-ecosystem" },
-    secondaryCta: { label: "Talk to an Expert", action: "contact" },
+    exploreCta: { label: "Explore What We Do", href: "#capabilities-ecosystem" },
     tone: "transform",
     visual: "photo-overlay",
     imageKey: "hero",
@@ -66,7 +65,7 @@ const SLIDES: HeroSlide[] = [
     ),
     supporting:
       "Connect finance, procurement, supply chain, projects, workforce operations and enterprise data through modern Oracle Cloud delivery.",
-    primaryCta: { label: "Explore Oracle", href: "/oracle" },
+    exploreCta: { label: "Explore Oracle", href: "/oracle" },
     tone: "oracle",
     visual: "tall-arch",
     imageKey: "oracleFinanceOps",
@@ -85,7 +84,7 @@ const SLIDES: HeroSlide[] = [
     ),
     supporting:
       "Turn trusted enterprise data and workflows into governed AI experiences and production-ready digital products.",
-    primaryCta: { label: "Explore AI & Applications", href: "/ai-data" },
+    exploreCta: { label: "Explore AI & Applications", href: "/ai-data" },
     tone: "ai",
     visual: "product",
     imageAlt: "Data Agent document intelligence interface",
@@ -108,7 +107,7 @@ const toneBackground: Record<HeroSlide["tone"], string> = {
 
 export default function Hero() {
   const { setOpen } = useContactPanel();
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const labelId = useId();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -245,32 +244,28 @@ export default function Hero() {
                 <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">
                   {slide.eyebrow}
                 </p>
-                <h1 className="mt-5 max-w-[680px] font-serif text-[clamp(2.875rem,4.5vw,4.25rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-white">
+                <h1 className="mt-5 max-w-[680px] font-serif text-[length:var(--mkt-home-hero)] font-semibold leading-[1.04] tracking-[-0.035em] text-white">
                   {slide.headline}
                 </h1>
                 <p className="mt-6 max-w-[34rem] text-[clamp(1.0625rem,1.05vw,1.1875rem)] leading-[1.65] text-white/78">
                   {slide.supporting}
                 </p>
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                  {slide.primaryCta.href ? (
-                    <Link
-                      href={slide.primaryCta.href}
-                      className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] transition-colors hover:bg-[var(--ca-accent-hover)]"
-                    >
-                      {slide.primaryCta.label}
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  ) : null}
-                  {slide.secondaryCta ? (
-                    <button
-                      type="button"
-                      onClick={() => setOpen(true)}
-                      className="inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/[0.06] px-6 text-sm font-semibold text-white transition-colors hover:border-white/45 hover:bg-white/10"
-                    >
-                      {slide.secondaryCta.label}
-                      <ArrowUpRight className="h-4 w-4" />
-                    </button>
-                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => setOpen(true)}
+                    className="inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] shadow-[0_8px_24px_rgba(201,244,90,0.28)] transition-colors hover:bg-[var(--ca-accent-hover)]"
+                  >
+                    Talk to an Expert
+                    <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                  <Link
+                    href={slide.exploreCta.href}
+                    className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/[0.06] px-6 text-sm font-semibold text-white transition-colors hover:border-white/45 hover:bg-white/10"
+                  >
+                    {slide.exploreCta.label}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </motion.div>
             </AnimatePresence>

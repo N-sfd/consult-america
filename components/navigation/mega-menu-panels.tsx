@@ -201,13 +201,13 @@ export default function MegaMenuPanels({
     return (
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-3">
-          <LinkList title="Build" links={applicationsMegaMenu.build} onNavigate={onNavigate} />
+          <LinkList title="Enterprise Delivery" links={applicationsMegaMenu.build} onNavigate={onNavigate} />
         </div>
         <div className="col-span-3">
-          <LinkList title="Products" links={applicationsMegaMenu.products} onNavigate={onNavigate} />
+          <LinkList title="Consult America Labs" links={applicationsMegaMenu.products} onNavigate={onNavigate} />
         </div>
         <div className="col-span-2">
-          <LinkList title="Workforce" links={applicationsMegaMenu.workforce} onNavigate={onNavigate} />
+          <LinkList title="Platform Suite" links={applicationsMegaMenu.workforce} onNavigate={onNavigate} />
         </div>
         <div className="col-span-4">
           <FeaturedPanel
@@ -297,8 +297,9 @@ export default function MegaMenuPanels({
         </div>
         <div className="col-span-3 border-l border-[#E1ECE8] pl-6">
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#5B6D6B]">
-            Portals
+            Sign In
           </p>
+          <p className="mt-0.5 text-xs text-[#5B6D6B]">Already a client or employee?</p>
           <ul className="mt-3 space-y-1">
             {companyMegaMenu.portals.map((item) => (
               <li key={item.label}>

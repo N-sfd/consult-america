@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -19,7 +20,7 @@ export default function Reveal({
   as = "div",
   variant = "text",
 }: RevealProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useStableReducedMotion();
   const Tag = motion[as];
 
   if (reduceMotion) {

@@ -12,9 +12,9 @@ const strategicSlugs = ["mediguide-ai", "joblens"];
 const otherApps = portfolioProjects.filter((project) => project.tier === 3);
 
 export const metadata: Metadata = {
-  title: "Applications",
+  title: "Consult America Labs",
   description:
-    "Application engineering portfolio — Data Agent, MediGuide, JobLens, and focused enterprise products.",
+    "Consult America Labs — internal innovation builds (Data Agent, MediGuide AI, JobLens) that prove new patterns. For client application engineering delivery, see Application Engineering.",
 };
 
 export default function InnovationPage() {
@@ -27,9 +27,9 @@ export default function InnovationPage() {
       <PageHero
         variant="applications"
         layout="product"
-        eyebrow="Application Engineering"
-        title="Build where packaged software stops."
-        description="Design and engineer focused applications around real operational needs."
+        eyebrow="Consult America Labs"
+        title="Where we prove new patterns before we deliver them."
+        description="Internal products Consult America Labs designs, builds, and operates to explore what governed AI and modern application patterns can do — separate from client application engineering delivery."
         productScreens={[
           { src: "/innovation/data-agent-hero.png", alt: "Data Agent platform" },
           { src: "/innovation/mediguide-hero.png", alt: "MediGuide AI" },
@@ -38,6 +38,28 @@ export default function InnovationPage() {
         primaryCta={{ label: "Explore Data Agent", href: "/work/innovation/data-agent" }}
         secondaryCta={{ label: "View portfolio", href: "#portfolio", variant: "secondary" }}
       />
+
+      <PageSection tone="white" eyebrow="Labs vs. Delivery" title="These are internal builds, not a product catalog.">
+        <div className="max-w-3xl text-sm leading-relaxed text-[#5B6D6B] sm:text-base">
+          <p>
+            Everything on this page is something Consult America Labs designed, built, and runs
+            ourselves — proof of what governed AI and modern application engineering can do, not a
+            packaged product for sale. They inform how we deliver for clients; they aren&apos;t what we
+            deliver.
+          </p>
+          <p className="mt-3">
+            Looking for us to build, modernize, or integrate an application for your organization?
+            That&apos;s a distinct service —{" "}
+            <Link
+              href="/capabilities/digital-engineering"
+              className="font-semibold text-[#176A63] hover:text-[#073B3A]"
+            >
+              see Application Engineering
+            </Link>
+            .
+          </p>
+        </div>
+      </PageSection>
 
       <PageSection id="portfolio" tone="soft" eyebrow="Flagship" title="Data Agent">
         {flagship ? (
@@ -49,7 +71,7 @@ export default function InnovationPage() {
         ) : null}
       </PageSection>
 
-      <PageSection tone="white" eyebrow="Strategic Applications" title="Products from delivery programs.">
+      <PageSection tone="white" eyebrow="More from the Labs" title="Additional internal products.">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {strategic.map((product, index) => (
             <Reveal key={product.slug} delay={index * 0.08}>

@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 export default function StaggerGroup({
@@ -13,7 +14,7 @@ export default function StaggerGroup({
   className?: string;
   stagger?: number;
 }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useStableReducedMotion();
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;

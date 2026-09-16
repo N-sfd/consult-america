@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 import ContactCTA from "@/components/detail-pages/ContactCTA";
+import InlinePracticeCTA from "@/components/detail-pages/InlinePracticeCTA";
 import OutcomeGrid from "@/components/detail-pages/OutcomeGrid";
 import RelatedInsights from "@/components/detail-pages/RelatedInsights";
 import AiDataPageHero from "@/components/marketing/ai-data-page-hero";
+import PageSection from "@/components/marketing/inner-page/page-section";
 
 export const metadata: Metadata = {
   title: "AI & Data",
@@ -34,6 +36,13 @@ export default function AiDataPage() {
     <>
       <AiDataPageHero />
       <OutcomeGrid heading="What good looks like" items={outcomes} />
+      <PageSection tone="soft" accent={false} compact>
+        <InlinePracticeCTA
+          practice="AI & Data"
+          serviceKey="ai_data"
+          prompt="Not sure where to start — governance, a use case, or a specific pipeline? Talk it through."
+        />
+      </PageSection>
       <RelatedInsights category="ai-data" />
       <ContactCTA headline="Ready to put AI to work on your data?" />
     </>

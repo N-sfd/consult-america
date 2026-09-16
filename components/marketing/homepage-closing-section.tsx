@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { stockImage, type StockImageKey } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
 const principles = [
@@ -76,17 +77,17 @@ const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function HomepageClosingSection() {
   const [activeIndustry, setActiveIndustry] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
   const industry = industries[activeIndustry];
 
   return (
     <>
-      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12">
+      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12 lg:py-14">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
             Why Consult America
           </p>
-          <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[var(--ca-ink)]">
+          <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
             Built for execution, not just advice.
           </h2>
           <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
@@ -112,7 +113,7 @@ export default function HomepageClosingSection() {
       <section
         id="industries"
         className={cn(
-          "relative overflow-x-clip border-b border-[var(--ca-line)] py-10 sm:py-12",
+          "relative overflow-x-clip border-b border-[var(--ca-line)] py-10 sm:py-12 lg:py-14",
           activeIndustry === 1 ? "ca-practice-healthcare-bg" : "bg-[var(--ca-canvas)]",
         )}
       >
@@ -134,10 +135,10 @@ export default function HomepageClosingSection() {
                       ? "ca-practice-healthcare-oval -right-[10%] top-[4%] h-[260px] w-[260px]"
                       : activeIndustry === 3
                         ? cn(
-                            "ca-practice-tech-quarter -right-[18%] bottom-[-20%] opacity-80",
+                            "ca-practice-tech-quarter -right-[18%] bottom-[-20%] opacity-30",
                             !shouldReduceMotion && "ca-decor-drift--slow",
                           )
-                        : "ca-home-sage-disc -right-[8%] top-[6%] h-[240px] w-[240px] opacity-70",
+                        : "ca-home-sage-disc -right-[8%] top-[6%] h-[240px] w-[240px] opacity-20",
                   )}
                 />
                 <div
@@ -177,7 +178,7 @@ export default function HomepageClosingSection() {
 
             <div className="lg:col-span-7">
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Industries</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[var(--ca-ink)]">
+              <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
                 Technology grounded in industry operations.
               </h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ca-text-secondary)]">
@@ -233,12 +234,12 @@ export default function HomepageClosingSection() {
         </div>
       </section>
 
-      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12">
+      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12 lg:py-14">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Insights</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-semibold text-[var(--ca-ink)]">
+              <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
                 Ideas for modern enterprise technology.
               </h2>
             </div>

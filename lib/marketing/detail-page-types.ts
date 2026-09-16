@@ -32,6 +32,9 @@ export type DetailPageContent = {
   overviewHeading?: string;
   overview: DetailPageOverviewItem[];
   outcomes: DetailPageOutcome[];
+  /** Regulatory/standards context this industry's work is designed around — not a certification claim. */
+  complianceHighlights?: DetailPageOverviewItem[];
+  domainUseCases?: DetailPageOverviewItem[];
   relatedWork?: DetailPageWorkItem[];
   insightCategory?: InsightCategory;
   metaDescription: string;

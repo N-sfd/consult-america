@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { stockImage } from "@/lib/marketing/stock-images";
+import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 const links = [
   { title: "Strategy & operating models", href: "/capabilities/enterprise-transformation" },
@@ -17,7 +18,7 @@ const links = [
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function EnterpriseTransformSection() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useStableReducedMotion();
 
   return (
     <section className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-12 sm:py-14 lg:py-16">
@@ -33,7 +34,7 @@ export default function EnterpriseTransformSection() {
             <div className="ca-home-compose ca-practice-stable relative mx-auto max-w-[480px] lg:mx-0">
               <div
                 aria-hidden="true"
-                className="ca-home-sage-panel -right-5 top-8 hidden h-[380px] w-[180px] opacity-80 lg:block"
+                className="ca-home-sage-panel -right-5 top-8 hidden h-[380px] w-[180px] opacity-30 lg:block"
               />
               <div className="ca-home-frame-offset ca-home-photo-overlay relative z-10 shadow-[0_20px_48px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]">
                 <div className="ca-home-img-major relative aspect-[4/5] w-full">
