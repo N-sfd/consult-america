@@ -890,3 +890,202 @@ export async function listPlatformUsers(): Promise<PlatformUserRow[]> {
     lastActivityAt: (row.updated_at as string) ?? undefined,
   }));
 }
+
+export type DepartmentRow = {
+  id: string;
+  code: string;
+  name: string;
+  status: string;
+  businessUnitName: string;
+  managerName: string | null;
+  headcount: number;
+};
+
+export async function listDepartmentsWithHeadcount(): Promise<DepartmentRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const { data: departments, error } = await client
+    .from("departments")
+    .select("id, code, name, status, business_unit_id, manager_employee_id")
+    .order("name");
+  if (error) throw new Error(error.message);
+  if (!departments || departments.length === 0) return [];
+
+  const businessUnitIds = [...new Set(departments.map((row) => row.business_unit_id as string))];
+  const managerIds = [
+    ...new Set(
+      departments
+        .map((row) => row.manager_employee_id as string | null)
+        .filter((id): id is string => Boolean(id)),
+    ),
+  ];
+  const departmentIds = departments.map((row) => row.id as string);
+
+  const [businessUnitsResult, managersResult, assignmentsResult] = await Promise.all([
+    client.from("business_units").select("id, name").in("id", businessUnitIds),
+    managerIds.length
+      ? client
+          .from("employee_profiles")
+          .select("id, first_name, last_name, preferred_name")
+          .in("id", managerIds)
+      : Promise.resolve({ data: [] as Record<string, unknown>[], error: null }),
+    client
+      .from("employment_assignments")
+      .select("department_id")
+      .eq("assignment_status", "ACTIVE")
+      .eq("primary_assignment", true)
+      .in("department_id", departmentIds),
+  ]);
+  if (businessUnitsResult.error) throw new Error(businessUnitsResult.error.message);
+  if (managersResult.error) throw new Error(managersResult.error.message);
+  if (assignmentsResult.error) throw new Error(assignmentsResult.error.message);
+
+  const businessUnitNameById = new Map(
+    (businessUnitsResult.data ?? []).map((row) => [row.id as string, row.name as string]),
+  );
+  const managerNameById = new Map(
+    (managersResult.data ?? []).map((row) => [
+      row.id as string,
+      ((row.preferred_name as string) || `${row.first_name as string} ${row.last_name as string}`).trim(),
+    ]),
+  );
+  const headcountByDepartment = new Map<string, number>();
+  for (const row of assignmentsResult.data ?? []) {
+    const id = row.department_id as string;
+    headcountByDepartment.set(id, (headcountByDepartment.get(id) ?? 0) + 1);
+  }
+
+  return departments.map((row) => ({
+    id: row.id as string,
+    code: row.code as string,
+    name: row.name as string,
+    status: row.status as string,
+    businessUnitName: businessUnitNameById.get(row.business_unit_id as string) ?? "—",
+    managerName: row.manager_employee_id
+      ? (managerNameById.get(row.manager_employee_id as string) ?? null)
+      : null,
+    headcount: headcountByDepartment.get(row.id as string) ?? 0,
+  }));
+}
+
+export type LocationRow = {
+  id: string;
+  code: string;
+  name: string;
+  city: string | null;
+  state: string | null;
+  country: string;
+  status: string;
+  headcount: number;
+};
+
+export async function listLocationsWithHeadcount(): Promise<LocationRow[]> {
+  const client = getSupabaseServiceClient();
+  if (!client) return [];
+
+  const { data: locations, error } = await client
+    .from("locations")
+    .select("id, code, name, city, state, country, status")
+    .order("name");
+  if (error) throw new Error(error.message);
+  if (!locations || locations.length === 0) return [];
+
+  const locationIds = locations.map((row) => row.id as string);
+  const { data: assignments, error: assignmentsError } = await client
+    .from("employment_assignments")
+    .select("location_id")
+    .eq("assignment_status", "ACTIVE")
+    .eq("primary_assignment", true)
+    .in("location_id", locationIds);
+  if (assignmentsError) throw new Error(assignmentsError.message);
+
+  const headcountByLocation = new Map<string, number>();
+  for (const row of assignments ?? []) {
+    const id = row.location_id as string;
+    headcountByLocation.set(id, (headcountByLocation.get(id) ?? 0) + 1);
+  }
+
+  return locations.map((row) => ({
+    id: row.id as string,
+    code: row.code as string,
+    name: row.name as string,
+    city: (row.city as string) ?? null,
+    state: (row.state as string) ?? null,
+    country: row.country as string,
+    status: row.status as string,
+    headcount: headcountByLocation.get(row.id as string) ?? 0,
+  }));
+}
+
+/**
+ * Fixed, small vocabulary of notification types relevant to an ADMIN/HR
+ * viewer (mirrors NOTIFICATION_ACTION_URL above) — there is no catalog table
+ * to read this list from, so it is declared here rather than invented per
+ * caller.
+ */
+export const WORKFORCE_NOTIFICATION_TYPES = [
+  { type: "hr_request", label: "HR requests" },
+  { type: "employee", label: "Employee changes" },
+  { type: "employee_document", label: "Employee documents" },
+  { type: "offer", label: "Offers" },
+  { type: "payroll_run", label: "Payroll runs" },
+] as const;
+
+export type NotificationPreferenceRow = {
+  type: string;
+  label: string;
+  inAppEnabled: boolean;
+  emailEnabled: boolean;
+};
+
+/** Rows are opt-out only — an absent row means both channels default to on. */
+export async function listNotificationPreferencesForProfile(
+  profileId: string,
+): Promise<NotificationPreferenceRow[]> {
+  const client = getSupabaseServiceClient();
+  const overrides = new Map<string, { inAppEnabled: boolean; emailEnabled: boolean }>();
+
+  if (client) {
+    const { data, error } = await client
+      .from("notification_preferences")
+      .select("notification_type, in_app_enabled, email_enabled")
+      .eq("profile_id", profileId);
+    if (error) throw new Error(error.message);
+    for (const row of data ?? []) {
+      overrides.set(row.notification_type as string, {
+        inAppEnabled: Boolean(row.in_app_enabled),
+        emailEnabled: Boolean(row.email_enabled),
+      });
+    }
+  }
+
+  return WORKFORCE_NOTIFICATION_TYPES.map(({ type, label }) => ({
+    type,
+    label,
+    inAppEnabled: overrides.get(type)?.inAppEnabled ?? true,
+    emailEnabled: overrides.get(type)?.emailEnabled ?? true,
+  }));
+}
+
+export async function upsertNotificationPreference(input: {
+  profileId: string;
+  notificationType: string;
+  inAppEnabled: boolean;
+  emailEnabled: boolean;
+}): Promise<void> {
+  const client = getSupabaseServiceClient();
+  if (!client) return;
+
+  const { error } = await client.from("notification_preferences").upsert(
+    {
+      profile_id: input.profileId,
+      notification_type: input.notificationType,
+      in_app_enabled: input.inAppEnabled,
+      email_enabled: input.emailEnabled,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "profile_id,notification_type" },
+  );
+  if (error) throw new Error(error.message);
+}
