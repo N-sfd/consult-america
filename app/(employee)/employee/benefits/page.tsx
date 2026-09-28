@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import BenefitsWorkspace from "@/components/benefits/benefits-workspace";
 import { getBenefitsElections, getBenefitsPlans } from "@/lib/self-service";
@@ -22,14 +23,10 @@ export default async function EmployeeBenefitsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Benefits
-        </h1>
-        <p className="mt-2 text-black/55">
-          Review available plans and manage your current elections.
-        </p>
-      </div>
+      <PageHeader
+        title="Benefits"
+        description="Review available plans and manage your current elections."
+      />
 
       <BenefitsWorkspace plans={plans} elections={elections} />
     </div>

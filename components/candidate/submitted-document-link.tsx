@@ -30,7 +30,7 @@ export default function SubmittedDocumentLink({
         type="button"
         disabled={pending}
         onClick={onView}
-        className="text-[var(--ca-blue)] hover:underline disabled:opacity-60"
+        className="text-[var(--ca-platform-mid)] hover:underline disabled:opacity-60"
       >
         {pending ? "Opening…" : "View"}
       </button>

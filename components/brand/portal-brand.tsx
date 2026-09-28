@@ -11,8 +11,12 @@ type PortalBrandProps = {
   /** light = Employee/Candidate; dark = Manager/HR/Payroll/Workforce/CRM */
   surface: PortalBrandSurface;
   href?: string;
-  /** mobile topbar — title-only compact lockup */
-  mode?: "sidebar" | "mobile";
+  /**
+   * sidebar — full approved lockup on white brand block (desktop shell)
+   * mobile — compact lockup in the top bar
+   * drawer — compact lockup on white brand block (narrow nav drawer)
+   */
+  mode?: "sidebar" | "mobile" | "drawer";
   className?: string;
   onNavigate?: () => void;
 };
@@ -28,12 +32,13 @@ export default function PortalBrand({
   className,
   onNavigate,
 }: PortalBrandProps) {
-  const isMobile = mode === "mobile";
+  const isTopbar = mode === "mobile";
+  const isCompact = mode === "mobile" || mode === "drawer";
   const lockup = (
     <BrandLogo
       href={null}
-      context={isMobile ? "mobile" : "portal"}
-      variant={isMobile ? "compact" : "full"}
+      context={isCompact ? "mobile" : "portal"}
+      variant={isCompact ? "compact" : "full"}
       priority
       className="ca-portal-brand-logo"
     />
@@ -52,7 +57,7 @@ export default function PortalBrand({
     lockup
   );
 
-  if (isMobile) {
+  if (isTopbar) {
     return (
       <div className={cn("ca-portal-brand ca-portal-brand--mobile", className)}>
         {linked}
@@ -65,6 +70,7 @@ export default function PortalBrand({
       className={cn(
         "ca-portal-brand",
         surface === "dark" ? "ca-portal-brand--block" : "ca-portal-brand--light",
+        mode === "drawer" && "ca-portal-brand--drawer",
         className,
       )}
     >

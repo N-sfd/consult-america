@@ -142,11 +142,27 @@
   overflow-x: clip;
 }
 
+/*
+ * Base alpha is the class's own "visible strength" — Tailwind opacity
+ * utilities on individual usages are a true multiplier on top of this, not
+ * a second independent scale. Previously this base alpha was ~0.08-0.1,
+ * which combined with typical per-usage opacity-20/50/70 utilities to
+ * render most background geometry at 1-6% effective opacity — essentially
+ * invisible. Raised here so the existing shapes are actually perceptible;
+ * usages still control relative weighting via their own opacity utility.
+ */
 .ca-home-sage-disc {
   position: absolute;
   border-radius: 9999px;
-  background: rgba(53, 109, 118, 0.08);
+  background: rgba(53, 109, 118, 0.22);
   pointer-events: none;
+}
+
+/* For use on dark sections (e.g. the hero) — a dark-teal fill on a dark-teal
+   background is dark-on-dark regardless of alpha, so this is a genuinely
+   different color, not just a lighter version of the same one. */
+.ca-home-sage-disc--light {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .ca-home-sage-panel {
@@ -159,9 +175,13 @@
 .ca-home-ring {
   position: absolute;
   border-radius: 9999px;
-  border: 1px solid rgba(7, 59, 58, 0.1);
+  border: 1px solid rgba(7, 59, 58, 0.22);
   background: transparent;
   pointer-events: none;
+}
+
+.ca-home-ring--light {
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .ca-home-connector {
@@ -245,7 +265,7 @@
   position: absolute;
   width: min(520px, 55vw);
   height: min(520px, 55vw);
-  border: 1px solid rgba(7, 59, 58, 0.08);
+  border: 1px solid rgba(7, 59, 58, 0.22);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -255,22 +275,22 @@
   content: "";
   position: absolute;
   inset: 12%;
-  border: 1px solid rgba(7, 59, 58, 0.06);
+  border: 1px solid rgba(7, 59, 58, 0.16);
   border-radius: 50%;
 }
 
 .ca-home-bg-arc::after {
   inset: 24%;
-  border-color: rgba(7, 59, 58, 0.045);
+  border-color: rgba(7, 59, 58, 0.11);
 }
 
 .ca-home-bg-arc--light {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .ca-home-bg-arc--light::before,
 .ca-home-bg-arc--light::after {
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Outcomes / pillars — one continuous teal rule language */

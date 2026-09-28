@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import GoalsWorkspace from "@/components/performance/goals-workspace";
 import { getGoals } from "@/lib/self-service";
@@ -21,12 +22,10 @@ export default async function EmployeeGoalsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Goals</h1>
-        <p className="mt-2 text-black/55">
-          Track the goals you&apos;re working toward this cycle.
-        </p>
-      </div>
+      <PageHeader
+        title="Goals"
+        description="Track the goals you&apos;re working toward this cycle."
+      />
 
       <GoalsWorkspace goals={goals} />
     </div>

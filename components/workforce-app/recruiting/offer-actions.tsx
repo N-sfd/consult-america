@@ -17,7 +17,7 @@ import type { EmploymentType, WorkplaceType } from "@/types/organization";
 import type { ApplicationStatus, Offer } from "@/types/recruiting";
 
 const fieldClass =
-  "mt-1.5 h-9 w-full border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
+  "mt-1.5 h-9 w-full border border-[var(--ca-platform-border)] bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
 const actionButtonClass =
   "mt-2 h-7 w-full border border-[var(--ca-blue)] bg-white px-1.5 text-xs font-medium text-[var(--ca-blue)] outline-none transition-colors hover:bg-[var(--ca-blue)] hover:text-white disabled:opacity-50";
 

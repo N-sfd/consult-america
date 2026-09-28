@@ -53,10 +53,10 @@ function formatDate(value?: string) {
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
-const cardClass = "rounded-xl border border-black/10 bg-white p-6 shadow-sm";
+const cardClass = "rounded-xl border border-[var(--ca-platform-border)] bg-white p-6 shadow-sm";
 const labelClass = "text-[0.7rem] uppercase tracking-[0.12em] text-black/40";
 const fieldClass =
-  "mt-1.5 h-9 w-full rounded-md border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
+  "mt-1.5 h-9 w-full rounded-md border border-[var(--ca-platform-border)] bg-white px-3 text-sm outline-none focus:border-[var(--ca-platform-mid)]";
 
 function resolveAssignmentLabels(assignment: JobAssignment) {
   return {
@@ -96,7 +96,7 @@ export default function EmployeeDetailTabs({
   const { employee, person } = profile;
 
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1200px]">
       <p className={labelClass}>People</p>
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <h1 className="font-serif text-2xl font-semibold tracking-[-0.03em]">
@@ -169,7 +169,7 @@ export default function EmployeeDetailTabs({
       </Tabs>
 
       <div className="mt-8 flex items-center justify-between">
-        <Link href="/workforce/people" className="text-sm text-[var(--ca-blue)] hover:underline">
+        <Link href="/workforce/people" className="text-sm text-[var(--ca-platform-mid)] hover:underline">
           ← Back to People
         </Link>
         <DeactivateAction employeeId={employee.id} currentStatus={employee.employmentStatus} />
@@ -394,7 +394,7 @@ function WorkAuthorizationCard({
             name="hrNotes"
             defaultValue={workAuthorization?.hrNotes ?? ""}
             rows={3}
-            className="mt-1.5 w-full rounded-md border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-[var(--ca-blue)]"
+            className="mt-1.5 w-full rounded-md border border-[var(--ca-platform-border)] bg-white px-3 py-2 text-sm outline-none focus:border-[var(--ca-platform-mid)]"
           />
         </label>
         <div className="sm:col-span-2">
@@ -418,7 +418,7 @@ function AssignmentsPanel({ assignments }: { assignments: JobAssignment[] }) {
   return (
     <div className={`${cardClass} overflow-x-auto`}>
       <table className="w-full min-w-[720px] text-left text-sm">
-        <thead className="border-b border-black/10 text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
+        <thead className="border-b border-[var(--ca-platform-border)] text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
           <tr>
             <th className="py-2 pr-4 font-medium">Job Title</th>
             <th className="py-2 pr-4 font-medium">Department</th>
@@ -529,7 +529,7 @@ function DocumentsPanel({
           <p className="mt-3 text-sm text-black/45">No documents on file.</p>
         ) : (
           <table className="mt-4 w-full min-w-[640px] text-left text-sm">
-            <thead className="border-b border-black/10 text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
+            <thead className="border-b border-[var(--ca-platform-border)] text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
               <tr>
                 <th className="py-2 pr-4 font-medium">Document Type</th>
                 <th className="py-2 pr-4 font-medium">File Name</th>
@@ -561,7 +561,7 @@ function DocumentsPanel({
                     <button
                       type="button"
                       onClick={() => handleView(doc.id)}
-                      className="mr-3 text-[var(--ca-blue)] hover:underline"
+                      className="mr-3 text-[var(--ca-platform-mid)] hover:underline"
                     >
                       View
                     </button>

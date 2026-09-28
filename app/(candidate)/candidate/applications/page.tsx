@@ -36,7 +36,7 @@ export default async function CandidateApplicationsPage() {
           action={
             <Link
               href="/candidate/jobs"
-              className="text-sm font-semibold text-[var(--ca-blue)] hover:underline"
+              className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline"
             >
               Browse open roles
             </Link>
@@ -52,23 +52,23 @@ export default async function CandidateApplicationsPage() {
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs text-black/40">
+                    <p className="text-xs text-[var(--ca-platform-muted)]">
                       {application.applicationNumber}
                     </p>
                     <p className="mt-1 text-base font-semibold text-black">
                       {application.requisitionTitle}
                     </p>
-                    <p className="mt-1 text-sm text-black/55">
+                    <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                       {application.postingLocation} · Applied{" "}
                       {formatDate(application.appliedAt)}
                     </p>
-                    <p className="mt-1 text-xs text-black/40">
+                    <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
                       Last activity {formatDate(application.updatedAt)}
                     </p>
                   </div>
                   <div className="text-right">
                     <ApplicationStatusPill status={application.status} />
-                    <p className="mt-2 text-xs font-semibold text-[var(--ca-blue)]">
+                    <p className="mt-2 text-xs font-semibold text-[var(--ca-platform-mid)]">
                       View Application
                     </p>
                   </div>

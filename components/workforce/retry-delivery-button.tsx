@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 
 import { retryNotificationDeliveryAction } from "@/app/actions/notification-admin-actions";
+import { ActionBanner } from "@/components/shared/action-banner";
 
 export default function RetryDeliveryButton({ deliveryId }: { deliveryId: string }) {
   const [message, setMessage] = useState<string | null>(null);
@@ -29,16 +30,8 @@ export default function RetryDeliveryButton({ deliveryId }: { deliveryId: string
       >
         {pending ? "Retrying…" : "Retry"}
       </button>
-      {message && (
-        <p className="text-xs text-emerald-700" role="status">
-          {message}
-        </p>
-      )}
-      {error && (
-        <p className="text-xs text-red-600" role="alert">
-          {error}
-        </p>
-      )}
+      {message && <ActionBanner variant="success" message={message} />}
+      {error && <ActionBanner variant="error" message={error} />}
     </div>
   );
 }

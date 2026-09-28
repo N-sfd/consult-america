@@ -487,6 +487,10 @@ export const seedCandidates: CandidateProfile[] = [
     lastName: "Shah",
     email: "priya.shah@example.demo",
     phone: "555-0142",
+    city: "Austin",
+    state: "TX",
+    professionalSummary:
+      "Oracle Fusion Financials consultant with 7+ years delivering GL, AP, and AR implementations for enterprise clients. Strong stakeholder facilitation, configuration, and UAT leadership.",
     linkedinUrl: "https://www.linkedin.com/in/priya-shah-demo",
     workAuthorization: "US Citizen",
     willingToRelocate: false,

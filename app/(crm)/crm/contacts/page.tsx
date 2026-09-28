@@ -26,7 +26,7 @@ export default async function CrmContactsPage() {
           description="Contacts appear here once you add them to an account."
         />
       ) : (
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
+        <div className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
           <ul className="divide-y divide-black/5">
             {contacts.map((contact) => (
               <li key={contact.id}>
@@ -43,11 +43,11 @@ export default async function CrmContactsPage() {
                         </span>
                       )}
                     </p>
-                    <p className="mt-1 text-sm text-black/55">
+                    <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                       {[contact.title, contact.email].filter(Boolean).join(" · ")}
                     </p>
                   </div>
-                  <span className="text-sm text-black/45">
+                  <span className="text-sm text-[var(--ca-platform-muted)]">
                     {contact.accountName}
                   </span>
                 </Link>

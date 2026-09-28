@@ -15,6 +15,22 @@ export function isSupabaseBrowserConfigured(): boolean {
   );
 }
 
+/**
+ * Every session module falls back to a hardcoded, fully-privileged demo
+ * identity (e.g. full ADMIN/RECRUITER/HR) when Supabase isn't configured —
+ * useful for local dev with no `.env.local`, but that same fallback would
+ * silently grant unauthenticated full access if the env vars were ever
+ * missing in a real deployment. Fail loudly there instead of guessing.
+ */
+export function assertDemoSessionAllowed(context: string): void {
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      `Refusing to grant an unauthenticated demo session (${context}) in production: ` +
+        `NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not configured.`,
+    );
+  }
+}
+
 export function getSupabaseBrowserClient(): SupabaseClient | null {
   if (cachedClient !== undefined) return cachedClient;
 

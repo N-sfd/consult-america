@@ -109,7 +109,8 @@
 
   /* Application shell — same ecosystem tokens, denser use */
   --ca-app-max: 1440px;
-  --workspace-sidebar-width: 520px;
+  --workspace-sidebar-width: 500px;
+  --workspace-sidebar-inset: 24px;
   --ca-app-sidebar: var(--workspace-sidebar-width);
   --ca-app-sidebar-rail: 72px;
   --ca-app-topbar: 64px;
@@ -472,7 +473,7 @@ body {
   display: block;
   color: #0a1f5c;
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  font-size: clamp(1.35rem, 0.35vw + 1.2rem, 1.65rem);
+  font-size: clamp(1.494rem, 0.387vw + 1.328rem, 1.827rem);
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.05;
@@ -494,6 +495,16 @@ body {
   text-overflow: clip;
 }
 
+/*
+  Full lockup only: widen the wordmark so AMERICA and SERVICES share a right edge.
+  Size is ~8% above the previous title; tracking closes the rest. Line box stays
+  the previous height so the tagline does not move. Title-only lockups are unchanged.
+*/
+.ca-brand-wordmark:has(.ca-brand-tagline) .ca-brand-title {
+  letter-spacing: 0.056em;
+  line-height: 0.972;
+}
+
 @media (min-width: 1280px) {
   .ca-header-brand .ca-brand-lockup {
     gap: 0.85rem;
@@ -505,7 +516,7 @@ body {
   }
 
   .ca-header-brand .ca-brand-title {
-    font-size: clamp(1.5rem, 0.35vw + 1.35rem, 1.75rem);
+    font-size: clamp(1.62rem, 0.378vw + 1.458rem, 1.89rem);
   }
 
   .ca-header-brand .ca-brand-tagline {
@@ -523,7 +534,7 @@ body {
 }
 
 .ca-brand-lockup--footer .ca-brand-title {
-  font-size: 1.45rem;
+  font-size: 1.566rem;
   color: #211e1b;
 }
 
@@ -542,7 +553,7 @@ body {
 }
 
 .ca-brand-lockup--login .ca-brand-title {
-  font-size: clamp(1.3rem, 2.2vw, 1.55rem);
+  font-size: clamp(1.404rem, 2.376vw, 1.674rem);
 }
 
 .ca-brand-lockup--login .ca-brand-tagline {
@@ -566,7 +577,7 @@ body {
   }
 
   .ca-brand-lockup--login .ca-brand-title {
-    font-size: clamp(1.25rem, 2vw, 1.45rem);
+    font-size: clamp(1.35rem, 2.16vw, 1.566rem);
   }
 
   .ca-brand-lockup--login .ca-brand-tagline {
@@ -586,6 +597,8 @@ body {
 
   .ca-brand-lockup--login .ca-brand-title {
     font-size: clamp(1.1rem, 4vw, 1.28rem);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
 }
 
@@ -600,8 +613,10 @@ body {
     height: clamp(52px, 5.5vw, 60px);
   }
 
-  .ca-header-brand .ca-brand-title {
-    font-size: clamp(1.35rem, 1.8vw, 1.6rem);
+  .ca-header-brand .ca-brand-wordmark:has(.ca-brand-tagline) .ca-brand-title {
+    /* Tracks the tagline width while the desktop formula is still clamped. */
+    font-size: calc(1.389rem + 0.34vw);
+    line-height: 22.68px;
   }
 
   .ca-header-brand .ca-brand-tagline {
@@ -622,6 +637,8 @@ body {
 
   .ca-header-brand .ca-brand-title {
     font-size: clamp(1.12rem, 4vw, 1.32rem);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
 
   .ca-header-brand .ca-brand-tagline {

@@ -1,6 +1,7 @@
 import { getCandidateSession, type CandidateSession } from "@/lib/candidate/session";
+import { SafeUserError, toSafeMessage } from "@/lib/observability/safe-error";
 
-export class CandidateSecurityError extends Error {
+export class CandidateSecurityError extends SafeUserError {
   readonly code = "FORBIDDEN";
 
   constructor(message: string) {
@@ -27,8 +28,10 @@ export function assertCandidateSelfAccess(
   }
 }
 
-export function toCandidateActionErrorMessage(error: unknown, fallback: string) {
-  if (error instanceof CandidateSecurityError) return error.message;
-  if (error instanceof Error) return error.message;
-  return fallback;
+export function toCandidateActionErrorMessage(
+  error: unknown,
+  fallback: string,
+  context = "candidate action",
+) {
+  return toSafeMessage(error, fallback, context);
 }

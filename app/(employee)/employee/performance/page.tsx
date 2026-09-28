@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import ReviewPanel from "@/components/performance/review-panel";
 import { getPerformanceReviews, getReviewCycles } from "@/lib/self-service";
@@ -22,17 +23,13 @@ export default async function EmployeePerformancePage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Performance
-        </h1>
-        <p className="mt-2 text-black/55">
-          Review cycles, self-assessments, and manager feedback.
-        </p>
-      </div>
+      <PageHeader
+        title="Performance"
+        description="Review cycles, self-assessments, and manager feedback."
+      />
 
       {reviews.length === 0 ? (
-        <div className="rounded-lg border border-black/10 bg-white px-5 py-8 text-sm text-black/50">
+        <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-5 py-8 text-sm text-black/50">
           No review cycle is open for you right now.
         </div>
       ) : (

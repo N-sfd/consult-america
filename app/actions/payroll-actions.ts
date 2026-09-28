@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
+import { toSafeMessage } from "@/lib/observability/safe-error";
 import { writeAuditLog } from "@/lib/self-service/audit-store";
 import {
   approvePayrollRun,
@@ -46,8 +47,9 @@ export async function calculatePayrollRunAction(input: {
   } catch (error) {
     return {
       ok: false,
-      message:
-        error instanceof Error ? error.message : "Unable to calculate payroll.",
+      message: toSafeMessage(error, "Unable to calculate payroll.", "payroll.calculate", {
+        payPeriodId: input.payPeriodId,
+      }),
     };
   }
 }
@@ -65,7 +67,9 @@ export async function submitRunForReviewAction(input: {
   } catch (error) {
     return {
       ok: false,
-      message: error instanceof Error ? error.message : "Unable to submit run.",
+      message: toSafeMessage(error, "Unable to submit run.", "payroll.submit-review", {
+        runId: input.runId,
+      }),
     };
   }
 }
@@ -96,7 +100,9 @@ export async function approvePayrollRunAction(input: {
   } catch (error) {
     return {
       ok: false,
-      message: error instanceof Error ? error.message : "Unable to approve run.",
+      message: toSafeMessage(error, "Unable to approve run.", "payroll.approve", {
+        runId: input.runId,
+      }),
     };
   }
 }
@@ -124,7 +130,9 @@ export async function lockPayrollRunAction(input: {
   } catch (error) {
     return {
       ok: false,
-      message: error instanceof Error ? error.message : "Unable to lock run.",
+      message: toSafeMessage(error, "Unable to lock run.", "payroll.lock", {
+        runId: input.runId,
+      }),
     };
   }
 }

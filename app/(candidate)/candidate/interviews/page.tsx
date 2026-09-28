@@ -41,25 +41,25 @@ export default async function CandidateInterviewsPage() {
           description="We will notify you here once one is set up."
         />
       ) : (
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
+        <div className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
           <ul className="divide-y divide-black/5">
             {interviews.map((interview) => (
               <li key={interview.id} className="px-5 py-4">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="font-medium">{interview.requisitionTitle}</p>
-                    <p className="mt-1 text-sm text-black/55">
+                    <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                       {INTERVIEW_TYPE_LABELS[interview.interviewType] ??
                         interview.interviewType}{" "}
                       · {formatDateTime(interview.scheduledAt)}
                     </p>
                     {interview.locationOrLink && (
-                      <p className="mt-1 text-sm text-black/45">
+                      <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                         {interview.locationOrLink}
                       </p>
                     )}
                   </div>
-                  <span className="text-xs uppercase tracking-[0.1em] text-black/45">
+                  <span className="text-xs uppercase tracking-[0.1em] text-[var(--ca-platform-muted)]">
                     {interview.status}
                   </span>
                 </div>

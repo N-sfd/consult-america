@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
+import JourneyConnector from "@/components/marketing/journey-connector";
 import PracticeAiPaths from "@/components/marketing/practice-ai-paths";
 
 const stages = [
@@ -56,6 +57,7 @@ export default function AIDataStory() {
         background: "linear-gradient(135deg, #073B3A 0%, #0B4A47 50%, #176A63 100%)",
       }}
     >
+      <JourneyConnector />
       <PracticeAiPaths
         className={cn(
           "ca-practice-ai-paths hidden lg:block",
@@ -80,7 +82,7 @@ export default function AIDataStory() {
             className="lg:col-span-5"
           >
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
-              AI &amp; Data
+              04 / 05 · AI &amp; Data
             </p>
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
               Put intelligence into the work.

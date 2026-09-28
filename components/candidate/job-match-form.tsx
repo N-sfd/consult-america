@@ -1,25 +1,40 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 
 import { runJobMatchAction } from "@/app/actions/candidate-actions";
 import JobMatchResultCard from "@/components/candidate/job-match-result-card";
+import ProposalDraftButton from "@/components/candidate/proposal-draft-button";
 import type { JobMatchResult } from "@/lib/candidate/job-match";
 
 type ResumeOption = { id: string; label: string; archived?: boolean };
-type JobOption = { requisitionId: string; title: string };
+type JobOption = {
+  requisitionId: string;
+  title: string;
+  slug?: string;
+  summary?: string;
+  location?: string;
+};
 
 export default function JobMatchForm({
   resumes,
   jobs,
+  initialJobRequisitionId = "",
 }: {
   resumes: ResumeOption[];
   jobs: JobOption[];
+  initialJobRequisitionId?: string;
 }) {
   const [documentId, setDocumentId] = useState(
     resumes.find((r) => !r.archived)?.id ?? resumes[0]?.id ?? "",
   );
-  const [jobRequisitionId, setJobRequisitionId] = useState("");
+  const [jobRequisitionId, setJobRequisitionId] = useState(
+    initialJobRequisitionId &&
+      jobs.some((job) => job.requisitionId === initialJobRequisitionId)
+      ? initialJobRequisitionId
+      : "",
+  );
   const [jobDescription, setJobDescription] = useState("");
   const [result, setResult] = useState<JobMatchResult | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -55,20 +70,20 @@ export default function JobMatchForm({
   return (
     <div className="space-y-6">
       <form onSubmit={onSubmit} className="ca-platform-card space-y-4 p-6">
-        <p className="text-sm text-black/55">
-          Job Match is candidate assistance only. It does not reject, advance,
-          or rank applications for hiring decisions.
+        <p className="text-sm text-[var(--ca-platform-muted)]">
+          AI Job Analyzer is candidate assistance only. It does not reject, advance,
+          or rank applications for hiring decisions. Analyses are saved automatically.
         </p>
 
         <label className="block text-sm">
-          <span className="text-black/55">Resume source</span>
+          <span className="text-[var(--ca-platform-muted)]">Resume source</span>
           <select
             value={documentId}
             onChange={(e) => setDocumentId(e.target.value)}
-            className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm"
+            className="mt-1 w-full rounded-md border border-[var(--ca-platform-border)] px-3 py-2 text-sm"
           >
             {resumes.length === 0 ? (
-              <option value="">No resume uploaded</option>
+              <option value="">Use profile personal information</option>
             ) : (
               resumes.map((resume) => (
                 <option key={resume.id} value={resume.id} disabled={resume.archived}>
@@ -80,11 +95,13 @@ export default function JobMatchForm({
         </label>
 
         <label className="block text-sm">
-          <span className="text-black/55">Select a published Consult America job</span>
+          <span className="text-[var(--ca-platform-muted)]">
+            Select a published Consult America job
+          </span>
           <select
             value={jobRequisitionId}
             onChange={(e) => setJobRequisitionId(e.target.value)}
-            className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm"
+            className="mt-1 w-full rounded-md border border-[var(--ca-platform-border)] px-3 py-2 text-sm"
           >
             <option value="">Paste a job description instead</option>
             {jobs.map((job) => (
@@ -97,33 +114,69 @@ export default function JobMatchForm({
 
         {!jobRequisitionId ? (
           <label className="block text-sm">
-            <span className="text-black/55">Or paste a job description</span>
+            <span className="text-[var(--ca-platform-muted)]">Or paste a job description</span>
             <textarea
               rows={8}
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
-              className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-md border border-[var(--ca-platform-border)] px-3 py-2 text-sm"
               placeholder="Paste the job description here"
             />
           </label>
         ) : (
-          <p className="text-sm text-black/55">
-            Matching against <span className="font-medium">{selectedJob?.title}</span>
+          <p className="text-sm text-[var(--ca-platform-muted)]">
+            Matching against{" "}
+            <span className="font-medium text-[var(--ca-platform-ink)]">
+              {selectedJob?.title}
+            </span>
+            {selectedJob?.slug ? (
+              <>
+                {" · "}
+                <Link
+                  href={`/candidate/jobs/${selectedJob.slug}`}
+                  className="font-semibold text-[var(--ca-platform-mid)] hover:underline"
+                >
+                  Review listing
+                </Link>
+              </>
+            ) : null}
           </p>
         )}
 
         <button
           type="submit"
-          disabled={pending || resumes.length === 0}
+          disabled={pending}
           className="rounded-lg bg-[var(--ca-platform-deep)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
         >
-          {pending ? "Analyzing…" : "Run Job Match"}
+          {pending ? "Analyzing…" : "Analyze job match"}
         </button>
         {error ? <p className="text-sm text-red-700">{error}</p> : null}
         {message ? <p className="text-sm text-emerald-700">{message}</p> : null}
       </form>
 
-      {result ? <JobMatchResultCard result={result} /> : null}
+      {result ? (
+        <div className="space-y-4">
+          <JobMatchResultCard result={result} />
+          {selectedJob ? (
+            <div className="ca-platform-card space-y-3 p-5">
+              <h3 className="text-sm font-semibold text-[var(--ca-platform-ink)]">
+                Next: tailored proposal
+              </h3>
+              <p className="text-sm text-[var(--ca-platform-muted)]">
+                Generate a cover-letter draft from this match. The job is saved
+                automatically.
+              </p>
+              <ProposalDraftButton
+                jobRequisitionId={selectedJob.requisitionId}
+                jobTitle={selectedJob.title}
+                jobSummary={selectedJob.summary}
+                location={selectedJob.location}
+                match={result}
+              />
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -26,7 +26,7 @@ export function MetricCard({
         ? "text-emerald-800"
         : "text-[var(--ca-app-ink)]";
   return (
-    <div className="rounded-lg border border-black/10 bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+    <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
       <p className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-black/40">
         {label}
       </p>
@@ -49,7 +49,7 @@ export function CountBars({
 }) {
   const max = Math.max(1, ...rows.map((row) => row.count));
   return (
-    <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+    <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
       <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
         {title}
       </h3>
@@ -89,7 +89,7 @@ export function LinkedRows({
   emptyLabel?: string;
 }) {
   return (
-    <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+    <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
       <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
         {title}
       </h3>

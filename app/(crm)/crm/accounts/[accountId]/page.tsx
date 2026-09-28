@@ -5,6 +5,7 @@ import ActivityLogForm from "@/components/crm/activity-log-form";
 import ContactCreateForm from "@/components/crm/contact-create-form";
 import OpportunityCreateForm from "@/components/crm/opportunity-create-form";
 import OpportunityStageSelect from "@/components/crm/opportunity-stage-select";
+import { PageHeader } from "@/components/shared";
 import { crmRepository } from "@/lib/crm";
 import {
   accountStatusLabels,
@@ -51,38 +52,31 @@ export default async function CrmAccountDetailPage({
 
   return (
     <div className="space-y-8">
-      <div>
-        <p className="text-xs uppercase tracking-[0.12em] text-black/40">
-          {account.industry} · {accountTierLabels[account.tier]}
-        </p>
-        <h1 className="mt-1 text-3xl font-semibold tracking-[-0.04em]">
-          {account.name}
-        </h1>
-        <p className="mt-2 text-black/55">
-          {accountStatusLabels[account.status]}
-          {account.website ? ` · ${account.website}` : ""}
-        </p>
-      </div>
+      <PageHeader
+        eyebrow={`${account.industry} · ${accountTierLabels[account.tier]}`}
+        title={account.name}
+        description={`${accountStatusLabels[account.status]}${account.website ? ` · ${account.website}` : ""}`}
+      />
 
       <section className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+        <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
+          <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Open Pipeline
           </p>
           <p className="mt-3 text-2xl font-semibold tracking-[-0.04em]">
             {formatCurrency(openValue)}
           </p>
         </div>
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+        <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
+          <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Opportunities
           </p>
           <p className="mt-3 text-2xl font-semibold tracking-[-0.04em]">
             {opportunities.length}
           </p>
         </div>
-        <div className="rounded-lg border border-black/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+        <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
+          <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Contacts
           </p>
           <p className="mt-3 text-2xl font-semibold tracking-[-0.04em]">
@@ -91,9 +85,9 @@ export default async function CrmAccountDetailPage({
         </div>
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Opportunities
           </h2>
           <OpportunityCreateForm accountId={account.id} />
@@ -109,7 +103,7 @@ export default async function CrmAccountDetailPage({
               >
                 <div>
                   <p className="font-medium">{opportunity.name}</p>
-                  <p className="mt-1 text-black/55">
+                  <p className="mt-1 text-[var(--ca-platform-muted)]">
                     {formatCurrency(opportunity.amount)} ·{" "}
                     {opportunity.probability}% · Close{" "}
                     {formatDate(opportunity.expectedCloseDate)}
@@ -126,9 +120,9 @@ export default async function CrmAccountDetailPage({
         )}
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Contacts
           </h2>
           <ContactCreateForm accountId={account.id} />
@@ -147,7 +141,7 @@ export default async function CrmAccountDetailPage({
                     </span>
                   )}
                 </p>
-                <p className="mt-1 text-black/55">
+                <p className="mt-1 text-[var(--ca-platform-muted)]">
                   {[contact.title, contact.email, contact.phone]
                     .filter(Boolean)
                     .join(" · ")}
@@ -158,8 +152,8 @@ export default async function CrmAccountDetailPage({
         )}
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Activity Timeline
         </h2>
         <div className="mt-4">
@@ -175,9 +169,9 @@ export default async function CrmAccountDetailPage({
                   {activityTypeLabels[activity.type]} · {activity.subject}
                 </p>
                 {activity.body && (
-                  <p className="mt-1 text-black/55">{activity.body}</p>
+                  <p className="mt-1 text-[var(--ca-platform-muted)]">{activity.body}</p>
                 )}
-                <p className="mt-1 text-xs text-black/40">
+                <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
                   {formatDate(activity.createdAt)}
                 </p>
               </li>

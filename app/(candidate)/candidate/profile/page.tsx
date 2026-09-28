@@ -29,7 +29,7 @@ export default async function CandidateProfilePage() {
 
   if (!profile) {
     return (
-      <p className="text-sm text-black/55">Profile could not be loaded.</p>
+      <p className="text-sm text-[var(--ca-platform-muted)]">Profile could not be loaded.</p>
     );
   }
 
@@ -54,7 +54,7 @@ export default async function CandidateProfilePage() {
         description={`${candidate.firstName} ${candidate.lastName} · ${candidate.email}`}
         actions={
           <div className="ca-platform-card px-4 py-3 text-sm">
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Profile Completion
             </p>
             <p className="mt-1 text-2xl font-semibold">{completion.percent}%</p>
@@ -70,7 +70,7 @@ export default async function CandidateProfilePage() {
               ].map((item) => (
                 <li
                   key={item.label}
-                  className={item.done ? "text-black/70" : "text-black/40"}
+                  className={item.done ? "text-black/70" : "text-[var(--ca-platform-muted)]"}
                 >
                   {item.done ? "✓" : "○"} {item.label}
                 </li>
@@ -83,7 +83,7 @@ export default async function CandidateProfilePage() {
       <CandidateProfileForm candidate={candidate} />
 
       <section className="ca-platform-card p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Experience
         </h2>
         {experience.length === 0 ? (
@@ -102,7 +102,7 @@ export default async function CandidateProfilePage() {
       </section>
 
       <section className="ca-platform-card p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Education
         </h2>
         {education.length === 0 ? (
@@ -121,7 +121,7 @@ export default async function CandidateProfilePage() {
       </section>
 
       <section className="ca-platform-card p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Skills
         </h2>
         {skills.length === 0 ? (

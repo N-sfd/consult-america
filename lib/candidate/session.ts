@@ -1,7 +1,6 @@
-import { redirect } from "next/navigation";
-
-import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
+import { assertDemoSessionAllowed, isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import { getAuthenticatedPlatformUser } from "@/lib/auth/current-user";
+import { redirectToAuthorizedLanding } from "@/lib/auth/roles";
 import { recruitingRepository } from "@/lib/recruiting";
 
 /**
@@ -27,7 +26,10 @@ export const DEMO_CANDIDATE_SESSION: CandidateSession = {
 };
 
 export async function getCandidateSession(): Promise<CandidateSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_CANDIDATE_SESSION;
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("candidate");
+    return DEMO_CANDIDATE_SESSION;
+  }
 
   const platformUser = await getAuthenticatedPlatformUser();
   if (
@@ -35,13 +37,25 @@ export async function getCandidateSession(): Promise<CandidateSession> {
     !platformUser.candidateId ||
     !platformUser.roles.includes("CANDIDATE")
   ) {
-    redirect("/login?returnTo=/candidate");
+    // Authenticated but not a candidate identity (e.g. an employee/recruiter
+    // account) — send them to their own workspace, not back to /login
+    // (which would loop: proxy.ts bounces an authenticated user hitting
+    // /login straight back to a validated returnTo).
+    redirectToAuthorizedLanding(platformUser?.roles ?? []);
   }
 
   const profile = await recruitingRepository.getCandidateProfile(
     platformUser.candidateId,
   );
-  if (!profile) redirect("/login?returnTo=/candidate");
+  // A genuinely broken candidate_profiles link for an otherwise-valid
+  // candidate identity — not a role mismatch, so there's no other page to
+  // send them to. Surface it as a real error rather than redirect into the
+  // same failure again.
+  if (!profile) {
+    throw new Error(
+      `Candidate profile not found for candidateId ${platformUser.candidateId}`,
+    );
+  }
 
   return {
     candidateId: profile.candidate.id,

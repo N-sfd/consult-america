@@ -15,6 +15,7 @@ import {
   requireEmployeeActor,
   requireManagerActor,
   requirePermission,
+  requireNotSelfApproval,
   requireTeamResource,
   toActionErrorMessage,
 } from "@/lib/self-service/security";
@@ -130,6 +131,7 @@ export async function approveLeaveAction(input: {
     const existing = getLeaveRequestById(input.leaveRequestId);
     if (!existing) throw new Error("Leave request not found");
     await requireTeamResource(actor, existing.employeeId);
+    requireNotSelfApproval(actor, existing.employeeId);
 
     const request = approveLeaveRequest({
       leaveRequestId: input.leaveRequestId,
@@ -167,6 +169,7 @@ export async function rejectLeaveAction(input: {
     const existing = getLeaveRequestById(input.leaveRequestId);
     if (!existing) throw new Error("Leave request not found");
     await requireTeamResource(actor, existing.employeeId);
+    requireNotSelfApproval(actor, existing.employeeId);
 
     const request = rejectLeaveRequest({
       leaveRequestId: input.leaveRequestId,

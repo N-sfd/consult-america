@@ -41,7 +41,7 @@ export default async function WorkforceAdministrationPage() {
   const failedDeliveries = deliverySummary.failed ?? 0;
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-7 px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1400px] space-y-7">
       <PageHeader
         eyebrow="Consult America Platform"
         title="Workforce Administration"
@@ -73,7 +73,7 @@ export default async function WorkforceAdministrationPage() {
       </nav>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Users &amp; Access
           </h2>
@@ -89,7 +89,7 @@ export default async function WorkforceAdministrationPage() {
           </Link>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             System Health
           </h2>
@@ -121,7 +121,7 @@ export default async function WorkforceAdministrationPage() {
           </Link>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Notification Operations
           </h2>
@@ -130,7 +130,7 @@ export default async function WorkforceAdministrationPage() {
               <Link
                 key={status}
                 href={`/workforce/notifications?status=${status}`}
-                className="rounded-md border border-black/10 px-3 py-3 hover:border-[var(--ca-platform-deep)]/40"
+                className="rounded-md border border-[var(--ca-platform-border)] px-3 py-3 hover:border-[var(--ca-platform-deep)]/40"
               >
                 <p className="text-[0.65rem] uppercase tracking-[0.1em] text-black/40">{label}</p>
                 <p className="mt-1 text-xl font-semibold">{deliverySummary[status] ?? 0}</p>
@@ -139,7 +139,7 @@ export default async function WorkforceAdministrationPage() {
           </div>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Reports
           </h2>
@@ -154,7 +154,7 @@ export default async function WorkforceAdministrationPage() {
           </Link>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">Audit</h2>
           <p className="mt-3 text-sm text-black/55">
             Unified timeline across compliance, workforce operations, and recruiting activity.
@@ -167,7 +167,7 @@ export default async function WorkforceAdministrationPage() {
           </Link>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
             Configuration
           </h2>

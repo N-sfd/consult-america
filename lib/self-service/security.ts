@@ -1,4 +1,5 @@
 import { hrRepository } from "@/lib/hr";
+import { SafeUserError, toSafeMessage } from "@/lib/observability/safe-error";
 import { writeAuditLog } from "@/lib/self-service/audit-store";
 import { hasPermission } from "@/lib/self-service/permissions";
 import {
@@ -11,7 +12,7 @@ import {
 import { getEmployeeDocumentById } from "@/lib/documents/employee-documents-service";
 import type { SelfServicePermission } from "@/types/security";
 
-export class SecurityError extends Error {
+export class SecurityError extends SafeUserError {
   readonly code = "FORBIDDEN";
 
   constructor(message: string) {
@@ -131,6 +132,28 @@ export async function requireTeamResource(
   }
 }
 
+/**
+ * Segregation of duties for approval actions specifically. `assertTeamAccess`
+ * (used by `requireTeamResource` above) treats "actor === resource owner" as
+ * authorized, because it's reused for a manager viewing their own record
+ * (app/(manager)/manager/team/[employeeId]/page.tsx). That same shortcut must
+ * not let a manager approve, reject, or return their own submitted
+ * timesheet/leave/expense/performance-review/HR request. Call this in
+ * addition to requireTeamResource on every approve/reject/return action.
+ */
+export function requireNotSelfApproval(
+  actor: PortalActor,
+  resourceEmployeeId: string,
+): void {
+  if (actor.session.employeeId === resourceEmployeeId) {
+    deny(
+      actor,
+      "resource",
+      "Forbidden: cannot approve, reject, or return your own request",
+    );
+  }
+}
+
 /** Employee document access — never trust a document id alone. */
 export async function getAuthorizedEmployeeDocument(
   actor: PortalActor,
@@ -167,8 +190,10 @@ export async function getAuthorizedEmployeeDocument(
   return document;
 }
 
-export function toActionErrorMessage(error: unknown, fallback: string) {
-  if (error instanceof SecurityError) return error.message;
-  if (error instanceof Error) return error.message;
-  return fallback;
+export function toActionErrorMessage(
+  error: unknown,
+  fallback: string,
+  context = "self-service action",
+) {
+  return toSafeMessage(error, fallback, context);
 }

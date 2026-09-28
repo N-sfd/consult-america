@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 import Link from "next/link";
 
 import { getHrOperationalReport } from "@/lib/self-service/reporting-service";
@@ -18,26 +19,20 @@ export default async function HrReportsPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-            HR Reports
-          </h1>
-          <p className="mt-2 text-black/55">
-            Operational snapshot over Core HR, time, leave, approvals, and
-            service-desk activity. Values are calculated from live domain data —
-            no separate reporting tables.
-          </p>
-        </div>
-        <Link
-          href="/hr/audit"
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium hover:bg-black/[0.03]"
-        >
-          Open Audit Log
-        </Link>
-      </div>
+      <PageHeader
+        title="HR Reports"
+        description="Operational snapshot over Core HR, time, leave, approvals, and service-desk activity. Values are calculated from live domain data — no separate reporting tables."
+        actions={
+          <Link
+            href="/hr/audit"
+            className="rounded-md border border-[var(--ca-platform-border)] px-4 py-2 text-sm font-medium hover:bg-black/[0.03]"
+          >
+            Open Audit Log
+          </Link>
+        }
+      />
 
-      <p className="text-xs text-black/40">
+      <p className="text-xs text-[var(--ca-platform-muted)]">
         Generated {report.generatedAt.slice(0, 19).replace("T", " ")} UTC
       </p>
 
@@ -45,16 +40,16 @@ export default async function HrReportsPage() {
         {report.metrics.map((metric) => (
           <div
             key={metric.label}
-            className="rounded-lg border border-black/10 bg-white p-5"
+            className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5"
           >
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               {metric.label}
             </p>
             <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
               {metric.value}
             </p>
             {metric.hint && (
-              <p className="mt-2 text-xs text-black/45">{metric.hint}</p>
+              <p className="mt-2 text-xs text-[var(--ca-platform-muted)]">{metric.hint}</p>
             )}
           </div>
         ))}
@@ -67,15 +62,15 @@ export default async function HrReportsPage() {
 
       <section className="grid gap-6 lg:grid-cols-2">
         <BreakdownCard title="Audit Events by Type" rows={report.auditBreakdown} />
-        <div className="rounded-lg border border-black/10 bg-white p-6">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Recent Audit
           </h2>
           <ul className="mt-4 divide-y divide-black/5 text-sm">
             {report.recentAudit.map((entry) => (
               <li key={entry.id} className="py-3">
                 <p className="font-medium">{entry.summary}</p>
-                <p className="mt-1 text-xs text-black/45">
+                <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
                   {entry.eventType.replaceAll("_", " ")} ·{" "}
                   {entry.createdAt.slice(0, 10)}
                 </p>
@@ -89,15 +84,15 @@ export default async function HrReportsPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-black/10 bg-white p-6">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Outstanding Acknowledgments
           </h2>
           <ul className="mt-4 divide-y divide-black/5 text-sm">
             {report.pendingAcknowledgments.map((doc) => (
               <li key={doc.id} className="py-3">
                 <p className="font-medium">{doc.employeeName}</p>
-                <p className="mt-1 text-xs text-black/45">
+                <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
                   {doc.documentType} · uploaded {doc.uploadedAt.slice(0, 10)}
                 </p>
               </li>
@@ -120,8 +115,8 @@ function BreakdownCard({
   rows: Array<{ label: string; value: number }>;
 }) {
   return (
-    <div className="rounded-lg border border-black/10 bg-white p-6">
-      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+    <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
         {title}
       </h2>
       <ul className="mt-4 divide-y divide-black/5 text-sm">

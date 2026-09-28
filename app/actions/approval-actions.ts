@@ -21,6 +21,7 @@ import {
 import {
   requireManagerActor,
   requirePermission,
+  requireNotSelfApproval,
   requireTeamResource,
   toActionErrorMessage,
 } from "@/lib/self-service/security";
@@ -73,6 +74,7 @@ export async function actOnApprovalAction(input: {
     }
 
     await requireTeamResource(actor, approval.requesterEmployeeId);
+    requireNotSelfApproval(actor, approval.requesterEmployeeId);
 
     const comment = input.comment?.trim() ?? "";
 

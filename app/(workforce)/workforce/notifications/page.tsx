@@ -51,7 +51,7 @@ export default async function WorkforceNotificationsPage({
   });
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1400px]">
       <div>
         <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
           Workforce
@@ -110,9 +110,9 @@ export default async function WorkforceNotificationsPage({
 
       <p className="mt-6 text-sm text-black/45">{deliveries.length} matching deliveries</p>
 
-      <div className="mt-3 overflow-x-auto rounded-lg border border-black/10 bg-white">
+      <div className="mt-3 overflow-x-auto rounded-lg border border-[var(--ca-platform-border)] bg-white">
         <table className="w-full min-w-[900px] text-left text-sm">
-          <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
+          <thead className="border-b border-[var(--ca-platform-border)] bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
             <tr>
               <th className="px-4 py-3 font-medium">Recipient</th>
               <th className="px-4 py-3 font-medium">Type</th>

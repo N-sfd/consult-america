@@ -210,21 +210,22 @@ export default function Hero() {
       <div
         aria-hidden="true"
         className={cn(
-          "ca-home-sage-disc pointer-events-none absolute hidden lg:block",
-          slide.tone === "ai" ? "right-[-8%] top-[6%] h-[420px] w-[420px] opacity-50" : "right-[-4%] top-[-6%] h-[480px] w-[480px] opacity-65",
+          "ca-home-sage-disc ca-home-sage-disc--light pointer-events-none absolute hidden lg:block",
+          slide.tone === "ai" ? "right-[-8%] top-[6%] h-[420px] w-[420px] opacity-70" : "right-[-4%] top-[-6%] h-[480px] w-[480px] opacity-80",
           slide.tone !== "ai" && !shouldReduceMotion && "ca-decor-drift--slow",
         )}
       />
       <div
         aria-hidden="true"
         className={cn(
-          "ca-home-ring pointer-events-none absolute hidden opacity-[0.10] lg:block",
+          "ca-home-ring ca-home-ring--light pointer-events-none absolute hidden opacity-70 lg:block",
           slide.tone === "oracle" ? "left-[-8%] bottom-[-18%] h-[420px] w-[420px]" : "right-[8%] top-[18%] h-[340px] w-[340px]",
         )}
       />
       <HomeBackgroundArc
+        tone="light"
         className={cn(
-          "opacity-70",
+          "opacity-90",
           slide.tone === "ai" ? "-left-[16%] bottom-[-20%]" : "-right-[14%] top-[4%]",
         )}
         moving={!shouldReduceMotion && slide.tone === "transform"}

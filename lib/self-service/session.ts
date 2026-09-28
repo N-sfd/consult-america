@@ -1,8 +1,6 @@
-import { redirect } from "next/navigation";
-
-import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
+import { assertDemoSessionAllowed, isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import { getAuthenticatedPlatformUser } from "@/lib/auth/current-user";
-import { landingPathForRoles } from "@/lib/auth/roles";
+import { redirectToAuthorizedLanding } from "@/lib/auth/roles";
 import { hrRepository } from "@/lib/hr";
 
 /**
@@ -55,12 +53,16 @@ export const DEMO_PAYROLL_SESSION: PortalSession = {
   isPayroll: true,
 };
 
-async function buildRealPortalSession(
-  returnTo = "/employee",
-): Promise<PortalSession> {
+async function buildRealPortalSession(): Promise<PortalSession> {
   const platformUser = await getAuthenticatedPlatformUser();
   if (!platformUser || !platformUser.employeeId) {
-    redirect(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+    // Authenticated but no employee record linked (e.g. a candidate-only
+    // identity) — send them to their own workspace, not back to /login.
+    // Redirecting to /login with ?returnTo=<this same path> would loop
+    // forever: proxy.ts bounces a logged-in user hitting /login straight
+    // back to a validated returnTo, which immediately fails this same
+    // check again.
+    redirectToAuthorizedLanding(platformUser?.roles ?? []);
   }
 
   const roles = platformUser.roles;
@@ -74,15 +76,13 @@ async function buildRealPortalSession(
 
   if (!hasWorkforceRole) {
     // Authenticated but lacks this portal's role — send them to a route
-    // they actually have access to. Redirecting to /login here would loop
-    // forever: proxy.ts bounces a logged-in user hitting /login straight
-    // back to `returnTo`, which immediately fails this same check again.
-    redirect(landingPathForRoles(roles) ?? "/login");
+    // they actually have access to, for the same reason as above.
+    redirectToAuthorizedLanding(roles);
   }
 
   const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
   if (!employee) {
-    redirect(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+    redirectToAuthorizedLanding(roles);
   }
 
   return {
@@ -99,21 +99,33 @@ async function buildRealPortalSession(
 }
 
 export async function getEmployeeSession(): Promise<PortalSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_EMPLOYEE_SESSION;
-  return buildRealPortalSession("/employee");
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("self-service employee");
+    return DEMO_EMPLOYEE_SESSION;
+  }
+  return buildRealPortalSession();
 }
 
 export async function getManagerSession(): Promise<PortalSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_MANAGER_SESSION;
-  return buildRealPortalSession("/manager");
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("self-service manager");
+    return DEMO_MANAGER_SESSION;
+  }
+  return buildRealPortalSession();
 }
 
 export async function getHrSession(): Promise<PortalSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_HR_SESSION;
-  return buildRealPortalSession("/hr/requests");
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("self-service hr");
+    return DEMO_HR_SESSION;
+  }
+  return buildRealPortalSession();
 }
 
 export async function getPayrollSession(): Promise<PortalSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_PAYROLL_SESSION;
-  return buildRealPortalSession("/payroll");
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("self-service payroll");
+    return DEMO_PAYROLL_SESSION;
+  }
+  return buildRealPortalSession();
 }

@@ -10,13 +10,6 @@ import { stockImage, type StockImageKey } from "@/lib/marketing/stock-images";
 import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
 
-const principles = [
-  { num: "01", title: "Business context first" },
-  { num: "02", title: "Technology depth" },
-  { num: "03", title: "Production discipline" },
-  { num: "04", title: "Product mindset" },
-];
-
 const industries: {
   name: string;
   href: string;
@@ -82,34 +75,6 @@ export default function HomepageClosingSection() {
 
   return (
     <>
-      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12 lg:py-14">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
-          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
-            Why Consult America
-          </p>
-          <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
-            Built for execution, not just advice.
-          </h2>
-          <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
-            {principles.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.04, ease: revealEase }}
-                className="ca-home-pillar"
-              >
-                <p className="ca-home-pillar-num">{item.num}</p>
-                <p className="ca-home-pillar-label mt-2 text-sm font-semibold uppercase tracking-[0.06em] text-[var(--ca-ink)]">
-                  {item.title}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section
         id="industries"
         className={cn(
@@ -138,7 +103,7 @@ export default function HomepageClosingSection() {
                             "ca-practice-tech-quarter -right-[18%] bottom-[-20%] opacity-30",
                             !shouldReduceMotion && "ca-decor-drift--slow",
                           )
-                        : "ca-home-sage-disc -right-[8%] top-[6%] h-[240px] w-[240px] opacity-20",
+                        : "ca-home-sage-disc -right-[8%] top-[6%] h-[240px] w-[240px] opacity-45",
                   )}
                 />
                 <div

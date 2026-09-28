@@ -108,7 +108,7 @@ export default function JobDetailView({
   };
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1280px]">
       <Link
         href="/app/recruiting/jobs"
         className="inline-flex items-center gap-1 text-sm text-black/50 hover:text-[var(--ca-blue)]"
@@ -143,7 +143,7 @@ export default function JobDetailView({
             type="button"
             disabled
             title="Editing a published requisition is not available yet"
-            className="cursor-not-allowed border border-black/10 px-3 py-1.5 text-sm font-medium text-black/30"
+            className="cursor-not-allowed border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-black/30"
           >
             Edit unavailable
           </button>
@@ -152,7 +152,7 @@ export default function JobDetailView({
               href={`/jobs/${detail.postingSlug}`}
               target="_blank"
               rel="noreferrer"
-              className="border border-black/10 px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
+              className="border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
             >
               Preview Public Job
             </a>
@@ -160,7 +160,7 @@ export default function JobDetailView({
           <button
             type="button"
             onClick={() => selectTab("Candidate Match")}
-            className="border border-black/10 px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
+            className="border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
           >
             Candidate Match
           </button>

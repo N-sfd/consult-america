@@ -66,7 +66,7 @@ export default async function EmployeeOnboardingPage() {
         <h1 className="text-2xl font-semibold tracking-[-0.03em]">
           Onboarding
         </h1>
-        <p className="text-sm text-black/55">
+        <p className="text-sm text-[var(--ca-platform-muted)]">
           No onboarding checklist is on file for your record.
         </p>
       </div>
@@ -94,11 +94,11 @@ export default async function EmployeeOnboardingPage() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border border-black/10 bg-white p-6">
+      <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
         <h1 className="text-2xl font-semibold tracking-[-0.03em]">
           Welcome to ConsultAmerica, {firstName}
         </h1>
-        <p className="mt-2 text-sm text-black/55">
+        <p className="mt-2 text-sm text-[var(--ca-platform-muted)]">
           Your first day
           <span className="ml-2 font-medium text-black/80">
             {formatDate(onboarding.record.startDate)}
@@ -122,7 +122,7 @@ export default async function EmployeeOnboardingPage() {
             </div>
             <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-black/10">
               <div
-                className="h-full rounded-full bg-[var(--ca-blue)] transition-[width]"
+                className="h-full rounded-full bg-[var(--ca-platform-mid)] transition-[width]"
                 style={{ width: `${onboarding.percentComplete}%` }}
               />
             </div>
@@ -136,7 +136,7 @@ export default async function EmployeeOnboardingPage() {
 
         return (
           <section key={group}>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               {GROUP_LABELS[group]}
             </h2>
             <div className="mt-3 space-y-3">
@@ -149,8 +149,8 @@ export default async function EmployeeOnboardingPage() {
       })}
 
       {completed.length > 0 && (
-        <details className="group rounded-lg border border-black/10 bg-white">
-          <summary className="flex cursor-pointer list-none items-center justify-between px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <details className="group rounded-lg border border-[var(--ca-platform-border)] bg-white">
+          <summary className="flex cursor-pointer list-none items-center justify-between px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             <span>Completed ({completed.length})</span>
             <span className="text-black/30 group-open:rotate-180">▾</span>
           </summary>
@@ -166,7 +166,7 @@ export default async function EmployeeOnboardingPage() {
                     {task.title}
                   </p>
                   {task.completedAt && (
-                    <p className="mt-0.5 text-xs text-black/40">
+                    <p className="mt-0.5 text-xs text-[var(--ca-platform-muted)]">
                       Completed {formatDate(task.completedAt)}
                     </p>
                   )}
@@ -197,13 +197,13 @@ function TaskCard({ task }: { task: OnboardingTask }) {
   const action = taskAction(task);
 
   return (
-    <div className="rounded-lg border border-black/10 bg-white p-5">
+    <div className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
       <div className="flex items-start gap-3">
         <Circle
           className={cn(
             "mt-0.5 h-4 w-4 shrink-0",
             task.status === "IN_PROGRESS"
-              ? "text-[var(--ca-blue)]"
+              ? "text-[var(--ca-platform-mid)]"
               : "text-black/25",
           )}
         />
@@ -211,19 +211,19 @@ function TaskCard({ task }: { task: OnboardingTask }) {
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <p className="text-sm font-medium">{task.title}</p>
             {task.dueDate && (
-              <p className="text-xs text-black/45">
+              <p className="text-xs text-[var(--ca-platform-muted)]">
                 Due {formatDate(task.dueDate)}
               </p>
             )}
           </div>
           {task.description && (
-            <p className="mt-1.5 text-sm text-black/55">
+            <p className="mt-1.5 text-sm text-[var(--ca-platform-muted)]">
               {task.description}
             </p>
           )}
           <Link
             href={action.href}
-            className="mt-3 inline-flex text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="mt-3 inline-flex text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
           >
             {action.label}
           </Link>

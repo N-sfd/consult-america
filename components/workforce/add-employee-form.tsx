@@ -29,7 +29,7 @@ const WORK_AUTHORIZATION_TYPES = [
 ];
 
 const fieldClass =
-  "mt-1.5 h-9 w-full rounded-md border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
+  "mt-1.5 h-9 w-full rounded-md border border-[var(--ca-platform-border)] bg-white px-3 text-sm outline-none focus:border-[var(--ca-platform-mid)]";
 const labelClass = "text-xs font-medium uppercase tracking-[0.08em] text-black/45";
 
 export default function AddEmployeeForm({
@@ -95,7 +95,7 @@ export default function AddEmployeeForm({
   }
 
   return (
-    <div className="mx-auto max-w-[860px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[860px]">
       <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">People</p>
       <h1 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.03em]">
         Add Employee
@@ -114,7 +114,7 @@ export default function AddEmployeeForm({
           </div>
         ) : null}
 
-        <section className="rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+        <section className="rounded-xl border border-[var(--ca-platform-border)] bg-white p-6 shadow-sm">
           <h2 className="font-serif text-lg font-semibold">Personal</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label>
@@ -140,7 +140,7 @@ export default function AddEmployeeForm({
           </div>
         </section>
 
-        <section className="rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+        <section className="rounded-xl border border-[var(--ca-platform-border)] bg-white p-6 shadow-sm">
           <h2 className="font-serif text-lg font-semibold">Employment</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label>
@@ -232,7 +232,7 @@ export default function AddEmployeeForm({
           </div>
         </section>
 
-        <section className="rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+        <section className="rounded-xl border border-[var(--ca-platform-border)] bg-white p-6 shadow-sm">
           <h2 className="font-serif text-lg font-semibold">Work Authorization</h2>
           <p className="mt-1 text-sm text-black/50">
             Operational tracking only — this does not make or record any

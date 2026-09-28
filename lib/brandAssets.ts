@@ -31,7 +31,7 @@ export const brandDisplay = {
   footer: { maxWidth: 400, maxHeight: 68, asset: "balanced" as const },
   /**
    * Portal sidebar lockup — same approved dimensions as marketing.
-   * Shell width (--workspace-sidebar-width) must contain this; never shrink the logo.
+   * Shell width (--workspace-sidebar-width: 500px) must contain this + inset; never shrink the logo.
    */
   portal: { maxWidth: 440, maxHeight: 72, asset: "balanced" as const },
   /** Auth header — full title + tagline, vertically centered with mark */

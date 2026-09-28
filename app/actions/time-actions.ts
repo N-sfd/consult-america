@@ -8,6 +8,7 @@ import {
   requireEmployeeActor,
   requireManagerActor,
   requirePermission,
+  requireNotSelfApproval,
   requireTeamResource,
   toActionErrorMessage,
 } from "@/lib/self-service/security";
@@ -119,6 +120,7 @@ export async function approveTimesheetAction(input: {
     const sheet = getTimesheetById(input.timesheetId);
     if (!sheet) throw new Error("Timesheet not found");
     await requireTeamResource(actor, sheet.employeeId);
+    requireNotSelfApproval(actor, sheet.employeeId);
 
     approveTimesheet({
       timesheetId: input.timesheetId,
@@ -156,6 +158,7 @@ export async function rejectTimesheetAction(input: {
     const sheet = getTimesheetById(input.timesheetId);
     if (!sheet) throw new Error("Timesheet not found");
     await requireTeamResource(actor, sheet.employeeId);
+    requireNotSelfApproval(actor, sheet.employeeId);
 
     rejectTimesheet({
       timesheetId: input.timesheetId,
@@ -194,6 +197,7 @@ export async function returnTimesheetAction(input: {
     const sheet = getTimesheetById(input.timesheetId);
     if (!sheet) throw new Error("Timesheet not found");
     await requireTeamResource(actor, sheet.employeeId);
+    requireNotSelfApproval(actor, sheet.employeeId);
 
     returnTimesheet({
       timesheetId: input.timesheetId,

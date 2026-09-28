@@ -43,7 +43,7 @@ export default async function EmployeeHrRequestDetailPage({
     <div className="space-y-6">
       <Link
         href="/employee/requests"
-        className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+        className="text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
       >
         ← Back to HR Requests
       </Link>

@@ -18,7 +18,7 @@ type ReferenceItem = { id: string; name: string };
 type PositionItem = { id: string; title: string; departmentId: string };
 
 const fieldClass =
-  "mt-1.5 h-9 w-full border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
+  "mt-1.5 h-9 w-full border border-[var(--ca-platform-border)] bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
 
 export default function JobForm({
   departments,
@@ -104,7 +104,7 @@ export default function JobForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto max-w-[860px] px-4 py-5 lg:px-8 lg:py-6"
+      className="mx-auto max-w-[860px]"
     >
       <h1 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[var(--ca-app-ink)]">
         New Requisition
@@ -251,7 +251,7 @@ export default function JobForm({
         </div>
       </Section>
 
-      <div className="mt-6 flex items-center justify-between border-t border-black/10 pt-5">
+      <div className="mt-6 flex items-center justify-between border-t border-[var(--ca-platform-border)] pt-5">
         <Link
           href="/app/recruiting/jobs"
           className="text-sm font-medium text-black/55 hover:text-[var(--ca-app-ink)]"
@@ -264,7 +264,7 @@ export default function JobForm({
             name="action"
             value="draft"
             disabled={submitting !== null}
-            className="border border-black/10 px-3.5 py-2 text-sm font-medium text-[var(--ca-app-ink)] disabled:opacity-50"
+            className="border border-[var(--ca-platform-border)] px-3.5 py-2 text-sm font-medium text-[var(--ca-app-ink)] disabled:opacity-50"
           >
             {submitting === "draft" ? "Saving…" : "Save Draft"}
           </button>

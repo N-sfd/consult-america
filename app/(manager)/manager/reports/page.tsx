@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 import Link from "next/link";
 
 import { getManagerTeamReport } from "@/lib/self-service/reporting-service";
@@ -19,26 +20,23 @@ export default async function ManagerReportsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Team Reports
-        </h1>
-        <p className="mt-2 text-black/55">
-          Direct-report operational view. Scoped to your team — not an HR
-          employee directory.
-        </p>
-        <p className="mt-2 text-xs text-black/40">
-          Generated {report.generatedAt.slice(0, 19).replace("T", " ")} UTC
-        </p>
-      </div>
+      <PageHeader
+        title="Team Reports"
+        description="Direct-report operational view. Scoped to your team — not an HR employee directory."
+        meta={
+          <p className="text-xs text-[var(--ca-platform-muted)]">
+            Generated {report.generatedAt.slice(0, 19).replace("T", " ")} UTC
+          </p>
+        }
+      />
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {report.metrics.map((metric) => (
           <div
             key={metric.label}
-            className="rounded-lg border border-black/10 bg-white p-5"
+            className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5"
           >
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               {metric.label}
             </p>
             <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
@@ -48,21 +46,21 @@ export default async function ManagerReportsPage() {
         ))}
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Direct Reports
           </h2>
           <Link
             href="/manager/team"
-            className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
           >
             Open My Team
           </Link>
         </div>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-left text-sm">
-            <thead className="border-b border-black/10 text-xs uppercase tracking-[0.08em] text-black/40">
+            <thead className="border-b border-[var(--ca-platform-border)] text-xs uppercase tracking-[0.08em] text-[var(--ca-platform-muted)]">
               <tr>
                 <th className="py-2 pr-4 font-medium">Name</th>
                 <th className="py-2 pr-4 font-medium">Position</th>
@@ -76,13 +74,13 @@ export default async function ManagerReportsPage() {
                   <td className="py-3 pr-4">
                     <Link
                       href={`/manager/team/${row.employeeId}`}
-                      className="font-medium text-[var(--ca-blue)] hover:underline"
+                      className="font-medium text-[var(--ca-platform-mid)] hover:underline"
                     >
                       {row.name}
                     </Link>
                   </td>
-                  <td className="py-3 pr-4 text-black/55">{row.position}</td>
-                  <td className="py-3 pr-4 text-black/55">{row.status}</td>
+                  <td className="py-3 pr-4 text-[var(--ca-platform-muted)]">{row.position}</td>
+                  <td className="py-3 pr-4 text-[var(--ca-platform-muted)]">{row.status}</td>
                   <td className="py-3 font-medium">{row.ptoAvailable}h</td>
                 </tr>
               ))}
@@ -98,14 +96,14 @@ export default async function ManagerReportsPage() {
         </div>
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Pending Approvals
           </h2>
           <Link
             href="/manager/approvals"
-            className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+            className="text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
           >
             Open Inbox
           </Link>
@@ -117,12 +115,12 @@ export default async function ManagerReportsPage() {
               className="flex flex-wrap items-center justify-between gap-3 py-3"
             >
               <div>
-                <p className="text-xs uppercase tracking-[0.1em] text-[var(--ca-blue)]">
+                <p className="text-xs uppercase tracking-[0.1em] text-[var(--ca-platform-mid)]">
                   {approvalRequestTypeLabels[item.requestType]}
                 </p>
                 <p className="mt-1 font-medium">{item.summary}</p>
               </div>
-              <span className="text-xs text-black/40">
+              <span className="text-xs text-[var(--ca-platform-muted)]">
                 {item.submittedAt.slice(0, 10)}
               </span>
             </li>

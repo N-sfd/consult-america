@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import PayslipList from "@/components/employee/payslip-list";
 import { listPayslipsForEmployee } from "@/lib/self-service/payroll-store";
@@ -29,18 +30,16 @@ export default async function EmployeePayPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">My Pay</h1>
-        <p className="mt-2 text-black/55">
-          Illustrative figures — not a real payroll calculation.
-        </p>
-      </div>
+      <PageHeader
+        title="My Pay"
+        description="Illustrative figures — not a real payroll calculation."
+      />
 
       {latest ? (
-        <section className="rounded-lg border border-black/10 bg-white p-6">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
           <div className="grid gap-6 sm:grid-cols-3">
             <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+              <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
                 Last Pay
               </p>
               <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
@@ -48,7 +47,7 @@ export default async function EmployeePayPage() {
               </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+              <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
                 Net Pay
               </p>
               <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
@@ -56,7 +55,7 @@ export default async function EmployeePayPage() {
               </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+              <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
                 Gross Pay
               </p>
               <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
@@ -69,8 +68,8 @@ export default async function EmployeePayPage() {
         <p className="text-sm text-black/50">No payslips on file yet.</p>
       )}
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Recent Payslips
         </h2>
         <div className="mt-4">

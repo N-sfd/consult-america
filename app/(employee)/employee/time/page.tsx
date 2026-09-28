@@ -39,7 +39,7 @@ export default async function EmployeeTimePage() {
         actions={
           <a
             href="/api/exports/time-entries"
-            className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
+            className="rounded-md border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
           >
             Export CSV
           </a>
@@ -55,8 +55,8 @@ export default async function EmployeeTimePage() {
         />
       )}
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           History
         </h2>
         {history.length === 0 ? (
@@ -78,7 +78,7 @@ export default async function EmployeeTimePage() {
                 <span>
                   {sheet.periodStart} – {sheet.periodEnd}
                 </span>
-                <span className="text-black/55">
+                <span className="text-[var(--ca-platform-muted)]">
                   {timesheetStatusLabels[sheet.status]} · {sheet.totalHours}h
                 </span>
               </li>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import JourneyConnector from "@/components/marketing/journey-connector";
 import { stockImage } from "@/lib/marketing/stock-images";
 import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 import { cn } from "@/lib/utils";
@@ -55,6 +56,7 @@ export default function OracleFlagship() {
       id="oracle-practice"
       className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F8FAF9] py-12 sm:py-14 lg:py-16"
     >
+      <JourneyConnector />
       <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
           <motion.div
@@ -109,7 +111,7 @@ export default function OracleFlagship() {
 
           <div className="lg:col-span-7">
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-              Oracle Flagship Practice
+              02 / 05 · Oracle Flagship Practice
             </p>
             <h2 className="mt-3 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Modernize the digital core.

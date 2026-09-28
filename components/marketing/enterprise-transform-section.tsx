@@ -58,7 +58,7 @@ export default function EnterpriseTransformSection() {
             className="lg:col-span-7"
           >
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-              Enterprise Transformation
+              01 / 05 · Enterprise Transformation
             </p>
             <h2 className="mt-3 max-w-xl font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Transformation that stays connected to delivery.

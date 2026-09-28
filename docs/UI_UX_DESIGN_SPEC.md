@@ -119,7 +119,9 @@ Do not reuse Insights reading column or marketing hero type inside Application s
 
 ```text
 Workspace width    1280–1440px
-Sidebar            240–280px deep teal (#0B4655)
+Sidebar            520px deep teal (#0B4655) — `--workspace-sidebar-width`; deliberately
+                   widened to fully contain the brand lockup (see styles/platform.css);
+                   mobile drawer uses min(520px, 92vw)
 Base type          14–16px sans
 Table / status     11–12px uppercase chips (StatusBadge)
 Spacing            8 / 12 / 16 / 24
@@ -147,6 +149,24 @@ Jobs browse may use `.experience-careers` (editorial). Apply must use `.experien
 Shared app: StatusBadge, DataTable, FilterBar, FormField/FormSection, EmptyState, Drawer/Modal, ApprovalActions, PageHeader.
 
 Marketing: Section/SectionLabel, EditorialImage, ArchImage, ClippedImage, ProductFrame, InsightToc, PullQuote, ArticleCta.
+
+### 7.1 Standard UI states
+
+Nine states every operational surface should handle consistently — use these, don't hand-roll a new local variant:
+
+| State | Component | Notes |
+|---|---|---|
+| Loading | `LoadingState` (`components/shared/loading-state.tsx`) | Replaces ad hoc inline `Loader2`/`animate-spin` |
+| Empty | `EmptyState` (`components/shared/empty-state.tsx`) | Already the standard; keep using it |
+| Partial data | `EmptyState` with a qualifying description, or render available fields with an inline note | No dedicated component — partial data is a copy/layout concern, not a new primitive |
+| Permission denied | `RouteAccessError` via each route group's `error.tsx` | Cannot reliably distinguish from a crash in production (Next redacts thrown messages) — see the component's own code comment |
+| Validation failure | `FormField`'s `error` prop (field-level); no form-level summary component exists yet | Field-level only today — a form-level summary is a documented gap, not built in this pass |
+| Backend unavailable | `BackendUnavailableState` (`components/shared/backend-unavailable.tsx`) | For a *proactively detected* condition (e.g. a page checks `isSupabaseConfigured()`), distinct from an unexpected crash |
+| Action success | `ActionBanner variant="success"` (`components/shared/action-banner.tsx`) | Renders a server action's `{ ok: true, message }` |
+| Action failure | `ActionBanner variant="error"` | Renders a server action's `{ ok: false, message }` — that `message` must already be safe (see `lib/observability/safe-error.ts`), never a raw thrown error |
+| Retryable failure | `ActionBanner variant="error"` + a retry button (see `components/workforce/retry-delivery-button.tsx` for the reference pattern) | No generic shared `RetryButton` component yet — each retry action still wires its own button/transition |
+
+**Never render a raw thrown error, Supabase/Postgres exception, or `error.message` from an unexpected error type directly to the user.** Server actions must resolve their catch block through `toSafeMessage()` / `toActionErrorMessage()` (`lib/observability/safe-error.ts`, `lib/self-service/security.ts`), which logs full technical detail server-side via `logServerError()` and returns only a safe, generic fallback for anything that isn't an intentionally user-facing `SafeUserError`.
 
 ---
 

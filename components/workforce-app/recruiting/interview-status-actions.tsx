@@ -6,7 +6,7 @@ import { updateInterviewStatus } from "@/lib/recruiting/actions";
 import type { InterviewStatus } from "@/types/recruiting";
 
 const buttonClass =
-  "border border-black/10 px-2 py-0.5 text-[0.65rem] font-medium text-black/60 transition-colors hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)] disabled:opacity-50";
+  "border border-[var(--ca-platform-border)] px-2 py-0.5 text-[0.65rem] font-medium text-black/60 transition-colors hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)] disabled:opacity-50";
 
 export default function InterviewStatusActions({
   interviewId,

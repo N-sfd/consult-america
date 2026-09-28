@@ -6,7 +6,8 @@
    * Must fully contain PortalBrand lockup (marketing: 440px max) + horizontal padding + breathing room.
    * Never shrink the logo to fit — widen the shell instead.
    */
-  --workspace-sidebar-width: 520px;
+  --workspace-sidebar-width: 500px;
+  --workspace-sidebar-inset: 24px;
 
   /* Dense operational app shell — teal chrome, pale canvas, lime active */
   --ca-platform-sidebar: var(--workspace-sidebar-width);
@@ -93,7 +94,7 @@
 .ca-portal-brand--block,
 .ca-portal-brand--light {
   min-height: 112px;
-  padding: 18px 24px;
+  padding: 18px var(--workspace-sidebar-inset);
   background: #ffffff;
   overflow: visible;
 }
@@ -126,14 +127,14 @@
 }
 
 .ca-platform-sidebar-identity {
-  padding: 1rem 1.15rem 0.85rem;
+  padding: 1rem var(--workspace-sidebar-inset) 0.85rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .ca-platform-sidebar--self-service .ca-platform-sidebar-identity,
 .ca-platform-sidebar--candidate .ca-platform-sidebar-identity {
   border-bottom-color: rgba(255, 255, 255, 0.08);
-  padding-top: 0.35rem;
+  padding-top: 0.85rem;
 }
 
 .ca-platform-workspace-name {
@@ -167,7 +168,7 @@
 .ca-platform-nav {
   flex: 1;
   overflow-y: auto;
-  padding: 0.85rem 0.7rem 1rem;
+  padding: 0.85rem calc(var(--workspace-sidebar-inset) - 8px) 1rem;
 }
 
 .ca-platform-nav-group + .ca-platform-nav-group {
@@ -175,7 +176,7 @@
 }
 
 .ca-platform-nav-label {
-  margin: 0 0.55rem 0.35rem;
+  margin: 0 0.5rem 0.35rem;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -219,20 +220,6 @@
   font-weight: 600;
 }
 
-.ca-platform-sidebar--admin .ca-platform-nav-link.is-active::before,
-.ca-platform-sidebar--crm .ca-platform-nav-link.is-active::before,
-.ca-platform-sidebar--self-service .ca-platform-nav-link.is-active::before,
-.ca-platform-sidebar--candidate .ca-platform-nav-link.is-active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 20%;
-  bottom: 20%;
-  width: 2px;
-  border-radius: 2px;
-  background: var(--ca-platform-red);
-}
-
 .ca-platform-nav-link.is-disabled {
   cursor: not-allowed;
   opacity: 0.4;
@@ -241,17 +228,17 @@
 .ca-platform-badge {
   min-width: 1.25rem;
   border-radius: 999px;
-  background: var(--ca-platform-red);
+  background: var(--ca-platform-accent, var(--ca-lime, #c9f45a));
   padding: 0.1rem 0.4rem;
   font-size: 0.65rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--ca-platform-accent-fg, var(--ca-ink, #102f35));
   text-align: center;
 }
 
 .ca-platform-sidebar-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.85rem 1rem 1rem;
+  padding: 0.85rem var(--workspace-sidebar-inset) 1rem;
   font-size: 0.75rem;
 }
 
@@ -279,7 +266,7 @@
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   padding: 0 1rem;
-  overflow-x: hidden;
+  overflow-x: visible;
 }
 
 .ca-platform-header-brand {
@@ -538,7 +525,16 @@
   width: min(var(--workspace-sidebar-width), 92vw);
   transform: translateX(-105%);
   transition: transform 280ms ease;
-  overflow-x: hidden;
+  overflow-x: visible;
+  overflow-y: auto;
+}
+
+/* Drawer uses compact brand — never shrink or clip the full desktop lockup. */
+.ca-platform-drawer .ca-portal-brand--block,
+.ca-platform-drawer .ca-portal-brand--light,
+.ca-portal-brand--drawer {
+  min-height: 72px;
+  padding: 14px var(--workspace-sidebar-inset);
 }
 
 .ca-platform-drawer.is-open {

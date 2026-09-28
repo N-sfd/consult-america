@@ -20,7 +20,7 @@ type JobOption = {
 type InputMode = "existing" | "paste" | "upload";
 
 const fieldClass =
-  "mt-1.5 h-9 w-full border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
+  "mt-1.5 h-9 w-full border border-[var(--ca-platform-border)] bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
 
 function scoreTone(score: number) {
   if (score >= 70) return { ring: "#059669", track: "rgba(5,150,105,0.15)" };
@@ -307,7 +307,7 @@ export default function CandidateMatchForm({
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 rows={8}
-                className="mt-1.5 w-full border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-[var(--ca-blue)]"
+                className="mt-1.5 w-full border border-[var(--ca-platform-border)] bg-white px-3 py-2 text-sm outline-none focus:border-[var(--ca-blue)]"
               />
             </label>
           </div>
@@ -341,7 +341,7 @@ export default function CandidateMatchForm({
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 rows={6}
-                className="w-full border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-[var(--ca-blue)]"
+                className="w-full border border-[var(--ca-platform-border)] bg-white px-3 py-2 text-sm outline-none focus:border-[var(--ca-blue)]"
               />
             ) : null}
           </div>
@@ -365,7 +365,7 @@ export default function CandidateMatchForm({
       ) : null}
 
       {embedded && analyzing && !results ? (
-        <p className="border border-dashed border-black/10 bg-white px-5 py-8 text-center text-sm text-black/45">
+        <p className="border border-dashed border-[var(--ca-platform-border)] bg-white px-5 py-8 text-center text-sm text-black/45">
           Analyzing applicants against this requisition…
         </p>
       ) : null}
@@ -387,7 +387,7 @@ export default function CandidateMatchForm({
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="ml-1 h-8 border border-black/10 bg-white px-2 text-sm outline-none focus:border-[var(--ca-blue)]"
+                  className="ml-1 h-8 border border-[var(--ca-platform-border)] bg-white px-2 text-sm outline-none focus:border-[var(--ca-blue)]"
                 >
                   <option value="match">Match Score</option>
                   <option value="name">Candidate Name</option>
@@ -406,13 +406,13 @@ export default function CandidateMatchForm({
           </div>
 
           {sortedCandidates.length === 0 ? (
-            <p className="mt-4 border border-dashed border-black/10 bg-white px-5 py-8 text-center text-sm text-black/45">
+            <p className="mt-4 border border-dashed border-[var(--ca-platform-border)] bg-white px-5 py-8 text-center text-sm text-black/45">
               No authorized candidates found for this job.
             </p>
           ) : (
             <div className="mt-4 space-y-4">
               {compared.length >= 2 ? (
-                <div className="overflow-x-auto rounded-lg border border-black/10 bg-[#F8FAFC] p-4">
+                <div className="overflow-x-auto rounded-lg border border-[var(--ca-platform-border)] bg-[#F8FAFC] p-4">
                   <h3 className="text-sm font-semibold">Compare selected ({compared.length})</h3>
                   <table className="mt-3 w-full min-w-[700px] text-left text-sm">
                     <thead className="text-xs uppercase tracking-[0.08em] text-black/40">

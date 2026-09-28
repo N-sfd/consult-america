@@ -48,7 +48,7 @@ export default function CandidateProfile({
     : `${candidate.firstName} ${candidate.lastName}`;
 
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1200px]">
       <Link
         href="/app/recruiting/candidates"
         className="inline-flex items-center gap-1 text-sm text-black/50 hover:text-[var(--ca-blue)]"
@@ -76,7 +76,7 @@ export default function CandidateProfile({
         <div className="flex flex-wrap gap-2">
           <a
             href={`mailto:${candidate.email}`}
-            className="border border-black/10 px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] transition-colors hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
+            className="border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-[var(--ca-app-ink)] transition-colors hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)]"
           >
             Email
           </a>
@@ -84,7 +84,7 @@ export default function CandidateProfile({
             type="button"
             disabled
             title="Interview scheduling is coming soon"
-            className="cursor-not-allowed border border-black/10 px-3 py-1.5 text-sm font-medium text-black/30"
+            className="cursor-not-allowed border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-black/30"
           >
             Schedule
           </button>
@@ -92,14 +92,14 @@ export default function CandidateProfile({
             type="button"
             disabled
             title="Stage transitions are coming soon"
-            className="cursor-not-allowed border border-black/10 px-3 py-1.5 text-sm font-medium text-black/30"
+            className="cursor-not-allowed border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-black/30"
           >
             Move Stage
           </button>
           <button
             type="button"
             disabled
-            className="cursor-not-allowed border border-black/10 px-3 py-1.5 text-sm font-medium text-black/30"
+            className="cursor-not-allowed border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-black/30"
           >
             More
           </button>
@@ -178,7 +178,7 @@ export default function CandidateProfile({
                   {skills.map((skill) => (
                     <span
                       key={skill.id}
-                      className="border border-black/10 px-2 py-0.5 text-xs text-black/60"
+                      className="border border-[var(--ca-platform-border)] px-2 py-0.5 text-xs text-black/60"
                     >
                       {skill.skill}
                     </span>
@@ -288,7 +288,7 @@ export default function CandidateProfile({
               {skills.map((skill) => (
                 <span
                   key={skill.id}
-                  className="border border-black/10 px-2 py-0.5 text-xs text-black/60"
+                  className="border border-[var(--ca-platform-border)] px-2 py-0.5 text-xs text-black/60"
                 >
                   {skill.skill}
                 </span>

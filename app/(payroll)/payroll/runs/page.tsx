@@ -37,9 +37,9 @@ export default function PayrollRunsPage() {
           description="Open a pay period to start a payroll run."
         />
       ) : (
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
+        <div className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
+            <thead className="border-b border-[var(--ca-platform-border)] bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-[var(--ca-platform-muted)]">
               <tr>
                 <th className="px-4 py-3 font-medium">Pay Period</th>
                 <th className="px-4 py-3 font-medium">Pay Date</th>
@@ -56,13 +56,13 @@ export default function PayrollRunsPage() {
                     <td className="px-4 py-4 font-medium">
                       {formatDate(period.periodStart)} – {formatDate(period.periodEnd)}
                     </td>
-                    <td className="px-4 py-4 text-black/55">
+                    <td className="px-4 py-4 text-[var(--ca-platform-muted)]">
                       {formatDate(period.payDate)}
                     </td>
-                    <td className="px-4 py-4 text-black/55">
+                    <td className="px-4 py-4 text-[var(--ca-platform-muted)]">
                       {run ? payrollRunStatusLabels[run.status] : "Not started"}
                     </td>
-                    <td className="px-4 py-4 text-black/55">
+                    <td className="px-4 py-4 text-[var(--ca-platform-muted)]">
                       {run
                         ? run.totalNetPay.toLocaleString("en-US", {
                             style: "currency",
@@ -74,7 +74,7 @@ export default function PayrollRunsPage() {
                       {run ? (
                         <Link
                           href={`/payroll/runs/${run.id}`}
-                          className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+                          className="text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
                         >
                           {run.status === "LOCKED" ? "View" : "Continue"}
                         </Link>

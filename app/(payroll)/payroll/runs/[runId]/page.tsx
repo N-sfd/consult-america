@@ -56,22 +56,22 @@ export default async function PayrollRunDetailPage({
         }
       />
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
         <div className="grid gap-6 sm:grid-cols-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">Status</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">Status</p>
             <p className="mt-2 text-lg font-semibold">
               {payrollRunStatusLabels[run.status]}
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Employees
             </p>
             <p className="mt-2 text-lg font-semibold">{run.employeeCount}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Gross Payroll
             </p>
             <p className="mt-2 text-lg font-semibold">
@@ -79,7 +79,7 @@ export default async function PayrollRunDetailPage({
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+            <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Net Payroll
             </p>
             <p className="mt-2 text-lg font-semibold">
@@ -93,7 +93,7 @@ export default async function PayrollRunDetailPage({
         </div>
       </section>
 
-      <section className="overflow-hidden rounded-lg border border-black/10 bg-white">
+      <section className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
         {rows.length === 0 ? (
           <EmptyState
             compact
@@ -103,7 +103,7 @@ export default async function PayrollRunDetailPage({
           />
         ) : (
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
+            <thead className="border-b border-[var(--ca-platform-border)] bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-[var(--ca-platform-muted)]">
               <tr>
                 <th className="px-4 py-3 font-medium">Employee</th>
                 <th className="px-4 py-3 font-medium">Gross Pay</th>
@@ -115,8 +115,8 @@ export default async function PayrollRunDetailPage({
               {rows.map(({ slip, name }) => (
                 <tr key={slip.id} className="border-b border-black/5 last:border-b-0">
                   <td className="px-4 py-4 font-medium">{name}</td>
-                  <td className="px-4 py-4 text-black/55">{currency(slip.grossPay)}</td>
-                  <td className="px-4 py-4 text-black/55">
+                  <td className="px-4 py-4 text-[var(--ca-platform-muted)]">{currency(slip.grossPay)}</td>
+                  <td className="px-4 py-4 text-[var(--ca-platform-muted)]">
                     {currency(slip.totalDeductions)}
                   </td>
                   <td className="px-4 py-4 font-medium">{currency(slip.netPay)}</td>

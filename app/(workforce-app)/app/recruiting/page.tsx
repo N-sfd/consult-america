@@ -109,7 +109,7 @@ export default async function AtsHomePage() {
           <Link
             key={card.label}
             href={card.href}
-            className="rounded-lg border border-black/10 bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)] hover:border-[var(--ca-platform-deep)]/30"
+            className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)] hover:border-[var(--ca-platform-deep)]/30"
           >
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-black/40">
               {card.label}
@@ -119,7 +119,7 @@ export default async function AtsHomePage() {
         ))}
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-5">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
             Application Pipeline
@@ -133,7 +133,7 @@ export default async function AtsHomePage() {
         </div>
         <div className="mt-4 grid gap-2 sm:grid-cols-5">
           {data.pipeline.map((stage) => (
-            <div key={stage.key} className="rounded-md border border-black/10 px-3 py-3">
+            <div key={stage.key} className="rounded-md border border-[var(--ca-platform-border)] px-3 py-3">
               <p className="text-xl font-semibold">{stage.count}</p>
               <p className="mt-1 text-xs text-black/50">{stage.label}</p>
             </div>
@@ -142,8 +142,8 @@ export default async function AtsHomePage() {
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-lg border border-black/10 bg-white">
-          <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white">
+          <div className="flex items-center justify-between border-b border-[var(--ca-platform-border)] px-5 py-4">
             <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
               Upcoming Interviews
             </h2>
@@ -177,8 +177,8 @@ export default async function AtsHomePage() {
           </ul>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white">
-          <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white">
+          <div className="flex items-center justify-between border-b border-[var(--ca-platform-border)] px-5 py-4">
             <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
               Recent Applications
             </h2>
@@ -216,8 +216,8 @@ export default async function AtsHomePage() {
           </ul>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white">
-          <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white">
+          <div className="flex items-center justify-between border-b border-[var(--ca-platform-border)] px-5 py-4">
             <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
               Offers Requiring Action
             </h2>
@@ -251,8 +251,8 @@ export default async function AtsHomePage() {
           </ul>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white">
-          <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white">
+          <div className="flex items-center justify-between border-b border-[var(--ca-platform-border)] px-5 py-4">
             <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
               Recent Candidate Match Runs
             </h2>
@@ -295,8 +295,8 @@ export default async function AtsHomePage() {
           </ul>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white">
-          <div className="border-b border-black/10 px-5 py-4">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white">
+          <div className="border-b border-[var(--ca-platform-border)] px-5 py-4">
             <h2 className="text-lg font-semibold tracking-tight text-[var(--ca-app-ink)]">
               Recent Hires
             </h2>

@@ -14,6 +14,7 @@ import {
   requireEmployeeActor,
   requireManagerActor,
   requirePermission,
+  requireNotSelfApproval,
   requireTeamResource,
   toActionErrorMessage,
 } from "@/lib/self-service/security";
@@ -129,6 +130,7 @@ export async function submitManagerAssessmentAction(input: {
     const existing = getReviewById(input.reviewId);
     if (!existing) throw new Error("Review not found");
     await requireTeamResource(actor, existing.employeeId);
+    requireNotSelfApproval(actor, existing.employeeId);
 
     submitManagerAssessment({
       reviewId: input.reviewId,

@@ -46,7 +46,7 @@ export default async function EmployeeLeavePage() {
           <div className="flex items-start gap-2">
             <a
               href="/api/exports/leave-requests"
-              className="rounded-md border border-black/15 px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
+              className="rounded-md border border-[var(--ca-platform-border)] px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
             >
               Export CSV
             </a>
@@ -67,23 +67,23 @@ export default async function EmployeeLeavePage() {
             return (
               <div
                 key={balance.id}
-                className="rounded-lg border border-black/10 bg-white p-5"
+                className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5"
               >
-                <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+                <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
                   {type?.name ?? "Leave"}
                 </p>
                 <p className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
                   {balance.available}
                 </p>
-                <p className="mt-2 text-xs text-black/45">Hours available</p>
+                <p className="mt-2 text-xs text-[var(--ca-platform-muted)]">Hours available</p>
               </div>
             );
           })}
         </section>
       )}
 
-      <section className="rounded-lg border border-black/10 bg-white p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-6">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Upcoming Leave
         </h2>
         {upcoming ? (
@@ -92,7 +92,7 @@ export default async function EmployeeLeavePage() {
               <p className="font-medium">
                 {upcoming.startDate} – {upcoming.endDate}
               </p>
-              <p className="mt-1 text-sm text-black/55">
+              <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                 {upcomingType?.name ?? "Leave"} · {upcoming.hours} hours
               </p>
             </div>

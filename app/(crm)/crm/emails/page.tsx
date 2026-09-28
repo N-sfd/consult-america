@@ -29,7 +29,7 @@ export default async function CrmEmailsOpsPage() {
           <form action={drainClientFlowQueue}>
             <button
               type="submit"
-              className="rounded-md border border-black/15 bg-white px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
+              className="rounded-md border border-[var(--ca-platform-border)] bg-white px-3 py-1.5 text-sm font-medium text-black/70 hover:bg-black/[0.03]"
             >
               Process queue
             </button>

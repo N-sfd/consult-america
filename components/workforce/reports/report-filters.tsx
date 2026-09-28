@@ -85,7 +85,7 @@ export default function ReportFiltersBar({
 
       <form
         onSubmit={onSubmit}
-        className="grid gap-3 rounded-lg border border-black/10 bg-white p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
+        className="grid gap-3 rounded-lg border border-[var(--ca-platform-border)] bg-white p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
       >
         <label className="block text-xs">
           <span className="font-semibold uppercase tracking-[0.1em] text-black/40">From</span>

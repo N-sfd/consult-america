@@ -74,7 +74,7 @@ export default function PeopleFiltersBar({
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-lg border border-black/10 bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]"
+      className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]"
     >
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         <label className="block text-xs sm:col-span-2 lg:col-span-2">

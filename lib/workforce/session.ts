@@ -1,7 +1,6 @@
-import { redirect } from "next/navigation";
-
-import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
+import { assertDemoSessionAllowed, isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import { getAuthenticatedPlatformUser } from "@/lib/auth/current-user";
+import { redirectToAuthorizedLanding } from "@/lib/auth/roles";
 import { hrRepository } from "@/lib/hr";
 
 /**
@@ -39,15 +38,20 @@ function initialsFor(displayName: string): string {
 }
 
 export async function getWorkforceSession(): Promise<WorkforceSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_WORKFORCE_SESSION;
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("workforce");
+    return DEMO_WORKFORCE_SESSION;
+  }
 
   const platformUser = await getAuthenticatedPlatformUser();
   if (!platformUser || !platformUser.employeeId) {
-    redirect("/login");
+    // Authenticated but no employee record linked (e.g. a candidate-only
+    // identity) — send them to their own workspace, not back to /login.
+    redirectToAuthorizedLanding(platformUser?.roles ?? []);
   }
 
   const employee = await hrRepository.getEmployeeById(platformUser.employeeId);
-  if (!employee) redirect("/login");
+  if (!employee) redirectToAuthorizedLanding(platformUser.roles);
 
   const displayName =
     employee.preferredName ||
@@ -65,7 +69,7 @@ export async function getWorkforceSession(): Promise<WorkforceSession> {
   }
   if (platformUser.roles.includes("HIRING_MANAGER")) roles.push("HIRING_MANAGER");
 
-  if (roles.length === 0) redirect("/login");
+  if (roles.length === 0) redirectToAuthorizedLanding(platformUser.roles);
 
   return {
     employeeId: employee.id,

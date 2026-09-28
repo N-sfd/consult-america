@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 import Link from "next/link";
 
 import { getFilteredAuditReport } from "@/lib/self-service/reporting-service";
@@ -75,24 +76,21 @@ export default async function HrAuditPage({
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-[-0.04em]">Audit Log</h1>
-          <p className="mt-2 text-black/55">
-            Security-relevant actions across employee, manager, and HR portals.
-            Filter by event type and actor role.
-          </p>
-        </div>
-        <Link
-          href="/hr/reports"
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium hover:bg-black/[0.03]"
-        >
-          Back to Reports
-        </Link>
-      </div>
+      <PageHeader
+        title="Audit Log"
+        description="Security-relevant actions across employee, manager, and HR portals. Filter by event type and actor role."
+        actions={
+          <Link
+            href="/hr/reports"
+            className="rounded-md border border-[var(--ca-platform-border)] px-4 py-2 text-sm font-medium hover:bg-black/[0.03]"
+          >
+            Back to Reports
+          </Link>
+        }
+      />
 
       <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Actor Role
         </p>
         <div className="flex flex-wrap gap-2">
@@ -111,8 +109,8 @@ export default async function HrAuditPage({
                 href={href || "/hr/audit"}
                 className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                   active
-                    ? "bg-[var(--ca-blue)] text-white"
-                    : "border border-black/15 text-black/70 hover:bg-black/[0.03]"
+                    ? "bg-[var(--ca-platform-mid)] text-white"
+                    : "border border-[var(--ca-platform-border)] text-black/70 hover:bg-black/[0.03]"
                 }`}
               >
                 {role === "ALL" ? "All roles" : role}
@@ -123,7 +121,7 @@ export default async function HrAuditPage({
       </div>
 
       <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Event Type
         </p>
         <div className="flex flex-wrap gap-2">
@@ -142,8 +140,8 @@ export default async function HrAuditPage({
                 href={href || "/hr/audit"}
                 className={`rounded-md px-3 py-1.5 text-xs font-medium ${
                   active
-                    ? "bg-[var(--ca-blue)] text-white"
-                    : "border border-black/15 text-black/70 hover:bg-black/[0.03]"
+                    ? "bg-[var(--ca-platform-mid)] text-white"
+                    : "border border-[var(--ca-platform-border)] text-black/70 hover:bg-black/[0.03]"
                 }`}
               >
                 {type === "ALL" ? "All events" : type.replaceAll("_", " ")}
@@ -153,19 +151,19 @@ export default async function HrAuditPage({
         </div>
       </div>
 
-      <p className="text-sm text-black/45">{logs.length} matching events</p>
+      <p className="text-sm text-[var(--ca-platform-muted)]">{logs.length} matching events</p>
 
-      <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
+      <div className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
         <ul className="divide-y divide-black/5">
           {logs.map((entry) => (
             <li key={entry.id} className="px-5 py-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.1em] text-[var(--ca-blue)]">
+                  <p className="text-xs uppercase tracking-[0.1em] text-[var(--ca-platform-mid)]">
                     {entry.eventType.replaceAll("_", " ")}
                   </p>
                   <p className="mt-1 font-medium">{entry.summary}</p>
-                  <p className="mt-1 text-sm text-black/55">
+                  <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                     Actor {entry.actorEmployeeId} · {entry.actorRole}
                     {entry.targetEmployeeId
                       ? ` · Target ${entry.targetEmployeeId}`
@@ -175,7 +173,7 @@ export default async function HrAuditPage({
                       : ""}
                   </p>
                 </div>
-                <span className="text-xs text-black/40">
+                <span className="text-xs text-[var(--ca-platform-muted)]">
                   {entry.createdAt.slice(0, 19).replace("T", " ")}
                 </span>
               </div>

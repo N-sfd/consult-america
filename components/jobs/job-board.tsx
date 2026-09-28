@@ -29,6 +29,9 @@ interface JobBoardProps {
     string,
     { label: string; href: string }
   >;
+  /** Candidate portal styling + in-shell detail links */
+  portalMode?: boolean;
+  savedRequisitionIds?: string[];
 }
 
 const ALL = "all";
@@ -37,6 +40,8 @@ export default function JobBoard({
   jobs,
   filterOptions,
   applicationCtasByRequisitionId,
+  portalMode = false,
+  savedRequisitionIds = [],
 }: JobBoardProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -313,6 +318,8 @@ export default function JobBoard({
             <JobListItem
               key={job.id}
               job={job}
+              portalMode={portalMode}
+              saved={savedRequisitionIds.includes(job.requisitionId)}
               applicationCta={
                 applicationCtasByRequisitionId?.[job.requisitionId]
               }

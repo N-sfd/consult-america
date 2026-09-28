@@ -41,7 +41,7 @@ export default async function HrRequestDetailPage({
     <div className="space-y-6">
       <Link
         href="/hr/requests"
-        className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+        className="text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
       >
         ← Back to queue
       </Link>

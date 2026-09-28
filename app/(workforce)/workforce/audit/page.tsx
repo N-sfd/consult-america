@@ -106,7 +106,7 @@ export default async function WorkforceAuditPage({
   };
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1400px]">
       <div>
         <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">Workforce</p>
         <h1 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.03em]">Audit</h1>
@@ -141,7 +141,7 @@ export default async function WorkforceAuditPage({
       <form
         method="get"
         action="/workforce/audit"
-        className="mt-4 grid gap-3 rounded-lg border border-black/10 bg-white p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
+        className="mt-4 grid gap-3 rounded-lg border border-[var(--ca-platform-border)] bg-white p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
       >
         <input type="hidden" name="source" value={source} />
         <label className="block text-xs">
@@ -220,7 +220,7 @@ export default async function WorkforceAuditPage({
       </form>
 
       {detail ? (
-        <div className="mt-6 rounded-lg border border-black/10 bg-white p-5">
+        <div className="mt-6 rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="text-xs uppercase tracking-[0.1em] text-[var(--ca-blue)]">
@@ -259,7 +259,7 @@ export default async function WorkforceAuditPage({
 
       <p className="mt-6 text-sm text-black/45">{entries.length} matching events</p>
 
-      <div className="mt-3 overflow-hidden rounded-lg border border-black/10 bg-white">
+      <div className="mt-3 overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
         <ul className="divide-y divide-black/5">
           {entries.map((entry) => (
             <li key={`${entry.source}-${entry.id}`} className="px-5 py-4">

@@ -105,7 +105,7 @@ export default function JobsTable({
   ];
 
   return (
-    <div className="mx-auto max-w-[1280px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1280px] space-y-5">
       <PageHeader
         title="Jobs / Requisitions"
         description="Create, publish, and manage hiring requisitions."
@@ -139,7 +139,7 @@ export default function JobsTable({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search jobs…"
-            className="h-9 w-full border border-black/10 bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
+            className="h-9 w-full border border-[var(--ca-platform-border)] bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
           />
         </label>
 
@@ -148,7 +148,7 @@ export default function JobsTable({
           onChange={(event) =>
             setStatusFilter(event.target.value as RequisitionStatus | "ALL")
           }
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All statuses</option>
           {statusesPresent.map((status) => (
@@ -161,7 +161,7 @@ export default function JobsTable({
         <select
           value={departmentFilter}
           onChange={(event) => setDepartmentFilter(event.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All departments</option>
           {departmentsPresent.map((department) => (
@@ -174,7 +174,7 @@ export default function JobsTable({
         <select
           value={locationFilter}
           onChange={(event) => setLocationFilter(event.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All locations</option>
           {locationsPresent.map((location) => (
@@ -188,7 +188,7 @@ export default function JobsTable({
           <button
             type="button"
             onClick={clearFilters}
-            className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+            className="inline-flex h-9 items-center gap-1 border border-[var(--ca-platform-border)] px-2.5 text-sm text-black/55 hover:border-black/20"
           >
             <X className="h-3.5 w-3.5" />
             Clear filters
@@ -217,7 +217,7 @@ export default function JobsTable({
               <button
                 type="button"
                 onClick={clearFilters}
-                className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+                className="inline-flex h-9 items-center gap-1 border border-[var(--ca-platform-border)] px-2.5 text-sm text-black/55 hover:border-black/20"
               >
                 Clear filters
               </button>

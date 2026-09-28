@@ -73,9 +73,9 @@ export default async function OffersPage({
           description="No data available for this period."
         />
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-black/10 bg-white">
+        <div className="overflow-x-auto rounded-lg border border-[var(--ca-platform-border)] bg-white">
           <table className="w-full min-w-[900px] text-left text-sm">
-            <thead className="border-b border-black/10 text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
+            <thead className="border-b border-[var(--ca-platform-border)] text-[0.7rem] uppercase tracking-[0.1em] text-black/40">
               <tr>
                 <th className="px-4 py-3 font-medium">Candidate</th>
                 <th className="px-4 py-3 font-medium">Job</th>

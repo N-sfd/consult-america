@@ -190,7 +190,7 @@
 .ca-hero-ring {
   position: absolute;
   border-radius: 9999px;
-  border: 1px solid rgba(7, 59, 58, 0.08);
+  border: 1px solid rgba(7, 59, 58, 0.22);
   background: transparent;
   pointer-events: none;
 }

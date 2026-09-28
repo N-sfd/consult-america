@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import TimesheetApprovalList from "@/components/time/timesheet-approval-list";
 import { getEmployeeProfile } from "@/lib/self-service";
@@ -28,13 +29,10 @@ export default async function ManagerTimePage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Team Time</h1>
-        <p className="mt-2 text-black/55">
-          Review submitted timesheets for your direct reports. Reject and return
-          actions require a comment.
-        </p>
-      </div>
+      <PageHeader
+        title="Team Time"
+        description="Review submitted timesheets for your direct reports. Reject and return actions require a comment."
+      />
 
       <TimesheetApprovalList items={items} />
     </div>

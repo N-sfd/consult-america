@@ -156,6 +156,7 @@ function PlatformSidebar({
   unreadCount,
   pendingApprovalsCount,
   className,
+  brandMode = "sidebar",
   onNavigate,
 }: {
   workspace: PlatformWorkspaceId;
@@ -169,6 +170,8 @@ function PlatformSidebar({
   unreadCount: number;
   pendingApprovalsCount: number;
   className?: string;
+  /** Drawer uses compact lockup — never clip the full desktop brand. */
+  brandMode?: "sidebar" | "drawer";
   onNavigate?: () => void;
 }) {
   const meta = WORKSPACE_META[workspace];
@@ -176,7 +179,7 @@ function PlatformSidebar({
   return (
     <aside className={cn("ca-platform-sidebar", `ca-platform-sidebar--${variant}`, className)}>
       {/* All app sidebars are navy — brand sits on a white block */}
-      <PortalBrand surface="dark" href={logoHref} />
+      <PortalBrand surface="dark" href={logoHref} mode={brandMode} />
 
       <div className="ca-platform-sidebar-identity">
         <p className="ca-platform-workspace-name">{workspaceLabel ?? meta.name}</p>
@@ -311,6 +314,7 @@ function PlatformShellFrame({
                 searchParams={searchParams}
                 unreadCount={unreadCount}
                 pendingApprovalsCount={pendingApprovalsCount}
+                brandMode="drawer"
                 className="h-full"
                 onNavigate={() => setDrawerOpen(false)}
               />
@@ -392,7 +396,7 @@ function PlatformShellFrame({
       {drawerOpen ? (
         <button
           type="button"
-          className="fixed right-3 top-3 z-[70] inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-[var(--ca-platform-ink)] shadow-md lg:hidden"
+          className="fixed right-3 top-3 z-[70] inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-[var(--ca-platform-ink)] shadow-md min-[1180px]:hidden"
           aria-label="Close navigation"
           onClick={() => setDrawerOpen(false)}
         >

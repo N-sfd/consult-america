@@ -3,12 +3,11 @@ import type { Metadata } from "next";
 import AIDataStory from "@/components/marketing/ai-data-story";
 import ApplicationEngineeringSection from "@/components/marketing/application-engineering-section";
 import CapabilityEcosystem from "@/components/marketing/capability-ecosystem";
-import CRMShowcase from "@/components/marketing/crm-showcase";
-import EnterpriseTransformSection from "@/components/marketing/enterprise-transform-section";
 import Hero from "@/components/marketing/hero";
 import HomepageCareersSection from "@/components/marketing/homepage-careers-section";
 import HomepageClosingSection from "@/components/marketing/homepage-closing-section";
 import HomepageContactSection from "@/components/marketing/homepage-contact-section";
+import HomepagePlatformBand from "@/components/marketing/homepage-platform-band";
 import OracleFlagship from "@/components/marketing/oracle-flagship";
 import PositioningSection from "@/components/marketing/positioning-section";
 import SelectedWorkSection from "@/components/marketing/selected-work-section";
@@ -36,11 +35,20 @@ export default function Home() {
       <Hero />
       <PositioningSection />
       <CapabilityEcosystem />
-      <EnterpriseTransformSection />
       <OracleFlagship />
-      <CRMShowcase />
-      <AIDataStory />
-      <ApplicationEngineeringSection />
+      <section aria-label="Intelligent engineering" className="border-b border-[var(--ca-line)]">
+        <div className="mx-auto max-w-[1440px] px-6 pt-10 lg:px-8 lg:pt-12 xl:px-10">
+          <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
+            Intelligent engineering
+          </p>
+          <h2 className="mt-2 max-w-2xl font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
+            AI, data, and the applications around them.
+          </h2>
+        </div>
+        <AIDataStory />
+        <ApplicationEngineeringSection />
+      </section>
+      <HomepagePlatformBand />
       <SelectedWorkSection />
       <HomepageClosingSection />
       <HomepageCareersSection />

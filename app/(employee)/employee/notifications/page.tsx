@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import NotificationCenter from "@/components/notifications/notification-center";
 import {
@@ -35,15 +36,12 @@ export default async function EmployeeNotificationsPage({
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Notifications
-        </h1>
-        <p className="mt-2 text-black/55">
-          Updates for time, leave, approvals, profile, and HR requests.
-          {unreadCount > 0 ? ` ${unreadCount} unread.` : " You are caught up."}
-        </p>
-      </div>
+      <PageHeader
+        title="Notifications"
+        description={`Updates for time, leave, approvals, profile, and HR requests.${
+          unreadCount > 0 ? ` ${unreadCount} unread.` : " You are caught up."
+        }`}
+      />
 
       <NotificationCenter
         notifications={notifications}

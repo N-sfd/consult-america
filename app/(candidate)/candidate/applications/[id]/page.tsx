@@ -8,6 +8,7 @@ import ApplicationTimeline, {
 } from "@/components/candidate/application-timeline";
 import CandidateOfferActions from "@/components/candidate/candidate-offer-actions";
 import SubmittedDocumentLink from "@/components/candidate/submitted-document-link";
+import { PageHeader } from "@/components/shared";
 import { formatDate, formatDateTime, formatDateTimeWithZone } from "@/lib/recruiting/format";
 import { recruitingRepository } from "@/lib/recruiting";
 import { requireCandidateActor } from "@/lib/candidate/security";
@@ -139,24 +140,25 @@ export default async function CandidateApplicationDetailPage({
       <div>
         <Link
           href="/candidate/applications"
-          className="text-sm font-medium text-[var(--ca-blue)] hover:underline"
+          className="text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
         >
           ← All applications
         </Link>
-        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">
-          {application.requisitionTitle}
-        </h1>
-        <p className="mt-2 text-black/55">
-          {application.applicationNumber} · {application.postingLocation}
-          {application.employmentType
-            ? ` · ${employmentTypeLabels[application.employmentType]}`
-            : ""}
-        </p>
+        <div className="mt-3">
+          <PageHeader
+            title={application.requisitionTitle}
+            description={`${application.applicationNumber} · ${application.postingLocation}${
+              application.employmentType
+                ? ` · ${employmentTypeLabels[application.employmentType]}`
+                : ""
+            }`}
+          />
+        </div>
       </div>
 
       <section className="grid gap-4 sm:grid-cols-3">
         <div className="ca-platform-card p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+          <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Status
           </p>
           <p className="mt-3">
@@ -164,7 +166,7 @@ export default async function CandidateApplicationDetailPage({
           </p>
         </div>
         <div className="ca-platform-card p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+          <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Applied
           </p>
           <p className="mt-3 text-lg font-semibold">
@@ -172,7 +174,7 @@ export default async function CandidateApplicationDetailPage({
           </p>
         </div>
         <div className="ca-platform-card p-5">
-          <p className="text-xs uppercase tracking-[0.12em] text-black/40">
+          <p className="text-xs uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Last Updated
           </p>
           <p className="mt-3 text-lg font-semibold">
@@ -182,14 +184,14 @@ export default async function CandidateApplicationDetailPage({
       </section>
 
       <section className="ca-platform-card p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Application Timeline
         </h2>
         <ApplicationTimeline steps={timelineSteps} />
       </section>
 
       <section className="ca-platform-card p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Documents submitted with this application
         </h2>
         {submittedLinks.length === 0 ? (
@@ -225,7 +227,7 @@ export default async function CandidateApplicationDetailPage({
             })}
           </ul>
         )}
-        <p className="mt-4 text-xs text-black/45">
+        <p className="mt-4 text-xs text-[var(--ca-platform-muted)]">
           This list shows the exact documents submitted with this application,
           even if you later replaced your primary resume.
         </p>
@@ -233,7 +235,7 @@ export default async function CandidateApplicationDetailPage({
 
       {upcomingInterview ? (
         <section className="ca-platform-card p-6">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Upcoming Interview
           </h2>
           <p className="mt-3 text-sm text-black/70">
@@ -246,7 +248,7 @@ export default async function CandidateApplicationDetailPage({
           </p>
         </section>
       ) : interviews.length === 0 ? (
-        <section className="rounded-lg border border-dashed border-black/15 bg-white p-6 text-sm text-black/50">
+        <section className="rounded-lg border border-dashed border-[var(--ca-platform-border)] bg-white p-6 text-sm text-black/50">
           No upcoming interviews.
         </section>
       ) : null}
@@ -263,7 +265,7 @@ export default async function CandidateApplicationDetailPage({
           }
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Offer
             </h2>
             {offer.status === "EXTENDED" ? (
@@ -279,7 +281,7 @@ export default async function CandidateApplicationDetailPage({
             </span>
           </p>
           {offer.startDate ? (
-            <p className="mt-1 text-sm text-black/55">
+            <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
               Proposed start: {offer.startDate}
             </p>
           ) : null}
@@ -293,7 +295,7 @@ export default async function CandidateApplicationDetailPage({
 
       {interviews.length > 0 ? (
         <section className="ca-platform-card p-6">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             Interviews
           </h2>
           <ul className="mt-4 space-y-3 text-sm">
@@ -306,7 +308,7 @@ export default async function CandidateApplicationDetailPage({
                     ? ` · ${interview.locationOrLink}`
                     : ""}
                 </span>
-                <span className="shrink-0 text-black/40">
+                <span className="shrink-0 text-[var(--ca-platform-muted)]">
                   {formatDateTimeWithZone(interview.scheduledAt)}
                 </span>
               </li>
@@ -316,7 +318,7 @@ export default async function CandidateApplicationDetailPage({
       ) : null}
 
       <section className="ca-platform-card p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
           Status History
         </h2>
         {history.length === 0 ? (
@@ -330,7 +332,7 @@ export default async function CandidateApplicationDetailPage({
                     ? `${candidateApplicationStatusLabels[entry.fromStatus]} → ${candidateApplicationStatusLabels[entry.toStatus]}`
                     : candidateApplicationStatusLabels[entry.toStatus]}
                 </span>
-                <span className="shrink-0 text-black/40">
+                <span className="shrink-0 text-[var(--ca-platform-muted)]">
                   {formatDateTime(entry.createdAt)}
                 </span>
               </li>

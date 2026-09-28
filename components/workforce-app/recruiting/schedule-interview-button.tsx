@@ -14,7 +14,7 @@ import { scheduleInterview } from "@/lib/recruiting/actions";
 import type { InterviewType } from "@/types/recruiting";
 
 const fieldClass =
-  "mt-1.5 h-9 w-full border border-black/10 bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
+  "mt-1.5 h-9 w-full border border-[var(--ca-platform-border)] bg-white px-3 text-sm outline-none focus:border-[var(--ca-blue)]";
 const actionButtonClass =
   "mt-2 h-7 w-full border border-black/15 bg-white px-1.5 text-xs font-medium text-black/70 outline-none transition-colors hover:border-[var(--ca-blue)] hover:text-[var(--ca-blue)] disabled:opacity-50";
 

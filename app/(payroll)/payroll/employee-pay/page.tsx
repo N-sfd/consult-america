@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import { hrRepository } from "@/lib/hr";
 import { getEmployeeProfile } from "@/lib/self-service";
@@ -34,18 +35,14 @@ export default async function PayrollEmployeePayPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          Employee Pay
-        </h1>
-        <p className="mt-2 text-black/55">
-          Most recent processed payslip per active employee.
-        </p>
-      </div>
+      <PageHeader
+        title="Employee Pay"
+        description="Most recent processed payslip per active employee."
+      />
 
-      <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
+      <div className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-black/10 bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-black/45">
+          <thead className="border-b border-[var(--ca-platform-border)] bg-[#F8FAFC] text-xs uppercase tracking-[0.08em] text-[var(--ca-platform-muted)]">
             <tr>
               <th className="px-4 py-3 font-medium">Employee</th>
               <th className="px-4 py-3 font-medium">Last Pay Date</th>
@@ -58,14 +55,14 @@ export default async function PayrollEmployeePayPage() {
               <tr key={employee.id} className="border-b border-black/5 last:border-b-0">
                 <td className="px-4 py-4 font-medium">
                   {profile ? `${profile.person.firstName} ${profile.person.lastName}` : employee.id}
-                  <span className="ml-2 text-xs text-black/40">
+                  <span className="ml-2 text-xs text-[var(--ca-platform-muted)]">
                     {employee.employeeNumber}
                   </span>
                 </td>
-                <td className="px-4 py-4 text-black/55">
+                <td className="px-4 py-4 text-[var(--ca-platform-muted)]">
                   {slip ? formatDate(slip.payDate) : "—"}
                 </td>
-                <td className="px-4 py-4 text-black/55">
+                <td className="px-4 py-4 text-[var(--ca-platform-muted)]">
                   {slip ? currency(slip.grossPay) : "—"}
                 </td>
                 <td className="px-4 py-4 font-medium">

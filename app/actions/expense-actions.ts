@@ -15,6 +15,7 @@ import {
   requireEmployeeActor,
   requireManagerActor,
   requirePermission,
+  requireNotSelfApproval,
   requireTeamResource,
   toActionErrorMessage,
 } from "@/lib/self-service/security";
@@ -132,6 +133,7 @@ export async function approveExpenseAction(input: {
     const existing = getExpenseClaimById(input.expenseClaimId);
     if (!existing) throw new Error("Expense claim not found");
     await requireTeamResource(actor, existing.employeeId);
+    requireNotSelfApproval(actor, existing.employeeId);
 
     const claim = approveExpenseClaim({
       expenseClaimId: input.expenseClaimId,
@@ -169,6 +171,7 @@ export async function rejectExpenseAction(input: {
     const existing = getExpenseClaimById(input.expenseClaimId);
     if (!existing) throw new Error("Expense claim not found");
     await requireTeamResource(actor, existing.employeeId);
+    requireNotSelfApproval(actor, existing.employeeId);
 
     const claim = rejectExpenseClaim({
       expenseClaimId: input.expenseClaimId,

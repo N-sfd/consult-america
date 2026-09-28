@@ -90,26 +90,33 @@ export default async function CandidatePortalHomePage() {
             Welcome back, {session.displayName.split(" ")[0]}
           </h1>
           <p className="mt-1.5 text-[0.95rem] text-[var(--ca-platform-muted)]">
-            Track your applications, documents, and job match guidance in one place.
+            Search jobs, save favorites, run the AI Job Analyzer, and track applications
+            in one place.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Link
               href="/candidate/jobs"
               className="rounded-lg bg-[var(--ca-platform-deep)] px-3.5 py-2 text-sm font-semibold text-white"
             >
-              Browse Jobs
+              Search Jobs
             </Link>
             <Link
-              href="/candidate/documents?upload=resume"
+              href="/candidate/job-match"
               className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
             >
-              Upload Resume
+              AI Job Analyzer
             </Link>
             <Link
               href="/candidate/profile"
               className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
             >
-              Complete Profile
+              Personal Information
+            </Link>
+            <Link
+              href="/candidate/saved-jobs"
+              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
+            >
+              Saved Jobs
             </Link>
             <Link
               href="/candidate/applications"

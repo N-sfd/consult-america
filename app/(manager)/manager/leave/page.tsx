@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import LeaveApprovalList from "@/components/leave/leave-approval-list";
 import { getEmployeeProfile } from "@/lib/self-service";
@@ -29,13 +30,10 @@ export default async function ManagerLeavePage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">Team Leave</h1>
-        <p className="mt-2 text-black/55">
-          Review leave for your direct reports. Approving deducts from the
-          employee balance; reject requires a comment.
-        </p>
-      </div>
+      <PageHeader
+        title="Team Leave"
+        description="Review leave for your direct reports. Approving deducts from the employee balance; reject requires a comment."
+      />
 
       <LeaveApprovalList items={items} />
     </div>

@@ -10,36 +10,6 @@ import {
 } from "@/lib/workforce/operations";
 import { APPLICATION_PIPELINE } from "@/types/recruiting";
 
-const demoPipeline = [
-  { stage: "Applied", count: 84, width: "100%" },
-  { stage: "Screening", count: 32, width: "38%" },
-  { stage: "Interview", count: 18, width: "22%" },
-  { stage: "Offer", count: 4, width: "8%" },
-];
-
-const demoActivity = [
-  {
-    title: "Interview scheduled",
-    detail: "AI Engineer · Maya Chen · Tomorrow 10:00",
-    time: "12m",
-  },
-  {
-    title: "Offer accepted",
-    detail: "Oracle SCM Consultant · Jordan Blake",
-    time: "1h",
-  },
-  {
-    title: "New application",
-    detail: "Senior Oracle Financials · 3 candidates",
-    time: "2h",
-  },
-  {
-    title: "Leave approved",
-    detail: "Jennifer Lee · PTO · Mar 12–14",
-    time: "3h",
-  },
-];
-
 function relativeTime(iso: string) {
   const diffMs = Date.now() - new Date(iso).getTime();
   const minutes = Math.max(1, Math.round(diffMs / 60000));
@@ -82,17 +52,11 @@ export default async function WorkforceOverview({
       ])
     : [null, null, null, null];
 
-  const stats = persisted
-    ? [
-        { label: "People", value: String(employees?.length ?? 0) },
-        { label: "Jobs", value: String(openJobs) },
-        { label: "Candidates", value: String(candidateCount ?? 0) },
-      ]
-    : [
-        { label: "People", value: "124" },
-        { label: "Jobs", value: String(openJobs) },
-        { label: "Candidates", value: "47" },
-      ];
+  const stats = [
+    { label: "People", value: persisted ? String(employees?.length ?? 0) : "—" },
+    { label: "Jobs", value: String(openJobs) },
+    { label: "Candidates", value: persisted ? String(candidateCount ?? 0) : "—" },
+  ];
 
   const pipeline = persisted
     ? pipelineStages(
@@ -100,7 +64,7 @@ export default async function WorkforceOverview({
           APPLICATION_PIPELINE.map((status) => [status, pipelineCounts?.[status] ?? 0]),
         ),
       )
-    : demoPipeline;
+    : [];
 
   const activityItems = persisted
     ? (activity ?? []).map((item) => ({
@@ -108,22 +72,22 @@ export default async function WorkforceOverview({
         detail: item.detail,
         time: relativeTime(item.occurredAt),
       }))
-    : demoActivity;
+    : [];
 
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1200px]">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
+          <p className="text-[0.7rem] uppercase tracking-[0.14em] text-[var(--ca-platform-muted)]">
             Overview
           </p>
-          <h1 className="mt-2 text-2xl font-medium tracking-[-0.03em] text-[var(--ca-app-ink)] md:text-3xl">
+          <h1 className="mt-2 text-[1.5rem] font-semibold tracking-tight text-[var(--ca-app-ink)] sm:text-[1.75rem]">
             Good morning, {userFirstName}
           </h1>
         </div>
         <Link
           href="/jobs"
-          className="inline-flex items-center gap-1 text-sm font-medium text-[var(--ca-blue)] hover:underline"
+          className="inline-flex items-center gap-1 text-sm font-medium text-[var(--ca-platform-mid)] hover:underline"
         >
           Public careers board
           <ArrowUpRight className="h-3.5 w-3.5" />
@@ -131,19 +95,19 @@ export default async function WorkforceOverview({
       </div>
 
       <section className="mt-8">
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-black/40">
+        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[var(--ca-platform-muted)]">
           Workforce
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="border border-black/8 bg-white px-5 py-5"
+              className="rounded-lg border border-[var(--ca-platform-border)] bg-[var(--ca-platform-card)] px-5 py-5 shadow-[var(--ca-platform-shadow)]"
             >
               <p className="text-3xl font-medium tracking-[-0.04em] text-[var(--ca-app-ink)] md:text-4xl">
                 {stat.value}
               </p>
-              <p className="mt-2 text-sm text-black/50">{stat.label}</p>
+              <p className="mt-2 text-sm text-[var(--ca-platform-muted)]">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -157,19 +121,24 @@ export default async function WorkforceOverview({
             </p>
             <Link
               href="/workforce/candidates"
-              className="text-sm text-[var(--ca-blue)] hover:underline"
+              className="text-sm text-[var(--ca-platform-mid)] hover:underline"
             >
               View candidates
             </Link>
           </div>
 
           <ul className="mt-6 space-y-4">
-            {pipeline.map((row) => (
+            {pipeline.length === 0 ? (
+              <li className="text-sm text-[var(--ca-platform-muted)]">
+                Pipeline counts appear when workforce data is connected.
+              </li>
+            ) : (
+              pipeline.map((row) => (
               <li key={row.stage} className="grid grid-cols-[100px_1fr_40px] items-center gap-3">
                 <span className="text-sm text-black/60">{row.stage}</span>
                 <div className="h-2.5 overflow-hidden rounded-sm bg-black/[0.06]">
                   <div
-                    className="h-full rounded-sm bg-[var(--ca-blue)]"
+                    className="h-full rounded-sm bg-[var(--ca-platform-mid)]"
                     style={{ width: row.width }}
                   />
                 </div>
@@ -177,7 +146,8 @@ export default async function WorkforceOverview({
                   {row.count}
                 </span>
               </li>
-            ))}
+              ))
+            )}
           </ul>
         </section>
 
@@ -186,7 +156,11 @@ export default async function WorkforceOverview({
             Recent activity
           </p>
           {activityItems.length === 0 ? (
-            <p className="mt-5 text-sm text-black/50">No recent activity yet.</p>
+            <p className="mt-5 text-sm text-[var(--ca-platform-muted)]">
+              {persisted
+                ? "No recent activity yet."
+                : "Activity appears when workforce data is connected."}
+            </p>
           ) : (
             <ul className="mt-5 space-y-4">
               {activityItems.map((item) => (
@@ -219,7 +193,7 @@ export default async function WorkforceOverview({
           </p>
           <Link
             href="/workforce/jobs"
-            className="text-sm text-[var(--ca-blue)] hover:underline"
+            className="text-sm text-[var(--ca-platform-mid)] hover:underline"
           >
             Manage jobs
           </Link>
@@ -239,7 +213,7 @@ export default async function WorkforceOverview({
                     {job.location} · {job.workplaceType}
                   </p>
                 </div>
-                <span className="rounded bg-[var(--ca-blue)]/10 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.08em] text-[var(--ca-blue)]">
+                <span className="rounded bg-[var(--ca-platform-mid)]/10 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-[0.08em] text-[var(--ca-platform-mid)]">
                   Open
                 </span>
               </Link>

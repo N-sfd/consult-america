@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { submitInterviewFeedback } from "@/lib/recruiting/actions";
 
 const fieldClass =
-  "mt-1 h-8 w-full border border-black/10 bg-white px-2 text-xs outline-none focus:border-[var(--ca-blue)]";
+  "mt-1 h-8 w-full border border-[var(--ca-platform-border)] bg-white px-2 text-xs outline-none focus:border-[var(--ca-blue)]";
 
 export default function SubmitInterviewFeedbackButton({
   interviewId,

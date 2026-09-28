@@ -86,7 +86,7 @@ export default async function ApplicationDetailPage({
   const matchScore = matchScores[0];
 
   return (
-    <div className="mx-auto max-w-[1200px] space-y-6 px-4 py-6 lg:px-8">
+    <div className="mx-auto max-w-[1200px] space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
@@ -129,7 +129,7 @@ export default async function ApplicationDetailPage({
         </div>
       </div>
 
-      <section className="rounded-lg border border-black/10 bg-white p-5">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Quick actions
         </h2>
@@ -146,7 +146,7 @@ export default async function ApplicationDetailPage({
         </p>
       </section>
 
-      <section className="rounded-lg border border-black/10 bg-white p-5">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-serif text-lg font-semibold">Candidate Match</h2>
           {requisitionId ? (
@@ -216,7 +216,7 @@ export default async function ApplicationDetailPage({
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-lg border border-black/10 bg-white p-5">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <h2 className="font-serif text-lg font-semibold">Candidate summary</h2>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between gap-3">
@@ -234,7 +234,7 @@ export default async function ApplicationDetailPage({
           </dl>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <h2 className="font-serif text-lg font-semibold">Job summary</h2>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between gap-3">
@@ -256,7 +256,7 @@ export default async function ApplicationDetailPage({
           </dl>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <h2 className="font-serif text-lg font-semibold">Submitted resume</h2>
           <ul className="mt-3 space-y-2 text-sm">
             {docs.map((doc) => (
@@ -271,7 +271,7 @@ export default async function ApplicationDetailPage({
           </ul>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <h2 className="font-serif text-lg font-semibold">Application answers</h2>
           <p className="mt-3 whitespace-pre-wrap text-sm text-black/70">
             {application?.coverLetter ||
@@ -280,7 +280,7 @@ export default async function ApplicationDetailPage({
           </p>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <h2 className="font-serif text-lg font-semibold">Interview history</h2>
           <ul className="mt-3 space-y-2 text-sm">
             {interviews.map((interview) => (
@@ -296,7 +296,7 @@ export default async function ApplicationDetailPage({
           </ul>
         </section>
 
-        <section className="rounded-lg border border-black/10 bg-white p-5">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <h2 className="font-serif text-lg font-semibold">Offer status</h2>
           <ul className="mt-3 space-y-2 text-sm">
             {offers.map((offer) => (
@@ -311,7 +311,7 @@ export default async function ApplicationDetailPage({
         </section>
       </div>
 
-      <section className="rounded-lg border border-black/10 bg-white p-5">
+      <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
         <h2 className="font-serif text-lg font-semibold">Activity timeline</h2>
         <ul className="mt-4 space-y-3">
           {history.map((event) => (

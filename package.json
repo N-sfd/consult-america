@@ -18,6 +18,7 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "seed:supabase": "tsx --env-file=.env.local scripts/seed-supabase.ts",
+    "seed:qa-personas": "tsx --env-file=.env.local scripts/seed-qa-personas.ts",
     "db:probe": "tsx --env-file=.env.local scripts/probe-supabase.ts",
     "db:migrate": "tsx --env-file=.env.local scripts/apply-schema.ts",
     "db:audit-function-drift": "tsx --env-file=.env.local scripts/audit-function-drift.ts",

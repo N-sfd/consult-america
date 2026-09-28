@@ -10,7 +10,7 @@ export default function WorkforcePlaceholderPage({
   description: string;
 }) {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1200px]">
       <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
         {section}
       </p>
@@ -23,7 +23,7 @@ export default function WorkforcePlaceholderPage({
       </div>
       <Link
         href="/workforce"
-        className="mt-6 inline-block text-sm text-[var(--ca-blue)] hover:underline"
+        className="mt-6 inline-block text-sm text-[var(--ca-platform-mid)] hover:underline"
       >
         ← Back to overview
       </Link>

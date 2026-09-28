@@ -189,7 +189,7 @@ export default function CandidatesTable({
   ];
 
   return (
-    <div className="mx-auto max-w-[1280px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1280px] space-y-5">
       <PageHeader
         title="Candidates"
         description="Manage applicants across jobs and hiring stages."
@@ -219,7 +219,7 @@ export default function CandidatesTable({
               setPage(1);
             }}
             placeholder="Search name, skills, or role…"
-            className="h-9 w-full border border-black/10 bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
+            className="h-9 w-full border border-[var(--ca-platform-border)] bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
           />
         </label>
 
@@ -229,7 +229,7 @@ export default function CandidatesTable({
             setStageFilter(event.target.value as ApplicationStatus | "ALL");
             setPage(1);
           }}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All stages</option>
           {stagesPresent.map((stage) => (
@@ -245,7 +245,7 @@ export default function CandidatesTable({
             setJobFilter(event.target.value);
             setPage(1);
           }}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All jobs</option>
           {jobsPresent.map((job) => (
@@ -261,7 +261,7 @@ export default function CandidatesTable({
             setLocationFilter(event.target.value);
             setPage(1);
           }}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All locations</option>
           {locationsPresent.map((location) => (
@@ -275,7 +275,7 @@ export default function CandidatesTable({
           <button
             type="button"
             onClick={clearFilters}
-            className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+            className="inline-flex h-9 items-center gap-1 border border-[var(--ca-platform-border)] px-2.5 text-sm text-black/55 hover:border-black/20"
           >
             <X className="h-3.5 w-3.5" />
             Clear filters
@@ -297,7 +297,7 @@ export default function CandidatesTable({
               <button
                 type="button"
                 onClick={clearFilters}
-                className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+                className="inline-flex h-9 items-center gap-1 border border-[var(--ca-platform-border)] px-2.5 text-sm text-black/55 hover:border-black/20"
               >
                 Clear filters
               </button>
@@ -422,7 +422,7 @@ export default function CandidatesTable({
               type="button"
               disabled={currentPage <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="border border-black/10 px-3 py-1.5 text-xs font-medium disabled:opacity-40"
+              className="border border-[var(--ca-platform-border)] px-3 py-1.5 text-xs font-medium disabled:opacity-40"
             >
               Previous
             </button>
@@ -430,7 +430,7 @@ export default function CandidatesTable({
               type="button"
               disabled={currentPage >= pageCount}
               onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-              className="border border-black/10 px-3 py-1.5 text-xs font-medium disabled:opacity-40"
+              className="border border-[var(--ca-platform-border)] px-3 py-1.5 text-xs font-medium disabled:opacity-40"
             >
               Next
             </button>

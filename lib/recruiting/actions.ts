@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { provisionCandidatePortalAccount } from "@/lib/candidate/provisioning";
+import { toSafeMessage } from "@/lib/observability/safe-error";
 import { recruitingRepository } from "@/lib/recruiting";
 import { canTransitionOffer } from "@/lib/recruiting/status-machine";
 import type {
@@ -423,7 +424,14 @@ export async function updateInterviewStatus(input: {
       .from("interviews")
       .update({ status: input.status, updated_at: now })
       .eq("id", input.interviewId);
-    if (error) return { ok: false, error: error.message };
+    if (error) {
+      return {
+        ok: false,
+        error: toSafeMessage(error, "Unable to update interview.", "recruiting.interview-status", {
+          interviewId: input.interviewId,
+        }),
+      };
+    }
 
     await client.from("recruiting_activities").insert({
       id: `act-${crypto.randomUUID()}`,
@@ -443,8 +451,9 @@ export async function updateInterviewStatus(input: {
   } catch (error) {
     return {
       ok: false,
-      error:
-        error instanceof Error ? error.message : "Unable to update interview",
+      error: toSafeMessage(error, "Unable to update interview.", "recruiting.interview-status", {
+        interviewId: input.interviewId,
+      }),
     };
   }
 }
@@ -480,7 +489,14 @@ export async function submitInterviewFeedback(input: {
         user_id: "system-recruiter",
         role: "INTERVIEWER",
       });
-    if (panelError) return { ok: false, error: panelError.message };
+    if (panelError) {
+      return {
+        ok: false,
+        error: toSafeMessage(panelError, "Unable to submit feedback.", "recruiting.interview-feedback.panel", {
+          interviewId: input.interviewId,
+        }),
+      };
+    }
 
     const { error: feedbackError } = await client
       .from("interview_feedback")
@@ -493,7 +509,14 @@ export async function submitInterviewFeedback(input: {
         notes: input.notes ?? null,
         submitted_at: now,
       });
-    if (feedbackError) return { ok: false, error: feedbackError.message };
+    if (feedbackError) {
+      return {
+        ok: false,
+        error: toSafeMessage(feedbackError, "Unable to submit feedback.", "recruiting.interview-feedback.insert", {
+          interviewId: input.interviewId,
+        }),
+      };
+    }
 
     await client.from("recruiting_activities").insert({
       id: `act-${crypto.randomUUID()}`,
@@ -509,8 +532,9 @@ export async function submitInterviewFeedback(input: {
   } catch (error) {
     return {
       ok: false,
-      error:
-        error instanceof Error ? error.message : "Unable to submit feedback",
+      error: toSafeMessage(error, "Unable to submit feedback.", "recruiting.interview-feedback", {
+        interviewId: input.interviewId,
+      }),
     };
   }
 }

@@ -49,7 +49,7 @@ export default async function WorkforceSystemHealthPage() {
   const checksByName = new Map(healthChecks.map((c) => [c.checkName, c]));
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1400px]">
       <div>
         <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
           Workforce
@@ -74,7 +74,7 @@ export default async function WorkforceSystemHealthPage() {
           {Object.entries(CHECK_LABELS).map(([checkName, label]) => {
             const check = checksByName.get(checkName);
             return (
-              <div key={checkName} className="rounded-lg border border-black/10 bg-white p-5">
+              <div key={checkName} className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
                 <div className="flex items-center justify-between gap-3">
                   <p className="font-medium">{label}</p>
                   {check ? (
@@ -115,7 +115,7 @@ export default async function WorkforceSystemHealthPage() {
         </h2>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
           {Object.entries(DELIVERY_STATUS_LABELS).map(([status, label]) => (
-            <div key={status} className="rounded-lg border border-black/10 bg-white p-4">
+            <div key={status} className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-4">
               <p className="text-xs uppercase tracking-[0.1em] text-black/40">{label}</p>
               <p className="mt-2 text-2xl font-semibold tracking-[-0.03em]">
                 {deliverySummary[status] ?? 0}
@@ -137,7 +137,7 @@ export default async function WorkforceSystemHealthPage() {
         <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
           Database Connectivity
         </h2>
-        <div className="mt-4 rounded-lg border border-black/10 bg-white p-5">
+        <div className="mt-4 rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
           <div className="flex items-center justify-between gap-3">
             <p className="font-medium">Supabase connection</p>
             <span

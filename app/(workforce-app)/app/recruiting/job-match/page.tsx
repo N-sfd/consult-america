@@ -24,7 +24,7 @@ export default async function Page({
     }));
 
   return (
-    <div className="mx-auto max-w-[1100px] space-y-6 px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1100px] space-y-6">
       <PageHeader
         eyebrow="Recruiting intelligence"
         title="Candidate Match"

@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { stockImage } from "@/lib/marketing/stock-images";
 import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
-const journey = ["Discover", "Apply", "Interview", "Hire", "Onboard", "Work"];
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function HomepageCareersSection() {
@@ -36,21 +35,6 @@ export default function HomepageCareersSection() {
                 Join teams working across enterprise transformation, Oracle, AI, data and application
                 engineering.
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.08, ease: revealEase }}
-              className="mt-8 flex flex-wrap gap-2"
-            >
-              {journey.map((step, index) => (
-                <span key={step} className="ca-step-pill text-xs sm:text-sm">
-                  <span className="text-[#176A63]">{String(index + 1).padStart(2, "0")}</span>
-                  {step}
-                </span>
-              ))}
             </motion.div>
 
             <motion.div
@@ -87,7 +71,7 @@ export default function HomepageCareersSection() {
             <div className="ca-home-compose relative mx-auto max-w-[520px] lg:ml-auto">
               <div
                 aria-hidden="true"
-                className="ca-home-sage-disc ca-home-moving--slow -left-[6%] top-[10%] hidden h-[220px] w-[220px] opacity-20 lg:block"
+                className="ca-home-sage-disc ca-home-moving--slow -left-[6%] top-[10%] hidden h-[220px] w-[220px] opacity-45 lg:block"
               />
               <div className="ca-home-frame-careers ca-home-photo-overlay relative z-10 shadow-[0_20px_50px_rgba(7,59,58,0.12)] ring-1 ring-[#C9DDD7]/60">
                 <div className="ca-home-img-careers relative aspect-[4/3] w-full max-h-[420px]">

@@ -284,10 +284,63 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
             updatedAt: application.updatedAt,
           };
         }),
-        experience: [],
-        education: [],
-        skills: [],
-        documents: [],
+        experience:
+          candidateId === "cand-demo-001"
+            ? [
+                {
+                  id: "exp-demo-001",
+                  candidateId,
+                  title: "Oracle Financials Consultant",
+                  company: "Enterprise Systems Partners",
+                  startDate: "2019-03-01",
+                  endDate: "2026-06-01",
+                  isCurrent: false,
+                  description:
+                    "Led Fusion GL/AP configuration, month-end close redesign, and UAT for multi-entity rollouts. Partnered with finance stakeholders on chart of accounts and reporting.",
+                },
+              ]
+            : [],
+        education:
+          candidateId === "cand-demo-001"
+            ? [
+                {
+                  id: "edu-demo-001",
+                  candidateId,
+                  institution: "University of Texas",
+                  degree: "BBA",
+                  fieldOfStudy: "Information Systems",
+                  startDate: "2011-08-01",
+                  endDate: "2015-05-01",
+                },
+              ]
+            : [],
+        skills:
+          candidateId === "cand-demo-001"
+            ? [
+                { id: "sk-demo-1", candidateId, skillId: "skill-oracle", skill: "Oracle Fusion", proficiency: "Expert" },
+                { id: "sk-demo-2", candidateId, skillId: "skill-fin", skill: "Financials", proficiency: "Expert" },
+                { id: "sk-demo-3", candidateId, skillId: "skill-gl", skill: "GL", proficiency: "Advanced" },
+                { id: "sk-demo-4", candidateId, skillId: "skill-ap", skill: "AP", proficiency: "Advanced" },
+                { id: "sk-demo-5", candidateId, skillId: "skill-sql", skill: "SQL", proficiency: "Intermediate" },
+              ]
+            : [],
+        documents:
+          candidateId === "cand-demo-001"
+            ? [
+                {
+                  id: "doc-demo-resume-001",
+                  candidateId,
+                  documentType: "RESUME" as const,
+                  fileName: "Priya_Shah_Resume.pdf",
+                  storagePath: "demo/priya-shah-resume.pdf",
+                  mimeType: "application/pdf",
+                  fileSize: 120000,
+                  isPrimaryResume: true,
+                  status: "ACTIVE" as const,
+                  uploadedAt: "2026-08-20T15:00:00.000Z",
+                },
+              ]
+            : [],
         statusHistory: statusHistory
           .filter((h) =>
             candidateApplications.some((a) => a.id === h.applicationId),

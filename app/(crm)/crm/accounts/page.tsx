@@ -37,7 +37,7 @@ export default async function CrmAccountsPage() {
           description="Create an account to start tracking contacts and opportunities."
         />
       ) : (
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white">
+        <div className="overflow-hidden rounded-lg border border-[var(--ca-platform-border)] bg-white">
           <ul className="divide-y divide-black/5">
             {accounts.map((account) => (
               <li key={account.id}>
@@ -48,7 +48,7 @@ export default async function CrmAccountsPage() {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <p className="font-medium">{account.name}</p>
-                      <p className="mt-1 text-sm text-black/55">
+                      <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                         {account.industry} · {accountTierLabels[account.tier]}
                         {" · "}
                         {account.contactCount} contact
@@ -59,7 +59,7 @@ export default async function CrmAccountsPage() {
                       <p className="font-semibold">
                         {formatCurrency(account.openPipelineValue)}
                       </p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.1em] text-black/45">
+                      <p className="mt-1 text-xs uppercase tracking-[0.1em] text-[var(--ca-platform-muted)]">
                         {accountStatusLabels[account.status]}
                       </p>
                     </div>

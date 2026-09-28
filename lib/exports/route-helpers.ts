@@ -1,11 +1,13 @@
 import { toActionErrorMessage } from "@/lib/self-service/security";
 
 /**
- * requireEmployeeActor()/requireHrActor()/etc. call redirect("/login") when
- * there's no session — which Next.js implements by throwing an error with a
- * NEXT_REDIRECT digest. A plain try/catch here would swallow that and turn
- * a real redirect into a 403 response, so it must be detected and rethrown
- * for Next's route handler runtime to actually perform the redirect.
+ * requireEmployeeActor()/requireHrActor()/etc. redirect (to /login, or to the
+ * caller's own authorized landing page — see redirectToAuthorizedLanding in
+ * lib/auth/roles.ts) when there's no session or the wrong role — which
+ * Next.js implements by throwing an error with a NEXT_REDIRECT digest. A
+ * plain try/catch here would swallow that and turn a real redirect into a
+ * 403 response, so it must be detected and rethrown for Next's route handler
+ * runtime to actually perform the redirect.
  */
 function isNextRedirectError(error: unknown): boolean {
   return (

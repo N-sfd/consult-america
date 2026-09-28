@@ -4,8 +4,10 @@ import { Suspense } from "react";
 
 import JobBoard from "@/components/jobs/job-board";
 import { PageHeader } from "@/components/shared";
+import { listSavedJobRequisitionIds } from "@/lib/candidate/job-analyzer-store";
 import { requireCandidateActor } from "@/lib/candidate/security";
 import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
+import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import { recruitingRepository } from "@/lib/recruiting";
 
 export const metadata: Metadata = {
@@ -26,12 +28,6 @@ export default async function CandidateJobsPage() {
     string,
     { label: string; href: string }
   > = {};
-  for (const job of jobs) {
-    applicationCtasByRequisitionId[job.requisitionId] = {
-      label: "Apply",
-      href: `/jobs/${job.slug}/apply`,
-    };
-  }
   for (const application of profile?.applications ?? []) {
     applicationCtasByRequisitionId[application.requisitionId] = {
       label: "View Application",
@@ -39,22 +35,50 @@ export default async function CandidateJobsPage() {
     };
   }
 
+  const client = getSupabaseServiceClient();
+  let savedRequisitionIds: string[] = [];
+  if (client) {
+    const { data } = await client
+      .from("candidate_saved_jobs")
+      .select("job_requisition_id")
+      .eq("candidate_id", session.candidateId);
+    savedRequisitionIds = (data ?? []).map((row) => row.job_requisition_id as string);
+  } else {
+    savedRequisitionIds = listSavedJobRequisitionIds(session.candidateId);
+  }
+
   return (
     <div className="space-y-8">
       <PageHeader
-        title="Jobs"
-        description="Browse published Consult America roles and apply with your current resume."
+        title="Job Search"
+        description="Search Consult America roles, open a listing to review details, save favorites, and jump into the AI Job Analyzer."
+        actions={
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/candidate/saved-jobs"
+              className="rounded-lg border border-[var(--ca-platform-border)] px-3.5 py-2 text-sm font-semibold"
+            >
+              Saved jobs
+            </Link>
+            <Link
+              href="/candidate/job-match"
+              className="rounded-lg bg-[var(--ca-platform-deep)] px-3.5 py-2 text-sm font-semibold text-white"
+            >
+              AI Job Analyzer
+            </Link>
+          </div>
+        }
         meta={
           (profile?.applications?.length ?? 0) === 0 ? (
-            <p className="text-sm text-black/50">
-              No applications yet. Browse open roles to get started.
+            <p className="text-sm text-[var(--ca-platform-muted)]">
+              No applications yet. Open a role to review details, save it, or apply.
             </p>
           ) : (
-            <p className="text-sm text-black/50">
-              Roles you already applied to show View Application instead of Apply.{" "}
+            <p className="text-sm text-[var(--ca-platform-muted)]">
+              Roles you already applied to show View Application.{" "}
               <Link
                 href="/candidate/applications"
-                className="font-semibold text-[var(--cr-blue)] hover:underline"
+                className="font-semibold text-[var(--ca-platform-mid)] hover:underline"
               >
                 View applications
               </Link>
@@ -63,11 +87,13 @@ export default async function CandidateJobsPage() {
         }
       />
 
-      <Suspense fallback={<p className="text-sm text-black/50">Loading jobs…</p>}>
+      <Suspense fallback={<p className="text-sm text-[var(--ca-platform-muted)]">Loading jobs…</p>}>
         <JobBoard
           jobs={jobs}
           filterOptions={filterOptions}
           applicationCtasByRequisitionId={applicationCtasByRequisitionId}
+          portalMode
+          savedRequisitionIds={savedRequisitionIds}
         />
       </Suspense>
     </div>

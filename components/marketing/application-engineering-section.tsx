@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import JourneyConnector from "@/components/marketing/journey-connector";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { portfolioProjects } from "@/lib/marketing/portfolio-data";
 import { stockImage } from "@/lib/marketing/stock-images";
@@ -29,12 +30,13 @@ export default function ApplicationEngineeringSection() {
       id="application-engineering"
       className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-12 sm:py-14 lg:py-16"
     >
+      <JourneyConnector />
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
         {/* Engineering composition */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-5">
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">
-              Application Engineering
+              05 / 05 · Application Engineering
             </p>
             <h2 className="mt-3 max-w-xl font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#073B3A]">
               Build what packaged software cannot.
@@ -144,7 +146,7 @@ export default function ApplicationEngineeringSection() {
         <div className="relative mt-14 overflow-hidden border-t border-[#E1ECE8] pt-12">
           <div
             aria-hidden="true"
-            className="ca-home-sage-disc -right-[8%] top-[20%] hidden h-[360px] w-[360px] opacity-20 lg:block"
+            className="ca-home-sage-disc -right-[8%] top-[20%] hidden h-[360px] w-[360px] opacity-45 lg:block"
           />
 
           <div className="relative z-10 flex items-end justify-between gap-4">

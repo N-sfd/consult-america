@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 import type { PlatformRole } from "@/types/identity";
 
 /**
@@ -39,4 +41,22 @@ export function hasPortalRole(
   portal: "EMPLOYEE" | "MANAGER" | "HR" | "PAYROLL" | "CANDIDATE",
 ): boolean {
   return PORTAL_ROLES[portal].some((role) => roles.includes(role));
+}
+
+/**
+ * Send an authenticated-but-not-authorized-here user to their own correct
+ * workspace instead of back to /login. This exists because every
+ * `get*Session()` resolver used to redirect to `/login` (bare, or with
+ * `?returnTo=<the same path that just failed>`) when the user lacked the
+ * role for that portal — and proxy.ts unconditionally bounces an
+ * authenticated user hitting /login straight back to a validated
+ * `returnTo`, so re-appending the same path created an infinite redirect
+ * loop (candidate/employee/manager/hr/payroll all had this bug; only
+ * self-service's "wrong role but has an employee record" branch already
+ * did this correctly). If no role resolves to any landing page (a fully
+ * unprovisioned account), falls back to bare /login, which is safe — it
+ * has no returnTo, so proxy.ts won't bounce it anywhere.
+ */
+export function redirectToAuthorizedLanding(roles: PlatformRole[]): never {
+  redirect(landingPathForRoles(roles) ?? "/login");
 }

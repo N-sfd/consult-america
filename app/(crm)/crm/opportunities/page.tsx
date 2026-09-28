@@ -46,31 +46,31 @@ export default async function CrmOpportunitiesPage() {
               return (
                 <div
                   key={stage}
-                  className="w-[270px] shrink-0 rounded-lg border border-black/10 bg-white p-4"
+                  className="w-[270px] shrink-0 rounded-lg border border-[var(--ca-platform-border)] bg-white p-4"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.1em] text-black/45">
+                  <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--ca-platform-muted)]">
                     {opportunityStageLabels[stage]}
                   </p>
-                  <p className="mt-1 text-sm text-black/40">
+                  <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
                     {inStage.length} · {formatCurrency(stageValue)}
                   </p>
 
                   <div className="mt-4 space-y-3">
                     {inStage.length === 0 ? (
-                      <p className="text-sm text-black/40">No deals in this stage.</p>
+                      <p className="text-sm text-[var(--ca-platform-muted)]">No deals in this stage.</p>
                     ) : (
                       inStage.map((opportunity) => (
                         <div
                           key={opportunity.id}
-                          className="rounded-md border border-black/10 p-3 text-sm"
+                          className="rounded-md border border-[var(--ca-platform-border)] p-3 text-sm"
                         >
                           <Link
                             href={`/crm/accounts/${opportunity.accountId}`}
-                            className="font-medium hover:text-[var(--ca-blue)]"
+                            className="font-medium hover:text-[var(--ca-platform-mid)]"
                           >
                             {opportunity.name}
                           </Link>
-                          <p className="mt-1 truncate text-black/55">
+                          <p className="mt-1 truncate text-[var(--ca-platform-muted)]">
                             {opportunity.accountName}
                           </p>
                           <p className="mt-1 font-semibold">

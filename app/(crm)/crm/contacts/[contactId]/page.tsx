@@ -68,7 +68,7 @@ export default async function CrmContactDetailPage({
         }
       />
 
-      <nav className="flex flex-wrap gap-1 border-b border-black/10 pb-px" aria-label="Contact sections">
+      <nav className="flex flex-wrap gap-1 border-b border-[var(--ca-platform-border)] pb-px" aria-label="Contact sections">
         {TABS.map((item) => {
           const active = tab === item.id;
           return (
@@ -77,7 +77,7 @@ export default async function CrmContactDetailPage({
               href={`/crm/contacts/${contact.id}?tab=${item.id}`}
               className={`rounded-t-md px-3 py-2 text-sm font-medium ${
                 active
-                  ? "border border-b-white border-black/10 bg-white text-[var(--ca-app-ink)]"
+                  ? "border border-b-white border-[var(--ca-platform-border)] bg-white text-[var(--ca-app-ink)]"
                   : "text-black/50 hover:text-black/80"
               }`}
             >
@@ -94,32 +94,32 @@ export default async function CrmContactDetailPage({
 
       {tab === "overview" ? (
         <div className="grid gap-4 lg:grid-cols-2">
-          <section className="rounded-lg border border-black/10 bg-white p-5">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Contact
             </h2>
             <dl className="mt-4 space-y-3 text-sm">
               <div>
-                <dt className="text-black/40">Email</dt>
+                <dt className="text-[var(--ca-platform-muted)]">Email</dt>
                 <dd className="font-medium">{contact.email}</dd>
               </div>
               <div>
-                <dt className="text-black/40">Account</dt>
+                <dt className="text-[var(--ca-platform-muted)]">Account</dt>
                 <dd className="font-medium">{contact.accountName}</dd>
               </div>
               <div>
-                <dt className="text-black/40">Last inquiry</dt>
+                <dt className="text-[var(--ca-platform-muted)]">Last inquiry</dt>
                 <dd>{formatWhen(contact.lastInquiryAt)}</dd>
               </div>
               <div>
-                <dt className="text-black/40">Consent</dt>
+                <dt className="text-[var(--ca-platform-muted)]">Consent</dt>
                 <dd>{contact.consentAt ? formatWhen(contact.consentAt) : "—"}</dd>
               </div>
             </dl>
           </section>
 
-          <section className="rounded-lg border border-black/10 bg-white p-5">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Latest inquiry
             </h2>
             {latestInquiry ? (
@@ -130,28 +130,28 @@ export default async function CrmContactDetailPage({
                     <StatusBadge tone="accent">{latestInquiry.serviceName}</StatusBadge>
                   ) : null}
                 </div>
-                <p className="text-black/55">
+                <p className="text-[var(--ca-platform-muted)]">
                   {latestInquiry.sourcePage || latestInquiry.sourceChannel}
                 </p>
                 <p className="whitespace-pre-wrap text-black/70">
                   {latestInquiry.message || "No message provided."}
                 </p>
-                <p className="text-xs text-black/40">{formatWhen(latestInquiry.createdAt)}</p>
+                <p className="text-xs text-[var(--ca-platform-muted)]">{formatWhen(latestInquiry.createdAt)}</p>
               </div>
             ) : (
               <p className="mt-4 text-sm text-black/50">No Talk to Expert inquiries yet.</p>
             )}
           </section>
 
-          <section className="rounded-lg border border-black/10 bg-white p-5 lg:col-span-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+          <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5 lg:col-span-2">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
               Recent activity
             </h2>
             <ul className="mt-4 space-y-3">
               {activities.slice(0, 8).map((activity) => (
                 <li key={activity.id} className="border-l-2 border-[var(--ca-burgundy)]/30 pl-3">
                   <p className="text-sm font-medium">{activity.subject}</p>
-                  <p className="text-xs text-black/40">{formatWhen(activity.createdAt)}</p>
+                  <p className="text-xs text-[var(--ca-platform-muted)]">{formatWhen(activity.createdAt)}</p>
                 </li>
               ))}
               {activities.length === 0 ? (
@@ -170,16 +170,16 @@ export default async function CrmContactDetailPage({
             {activities.map((activity) => (
               <li
                 key={activity.id}
-                className="rounded-lg border border-black/10 bg-white px-4 py-3"
+                className="rounded-lg border border-[var(--ca-platform-border)] bg-white px-4 py-3"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <StatusBadge tone="neutral">{activity.type}</StatusBadge>
                   <p className="text-sm font-medium">{activity.subject}</p>
                 </div>
                 {activity.body ? (
-                  <p className="mt-2 text-sm text-black/55">{activity.body}</p>
+                  <p className="mt-2 text-sm text-[var(--ca-platform-muted)]">{activity.body}</p>
                 ) : null}
-                <p className="mt-2 text-xs text-black/40">{formatWhen(activity.createdAt)}</p>
+                <p className="mt-2 text-xs text-[var(--ca-platform-muted)]">{formatWhen(activity.createdAt)}</p>
               </li>
             ))}
           </ol>
@@ -200,8 +200,8 @@ export default async function CrmContactDetailPage({
       ) : null}
 
       {tab === "overview" && inquiries.length > 1 ? (
-        <section className="rounded-lg border border-black/10 bg-white p-5">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">
+        <section className="rounded-lg border border-[var(--ca-platform-border)] bg-white p-5">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ca-platform-muted)]">
             All inquiries ({inquiries.length})
           </h2>
           <ul className="mt-4 divide-y divide-black/5">
@@ -212,7 +212,7 @@ export default async function CrmContactDetailPage({
                   <span className="font-medium">
                     {inquiry.serviceName ?? "General"}
                   </span>
-                  <span className="text-black/40">{formatWhen(inquiry.createdAt)}</span>
+                  <span className="text-[var(--ca-platform-muted)]">{formatWhen(inquiry.createdAt)}</span>
                 </div>
               </li>
             ))}

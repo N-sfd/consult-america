@@ -176,7 +176,7 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
   });
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1400px]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
@@ -245,9 +245,9 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
         </div>
       ) : (
         <>
-          <div className="mt-3 hidden overflow-x-auto rounded-xl border border-black/10 bg-white shadow-sm lg:block">
+          <div className="mt-3 hidden overflow-x-auto rounded-xl border border-[var(--ca-platform-border)] bg-white shadow-sm lg:block">
             <table className="w-full min-w-[1200px] text-left text-sm">
-              <thead className="border-b border-black/10 text-[0.7rem] uppercase tracking-[0.12em] text-black/40">
+              <thead className="border-b border-[var(--ca-platform-border)] text-[0.7rem] uppercase tracking-[0.12em] text-black/40">
                 <tr>
                   <th className="px-4 py-3 font-medium">Employee #</th>
                   <th className="px-4 py-3 font-medium">Employee</th>
@@ -310,7 +310,7 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
               <Link
                 key={row.employee.id}
                 href={`/workforce/people/${row.employee.id}`}
-                className="block rounded-lg border border-black/10 bg-white p-4 shadow-sm"
+                className="block rounded-lg border border-[var(--ca-platform-border)] bg-white p-4 shadow-sm"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>

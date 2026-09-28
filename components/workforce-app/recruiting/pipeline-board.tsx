@@ -95,7 +95,7 @@ export default function PipelineBoard({
   }
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1400px] space-y-5">
       <Link
         href={`/app/recruiting/jobs/${requisitionId}`}
         className="inline-flex items-center gap-1 text-sm text-black/50 hover:text-[var(--ca-blue)]"
@@ -155,7 +155,7 @@ export default function PipelineBoard({
                       current === status ? null : status,
                     )
                   }
-                  className="flex w-full items-center justify-between border-b border-black/10 pb-2 text-left transition-colors hover:border-[var(--ca-blue)]"
+                  className="flex w-full items-center justify-between border-b border-[var(--ca-platform-border)] pb-2 text-left transition-colors hover:border-[var(--ca-blue)]"
                 >
                   <p className="text-xs font-medium uppercase tracking-[0.08em] text-black/50">
                     {applicationStatusLabels[status]}
@@ -199,7 +199,7 @@ export default function PipelineBoard({
                             event.target.value as ApplicationStatus,
                           )
                         }
-                        className="mt-2 h-7 w-full border border-black/10 bg-white px-1.5 text-xs text-black/70 outline-none focus:border-[var(--ca-blue)] disabled:opacity-50"
+                        className="mt-2 h-7 w-full border border-[var(--ca-platform-border)] bg-white px-1.5 text-xs text-black/70 outline-none focus:border-[var(--ca-blue)] disabled:opacity-50"
                       >
                         <option value={item.status}>
                           {applicationStatusLabels[item.status]}

@@ -1,7 +1,6 @@
-import { redirect } from "next/navigation";
-
-import { isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
+import { assertDemoSessionAllowed, isSupabaseBrowserConfigured } from "@/app/lib/supabase/client";
 import { getAuthenticatedPlatformUser } from "@/lib/auth/current-user";
+import { redirectToAuthorizedLanding } from "@/lib/auth/roles";
 
 export type CrmRole = "ADMIN" | "SALES_REP" | "SALES_MANAGER";
 
@@ -29,17 +28,20 @@ function initialsFor(displayName: string): string {
 }
 
 export async function getCrmSession(): Promise<CrmSession> {
-  if (!isSupabaseBrowserConfigured()) return DEMO_CRM_SESSION;
+  if (!isSupabaseBrowserConfigured()) {
+    assertDemoSessionAllowed("crm");
+    return DEMO_CRM_SESSION;
+  }
 
   const platformUser = await getAuthenticatedPlatformUser();
-  if (!platformUser) redirect("/login");
+  if (!platformUser) redirectToAuthorizedLanding([]);
 
   const roles: CrmRole[] = [];
   if (platformUser.roles.includes("SYSTEM_ADMIN")) roles.push("ADMIN");
   if (platformUser.roles.includes("SALES_REP")) roles.push("SALES_REP");
   if (platformUser.roles.includes("SALES_MANAGER")) roles.push("SALES_MANAGER");
 
-  if (roles.length === 0) redirect("/login");
+  if (roles.length === 0) redirectToAuthorizedLanding(platformUser.roles);
 
   return {
     userId: platformUser.userId,

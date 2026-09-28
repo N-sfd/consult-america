@@ -279,7 +279,7 @@ export default function CandidateDocumentsPanel({
                       type="button"
                       disabled={pending}
                       onClick={() => openSigned(doc.id)}
-                      className="text-[var(--ca-blue)]"
+                      className="text-[var(--ca-platform-mid)]"
                     >
                       View
                     </button>

@@ -119,7 +119,7 @@ export default function CandidateDrawer({
                     {detail.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="border border-black/10 px-2 py-0.5 text-xs text-black/60"
+                        className="border border-[var(--ca-platform-border)] px-2 py-0.5 text-xs text-black/60"
                       >
                         {skill}
                       </span>

@@ -145,7 +145,7 @@ export default function ApplicationsTable({
   }, [filtered, sortKey, matchScoreByApplicationId]);
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-5 px-4 py-5 lg:px-8 lg:py-6">
+    <div className="mx-auto max-w-[1400px] space-y-5">
       <PageHeader
         title="Applications"
         description="Review and move applications across the hiring pipeline."
@@ -167,14 +167,14 @@ export default function ApplicationsTable({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search candidate, email, position, or skill…"
-            className="h-9 w-full border border-black/10 bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
+            className="h-9 w-full border border-[var(--ca-platform-border)] bg-white pl-9 pr-3 text-sm outline-none placeholder:text-black/35 focus:border-[var(--ca-blue)]"
           />
         </label>
 
         <select
           value={stageFilter}
           onChange={(e) => setStageFilter(e.target.value as CandidateStage | "ALL")}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All stages</option>
           {CANDIDATE_STAGES.map((stage) => (
@@ -187,7 +187,7 @@ export default function ApplicationsTable({
         <select
           value={jobFilter}
           onChange={(e) => setJobFilter(e.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All jobs</option>
           {jobsPresent.map((job) => (
@@ -200,7 +200,7 @@ export default function ApplicationsTable({
         <select
           value={recruiterFilter}
           onChange={(e) => setRecruiterFilter(e.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All recruiters</option>
           {recruitersPresent.map((name) => (
@@ -213,7 +213,7 @@ export default function ApplicationsTable({
         <select
           value={managerFilter}
           onChange={(e) => setManagerFilter(e.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All hiring managers</option>
           {managersPresent.map((name) => (
@@ -226,7 +226,7 @@ export default function ApplicationsTable({
         <select
           value={locationFilter}
           onChange={(e) => setLocationFilter(e.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           <option value="ALL">All locations</option>
           {locationsPresent.map((location) => (
@@ -240,20 +240,20 @@ export default function ApplicationsTable({
           type="date"
           value={dateFrom}
           onChange={(e) => setDateFrom(e.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         />
         <span className="text-sm text-black/35">to</span>
         <input
           type="date"
           value={dateTo}
           onChange={(e) => setDateTo(e.target.value)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         />
 
         <select
           value={sortKey}
           onChange={(e) => setSortKey(e.target.value as SortKey)}
-          className="h-9 border border-black/10 bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
+          className="h-9 border border-[var(--ca-platform-border)] bg-white px-2.5 text-sm text-black/70 outline-none focus:border-[var(--ca-blue)]"
         >
           {Object.entries(SORT_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
@@ -266,7 +266,7 @@ export default function ApplicationsTable({
           <button
             type="button"
             onClick={clearFilters}
-            className="inline-flex h-9 items-center gap-1 border border-black/10 px-2.5 text-sm text-black/55 hover:border-black/20"
+            className="inline-flex h-9 items-center gap-1 border border-[var(--ca-platform-border)] px-2.5 text-sm text-black/55 hover:border-black/20"
           >
             <X className="h-3.5 w-3.5" />
             Clear Filters
@@ -287,7 +287,7 @@ export default function ApplicationsTable({
               <button
                 type="button"
                 onClick={clearFilters}
-                className="inline-flex h-9 items-center border border-black/10 px-3 text-sm text-black/60 hover:border-black/20"
+                className="inline-flex h-9 items-center border border-[var(--ca-platform-border)] px-3 text-sm text-black/60 hover:border-black/20"
               >
                 Clear Filters
               </button>

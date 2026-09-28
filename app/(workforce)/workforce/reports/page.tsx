@@ -73,7 +73,7 @@ export default async function WorkforceReportsPage({
   const data = await loadReportWorkspace(filters, [section], scope);
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1400px]">
       <div>
         <p className="text-[0.7rem] uppercase tracking-[0.14em] text-black/40">
           Workforce

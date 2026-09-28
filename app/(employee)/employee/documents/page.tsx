@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/shared";
 
 import EmployeeDocumentList from "@/components/documents/employee-document-list";
 import { getEmployeeDocuments } from "@/lib/self-service";
@@ -18,15 +19,10 @@ export default async function EmployeeDocumentsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-          My Documents
-        </h1>
-        <p className="mt-2 text-black/55">
-          Only documents marked for employee visibility. Open uses a server
-          authorization check.
-        </p>
-      </div>
+      <PageHeader
+        title="My Documents"
+        description="Only documents marked for employee visibility. Open uses a server authorization check."
+      />
 
       <EmployeeDocumentList documents={documents} />
     </div>
