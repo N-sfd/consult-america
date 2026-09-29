@@ -71,9 +71,9 @@
   --mkt-cream: var(--ca-white, #FFFFFF);
   --mkt-charcoal: var(--ca-ink, #102F35);
   --mkt-warm-gray: #5A6F73;
-  --mkt-burgundy: var(--ca-lime, #C9F45A);
-  --mkt-burgundy-hover: var(--ca-accent-hover, #B8E34A);
-  --mkt-burgundy-accent: var(--ca-lime, #C9F45A);
+  --mkt-burgundy: var(--ca-lime-ink, #3F6410);
+  --mkt-burgundy-hover: #31500C;
+  --mkt-burgundy-accent: var(--ca-lime-ink, #3F6410);
   --mkt-sage: var(--ca-teal-chrome, #0B4655);
   --mkt-sage-light: var(--ca-mist, #D7E2E1);
   --mkt-blue-accent: var(--ca-teal, #356D76);
@@ -95,7 +95,7 @@
   --mkt-blue-hover: var(--ca-teal-chrome, #0B4655);
   --mkt-blue-light: var(--ca-teal-soft, #86AEB2);
   --mkt-cyan: var(--ca-teal-soft, #86AEB2);
-  --mkt-bright: var(--ca-lime, #C9F45A);
+  --mkt-bright: var(--ca-lime-ink, #3F6410);
   --mkt-slate: #5A6F73;
   --mkt-muted: #5A6F73;
   --mkt-cloud: var(--ca-mist, #D7E2E1);

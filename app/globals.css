@@ -27,8 +27,8 @@
   --ca-canvas: #F5F6F1;
   --ca-white: #FFFFFF;
   --ca-ink: #102F35;
-  --ca-lime: #C9F45A;
-  --ca-lime-ink: #4F7310;
+  --ca-lime: #7DA81A;
+  --ca-lime-ink: #3F6410;
   --ca-lime-soft: #EAF7BD;
   --ca-line: #D5DFDB;
 
@@ -89,7 +89,7 @@
 
   /* Interactive accent — lime (CTAs, active, badges). Not section fills. */
   --ca-accent: var(--ca-lime);
-  --ca-accent-hover: #B8E34A;
+  --ca-accent-hover: #6A9214;
   --ca-accent-soft: var(--ca-lime-soft);
   --ca-accent-fg: var(--ca-ink);
   --ca-enterprise-blue: var(--ca-teal);

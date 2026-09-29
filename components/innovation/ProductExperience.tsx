@@ -24,12 +24,13 @@ export default function ProductExperience({
         >
           {items.map((shot) => (
             <figure key={shot.src}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[var(--mkt-border)] shadow-[0_20px_50px_rgba(16,42,67,0.08)]">
+              <div className="overflow-hidden rounded-xl border border-[var(--mkt-border)] bg-white shadow-[0_20px_50px_rgba(16,42,67,0.08)]">
                 <Image
                   src={shot.src}
                   alt={shot.alt}
-                  fill
-                  className="object-cover object-top"
+                  width={1600}
+                  height={1000}
+                  className="h-auto w-full"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

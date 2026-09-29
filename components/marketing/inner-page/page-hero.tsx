@@ -228,6 +228,19 @@ function HeroImage({
         )}
       />
       <Reveal variant="image" className="ca-hero-img-frame relative">
+        {imageShape === "rect" ? (
+          <div className="overflow-hidden rounded-xl bg-white shadow-[0_20px_48px_rgba(7,59,58,0.1)] ring-1 ring-[#DDE6E3]/80">
+            <Image
+              src={image}
+              alt={imageAlt}
+              width={1440}
+              height={900}
+              priority={priority}
+              className="h-auto w-full"
+              sizes="(max-width: 1024px) 100vw, 46vw"
+            />
+          </div>
+        ) : (
         <div
           className={cn(
             "relative aspect-[5/4] w-full overflow-hidden shadow-[0_20px_48px_rgba(7,59,58,0.1)] ring-1 ring-[#DDE6E3]/80",
@@ -241,11 +254,12 @@ function HeroImage({
             priority={priority}
             className={cn(
               "ca-hero-img object-cover",
-              imageShape !== "rect" && imageShape !== "wide" && "ca-home-photo",
+              imageShape !== "wide" && "ca-home-photo",
             )}
             sizes="(max-width: 1024px) 100vw, 46vw"
           />
         </div>
+        )}
         {secondaryImage ? (
           <div className="ca-practice-workflow-panel -bottom-4 -right-3 z-20 hidden sm:block">
             <div className="relative aspect-[4/3] w-full min-w-[180px] max-w-[220px]">
