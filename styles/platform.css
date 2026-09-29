@@ -6,7 +6,7 @@
    * Must fully contain PortalBrand lockup (marketing: 440px max) + horizontal padding + breathing room.
    * Never shrink the logo to fit — widen the shell instead.
    */
-  --workspace-sidebar-width: 500px;
+  --workspace-sidebar-width: 380px;
   --workspace-sidebar-inset: 24px;
 
   /* Dense operational app shell — teal chrome, pale canvas, lime active */
@@ -66,6 +66,11 @@
   border-right: 1px solid var(--ca-platform-border);
   overflow-x: visible;
   overflow-y: auto;
+}
+
+.ca-platform-sidebar .ca-brand-lockup {
+  max-width: 100%;
+  width: 100%;
 }
 
 .ca-platform-sidebar--admin,

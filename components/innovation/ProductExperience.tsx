@@ -30,7 +30,7 @@ export default function ProductExperience({
                   alt={shot.alt}
                   width={1600}
                   height={1000}
-                  className="h-auto w-full"
+                  className="ca-product-full h-auto w-full"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

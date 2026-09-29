@@ -194,7 +194,7 @@ export default function ApplicationEngineeringSection() {
                     alt={current.imageAlt}
                     width={960}
                     height={600}
-                    className="h-[220px] w-full object-contain object-top sm:h-[260px]"
+                    className="ca-product-full h-auto w-full object-contain object-top"
                     sizes="(max-width: 1024px) 100vw, 55vw"
                   />
                 </div>
@@ -230,13 +230,13 @@ export default function ApplicationEngineeringSection() {
                       onClick={() => setActive(idx)}
                       className="flex flex-1 overflow-hidden rounded-[14px] border border-[#DDE6E3] bg-[#F8FAF9] text-left transition-shadow hover:shadow-[0_12px_28px_rgba(7,59,58,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#176A63]"
                     >
-                      <div className="relative h-full min-h-[110px] w-[42%] shrink-0 bg-[#F6F9F8]">
+                      <div className="relative flex h-full min-h-[140px] w-[46%] shrink-0 items-center bg-[#F6F9F8] p-2">
                         <Image
                           src={app.image}
                           alt=""
-                          fill
-                          className="object-cover object-top"
-                          sizes="180px"
+                          width={640}
+                          height={400}
+                          className="ca-product-full h-auto max-h-[180px] w-full object-contain"
                         />
                       </div>
                       <div className="flex flex-col justify-center p-4">
@@ -278,8 +278,8 @@ export default function ApplicationEngineeringSection() {
               <a
                 key={app.id}
                 href={app.liveUrl ?? app.detailHref}
-                target="_blank"
-                rel="noreferrer"
+                target={(app.liveUrl ?? app.detailHref).startsWith("http") ? "_blank" : undefined}
+                rel={(app.liveUrl ?? app.detailHref).startsWith("http") ? "noreferrer" : undefined}
                 className="rounded-lg border border-[#E1ECE8] bg-[#F8FAF9] px-4 py-3 text-sm font-medium text-[#5B6D6B] transition-colors hover:border-[#176A63] hover:text-[#176A63]"
               >
                 {app.name}

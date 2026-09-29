@@ -213,10 +213,17 @@
   clip-path: polygon(0 0, 88% 0, 100% 13%, 100% 100%, 10% 100%, 0 87%);
 }
 
-.ca-hero-img-frame {
-  position: relative;
-  max-height: var(--mkt-hero-img-max-h);
-  overflow: hidden;
+.ca-hero-img-frame:has(.ca-product-full) {
+  max-height: none;
+  overflow: visible;
+}
+
+.ca-hero-img-frame img.ca-product-full,
+img.ca-product-full {
+  max-height: none;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
 }
 
 .ca-hero-img-frame img,

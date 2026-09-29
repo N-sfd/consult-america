@@ -110,7 +110,7 @@
 
   /* Application shell — same ecosystem tokens, denser use */
   --ca-app-max: 1440px;
-  --workspace-sidebar-width: 500px;
+  --workspace-sidebar-width: 380px;
   --workspace-sidebar-inset: 24px;
   --ca-app-sidebar: var(--workspace-sidebar-width);
   --ca-app-sidebar-rail: 72px;
@@ -262,7 +262,7 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: clamp(12px, 1.1vw, 20px);
+  column-gap: clamp(20px, 1.8vw, 36px);
   min-height: 84px;
   overflow: visible;
   box-sizing: border-box;
@@ -299,7 +299,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: clamp(10px, 1vw, 18px);
+  gap: clamp(16px, 1.5vw, 28px);
   white-space: nowrap;
   min-width: 0;
   grid-column: 2;
@@ -310,7 +310,7 @@ body {
   align-items: center;
   justify-content: flex-end;
   flex-shrink: 0;
-  gap: 12px;
+  gap: 20px;
   z-index: 1;
 }
 
