@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import WorkforceOverview from "@/components/workforce/workforce-overview";
-
-export const metadata: Metadata = {
-  title: "Overview",
-};
-
-export default function WorkforceHomePage() {
-  return <WorkforceOverview />;
+/** People operations land in HR, not the ATS recruiting desk. */
+export default function WorkforceHomeRedirect() {
+  redirect("/hr");
 }

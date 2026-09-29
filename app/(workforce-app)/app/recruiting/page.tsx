@@ -66,9 +66,9 @@ export default async function AtsHomePage() {
   return (
     <div className="space-y-7">
       <PageHeader
-        eyebrow="Recruiting"
-        title="Recruiting Operations"
-        description="Live requisitions, applications, interviews, and offers — hire creates the HR employee, not a status-only flip."
+        eyebrow="ATS"
+        title="Recruiting"
+        description="Manage requisitions, candidates, and hiring activity."
         meta={
           <nav className="ca-workflow-lineage" aria-label="Hiring lineage">
             <span>Requisition</span>

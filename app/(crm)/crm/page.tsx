@@ -32,8 +32,9 @@ export default async function CrmDashboardPage() {
   return (
     <div className="space-y-7">
       <PageHeader
-        title="CRM Workspace"
-        description="Pipeline health and account activity at a glance."
+        eyebrow="CRM"
+        title="Customer Operations"
+        description="Manage accounts, opportunities, and client engagement."
       />
 
       <section className="grid gap-4 sm:grid-cols-3">

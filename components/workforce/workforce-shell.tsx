@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 import PlatformShell from "@/components/platform/platform-shell";
+import { ADMIN_NAV, NAV_BY_WORKSPACE } from "@/components/platform/platform-nav";
 
 const ADMIN_PREFIXES = [
   "/workforce/administration",
@@ -11,6 +12,7 @@ const ADMIN_PREFIXES = [
   "/workforce/system-health",
   "/workforce/audit",
   "/workforce/settings",
+  "/workforce/notifications",
 ];
 
 export default function WorkforceShell({
@@ -24,19 +26,33 @@ export default function WorkforceShell({
 }) {
   const pathname = usePathname() || "/";
   const isAdmin = ADMIN_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  const isPeople = pathname.startsWith("/workforce/people");
 
   return (
     <PlatformShell
-      workspace="workforce"
-      workspaceLabel={isAdmin ? "Admin" : "ATS"}
+      workspace={isPeople ? "hr" : "workforce"}
+      workspaceLabel={isAdmin ? "Admin" : isPeople ? "HR" : "ATS"}
+      navGroups={isAdmin ? ADMIN_NAV : isPeople ? NAV_BY_WORKSPACE.hr : NAV_BY_WORKSPACE.workforce}
       session={{
-        displayName: userName ?? (isAdmin ? "Admin User" : "ATS User"),
+        displayName: userName ?? (isAdmin ? "Admin User" : isPeople ? "HR User" : "ATS User"),
         initials: userInitials,
-        roleLabel: isAdmin ? "Admin" : "ATS",
+        roleLabel: isAdmin ? "Admin" : isPeople ? "HR" : "ATS",
       }}
       showSearch
-      searchPlaceholder="Search people, jobs, candidates…"
-      logoHref={isAdmin ? "/workforce/administration" : "/app/recruiting"}
+      searchPlaceholder={
+        isAdmin
+          ? "Search users and configuration…"
+          : isPeople
+            ? "Search employees…"
+            : "Search jobs and candidates…"
+      }
+      logoHref={
+        isAdmin
+          ? "/workforce/administration"
+          : isPeople
+            ? "/hr"
+            : "/app/recruiting"
+      }
     >
       {children}
     </PlatformShell>

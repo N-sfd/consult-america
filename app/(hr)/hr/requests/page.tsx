@@ -91,6 +91,7 @@ export default async function HrRequestsPage({
   return (
     <div className="space-y-7">
       <PageHeader
+        eyebrow="HR"
         title="HR Requests"
         description="Service-desk queue for open, assigned, waiting, and resolved employee requests."
         actions={

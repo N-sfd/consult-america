@@ -50,13 +50,13 @@ const footerColumns = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-[var(--ca-line)] bg-[var(--ca-canvas)] text-[var(--ca-ink)]">
-      <div className="mx-auto max-w-[1440px] overflow-x-clip px-6 py-14 lg:px-8 xl:px-10 lg:py-16">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div className="mx-auto max-w-[1440px] overflow-x-clip px-6 py-8 lg:px-8 lg:py-10 xl:px-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="max-w-[400px]">
               <BrandLogo variant="full" context="footer" href="/" />
             </div>
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-[var(--ca-text-secondary)]">
+            <div className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--ca-text-secondary)]">
               <div>
                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[var(--ca-ink)]">
                   {companyContact.headquarters.label}
@@ -100,7 +100,7 @@ export function SiteFooter() {
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ca-ink)]">
                   {column.title}
                 </p>
-                <ul className="mt-4 space-y-2.5">
+                <ul className="mt-3 space-y-1.5">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
@@ -117,7 +117,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-[var(--ca-line)] pt-8 text-center text-xs text-[var(--ca-text-secondary)]">
+        <div className="mt-6 border-t border-[var(--ca-line)] pt-4 text-center text-xs text-[var(--ca-text-secondary)]">
           <p>© {new Date().getFullYear()} Consult America LLC. All rights reserved.</p>
         </div>
       </div>

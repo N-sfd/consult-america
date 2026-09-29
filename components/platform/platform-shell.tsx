@@ -333,16 +333,8 @@ function PlatformShellFrame({
               <Menu className="h-4 w-4" />
             </button>
 
-            <div className="ca-platform-header-brand min-[1180px]:hidden">
-              <PortalBrand
-                surface="light"
-                mode="mobile"
-                href={homeHref}
-              />
-            </div>
-
-            <div className="ca-platform-header-context hidden sm:block">
-              <p className="ca-platform-header-eyebrow">{meta.eyebrow}</p>
+            <div className="ca-platform-header-context">
+              <p className="ca-platform-header-eyebrow hidden min-[1180px]:block">{meta.eyebrow}</p>
               <p className="ca-platform-header-title">{workspaceLabel ?? meta.name}</p>
             </div>
 
@@ -378,7 +370,7 @@ function PlatformShellFrame({
                 </Link>
               ) : null}
 
-              <Link href="/" className="ca-platform-icon-btn" aria-label="Help">
+              <Link href="/" className="ca-platform-icon-btn hidden sm:inline-flex" aria-label="Help">
                 <HelpCircle className="h-4 w-4" />
               </Link>
 

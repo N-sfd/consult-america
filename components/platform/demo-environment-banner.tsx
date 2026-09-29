@@ -17,7 +17,7 @@ export default function DemoEnvironmentBanner() {
         </span>
       </div>
       <Link
-        href="/app/dashboard"
+        href="/app/recruiting"
         className="shrink-0 text-xs font-semibold uppercase tracking-[0.08em] text-[#7a6a3d] underline-offset-2 hover:underline"
       >
         Configure Supabase

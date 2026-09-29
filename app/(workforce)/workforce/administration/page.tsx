@@ -43,9 +43,9 @@ export default async function WorkforceAdministrationPage() {
   return (
     <div className="mx-auto max-w-[1400px] space-y-7">
       <PageHeader
-        eyebrow="Consult America Platform"
-        title="Workforce Administration"
-        description="Govern Users, Roles, Security, Workflows, Audit, and Configuration for ATS, HR, and CRM — one control plane for the Consult America platform, not a standalone admin app."
+        eyebrow="Admin"
+        title="Platform Administration"
+        description="Manage users, security, workflows, and configuration."
       />
 
       <nav className="ca-workflow-lineage" aria-label="Administration lineage">

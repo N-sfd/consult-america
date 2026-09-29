@@ -266,7 +266,8 @@
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   padding: 0 1rem;
-  overflow-x: visible;
+  overflow: hidden;
+  flex-wrap: nowrap;
 }
 
 .ca-platform-header-brand {
@@ -280,26 +281,47 @@
   }
 }
 
+.ca-platform-header .ca-portal-brand {
+  display: none;
+}
+
 .ca-platform-header-context {
   min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .ca-platform-header-eyebrow {
+  display: none;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ca-platform-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ca-platform-header-title {
-  margin-top: 0.1rem;
+  margin-top: 0;
   font-size: 0.92rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--ca-platform-ink);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media (min-width: 1180px) {
+  .ca-platform-header-eyebrow {
+    display: block;
+  }
+
+  .ca-platform-header-title {
+    margin-top: 0.1rem;
+    font-weight: 500;
+  }
 }
 
 .ca-platform-search {
@@ -307,9 +329,11 @@
   position: relative;
   margin-inline: auto;
   width: min(420px, 100%);
+  flex: 1 1 220px;
+  min-width: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1180px) {
   .ca-platform-search {
     display: block;
   }
@@ -344,6 +368,7 @@
 .ca-platform-header-actions {
   margin-left: auto;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 0.65rem;
 }
@@ -496,6 +521,7 @@
 
 .ca-platform-menu-btn {
   display: inline-flex;
+  flex-shrink: 0;
   height: 2.25rem;
   width: 2.25rem;
   align-items: center;

@@ -46,7 +46,7 @@ export const WORKSPACE_META: Record<
   hr: {
     name: "HR",
     eyebrow: "Consult America Platform",
-    homeHref: "/hr/requests",
+    homeHref: "/hr",
     variant: "admin",
   },
   payroll: {
@@ -58,7 +58,7 @@ export const WORKSPACE_META: Record<
   workforce: {
     name: "ATS",
     eyebrow: "Consult America Platform",
-    homeHref: "/app/dashboard",
+    homeHref: "/app/recruiting",
     variant: "admin",
   },
   candidate: {
@@ -138,11 +138,13 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
   ],
   hr: [
     {
-      label: "Service Desk",
+      label: "People",
       items: [
-        { href: "/hr/requests", label: "Requests" },
+        { href: "/hr", label: "Overview", exact: true },
+        { href: "/workforce/people", label: "Employees" },
+        { href: "/workforce/people?status=PRE_HIRE", label: "Onboarding" },
+        { href: "/hr/requests", label: "HR Requests" },
         { href: "/hr/reports", label: "Reports" },
-        { href: "/hr/audit", label: "Audit Log" },
         { href: "/hr/notifications", label: "Notifications", badgeKey: "notifications" },
       ],
     },
@@ -169,53 +171,15 @@ export const NAV_BY_WORKSPACE: Record<PlatformWorkspaceId, PlatformNavGroup[]> =
   ],
   workforce: [
     {
-      label: "Overview",
-      items: [{ href: "/app/dashboard", label: "Overview", exact: true }],
-    },
-    {
-      label: "ATS · Recruiting",
+      label: "Recruiting",
       items: [
-        { href: "/app/recruiting", label: "Recruiting", exact: true },
-        { href: "/app/recruiting/jobs", label: "Jobs" },
-        { href: "/app/recruiting/applications", label: "Applications" },
+        { href: "/app/recruiting", label: "Overview", exact: true },
+        { href: "/app/recruiting/jobs", label: "Jobs / Requisitions" },
         { href: "/app/recruiting/candidates", label: "Candidates" },
+        { href: "/app/recruiting/applications", label: "Applications" },
         { href: "/app/recruiting/interviews", label: "Interviews" },
         { href: "/app/recruiting/offers", label: "Offers" },
         { href: "/app/recruiting/job-match", label: "Candidate Match" },
-      ],
-    },
-    {
-      label: "People",
-      items: [
-        { href: "/workforce/people", label: "Employees" },
-        {
-          href: "/workforce/people?status=PRE_HIRE",
-          label: "Onboarding",
-        },
-      ],
-    },
-    {
-      label: "HR Operations",
-      items: [
-        { href: "/hr/requests", label: "Requests" },
-        { href: "/employee/time", label: "Time & Leave" },
-        { href: "/employee/documents", label: "Documents" },
-        { href: "/payroll", label: "Payroll" },
-      ],
-    },
-    {
-      label: "Reports",
-      items: [{ href: "/workforce/reports", label: "Reports" }],
-    },
-    {
-      label: "Admin",
-      items: [
-        { href: "/workforce/administration", label: "Workforce Administration" },
-        { href: "/workforce/users", label: "Users & Access" },
-        { href: "/workforce/system-health", label: "System Health" },
-        { href: "/workforce/notifications", label: "Notifications" },
-        { href: "/workforce/audit", label: "Audit" },
-        { href: "/workforce/settings", label: "Configuration" },
       ],
     },
   ],
@@ -269,7 +233,7 @@ export const DEMO_WORKSPACES: {
   },
   {
     id: "hr",
-    href: "/hr/requests",
+    href: "/hr",
     label: "HR",
     description: "Requests and people operations from hire onward.",
   },
@@ -306,6 +270,21 @@ export const DEMO_WORKSPACES: {
 ];
 
 /** Primary suite modules shown in the authenticated platform switcher. */
+/** Platform governance — not the ATS recruiting menu. */
+export const ADMIN_NAV: PlatformNavGroup[] = [
+  {
+    label: "Governance",
+    items: [
+      { href: "/workforce/administration", label: "Overview", exact: true },
+      { href: "/workforce/users", label: "Users & Roles" },
+      { href: "/workforce/audit", label: "Audit" },
+      { href: "/workforce/system-health", label: "System Health" },
+      { href: "/workforce/settings", label: "Configuration" },
+      { href: "/workforce/notifications", label: "Notifications" },
+    ],
+  },
+];
+
 export const SUITE_SWITCHER: {
   id: PlatformWorkspaceId;
   href: string;
@@ -313,7 +292,7 @@ export const SUITE_SWITCHER: {
 }[] = [
   { id: "crm", href: "/crm", label: "CRM" },
   { id: "workforce", href: "/app/recruiting", label: "ATS" },
-  { id: "hr", href: "/hr/requests", label: "HR" },
+  { id: "hr", href: "/hr", label: "HR" },
   { id: "employee", href: "/employee", label: "Employee" },
   { id: "payroll", href: "/payroll", label: "Payroll" },
   { id: "workforce", href: "/workforce/administration", label: "Admin" },
@@ -339,20 +318,15 @@ export function isCurrentSuiteItem(
       pathname.startsWith("/workforce/users") ||
       pathname.startsWith("/workforce/system-health") ||
       pathname.startsWith("/workforce/audit") ||
-      pathname.startsWith("/workforce/settings")
+      pathname.startsWith("/workforce/settings") ||
+      pathname.startsWith("/workforce/notifications")
     );
   }
   if (item.label === "ATS") {
-    return (
-      pathname.startsWith("/app/") ||
-      (pathname.startsWith("/workforce/") &&
-        !pathname.startsWith("/workforce/administration") &&
-        !pathname.startsWith("/workforce/admin") &&
-        !pathname.startsWith("/workforce/users") &&
-        !pathname.startsWith("/workforce/system-health") &&
-        !pathname.startsWith("/workforce/audit") &&
-        !pathname.startsWith("/workforce/settings"))
-    );
+    return pathname.startsWith("/app/");
+  }
+  if (item.label === "HR") {
+    return pathname === "/hr" || pathname.startsWith("/hr/") || pathname.startsWith("/workforce/people");
   }
   return item.id === workspace && item.label === WORKSPACE_META[workspace].name;
 }
