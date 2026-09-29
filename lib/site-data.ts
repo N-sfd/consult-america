@@ -93,9 +93,9 @@ export const companyContact = {
   webUrl: "https://www.consultamerica.com",
   office: {
     label: "Branch Office",
-    address: "1101 Opal Court Suite 211",
+    address: "1101 Opal Court, Suite 211",
     cityStateZip: "Hagerstown, MD 21740",
-    full: "1101 Opal Court Suite 211, Hagerstown, MD 21740",
+    full: "1101 Opal Court, Suite 211, Hagerstown, MD 21740",
   },
   headquarters: {
     label: "Headquarters",

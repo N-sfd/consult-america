@@ -67,12 +67,12 @@ export default function CareersPage() {
                 href={path.href}
                 className="ca-feature-card ca-feature-card--hover group block rounded-2xl border border-[var(--ca-line)]/80 bg-white p-6"
               >
-                <span className="text-sm font-bold text-[var(--ca-lime)]">{path.number}</span>
-                <h2 className="mt-3 text-lg font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-lime)]">
+                <span className="text-sm font-bold text-[var(--ca-lime-ink)]">{path.number}</span>
+                <h2 className="mt-3 text-lg font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-lime-ink)]">
                   {path.title}
                 </h2>
                 <p className="mt-2 text-sm leading-7 text-[var(--ca-text-secondary)]">{path.description}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-lime)]">
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-lime-ink)]">
                   Learn more <ArrowUpRight className="h-4 w-4" />
                 </span>
               </Link>

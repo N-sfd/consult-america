@@ -69,7 +69,7 @@ const organizationJsonLd = {
   name: "Consult America",
   url: siteUrl,
   logo: `${siteUrl}/brand/ca-logo-horizontal.png`,
-  email: "Info@consultamerica.com",
+  email: "info@consultamerica.com",
   telephone: "+1-703-496-7858",
   description:
     "Consult America helps organizations modernize enterprise platforms, operationalize AI and data, transform Oracle environments, and build enterprise applications from strategy through production.",
@@ -86,7 +86,7 @@ const organizationJsonLd = {
     {
       "@type": "PostalAddress",
       name: "Branch Office",
-      streetAddress: "1101 Opal Court Suite 211",
+      streetAddress: "1101 Opal Court, Suite 211",
       addressLocality: "Hagerstown",
       addressRegion: "MD",
       postalCode: "21740",

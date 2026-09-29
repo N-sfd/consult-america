@@ -165,7 +165,7 @@ export default function HomepageContactSection() {
         className="pointer-events-none absolute -right-[22%] bottom-[-40%] hidden h-[min(420px,55vw)] w-[min(420px,55vw)] rounded-full border border-white/[0.06] lg:block"
       />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 mkt-shell">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">

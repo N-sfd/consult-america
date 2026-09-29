@@ -134,6 +134,7 @@
 .ca-shell {
   width: min(100% - 48px, 1280px);
   margin-inline: auto;
+  box-sizing: border-box;
 }
 
 @media (max-width: 767px) {

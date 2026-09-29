@@ -50,7 +50,7 @@ const footerColumns = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-[var(--ca-line)] bg-[var(--ca-canvas)] text-[var(--ca-ink)]">
-      <div className="mx-auto max-w-[1440px] px-6 py-8 lg:px-8 lg:py-10 xl:px-10">
+      <div className="mkt-shell py-8 lg:py-10">
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <div className="ca-header-brand">
@@ -94,9 +94,9 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 items-start gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-7">
+          <div className="grid min-w-0 grid-cols-2 items-start gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-7">
             {footerColumns.map((column) => (
-              <div key={column.title}>
+              <div key={column.title} className="min-w-0">
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ca-ink)]">
                   {column.title}
                 </p>

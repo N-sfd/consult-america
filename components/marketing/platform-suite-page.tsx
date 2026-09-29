@@ -241,12 +241,12 @@ export default function PlatformSuitePage({
             aria-hidden="true"
             className="pointer-events-none absolute -right-[18%] top-[-30%] hidden h-[360px] w-[360px] rounded-full border border-white/[0.07] lg:block"
           />
-          <div className="relative z-10 mkt-shell grid gap-10 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
+          <div className="relative z-10 mkt-shell flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+            <div className="max-w-2xl">
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">
                 Outcomes
               </p>
-              <h2 className="mt-3 font-serif text-[clamp(1.5rem,2.6vw,2.125rem)] font-semibold text-white">
+              <h2 className="mt-3 max-w-2xl font-serif text-3xl font-semibold tracking-[-0.035em] text-white md:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
                 What changes when {module.name} is part of the suite.
               </h2>
               <ul className="mt-6 space-y-3">
@@ -258,15 +258,13 @@ export default function PlatformSuitePage({
                 ))}
               </ul>
             </div>
-            <div className="lg:col-span-5 lg:text-right">
-              <Link
-                href={module.appHref}
-                className="inline-flex h-12 items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] hover:bg-[var(--ca-accent-hover)]"
-              >
-                {ctaLabel}
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
+            <Link
+              href={module.appHref}
+              className="inline-flex h-12 shrink-0 items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] hover:bg-[var(--ca-accent-hover)]"
+            >
+              {ctaLabel}
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
         </section>
       </main>
