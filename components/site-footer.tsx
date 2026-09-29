@@ -50,18 +50,18 @@ const footerColumns = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-[var(--ca-line)] bg-[var(--ca-canvas)] text-[var(--ca-ink)]">
-      <div className="mx-auto max-w-[1440px] overflow-x-clip px-6 py-8 lg:px-8 lg:py-10 xl:px-10">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <div className="max-w-[400px]">
-              <BrandLogo variant="full" context="footer" href="/" />
+      <div className="mx-auto max-w-[1440px] px-6 py-8 lg:px-8 lg:py-10 xl:px-10">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
+            <div className="ca-header-brand">
+              <BrandLogo variant="full" context="marketing" href="/" />
             </div>
-            <div className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--ca-text-secondary)]">
+            <div className="mt-5 space-y-4 text-sm leading-relaxed text-[var(--ca-text-secondary)]">
               <div>
                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[var(--ca-ink)]">
                   {companyContact.headquarters.label}
                 </p>
-                <p className="mt-1">{companyContact.headquarters.address}</p>
+                <p className="mt-1 lg:whitespace-nowrap">{companyContact.headquarters.address}</p>
                 <p>{companyContact.headquarters.cityStateZip}</p>
               </div>
 
@@ -77,7 +77,7 @@ export function SiteFooter() {
                 <p>
                   <a
                     href={`mailto:${companyContact.email}`}
-                    className="transition-colors hover:text-[var(--ca-lime)]"
+                    className="underline decoration-[var(--ca-line)] underline-offset-2 transition-colors hover:text-[var(--ca-ink)] hover:decoration-[var(--ca-ink)]"
                   >
                     {companyContact.email}
                   </a>
@@ -85,7 +85,7 @@ export function SiteFooter() {
                 <p>
                   <a
                     href={`tel:${companyContact.phoneTel}`}
-                    className="transition-colors hover:text-[var(--ca-lime)]"
+                    className="underline decoration-[var(--ca-line)] underline-offset-2 transition-colors hover:text-[var(--ca-ink)] hover:decoration-[var(--ca-ink)]"
                   >
                     {companyContact.phone}
                   </a>
@@ -94,7 +94,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
+          <div className="grid grid-cols-2 items-start gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-7">
             {footerColumns.map((column) => (
               <div key={column.title}>
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ca-ink)]">
@@ -105,7 +105,7 @@ export function SiteFooter() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-[var(--ca-text-secondary)] transition-colors hover:text-[var(--ca-lime)]"
+                        className="text-sm text-[var(--ca-text-secondary)] transition-colors hover:text-[var(--ca-ink)]"
                       >
                         {link.label}
                       </Link>

@@ -169,10 +169,10 @@ export default function HomepageContactSection() {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">
-              Start a Conversation
+              AI &amp; Data
             </p>
             <h2 className="mt-4 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-white">
-              What should your technology make possible next?
+              Ready to put AI to work on your data?
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/75">
               Share a brief overview of your program or operating challenge. Your inquiry will be
@@ -304,7 +304,7 @@ export default function HomepageContactSection() {
                     disabled={pending}
                     className="inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] transition-colors hover:bg-[var(--ca-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {pending ? "Submitting…" : "Submit Inquiry"}
+                    {pending ? "Submitting…" : "Start a conversation"}
                     <ArrowUpRight className="h-4 w-4" />
                   </button>
                 </div>

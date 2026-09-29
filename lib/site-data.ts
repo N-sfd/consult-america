@@ -88,7 +88,7 @@ export const companyContact = {
   phoneTel: "+17034967858",
   /** Schema / intl display */
   phoneIntl: "+1-703-496-7858",
-  email: "Info@consultamerica.com",
+  email: "info@consultamerica.com",
   web: "www.consultamerica.com",
   webUrl: "https://www.consultamerica.com",
   office: {
