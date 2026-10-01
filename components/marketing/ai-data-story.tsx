@@ -72,7 +72,7 @@ export default function AIDataStory() {
         )}
       />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 mkt-shell">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
@@ -148,6 +148,12 @@ export default function AIDataStory() {
               </motion.p>
             </AnimatePresence>
 
+            <p className="mt-6 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-[#9BC4B8]">
+              Data Agent
+            </p>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/80">
+              Turn complex documents into structured, verified, enterprise-ready information.
+            </p>
             <Link
               href="/work/innovation/data-agent"
               className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#9BC4B8] hover:text-white"
@@ -183,7 +189,7 @@ export default function AIDataStory() {
                     height={900}
                     loading={active === 0 ? "eager" : "lazy"}
                     decoding="async"
-                    className="max-h-[420px] w-full object-cover object-top"
+                    className="h-auto w-full object-contain"
                   />
                 </motion.div>
               </AnimatePresence>
@@ -196,7 +202,7 @@ export default function AIDataStory() {
                     width={800}
                     height={500}
                     loading="lazy"
-                    className="max-h-[140px] w-full object-cover object-top"
+                    className="h-auto w-full object-contain"
                   />
                 </div>
               ) : null}

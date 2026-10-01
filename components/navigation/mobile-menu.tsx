@@ -132,7 +132,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 z-[100] bg-[#073B3A]/40 backdrop-blur-[2px] min-[1280px]:hidden"
+            className="fixed inset-0 z-[100] bg-[#073B3A]/40 backdrop-blur-[2px] min-[1600px]:hidden"
           />
 
           <motion.aside
@@ -140,7 +140,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-y-0 right-0 z-[100] flex w-full max-w-sm flex-col bg-white text-[#073B3A] shadow-[-8px_0_40px_rgba(7,59,58,0.12)] min-[1280px]:hidden"
+            className="fixed inset-y-0 right-0 z-[100] flex w-full max-w-sm flex-col bg-white text-[#073B3A] shadow-[-8px_0_40px_rgba(7,59,58,0.12)] min-[1600px]:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"

@@ -22,7 +22,18 @@ export type RequisitionStatus =
   | "FILLED"
   | "CANCELLED";
 
-export type JobStatus = "DRAFT" | "PUBLISHED" | "UNPUBLISHED" | "CLOSED";
+export type JobStatus =
+  | "DRAFT"
+  | "APPROVED"
+  | "SCHEDULED"
+  | "OPEN"
+  | "PUBLISHED"
+  | "PAUSED"
+  | "UNPUBLISHED"
+  | "FILLED"
+  | "CLOSED"
+  | "EXPIRED"
+  | "ARCHIVED";
 
 export type ApprovalStatus = "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
 
@@ -140,6 +151,11 @@ export type Job = {
   preferredQualifications: string[];
   status: JobStatus;
   publishedAt?: string;
+  publishAt?: string;
+  expiresAt?: string;
+  applicationDeadline?: string;
+  featured?: boolean;
+  experienceLevel?: string;
   closedAt?: string;
   isDemo: boolean;
   createdAt: string;

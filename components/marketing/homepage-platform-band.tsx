@@ -11,7 +11,7 @@ export default function HomepagePlatformBand() {
       aria-label="Connected enterprise platform"
       className="border-b border-[var(--ca-line)] bg-[var(--ca-canvas)] py-10 sm:py-12 lg:py-14"
     >
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="mkt-shell">
         <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
           Connected platform
         </p>

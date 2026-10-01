@@ -172,7 +172,7 @@ export default function SiteHeader() {
               </div>
 
               <nav
-                className="ca-header-nav max-[1279px]:hidden min-[1280px]:flex"
+                className="ca-header-nav max-[1599px]:hidden min-[1600px]:flex"
                 aria-label="Primary navigation"
               >
                 {navItems.map((item) => (
@@ -200,7 +200,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(true)}
-                  className="flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-[#DCE4E1] bg-white max-[1279px]:flex min-[1280px]:hidden cursor-pointer shrink-0"
+                  className="flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-[#DCE4E1] bg-white max-[1599px]:flex min-[1600px]:hidden cursor-pointer shrink-0"
                   aria-label="Open navigation menu"
                   aria-expanded={drawerOpen}
                 >
@@ -212,7 +212,7 @@ export default function SiteHeader() {
         </div>
 
         {openMenu && (
-            <div className="pointer-events-none absolute inset-x-0 top-full z-[70] hidden min-[1280px]:block">
+            <div className="pointer-events-none absolute inset-x-0 top-full z-[70] hidden min-[1600px]:block">
           <div
                 className="ca-mega-surface pointer-events-auto"
             onMouseEnter={() => setOpenMenu(openMenu)}

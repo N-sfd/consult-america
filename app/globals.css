@@ -250,13 +250,8 @@ body {
 }
 
 /* Header shell — structural grid */
-.ca-header-container {
-  width: 100%;
-  max-width: var(--page-wide, 1760px);
-  margin-inline: auto;
-  padding-inline: clamp(16px, 2.4vw, 48px);
-  box-sizing: border-box;
-}
+/* Width, centering, and gutters come from .ca-header-container in marketing.css
+   so the lockup shares the homepage shell with hero, sections, and footer. */
 
 .ca-header-inner {
   display: grid;
@@ -325,10 +320,10 @@ body {
   }
 }
 
-/* Tablet landscape — room for full lockup + hamburger */
-@media (min-width: 1024px) and (max-width: 1279px) {
+/* Full lockup beside the menu button until the desktop nav has room */
+@media (min-width: 1024px) and (max-width: 1599px) {
   .ca-header-brand {
-    width: clamp(380px, 42vw, 420px);
+    width: clamp(380px, 42vw, 440px);
   }
 
   .ca-header-inner {
@@ -336,7 +331,7 @@ body {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1600px) {
   .ca-header-actions {
     grid-column: 3;
   }
@@ -353,13 +348,13 @@ body {
   }
 }
 
-@media (max-width: 1279px) {
+@media (max-width: 1599px) {
   .ca-header-nav {
     display: none !important;
   }
 
   .ca-header-inner {
-    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 12px;
     min-height: 80px;
     justify-content: space-between;
@@ -372,6 +367,14 @@ body {
 
   .ca-header-actions {
     grid-column: 2;
+    width: auto;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ca-header-actions {
     width: 44px;
     justify-content: center;
   }
@@ -387,7 +390,7 @@ body {
   box-shadow: none;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .ca-header-actions .ca-header-cta {
     display: inline-flex;
     min-height: 48px;

@@ -18,7 +18,7 @@ export default function HomepageCareersSection() {
       id="careers"
       className="relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-mist)] py-12 sm:py-14 lg:py-16"
     >
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 mkt-shell">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             <motion.div

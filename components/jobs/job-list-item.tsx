@@ -36,11 +36,17 @@ export default function JobListItem({
         className="group cr-card grid gap-4 p-6 transition-colors hover:border-[var(--cr-blue)]/40 md:grid-cols-12 md:items-center"
       >
         <div className="md:col-span-5">
-          <h2 className="text-xl font-medium tracking-[-0.03em] text-[var(--cr-navy)] transition-colors duration-200 group-hover:text-[var(--cr-blue)]">
+          <h2 className="text-lg font-medium tracking-[-0.02em] text-[var(--cr-navy)] transition-colors duration-200 group-hover:text-[var(--cr-blue)]">
             {job.title}
+            {job.isNew ? (
+              <span className="ml-2 align-middle text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[var(--ca-teal)]">
+                New
+              </span>
+            ) : null}
           </h2>
+          <p className="mt-1 text-sm text-[var(--cr-text-secondary)]">{job.summary}</p>
           <p className="mt-2 text-sm text-[var(--cr-blue)]">
-            {careerAreaLabels[job.careerArea]}
+            {job.department}
           </p>
         </div>
 
@@ -56,7 +62,7 @@ export default function JobListItem({
 
         <div className="flex md:col-span-3 md:justify-end">
           <span className="inline-flex items-center gap-2 text-sm font-medium text-[var(--cr-text)] transition-colors group-hover:text-[var(--cr-blue)]">
-            {primaryCta}
+            {primaryCta === "View Role" ? "View Job" : primaryCta}
             <ArrowUpRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </span>
         </div>

@@ -92,6 +92,8 @@ export default function JobForm({
         qualifications,
         preferredQualifications,
         publishNow,
+        publishAt: String(formData.get("publishAt") ?? "") || undefined,
+        expiresAt: String(formData.get("expiresAt") ?? "") || undefined,
       });
 
       router.push(`/app/recruiting/jobs/${result.requisitionId}`);
@@ -251,6 +253,16 @@ export default function JobForm({
         </div>
       </Section>
 
+      <div className="mt-6 grid gap-4 border-t border-[var(--ca-platform-border)] pt-5 sm:grid-cols-2">
+        <label className="text-sm text-[var(--ca-app-ink)]">
+          Publish at
+          <input name="publishAt" type="datetime-local" className={fieldClass} />
+        </label>
+        <label className="text-sm text-[var(--ca-app-ink)]">
+          Expires at
+          <input name="expiresAt" type="datetime-local" className={fieldClass} />
+        </label>
+      </div>
       <div className="mt-6 flex items-center justify-between border-t border-[var(--ca-platform-border)] pt-5">
         <Link
           href="/app/recruiting/jobs"

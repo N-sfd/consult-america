@@ -82,7 +82,7 @@ export default function HomepageClosingSection() {
           activeIndustry === 1 ? "ca-practice-healthcare-bg" : "bg-[var(--ca-canvas)]",
         )}
       >
-        <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="relative z-10 mkt-shell">
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <motion.div
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
@@ -200,7 +200,7 @@ export default function HomepageClosingSection() {
       </section>
 
       <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12 lg:py-14">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+        <div className="mkt-shell">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Insights</p>

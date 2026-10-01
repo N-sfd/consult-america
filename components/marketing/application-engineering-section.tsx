@@ -31,7 +31,7 @@ export default function ApplicationEngineeringSection() {
       className="relative overflow-hidden border-b border-[#E1ECE8] bg-white py-12 sm:py-14 lg:py-16"
     >
       <JourneyConnector />
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 mkt-shell">
         {/* Engineering composition */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-5">
@@ -94,7 +94,7 @@ export default function ApplicationEngineeringSection() {
                   width={800}
                   height={500}
                   loading="lazy"
-                  className="max-h-[150px] w-full object-cover object-top"
+                  className="h-auto max-h-[180px] w-full object-contain"
                 />
               </div>
             </div>

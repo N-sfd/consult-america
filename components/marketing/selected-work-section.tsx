@@ -52,7 +52,7 @@ export default function SelectedWorkSection() {
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setPaused(false);
       }}
     >
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="mkt-shell">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#176A63]">

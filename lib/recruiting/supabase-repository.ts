@@ -1,5 +1,6 @@
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import { seedDepartments, seedLocations } from "@/data/recruiting/seed";
+import { isPubliclyOpen } from "@/lib/jobs/eligibility";
 import type { EmploymentType } from "@/types/organization";
 import type {
   ApplicationQueueItem,
@@ -65,6 +66,11 @@ function mapPosting(row: Record<string, unknown>): Job {
       (row.preferred_qualifications as string[]) ?? [],
     status: row.status as Job["status"],
     publishedAt: (row.published_at as string) ?? undefined,
+    publishAt: (row.publish_at as string) ?? undefined,
+    expiresAt: (row.expires_at as string) ?? undefined,
+    applicationDeadline: (row.application_deadline as string) ?? undefined,
+    featured: Boolean(row.featured),
+    experienceLevel: (row.experience_level as string) ?? undefined,
     closedAt: (row.closed_at as string) ?? undefined,
     isDemo: Boolean(row.is_demo),
     createdAt: row.created_at as string,
@@ -286,10 +292,13 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
       const { data } = await client
         .from("jobs")
         .select("*")
-        .eq("status", "PUBLISHED")
+        .in("status", ["PUBLISHED", "OPEN"])
+        .eq("is_demo", false)
         .order("published_at", { ascending: false });
 
-      return (data ?? []).map(mapPosting);
+      return (data ?? [])
+        .map(mapPosting)
+        .filter((posting) => isPubliclyOpen(posting));
     },
 
     async getPostingBySlug(slug: string) {
@@ -300,10 +309,20 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
         .from("jobs")
         .select("*")
         .eq("slug", slug)
-        .eq("status", "PUBLISHED")
         .maybeSingle();
 
-      return data ? mapPosting(data) : undefined;
+      const posting = data ? mapPosting(data) : undefined;
+      return posting && isPubliclyOpen(posting) ? posting : undefined;
+    },
+
+    async getPostingBySlugAny(slug: string) {
+      const client = getSupabaseServiceClient();
+      if (!client) return undefined;
+
+      const { data } = await client.from("jobs").select("*").eq("slug", slug).maybeSingle();
+      const posting = data ? mapPosting(data) : undefined;
+      if (!posting || posting.status === "DRAFT") return undefined;
+      return posting;
     },
 
     async getRequisitionById(id: string) {
@@ -1044,6 +1063,8 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
           responsibilities: input.responsibilities,
           qualifications: input.qualifications,
           preferredQualifications: input.preferredQualifications,
+          publishAt: input.publishAt,
+          expiresAt: input.expiresAt,
         });
       }
 
@@ -1124,6 +1145,24 @@ export function createSupabaseRecruitingRepository(): RecruitingRepository &
 
       const now = new Date().toISOString();
       const normalizedEmail = input.email.trim().toLowerCase();
+
+      const { data: liveJob } = await client
+        .from("jobs")
+        .select("id,status,published_at,publish_at,expires_at,application_deadline")
+        .eq("id", input.postingId)
+        .maybeSingle();
+      if (
+        !liveJob ||
+        !isPubliclyOpen({
+          status: liveJob.status as string,
+          publishedAt: (liveJob.published_at as string) ?? null,
+          publishAt: (liveJob.publish_at as string) ?? null,
+          expiresAt: (liveJob.expires_at as string) ?? null,
+          applicationDeadline: (liveJob.application_deadline as string) ?? null,
+        })
+      ) {
+        throw new Error("This position is no longer accepting applications.");
+      }
 
       const { data: existingCandidateRow } = await client
         .from("candidate_profiles")
@@ -1396,9 +1435,13 @@ async function insertPosting(
     responsibilities: string[];
     qualifications: string[];
     preferredQualifications: string[];
+    publishAt?: string;
+    expiresAt?: string;
   },
 ): Promise<string> {
   const now = new Date().toISOString();
+  const scheduled =
+    posting.publishAt != null && new Date(posting.publishAt).getTime() > Date.now();
   const baseSlug = slugify(posting.title);
 
   let slug = baseSlug;
@@ -1429,8 +1472,10 @@ async function insertPosting(
     responsibilities: posting.responsibilities,
     qualifications: posting.qualifications,
     preferred_qualifications: posting.preferredQualifications,
-    status: "PUBLISHED",
-    published_at: now,
+    status: scheduled ? "SCHEDULED" : "PUBLISHED",
+    published_at: scheduled ? null : now,
+    publish_at: posting.publishAt ?? null,
+    expires_at: posting.expiresAt ?? null,
     is_demo: false,
     created_at: now,
     updated_at: now,

@@ -8,6 +8,7 @@ import {
   seedRequisitions,
 } from "@/data/recruiting/seed";
 import { createSupabaseRecruitingRepository } from "@/lib/recruiting/supabase-repository";
+import { isPubliclyOpen } from "@/lib/jobs/eligibility";
 import {
   assertApplicationTransition,
   canTransitionOffer,
@@ -96,7 +97,7 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
   return {
     async listPublishedPostings() {
       return postings
-        .filter((posting) => posting.status === "PUBLISHED")
+        .filter((posting) => isPubliclyOpen(posting))
         .sort((a, b) => {
           const aDate = a.publishedAt ?? a.createdAt;
           const bDate = b.publishedAt ?? b.createdAt;
@@ -106,8 +107,13 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
 
     async getPostingBySlug(slug: string) {
       return postings.find(
-        (posting) =>
-          posting.slug === slug && posting.status === "PUBLISHED",
+        (posting) => posting.slug === slug && isPubliclyOpen(posting),
+      );
+    },
+
+    async getPostingBySlugAny(slug: string) {
+      return postings.find(
+        (posting) => posting.slug === slug && posting.status !== "DRAFT",
       );
     },
 
@@ -482,6 +488,10 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
     async submitApplication(
       input: SubmitApplicationInput,
     ): Promise<SubmitApplicationResult> {
+      const posting = postings.find((item) => item.id === input.postingId);
+      if (!posting || !isPubliclyOpen(posting)) {
+        throw new Error("This position is no longer accepting applications.");
+      }
       const now = new Date().toISOString();
       const normalizedEmail = input.email.trim().toLowerCase();
 
@@ -719,9 +729,13 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       responsibilities: string[];
       qualifications: string[];
       preferredQualifications: string[];
+      publishAt?: string;
+      expiresAt?: string;
     },
   ): string {
     const now = new Date().toISOString();
+    const scheduled =
+      content.publishAt != null && new Date(content.publishAt).getTime() > Date.now();
     const baseSlug = slugify(requisition.title);
     let slug = baseSlug;
     let suffix = 2;
@@ -745,8 +759,10 @@ export function createMemoryRecruitingRepository(): RecruitingRepository &
       responsibilities: content.responsibilities,
       qualifications: content.qualifications,
       preferredQualifications: content.preferredQualifications,
-      status: "PUBLISHED",
-      publishedAt: now,
+      status: scheduled ? "SCHEDULED" : "PUBLISHED",
+      publishedAt: scheduled ? undefined : now,
+      publishAt: content.publishAt,
+      expiresAt: content.expiresAt,
       isDemo: false,
       createdAt: now,
       updatedAt: now,
@@ -778,6 +794,12 @@ export async function getPostingBySlug(
   slug: string,
 ): Promise<Job | undefined> {
   return recruitingRepository.getPostingBySlug(slug);
+}
+
+export async function getPostingBySlugAny(
+  slug: string,
+): Promise<Job | undefined> {
+  return recruitingRepository.getPostingBySlugAny(slug);
 }
 
 export async function getRequisitionById(

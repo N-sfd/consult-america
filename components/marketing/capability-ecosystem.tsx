@@ -170,7 +170,7 @@ export default function CapabilityEcosystem() {
         className="pointer-events-none absolute -right-[12%] top-[22%] hidden h-[380px] w-[380px] rounded-full border border-[var(--ca-teal-deep)]/[0.05] lg:block"
       />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 mkt-shell">
         <div className="max-w-2xl">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
             What We Do

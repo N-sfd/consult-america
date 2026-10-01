@@ -37,7 +37,7 @@ export default function Home() {
       <CapabilityEcosystem />
       <OracleFlagship />
       <section aria-label="Intelligent engineering" className="border-b border-[var(--ca-line)]">
-        <div className="mx-auto max-w-[1440px] px-6 pt-10 lg:px-8 lg:pt-12 xl:px-10">
+        <div className="mkt-shell pt-10 lg:pt-12">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
             Intelligent engineering
           </p>

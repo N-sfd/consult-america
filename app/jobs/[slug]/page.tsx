@@ -70,7 +70,8 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
     }
   }
 
-  const jobPostingJsonLd = {
+  const jobPostingJsonLd = job.acceptingApplications
+    ? {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     title: job.title,
@@ -100,14 +101,17 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
       name: "Consult America",
       value: job.id,
     },
-  };
+  }
+    : null;
 
   return (
     <div className="bg-[var(--cr-bg)]">
+      {jobPostingJsonLd ? (
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
       />
+      ) : null}
       <div className="bg-[var(--cr-bg-soft)]">
         <div className="cr-shell py-14 md:py-20">
           {job.isDemo && (
@@ -132,7 +136,16 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            {existingApplication ? (
+            {!job.acceptingApplications ? (
+              <div>
+                <p className="text-base font-medium text-[var(--cr-navy)]">
+                  This position is no longer accepting applications.
+                </p>
+                <Link href="/jobs" className="ca-link mt-3 inline-flex text-sm">
+                  View current openings
+                </Link>
+              </div>
+            ) : existingApplication ? (
               <Link
                 href={`/candidate/applications/${existingApplication.applicationId}`}
                 className="ca-button-primary"

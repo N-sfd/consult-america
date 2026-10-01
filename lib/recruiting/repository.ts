@@ -23,6 +23,7 @@ import type {
 export type RecruitingRepository = {
   listPublishedPostings(): Promise<Job[]>;
   getPostingBySlug(slug: string): Promise<Job | undefined>;
+  getPostingBySlugAny(slug: string): Promise<Job | undefined>;
   getRequisitionById(id: string): Promise<JobRequisition | undefined>;
   getCandidateByEmail(email: string): Promise<CandidateProfile | undefined>;
   listApplicationsByRequisition(
@@ -233,6 +234,8 @@ export type CreateJobRequisitionInput = {
   qualifications: string[];
   preferredQualifications: string[];
   publishNow: boolean;
+  publishAt?: string;
+  expiresAt?: string;
 };
 
 /** Reads backing the ATS Jobs / Requisitions workspace. */

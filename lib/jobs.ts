@@ -11,9 +11,10 @@ import {
 import type { CareerArea, Job as JobPosting } from "@/types/recruiting";
 import { careerAreaLabels as recruitingCareerLabels } from "@/data/jobs";
 import {
-  getPostingBySlug,
+  getPostingBySlugAny,
   listPublishedPostings,
 } from "@/lib/recruiting";
+import { isNewListing, isPubliclyOpen } from "@/lib/jobs/eligibility";
 
 export type Job = {
   id: string;
@@ -31,6 +32,8 @@ export type Job = {
   preferredQualifications?: string[];
   postedAt: string;
   status: "open" | "closed";
+  acceptingApplications: boolean;
+  isNew: boolean;
   isDemo: boolean;
   requisitionId: string;
 };
@@ -46,6 +49,8 @@ export type JobFilters = {
 export { careerAreaLabels } from "@/data/jobs";
 
 function toPublicJob(posting: JobPosting): Job {
+  const open = isPubliclyOpen(posting);
+  const postedAt = (posting.publishedAt ?? posting.createdAt).slice(0, 10);
   return {
     id: posting.id,
     slug: posting.slug,
@@ -62,20 +67,60 @@ function toPublicJob(posting: JobPosting): Job {
     responsibilities: posting.responsibilities,
     qualifications: posting.qualifications,
     preferredQualifications: posting.preferredQualifications,
-    postedAt: (posting.publishedAt ?? posting.createdAt).slice(0, 10),
-    status: posting.status === "PUBLISHED" ? "open" : "closed",
+    postedAt,
+    status: open ? "open" : "closed",
+    acceptingApplications: open,
+    isNew: open && isNewListing(posting.publishedAt ?? posting.createdAt),
     isDemo: posting.isDemo,
     requisitionId: posting.requisitionId,
   };
 }
 
+export const JOBS_PAGE_SIZE = 20;
+
+export type JobSearch = {
+  q?: string;
+  location?: string;
+  department?: string;
+  arrangement?: string;
+  type?: string;
+  sort?: "newest" | "oldest" | "title";
+  page?: number;
+};
+
+export async function searchPublicJobs(search: JobSearch): Promise<{
+  jobs: Job[];
+  total: number;
+  page: number;
+  pageCount: number;
+}> {
+  const filtered = filterJobs(await getOpenJobs(), {
+    query: search.q,
+    location: search.location,
+    careerArea: search.department,
+    workplaceType: search.arrangement,
+    employmentType: search.type,
+  }).sort((a, b) => {
+    if (search.sort === "title") return a.title.localeCompare(b.title);
+    if (search.sort === "oldest") return a.postedAt.localeCompare(b.postedAt);
+    return b.postedAt.localeCompare(a.postedAt);
+  });
+  const page = Math.max(1, search.page ?? 1);
+  const start = (page - 1) * JOBS_PAGE_SIZE;
+  return {
+    jobs: filtered.slice(start, start + JOBS_PAGE_SIZE),
+    total: filtered.length,
+    page,
+    pageCount: Math.max(1, Math.ceil(filtered.length / JOBS_PAGE_SIZE)),
+  };
+}
 export async function getOpenJobs(): Promise<Job[]> {
   const postings = await listPublishedPostings();
   return postings.map(toPublicJob);
 }
 
 export async function getJobBySlug(slug: string): Promise<Job | undefined> {
-  const posting = await getPostingBySlug(slug);
+  const posting = await getPostingBySlugAny(slug);
   return posting ? toPublicJob(posting) : undefined;
 }
 
@@ -97,7 +142,9 @@ export function filterJobs(allJobs: Job[], filters: JobFilters): Job[] {
     }
 
     if (filters.location && filters.location !== "all") {
-      if (job.location !== filters.location) return false;
+      const needle = filters.location.trim().toLowerCase();
+      const haystack = `${job.location} ${job.workplaceType}`.toLowerCase();
+      if (!haystack.includes(needle)) return false;
     }
 
     if (filters.workplaceType && filters.workplaceType !== "all") {
@@ -111,8 +158,10 @@ export function filterJobs(allJobs: Job[], filters: JobFilters): Job[] {
     if (query) {
       const haystack = [
         job.title,
+        job.id,
         job.department,
         job.summary,
+        job.description,
         recruitingCareerLabels[job.careerArea],
         job.location,
       ]

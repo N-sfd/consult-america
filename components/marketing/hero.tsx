@@ -231,7 +231,7 @@ export default function Hero() {
         moving={!shouldReduceMotion && slide.tone === "transform"}
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-between px-6 py-14 sm:py-16 lg:min-h-[640px] lg:px-8 lg:py-[4.5rem] xl:px-10">
+      <div className="relative z-10 mkt-shell flex w-full flex-col justify-between py-14 sm:py-16 lg:min-h-[640px] lg:py-[4.5rem]">
         <div className="grid flex-1 grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <AnimatePresence mode="wait">

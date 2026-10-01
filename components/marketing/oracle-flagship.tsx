@@ -57,7 +57,7 @@ export default function OracleFlagship() {
       className="relative overflow-hidden border-b border-[#E1ECE8] bg-[#F8FAF9] py-12 sm:py-14 lg:py-16"
     >
       <JourneyConnector />
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-8 xl:px-10">
+      <div className="mkt-shell">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
           <motion.div
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 14, scale: 0.985 }}

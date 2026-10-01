@@ -25,7 +25,7 @@ export default function PositioningSection() {
       aria-label="Outcomes"
       className="ca-home-outcomes relative overflow-x-clip border-b border-[var(--ca-line)] bg-[var(--ca-white)]"
     >
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 py-7 sm:py-8 lg:px-8 lg:py-9 xl:px-10">
+      <div className="relative z-10 mkt-shell py-7 sm:py-8 lg:py-9">
         <div className="grid grid-cols-2 gap-x-6 gap-y-7 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-0">
           {pillars.map((pillar, index) => (
             <motion.div
