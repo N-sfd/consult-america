@@ -93,36 +93,27 @@ export default async function CandidatePortalHomePage() {
             Search jobs, save favorites, run the AI Job Analyzer, and track applications
             in one place.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap items-center gap-3">
             <Link
               href="/candidate/jobs"
-              className="rounded-lg bg-[var(--ca-platform-deep)] px-3.5 py-2 text-sm font-semibold text-white"
+              className="rounded-lg bg-[var(--ca-lime)] px-3.5 py-2 text-sm font-semibold text-[var(--ca-ink)]"
             >
               Search Jobs
             </Link>
             <Link
               href="/candidate/job-match"
-              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
+              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-semibold"
             >
               AI Job Analyzer
             </Link>
-            <Link
-              href="/candidate/profile"
-              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
-            >
-              Personal Information
+            <Link href="/candidate/applications" className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline">
+              Applications
             </Link>
-            <Link
-              href="/candidate/saved-jobs"
-              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
-            >
-              Saved Jobs
+            <Link href="/candidate/saved-jobs" className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline">
+              Saved
             </Link>
-            <Link
-              href="/candidate/applications"
-              className="rounded-lg border border-[var(--ca-platform-border)] bg-white/90 px-3.5 py-2 text-sm font-medium"
-            >
-              View Applications
+            <Link href="/candidate/profile" className="text-sm font-semibold text-[var(--ca-platform-mid)] hover:underline">
+              Profile
             </Link>
           </div>
         </div>

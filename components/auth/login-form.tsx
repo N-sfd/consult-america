@@ -75,7 +75,10 @@ export default function LoginForm({
       </div>
 
       <div className="login-forgot-row">
-        <a href="#" className="login-forgot-link">
+        <a
+          href="mailto:info@consultamerica.com?subject=Password%20reset%20request"
+          className="login-forgot-link"
+        >
           Forgot password?
         </a>
       </div>

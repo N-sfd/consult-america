@@ -294,7 +294,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: clamp(16px, 1.5vw, 28px);
+  gap: clamp(6px, 0.55vw, 14px);
   white-space: nowrap;
   min-width: 0;
   grid-column: 2;
@@ -321,7 +321,7 @@ body {
 }
 
 /* Full lockup beside the menu button until the desktop nav has room */
-@media (min-width: 1024px) and (max-width: 1599px) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   .ca-header-brand {
     width: clamp(380px, 42vw, 440px);
   }
@@ -331,24 +331,24 @@ body {
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1440px) {
   .ca-header-actions {
     grid-column: 3;
   }
 
   /* Desktop — room for mark + full tagline, never clipped */
   .ca-header-brand {
-    width: clamp(400px, 30vw, 440px);
+    width: 400px;
   }
 }
 
-@media (min-width: 1536px) {
+@media (min-width: 1680px) {
   .ca-header-brand {
     width: 440px;
   }
 }
 
-@media (max-width: 1599px) {
+@media (max-width: 1439px) {
   .ca-header-nav {
     display: none !important;
   }
@@ -373,7 +373,7 @@ body {
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .ca-header-actions {
     width: 44px;
     justify-content: center;
@@ -390,9 +390,16 @@ body {
   box-shadow: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .ca-header-actions .ca-header-cta {
     display: inline-flex;
+    min-height: 44px;
+    padding-inline: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ca-header-actions .ca-header-cta {
     min-height: 48px;
     padding-inline: 20px;
   }

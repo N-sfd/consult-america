@@ -6,7 +6,7 @@ import JobBoard from "@/components/jobs/job-board";
 import { PageHeader } from "@/components/shared";
 import { listSavedJobRequisitionIds } from "@/lib/candidate/job-analyzer-store";
 import { requireCandidateActor } from "@/lib/candidate/security";
-import { getJobFilterOptions, getOpenJobs } from "@/lib/jobs";
+import { getCandidatePortalJobs, getJobFilterOptions } from "@/lib/jobs";
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import { recruitingRepository } from "@/lib/recruiting";
 
@@ -19,7 +19,7 @@ export const dynamic = "force-dynamic";
 export default async function CandidateJobsPage() {
   const { session } = await requireCandidateActor();
   const [jobs, profile] = await Promise.all([
-    getOpenJobs(),
+    getCandidatePortalJobs(),
     recruitingRepository.getCandidateProfile(session.candidateId),
   ]);
   const filterOptions = getJobFilterOptions(jobs);

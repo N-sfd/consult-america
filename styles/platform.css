@@ -765,8 +765,34 @@
 
 .ca-platform-pipeline {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.45rem;
+}
+
+@media (max-width: 640px) {
+  .ca-platform-pipeline {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .ca-platform-pipeline-stage {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.85rem;
+    text-align: left;
+  }
+
+  .ca-platform-pipeline-count {
+    min-width: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .ca-platform-pipeline-label {
+    margin-top: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
 }
 
 .ca-platform-pipeline-stage {

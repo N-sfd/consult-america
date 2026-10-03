@@ -14,6 +14,7 @@ import {
   getPostingBySlugAny,
   listPublishedPostings,
 } from "@/lib/recruiting";
+import { candidatePracticeJobs } from "@/lib/jobs/candidate-catalog";
 import { isNewListing, isPubliclyOpen } from "@/lib/jobs/eligibility";
 
 export type Job = {
@@ -119,6 +120,18 @@ export async function getOpenJobs(): Promise<Job[]> {
   return postings.map(toPublicJob);
 }
 
+export async function getCandidatePortalJobs(): Promise<Job[]> {
+  const live = await getOpenJobs();
+  const seen = new Set(live.map((job) => job.slug));
+  return [...live, ...candidatePracticeJobs().filter((job) => !seen.has(job.slug))];
+}
+
+export async function getCandidateJobBySlug(slug: string): Promise<Job | undefined> {
+  const live = await getJobBySlug(slug);
+  if (live) return live;
+  return candidatePracticeJobs().find((job) => job.slug === slug);
+}
+
 export async function getJobBySlug(slug: string): Promise<Job | undefined> {
   const posting = await getPostingBySlugAny(slug);
   return posting ? toPublicJob(posting) : undefined;
@@ -159,6 +172,7 @@ export function filterJobs(allJobs: Job[], filters: JobFilters): Job[] {
       const haystack = [
         job.title,
         job.id,
+        job.requisitionId,
         job.department,
         job.summary,
         job.description,

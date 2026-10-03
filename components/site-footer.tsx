@@ -37,7 +37,7 @@ const footerColumns = [
     title: "Connect",
     links: [
       { href: "/contact", label: "Contact" },
-      { href: "/jobs", label: "Candidate Portal" },
+      { href: "/login?returnTo=/candidate", label: "Candidate Portal" },
       { href: "/login", label: "Employee Portal" },
     ],
   },
@@ -51,7 +51,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-[var(--ca-line)] bg-[var(--ca-canvas)] text-[var(--ca-ink)]">
       <div className="mkt-shell py-8 lg:py-10">
-        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
             <div className="ca-header-brand">
               <BrandLogo variant="full" context="marketing" href="/" />
@@ -61,7 +61,7 @@ export function SiteFooter() {
                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-[var(--ca-ink)]">
                   {companyContact.headquarters.label}
                 </p>
-                <p className="mt-1 lg:whitespace-nowrap">{companyContact.headquarters.address}</p>
+                <p className="mt-1 whitespace-normal sm:whitespace-nowrap">{companyContact.headquarters.address}</p>
                 <p>{companyContact.headquarters.cityStateZip}</p>
               </div>
 

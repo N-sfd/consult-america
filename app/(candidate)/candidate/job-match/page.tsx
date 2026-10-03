@@ -10,7 +10,7 @@ import {
   listProposalDrafts,
 } from "@/lib/candidate/job-analyzer-store";
 import { requireCandidateActor } from "@/lib/candidate/security";
-import { getOpenJobs } from "@/lib/jobs";
+import { getCandidatePortalJobs } from "@/lib/jobs";
 import { recruitingRepository } from "@/lib/recruiting";
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import type { JobMatchResult } from "@/lib/candidate/job-match";
@@ -31,7 +31,7 @@ export default async function CandidateJobMatchPage({ searchParams }: PageProps)
   const { session } = await requireCandidateActor();
   const [profile, jobs] = await Promise.all([
     recruitingRepository.getCandidateProfile(session.candidateId),
-    getOpenJobs(),
+    getCandidatePortalJobs(),
   ]);
 
   const hasActiveResume = (profile?.documents ?? []).some(

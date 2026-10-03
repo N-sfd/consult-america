@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { stockImage } from "@/lib/marketing/stock-images";
 import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
 
 const revealEase = [0.2, 0.8, 0.2, 1] as const;
@@ -37,28 +35,24 @@ export default function HomepageCareersSection() {
               </p>
             </motion.div>
 
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.14, ease: revealEase }}
-              className="mt-8 flex flex-wrap gap-3"
-            >
-              <Link
-                href="/careers"
-                className="inline-flex h-11 items-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] hover:bg-[var(--ca-accent-hover)]"
+            <form action="/jobs" method="get" className="mt-8 flex max-w-lg flex-col gap-3 sm:flex-row">
+              <label className="sr-only" htmlFor="home-role-search">
+                Search roles
+              </label>
+              <input
+                id="home-role-search"
+                name="q"
+                placeholder="Search by title, skill, or keyword"
+                className="h-11 min-w-0 flex-1 rounded-lg border border-[#C9DDD7] bg-white px-3 text-sm text-[var(--ca-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-teal)]"
+              />
+              <button
+                type="submit"
+                className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--ca-lime)] px-6 text-sm font-semibold text-[var(--ca-ink)] hover:bg-[var(--ca-accent-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-teal)] focus-visible:ring-offset-2"
               >
-                Explore Careers
+                Search Roles
                 <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/jobs"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-[#C9DDD7] bg-white px-6 text-sm font-semibold text-[#073B3A] hover:border-[#176A63]"
-              >
-                Search Jobs
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </motion.div>
+              </button>
+            </form>
           </div>
 
           <motion.div
@@ -76,8 +70,8 @@ export default function HomepageCareersSection() {
               <div className="ca-home-frame-careers ca-home-photo-overlay relative z-10 shadow-[0_20px_50px_rgba(7,59,58,0.12)] ring-1 ring-[#C9DDD7]/60">
                 <div className="ca-home-img-careers relative aspect-[4/3] w-full max-h-[420px]">
                   <Image
-                    src={stockImage("careersPageHero", { w: 1200, q: 85 })}
-                    alt="Consult America team collaborating"
+                    src="/company/source/quality-review.jpg"
+                    alt="Consult America consultants in a working session"
                     fill
                     className="ca-home-photo object-cover"
                     sizes="(max-width: 1024px) 100vw, 42vw"

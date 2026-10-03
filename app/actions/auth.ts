@@ -11,6 +11,7 @@ import { landingPathForRoles } from "@/lib/auth/roles";
 import {
   isCandidateReturnTo,
   isWorkforceReturnTo,
+  returnToAllowedForRoles,
   sanitizeReturnTo,
 } from "@/lib/auth/return-to";
 import type { PlatformRole } from "@/types/identity";
@@ -165,26 +166,17 @@ async function resolvePostLoginPath(
     // Workforce destinations must match an authorized role — never trust the URL alone.
     if (isWorkforceReturnTo(safeReturnTo) && safeReturnTo) {
       const roles = await loadRolesForAuthUser(authUser);
-      const allowedByRole = landingPathForRoles(roles);
-      if (
-        roles.includes("EMPLOYEE") ||
-        roles.includes("MANAGER") ||
-        roles.includes("HR_ADMIN") ||
-        roles.includes("HR_SPECIALIST") ||
-        roles.includes("PAYROLL_ADMIN") ||
-        roles.includes("RECRUITER") ||
-        roles.includes("HIRING_MANAGER") ||
-        roles.includes("SYSTEM_ADMIN") ||
-        roles.includes("SALES_REP") ||
-        roles.includes("SALES_MANAGER")
-      ) {
-        // Prefer the validated returnTo when the user holds any workforce role.
+      const landing = landingPathForRoles(roles);
+      if (returnToAllowedForRoles(safeReturnTo, roles)) {
         return safeReturnTo;
+      }
+      if (landing) {
+        return `${landing}?notice=workspace`;
       }
       if (roles.includes("CANDIDATE")) {
         return "/candidate";
       }
-      return allowedByRole ?? "/login";
+      return "/login";
     }
 
     if (safeReturnTo) {
@@ -232,7 +224,10 @@ export async function login(
       message.includes("invalid login") ||
       message.includes("invalid credentials")
     ) {
-      return { error: "Incorrect email or password." };
+      return {
+        error:
+          "We couldn't sign you in with those credentials. Check your email and password and try again.",
+      };
     }
     if (message.includes("email not confirmed")) {
       return {

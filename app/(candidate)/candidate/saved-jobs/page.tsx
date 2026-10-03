@@ -5,7 +5,7 @@ import SaveJobButton from "@/components/candidate/save-job-button";
 import { PageHeader } from "@/components/shared";
 import { listSavedJobs } from "@/lib/candidate/job-analyzer-store";
 import { requireCandidateActor } from "@/lib/candidate/security";
-import { getOpenJobs } from "@/lib/jobs";
+import { getCandidatePortalJobs } from "@/lib/jobs";
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 
 export default async function CandidateSavedJobsPage() {
   const { session } = await requireCandidateActor();
-  const jobs = await getOpenJobs();
+  const jobs = await getCandidatePortalJobs();
   const client = getSupabaseServiceClient();
 
   let savedIds: string[] = [];

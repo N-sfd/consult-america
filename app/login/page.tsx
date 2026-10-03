@@ -12,7 +12,6 @@ import {
   isCandidateReturnTo,
   sanitizeReturnTo,
 } from "@/lib/auth/return-to";
-import { stockImage } from "@/lib/marketing/stock-images";
 
 type SearchParams = Promise<{
   confirmEmail?: string;
@@ -39,9 +38,16 @@ const DEFAULT_PLATFORM: PlatformContext = {
       Connected work.
     </>
   ),
-  supporting:
-    "Sign in to CRM, ATS, HR, Employee, Payroll, and Admin — modules of one Consult America operating environment.",
-  capabilities: ["CRM & ClientFlow", "ATS · Recruiting", "HR · Requests", "Employee · Payroll · Admin"],
+    supporting:
+      "Sign in to access the Consult America enterprise platform across customer, recruiting, people, employee, payroll and administrative workflows.",
+    capabilities: [
+      "CRM & ClientFlow",
+      "ATS & Recruiting",
+      "HR & Requests",
+      "Employee",
+      "Payroll",
+      "Administration",
+    ],
   cardHeading: "Sign in to the platform",
   accessLabel: "Need platform access?",
 };
@@ -221,8 +227,8 @@ export default async function LoginPage({
         </div>
       </header>
 
-      <main className={`login-main ${demoMode ? "login-main--chooser" : ""}`}>
-        {demoMode ? (
+      <main className={`login-main ${demoMode && !candidate ? "login-main--chooser" : ""}`}>
+        {demoMode && !candidate ? (
           <div className="login-chooser-wrap">
             <DemoPortalLinks />
           </div>
@@ -256,17 +262,17 @@ export default async function LoginPage({
                       <p className="login-eyebrow">{platform.eyebrow}</p>
                       <h1 className="login-brand-headline">{platform.headline}</h1>
                       <p className="login-brand-supporting">{platform.supporting}</p>
-                      <ul className="login-capability-list">
+                      <ul className="login-module-grid">
                         {platform.capabilities.map((item) => (
-                          <li key={item} className="login-capability-item">
-                            <span
-                              className="login-capability-dot"
-                              aria-hidden="true"
-                            />
-                            {item}
-                          </li>
+                          <li key={item}>{item}</li>
                         ))}
                       </ul>
+                      <ol className="login-flow" aria-label="Connected modules">
+                        {["CRM", "ATS", "HR", "Employee", "Payroll"].map((step) => (
+                          <li key={step}>{step}</li>
+                        ))}
+                      </ol>
+                      <p className="login-flow-admin">Administration governs the platform.</p>
                     </>
                   )}
 
@@ -274,11 +280,11 @@ export default async function LoginPage({
                     <div className="login-visual-sage-panel" aria-hidden="true" />
                     <div className="login-visual-arch">
                       <Image
-                        src={stockImage("careersHero", { w: 800, q: 85 })}
-                        alt="Consult America team collaboration"
+                        src="/company/office-workstations.png"
+                        alt="Consult America office workstations"
                         fill
                         className="object-cover"
-                        sizes="320px"
+                        sizes="(max-width: 1024px) 100vw, 420px"
                       />
                     </div>
                     <div className="login-bg-arc" aria-hidden="true" />
@@ -300,9 +306,6 @@ export default async function LoginPage({
                     <>
                       <p className="login-eyebrow">{platform.eyebrow}</p>
                       <h2 className="login-card-heading">{platform.cardHeading}</h2>
-                      <p className="login-card-supporting">
-                        Use your authorized Consult America account to continue.
-                      </p>
                     </>
                   )}
 
@@ -319,7 +322,18 @@ export default async function LoginPage({
                     </div>
                   )}
 
-                  <LoginForm returnTo={returnTo} />
+                  {demoMode && candidate ? (
+                    <div className="space-y-4">
+                      <p className="text-sm leading-relaxed text-[var(--ca-text-secondary,#5A6F73)]">
+                        This preview opens the Candidate Portal without a password. Live sign-in is used when the platform is connected.
+                      </p>
+                      <Link href="/candidate" className="login-submit">
+                        Continue to portal
+                      </Link>
+                    </div>
+                  ) : (
+                    <LoginForm returnTo={returnTo} />
+                  )}
 
                   {candidate ? (
                     <div className="login-card-help">
@@ -330,7 +344,7 @@ export default async function LoginPage({
                     </div>
                   ) : (
                     <div className="login-card-help">
-                      <span>{platform.accessLabel}</span>
+                      <span>Need help accessing the platform?</span>
                       <a
                         href="mailto:info@consultamerica.com"
                         className="login-help-link"
@@ -339,16 +353,6 @@ export default async function LoginPage({
                       </a>
                     </div>
                   )}
-
-                  <div className="login-card-help">
-                    <span>Need help signing in?</span>
-                    <a
-                      href="mailto:info@consultamerica.com"
-                      className="login-help-link"
-                    >
-                      Contact support →
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>

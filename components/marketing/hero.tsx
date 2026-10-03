@@ -23,6 +23,7 @@ type HeroSlide = {
   tone: "transform" | "oracle" | "ai";
   visual: "photo-overlay" | "tall-arch" | "product";
   imageKey?: StockImageKey;
+  imageSrc?: string;
   imageAlt: string;
   overlaySrc?: string;
   overlayAlt?: string;
@@ -68,22 +69,22 @@ const SLIDES: HeroSlide[] = [
     exploreCta: { label: "Explore Oracle", href: "/oracle" },
     tone: "oracle",
     visual: "tall-arch",
-    imageKey: "oracleFinanceOps",
-    imageAlt: "Enterprise operations and Oracle Cloud transformation",
+    imageSrc: "/company/source/finance-workplace.jpg",
+    imageAlt: "Enterprise finance and operations workplace",
   },
   {
     id: "ai",
     navLabel: "AI + Engineering",
-    eyebrow: "AI + Application Engineering",
+    eyebrow: "AI + Engineering",
     headline: (
       <>
-        Put intelligence
+        AI, data, and the
         <br />
-        into the work.
+        applications around them.
       </>
     ),
     supporting:
-      "Turn trusted enterprise data and workflows into governed AI experiences and production-ready digital products.",
+      "Applications shaped around real work — from source documents to the systems people use every day.",
     exploreCta: { label: "Explore AI & Applications", href: "/ai-data" },
     tone: "ai",
     visual: "product",
@@ -233,8 +234,8 @@ export default function Hero() {
 
       <div className="relative z-10 mkt-shell flex w-full flex-col justify-between py-14 sm:py-16 lg:min-h-[640px] lg:py-[4.5rem]">
         <div className="grid flex-1 grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-5">
-            <AnimatePresence mode="wait">
+          <div className="ca-hero-copy lg:col-span-5">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={slide.id}
                 initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
@@ -272,8 +273,8 @@ export default function Hero() {
             </AnimatePresence>
           </div>
 
-          <div className="relative lg:col-span-7" aria-live="polite">
-            <AnimatePresence mode="wait">
+          <div className="ca-hero-stage relative lg:col-span-7" aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={`${slide.id}-visual`}
                 variants={visualVariants}
@@ -283,12 +284,12 @@ export default function Hero() {
                 transition={contentTransition}
                 className="ca-home-compose ca-practice-stable relative mx-auto w-full max-w-[700px] lg:ml-auto lg:mr-0"
               >
-                {slide.visual === "photo-overlay" && slide.imageKey ? (
+                {slide.visual === "photo-overlay" && (slide.imageSrc || slide.imageKey) ? (
                   <>
                     <div className="ca-home-frame-hero-offset ca-home-photo-overlay relative z-10 mx-auto w-[92%] max-w-[680px] shadow-[0_24px_60px_rgba(33,30,27,0.10)] ring-1 ring-[var(--ca-line)] sm:w-[88%] lg:ml-auto lg:mr-[4%]">
                       <div className="ca-home-img-hero relative aspect-[3/2] w-full">
                         <Image
-                          src={stockImage(slide.imageKey, { w: 1400, q: 85 })}
+                          src={slide.imageSrc ?? stockImage(slide.imageKey!, { w: 1400, q: 85 })}
                           alt={slide.imageAlt}
                           fill
                           priority={index === 0}
@@ -325,7 +326,7 @@ export default function Hero() {
                   </>
                 ) : null}
 
-                {slide.visual === "tall-arch" && slide.imageKey ? (
+                {slide.visual === "tall-arch" && (slide.imageSrc || slide.imageKey) ? (
                   <div className="ca-practice-stable relative mx-auto max-w-[460px] lg:mr-8 lg:ml-auto">
                     <div aria-hidden="true" className="ca-practice-oracle-panel hidden lg:block" />
                     <div
@@ -336,24 +337,14 @@ export default function Hero() {
                       )}
                     />
                     <div className="ca-practice-oracle-arch ca-home-photo-overlay relative z-10 shadow-[0_24px_56px_rgba(33,30,27,0.10)] ring-1 ring-[var(--ca-line)]">
-                      <div className="ca-practice-img-oracle relative aspect-[4/5] w-full">
+                      <div className="ca-practice-img-oracle relative aspect-[4/3] max-h-[440px] w-full">
                         <Image
-                          src={stockImage(slide.imageKey, { w: 1200, q: 88 })}
+                          src={slide.imageSrc ?? stockImage(slide.imageKey!, { w: 1200, q: 88 })}
                           alt={slide.imageAlt}
                           fill
+                          unoptimized={Boolean(slide.imageSrc)}
                           className="ca-home-photo object-cover object-center"
                           sizes="(max-width: 1024px) 90vw, 34vw"
-                        />
-                      </div>
-                    </div>
-                    <div className="ca-practice-workflow-panel -bottom-3 -right-2 hidden lg:block">
-                      <div className="relative aspect-[4/3] w-full">
-                        <Image
-                          src={stockImage("oracleWorkflowDetail", { w: 480, q: 85 })}
-                          alt="Enterprise finance and operations workflow"
-                          fill
-                          className="ca-home-photo object-cover object-center"
-                          sizes="220px"
                         />
                       </div>
                     </div>
@@ -418,7 +409,7 @@ export default function Hero() {
                       <span
                         className={cn(
                           "text-[0.7rem] font-bold tracking-[0.14em]",
-                          active ? "text-white" : "text-white/45",
+                          active ? "text-[var(--ca-lime)]" : "text-white/80",
                         )}
                       >
                         {String(i + 1).padStart(2, "0")}
@@ -428,7 +419,7 @@ export default function Hero() {
                           "text-sm font-semibold",
                           active
                             ? "text-white"
-                            : "text-white/55 group-hover:text-white",
+                            : "text-white/80 group-hover:text-white",
                         )}
                       >
                         {item.navLabel}

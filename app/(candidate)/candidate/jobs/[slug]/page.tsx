@@ -7,7 +7,8 @@ import SaveJobButton from "@/components/candidate/save-job-button";
 import { PageHeader } from "@/components/shared";
 import { isJobSaved } from "@/lib/candidate/job-analyzer-store";
 import { requireCandidateActor } from "@/lib/candidate/security";
-import { getJobBySlug } from "@/lib/jobs";
+import { getCandidateJobBySlug } from "@/lib/jobs";
+import { isPracticeJob } from "@/lib/jobs/candidate-catalog";
 import { getSupabaseServiceClient } from "@/app/lib/supabase/server";
 import { recruitingRepository } from "@/lib/recruiting";
 import { candidateApplicationStatusLabels } from "@/types/recruiting";
@@ -18,7 +19,7 @@ type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const job = await getJobBySlug(slug);
+  const job = await getCandidateJobBySlug(slug);
   return {
     title: job ? `${job.title} | Candidate` : "Job",
   };
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CandidateJobDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const job = await getJobBySlug(slug);
+  const job = await getCandidateJobBySlug(slug);
   if (!job) notFound();
 
   const { session } = await requireCandidateActor();
@@ -76,6 +77,10 @@ export default async function CandidateJobDetailPage({ params }: PageProps) {
                   >
                     View application ({candidateApplicationStatusLabels[application.status]})
                   </Link>
+                ) : isPracticeJob(job) ? (
+                  <span className="rounded-lg border border-[var(--ca-platform-border)] px-3.5 py-2 text-sm text-[var(--ca-platform-muted)]">
+                    Practice listing
+                  </span>
                 ) : (
                   <Link
                     href={`/jobs/${job.slug}/apply`}

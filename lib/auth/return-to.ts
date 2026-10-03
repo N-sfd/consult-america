@@ -20,6 +20,33 @@ export function isCandidateReturnTo(returnTo: string | null | undefined): boolea
   return returnTo === "/candidate" || returnTo.startsWith("/candidate/");
 }
 
+export function returnToAllowedForRoles(
+  path: string,
+  roles: string[],
+): boolean {
+  const has = (...names: string[]) => names.some((role) => roles.includes(role));
+  if (has("SYSTEM_ADMIN")) return true;
+  if (path.startsWith("/candidate")) return has("CANDIDATE");
+  if (path.startsWith("/hr")) return has("HR_ADMIN", "HR_SPECIALIST");
+  if (path.startsWith("/payroll")) return has("PAYROLL_ADMIN");
+  if (path.startsWith("/manager")) return has("MANAGER");
+  if (path.startsWith("/employee")) return has("EMPLOYEE", "MANAGER", "HR_ADMIN", "HR_SPECIALIST");
+  if (path.startsWith("/crm")) return has("SALES_REP", "SALES_MANAGER");
+  if (path.startsWith("/app")) return has("RECRUITER", "HIRING_MANAGER");
+  if (
+    path.startsWith("/workforce/administration") ||
+    path.startsWith("/workforce/admin") ||
+    path.startsWith("/workforce/users") ||
+    path.startsWith("/workforce/audit") ||
+    path.startsWith("/workforce/settings") ||
+    path.startsWith("/workforce/system-health")
+  ) {
+    return false;
+  }
+  if (path.startsWith("/workforce")) return has("HR_ADMIN", "HR_SPECIALIST", "RECRUITER");
+  return false;
+}
+
 export function isWorkforceReturnTo(returnTo: string | null | undefined): boolean {
   if (!returnTo) return false;
   return (

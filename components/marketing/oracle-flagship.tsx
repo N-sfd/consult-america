@@ -98,7 +98,7 @@ export default function OracleFlagship() {
               <div className="ca-practice-workflow-panel -bottom-3 -right-2 hidden lg:block">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src={stockImage("oracleWorkflowDetail", { w: 480, q: 85 })}
+                    src="/company/source/connected-systems.jpg"
                     alt="Enterprise finance and operations workflow"
                     fill
                     className="ca-home-photo object-cover object-center"

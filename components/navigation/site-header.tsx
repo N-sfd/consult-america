@@ -45,13 +45,13 @@ function NavButton({
     return (
       <span
         data-open={isOpen}
-        className="ca-nav-link flex items-center gap-0.5 whitespace-nowrap px-1.5 py-2"
+        className="ca-nav-link flex items-center gap-0.5 whitespace-nowrap px-1 py-2"
         onMouseEnter={() => setOpenMenu(menuKey)}
       >
         <Link
           href={href}
           className={cn(
-            "text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2",
+            "text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2",
             isOpen ? "text-[var(--ca-teal)]" : "text-[var(--ca-ink)]",
           )}
         >
@@ -81,7 +81,7 @@ function NavButton({
       type="button"
       data-open={isOpen}
       className={cn(
-        "ca-nav-link flex cursor-pointer items-center gap-1 whitespace-nowrap px-1.5 py-2 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2",
+        "ca-nav-link flex cursor-pointer items-center gap-1 whitespace-nowrap px-1 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)] focus-visible:ring-offset-2",
         isOpen ? "text-[var(--ca-teal)]" : "text-[var(--ca-ink)]",
       )}
       onMouseEnter={() => setOpenMenu(menuKey)}
@@ -144,7 +144,7 @@ export default function SiteHeader() {
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth < 1280) setOpenMenu(null);
+      if (window.innerWidth < 1440) setOpenMenu(null);
     };
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
@@ -172,7 +172,7 @@ export default function SiteHeader() {
               </div>
 
               <nav
-                className="ca-header-nav max-[1599px]:hidden min-[1600px]:flex"
+                className="ca-header-nav max-[1439px]:hidden min-[1440px]:flex"
                 aria-label="Primary navigation"
               >
                 {navItems.map((item) => (
@@ -200,7 +200,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(true)}
-                  className="flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-[#DCE4E1] bg-white max-[1599px]:flex min-[1600px]:hidden cursor-pointer shrink-0"
+                  className="flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-[#DCE4E1] bg-white max-[1439px]:flex min-[1440px]:hidden cursor-pointer shrink-0"
                   aria-label="Open navigation menu"
                   aria-expanded={drawerOpen}
                 >
@@ -212,7 +212,7 @@ export default function SiteHeader() {
         </div>
 
         {openMenu && (
-            <div className="pointer-events-none absolute inset-x-0 top-full z-[70] hidden min-[1600px]:block">
+            <div className="pointer-events-none absolute inset-x-0 top-full z-[70] hidden min-[1440px]:block">
           <div
                 className="ca-mega-surface pointer-events-auto"
             onMouseEnter={() => setOpenMenu(openMenu)}

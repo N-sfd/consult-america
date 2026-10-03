@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import JobListItem from "@/components/jobs/job-list-item";
+import JobSearchForm from "@/components/jobs/job-search-form";
 import {
   getJobFilterOptions,
   getOpenJobs,
@@ -69,67 +70,17 @@ export default async function JobsPage({
       </div>
 
       <div className="cr-shell pb-16">
-        <form method="get" action="/jobs" className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          <label className="text-sm text-[var(--cr-navy)]">
-            Search
-            <input
-              name="q"
-              defaultValue={search.q}
-              placeholder="Title, skill, or keyword"
-              className="mt-1 h-11 w-full rounded-md border border-[var(--cr-border)] bg-white px-3 text-base"
-            />
-          </label>
-          <label className="text-sm text-[var(--cr-navy)]">
-            Location
-            <input
-              name="location"
-              defaultValue={search.location}
-              placeholder="City, state, or Remote"
-              className="mt-1 h-11 w-full rounded-md border border-[var(--cr-border)] bg-white px-3 text-base"
-            />
-          </label>
-          <label className="text-sm text-[var(--cr-navy)]">
-            Department
-            <select name="department" defaultValue={search.department || "all"} className="mt-1 h-11 w-full rounded-md border border-[var(--cr-border)] bg-white px-3 text-base">
-              <option value="all">All departments</option>
-              {options.careerAreas.map((area) => (
-                <option key={area.value} value={area.value}>{area.label}</option>
-              ))}
-            </select>
-          </label>
-          <label className="text-sm text-[var(--cr-navy)]">
-            Work arrangement
-            <select name="arrangement" defaultValue={search.arrangement || "all"} className="mt-1 h-11 w-full rounded-md border border-[var(--cr-border)] bg-white px-3 text-base">
-              <option value="all">All arrangements</option>
-              {options.workplaceTypes.map((value) => (
-                <option key={value} value={value}>{value}</option>
-              ))}
-            </select>
-          </label>
-          <label className="text-sm text-[var(--cr-navy)]">
-            Employment type
-            <select name="type" defaultValue={search.type || "all"} className="mt-1 h-11 w-full rounded-md border border-[var(--cr-border)] bg-white px-3 text-base">
-              <option value="all">All types</option>
-              {options.employmentTypes.map((value) => (
-                <option key={value} value={value}>{value}</option>
-              ))}
-            </select>
-          </label>
-          <label className="text-sm text-[var(--cr-navy)]">
-            Sort
-            <select name="sort" defaultValue={search.sort || "newest"} className="mt-1 h-11 w-full rounded-md border border-[var(--cr-border)] bg-white px-3 text-base">
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
-              <option value="title">Title A–Z</option>
-            </select>
-          </label>
-          <div className="flex items-end gap-3">
-            <button type="submit" className="h-11 rounded-md bg-[var(--ca-lime)] px-5 text-sm font-semibold text-[var(--ca-ink)]">
-              Search roles
-            </button>
-            <Link href="/jobs" className="text-sm font-semibold text-[var(--ca-teal)]">Clear filters</Link>
-          </div>
-        </form>
+        <JobSearchForm
+          q={search.q}
+          location={search.location}
+          department={search.department || "all"}
+          arrangement={search.arrangement || "all"}
+          type={search.type || "all"}
+          sort={search.sort || "newest"}
+          departments={options.careerAreas}
+          arrangements={options.workplaceTypes}
+          types={options.employmentTypes}
+        />
 
         <div className="mt-8 grid gap-3">
           {jobs.length === 0 ? (

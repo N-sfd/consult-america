@@ -84,6 +84,25 @@
   }
 }
 
+/* Hero copy and stage share a stable box so slide changes do not shift the grid */
+.ca-hero-copy {
+  min-height: 19.5rem;
+}
+
+.ca-hero-stage {
+  min-height: 28rem;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 1023px) {
+  .ca-hero-copy,
+  .ca-hero-stage {
+    min-height: 0;
+    display: block;
+  }
+}
+
 /* Hero story progress fill */
 @keyframes caHeroProgress {
   from {

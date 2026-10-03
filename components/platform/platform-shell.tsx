@@ -278,6 +278,11 @@ function PlatformShellFrame({
   return (
     <div className={cn("experience-app ca-platform", hideSidebarOnMobile && "pb-16 lg:pb-0")}>
       <DemoEnvironmentBanner />
+      {searchParams.get("notice") === "workspace" ? (
+        <p className="border-b border-[var(--ca-line)] bg-[#F5F6F1] px-4 py-2 text-sm text-[var(--ca-ink)]">
+          You don&apos;t have access to the requested workspace. We&apos;ve taken you to your available workspace.
+        </p>
+      ) : null}
 
       <div className="ca-platform-frame">
         <PlatformSidebar

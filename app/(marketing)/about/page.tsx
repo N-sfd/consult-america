@@ -7,7 +7,6 @@ import PageSection from "@/components/marketing/inner-page/page-section";
 import FeatureCard from "@/components/marketing/inner-page/feature-card";
 import Reveal from "@/components/marketing/inner-page/reveal";
 import { deliveryPhases, capabilityGroups, offices } from "@/lib/site-data";
-import { stockImage } from "@/lib/marketing/stock-images";
 
 export const metadata: Metadata = {
   title: "About",
@@ -44,11 +43,33 @@ export default function AboutPage() {
         eyebrow="Company"
         title="Built to move from strategy to production."
         description="We connect Oracle Cloud, data intelligence, and application engineering so transformation reaches production with measurable business return."
-        image={stockImage("introduction", { w: 1200, q: 82 })}
+        image="/company/source/finance-workplace.jpg"
         imageAlt="Consult America team and delivery environment"
         primaryCta={{ label: "Start a conversation", href: "/contact" }}
         secondaryCta={{ label: "Explore careers", href: "/careers", variant: "secondary" }}
       />
+
+      <section className="border-b border-[var(--ca-line)] bg-[var(--ca-teal-deep)]">
+        <div className="mkt-shell py-8">
+          <p className="text-[0.7rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-lime)]">
+            Customers
+          </p>
+          <ul className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-5">
+            {[
+              ["/company/source/customer-01.png", "CSRA"],
+              ["/company/source/customer-02.png", "The Carlyle Group"],
+              ["/company/source/customer-03.png", "XFinion"],
+              ["/company/source/customer-04.png", "Kforce"],
+              ["/company/source/customer-07.png", "Photon"],
+              ["/company/source/customer-08.png", "Global Tax Network"],
+            ].map(([src, alt]) => (
+              <li key={alt}>
+                <img src={src} alt={alt} className="h-10 w-auto max-w-[160px] object-contain" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <PageSection tone="soft" eyebrow="Delivery Philosophy" title="Strategy that stays connected to the code.">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

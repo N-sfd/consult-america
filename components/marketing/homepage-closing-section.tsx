@@ -2,275 +2,77 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
 
-import { stockImage, type StockImageKey } from "@/lib/marketing/stock-images";
-import { useStableReducedMotion } from "@/lib/marketing/use-stable-reduced-motion";
-import { cn } from "@/lib/utils";
+import { stockImage } from "@/lib/marketing/stock-images";
 
-const industries: {
-  name: string;
-  href: string;
-  imageKey: StockImageKey;
-  frameClass: string;
-  overlay?: { src: string; alt: string };
-}[] = [
+const industries = [
   {
     name: "Public Sector",
     href: "/industries/government-public-sector",
-    imageKey: "industriesGovernment",
-    frameClass: "ca-home-frame-wide",
+    image: stockImage("industriesGovernment", { w: 900, q: 80 }),
   },
   {
     name: "Healthcare & Life Sciences",
     href: "/industries/healthcare",
-    imageKey: "healthcareClinical",
-    frameClass: "ca-practice-healthcare-arch",
-    overlay: { src: "/innovation/mediguide-hero.png", alt: "MediGuide clinical interface" },
+    image: stockImage("healthcareClinical", { w: 900, q: 80 }),
   },
   {
     name: "Financial Services",
     href: "/industries/financial-services",
-    imageKey: "industriesFinancial",
-    frameClass: "ca-home-frame-offset",
+    image: "/company/source/finance-workplace.jpg",
   },
   {
     name: "Technology & Software",
     href: "/industries/technology",
-    imageKey: "technologyEngineering",
-    frameClass: "ca-practice-tech-cut",
-    overlay: { src: "/innovation/joblens-hero.png", alt: "JobLens application interface" },
+    image: stockImage("technologyEngineering", { w: 900, q: 80 }),
   },
 ];
-
-const featuredInsight = {
-  title: "AI without a data contract",
-  href: "/insights/ai-without-a-data-contract",
-  image: stockImage("insightsHero", { w: 1200, q: 85 }),
-};
-
-const supportingInsights = [
-  {
-    title: "How to Prepare for a Successful Oracle Cloud Transformation",
-    href: "/insights/what-stalls-fusion-programs",
-  },
-  {
-    title: "Cutover checklists that work",
-    href: "/insights/cutover-checklists-that-work",
-  },
-  {
-    title: "Integration before analytics",
-    href: "/insights/integration-before-analytics",
-  },
-];
-
-const revealEase = [0.2, 0.8, 0.2, 1] as const;
 
 export default function HomepageClosingSection() {
-  const [activeIndustry, setActiveIndustry] = useState(0);
-  const shouldReduceMotion = useStableReducedMotion();
-  const industry = industries[activeIndustry];
-
   return (
-    <>
-      <section
-        id="industries"
-        className={cn(
-          "relative overflow-x-clip border-b border-[var(--ca-line)] py-10 sm:py-12 lg:py-14",
-          activeIndustry === 1 ? "ca-practice-healthcare-bg" : "bg-[var(--ca-canvas)]",
-        )}
-      >
-        <div className="relative z-10 mkt-shell">
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 18, scale: 0.985 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.78, ease: revealEase }}
-              className="lg:col-span-5"
-            >
-              <div className="ca-home-compose ca-practice-stable relative mx-auto max-w-[440px] lg:mx-0">
-                <div
-                  aria-hidden="true"
-                  className={cn(
-                    "hidden lg:block",
-                    activeIndustry === 1
-                      ? "ca-practice-healthcare-oval -right-[10%] top-[4%] h-[260px] w-[260px]"
-                      : activeIndustry === 3
-                        ? cn(
-                            "ca-practice-tech-quarter -right-[18%] bottom-[-20%] opacity-30",
-                            !shouldReduceMotion && "ca-decor-drift--slow",
-                          )
-                        : "ca-home-sage-disc -right-[8%] top-[6%] h-[240px] w-[240px] opacity-45",
-                  )}
-                />
-                <div
-                  className={cn(
-                    industry.frameClass,
-                    "ca-home-photo-overlay ca-photo-interactive relative z-10 shadow-[0_18px_44px_rgba(7,59,58,0.08)] ring-1 ring-[#DDE6E3]",
-                    activeIndustry === 1 && "ca-practice-img-healthcare",
-                    activeIndustry === 3 && "ca-practice-img-tech",
-                  )}
-                >
-                  <div className="ca-home-img-major relative aspect-[4/5] w-full">
-                    <Image
-                      key={industry.imageKey}
-                      src={stockImage(industry.imageKey, { w: 1000, q: 88 })}
-                      alt={industry.name}
-                      fill
-                      className="ca-home-photo object-cover transition-opacity duration-500"
-                      sizes="(max-width: 1024px) 100vw, 38vw"
-                    />
-                  </div>
-                </div>
-                {industry.overlay ? (
-                  <div className="ca-home-product-ui absolute -bottom-2 -right-1 z-20 hidden w-[min(240px,44%)] sm:block">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={industry.overlay.src}
-                      alt={industry.overlay.alt}
-                      width={800}
-                      height={500}
-                      loading="lazy"
-                      className="max-h-[130px] w-full object-cover object-top"
-                    />
-                  </div>
-                ) : null}
-              </div>
-            </motion.div>
-
-            <div className="lg:col-span-7">
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Industries</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
-                Technology grounded in industry operations.
-              </h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ca-text-secondary)]">
-                Domain knowledge for complex, regulated, and technology-intensive operations.
-              </p>
-              <ul className="mt-5 divide-y divide-[var(--ca-line)] border-y border-[var(--ca-line)]" role="tablist">
-                {industries.map((ind, index) => (
-                  <li key={ind.name}>
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={index === activeIndustry}
-                      onMouseEnter={() => setActiveIndustry(index)}
-                      onFocus={() => setActiveIndustry(index)}
-                      onClick={() => setActiveIndustry(index)}
-                      className={cn(
-                        "ca-home-pillar group flex w-full items-center justify-between py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-teal)]",
-                        index === activeIndustry && "border-l-2 border-l-[var(--ca-lime)] pl-3",
-                      )}
-                    >
-                      <span
-                        className={cn(
-                          "ca-home-pillar-label text-sm font-medium transition-colors",
-                          index === activeIndustry
-                            ? "text-[var(--ca-teal-chrome)]"
-                            : "text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)]",
-                        )}
-                      >
-                        {ind.name}
-                      </span>
-                      <ArrowUpRight
-                        className={cn(
-                          "h-4 w-4 text-[var(--ca-teal)] transition-opacity",
-                          index === activeIndustry ? "opacity-100" : "opacity-0 group-hover:opacity-100",
-                        )}
-                      />
-                    </button>
-                    <Link href={ind.href} className="sr-only">
-                      {ind.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/industries"
-                className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)] hover:text-[var(--ca-teal-chrome)]"
-              >
-                View all industries
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
+    <section id="industries" className="border-b border-[var(--ca-line)] bg-[var(--ca-canvas)] py-12 sm:py-14">
+      <div className="mkt-shell">
+        <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+          <div>
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">
+              Industries
+            </p>
+            <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
+              Where the experience applies.
+            </h2>
           </div>
+          <Link
+            href="/industries"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)] hover:text-[var(--ca-ink)]"
+          >
+            All industries
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
         </div>
-      </section>
 
-      <section className="border-b border-[var(--ca-line)] bg-white py-10 sm:py-12 lg:py-14">
-        <div className="mkt-shell">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <p className="text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Insights</p>
-              <h2 className="mt-2 font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-[var(--ca-ink)]">
-                Ideas for modern enterprise technology.
-              </h2>
-            </div>
-            <Link
-              href="/insights"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ca-teal)] hover:text-[var(--ca-teal-chrome)]"
-            >
-              Browse all insights
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          <div className="mt-6 grid gap-6 lg:grid-cols-12">
-            <motion.article
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, ease: revealEase }}
-              className="overflow-hidden rounded-[14px] border border-[var(--ca-line)] bg-[var(--ca-canvas)] lg:col-span-7"
-            >
-              <Link href={featuredInsight.href} className="group block">
-                <div className="ca-home-frame-wide ca-home-photo-overlay relative h-[200px] sm:h-[240px]">
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {industries.map((industry) => (
+            <li key={industry.name}>
+              <Link href={industry.href} className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-lime)]">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-md ring-1 ring-[var(--ca-line)]">
                   <Image
-                    src={featuredInsight.image}
+                    src={industry.image}
                     alt=""
                     fill
+                    unoptimized={industry.image.endsWith(".jpg")}
                     className="ca-home-photo object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    sizes="(max-width: 1024px) 100vw, 58vw"
+                    sizes="(max-width: 640px) 100vw, 25vw"
                   />
                 </div>
-                <div className="p-5 sm:p-6">
-                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ca-teal)]">Featured</p>
-                  <h3 className="mt-2 font-serif text-lg font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)] sm:text-xl">
-                    {featuredInsight.title}
-                  </h3>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[var(--ca-teal)]">
-                    Read article
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </span>
-                </div>
+                <p className="mt-3 text-sm font-semibold text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)]">
+                  {industry.name}
+                </p>
               </Link>
-            </motion.article>
-
-            <div className="flex flex-col justify-center gap-0 lg:col-span-5">
-              {supportingInsights.map((item, index) => (
-                <motion.div
-                  key={item.href + item.title}
-                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.06, ease: revealEase }}
-                >
-                  <Link
-                    href={item.href}
-                    className="ca-home-pillar group block border-t border-[var(--ca-line)] py-3.5 first:border-t-0 lg:first:border-t"
-                  >
-                    <p className="ca-home-pillar-label text-sm font-medium text-[var(--ca-ink)] group-hover:text-[var(--ca-teal)]">
-                      {item.title}
-                    </p>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

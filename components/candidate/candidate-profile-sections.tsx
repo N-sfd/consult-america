@@ -52,10 +52,29 @@ export function CandidateExperienceForm() {
     });
   }
 
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="mt-4 rounded-lg border border-black/15 px-3 py-2 text-sm font-semibold"
+      >
+        Add experience
+      </button>
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} noValidate className="mt-4 grid gap-3 sm:grid-cols-2">
-      <input name="company" placeholder="Company" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
-      <input name="title" placeholder="Title" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
+      <label className="text-xs font-semibold text-[var(--ca-platform-muted)]">
+        Company
+        <input name="company" className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm font-normal text-[var(--ca-platform-ink)]" />
+      </label>
+      <label className="text-xs font-semibold text-[var(--ca-platform-muted)]">
+        Title
+        <input name="title" className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm font-normal text-[var(--ca-platform-ink)]" />
+      </label>
       <input name="location" placeholder="Location (optional)" className="rounded-md border border-black/15 px-3 py-2 text-sm sm:col-span-2" />
       <input name="startDate" type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="endDate" type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
@@ -203,9 +222,25 @@ export function CandidateEducationForm() {
     });
   }
 
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="mt-4 rounded-lg border border-black/15 px-3 py-2 text-sm font-semibold"
+      >
+        Add education
+      </button>
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} noValidate className="mt-4 grid gap-3 sm:grid-cols-2">
-      <input name="institution" placeholder="School" className="rounded-md border border-black/15 px-3 py-2 text-sm sm:col-span-2" />
+      <label className="text-xs font-semibold text-[var(--ca-platform-muted)] sm:col-span-2">
+        School
+        <input name="institution" className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm font-normal text-[var(--ca-platform-ink)]" />
+      </label>
       <input name="degree" placeholder="Degree" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="fieldOfStudy" placeholder="Field of study" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
       <input name="startDate" type="date" className="rounded-md border border-black/15 px-3 py-2 text-sm" />
@@ -327,15 +362,31 @@ export function CandidateSkillsForm() {
     });
   }
 
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="mt-4 rounded-lg border border-black/15 px-3 py-2 text-sm font-semibold"
+      >
+        Add skills
+      </button>
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} className="mt-4 space-y-3">
-      <textarea
-        name="skillsCsv"
-        required
-        rows={2}
-        placeholder="Python, SQL, Data Engineering"
-        className="w-full rounded-md border border-black/15 px-3 py-2 text-sm"
-      />
+      <label className="block text-xs font-semibold text-[var(--ca-platform-muted)]">
+        Skills, separated by commas
+        <textarea
+          name="skillsCsv"
+          required
+          rows={2}
+          placeholder="Python, SQL, Data Engineering"
+          className="mt-1 w-full rounded-md border border-black/15 px-3 py-2 text-sm font-normal text-[var(--ca-platform-ink)]"
+        />
+      </label>
       <button type="submit" disabled={pending} className="rounded-lg border border-black/15 px-3 py-2 text-sm font-semibold">
         {pending ? "Saving…" : "Add Skills"}
       </button>

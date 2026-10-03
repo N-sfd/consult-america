@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight, Bookmark } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import SaveJobButton from "@/components/candidate/save-job-button";
 import { careerAreaLabels, formatPostedDate, type Job } from "@/lib/jobs";
+import { isPracticeJob } from "@/lib/jobs/candidate-catalog";
 
 interface JobListItemProps {
   job: Job;
@@ -70,37 +71,33 @@ export default function JobListItem({
     );
   }
 
-  return (
-    <article className="ca-platform-card grid gap-4 p-5 md:grid-cols-12 md:items-center">
-      <div className="md:col-span-5">
-        <Link
-          href={detailHref}
-          className="text-lg font-semibold text-[var(--ca-platform-ink)] hover:underline"
-        >
-          {job.title}
-        </Link>
-        <p className="mt-1 text-sm text-[var(--ca-platform-mid)]">
-          {careerAreaLabels[job.careerArea]}
-        </p>
-        {saved ? (
-          <p className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[var(--ca-platform-muted)]">
-            <Bookmark className="h-3.5 w-3.5" aria-hidden />
-            Saved
-          </p>
-        ) : null}
-      </div>
+  const practice = isPracticeJob(job);
 
-      <div className="md:col-span-3">
-        <p className="text-sm text-[var(--ca-platform-ink)]">{job.location}</p>
+  return (
+    <article className="ca-platform-card grid gap-3 p-4 md:grid-cols-12 md:items-center md:p-5">
+      <div className="md:col-span-7">
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href={detailHref}
+            className="text-base font-semibold text-[var(--ca-platform-ink)] hover:underline"
+          >
+            {job.title}
+          </Link>
+          {practice ? (
+            <span className="rounded-full border border-[var(--ca-platform-border)] px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-[var(--ca-platform-muted)]">
+              Practice
+            </span>
+          ) : null}
+        </div>
         <p className="mt-1 text-sm text-[var(--ca-platform-muted)]">
-          {job.workplaceType} · {job.employmentType}
+          {careerAreaLabels[job.careerArea]} · {job.location} · {job.workplaceType} · {job.employmentType}
         </p>
-        <p className="mt-2 text-xs text-[var(--ca-platform-muted)]">
+        <p className="mt-1 text-xs text-[var(--ca-platform-muted)]">
           Posted {formatPostedDate(job.postedAt)}
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 md:col-span-4 md:justify-end">
+      <div className="flex flex-wrap items-center gap-2 md:col-span-5 md:justify-end">
         <SaveJobButton
           jobRequisitionId={job.requisitionId}
           initiallySaved={saved}
@@ -114,14 +111,14 @@ export default function JobListItem({
         {applicationCta ? (
           <Link
             href={applicationCta.href}
-            className="rounded-lg bg-[var(--ca-platform-deep)] px-3 py-2 text-sm font-semibold text-white"
+            className="rounded-lg bg-[var(--ca-lime)] px-3 py-2 text-sm font-semibold text-[var(--ca-ink)]"
           >
             {applicationCta.label}
           </Link>
-        ) : (
+        ) : practice ? null : (
           <Link
             href={`/jobs/${job.slug}/apply`}
-            className="rounded-lg bg-[var(--ca-platform-deep)] px-3 py-2 text-sm font-semibold text-white"
+            className="rounded-lg bg-[var(--ca-lime)] px-3 py-2 text-sm font-semibold text-[var(--ca-ink)]"
           >
             Apply
           </Link>
